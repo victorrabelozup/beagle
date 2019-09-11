@@ -1,6 +1,18 @@
 package br.com.zup.beagleui.framework.core
 
 data class Flex (
+    val flexWrap: FlexWrap? = null,
+    val justifyContent: JustifyContent? = null,
+    val alignItems: Alignment? = null,
+    val alignSelf: Alignment? = null,
+    val alignContent: Alignment? = null,
+    val basis: String? = null,
+    val grow: Double? = null,
+    val shrink: Int? = null
+)
+
+/*
+data class Flex (
     val flexWrap: FlexWrap = FlexWrap.NO_WRAP,
     val justifyContent: JustifyContent = JustifyContent.FLEX_START,
     val alignItems: Alignment = Alignment.STRETCH,
@@ -10,6 +22,7 @@ data class Flex (
     val grow: Double = 0.0,
     val shrink: Int = 0
 )
+*/
 
 enum class ItemDirection {
     INHERIT,

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 class LoginViewController {
 
     @RequestMapping("/loginview")
-    fun index(): Widget {
+    fun getLoginView(): Widget {
         return ScreenBuilder().build(LoginView())
     }
 
