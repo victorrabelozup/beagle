@@ -42,6 +42,25 @@
 		936817F4232A7AA500E6E724 /* CompactValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 936817D9232A7AA400E6E724 /* CompactValue.h */; };
 		936817F5232A7AA500E6E724 /* YGEnums.h in Headers */ = {isa = PBXBuildFile; fileRef = 936817DA232A7AA500E6E724 /* YGEnums.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		936817F6232A7AA500E6E724 /* YGConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 936817DB232A7AA500E6E724 /* YGConfig.h */; };
+		936817FD232A882D00E6E724 /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936817FC232A882D00E6E724 /* Widget.swift */; };
+		936817FF232A883E00E6E724 /* Flex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936817FE232A883E00E6E724 /* Flex.swift */; };
+		93681801232A884600E6E724 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93681800232A884600E6E724 /* Screen.swift */; };
+		93681803232A884F00E6E724 /* UnitValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93681802232A884F00E6E724 /* UnitValue.swift */; };
+		93681805232A886C00E6E724 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93681804232A886C00E6E724 /* Container.swift */; };
+		93681807232A887A00E6E724 /* Horizontal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93681806232A887A00E6E724 /* Horizontal.swift */; };
+		93681809232A888300E6E724 /* Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93681808232A888300E6E724 /* Padding.swift */; };
+		9368180B232A889100E6E724 /* Spacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368180A232A889100E6E724 /* Spacer.swift */; };
+		9368180D232A889900E6E724 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368180C232A889900E6E724 /* Stack.swift */; };
+		9368180F232A88B300E6E724 /* Vertical.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368180E232A88B300E6E724 /* Vertical.swift */; };
+		93681811232A8D0F00E6E724 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93681810232A8D0F00E6E724 /* Button.swift */; };
+		93681813232A8D4000E6E724 /* DropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93681812232A8D4000E6E724 /* DropDown.swift */; };
+		93681815232A8D6500E6E724 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93681814232A8D6500E6E724 /* Image.swift */; };
+		93681817232A8D6E00E6E724 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93681816232A8D6E00E6E724 /* ListView.swift */; };
+		93681819232A8D8100E6E724 /* SelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93681818232A8D8100E6E724 /* SelectView.swift */; };
+		9368181B232A8D9800E6E724 /* StyledWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368181A232A8D9800E6E724 /* StyledWidget.swift */; };
+		9368181D232A8DE100E6E724 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368181C232A8DE100E6E724 /* Text.swift */; };
+		9368181F232A8DEA00E6E724 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368181E232A8DEA00E6E724 /* TextField.swift */; };
+		93681821232A8E0C00E6E724 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93681820232A8E0C00E6E724 /* Toolbar.swift */; };
 		98F715F9232A7FFB00FC3878 /* UIView+Teste.h in Headers */ = {isa = PBXBuildFile; fileRef = 98F715F7232A7FFA00FC3878 /* UIView+Teste.h */; };
 		98F715FA232A7FFB00FC3878 /* UIView+Teste.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F715F8232A7FFA00FC3878 /* UIView+Teste.m */; };
 		98F715FB232A818A00FC3878 /* YGValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 936817C4232A7AA300E6E724 /* YGValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -97,6 +116,25 @@
 		936817D9232A7AA400E6E724 /* CompactValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompactValue.h; sourceTree = "<group>"; };
 		936817DA232A7AA500E6E724 /* YGEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGEnums.h; sourceTree = "<group>"; };
 		936817DB232A7AA500E6E724 /* YGConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGConfig.h; sourceTree = "<group>"; };
+		936817FC232A882D00E6E724 /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
+		936817FE232A883E00E6E724 /* Flex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flex.swift; sourceTree = "<group>"; };
+		93681800232A884600E6E724 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
+		93681802232A884F00E6E724 /* UnitValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitValue.swift; sourceTree = "<group>"; };
+		93681804232A886C00E6E724 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		93681806232A887A00E6E724 /* Horizontal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Horizontal.swift; sourceTree = "<group>"; };
+		93681808232A888300E6E724 /* Padding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Padding.swift; sourceTree = "<group>"; };
+		9368180A232A889100E6E724 /* Spacer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacer.swift; sourceTree = "<group>"; };
+		9368180C232A889900E6E724 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		9368180E232A88B300E6E724 /* Vertical.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vertical.swift; sourceTree = "<group>"; };
+		93681810232A8D0F00E6E724 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		93681812232A8D4000E6E724 /* DropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDown.swift; sourceTree = "<group>"; };
+		93681814232A8D6500E6E724 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		93681816232A8D6E00E6E724 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		93681818232A8D8100E6E724 /* SelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectView.swift; sourceTree = "<group>"; };
+		9368181A232A8D9800E6E724 /* StyledWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledWidget.swift; sourceTree = "<group>"; };
+		9368181C232A8DE100E6E724 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
+		9368181E232A8DEA00E6E724 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		93681820232A8E0C00E6E724 /* Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
 		98F715F7232A7FFA00FC3878 /* UIView+Teste.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Teste.h"; sourceTree = "<group>"; };
 		98F715F8232A7FFA00FC3878 /* UIView+Teste.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Teste.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -157,6 +195,46 @@
 			path = BeagleUITests;
 			sourceTree = "<group>";
 		};
+		936817F9232A880700E6E724 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				936817FC232A882D00E6E724 /* Widget.swift */,
+				936817FE232A883E00E6E724 /* Flex.swift */,
+				93681800232A884600E6E724 /* Screen.swift */,
+				93681802232A884F00E6E724 /* UnitValue.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		936817FA232A881600E6E724 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				93681804232A886C00E6E724 /* Container.swift */,
+				93681806232A887A00E6E724 /* Horizontal.swift */,
+				93681808232A888300E6E724 /* Padding.swift */,
+				9368180A232A889100E6E724 /* Spacer.swift */,
+				9368180C232A889900E6E724 /* Stack.swift */,
+				9368180E232A88B300E6E724 /* Vertical.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
+		936817FB232A882000E6E724 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				93681810232A8D0F00E6E724 /* Button.swift */,
+				93681812232A8D4000E6E724 /* DropDown.swift */,
+				93681814232A8D6500E6E724 /* Image.swift */,
+				93681816232A8D6E00E6E724 /* ListView.swift */,
+				93681818232A8D8100E6E724 /* SelectView.swift */,
+				9368181A232A8D9800E6E724 /* StyledWidget.swift */,
+				9368181C232A8DE100E6E724 /* Text.swift */,
+				9368181E232A8DEA00E6E724 /* TextField.swift */,
+				93681820232A8E0C00E6E724 /* Toolbar.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		939CE4802329957500EEEDFC /* YogaKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +286,9 @@
 		939CE4C4232996FD00EEEDFC /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				936817FB232A882000E6E724 /* UI */,
+				936817FA232A881600E6E724 /* Layout */,
+				936817F9232A880700E6E724 /* Core */,
 				932925D22327E11000A61F01 /* BeagleUI.h */,
 				98F715F7232A7FFA00FC3878 /* UIView+Teste.h */,
 				98F715F8232A7FFA00FC3878 /* UIView+Teste.m */,
@@ -347,18 +428,37 @@
 			buildActionMask = 2147483647;
 			files = (
 				936817C0232A7A8500E6E724 /* YGLayoutExtensions.swift in Sources */,
+				9368180B232A889100E6E724 /* Spacer.swift in Sources */,
 				936817E6232A7AA500E6E724 /* YGLayout.cpp in Sources */,
 				936817DC232A7AA500E6E724 /* Yoga.cpp in Sources */,
+				9368180D232A889900E6E724 /* Stack.swift in Sources */,
 				98F715FA232A7FFB00FC3878 /* UIView+Teste.m in Sources */,
 				936817EB232A7AA500E6E724 /* YGMarker.cpp in Sources */,
+				93681801232A884600E6E724 /* Screen.swift in Sources */,
+				93681813232A8D4000E6E724 /* DropDown.swift in Sources */,
 				936817E1232A7AA500E6E724 /* YGStyle.cpp in Sources */,
+				9368181D232A8DE100E6E724 /* Text.swift in Sources */,
 				936817E2232A7AA500E6E724 /* YGNodePrint.cpp in Sources */,
+				9368181F232A8DEA00E6E724 /* TextField.swift in Sources */,
 				936817E3232A7AA500E6E724 /* Utils.cpp in Sources */,
+				93681811232A8D0F00E6E724 /* Button.swift in Sources */,
+				93681809232A888300E6E724 /* Padding.swift in Sources */,
 				936817F3232A7AA500E6E724 /* YGConfig.cpp in Sources */,
+				93681803232A884F00E6E724 /* UnitValue.swift in Sources */,
+				9368180F232A88B300E6E724 /* Vertical.swift in Sources */,
 				936817E7232A7AA500E6E724 /* YGValue.cpp in Sources */,
 				936817BE232A7A8500E6E724 /* UIView+Yoga.m in Sources */,
+				936817FD232A882D00E6E724 /* Widget.swift in Sources */,
+				93681819232A8D8100E6E724 /* SelectView.swift in Sources */,
 				936817BF232A7A8500E6E724 /* YGLayout.m in Sources */,
+				93681815232A8D6500E6E724 /* Image.swift in Sources */,
+				9368181B232A8D9800E6E724 /* StyledWidget.swift in Sources */,
 				936817F1232A7AA500E6E724 /* log.cpp in Sources */,
+				93681821232A8E0C00E6E724 /* Toolbar.swift in Sources */,
+				936817FF232A883E00E6E724 /* Flex.swift in Sources */,
+				93681805232A886C00E6E724 /* Container.swift in Sources */,
+				93681817232A8D6E00E6E724 /* ListView.swift in Sources */,
+				93681807232A887A00E6E724 /* Horizontal.swift in Sources */,
 				936817DE232A7AA500E6E724 /* YGEnums.cpp in Sources */,
 				936817DD232A7AA500E6E724 /* YGNode.cpp in Sources */,
 			);
