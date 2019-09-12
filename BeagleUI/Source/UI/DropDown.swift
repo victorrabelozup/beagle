@@ -6,4 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-import Foundation
+struct DropDown: Widget {
+    let header: Widget
+    let child: Widget
+}

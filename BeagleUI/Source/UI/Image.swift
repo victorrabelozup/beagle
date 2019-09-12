@@ -6,4 +6,6 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-import Foundation
+struct Image: Widget {
+    let path: String
+}

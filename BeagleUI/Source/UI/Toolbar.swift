@@ -6,4 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-import Foundation
+struct ToolBar: Widget {
+    let title: String
+    let showBackButton: Bool = true
+}

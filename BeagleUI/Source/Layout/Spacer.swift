@@ -6,4 +6,6 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-import Foundation
+struct Spacer: Widget {
+    let size: Double
+}

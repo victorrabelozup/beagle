@@ -6,4 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-import Foundation
+struct Stack: Widget {
+    let children: [Widget]
+    let flex: Flex?
+}

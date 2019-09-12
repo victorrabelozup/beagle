@@ -6,4 +6,8 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-import Foundation
+struct Vertical: Widget {
+    let children: [Widget]
+    let flex: Flex?
+    let reversed: Bool?
+}

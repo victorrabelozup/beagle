@@ -6,4 +6,8 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-import Foundation
+struct SelectView: Widget {
+    let rows: [Widget]?
+    let remoteDataSource: String?
+    let loadingState: Widget?
+}
