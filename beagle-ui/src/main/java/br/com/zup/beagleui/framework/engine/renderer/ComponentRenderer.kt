@@ -5,12 +5,10 @@ import br.com.zup.beagleui.framework.widget.layout.*
 import br.com.zup.beagleui.framework.widget.ui.*
 import br.com.zup.beagleui.framework.engine.renderer.layout.*
 import br.com.zup.beagleui.framework.engine.renderer.ui.ButtonComponentRenderer
-import br.com.zup.beagleui.framework.engine.renderer.ui.ImageComponentRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.TextComponentRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.UndefinedComponentRenderer
 import com.facebook.litho.Component
 import com.facebook.litho.ComponentContext
-import java.lang.IllegalArgumentException
 
 internal interface ComponentRenderer {
     fun build(context: ComponentContext): Component
