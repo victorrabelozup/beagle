@@ -1,0 +1,2 @@
+include ':app', ':beagle-ui'
+rootProject.name='beagle-ui-sample'
