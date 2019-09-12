@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="br.com.zup.beagleui.view.BeagleUiActivity" />
+        <activity android:name="br.com.zup.beagleui.framework.view.BeagleUiActivity" />
     </application>
 
 </manifest>
