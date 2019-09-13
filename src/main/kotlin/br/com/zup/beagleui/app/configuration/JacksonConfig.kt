@@ -1,5 +1,6 @@
 package br.com.zup.beagleui.app.configuration
 
+import br.com.zup.beagleui.framework.jackson.BeagleWidgetSerializer
 import com.fasterxml.jackson.annotation.JsonInclude
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

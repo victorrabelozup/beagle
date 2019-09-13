@@ -1,4 +1,4 @@
-package br.com.zup.beagleui.app.configuration
+package br.com.zup.beagleui.framework.jackson
 
 import br.com.zup.beagleui.framework.core.NativeWidget
 import br.com.zup.beagleui.framework.core.Widget
