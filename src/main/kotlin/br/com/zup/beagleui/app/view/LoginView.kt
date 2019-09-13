@@ -1,5 +1,6 @@
 package br.com.zup.beagleui.app.view
 
+import br.com.zup.beagleui.app.widget.InvoiceChart
 import br.com.zup.beagleui.framework.core.*
 import br.com.zup.beagleui.framework.layout.Container
 import br.com.zup.beagleui.framework.layout.Horizontal

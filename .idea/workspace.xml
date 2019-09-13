@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5700c015-ec1c-4a52-82b8-a5fb738e55c4" name="Default Changelist" comment="" />
+    <list default="true" id="5700c015-ec1c-4a52-82b8-a5fb738e55c4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/app/configuratiojn/WidgetSerializer.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/app/widget/InvoiceChart.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/app/JacksonConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/app/configuratiojn/JacksonConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/app/view/InvoiceChart.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/app/view/LoginView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/app/view/LoginView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/core/DumbWidget.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/core/NativeWidget.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/core/Flex.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/core/Flex.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/core/Widget.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/core/Widget.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/layout/Container.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/layout/Container.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/layout/Horizontal.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/layout/Horizontal.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/layout/ReversedHorizontal.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/layout/ReversedVertical.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/layout/Spacer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/layout/Spacer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/layout/Stack.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/layout/Stack.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/layout/Vertical.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/layout/Vertical.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/ui/Button.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/ui/Button.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/ui/DropDown.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/ui/DropDown.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/ui/Image.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/ui/Image.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/ui/ListView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/ui/ListView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/ui/SelectView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/ui/SelectView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/ui/Text.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/ui/Text.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/ui/TextField.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/ui/TextField.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/ui/Toolbar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/br/com/zup/beagleui/framework/ui/Toolbar.kt" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,12 +45,17 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1QbnIbSyWNzDh3KfAjUJjjUuGib" />
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="br.com.zup.beagleui.app.configuratiojn" />
+      <recent name="br.com.zup.beagleui.app.widget" />
       <recent name="br.com.zup.darwinuisdk.app.view" />
     </key>
     <key name="MoveFile.RECENT_KEYS">

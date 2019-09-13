@@ -18,6 +18,7 @@ data class Layout(
     val padding: Padding? = null
 )
 
-abstract class Widget {
-    abstract fun build(): Widget
+interface Widget {
+    fun buildResultName(): String
+    fun build(): Widget
 }

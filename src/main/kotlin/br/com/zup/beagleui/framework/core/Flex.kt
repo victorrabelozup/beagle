@@ -11,19 +11,6 @@ data class Flex (
     val shrink: Int? = null
 )
 
-/*
-data class Flex (
-    val flexWrap: FlexWrap = FlexWrap.NO_WRAP,
-    val justifyContent: JustifyContent = JustifyContent.FLEX_START,
-    val alignItems: Alignment = Alignment.STRETCH,
-    val alignSelf: Alignment = Alignment.AUTO,
-    val alignContent: Alignment = Alignment.FLEX_START,
-    val basis: String = "0",
-    val grow: Double = 0.0,
-    val shrink: Int = 0
-)
-*/
-
 enum class ItemDirection {
     INHERIT,
     LTR,

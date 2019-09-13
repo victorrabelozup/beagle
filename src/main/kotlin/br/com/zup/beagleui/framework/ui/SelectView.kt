@@ -6,11 +6,13 @@ import br.com.zup.beagleui.framework.util.RowBuilder
 import br.com.zup.beagleui.framework.util.generateRows
 
 data class SelectView(
-    val size: Int,
-    val rowBuilder: RowBuilder,
     val remoteDataSource: String? = null,
-    val loadingState: Widget? = null
-) : Widget() {
+    val loadingState: Widget? = null,
+    @Transient val size: Int,
+    @Transient val rowBuilder: RowBuilder
+) : Widget {
+    override fun buildResultName(): String = "rows"
+
     override fun build(): Widget {
         return Vertical(children = generateRows(size, rowBuilder))
     }

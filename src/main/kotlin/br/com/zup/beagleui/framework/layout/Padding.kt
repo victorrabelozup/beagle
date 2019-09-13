@@ -1,5 +1,6 @@
 package br.com.zup.beagleui.framework.layout
 
+import br.com.zup.beagleui.framework.core.NativeWidget
 import br.com.zup.beagleui.framework.core.UnitValue
 import br.com.zup.beagleui.framework.core.Widget
 
@@ -13,6 +14,4 @@ data class PaddingValue(
 data class Padding(
     val value: PaddingValue,
     val child: Widget
-) : Widget() {
-    override fun build(): Widget = child
-}
+) : NativeWidget()

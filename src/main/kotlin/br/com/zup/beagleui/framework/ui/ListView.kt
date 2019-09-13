@@ -12,12 +12,14 @@ enum class ListDirection {
 }
 
 data class ListView(
-    val size: Int,
-    val rowBuilder: RowBuilder,
     val remoteDataSource: String? = null,
     val loadingState: Widget? = null,
-    val direction: ListDirection = ListDirection.VERTICAL
-) : Widget() {
+    @Transient val size: Int,
+    @Transient val rowBuilder: RowBuilder,
+    @Transient val direction: ListDirection = ListDirection.VERTICAL
+) : Widget {
+    override fun buildResultName(): String = "rows"
+
     override fun build(): Widget {
         val children = generateRows(size, rowBuilder)
 
