@@ -12,6 +12,6 @@ class JacksonConfig {
     fun jacksonBuilder(): Jackson2ObjectMapperBuilder {
         return Jackson2ObjectMapperBuilder()
             .serializationInclusion(JsonInclude.Include.NON_NULL)
-//            .serializers(WidgetSerializer())
+            .serializers(BeagleWidgetSerializer())
     }
 }
