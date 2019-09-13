@@ -7,6 +7,9 @@ import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.ser.std.StdSerializer
 import java.lang.reflect.Modifier
 
+private const val TYPE = "type"
+private const val BEAGLE_NAMESPACE = "beagle"
+
 class BeagleWidgetSerializer : StdSerializer<Widget>(Widget::class.java) {
 
     override fun serialize(value: Widget?, gen: JsonGenerator?, provider: SerializerProvider?) {
@@ -25,7 +28,7 @@ class BeagleWidgetSerializer : StdSerializer<Widget>(Widget::class.java) {
         val buildResultWidget = value.build()
 
         gen.writeStartObject()
-        gen.writeStringField("type", "beagle:$widgetName")
+        gen.writeStringField(TYPE, "$BEAGLE_NAMESPACE:$widgetName")
         gen.writeObjectField(buildResultName, buildResultWidget)
         serializeFields(value, gen)
         gen.writeEndObject()
@@ -35,7 +38,7 @@ class BeagleWidgetSerializer : StdSerializer<Widget>(Widget::class.java) {
         val widgetName = getClassName(value)
 
         gen.writeStartObject()
-        gen.writeStringField("type", "beagle:$widgetName")
+        gen.writeStringField(TYPE, "$BEAGLE_NAMESPACE:$widgetName")
         serializeFields(value, gen)
         gen.writeEndObject()
     }
