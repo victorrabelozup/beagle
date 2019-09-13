@@ -50,7 +50,6 @@ dependencies {
     testImplementation TestLibraries.junit
     testImplementation TestLibraries.litho
 
-
     // Integration Testing
     androidTestImplementation TestLibraries.androidxRunner
     androidTestImplementation TestLibraries.espressoCore
