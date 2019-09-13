@@ -47,7 +47,7 @@ class LoginView : Screen {
 
     private fun buildToolbar(): Widget {
         return Toolbar(
-            title = "Lançamemtos"
+            title = "Lançamentos"
         )
     }
 
