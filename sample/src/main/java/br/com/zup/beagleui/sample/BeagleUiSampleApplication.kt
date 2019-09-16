@@ -12,6 +12,8 @@ class BeagleUiSampleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
+
+
         SoLoader.init(this, false)
         Fresco.initialize(this)
 
