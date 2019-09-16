@@ -8,5 +8,5 @@
 
 struct TextField: Widget {
     let hint: String?
-    let value: String? 
+    let value: String?
 }
