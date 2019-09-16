@@ -20,5 +20,4 @@ class BeagleUiSampleApplication : Application() {
             modules(listOf(beagleModule))
         }
     }
-
 }
