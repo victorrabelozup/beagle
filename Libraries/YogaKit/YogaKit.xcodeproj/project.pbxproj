@@ -14,7 +14,7 @@
 		E535246E23310F2300D1A0C9 /* YGLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = E535246923310F2300D1A0C9 /* YGLayout.h */; };
 		E535246F23310F2300D1A0C9 /* UIView+Yoga.h in Headers */ = {isa = PBXBuildFile; fileRef = E535246A23310F2300D1A0C9 /* UIView+Yoga.h */; };
 		E535247123310F3500D1A0C9 /* YGLayoutExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E535247023310F3500D1A0C9 /* YGLayoutExtensions.swift */; };
-		E535248E23310F4C00D1A0C9 /* YGEnums.h in Headers */ = {isa = PBXBuildFile; fileRef = E535247323310F4B00D1A0C9 /* YGEnums.h */; };
+		E535248E23310F4C00D1A0C9 /* YGEnums.h in Headers */ = {isa = PBXBuildFile; fileRef = E535247323310F4B00D1A0C9 /* YGEnums.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E535248F23310F4C00D1A0C9 /* YGNode.h in Headers */ = {isa = PBXBuildFile; fileRef = E535247423310F4B00D1A0C9 /* YGNode.h */; };
 		E535249023310F4C00D1A0C9 /* Yoga-internal.h in Headers */ = {isa = PBXBuildFile; fileRef = E535247523310F4B00D1A0C9 /* Yoga-internal.h */; };
 		E535249123310F4C00D1A0C9 /* YGStyle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E535247623310F4B00D1A0C9 /* YGStyle.cpp */; };
@@ -27,11 +27,11 @@
 		E535249823310F4C00D1A0C9 /* Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = E535247D23310F4C00D1A0C9 /* Utils.h */; };
 		E535249923310F4C00D1A0C9 /* YGConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E535247E23310F4C00D1A0C9 /* YGConfig.cpp */; };
 		E535249A23310F4C00D1A0C9 /* YGMarker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E535247F23310F4C00D1A0C9 /* YGMarker.cpp */; };
-		E535249B23310F4C00D1A0C9 /* YGValue.h in Headers */ = {isa = PBXBuildFile; fileRef = E535248023310F4C00D1A0C9 /* YGValue.h */; };
+		E535249B23310F4C00D1A0C9 /* YGValue.h in Headers */ = {isa = PBXBuildFile; fileRef = E535248023310F4C00D1A0C9 /* YGValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E535249C23310F4C00D1A0C9 /* YGValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E535248123310F4C00D1A0C9 /* YGValue.cpp */; };
 		E535249D23310F4C00D1A0C9 /* YGConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = E535248223310F4C00D1A0C9 /* YGConfig.h */; };
 		E535249E23310F4C00D1A0C9 /* YGNodePrint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E535248323310F4C00D1A0C9 /* YGNodePrint.cpp */; };
-		E535249F23310F4C00D1A0C9 /* YGMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = E535248423310F4C00D1A0C9 /* YGMacros.h */; };
+		E535249F23310F4C00D1A0C9 /* YGMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = E535248423310F4C00D1A0C9 /* YGMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E53524A023310F4C00D1A0C9 /* Yoga.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E535248523310F4C00D1A0C9 /* Yoga.cpp */; };
 		E53524A123310F4C00D1A0C9 /* CompactValue.h in Headers */ = {isa = PBXBuildFile; fileRef = E535248623310F4C00D1A0C9 /* CompactValue.h */; };
 		E53524A223310F4C00D1A0C9 /* YGStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = E535248723310F4C00D1A0C9 /* YGStyle.h */; };
@@ -39,7 +39,7 @@
 		E53524A423310F4C00D1A0C9 /* YGNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E535248923310F4C00D1A0C9 /* YGNode.cpp */; };
 		E53524A523310F4C00D1A0C9 /* YGLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = E535248A23310F4C00D1A0C9 /* YGLayout.h */; };
 		E53524A623310F4C00D1A0C9 /* YGEnums.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E535248B23310F4C00D1A0C9 /* YGEnums.cpp */; };
-		E53524A723310F4C00D1A0C9 /* Yoga.h in Headers */ = {isa = PBXBuildFile; fileRef = E535248C23310F4C00D1A0C9 /* Yoga.h */; };
+		E53524A723310F4C00D1A0C9 /* Yoga.h in Headers */ = {isa = PBXBuildFile; fileRef = E535248C23310F4C00D1A0C9 /* Yoga.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E53524A823310F4C00D1A0C9 /* YGNodePrint.h in Headers */ = {isa = PBXBuildFile; fileRef = E535248D23310F4C00D1A0C9 /* YGNodePrint.h */; };
 /* End PBXBuildFile section */
 
@@ -206,26 +206,26 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E535249B23310F4C00D1A0C9 /* YGValue.h in Headers */,
+				E535249F23310F4C00D1A0C9 /* YGMacros.h in Headers */,
+				E535248E23310F4C00D1A0C9 /* YGEnums.h in Headers */,
+				E53524A723310F4C00D1A0C9 /* Yoga.h in Headers */,
 				E53524A223310F4C00D1A0C9 /* YGStyle.h in Headers */,
 				E535248F23310F4C00D1A0C9 /* YGNode.h in Headers */,
 				E535249023310F4C00D1A0C9 /* Yoga-internal.h in Headers */,
 				E535246C23310F2300D1A0C9 /* YGLayout+Private.h in Headers */,
 				E53524A123310F4C00D1A0C9 /* CompactValue.h in Headers */,
 				E53524A323310F4C00D1A0C9 /* YGMarker.h in Headers */,
-				E535248E23310F4C00D1A0C9 /* YGEnums.h in Headers */,
 				E535245B23310EA100D1A0C9 /* YogaKit.h in Headers */,
 				E53524A523310F4C00D1A0C9 /* YGLayout.h in Headers */,
-				E535249F23310F4C00D1A0C9 /* YGMacros.h in Headers */,
 				E535249823310F4C00D1A0C9 /* Utils.h in Headers */,
 				E535249D23310F4C00D1A0C9 /* YGConfig.h in Headers */,
 				E535249723310F4C00D1A0C9 /* instrumentation.h in Headers */,
 				E535249323310F4C00D1A0C9 /* log.h in Headers */,
 				E53524A823310F4C00D1A0C9 /* YGNodePrint.h in Headers */,
-				E535249B23310F4C00D1A0C9 /* YGValue.h in Headers */,
 				E535246E23310F2300D1A0C9 /* YGLayout.h in Headers */,
 				E535249423310F4C00D1A0C9 /* YGFloatOptional.h in Headers */,
 				E535246F23310F2300D1A0C9 /* UIView+Yoga.h in Headers */,
-				E53524A723310F4C00D1A0C9 /* Yoga.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
