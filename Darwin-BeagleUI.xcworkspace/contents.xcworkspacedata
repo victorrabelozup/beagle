@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "container:"
+      name = "Libraries">
+      <FileRef
+         location = "group:Libraries/YogaKit/YogaKit.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:"
+      name = "Core">
+      <FileRef
+         location = "group:Sources/BeagleUI/BeagleUI.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:"
+      name = "Example">
+      <FileRef
+         location = "group:Example/BeagleDemo/BeagleDemo.xcodeproj">
+      </FileRef>
+   </Group>
+</Workspace>
