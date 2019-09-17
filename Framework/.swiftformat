@@ -1,0 +1,32 @@
+# file options
+
+--symlinks ignore
+
+# format options
+
+--allman false
+--binarygrouping 4,8
+--commas always
+--comments indent
+--elseposition same-line
+--empty void
+--header ignore
+--ifdef indent
+--indent 4
+--indentcase false
+--importgrouping testable-bottom
+--linebreaks lf
+--operatorfunc spaced
+--patternlet hoist
+--ranges spaced
+--self remove
+--semicolons inline
+--stripunusedargs always
+--trimwhitespace always
+--wraparguments preserve
+--wrapcollections preserve
+
+# rules
+
+--disable trailingClosures
+--enable isEmpty
