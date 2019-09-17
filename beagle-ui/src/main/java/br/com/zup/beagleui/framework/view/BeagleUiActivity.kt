@@ -36,5 +36,4 @@ class BeagleUiActivity : AppCompatActivity() {
             setContentView(beagleViewBuilder.build(this, widget))
         })
     }
-
 }

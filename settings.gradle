@@ -1,2 +1,2 @@
-include ':app', ':beagle-ui'
-rootProject.name='beagle-ui-sample'
+include Modules.beagleUi
+//include Modules.sample, Modules.beagleUi

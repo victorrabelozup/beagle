@@ -1,6 +1,9 @@
 package br.com.zup.beagleui.framework.engine.renderer
 
-import br.com.zup.beagleui.framework.widget.core.*
+import br.com.zup.beagleui.framework.widget.core.Alignment
+import br.com.zup.beagleui.framework.widget.core.FlexWrap
+import br.com.zup.beagleui.framework.widget.core.ItemDirection
+import br.com.zup.beagleui.framework.widget.core.JustifyContent
 import com.facebook.yoga.YogaAlign
 import com.facebook.yoga.YogaDirection
 import com.facebook.yoga.YogaJustify

@@ -1,18 +1,19 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'jacoco-android'
 
 android {
     compileSdkVersion Versions.compileSdk
     buildToolsVersion Versions.buildTools
-
     defaultConfig {
+        applicationId ApplicationId.id
+        minSdkVersion Versions.minSdk
+        targetSdkVersion Versions.targetSdk
+        versionCode Releases.versionCode
+        versionName Releases.versionName
         testInstrumentationRunner GeneralNames.testInstrumentationRunner
-        consumerProguardFiles GeneralNames.consumerProguard
     }
-
     buildTypes {
         debug {
             testCoverageEnabled true
@@ -22,35 +23,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
 dependencies {
     implementation AndroidxLibraries.appcompat
-    implementation AndroidxLibraries.coreKtx
-    implementation AndroidxLibraries.viewModel
 
     implementation GeneralLibraries.kotlin
-    implementation GeneralLibraries.kotlinCoroutines
 
     implementation GeneralLibraries.koin
 
-    implementation LithoLibraries.core
-    implementation LithoLibraries.widget
-    kapt LithoLibraries.processor
-    implementation LithoLibraries.fresco
-
     implementation GeneralLibraries.fresco
 
-    implementation MoshiLibraries.moshi
-    implementation MoshiLibraries.kotlin
-    implementation MoshiLibraries.adapters
+    implementation GeneralLibraries.soLoader
 
-    // Unit Testing
+    implementation project (Modules.beagleUi)
+
     testImplementation TestLibraries.junit
-    testImplementation TestLibraries.litho
-
-    // Integration Testing
-    androidTestImplementation TestLibraries.androidxRunner
-    androidTestImplementation TestLibraries.espressoCore
 }

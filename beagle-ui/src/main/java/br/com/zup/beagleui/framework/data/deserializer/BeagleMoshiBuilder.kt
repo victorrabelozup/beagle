@@ -1,10 +1,20 @@
 package br.com.zup.beagleui.framework.data.deserializer
 
 import br.com.zup.beagleui.framework.widget.core.Widget
-import br.com.zup.beagleui.framework.widget.layout.*
-import br.com.zup.beagleui.framework.widget.ui.*
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import br.com.zup.beagleui.framework.widget.layout.Container
+import br.com.zup.beagleui.framework.widget.layout.Horizontal
+import br.com.zup.beagleui.framework.widget.layout.Padding
+import br.com.zup.beagleui.framework.widget.layout.Spacer
+import br.com.zup.beagleui.framework.widget.layout.Stack
+import br.com.zup.beagleui.framework.widget.layout.Vertical
+import br.com.zup.beagleui.framework.widget.ui.Button
+import br.com.zup.beagleui.framework.widget.ui.DropDown
+import br.com.zup.beagleui.framework.widget.ui.Image
+import br.com.zup.beagleui.framework.widget.ui.ListView
+import br.com.zup.beagleui.framework.widget.ui.SelectView
+import br.com.zup.beagleui.framework.widget.ui.Text
+import br.com.zup.beagleui.framework.widget.ui.TextField
+import br.com.zup.beagleui.framework.widget.ui.Toolbar
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
