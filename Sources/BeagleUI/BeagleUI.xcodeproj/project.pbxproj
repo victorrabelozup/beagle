@@ -28,8 +28,6 @@
 		9368181D232A8DE100E6E724 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368181C232A8DE100E6E724 /* Text.swift */; };
 		9368181F232A8DEA00E6E724 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368181E232A8DEA00E6E724 /* TextField.swift */; };
 		93681821232A8E0C00E6E724 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93681820232A8E0C00E6E724 /* Toolbar.swift */; };
-		98F715F9232A7FFB00FC3878 /* UIView+Teste.h in Headers */ = {isa = PBXBuildFile; fileRef = 98F715F7232A7FFA00FC3878 /* UIView+Teste.h */; };
-		98F715FA232A7FFB00FC3878 /* UIView+Teste.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F715F8232A7FFA00FC3878 /* UIView+Teste.m */; };
 		E53524AB23310F5A00D1A0C9 /* YogaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E53524AA23310F5A00D1A0C9 /* YogaKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,8 +66,6 @@
 		9368181C232A8DE100E6E724 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		9368181E232A8DEA00E6E724 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		93681820232A8E0C00E6E724 /* Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
-		98F715F7232A7FFA00FC3878 /* UIView+Teste.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Teste.h"; sourceTree = "<group>"; };
-		98F715F8232A7FFA00FC3878 /* UIView+Teste.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Teste.m"; sourceTree = "<group>"; };
 		E53524AA23310F5A00D1A0C9 /* YogaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YogaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -176,8 +172,6 @@
 				936817FA232A881600E6E724 /* Layout */,
 				936817F9232A880700E6E724 /* Core */,
 				932925D22327E11000A61F01 /* BeagleUI.h */,
-				98F715F7232A7FFA00FC3878 /* UIView+Teste.h */,
-				98F715F8232A7FFA00FC3878 /* UIView+Teste.m */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -197,7 +191,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98F715F9232A7FFB00FC3878 /* UIView+Teste.h in Headers */,
 				932925E02327E11000A61F01 /* BeagleUI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,7 +319,6 @@
 			files = (
 				9368180B232A889100E6E724 /* Spacer.swift in Sources */,
 				9368180D232A889900E6E724 /* Stack.swift in Sources */,
-				98F715FA232A7FFB00FC3878 /* UIView+Teste.m in Sources */,
 				93681801232A884600E6E724 /* Screen.swift in Sources */,
 				93681813232A8D4000E6E724 /* DropDown.swift in Sources */,
 				9368181D232A8DE100E6E724 /* Text.swift in Sources */,

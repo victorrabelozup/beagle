@@ -12,6 +12,9 @@
       location = "container:"
       name = "Core">
       <FileRef
+         location = "group:Decodable.playground">
+      </FileRef>
+      <FileRef
          location = "group:Sources/BeagleUIPlayground.playground">
       </FileRef>
       <FileRef
