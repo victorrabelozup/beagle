@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-struct TextField: Widget {
+public struct TextField: Widget {
     let hint: String?
     let value: String?
 }

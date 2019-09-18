@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-struct ToolBar: Widget {
+public struct ToolBar: Widget {
     let title: String
     let showBackButton: Bool = true
 }

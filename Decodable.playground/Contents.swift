@@ -84,8 +84,17 @@ public struct Image: Widget, Codable {
 
 
 let json = """
-{ "type": "container","content": {"type": "text","content": {"text": "some text"}}}
+{
+    "type": "container",
+    "content": {
+        "type": "text",
+        "content": {
+            "text": "some text"
+        }
+    }
+}
 """
+
 WidgetContainer.register(WidgetContainer.self, for: "container")
 WidgetContainer.register(WidgetContainer.self, for: "body")
 WidgetContainer.register(WidgetContainer.self, for: "footer")
@@ -103,4 +112,10 @@ if let jsonData = json.data(using: .utf8) {
     } catch {
         debugPrint("Error: \(error)")
     }
+}
+
+
+protocol CalculateDateUseCaseProtocol {
+    typealias Month = String
+    func execute(for index: Int) -> Month
 }

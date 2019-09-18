@@ -6,6 +6,6 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-struct Image: Widget {
+public struct Image: Widget {
     let path: String
 }

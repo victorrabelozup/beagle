@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-struct SelectView: Widget {
+public struct SelectView: Widget {
     let rows: [Widget]?
     let remoteDataSource: String?
     let loadingState: Widget?

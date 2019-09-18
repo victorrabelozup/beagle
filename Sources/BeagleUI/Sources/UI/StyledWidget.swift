@@ -6,13 +6,13 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-struct StyledWidget: Widget {
+public struct StyledWidget: Widget {
     let border: Border?
     let color: String?
     let child: Widget?
 }
 
-struct Border {
+public struct Border {
     let color: String?
     let radius: Double?
     let size: Double?

@@ -6,4 +6,4 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-protocol Widget {}
+public protocol Widget {}

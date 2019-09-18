@@ -6,12 +6,12 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-struct Padding: Widget {
+public struct Padding: Widget {
     let value: PaddingValue
     let child: Widget
 }
 
-struct PaddingValue {
+public struct PaddingValue {
     let top: UnitValue?
     let left: UnitValue?
     let right: UnitValue?

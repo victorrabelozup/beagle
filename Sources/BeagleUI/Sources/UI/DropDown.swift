@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-struct DropDown: Widget {
+public struct DropDown: Widget {
     let header: Widget
     let child: Widget
 }

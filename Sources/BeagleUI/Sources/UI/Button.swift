@@ -6,6 +6,6 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-struct Button: Widget {
+public struct Button: Widget {
     let text: String
 }

@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-struct Horizontal: Widget {
+public struct Horizontal: Widget {
     let children: [Widget]?
     let flex: Flex?
     let reversed: Bool?

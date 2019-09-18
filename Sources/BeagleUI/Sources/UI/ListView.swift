@@ -6,14 +6,14 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-struct ListView: Widget {
+public struct ListView: Widget {
     let rows: [Widget]?
     let remoteDataSource: String?
     let loadingState: Widget?
     let direction: ListDirection = .vertical
 }
 
-enum ListDirection {
+public enum ListDirection {
     case vertical
     case horizontal
 }
