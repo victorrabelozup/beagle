@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Defines an API representation for `TextField`
 struct TextFieldEntity: WidgetEntity {
     let hint: String?
     let value: String?

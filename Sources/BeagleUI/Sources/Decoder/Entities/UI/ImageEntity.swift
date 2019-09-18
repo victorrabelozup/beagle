@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Defines an API representation for `Image`
 struct ImageEntity: WidgetEntity {
     let path: String
 }

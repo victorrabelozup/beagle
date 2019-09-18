@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Defines an API representation for `DropDown`
 struct DropDownEntity: WidgetEntity {
     let header: WidgetEntityContainer
     let child: WidgetEntityContainer

@@ -51,6 +51,7 @@
 		E5CE41DC233276B300295277 /* StyledWidgetEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41DB233276B300295277 /* StyledWidgetEntity.swift */; };
 		E5CE41DE233276CC00295277 /* TextFieldEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41DD233276CC00295277 /* TextFieldEntity.swift */; };
 		E5CE41E023329F0500295277 /* ToolBarEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41DF23329F0500295277 /* ToolBarEntity.swift */; };
+		E5CE41E22332A85600295277 /* WidgetEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41E12332A85600295277 /* WidgetEntity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,7 @@
 		E5CE41DB233276B300295277 /* StyledWidgetEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledWidgetEntity.swift; sourceTree = "<group>"; };
 		E5CE41DD233276CC00295277 /* TextFieldEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldEntity.swift; sourceTree = "<group>"; };
 		E5CE41DF23329F0500295277 /* ToolBarEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBarEntity.swift; sourceTree = "<group>"; };
+		E5CE41E12332A85600295277 /* WidgetEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,7 +238,7 @@
 		E5CE41A02331D41500295277 /* Decoder */ = {
 			isa = PBXGroup;
 			children = (
-				E5CE41B92331DFE000295277 /* Commom */,
+				E5CE41B92331DFE000295277 /* Common */,
 				E5CE41A12331D42600295277 /* Entities */,
 				E5CE41A22331D55000295277 /* WidgetDecoder.swift */,
 			);
@@ -256,6 +258,7 @@
 		E5CE41AA2331D95D00295277 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				E5CE41E12332A85600295277 /* WidgetEntity.swift */,
 				E5CE41A42331D59E00295277 /* WidgetEntityContainer.swift */,
 				E5CE41C123325E2100295277 /* FlexEntity.swift */,
 				E5CE41C523325E4500295277 /* UnitValueEntity.swift */,
@@ -316,12 +319,12 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		E5CE41B92331DFE000295277 /* Commom */ = {
+		E5CE41B92331DFE000295277 /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				E5CE41BA2331DFF100295277 /* WidgetConvertible.swift */,
 			);
-			path = Commom;
+			path = Common;
 			sourceTree = "<group>";
 		};
 		E5CE41BE2332586300295277 /* Extensions */ = {
@@ -465,6 +468,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5CE41E22332A85600295277 /* WidgetEntity.swift in Sources */,
 				E5CE41DE233276CC00295277 /* TextFieldEntity.swift in Sources */,
 				E5CE41CA233274AE00295277 /* PaddingEntity.swift in Sources */,
 				E5CE41D22332766900295277 /* ButtonEntity.swift in Sources */,

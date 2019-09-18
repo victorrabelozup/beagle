@@ -8,10 +8,7 @@
 
 import Foundation
 
-/// Used as a markup interface for the API representation of Widgets
-public protocol WidgetEntity: Codable {}
-
-/// Defines a container to hold a WidgetEntity dynamic type
+/// Defines a container to hold a WidgetEntity dynamic types
 struct WidgetEntityContainer: WidgetEntity {
     
     // MARK: - Properties
@@ -70,7 +67,7 @@ struct WidgetEntityContainer: WidgetEntity {
     /// - Parameters:
     ///   - type: the type to register, which needs to conform to Decodable
     ///   - typeName: the type's name, or the key it will be found at
-    static func register<T: Codable & WidgetEntity>(_ type: T.Type, for typeName: String) {
+    static func register<T: WidgetEntity>(_ type: T.Type, for typeName: String) {
         decoders[typeName] = { container in
             try container.decode(T.self, forKey: .content)
         }

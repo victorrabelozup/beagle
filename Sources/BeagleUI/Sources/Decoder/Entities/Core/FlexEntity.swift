@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Defines an API representation for `Flex`
 struct FlexEntity: WidgetEntity {
     let flexWrap: FlexWrapEntity = .no_wrap
     let justifyContent: JustifyContentEntity = .flex_end
@@ -19,12 +20,14 @@ struct FlexEntity: WidgetEntity {
     let shrink: Int = 0
 }
 
+/// Defines an API representation for `ItemDirection`
 enum ItemDirectionEntity: String, WidgetEntity {
     case inherit
     case ltr
     case rtl
 }
 
+/// Defines an API representation for `FlexDirection`
 enum FlexDirectionEntity: String, WidgetEntity {
     case row
     case row_reverse
@@ -32,12 +35,14 @@ enum FlexDirectionEntity: String, WidgetEntity {
     case column_reverse
 }
 
+/// Defines an API representation for `FlexWrap`
 enum FlexWrapEntity: String, WidgetEntity {
     case no_wrap
     case wrap
     case wrap_reverse
 }
 
+/// Defines an API representation for `JustifyContent`
 enum JustifyContentEntity: String, WidgetEntity {
     case flex_start
     case center
@@ -47,6 +52,7 @@ enum JustifyContentEntity: String, WidgetEntity {
     case space_evenly
 }
 
+/// Defines an API representation for `Alignement`
 enum AlignmentEntity: String, WidgetEntity {
     case flex_start
     case center

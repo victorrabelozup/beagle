@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Defines an API representation for `SelectView`
 struct SelectViewEntity: WidgetEntity {
     let rows: [WidgetEntityContainer]?
     let remoteDataSource: String?

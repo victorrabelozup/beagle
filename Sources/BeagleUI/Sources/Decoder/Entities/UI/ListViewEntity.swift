@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Defines an API representation for `ListView`
 struct ListViewEntity: WidgetEntity {
     let rows: [WidgetEntityContainer]?
     let remoteDataSource: String?
@@ -15,7 +16,8 @@ struct ListViewEntity: WidgetEntity {
     let direction: ListDirectionEntity = .vertical
 }
 
-public enum ListDirectionEntity: String, WidgetEntity {
+/// Defines an API representation for `ListDirection`
+enum ListDirectionEntity: String, WidgetEntity {
     case vertical
     case horizontal
 }

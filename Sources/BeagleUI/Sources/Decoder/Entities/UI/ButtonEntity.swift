@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Defines an API representation for `Button`
 struct ButtonEntity: WidgetEntity {
     let text: String
 }

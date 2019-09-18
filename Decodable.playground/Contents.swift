@@ -102,20 +102,14 @@ WidgetContainer.register(WidgetContainer.self, for: "content")
 WidgetContainer.register(WidgetContainer.self, for: "children")
 
 //        WidgetContainer.register(Container.self, for: "container")
-WidgetContainer.register(Text.self, for: "text")
-
-if let jsonData = json.data(using: .utf8) {
-    
-    do {
-        let value = try JSONDecoder().decode(WidgetContainer.self, from: jsonData)
-        print("\(value)")
-    } catch {
-        debugPrint("Error: \(error)")
-    }
-}
-
-
-protocol CalculateDateUseCaseProtocol {
-    typealias Month = String
-    func execute(for index: Int) -> Month
-}
+//WidgetContainer.register(Text.self, for: "text")
+//
+//if let jsonData = json.data(using: .utf8) {
+//    
+//    do {
+//        let value = try JSONDecoder().decode(WidgetContainer.self, from: jsonData)
+//        print("\(value)")
+//    } catch {
+//        debugPrint("Error: \(error)")
+//    }
+//}
