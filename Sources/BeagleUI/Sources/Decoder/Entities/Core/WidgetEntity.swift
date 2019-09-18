@@ -9,7 +9,7 @@
 import Foundation
 
 /// Used as a markup interface for the API representation of Widgets
-protocol WidgetEntity {}
+public protocol WidgetEntity: Widget {}
 
 /// Defines a container to hold a WidgetEntity dynamic type
 struct WidgetEntityContainer: WidgetEntity, Codable {
@@ -70,13 +70,13 @@ struct WidgetEntityContainer: WidgetEntity, Codable {
     /// - Parameters:
     ///   - type: the type to register, which needs to conform to Decodable
     ///   - typeName: the type's name, or the key it will be found at
-    static func register<T: Codable>(_ type: T.Type, for typeName: String) {
+    static func register<T: Codable & WidgetEntity>(_ type: T.Type, for typeName: String) {
         decoders[typeName] = { container in
-            return try container.decode(T.self, forKey: .content)
+            try container.decode(T.self, forKey: .content)
         }
         encoders[typeName] = { value, container in
             guard let typedValue = value as? T else {
-                let typeName = String(describing: T)
+                let typeName = String(describing: T.self)
                 throw Error.cannotCastValueToType(typeName)
             }
             try container.encode(typedValue, forKey: .content)
@@ -84,7 +84,7 @@ struct WidgetEntityContainer: WidgetEntity, Codable {
     }
     
 }
-extension WidgetContainerEntity {
+extension WidgetEntityContainer {
     
     /// Defines an error specific for the `WidgetContainerEntity` context
     ///

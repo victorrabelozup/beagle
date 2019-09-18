@@ -8,8 +8,4 @@
 
 import XCTest
 
-final class WidgetDecoderTests: XCTestCase {
-
-    
-
-}
+final class WidgetDecoderTests: XCTestCase { }

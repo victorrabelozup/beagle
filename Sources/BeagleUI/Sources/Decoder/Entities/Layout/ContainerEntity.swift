@@ -9,8 +9,12 @@
 import Foundation
 
 /// Defines an API representation for `Container`
-struct ContainerEntity: WidgetEntity, Codable {
+struct ContainerEntity: Widget, Codable {
+    
+    typealias WidgetType = Container
+    
     let body: WidgetEntityContainer?
     let content: WidgetEntityContainer
     let footer: WidgetEntityContainer?
+    
 }

@@ -9,14 +9,14 @@
 import Foundation
 
 /// Defines a decoding strategy
-public protocol WidgetDecoding {
+protocol WidgetDecoding {
     
     /// Registers a type to be dynamicaly decoded
     ///
     /// - Parameters:
     ///   - type: the type to register, which needs to conform to Decodable
     ///   - typeName: the type's name, or the key it will be found at
-    static func register<T: Codable>(_ type: T.Type, for typeName: String)
+    static func register<T: Codable & WidgetEntity>(_ type: T.Type, for typeName: String)
     
     /// Decodes a type from a data object.
     ///
@@ -26,7 +26,7 @@ public protocol WidgetDecoding {
     func decode(from data: Data) throws -> WidgetEntity
 }
 
-final public class WidgetDecoder: WidgetDecoding {
+final class WidgetDecoder: WidgetDecoding {
     
     // MARK: - Dependencies
     
@@ -36,7 +36,7 @@ final public class WidgetDecoder: WidgetDecoding {
     
     init(jsonDecoder: JSONDecoder) {
         self.jsonDecoder = jsonDecoder
-        WidgetDecoder.registerTypes()
+        WidgetDecoder.registerDefaultTypes()
     }
     
     // MARK: - Public Functions
@@ -46,12 +46,12 @@ final public class WidgetDecoder: WidgetDecoding {
     /// - Parameters:
     ///   - type: the type to register, which needs to conform to Decodable
     ///   - typeName: the type's name, or the key it will be found at
-    static func registerCustomType<T: Codable>(_ type: T.Type, with name: String) {
+    static func register<T: Codable & WidgetEntity>(_ type: T.Type, for typeName: String) {
         WidgetEntityContainer.register(type, for: typeName)
     }
     
-    func decode(from data: Data) -> WidgetEntity {
-        return try jsonDecoder.decode(WidgetEntityContainer, from: data)
+    func decode(from data: Data) throws -> WidgetEntity {
+        return try jsonDecoder.decode(WidgetEntityContainer.self, from: data)
     }
     
     // MARK: - Private Functions
