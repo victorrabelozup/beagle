@@ -12,3 +12,12 @@ import Foundation
 struct TextEntity: WidgetEntity, Codable {
     let text: String
 }
+extension TextEntity: WidgetConvertible {
+    
+    typealias WidgetType = Text
+    
+    func mapToWidget() -> Text {
+        return Text(text: text)
+    }
+    
+}

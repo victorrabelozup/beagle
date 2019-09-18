@@ -1,5 +1,5 @@
 //
-//  WidgetEntity.swift
+//  WidgetEntityContainer.swift
 //  BeagleUI
 //
 //  Created by Eduardo Sanches Bocato on 18/09/19.
@@ -9,10 +9,10 @@
 import Foundation
 
 /// Used as a markup interface for the API representation of Widgets
-public protocol WidgetEntity: Widget {}
+public protocol WidgetEntity: Codable {}
 
 /// Defines a container to hold a WidgetEntity dynamic type
-struct WidgetEntityContainer: WidgetEntity, Codable {
+struct WidgetEntityContainer: WidgetEntity {
     
     // MARK: - Properties
     

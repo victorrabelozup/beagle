@@ -30,12 +30,27 @@
 		93681821232A8E0C00E6E724 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93681820232A8E0C00E6E724 /* Toolbar.swift */; };
 		E53524AB23310F5A00D1A0C9 /* YogaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E53524AA23310F5A00D1A0C9 /* YogaKit.framework */; };
 		E5CE41A32331D55000295277 /* WidgetDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A22331D55000295277 /* WidgetDecoder.swift */; };
-		E5CE41A52331D59E00295277 /* WidgetEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A42331D59E00295277 /* WidgetEntity.swift */; };
+		E5CE41A52331D59E00295277 /* WidgetEntityContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A42331D59E00295277 /* WidgetEntityContainer.swift */; };
 		E5CE41A72331D93F00295277 /* ContainerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A62331D93F00295277 /* ContainerEntity.swift */; };
 		E5CE41A92331D95300295277 /* VerticalEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A82331D95300295277 /* VerticalEntity.swift */; };
 		E5CE41AE2331D9A700295277 /* TextEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41AD2331D9A700295277 /* TextEntity.swift */; };
 		E5CE41B72331DCEB00295277 /* WidgetDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41B62331DCEB00295277 /* WidgetDecoderTests.swift */; };
 		E5CE41BB2331DFF100295277 /* WidgetConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41BA2331DFF100295277 /* WidgetConvertible.swift */; };
+		E5CE41C02332586F00295277 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41BF2332586F00295277 /* StringExtension.swift */; };
+		E5CE41C223325E2100295277 /* FlexEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41C123325E2100295277 /* FlexEntity.swift */; };
+		E5CE41C623325E4500295277 /* UnitValueEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41C523325E4500295277 /* UnitValueEntity.swift */; };
+		E5CE41C82332749800295277 /* HorizontalEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41C72332749800295277 /* HorizontalEntity.swift */; };
+		E5CE41CA233274AE00295277 /* PaddingEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41C9233274AE00295277 /* PaddingEntity.swift */; };
+		E5CE41CC233274BB00295277 /* SpacerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41CB233274BB00295277 /* SpacerEntity.swift */; };
+		E5CE41CE233274CA00295277 /* StackEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41CD233274CA00295277 /* StackEntity.swift */; };
+		E5CE41D22332766900295277 /* ButtonEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41D12332766900295277 /* ButtonEntity.swift */; };
+		E5CE41D42332767700295277 /* DropDownEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41D32332767700295277 /* DropDownEntity.swift */; };
+		E5CE41D62332768700295277 /* ImageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41D52332768700295277 /* ImageEntity.swift */; };
+		E5CE41D82332769500295277 /* ListViewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41D72332769500295277 /* ListViewEntity.swift */; };
+		E5CE41DA233276A000295277 /* SelectViewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41D9233276A000295277 /* SelectViewEntity.swift */; };
+		E5CE41DC233276B300295277 /* StyledWidgetEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41DB233276B300295277 /* StyledWidgetEntity.swift */; };
+		E5CE41DE233276CC00295277 /* TextFieldEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41DD233276CC00295277 /* TextFieldEntity.swift */; };
+		E5CE41E023329F0500295277 /* ToolBarEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41DF23329F0500295277 /* ToolBarEntity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,13 +90,28 @@
 		93681820232A8E0C00E6E724 /* Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
 		E53524AA23310F5A00D1A0C9 /* YogaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YogaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5CE41A22331D55000295277 /* WidgetDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDecoder.swift; sourceTree = "<group>"; };
-		E5CE41A42331D59E00295277 /* WidgetEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntity.swift; sourceTree = "<group>"; };
+		E5CE41A42331D59E00295277 /* WidgetEntityContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntityContainer.swift; sourceTree = "<group>"; };
 		E5CE41A62331D93F00295277 /* ContainerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerEntity.swift; sourceTree = "<group>"; };
 		E5CE41A82331D95300295277 /* VerticalEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalEntity.swift; sourceTree = "<group>"; };
 		E5CE41AD2331D9A700295277 /* TextEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEntity.swift; sourceTree = "<group>"; };
 		E5CE41B52331DCEB00295277 /* BeagleUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BeagleUITests-Bridging-Header.h"; sourceTree = "<group>"; };
 		E5CE41B62331DCEB00295277 /* WidgetDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDecoderTests.swift; sourceTree = "<group>"; };
 		E5CE41BA2331DFF100295277 /* WidgetConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetConvertible.swift; sourceTree = "<group>"; };
+		E5CE41BF2332586F00295277 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		E5CE41C123325E2100295277 /* FlexEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexEntity.swift; sourceTree = "<group>"; };
+		E5CE41C523325E4500295277 /* UnitValueEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitValueEntity.swift; sourceTree = "<group>"; };
+		E5CE41C72332749800295277 /* HorizontalEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalEntity.swift; sourceTree = "<group>"; };
+		E5CE41C9233274AE00295277 /* PaddingEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingEntity.swift; sourceTree = "<group>"; };
+		E5CE41CB233274BB00295277 /* SpacerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacerEntity.swift; sourceTree = "<group>"; };
+		E5CE41CD233274CA00295277 /* StackEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackEntity.swift; sourceTree = "<group>"; };
+		E5CE41D12332766900295277 /* ButtonEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonEntity.swift; sourceTree = "<group>"; };
+		E5CE41D32332767700295277 /* DropDownEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownEntity.swift; sourceTree = "<group>"; };
+		E5CE41D52332768700295277 /* ImageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEntity.swift; sourceTree = "<group>"; };
+		E5CE41D72332769500295277 /* ListViewEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewEntity.swift; sourceTree = "<group>"; };
+		E5CE41D9233276A000295277 /* SelectViewEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectViewEntity.swift; sourceTree = "<group>"; };
+		E5CE41DB233276B300295277 /* StyledWidgetEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledWidgetEntity.swift; sourceTree = "<group>"; };
+		E5CE41DD233276CC00295277 /* TextFieldEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldEntity.swift; sourceTree = "<group>"; };
+		E5CE41DF23329F0500295277 /* ToolBarEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBarEntity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +157,7 @@
 		932925D12327E11000A61F01 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				932925D22327E11000A61F01 /* BeagleUI.h */,
 				932925D32327E11000A61F01 /* Info.plist */,
 			);
 			path = Resources;
@@ -166,7 +197,7 @@
 			path = Layout;
 			sourceTree = "<group>";
 		};
-		936817FB232A882000E6E724 /* UI */ = {
+		936817FB232A882000E6E724 /* UIModels */ = {
 			isa = PBXGroup;
 			children = (
 				93681810232A8D0F00E6E724 /* Button.swift */,
@@ -179,17 +210,17 @@
 				9368181E232A8DEA00E6E724 /* TextField.swift */,
 				93681820232A8E0C00E6E724 /* Toolbar.swift */,
 			);
-			path = UI;
+			path = UIModels;
 			sourceTree = "<group>";
 		};
 		939CE4C4232996FD00EEEDFC /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				E5CE41BE2332586300295277 /* Extensions */,
 				E5CE41A02331D41500295277 /* Decoder */,
-				936817FB232A882000E6E724 /* UI */,
+				936817FB232A882000E6E724 /* UIModels */,
 				936817FA232A881600E6E724 /* Layout */,
 				936817F9232A880700E6E724 /* Core */,
-				932925D22327E11000A61F01 /* BeagleUI.h */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -225,7 +256,9 @@
 		E5CE41AA2331D95D00295277 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				E5CE41A42331D59E00295277 /* WidgetEntity.swift */,
+				E5CE41A42331D59E00295277 /* WidgetEntityContainer.swift */,
+				E5CE41C123325E2100295277 /* FlexEntity.swift */,
+				E5CE41C523325E4500295277 /* UnitValueEntity.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -234,6 +267,10 @@
 			isa = PBXGroup;
 			children = (
 				E5CE41A62331D93F00295277 /* ContainerEntity.swift */,
+				E5CE41C72332749800295277 /* HorizontalEntity.swift */,
+				E5CE41C9233274AE00295277 /* PaddingEntity.swift */,
+				E5CE41CB233274BB00295277 /* SpacerEntity.swift */,
+				E5CE41CD233274CA00295277 /* StackEntity.swift */,
 				E5CE41A82331D95300295277 /* VerticalEntity.swift */,
 			);
 			path = Layout;
@@ -242,7 +279,15 @@
 		E5CE41AC2331D98F00295277 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E5CE41D12332766900295277 /* ButtonEntity.swift */,
+				E5CE41D32332767700295277 /* DropDownEntity.swift */,
+				E5CE41D52332768700295277 /* ImageEntity.swift */,
+				E5CE41D72332769500295277 /* ListViewEntity.swift */,
+				E5CE41D9233276A000295277 /* SelectViewEntity.swift */,
+				E5CE41DB233276B300295277 /* StyledWidgetEntity.swift */,
 				E5CE41AD2331D9A700295277 /* TextEntity.swift */,
+				E5CE41DD233276CC00295277 /* TextFieldEntity.swift */,
+				E5CE41DF23329F0500295277 /* ToolBarEntity.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -277,6 +322,14 @@
 				E5CE41BA2331DFF100295277 /* WidgetConvertible.swift */,
 			);
 			path = Commom;
+			sourceTree = "<group>";
+		};
+		E5CE41BE2332586300295277 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E5CE41BF2332586F00295277 /* StringExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -412,24 +465,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5CE41DE233276CC00295277 /* TextFieldEntity.swift in Sources */,
+				E5CE41CA233274AE00295277 /* PaddingEntity.swift in Sources */,
+				E5CE41D22332766900295277 /* ButtonEntity.swift in Sources */,
 				9368180B232A889100E6E724 /* Spacer.swift in Sources */,
+				E5CE41D82332769500295277 /* ListViewEntity.swift in Sources */,
 				E5CE41BB2331DFF100295277 /* WidgetConvertible.swift in Sources */,
 				9368180D232A889900E6E724 /* Stack.swift in Sources */,
+				E5CE41DA233276A000295277 /* SelectViewEntity.swift in Sources */,
 				E5CE41A72331D93F00295277 /* ContainerEntity.swift in Sources */,
+				E5CE41C223325E2100295277 /* FlexEntity.swift in Sources */,
 				93681801232A884600E6E724 /* Screen.swift in Sources */,
-				E5CE41A52331D59E00295277 /* WidgetEntity.swift in Sources */,
+				E5CE41C02332586F00295277 /* StringExtension.swift in Sources */,
+				E5CE41A52331D59E00295277 /* WidgetEntityContainer.swift in Sources */,
 				93681813232A8D4000E6E724 /* DropDown.swift in Sources */,
 				9368181D232A8DE100E6E724 /* Text.swift in Sources */,
 				9368181F232A8DEA00E6E724 /* TextField.swift in Sources */,
 				E5CE41A92331D95300295277 /* VerticalEntity.swift in Sources */,
+				E5CE41C82332749800295277 /* HorizontalEntity.swift in Sources */,
 				93681811232A8D0F00E6E724 /* Button.swift in Sources */,
 				93681809232A888300E6E724 /* Padding.swift in Sources */,
+				E5CE41D42332767700295277 /* DropDownEntity.swift in Sources */,
 				93681803232A884F00E6E724 /* UnitValue.swift in Sources */,
 				9368180F232A88B300E6E724 /* Vertical.swift in Sources */,
 				936817FD232A882D00E6E724 /* Widget.swift in Sources */,
+				E5CE41CC233274BB00295277 /* SpacerEntity.swift in Sources */,
 				93681819232A8D8100E6E724 /* SelectView.swift in Sources */,
+				E5CE41D62332768700295277 /* ImageEntity.swift in Sources */,
 				E5CE41A32331D55000295277 /* WidgetDecoder.swift in Sources */,
 				93681815232A8D6500E6E724 /* Image.swift in Sources */,
+				E5CE41C623325E4500295277 /* UnitValueEntity.swift in Sources */,
+				E5CE41DC233276B300295277 /* StyledWidgetEntity.swift in Sources */,
 				9368181B232A8D9800E6E724 /* StyledWidget.swift in Sources */,
 				93681821232A8E0C00E6E724 /* Toolbar.swift in Sources */,
 				936817FF232A883E00E6E724 /* Flex.swift in Sources */,
@@ -437,6 +503,8 @@
 				E5CE41AE2331D9A700295277 /* TextEntity.swift in Sources */,
 				93681817232A8D6E00E6E724 /* ListView.swift in Sources */,
 				93681807232A887A00E6E724 /* Horizontal.swift in Sources */,
+				E5CE41E023329F0500295277 /* ToolBarEntity.swift in Sources */,
+				E5CE41CE233274CA00295277 /* StackEntity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

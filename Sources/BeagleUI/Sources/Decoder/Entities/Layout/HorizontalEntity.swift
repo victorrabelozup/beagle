@@ -1,5 +1,5 @@
 //
-//  VerticalEntity.swift
+//  HorizontalEntity.swift
 //  BeagleUI
 //
 //  Created by Eduardo Sanches Bocato on 18/09/19.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-/// Defines an API representation for `Vertical`
-struct VerticalEntity: WidgetEntity {
-    let children: [WidgetEntityContainer]
+/// Defines an API representation for `Horizontal`
+struct HorizontalEntity: WidgetEntity {
+    let children: [WidgetEntityContainer]?
     let flex: FlexEntity?
     let reversed: Bool?
 }
