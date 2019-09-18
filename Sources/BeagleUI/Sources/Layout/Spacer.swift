@@ -6,6 +6,6 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-struct Spacer: Widget {
+public struct Spacer: Widget {
     let size: Double
 }

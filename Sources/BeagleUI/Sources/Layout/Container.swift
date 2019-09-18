@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-struct Container: Widget {
+public struct Container: Widget {
     let body: Widget?
     let content: Widget
     let footer: Widget?

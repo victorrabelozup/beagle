@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-struct Stack: Widget {
+public struct Stack: Widget {
     let children: [Widget]
     let flex: Flex?
 }
