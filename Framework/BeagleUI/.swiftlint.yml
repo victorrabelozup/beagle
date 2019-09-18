@@ -63,8 +63,8 @@ excluded:
   - Infofile.swift
   - Carthage
   - Pods
-  - YogaKit
-
+  - BeagleFrameworkTests
+  - ".*Test\\.swift"
 file_length:
   warning: 500
   error: 1200
