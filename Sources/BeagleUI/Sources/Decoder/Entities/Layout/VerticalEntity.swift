@@ -14,15 +14,20 @@ struct VerticalEntity: WidgetEntity {
     let flex: FlexEntity?
     let reversed: Bool = false
 }
-extension VerticalEntity: WidgetConvertible, ChildWidgetMapping {
+extension VerticalEntity: WidgetConvertible, ChildrenWidgetMapping {
 
     func mapToWidget() throws -> Widget {
 
-        let children = try mapChildren()
+        guard let children = try mapChildren() else {
+            let type = String(describing: VerticalEntity.self)
+            throw WidgetConvertibleError.couldNotFindChildrenPropertyForType(type)
+        }
+        
+        let flex: Flex? = nil // TODO: DEAL WITH FLEX LATER
 
         return Vertical(
             children: children,
-            flex: nil, // TODO: DEAL WITH FLEX LATER
+            flex: flex,
             reversed: reversed
         )
         

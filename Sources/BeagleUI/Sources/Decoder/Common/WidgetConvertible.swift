@@ -9,7 +9,7 @@
 import Foundation
 
 /// Serves as a gateway between APIEntities and UIModels
-protocol WidgetConvertible {
+public protocol WidgetConvertible {
     func mapToWidget() throws -> Widget
 }
 
@@ -17,10 +17,12 @@ protocol WidgetConvertible {
 ///
 /// - emptyContentForContainerOfType: some container has an empty content, when it shouldn't
 /// - couldNotFindChildrenPropertyForType: some entity that should have a `children` property does not have it
-enum WidgetConvertibleError: Error {
+/// - unexpectedNilChildrensForType: a nil value was received for the `children`property when it was not expected
+public enum WidgetConvertibleError: Error {
     
     case emptyContentForContainerOfType(String)
     case couldNotFindChildrenPropertyForType(String)
+    case unexpectedNilChildrensForType(String)
     
     var localizedDescription: String {
         switch self {
@@ -28,34 +30,8 @@ enum WidgetConvertibleError: Error {
             return "Empty content for container of \(type)"
         case let .couldNotFindChildrenPropertyForType(type):
             return "Could not find `children` property for \(type)"
+        case let .unexpectedNilChildrensForType(type):
+            return "A `nil` value was found for the `children` property for \(type) when it was not expected."
         }
     }
-}
-
-/// Maps a child property to Widget
-protocol ChildWidgetMapping {
-    func mapChildren() throws -> [Widget]
-}
-extension ChildWidgetMapping {
-    
-    func mapChildren() throws -> [Widget] {
-        
-        let mirror = Mirror(reflecting: self)
-        guard let children = mirror.children.first(where: { $0.label == "children" })?.value as? [WidgetEntityContainer] else {
-            let type = String(describing: self)
-            throw WidgetConvertibleError.couldNotFindChildrenPropertyForType(type)
-        }
-        
-        var childWidgets = [Widget]()
-        try children.forEach {
-            guard let content = $0.content else {
-                throw WidgetConvertibleError.emptyContentForContainerOfType($0.type)
-            }
-            let widget = try content.mapToWidget()
-            childWidgets.append(widget)
-        }
-        return childWidgets
-        
-    }
-    
 }

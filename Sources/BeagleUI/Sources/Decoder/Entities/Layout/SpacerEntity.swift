@@ -12,3 +12,8 @@ import Foundation
 struct SpacerEntity: WidgetEntity {
     let size: Double
 }
+extension SpacerEntity: WidgetConvertible {
+    func mapToWidget() throws -> Widget {
+        return Spacer(size: size)
+    }
+}

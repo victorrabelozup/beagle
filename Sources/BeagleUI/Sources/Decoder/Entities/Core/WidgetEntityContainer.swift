@@ -40,6 +40,11 @@ struct WidgetEntityContainer: WidgetEntity {
         }
     }
     
+    init(type: String, content: Content? = nil) {
+        self.type = type
+        self.content = content
+    }
+    
     // MARK: - Encoding
     
     func encode(to encoder: Encoder) throws {

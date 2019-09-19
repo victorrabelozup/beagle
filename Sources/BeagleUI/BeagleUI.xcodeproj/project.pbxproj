@@ -52,6 +52,16 @@
 		E5CE41E22332A85600295277 /* WidgetEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41E12332A85600295277 /* WidgetEntity.swift */; };
 		E5CE41EC2332B9B600295277 /* BeagleUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 932925CF2327E11000A61F01 /* BeagleUI.framework */; };
 		E5CE41F62332B9DD00295277 /* WidgetDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41F52332B9DD00295277 /* WidgetDecoderTests.swift */; };
+		E5CE41FB2333F7FB00295277 /* ChildrenWidgetMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41FA2333F7FB00295277 /* ChildrenWidgetMapping.swift */; };
+		E5CE42012333FC1F00295277 /* ButtonEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE42002333FC1F00295277 /* ButtonEntityTests.swift */; };
+		E5CE42032333FC8200295277 /* DropDownEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE42022333FC8200295277 /* DropDownEntityTests.swift */; };
+		E5CE42092334003200295277 /* ImageEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE42082334003200295277 /* ImageEntityTests.swift */; };
+		E5CE420B2334004400295277 /* ListViewEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE420A2334004400295277 /* ListViewEntityTests.swift */; };
+		E5CE420D2334005A00295277 /* SelectViewEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE420C2334005900295277 /* SelectViewEntityTests.swift */; };
+		E5CE420F2334006B00295277 /* StyledWidgetEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE420E2334006B00295277 /* StyledWidgetEntityTests.swift */; };
+		E5CE42112334007D00295277 /* TextEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE42102334007D00295277 /* TextEntityTests.swift */; };
+		E5CE42132334009F00295277 /* TextFieldEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE42122334009F00295277 /* TextFieldEntityTests.swift */; };
+		E5CE4215233400B100295277 /* ToolBarEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE4214233400B100295277 /* ToolBarEntityTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +123,16 @@
 		E5CE41E72332B9B600295277 /* BeagleFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeagleFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5CE41EB2332B9B600295277 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5CE41F52332B9DD00295277 /* WidgetDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDecoderTests.swift; sourceTree = "<group>"; };
+		E5CE41FA2333F7FB00295277 /* ChildrenWidgetMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildrenWidgetMapping.swift; sourceTree = "<group>"; };
+		E5CE42002333FC1F00295277 /* ButtonEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonEntityTests.swift; sourceTree = "<group>"; };
+		E5CE42022333FC8200295277 /* DropDownEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownEntityTests.swift; sourceTree = "<group>"; };
+		E5CE42082334003200295277 /* ImageEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEntityTests.swift; sourceTree = "<group>"; };
+		E5CE420A2334004400295277 /* ListViewEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewEntityTests.swift; sourceTree = "<group>"; };
+		E5CE420C2334005900295277 /* SelectViewEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectViewEntityTests.swift; sourceTree = "<group>"; };
+		E5CE420E2334006B00295277 /* StyledWidgetEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledWidgetEntityTests.swift; sourceTree = "<group>"; };
+		E5CE42102334007D00295277 /* TextEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEntityTests.swift; sourceTree = "<group>"; };
+		E5CE42122334009F00295277 /* TextFieldEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldEntityTests.swift; sourceTree = "<group>"; };
+		E5CE4214233400B100295277 /* ToolBarEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBarEntityTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				E5CE41BA2331DFF100295277 /* WidgetConvertible.swift */,
+				E5CE41FA2333F7FB00295277 /* ChildrenWidgetMapping.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -313,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				E5CE41F42332B9D200295277 /* Decoder */,
+				E5CE41FC2333FBDE00295277 /* Entities */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -323,6 +345,30 @@
 				E5CE41F52332B9DD00295277 /* WidgetDecoderTests.swift */,
 			);
 			path = Decoder;
+			sourceTree = "<group>";
+		};
+		E5CE41FC2333FBDE00295277 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				E5CE41FD2333FBEF00295277 /* UI */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		E5CE41FD2333FBEF00295277 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				E5CE42002333FC1F00295277 /* ButtonEntityTests.swift */,
+				E5CE42022333FC8200295277 /* DropDownEntityTests.swift */,
+				E5CE42082334003200295277 /* ImageEntityTests.swift */,
+				E5CE420A2334004400295277 /* ListViewEntityTests.swift */,
+				E5CE420C2334005900295277 /* SelectViewEntityTests.swift */,
+				E5CE420E2334006B00295277 /* StyledWidgetEntityTests.swift */,
+				E5CE42102334007D00295277 /* TextEntityTests.swift */,
+				E5CE42122334009F00295277 /* TextFieldEntityTests.swift */,
+				E5CE4214233400B100295277 /* ToolBarEntityTests.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -472,6 +518,7 @@
 				E5CE41C02332586F00295277 /* StringExtension.swift in Sources */,
 				E5CE41A52331D59E00295277 /* WidgetEntityContainer.swift in Sources */,
 				93681813232A8D4000E6E724 /* DropDown.swift in Sources */,
+				E5CE41FB2333F7FB00295277 /* ChildrenWidgetMapping.swift in Sources */,
 				9368181D232A8DE100E6E724 /* Text.swift in Sources */,
 				9368181F232A8DEA00E6E724 /* TextField.swift in Sources */,
 				E5CE41A92331D95300295277 /* VerticalEntity.swift in Sources */,
@@ -505,7 +552,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5CE42092334003200295277 /* ImageEntityTests.swift in Sources */,
+				E5CE42012333FC1F00295277 /* ButtonEntityTests.swift in Sources */,
+				E5CE4215233400B100295277 /* ToolBarEntityTests.swift in Sources */,
+				E5CE420B2334004400295277 /* ListViewEntityTests.swift in Sources */,
 				E5CE41F62332B9DD00295277 /* WidgetDecoderTests.swift in Sources */,
+				E5CE42132334009F00295277 /* TextFieldEntityTests.swift in Sources */,
+				E5CE420F2334006B00295277 /* StyledWidgetEntityTests.swift in Sources */,
+				E5CE42112334007D00295277 /* TextEntityTests.swift in Sources */,
+				E5CE42032333FC8200295277 /* DropDownEntityTests.swift in Sources */,
+				E5CE420D2334005A00295277 /* SelectViewEntityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

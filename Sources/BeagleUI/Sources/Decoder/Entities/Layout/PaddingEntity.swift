@@ -13,6 +13,36 @@ struct PaddingEntity: WidgetEntity {
     let value: PaddingValueEntity
     let child: WidgetEntityContainer
 }
+extension PaddingEntity: WidgetConvertible {
+    
+    func mapToWidget() throws -> Widget {
+        
+        guard let childContent = child.content else {
+            throw WidgetConvertibleError.emptyContentForContainerOfType(child.type)
+        }
+        
+        let value = try mapPaddingValue()
+        let child = try childContent.mapToWidget()
+        
+        return Padding(value: value, child: child)
+    }
+    
+    private func mapPaddingValue() throws -> PaddingValue {
+        
+        let top = value.top?.mapToUIModel()
+        let left = value.left?.mapToUIModel()
+        let right = value.right?.mapToUIModel()
+        let bottom = value.bottom?.mapToUIModel()
+        
+        return PaddingValue(
+            top: top,
+            left: left,
+            right: right,
+            bottom: bottom
+        )
+    }
+    
+}
 
 /// Defines an API representation for `PaddingValue`
 struct PaddingValueEntity: WidgetEntity {

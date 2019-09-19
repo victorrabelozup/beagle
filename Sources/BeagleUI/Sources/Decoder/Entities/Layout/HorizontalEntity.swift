@@ -12,5 +12,20 @@ import Foundation
 struct HorizontalEntity: WidgetEntity {
     let children: [WidgetEntityContainer]?
     let flex: FlexEntity?
-    let reversed: Bool?
+    let reversed: Bool = false
+}
+extension HorizontalEntity: WidgetConvertible, ChildrenWidgetMapping {
+    
+    func mapToWidget() throws -> Widget {
+        
+        let children: [Widget]? = try mapChildren()
+        let flex: Flex? = nil // TODO: DEAL WITH FLEX LATER
+        
+        return Horizontal(
+            children: children,
+            flex: flex,
+            reversed: reversed
+        )
+        
+    }
 }

@@ -6,12 +6,12 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-struct UnitValue {
+public struct UnitValue {
     let value: Double
     let type: UnitType
 }
 
-enum UnitType {
+public enum UnitType {
     case real
     case percent
 }

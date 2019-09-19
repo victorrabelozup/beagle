@@ -13,15 +13,20 @@ struct StackEntity: WidgetEntity {
     let children: [WidgetEntityContainer]
     let flex: FlexEntity?
 }
-extension StackEntity: WidgetConvertible, ChildWidgetMapping {
+extension StackEntity: WidgetConvertible, ChildrenWidgetMapping {
     
     func mapToWidget() throws -> Widget {
         
-        let children = try mapChildren()
+        guard let children = try mapChildren() else {
+            let type = String(describing: StackEntity.self)
+            throw WidgetConvertibleError.couldNotFindChildrenPropertyForType(type)
+        }
+        
+        let flex: Flex? = nil // TODO: DEAL WITH FLEX LATER
         
         return Stack(
             children: children,
-            flex: nil // TODO: DEAL WITH FLEX LATER
+            flex: flex
         )
         
     }
