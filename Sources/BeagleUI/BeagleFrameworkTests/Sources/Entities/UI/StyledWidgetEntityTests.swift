@@ -13,7 +13,8 @@ final class StyledWidgetEntityTests: XCTestCase {
 
     func test_whenMapToWidgetIsCalled_thenItShouldReturnAStyledWidget() {
         // Given
-        let sut = StyledWidgetEntity(border: nil, color: nil, child: nil)
+        let border = BorderEntity(color: nil, radius: nil, size: nil)
+        let sut = StyledWidgetEntity(border: border, color: nil, child: nil)
         
         // When
         let styledWidget = try? sut.mapToWidget()

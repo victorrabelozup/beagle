@@ -13,7 +13,7 @@ struct ListViewEntity: WidgetEntity {
     let rows: [WidgetEntityContainer]?
     let remoteDataSource: String?
     let loadingState: WidgetEntityContainer?
-    let direction: ListDirectionEntity = .vertical
+    let direction: ListDirectionEntity
 }
 extension ListViewEntity: WidgetConvertible {
     

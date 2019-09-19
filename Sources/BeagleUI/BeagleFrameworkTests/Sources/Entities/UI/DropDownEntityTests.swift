@@ -25,5 +25,43 @@ final class DropDownEntityTests: XCTestCase {
         XCTAssertNotNil(dropDown, "The DropDown widget should not be nil.")
         XCTAssertTrue(dropDown is DropDown)
     }
+    
+    func test_whenMapToWidgetIsCalledWithInvalidHeaderContent_thenItShouldThrowAHeaderError() {
+        // Given
+        let content = TextEntity(text: "text")
+        let header = WidgetEntityContainer(type: "beagle:Text", content: nil)
+        let child = WidgetEntityContainer(type: "beagle:Text", content: content)
+        let sut = DropDownEntity(header: header, child: child)
+        
+        // When
+        var mappingError: Error?
+        do {
+            _ = try sut.mapToWidget()
+        } catch {
+            mappingError = error
+        }
+        
+        // Then
+        XCTAssertNotNil(mappingError, "Expected an error, but found nil.")
+    }
+    
+    func test_whenMapToWidgetIsCalledWithInvalidChildContent_thenItShouldThrowAChildError() {
+        // Given
+        let content = TextEntity(text: "text")
+        let header = WidgetEntityContainer(type: "beagle:Text", content: content)
+        let child = WidgetEntityContainer(type: "beagle:Text", content: nil)
+        let sut = DropDownEntity(header: header, child: child)
+        
+        // When
+        var mappingError: Error?
+        do {
+            _ = try sut.mapToWidget()
+        } catch {
+            mappingError = error
+        }
+        
+        // Then
+        XCTAssertNotNil(mappingError, "Expected an error, but found nil.")
+    }
 
 }

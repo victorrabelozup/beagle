@@ -11,7 +11,7 @@ import Foundation
 /// Defines an API representation for `ToolBar`
 struct ToolBarEntity: WidgetEntity {
     let title: String
-    let showBackButton: Bool = true
+    let showBackButton: Bool
 }
 extension ToolBarEntity: WidgetConvertible {
     func mapToWidget() throws -> Widget {

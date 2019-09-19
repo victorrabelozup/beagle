@@ -13,7 +13,7 @@ final class ToolBarEntityTests: XCTestCase {
 
     func test_whenMapToWidgetIsCalled_thenItShouldReturnAToolBar() {
         // Given
-        let sut = ToolBarEntity(title: "text")
+        let sut = ToolBarEntity(title: "text", showBackButton: true)
         
         // When
         let toolBar = try? sut.mapToWidget()

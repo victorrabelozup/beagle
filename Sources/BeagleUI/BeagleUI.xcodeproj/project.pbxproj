@@ -62,6 +62,13 @@
 		E5CE42112334007D00295277 /* TextEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE42102334007D00295277 /* TextEntityTests.swift */; };
 		E5CE42132334009F00295277 /* TextFieldEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE42122334009F00295277 /* TextFieldEntityTests.swift */; };
 		E5CE4215233400B100295277 /* ToolBarEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE4214233400B100295277 /* ToolBarEntityTests.swift */; };
+		E5CE4218233403E000295277 /* ContainerEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE4217233403E000295277 /* ContainerEntityTests.swift */; };
+		E5CE421A2334047900295277 /* HorizontalEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE42192334047900295277 /* HorizontalEntityTests.swift */; };
+		E5CE421C2334049200295277 /* PaddingEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE421B2334049200295277 /* PaddingEntityTests.swift */; };
+		E5CE421E233404A200295277 /* SpacerEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE421D233404A200295277 /* SpacerEntityTests.swift */; };
+		E5CE4220233404B800295277 /* StackEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE421F233404B800295277 /* StackEntityTests.swift */; };
+		E5CE4222233404C700295277 /* VerticalEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE4221233404C700295277 /* VerticalEntityTests.swift */; };
+		E5CE4225233408DF00295277 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE4224233408DF00295277 /* StringExtensionTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +140,13 @@
 		E5CE42102334007D00295277 /* TextEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEntityTests.swift; sourceTree = "<group>"; };
 		E5CE42122334009F00295277 /* TextFieldEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldEntityTests.swift; sourceTree = "<group>"; };
 		E5CE4214233400B100295277 /* ToolBarEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBarEntityTests.swift; sourceTree = "<group>"; };
+		E5CE4217233403E000295277 /* ContainerEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerEntityTests.swift; sourceTree = "<group>"; };
+		E5CE42192334047900295277 /* HorizontalEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalEntityTests.swift; sourceTree = "<group>"; };
+		E5CE421B2334049200295277 /* PaddingEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingEntityTests.swift; sourceTree = "<group>"; };
+		E5CE421D233404A200295277 /* SpacerEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacerEntityTests.swift; sourceTree = "<group>"; };
+		E5CE421F233404B800295277 /* StackEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackEntityTests.swift; sourceTree = "<group>"; };
+		E5CE4221233404C700295277 /* VerticalEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalEntityTests.swift; sourceTree = "<group>"; };
+		E5CE4224233408DF00295277 /* StringExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -333,6 +347,7 @@
 		E5CE41F22332B9C000295277 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				E5CE4223233408D000295277 /* Extensions */,
 				E5CE41F42332B9D200295277 /* Decoder */,
 				E5CE41FC2333FBDE00295277 /* Entities */,
 			);
@@ -350,6 +365,7 @@
 		E5CE41FC2333FBDE00295277 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				E5CE4216233403C400295277 /* Layout */,
 				E5CE41FD2333FBEF00295277 /* UI */,
 			);
 			path = Entities;
@@ -369,6 +385,27 @@
 				E5CE4214233400B100295277 /* ToolBarEntityTests.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		E5CE4216233403C400295277 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				E5CE4217233403E000295277 /* ContainerEntityTests.swift */,
+				E5CE42192334047900295277 /* HorizontalEntityTests.swift */,
+				E5CE421B2334049200295277 /* PaddingEntityTests.swift */,
+				E5CE421D233404A200295277 /* SpacerEntityTests.swift */,
+				E5CE421F233404B800295277 /* StackEntityTests.swift */,
+				E5CE4221233404C700295277 /* VerticalEntityTests.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
+		E5CE4223233408D000295277 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E5CE4224233408DF00295277 /* StringExtensionTests.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -552,15 +589,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5CE421A2334047900295277 /* HorizontalEntityTests.swift in Sources */,
 				E5CE42092334003200295277 /* ImageEntityTests.swift in Sources */,
+				E5CE4218233403E000295277 /* ContainerEntityTests.swift in Sources */,
+				E5CE421C2334049200295277 /* PaddingEntityTests.swift in Sources */,
+				E5CE421E233404A200295277 /* SpacerEntityTests.swift in Sources */,
+				E5CE4220233404B800295277 /* StackEntityTests.swift in Sources */,
 				E5CE42012333FC1F00295277 /* ButtonEntityTests.swift in Sources */,
 				E5CE4215233400B100295277 /* ToolBarEntityTests.swift in Sources */,
+				E5CE4225233408DF00295277 /* StringExtensionTests.swift in Sources */,
 				E5CE420B2334004400295277 /* ListViewEntityTests.swift in Sources */,
 				E5CE41F62332B9DD00295277 /* WidgetDecoderTests.swift in Sources */,
 				E5CE42132334009F00295277 /* TextFieldEntityTests.swift in Sources */,
 				E5CE420F2334006B00295277 /* StyledWidgetEntityTests.swift in Sources */,
 				E5CE42112334007D00295277 /* TextEntityTests.swift in Sources */,
 				E5CE42032333FC8200295277 /* DropDownEntityTests.swift in Sources */,
+				E5CE4222233404C700295277 /* VerticalEntityTests.swift in Sources */,
 				E5CE420D2334005A00295277 /* SelectViewEntityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

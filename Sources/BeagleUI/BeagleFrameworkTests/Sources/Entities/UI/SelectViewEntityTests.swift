@@ -13,7 +13,9 @@ final class SelectViewEntityTests: XCTestCase {
 
     func test_whenMapToWidgetIsCalled_thenItShouldReturnASelectView() {
         // Given
-        let sut = SelectViewEntity(rows: nil, remoteDataSource: nil, loadingState: nil)
+        let textEntity = TextEntity(text: "text")
+        let rows = [WidgetEntityContainer(type: "Text", content: textEntity)]
+        let sut = SelectViewEntity(rows: rows, remoteDataSource: nil, loadingState: nil)
         
         // When
         let selectView = try? sut.mapToWidget()
