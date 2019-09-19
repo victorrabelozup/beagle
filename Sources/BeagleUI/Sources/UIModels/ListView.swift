@@ -7,10 +7,23 @@
 //
 
 public struct ListView: Widget {
+    
     let rows: [Widget]?
     let remoteDataSource: String?
     let loadingState: Widget?
-    let direction: ListDirection = .vertical
+    let direction: ListDirection
+    
+    init(
+        rows: [Widget]? = nil,
+        remoteDataSource: String? = nil,
+        loadingState: Widget? = nil,
+        direction: ListDirection = .vertical
+    ) {
+        self.rows = rows
+        self.remoteDataSource = remoteDataSource
+        self.loadingState = loadingState
+        self.direction = direction
+    }
 }
 
 public enum ListDirection {

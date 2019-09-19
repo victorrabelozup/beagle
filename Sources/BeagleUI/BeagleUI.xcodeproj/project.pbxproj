@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		932925D92327E11000A61F01 /* BeagleUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 932925CF2327E11000A61F01 /* BeagleUI.framework */; };
 		932925E02327E11000A61F01 /* BeagleUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 932925D22327E11000A61F01 /* BeagleUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		936817FD232A882D00E6E724 /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936817FC232A882D00E6E724 /* Widget.swift */; };
 		936817FF232A883E00E6E724 /* Flex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936817FE232A883E00E6E724 /* Flex.swift */; };
@@ -34,7 +33,6 @@
 		E5CE41A72331D93F00295277 /* ContainerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A62331D93F00295277 /* ContainerEntity.swift */; };
 		E5CE41A92331D95300295277 /* VerticalEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A82331D95300295277 /* VerticalEntity.swift */; };
 		E5CE41AE2331D9A700295277 /* TextEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41AD2331D9A700295277 /* TextEntity.swift */; };
-		E5CE41B72331DCEB00295277 /* WidgetDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41B62331DCEB00295277 /* WidgetDecoderTests.swift */; };
 		E5CE41BB2331DFF100295277 /* WidgetConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41BA2331DFF100295277 /* WidgetConvertible.swift */; };
 		E5CE41C02332586F00295277 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41BF2332586F00295277 /* StringExtension.swift */; };
 		E5CE41C223325E2100295277 /* FlexEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41C123325E2100295277 /* FlexEntity.swift */; };
@@ -52,10 +50,12 @@
 		E5CE41DE233276CC00295277 /* TextFieldEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41DD233276CC00295277 /* TextFieldEntity.swift */; };
 		E5CE41E023329F0500295277 /* ToolBarEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41DF23329F0500295277 /* ToolBarEntity.swift */; };
 		E5CE41E22332A85600295277 /* WidgetEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41E12332A85600295277 /* WidgetEntity.swift */; };
+		E5CE41EC2332B9B600295277 /* BeagleUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 932925CF2327E11000A61F01 /* BeagleUI.framework */; };
+		E5CE41F62332B9DD00295277 /* WidgetDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41F52332B9DD00295277 /* WidgetDecoderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		932925DA2327E11000A61F01 /* PBXContainerItemProxy */ = {
+		E5CE41ED2332B9B600295277 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 932925C62327E11000A61F01 /* Project object */;
 			proxyType = 1;
@@ -68,8 +68,6 @@
 		932925CF2327E11000A61F01 /* BeagleUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BeagleUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		932925D22327E11000A61F01 /* BeagleUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BeagleUI.h; sourceTree = "<group>"; };
 		932925D32327E11000A61F01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		932925D82327E11000A61F01 /* BeagleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeagleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		932925DF2327E11000A61F01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		936817FC232A882D00E6E724 /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
 		936817FE232A883E00E6E724 /* Flex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flex.swift; sourceTree = "<group>"; };
 		93681800232A884600E6E724 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
@@ -95,8 +93,6 @@
 		E5CE41A62331D93F00295277 /* ContainerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerEntity.swift; sourceTree = "<group>"; };
 		E5CE41A82331D95300295277 /* VerticalEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalEntity.swift; sourceTree = "<group>"; };
 		E5CE41AD2331D9A700295277 /* TextEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEntity.swift; sourceTree = "<group>"; };
-		E5CE41B52331DCEB00295277 /* BeagleUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BeagleUITests-Bridging-Header.h"; sourceTree = "<group>"; };
-		E5CE41B62331DCEB00295277 /* WidgetDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDecoderTests.swift; sourceTree = "<group>"; };
 		E5CE41BA2331DFF100295277 /* WidgetConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetConvertible.swift; sourceTree = "<group>"; };
 		E5CE41BF2332586F00295277 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		E5CE41C123325E2100295277 /* FlexEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexEntity.swift; sourceTree = "<group>"; };
@@ -114,6 +110,9 @@
 		E5CE41DD233276CC00295277 /* TextFieldEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldEntity.swift; sourceTree = "<group>"; };
 		E5CE41DF23329F0500295277 /* ToolBarEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBarEntity.swift; sourceTree = "<group>"; };
 		E5CE41E12332A85600295277 /* WidgetEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntity.swift; sourceTree = "<group>"; };
+		E5CE41E72332B9B600295277 /* BeagleFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeagleFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5CE41EB2332B9B600295277 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E5CE41F52332B9DD00295277 /* WidgetDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDecoderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,11 +124,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		932925D52327E11000A61F01 /* Frameworks */ = {
+		E5CE41E42332B9B600295277 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				932925D92327E11000A61F01 /* BeagleUI.framework in Frameworks */,
+				E5CE41EC2332B9B600295277 /* BeagleUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,7 +140,7 @@
 			children = (
 				939CE4C4232996FD00EEEDFC /* Sources */,
 				932925D12327E11000A61F01 /* Resources */,
-				932925DC2327E11000A61F01 /* BeagleUITests */,
+				E5CE41E82332B9B600295277 /* BeagleFrameworkTests */,
 				932925D02327E11000A61F01 /* Products */,
 				E53524A923310F5A00D1A0C9 /* Frameworks */,
 			);
@@ -151,7 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				932925CF2327E11000A61F01 /* BeagleUI.framework */,
-				932925D82327E11000A61F01 /* BeagleUITests.xctest */,
+				E5CE41E72332B9B600295277 /* BeagleFrameworkTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -163,16 +162,6 @@
 				932925D32327E11000A61F01 /* Info.plist */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		932925DC2327E11000A61F01 /* BeagleUITests */ = {
-			isa = PBXGroup;
-			children = (
-				E5CE41B12331DC9400295277 /* Sources */,
-				E5CE41B82331DCFA00295277 /* Resources */,
-				932925DF2327E11000A61F01 /* Info.plist */,
-			);
-			path = BeagleUITests;
 			sourceTree = "<group>";
 		};
 		936817F9232A880700E6E724 /* Core */ = {
@@ -295,30 +284,6 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		E5CE41B12331DC9400295277 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				E5CE41B22331DC9E00295277 /* Decoder */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
-		E5CE41B22331DC9E00295277 /* Decoder */ = {
-			isa = PBXGroup;
-			children = (
-				E5CE41B62331DCEB00295277 /* WidgetDecoderTests.swift */,
-			);
-			path = Decoder;
-			sourceTree = "<group>";
-		};
-		E5CE41B82331DCFA00295277 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				E5CE41B52331DCEB00295277 /* BeagleUITests-Bridging-Header.h */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		E5CE41B92331DFE000295277 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -333,6 +298,31 @@
 				E5CE41BF2332586F00295277 /* StringExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E5CE41E82332B9B600295277 /* BeagleFrameworkTests */ = {
+			isa = PBXGroup;
+			children = (
+				E5CE41F22332B9C000295277 /* Sources */,
+				E5CE41EB2332B9B600295277 /* Info.plist */,
+			);
+			path = BeagleFrameworkTests;
+			sourceTree = "<group>";
+		};
+		E5CE41F22332B9C000295277 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				E5CE41F42332B9D200295277 /* Decoder */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		E5CE41F42332B9D200295277 /* Decoder */ = {
+			isa = PBXGroup;
+			children = (
+				E5CE41F52332B9DD00295277 /* WidgetDecoderTests.swift */,
+			);
+			path = Decoder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -368,22 +358,22 @@
 			productReference = 932925CF2327E11000A61F01 /* BeagleUI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		932925D72327E11000A61F01 /* BeagleUITests */ = {
+		E5CE41E62332B9B600295277 /* BeagleFrameworkTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 932925E62327E11000A61F01 /* Build configuration list for PBXNativeTarget "BeagleUITests" */;
+			buildConfigurationList = E5CE41EF2332B9B600295277 /* Build configuration list for PBXNativeTarget "BeagleFrameworkTests" */;
 			buildPhases = (
-				932925D42327E11000A61F01 /* Sources */,
-				932925D52327E11000A61F01 /* Frameworks */,
-				932925D62327E11000A61F01 /* Resources */,
+				E5CE41E32332B9B600295277 /* Sources */,
+				E5CE41E42332B9B600295277 /* Frameworks */,
+				E5CE41E52332B9B600295277 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				932925DB2327E11000A61F01 /* PBXTargetDependency */,
+				E5CE41EE2332B9B600295277 /* PBXTargetDependency */,
 			);
-			name = BeagleUITests;
-			productName = BeagleUITests;
-			productReference = 932925D82327E11000A61F01 /* BeagleUITests.xctest */;
+			name = BeagleFrameworkTests;
+			productName = BeagleFrameworkTests;
+			productReference = E5CE41E72332B9B600295277 /* BeagleFrameworkTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -392,7 +382,7 @@
 		932925C62327E11000A61F01 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
+				LastSwiftUpdateCheck = 1030;
 				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Daniel Tes";
 				TargetAttributes = {
@@ -400,9 +390,8 @@
 						CreatedOnToolsVersion = 11.0;
 						LastSwiftMigration = 1030;
 					};
-					932925D72327E11000A61F01 = {
-						CreatedOnToolsVersion = 11.0;
-						LastSwiftMigration = 1030;
+					E5CE41E62332B9B600295277 = {
+						CreatedOnToolsVersion = 10.3;
 					};
 				};
 			};
@@ -420,7 +409,7 @@
 			projectRoot = "";
 			targets = (
 				932925CE2327E11000A61F01 /* BeagleUI */,
-				932925D72327E11000A61F01 /* BeagleUITests */,
+				E5CE41E62332B9B600295277 /* BeagleFrameworkTests */,
 			);
 		};
 /* End PBXProject section */
@@ -433,7 +422,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		932925D62327E11000A61F01 /* Resources */ = {
+		E5CE41E52332B9B600295277 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -512,21 +501,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		932925D42327E11000A61F01 /* Sources */ = {
+		E5CE41E32332B9B600295277 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5CE41B72331DCEB00295277 /* WidgetDecoderTests.swift in Sources */,
+				E5CE41F62332B9DD00295277 /* WidgetDecoderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		932925DB2327E11000A61F01 /* PBXTargetDependency */ = {
+		E5CE41EE2332B9B600295277 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 932925CE2327E11000A61F01 /* BeagleUI */;
-			targetProxy = 932925DA2327E11000A61F01 /* PBXContainerItemProxy */;
+			targetProxy = E5CE41ED2332B9B600295277 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -708,44 +697,41 @@
 			};
 			name = Release;
 		};
-		932925E72327E11000A61F01 /* Debug */ = {
+		E5CE41F02332B9B600295277 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = R87629W9A8;
-				INFOPLIST_FILE = BeagleUITests/Info.plist;
+				DEVELOPMENT_TEAM = YKYJK8YBGT;
+				INFOPLIST_FILE = BeagleFrameworkTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dantes.BeagleUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.zup.BeagleFrameworkTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "BeagleUITests/Sources/Decoder/BeagleUITests-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		932925E82327E11000A61F01 /* Release */ = {
+		E5CE41F12332B9B600295277 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = R87629W9A8;
-				INFOPLIST_FILE = BeagleUITests/Info.plist;
+				DEVELOPMENT_TEAM = YKYJK8YBGT;
+				INFOPLIST_FILE = BeagleFrameworkTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dantes.BeagleUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.zup.BeagleFrameworkTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "BeagleUITests/Sources/Decoder/BeagleUITests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -772,11 +758,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		932925E62327E11000A61F01 /* Build configuration list for PBXNativeTarget "BeagleUITests" */ = {
+		E5CE41EF2332B9B600295277 /* Build configuration list for PBXNativeTarget "BeagleFrameworkTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				932925E72327E11000A61F01 /* Debug */,
-				932925E82327E11000A61F01 /* Release */,
+				E5CE41F02332B9B600295277 /* Debug */,
+				E5CE41F12332B9B600295277 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

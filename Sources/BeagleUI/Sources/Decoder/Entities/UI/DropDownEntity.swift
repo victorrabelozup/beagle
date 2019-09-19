@@ -13,3 +13,20 @@ struct DropDownEntity: WidgetEntity {
     let header: WidgetEntityContainer
     let child: WidgetEntityContainer
 }
+extension DropDownEntity: WidgetConvertible {
+    func mapToWidget() throws -> Widget {
+        
+        guard let headerContent = header.content else {
+            throw WidgetConvertibleError.emptyContentForContainerOfType(header.type)
+        }
+        
+        guard let childContent = child.content else {
+            throw WidgetConvertibleError.emptyContentForContainerOfType(child.type)
+        }
+        
+        let header = try headerContent.mapToWidget()
+        let child = try childContent.mapToWidget()
+        
+        return DropDown(header: header, child: child)
+    }
+}

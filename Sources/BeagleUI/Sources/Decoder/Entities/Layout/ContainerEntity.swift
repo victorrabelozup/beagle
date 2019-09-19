@@ -48,7 +48,6 @@ struct ContainerEntity: WidgetEntity {//, WidgetConvertible {
     
 }
 
-
 //WidgetEntityContainer.register(WidgetEntityContainer.self, for: decodingKey(for: "container"))
 //WidgetEntityContainer.register(WidgetEntityContainer.self, for: decodingKey(for: "body"))
 //WidgetEntityContainer.register(WidgetEntityContainer.self, for: decodingKey(for: "footer"))

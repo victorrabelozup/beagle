@@ -12,3 +12,8 @@ import Foundation
 struct ButtonEntity: WidgetEntity {
     let text: String
 }
+extension ButtonEntity: WidgetConvertible {
+    func mapToWidget() throws -> Widget {
+        return Button(text: text)
+    }
+}

@@ -12,3 +12,8 @@ import Foundation
 struct ImageEntity: WidgetEntity {
     let path: String
 }
+extension ImageEntity: WidgetConvertible {
+    func mapToWidget() throws -> Widget {
+        return Image(path: path)
+    }
+}

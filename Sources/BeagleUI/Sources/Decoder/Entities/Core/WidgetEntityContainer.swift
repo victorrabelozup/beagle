@@ -11,10 +11,14 @@ import Foundation
 /// Defines a container to hold a WidgetEntity dynamic types
 struct WidgetEntityContainer: WidgetEntity {
     
+    // MARK: - Aliases
+    
+    typealias Content = WidgetEntity & WidgetConvertible
+    
     // MARK: - Properties
     
     let type: String
-    let content: WidgetEntity?
+    let content: Content?
     
     // MARK: - CodingKeys
     
@@ -30,7 +34,7 @@ struct WidgetEntityContainer: WidgetEntity {
         type = try container.decode(String.self, forKey: .type)
         if let decodeFunction = WidgetEntityContainer.decoders[type] {
             let rawContent = try decodeFunction(container)
-            content = rawContent as? WidgetEntity
+            content = rawContent as? Content
         } else {
             content = nil
         }

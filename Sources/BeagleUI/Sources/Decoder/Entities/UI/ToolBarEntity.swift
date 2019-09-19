@@ -13,3 +13,8 @@ struct ToolBarEntity: WidgetEntity {
     let title: String
     let showBackButton: Bool = true
 }
+extension ToolBarEntity: WidgetConvertible {
+    func mapToWidget() throws -> Widget {
+        return ToolBar(title: title, showBackButton: showBackButton)
+    }
+}

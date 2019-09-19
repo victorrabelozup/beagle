@@ -8,7 +8,22 @@
 
 import Foundation
 
+/// Serves as a gateway between APIEntities and UIModels
 protocol WidgetConvertible {
-    associatedtype WidgetType: Widget
-    func mapToWidget() -> WidgetType
+    func mapToWidget() throws -> Widget
+}
+
+/// Describes the possible errors when mapping to a UIModel (Widget)
+///
+/// - emptyContentForContainerOfType: some container has an empty content, when it shouldn't
+enum WidgetConvertibleError: Error {
+    
+    case emptyContentForContainerOfType(String)
+    
+    var localizedDescription: String {
+        switch self {
+        case let .emptyContentForContainerOfType(type):
+            return "Empty content for container of type = \(type)"
+        }
+    }
 }

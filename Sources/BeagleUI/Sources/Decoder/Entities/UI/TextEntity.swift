@@ -13,11 +13,7 @@ struct TextEntity: WidgetEntity, Codable {
     let text: String
 }
 extension TextEntity: WidgetConvertible {
-    
-    typealias WidgetType = Text
-    
-    func mapToWidget() -> Text {
+    func mapToWidget() throws -> Widget {
         return Text(text: text)
     }
-    
 }

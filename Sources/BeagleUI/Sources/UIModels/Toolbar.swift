@@ -7,6 +7,16 @@
 //
 
 public struct ToolBar: Widget {
+    
     let title: String
-    let showBackButton: Bool = true
+    let showBackButton: Bool
+    
+    init(
+        title: String,
+        showBackButton: Bool = true
+    ) {
+        self.title = title
+        self.showBackButton = showBackButton
+    }
+    
 }

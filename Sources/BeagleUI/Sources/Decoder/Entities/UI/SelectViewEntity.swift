@@ -14,3 +14,10 @@ struct SelectViewEntity: WidgetEntity {
     let remoteDataSource: String?
     let loadingState: WidgetEntityContainer?
 }
+extension SelectViewEntity: WidgetConvertible {
+    func mapToWidget() throws -> Widget {
+        let rows = self.rows?.compactMap { try? $0.content?.mapToWidget() }
+        let loadingState = try? self.loadingState?.content?.mapToWidget()
+        return SelectView(rows: rows, remoteDataSource: remoteDataSource, loadingState: loadingState)
+    }
+}

@@ -13,3 +13,8 @@ struct TextFieldEntity: WidgetEntity {
     let hint: String?
     let value: String?
 }
+extension TextFieldEntity: WidgetConvertible {
+    func mapToWidget() throws -> Widget {
+        return TextField(hint: hint, value: value)
+    }
+}

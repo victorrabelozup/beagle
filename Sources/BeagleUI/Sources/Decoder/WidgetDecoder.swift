@@ -23,17 +23,29 @@ protocol WidgetDecoding {
     /// - Parameter data: a data object
     /// - Returns: the widget entity refering the type
     /// - Throws: a decoding error, as in JSONDecoder
-    func decode<T: WidgetEntity>(from data: Data) throws -> T
+    func decode(from data: Data) throws -> WidgetEntity?
     
-    /// Decodes a value, from some data, also enabling it's transformation to some type
-    /// that conforms with `WidgetEntity`
+    /// Decodes a container content to a given type
+    ///
+    /// - Parameters:
+    ///   - type: the expected type
+    ///   - data: the dat to decode
+    /// - Returns: the widget entity refering the type
+    /// - Throws: a decoding error, as in JSONDecoder
+    func decodeContent<T: WidgetEntity>(ofType type: T.Type, from data: Data) throws -> T?
+    
+    /// Decodes a value, from some data, also enabling it's transformation to some 
     ///
     /// - Parameters:
     ///   - data: a data object from the API
     ///   - transformer: a value transformer
     /// - Returns: the transformed value
     /// - Throws: a decoding error, as in JSONDecoder
-    func decode<T: WidgetEntity>(from data: Data, transformer: (WidgetEntity) throws -> T?) throws -> T?
+    func decode<T>(from data: Data, transformer: (WidgetEntity) throws -> T?) throws -> T?
+}
+
+public enum WidgetDecodingError: Error {
+    case couldNotDecodeValueFromData
 }
 
 public final class WidgetDecoder: WidgetDecoding {
@@ -63,7 +75,6 @@ public final class WidgetDecoder: WidgetDecoding {
         WidgetEntityContainer.register(type, for: decodingKey)
     }
     
-    
     /// Decodes some date to a WidgetEntityContainer
     ///
     /// - Parameter data: a data object from the API
@@ -76,10 +87,26 @@ public final class WidgetDecoder: WidgetDecoding {
     /// Decodes a type from a data object, needs to be casted to the root type.
     ///
     /// - Parameter data: a data object from the API
+    /// - Returns: the widget entity
+    /// - Throws: a decoding error, as in JSONDecoder
+    func decode(from data: Data) throws -> WidgetEntity? {
+        return try jsonDecoder.decode(WidgetEntityContainer.self, from: data).content
+    }
+    
+    /// Decodes a container content to a given type
+    ///
+    /// - Parameters:
+    ///   - type: the expected type
+    ///   - data: the dat to decode
     /// - Returns: the widget entity refering the type
     /// - Throws: a decoding error, as in JSONDecoder
-    func decode<T: WidgetEntity>(from data: Data) throws -> T {
-        return try jsonDecoder.decode(T.self, from: data)
+    func decodeContent<T: WidgetEntity>(ofType type: T.Type, from data: Data) throws -> T? {
+        do {
+            let widget = try jsonDecoder.decode(WidgetEntityContainer.self, from: data)
+            return widget.content as? T
+        } catch {
+            throw error
+        }
     }
     
     /// Decodes a value, from some data, also enabling it's transformation to some type
@@ -90,9 +117,11 @@ public final class WidgetDecoder: WidgetDecoding {
     ///   - transformer: a value transformer
     /// - Returns: the transformed value
     /// - Throws: a decoding error, as in JSONDecoder
-    func decode<T: WidgetEntity>(from data: Data, transformer: (WidgetEntity) throws -> T?) throws -> T? {
+    func decode<T>(from data: Data, transformer: (WidgetEntity) throws -> T?) throws -> T? {
         do {
-            let value = try jsonDecoder.decode(T.self, from: data)
+            guard let value = try? decode(from: data) else {
+                throw WidgetDecodingError.couldNotDecodeValueFromData
+            }
             return try transformer(value)
         } catch {
             throw error
@@ -106,14 +135,17 @@ public final class WidgetDecoder: WidgetDecoding {
         return prefix + typeName.capitalizingFirstLetter()
     }
     
+    // MARK: - Types Registration
+    
     private static func registerDefaultTypes() {
         registerCoreTypes()
-        WidgetEntityContainer.register(TextEntity.self, for: decodingKey(for: "text"))
+        registerLayoutTypes()
+        registerUITypes()
     }
     
-    // MARK: - Core Types Registration
     private static func registerCoreTypes() {
         registerContainerSubTypes()
+        WidgetEntityContainer.register(FlexEntity.self, for: decodingKey(for: "flex"))
     }
     
     private static func registerContainerSubTypes() {
@@ -124,8 +156,24 @@ public final class WidgetDecoder: WidgetDecoding {
         WidgetEntityContainer.register(WidgetEntityContainer.self, for: decodingKey(for: "children"))
     }
     
-    private static func registerFlexTypes() {
-        WidgetEntityContainer.register(FlexEntity.self, for: decodingKey(for: "container"))
+    private static func registerLayoutTypes() {
+        WidgetEntityContainer.register(HorizontalEntity.self, for: decodingKey(for: "horizontal"))
+        WidgetEntityContainer.register(PaddingEntity.self, for: decodingKey(for: "padding"))
+        WidgetEntityContainer.register(SpacerEntity.self, for: decodingKey(for: "spacer"))
+        WidgetEntityContainer.register(StackEntity.self, for: decodingKey(for: "stack"))
+        WidgetEntityContainer.register(VerticalEntity.self, for: decodingKey(for: "vertical"))
+    }
+    
+    private static func registerUITypes() {
+        WidgetEntityContainer.register(ButtonEntity.self, for: decodingKey(for: "button"))
+        WidgetEntityContainer.register(DropDownEntity.self, for: decodingKey(for: "dropdown"))
+        WidgetEntityContainer.register(ImageEntity.self, for: decodingKey(for: "image"))
+        WidgetEntityContainer.register(ListViewEntity.self, for: decodingKey(for: "listview"))
+        WidgetEntityContainer.register(SelectViewEntity.self, for: decodingKey(for: "selectview"))
+        WidgetEntityContainer.register(StyledWidgetEntity.self, for: decodingKey(for: "styledwidget"))
+        WidgetEntityContainer.register(TextEntity.self, for: decodingKey(for: "text"))
+        WidgetEntityContainer.register(TextFieldEntity.self, for: decodingKey(for: "textfield"))
+        WidgetEntityContainer.register(ToolBarEntity.self, for: decodingKey(for: "toolbar"))
     }
     
 }
