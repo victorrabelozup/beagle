@@ -206,8 +206,14 @@ final class WidgetDecoderTests: XCTestCase {
 }
 
 // MARK: - Testing Helpers
-private struct NewWidgetEntity: WidgetEntity {
+private struct NewWidgetEntity: WidgetEntity, WidgetConvertible {
+    
     let something: String
+    
+    func mapToWidget() throws -> Widget {
+        return Text(text: something)
+    }
+    
 }
 
 private struct UnknownWidgetEntity: WidgetEntity {

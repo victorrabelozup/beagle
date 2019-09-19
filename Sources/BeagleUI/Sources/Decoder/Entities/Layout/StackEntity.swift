@@ -13,3 +13,17 @@ struct StackEntity: WidgetEntity {
     let children: [WidgetEntityContainer]
     let flex: FlexEntity?
 }
+extension StackEntity: WidgetConvertible, ChildWidgetMapping {
+    
+    func mapToWidget() throws -> Widget {
+        
+        let children = try mapChildren()
+        
+        return Stack(
+            children: children,
+            flex: nil // TODO: DEAL WITH FLEX LATER
+        )
+        
+    }
+    
+}

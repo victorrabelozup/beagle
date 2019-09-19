@@ -7,7 +7,19 @@
 //
 
 public struct Vertical: Widget {
+    
     let children: [Widget]
     let flex: Flex?
-    let reversed: Bool?
+    let reversed: Bool
+    
+    init(
+        children: [Widget],
+        flex: Flex? = nil,
+        reversed: Bool = false
+    ) {
+        self.children = children
+        self.flex = flex
+        self.reversed = reversed
+    }
+    
 }

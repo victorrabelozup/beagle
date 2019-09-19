@@ -12,5 +12,20 @@ import Foundation
 struct VerticalEntity: WidgetEntity {
     let children: [WidgetEntityContainer]
     let flex: FlexEntity?
-    let reversed: Bool?
+    let reversed: Bool = false
+}
+extension VerticalEntity: WidgetConvertible, ChildWidgetMapping {
+
+    func mapToWidget() throws -> Widget {
+
+        let children = try mapChildren()
+
+        return Vertical(
+            children: children,
+            flex: nil, // TODO: DEAL WITH FLEX LATER
+            reversed: reversed
+        )
+        
+    }
+
 }
