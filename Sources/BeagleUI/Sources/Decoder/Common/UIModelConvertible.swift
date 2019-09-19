@@ -42,6 +42,12 @@ extension UIEnumModelConvertible {
 
 /// Markup to define that this type can be converted to a UIModel
 protocol UIModelConvertible {
+    
     associatedtype UIModelType
+    
+    /// Maps something to a UIModel
+    ///
+    /// - Returns: an UIModel
+    /// - Throws: a UIModelParsing error
     func mapToUIModel() throws -> UIModelType
 }

@@ -17,10 +17,10 @@ final class UnitValueEntityTests: XCTestCase {
         let sut = UnitValueEntity(value: 1.0, type: .real)
         
         // When
-        let uiModel = sut.mapToUIModel()
+        let uiModel = try? sut.mapToUIModel()
         
         // Then
-        XCTAssertEqual(uiModel, expectedUIModel, "Expected \(expectedUIModel), but got \(uiModel)")
+        XCTAssertEqual(uiModel, expectedUIModel, "Expected \(expectedUIModel), but got \(uiModel.debugDescription)")
     }
     
     func test_whenMapToUIModelIsCalledForPercent_thenItShouldReturnAValidUnitValue() {
@@ -29,10 +29,10 @@ final class UnitValueEntityTests: XCTestCase {
         let sut = UnitValueEntity(value: 1.0, type: .percent)
         
         // When
-        let uiModel = sut.mapToUIModel()
+        let uiModel = try? sut.mapToUIModel()
         
         // Then
-        XCTAssertEqual(uiModel, expectedUIModel, "Expected \(expectedUIModel), but got \(uiModel)")
+        XCTAssertEqual(uiModel, expectedUIModel, "Expected \(expectedUIModel), but got \(uiModel.debugDescription)")
     }
     
 }

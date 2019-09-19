@@ -13,18 +13,18 @@ struct UnitValueEntity: WidgetEntity {
     let value: Double
     let type: UnitTypeEntity
 }
-extension UnitValueEntity {//: UIModelConvertible {
+extension UnitValueEntity: UIModelConvertible {
     
 //    // MARK: - Aliases
 //    
-//    typealias UIModelType = UnitValue
+    typealias UIModelType = UnitValue
     
     // MARK: - Public Functions
     
     /// Converts the Entity to an UIModel
     ///
     /// - Returns: the respective UIModel
-    func mapToUIModel() -> UnitValue {
+    func mapToUIModel() throws -> UnitValue {
         let type = mapType()
         return UnitValue(value: value, type: type)
     }
