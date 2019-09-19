@@ -35,12 +35,10 @@ dependencies {
 
     implementation GeneralLibraries.koin
 
-    implementation LithoLibraries.core
-    implementation LithoLibraries.widget
-    kapt LithoLibraries.processor
-    implementation LithoLibraries.fresco
+    implementation GlideLibraries.glide
+    kapt GlideLibraries.glideCompiler
 
-    implementation GeneralLibraries.fresco
+    implementation project(Modules.yoga)
 
     implementation MoshiLibraries.moshi
     implementation MoshiLibraries.kotlin

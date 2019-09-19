@@ -32,8 +32,6 @@ dependencies {
 
     implementation GeneralLibraries.koin
 
-    implementation GeneralLibraries.fresco
-
     implementation GeneralLibraries.soLoader
 
     implementation project (Modules.beagleUi)

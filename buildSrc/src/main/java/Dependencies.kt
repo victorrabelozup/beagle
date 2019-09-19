@@ -5,6 +5,8 @@ object ApplicationId {
 object Modules {
     const val sample = ":sample"
     const val beagleUi = ":beagle-ui"
+    const val libfb = ":libfb"
+    const val yoga = ":yoga"
 }
 
 object Releases {
@@ -34,6 +36,10 @@ object Versions {
 
     const val soLoader = "0.5.1"
 
+    const val findsBug = "3.0.1"
+
+    const val glide = "4.9.0"
+
     const val junit = "4.12"
 
     const val androidxRunner = "1.2.0"
@@ -46,6 +52,11 @@ object GeneralNames {
     const val consumerProguard = "consumer-rules.pro"
 }
 
+object GlideLibraries {
+    const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
+    const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
+}
+
 object GeneralLibraries {
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
     const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinCoroutines}"
@@ -55,6 +66,8 @@ object GeneralLibraries {
     const val fresco = "com.facebook.fresco:fresco:${Versions.fresco}"
 
     const val soLoader = "com.facebook.soloader:soloader:${Versions.soLoader}"
+
+    const val findsBug = "com.google.code.findbugs:jsr305:${Versions.findsBug}"
 }
 
 object AndroidxLibraries {
