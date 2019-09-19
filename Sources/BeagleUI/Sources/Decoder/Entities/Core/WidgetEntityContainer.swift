@@ -8,6 +8,9 @@
 
 import Foundation
 
+/// Used as a markup interface for the API representation of Widgets
+public protocol WidgetEntity: Codable {}
+
 /// Defines a container to hold a WidgetEntity dynamic types
 struct WidgetEntityContainer: WidgetEntity {
     
