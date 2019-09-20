@@ -11,4 +11,19 @@ import XCTest
 
 final class StackEntityTests: XCTestCase {
 
+    func test_whenMapToWidgetIsCalled_thenItShouldReturnAStackWidget() {
+        // Given
+        let content = TextEntity(text: "text")
+        let children = [WidgetEntityContainer(type: "beagle:Text", content: content)]
+        let flex = FlexEntity.fixture()
+        let sut = StackEntity(children: children, flex: flex)
+        
+        // When
+        let stack = try? sut.mapToWidget()
+        
+        // Then
+        XCTAssertNotNil(stack, "The Stack widget should not be nil.")
+        XCTAssertTrue(stack is Stack)
+    }
+    
 }
