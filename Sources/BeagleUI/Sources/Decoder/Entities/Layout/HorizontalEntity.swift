@@ -12,7 +12,7 @@ import Foundation
 struct HorizontalEntity: WidgetEntity {
     let children: [WidgetEntityContainer]?
     let flex: FlexEntity?
-    let reversed: Bool = false
+    let reversed: Bool
 }
 extension HorizontalEntity: WidgetConvertible, ChildrenWidgetMapping {
     

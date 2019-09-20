@@ -26,22 +26,4 @@ final class VerticalEntityTests: XCTestCase {
         XCTAssertTrue(vertical is Vertical)
     }
     
-    func test_whenMapToWidgetIsCalledWithNoChildrens_thenItShouldReturnAVerticalWidget() {
-        // Given
-        let flex = FlexEntity.fixture()
-        let sut = VerticalEntity(children: [], flex: flex, reversed: false)
-        
-        // When
-        let vertical = try? sut.mapToWidget()
-        
-        // Then
-        XCTAssertNotNil(vertical, "The Vertical widget should not be nil.")
-        XCTAssertTrue(vertical is Vertical)
-        guard let verticalWidget = vertical as? Vertical else {
-            XCTFail("Could not convert Widget to Vertical.")
-            return
-        }
-        XCTAssertEqual(verticalWidget.children.count, 0, "Expected 0 childrens, but found \(verticalWidget.children.count)")
-    }
-    
 }
