@@ -10,14 +10,14 @@ import Foundation
 
 /// Defines an API representation for `Stack`
 struct StackEntity: WidgetEntity {
-    let children: [WidgetEntityContainer]
+    let children: [WidgetEntityContainer]?
     let flex: FlexEntity?
 }
 extension StackEntity: WidgetConvertible, ChildrenWidgetMapping {
     
     func mapToWidget() throws -> Widget {
         
-        let children = try mapChildren() ?? []
+        let children = try mapChildren()
         let flex = try self.flex?.mapToUIModel()
         
         return Stack(

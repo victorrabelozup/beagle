@@ -71,6 +71,7 @@
 		E5CE422E2334185300295277 /* UIModelConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE422D2334185300295277 /* UIModelConvertible.swift */; };
 		E5CE43182335052100295277 /* UIEnumModelConvertibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE43172335052100295277 /* UIEnumModelConvertibleTests.swift */; };
 		E5CE431C2335069200295277 /* FlexEntity+Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE431B2335069200295277 /* FlexEntity+Fixtures.swift */; };
+		E5CE431E2335402B00295277 /* ChildrenWidgetMappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9800D881233412540051B4F2 /* ChildrenWidgetMappingTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,7 @@
 		9368181C232A8DE100E6E724 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		9368181E232A8DEA00E6E724 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		93681820232A8E0C00E6E724 /* Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
+		9800D881233412540051B4F2 /* ChildrenWidgetMappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildrenWidgetMappingTests.swift; sourceTree = "<group>"; };
 		E53524AA23310F5A00D1A0C9 /* YogaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YogaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5CE41A22331D55000295277 /* WidgetDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDecoder.swift; sourceTree = "<group>"; };
 		E5CE41A42331D59E00295277 /* WidgetEntityContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntityContainer.swift; sourceTree = "<group>"; };
@@ -426,6 +428,7 @@
 		E5CE43122334FBA300295277 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9800D881233412540051B4F2 /* ChildrenWidgetMappingTests.swift */,
 				E5CE43172335052100295277 /* UIEnumModelConvertibleTests.swift */,
 			);
 			path = Common;
@@ -624,6 +627,7 @@
 				E5CE421A2334047900295277 /* HorizontalEntityTests.swift in Sources */,
 				E5CE42092334003200295277 /* ImageEntityTests.swift in Sources */,
 				E5CE4218233403E000295277 /* ContainerEntityTests.swift in Sources */,
+				E5CE431E2335402B00295277 /* ChildrenWidgetMappingTests.swift in Sources */,
 				E5CE421C2334049200295277 /* PaddingEntityTests.swift in Sources */,
 				E5CE421E233404A200295277 /* SpacerEntityTests.swift in Sources */,
 				E5CE4220233404B800295277 /* StackEntityTests.swift in Sources */,
