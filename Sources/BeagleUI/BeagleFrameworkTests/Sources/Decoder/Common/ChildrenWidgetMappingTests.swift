@@ -9,9 +9,9 @@
 import XCTest
 @testable import BeagleUI
 
-class ChildrenWidgetMappingTests: XCTestCase {
+final class ChildrenWidgetMappingTests: XCTestCase {
 
-    private lazy var sut = WidgetDecoder()
+    private lazy var widgetDecoder = WidgetDecoder()
 
     func test_whenMapChildrenFunctionIsCalled_thenItDoesntFindAnyChildrenForType() {
         // Given
@@ -116,7 +116,7 @@ private extension ChildrenWidgetMappingTests {
             return nil
         }
         let transformer: (WidgetEntity) -> StackEntity? = { $0 as? StackEntity }
-        guard let value = try? sut.decode(from: jsonData, transformer: transformer) else {
+        guard let value = try? widgetDecoder.decode(from: jsonData, transformer: transformer) else {
             XCTFail("Could not decode test data.")
             return nil
         }

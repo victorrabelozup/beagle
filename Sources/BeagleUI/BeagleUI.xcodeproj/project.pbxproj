@@ -71,6 +71,7 @@
 		E5CE422E2334185300295277 /* UIModelConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE422D2334185300295277 /* UIModelConvertible.swift */; };
 		E5CE43182335052100295277 /* UIEnumModelConvertibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE43172335052100295277 /* UIEnumModelConvertibleTests.swift */; };
 		E5CE431C2335069200295277 /* FlexEntity+Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE431B2335069200295277 /* FlexEntity+Fixtures.swift */; };
+		E5CE431E2335402B00295277 /* ChildrenWidgetMappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9800D881233412540051B4F2 /* ChildrenWidgetMappingTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -626,6 +627,7 @@
 				E5CE421A2334047900295277 /* HorizontalEntityTests.swift in Sources */,
 				E5CE42092334003200295277 /* ImageEntityTests.swift in Sources */,
 				E5CE4218233403E000295277 /* ContainerEntityTests.swift in Sources */,
+				E5CE431E2335402B00295277 /* ChildrenWidgetMappingTests.swift in Sources */,
 				E5CE421C2334049200295277 /* PaddingEntityTests.swift in Sources */,
 				E5CE421E233404A200295277 /* SpacerEntityTests.swift in Sources */,
 				E5CE4220233404B800295277 /* StackEntityTests.swift in Sources */,
@@ -642,7 +644,6 @@
 				E5CE42032333FC8200295277 /* DropDownEntityTests.swift in Sources */,
 				E5CE4222233404C700295277 /* VerticalEntityTests.swift in Sources */,
 				E5CE420D2334005A00295277 /* SelectViewEntityTests.swift in Sources */,
-				9800D882233412540051B4F2 /* ChildrenWidgetMappingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
