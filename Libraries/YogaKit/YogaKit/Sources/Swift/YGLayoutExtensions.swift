@@ -5,8 +5,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import UIKit
-
 postfix operator %
 
 extension Int {
@@ -27,19 +25,19 @@ extension CGFloat {
     }
 }
 
-extension YGValue: ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
+extension YGValue : ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
     public init(integerLiteral value: Int) {
         self = YGValue(value: Float(value), unit: .point)
     }
-
+	
     public init(floatLiteral value: Float) {
         self = YGValue(value: value, unit: .point)
     }
-
+  
     public init(_ value: Float) {
         self = YGValue(value: value, unit: .point)
     }
-
+  
     public init(_ value: CGFloat) {
         self = YGValue(value: Float(value), unit: .point)
     }
