@@ -15,7 +15,7 @@ protocol ChildrenWidgetMapping {
     ///
     /// - Returns: a the child property as a Widget
     /// - Throws: a WidgetConvertibleError when present
-    func mapChildren() throws -> [Widget]?
+    func mapChildren() throws -> [Widget]
 }
 extension ChildrenWidgetMapping {
     
@@ -23,16 +23,12 @@ extension ChildrenWidgetMapping {
     ///
     /// - Returns: a the child property as a Widget
     /// - Throws: a WidgetConvertibleError when present
-    func mapChildren() throws -> [Widget]? {
+    func mapChildren() throws -> [Widget] {
         
         let mirror = Mirror(reflecting: self)
-        guard let childrenProperty = mirror.children.first(where: { $0.label == "children" })?.value as? [WidgetEntityContainer]? else {
+        guard let children = mirror.children.first(where: { $0.label == "children" })?.value as? [WidgetEntityContainer] else {
             let type = String(describing: self)
             throw WidgetConvertibleError.couldNotFindChildrenPropertyForType(type)
-        }
-        
-        guard let children = childrenProperty else {
-            return nil
         }
         
         var childWidgets = [Widget]()

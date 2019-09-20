@@ -10,7 +10,7 @@ import Foundation
 
 /// Defines an API representation for `Vertical`
 struct VerticalEntity: WidgetEntity {
-    let children: [WidgetEntityContainer]
+    let children: [WidgetEntityContainer]?
     let flex: FlexEntity?
     let reversed: Bool
 }
@@ -18,7 +18,7 @@ extension VerticalEntity: WidgetConvertible, ChildrenWidgetMapping {
 
     func mapToWidget() throws -> Widget {
 
-        let children = try mapChildren() ?? []
+        let children = try mapChildren()
         let flex = try self.flex?.mapToUIModel()
 
         return Vertical(
