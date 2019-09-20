@@ -17,11 +17,7 @@ extension StackEntity: WidgetConvertible, ChildrenWidgetMapping {
     
     func mapToWidget() throws -> Widget {
         
-        guard let children = try mapChildren() else {
-            let type = String(describing: StackEntity.self)
-            throw WidgetConvertibleError.couldNotFindChildrenPropertyForType(type)
-        }
-        
+        let children = try mapChildren() ?? []
         let flex = try self.flex?.mapToUIModel()
         
         return Stack(
