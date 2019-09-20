@@ -29,17 +29,12 @@ final class ContainerEntityTests: XCTestCase {
         // Given
         let containerMock = WidgetEntityContainer(type: "beagle:Text", content: nil)
         let sut = ContainerEntity(body: nil, content: containerMock, footer: nil)
-
-        // When
-        var mappingError: Error?
-        do {
-            _ = try sut.mapToWidget()
-        } catch {
-            mappingError = error
-        }
-
-        // Then
-        XCTAssertNotNil(mappingError, "Expected an error, but found nil.")
+        
+        // When / Then
+        XCTAssertThrowsError(
+            try sut.mapToWidget(),
+            "Expected to Throw an error, but it didn't."
+        )
     }
     
 }

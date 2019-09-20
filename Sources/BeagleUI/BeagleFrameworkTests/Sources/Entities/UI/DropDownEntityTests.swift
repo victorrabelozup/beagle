@@ -33,16 +33,11 @@ final class DropDownEntityTests: XCTestCase {
         let child = WidgetEntityContainer(type: "beagle:Text", content: content)
         let sut = DropDownEntity(header: header, child: child)
         
-        // When
-        var mappingError: Error?
-        do {
-            _ = try sut.mapToWidget()
-        } catch {
-            mappingError = error
-        }
-        
-        // Then
-        XCTAssertNotNil(mappingError, "Expected an error, but found nil.")
+        // When / Then
+        XCTAssertThrowsError(
+            try sut.mapToWidget(),
+            "Expected to Throw an error, but it didn't."
+        )
     }
     
     func test_whenMapToWidgetIsCalledWithInvalidChildContent_thenItShouldThrowAChildError() {
@@ -52,16 +47,11 @@ final class DropDownEntityTests: XCTestCase {
         let child = WidgetEntityContainer(type: "beagle:Text", content: nil)
         let sut = DropDownEntity(header: header, child: child)
         
-        // When
-        var mappingError: Error?
-        do {
-            _ = try sut.mapToWidget()
-        } catch {
-            mappingError = error
-        }
-        
-        // Then
-        XCTAssertNotNil(mappingError, "Expected an error, but found nil.")
+        // When / Then
+        XCTAssertThrowsError(
+            try sut.mapToWidget(),
+            "Expected to Throw an error, but it didn't."
+        )
     }
 
 }

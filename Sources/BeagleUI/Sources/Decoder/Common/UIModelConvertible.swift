@@ -11,13 +11,18 @@ import Foundation
 /// Defines UIModel conversion errors
 ///
 /// - invalidRawValueTypeForEnum: states that the UIModel Enum does not has a RawValue == String
+/// - invalidRawValueTypeForEnum: states that the Entity Enum does not has a RawValue == String
 enum UIModelConversionError: Error {
-    case invalidRawValueTypeForEnum(String)
+    
+    case couldNotInitializeEnumOfType(String)
+    case rawValueIsNotOfStringForType(String)
     
     var localizedDescription: String {
         switch self {
-        case let .invalidRawValueTypeForEnum(type):
-            return "The UIModel Enum does not has a RawValue == String on \(type). Check that."
+        case let .couldNotInitializeEnumOfType(type):
+            return "The UIModel could not be initialized for \(type), check it's entity cases."
+        case let .rawValueIsNotOfStringForType(type):
+            return "The Entity Enum does not has a RawValue == String on \(type). Check that."
         }
     }
 }
@@ -31,10 +36,13 @@ protocol UIEnumModelConvertible: RawRepresentable {
 }
 extension UIEnumModelConvertible {
     func mapToUIModel<T>(ofType: T.Type) throws -> T where T: StringRawRepresentable {
-        guard let rawValue = self.rawValue as? String,
-            let uiModel = T(rawValue: rawValue) else {
-                let type = String(describing: self)
-                throw UIModelConversionError.invalidRawValueTypeForEnum(type)
+        guard let rawValue = self.rawValue as? String else {
+            let type = String(describing: self)
+            throw UIModelConversionError.rawValueIsNotOfStringForType(type)
+        }
+        guard let uiModel = T(rawValue: rawValue) else {
+            let type = String(describing: T.self)
+            throw UIModelConversionError.couldNotInitializeEnumOfType(type)
         }
         return uiModel
     }

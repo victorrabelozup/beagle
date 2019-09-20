@@ -12,18 +12,14 @@ import Foundation
 struct VerticalEntity: WidgetEntity {
     let children: [WidgetEntityContainer]
     let flex: FlexEntity?
-    let reversed: Bool = false
+    let reversed: Bool
 }
 extension VerticalEntity: WidgetConvertible, ChildrenWidgetMapping {
 
     func mapToWidget() throws -> Widget {
 
-        guard let children = try mapChildren() else {
-            let type = String(describing: VerticalEntity.self)
-            throw WidgetConvertibleError.couldNotFindChildrenPropertyForType(type)
-        }
-        
-        let flex: Flex? = nil // TODO: DEAL WITH FLEX LATER
+        let children = try mapChildren() ?? []
+        let flex = try self.flex?.mapToUIModel()
 
         return Vertical(
             children: children,

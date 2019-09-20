@@ -32,16 +32,11 @@ final class PaddingEntityTests: XCTestCase {
         let child = WidgetEntityContainer(type: "beagle:Text", content: nil)
         let sut = PaddingEntity(value: value, child: child)
         
-        // When
-        var mappingError: Error?
-        do {
-            _ = try sut.mapToWidget()
-        } catch {
-            mappingError = error
-        }
-
-        // Then
-        XCTAssertNotNil(mappingError, "Expected an error, but found nil.")
+        // When / Then
+        XCTAssertThrowsError(
+            try sut.mapToWidget(),
+            "Expected to Throw an error, but it didn't."
+        )
     }
     
 }

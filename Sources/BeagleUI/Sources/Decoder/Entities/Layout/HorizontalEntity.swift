@@ -19,7 +19,7 @@ extension HorizontalEntity: WidgetConvertible, ChildrenWidgetMapping {
     func mapToWidget() throws -> Widget {
         
         let children: [Widget]? = try mapChildren()
-        let flex: Flex? = nil // TODO: DEAL WITH FLEX LATER
+        let flex = try self.flex?.mapToUIModel()
         
         return Horizontal(
             children: children,

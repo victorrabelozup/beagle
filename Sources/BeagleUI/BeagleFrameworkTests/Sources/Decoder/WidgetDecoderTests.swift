@@ -141,16 +141,11 @@ final class WidgetDecoderTests: XCTestCase {
             return
         }
         
-        // When
-        var decodeContentError: Error?
-        do {
-            _ = try sut.decodeContent(ofType: UnknownWidgetEntity.self, from: jsonData)
-        } catch {
-            decodeContentError = error
-        }
-        
-        // Then
-        XCTAssertNotNil(decodeContentError, "Expected a error, but found none.")
+        // When / Then
+        XCTAssertThrowsError(
+            try sut.decodeContent(ofType: UnknownWidgetEntity.self, from: jsonData),
+            "Expected to Throw an error, but it didn't."
+        )
     }
     
     func test_whenAplyingAValidTransformation_thenItShouldSucceed() {
@@ -190,17 +185,12 @@ final class WidgetDecoderTests: XCTestCase {
             return
         }
         
-        // When
-        var decodingError: Error?
+        // When / Then
         let transformer: (WidgetEntity) -> TextEntity? = { $0 as? TextEntity }
-        do {
-            _ = try sut.decode(from: jsonData, transformer: transformer)
-        } catch {
-            decodingError = error
-        }
-        
-        // Then
-        XCTAssertNotNil(decodingError, "Expected a error, but found nil.")
+        XCTAssertThrowsError(
+            try sut.decode(from: jsonData, transformer: transformer),
+            "Expected to Throw an error, but it didn't."
+        )
     }
     
 }

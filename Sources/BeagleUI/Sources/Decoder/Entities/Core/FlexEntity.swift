@@ -29,8 +29,8 @@ extension FlexEntity: UIModelConvertible {
         let flexWrap = try self.flexWrap.mapToUIModel(ofType: Flex.Wrap.self)
         let justifyContent = try self.justifyContent.mapToUIModel(ofType: Flex.JustifyContent.self)
         let alignItems = try self.alignItems.mapToUIModel(ofType: Flex.Alignment.self)
-        let alignSelf = try self.flexWrap.mapToUIModel(ofType: Flex.Alignment.self)
-        let alignContent = try self.flexWrap.mapToUIModel(ofType: Flex.Alignment.self)
+        let alignSelf = try self.alignSelf.mapToUIModel(ofType: Flex.Alignment.self)
+        let alignContent = try self.alignContent.mapToUIModel(ofType: Flex.Alignment.self)
         
         return Flex(
             flexWrap: flexWrap,

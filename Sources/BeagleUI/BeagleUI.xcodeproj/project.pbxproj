@@ -70,6 +70,8 @@
 		E5CE4225233408DF00295277 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE4224233408DF00295277 /* StringExtensionTests.swift */; };
 		E5CE422823340EA100295277 /* UnitValueEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE422723340EA100295277 /* UnitValueEntityTests.swift */; };
 		E5CE422E2334185300295277 /* UIModelConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE422D2334185300295277 /* UIModelConvertible.swift */; };
+		E5CE43182335052100295277 /* UIEnumModelConvertibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE43172335052100295277 /* UIEnumModelConvertibleTests.swift */; };
+		E5CE431C2335069200295277 /* FlexEntity+Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE431B2335069200295277 /* FlexEntity+Fixtures.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +151,8 @@
 		E5CE4224233408DF00295277 /* StringExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
 		E5CE422723340EA100295277 /* UnitValueEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitValueEntityTests.swift; sourceTree = "<group>"; };
 		E5CE422D2334185300295277 /* UIModelConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIModelConvertible.swift; sourceTree = "<group>"; };
+		E5CE43172335052100295277 /* UIEnumModelConvertibleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEnumModelConvertibleTests.swift; sourceTree = "<group>"; };
+		E5CE431B2335069200295277 /* FlexEntity+Fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlexEntity+Fixtures.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -340,6 +344,7 @@
 		E5CE41E82332B9B600295277 /* BeagleFrameworkTests */ = {
 			isa = PBXGroup;
 			children = (
+				E5CE431A2335068000295277 /* Resources */,
 				E5CE41F22332B9C000295277 /* Sources */,
 				E5CE41EB2332B9B600295277 /* Info.plist */,
 			);
@@ -359,6 +364,7 @@
 		E5CE41F42332B9D200295277 /* Decoder */ = {
 			isa = PBXGroup;
 			children = (
+				E5CE43122334FBA300295277 /* Common */,
 				E5CE41F52332B9DD00295277 /* WidgetDecoderTests.swift */,
 			);
 			path = Decoder;
@@ -417,6 +423,22 @@
 				E5CE422723340EA100295277 /* UnitValueEntityTests.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		E5CE43122334FBA300295277 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E5CE43172335052100295277 /* UIEnumModelConvertibleTests.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		E5CE431A2335068000295277 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E5CE431B2335069200295277 /* FlexEntity+Fixtures.swift */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -600,6 +622,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5CE43182335052100295277 /* UIEnumModelConvertibleTests.swift in Sources */,
 				E5CE421A2334047900295277 /* HorizontalEntityTests.swift in Sources */,
 				E5CE42092334003200295277 /* ImageEntityTests.swift in Sources */,
 				E5CE4218233403E000295277 /* ContainerEntityTests.swift in Sources */,
@@ -608,6 +631,7 @@
 				E5CE4220233404B800295277 /* StackEntityTests.swift in Sources */,
 				E5CE42012333FC1F00295277 /* ButtonEntityTests.swift in Sources */,
 				E5CE4215233400B100295277 /* ToolBarEntityTests.swift in Sources */,
+				E5CE431C2335069200295277 /* FlexEntity+Fixtures.swift in Sources */,
 				E5CE422823340EA100295277 /* UnitValueEntityTests.swift in Sources */,
 				E5CE4225233408DF00295277 /* StringExtensionTests.swift in Sources */,
 				E5CE420B2334004400295277 /* ListViewEntityTests.swift in Sources */,

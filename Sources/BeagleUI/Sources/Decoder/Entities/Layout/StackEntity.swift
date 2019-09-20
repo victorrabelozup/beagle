@@ -22,7 +22,7 @@ extension StackEntity: WidgetConvertible, ChildrenWidgetMapping {
             throw WidgetConvertibleError.couldNotFindChildrenPropertyForType(type)
         }
         
-        let flex: Flex? = nil // TODO: DEAL WITH FLEX LATER
+        let flex = try self.flex?.mapToUIModel()
         
         return Stack(
             children: children,
