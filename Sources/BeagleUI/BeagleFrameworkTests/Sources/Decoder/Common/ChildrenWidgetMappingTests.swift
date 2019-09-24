@@ -32,7 +32,7 @@ final class ChildrenWidgetMappingTests: XCTestCase {
         // When
         let children = try? stackWidgetMock.mapChildren()
         // Then
-        XCTAssertNil(children, "Expected nil for children content.")
+        XCTAssertNil(children, "Expected nil content for children.")
     }
     
     func test_whenItHasChildren_thenItMapsChildrenPropertiesAsWidgets() {
@@ -73,7 +73,11 @@ private extension ChildrenWidgetMappingTests {
             jsonData = """
             {
                 "type": "beagle:Stack",
-                "children": []
+                "children": [
+                    {
+                        "type": ""
+                    }
+                ]
             }
             """.data(using: .utf8)
         case .hasChildrenWidgets:
