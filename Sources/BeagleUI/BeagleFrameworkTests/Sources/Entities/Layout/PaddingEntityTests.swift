@@ -29,18 +29,14 @@ final class PaddingEntityTests: XCTestCase {
         XCTAssertTrue(padding is Padding)
     }
 
-    func test_whenMapToWidgetIsCalledWithInvalidChildContent_thenItShouldThrowAChildError() {
+    func test_whenWidgetEntityContainerIsCreatedWithNoChildContent_thenItShouldThrowAnError() {
         // Given
         let value = PaddingValueEntity(top: nil, left: nil, right: nil, bottom: nil)
         let child = WidgetEntityContainer(type: "beagle:Text", content: nil)
-        guard let sut = try? PaddingEntity(value: value, childContainer: child) else {
-            XCTFail("Could not create PaddingEntity.")
-            return
-        }
-
-        // When / Then
+        
+        // When/Then
         XCTAssertThrowsError(
-            try sut.mapToWidget(),
+            _ = try PaddingEntity(value: value, childContainer: child),
             "Expected to Throw an error, but it didn't."
         )
     }
