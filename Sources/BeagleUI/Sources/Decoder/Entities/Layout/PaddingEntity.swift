@@ -10,15 +10,36 @@ import Foundation
 
 /// Defines an API representation for `Padding`
 struct PaddingEntity: WidgetEntity {
+    
     let value: PaddingValueEntity
-    let child: WidgetEntityContainer
+    let child: WidgetEntity
+    
+    private let childContainer: WidgetEntityContainer
+    
+    enum CodingKeys: String, CodingKey {
+        case value
+        case childContainer = "child"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        value = try container.decode(PaddingValueEntity.self, forKey: .value)
+        childContainer = try container.decode(WidgetEntityContainer.self, forKey: .childContainer)
+        guard let childContainerValue = childContainer.content else {
+            let entityType = String(describing: PaddingEntity.self)
+            let key = CodingKeys.childContainer.rawValue
+            throw WidgetDecodingError.couldNotDecodeContentForEntityOnKey(entityType, key)
+        }
+        child = childContainerValue
+    }
+    
 }
 extension PaddingEntity: WidgetConvertible {
     
     func mapToWidget() throws -> Widget {
         
-        guard let childContent = child.content else {
-            throw WidgetConvertibleError.emptyContentForContainerOfType(child.type)
+        guard let childContent = childContainer.content else {
+            throw WidgetConvertibleError.emptyContentForContainerOfType(childContainer.type)
         }
         
         let value = try mapPaddingValue()

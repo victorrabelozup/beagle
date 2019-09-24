@@ -22,9 +22,7 @@ final class WidgetDecoderTests: XCTestCase {
         guard let jsonData = """
         {
             "type": "beagle:NewWidget",
-            "content": {
-                "something": "something"
-            }
+            "something": "something"
         }
         """.data(using: .utf8) else {
             XCTFail("Could not create test data.")
@@ -40,36 +38,12 @@ final class WidgetDecoderTests: XCTestCase {
         XCTAssertTrue(value is NewWidgetEntity, "Expected a NewWidgetEntity type.")
     }
     
-    func test_whenDecodingToContainer_thenItShouldFindAValidValue() {
-        // Given
-        guard let jsonData = """
-        {
-            "type": "beagle:Text",
-            "content": {
-                "text": "some text"
-            }
-        }
-        """.data(using: .utf8) else {
-            XCTFail("Could not create test data.")
-            return
-        }
-        
-        // When
-        let value = try? sut.decodeToContainer(from: jsonData)
-        
-        // Then
-        XCTAssertNotNil(value, "Expected a WidgetEntityContainer, but found nil.")
-        XCTAssertNotNil(value?.content, "Expected a valid `content`, but found nil.")
-    }
-    
     func test_whenADefaultTypeIsRequested_thenItShouldBeAbleToDecodeIt() {
         // Given
         guard let jsonData = """
         {
             "type": "beagle:Text",
-            "content": {
-                "text": "some text"
-            }
+            "text": "some text"
         }
         """.data(using: .utf8) else {
             XCTFail("Could not create test data.")
@@ -84,79 +58,13 @@ final class WidgetDecoderTests: XCTestCase {
         XCTAssertTrue(value is TextEntity, "Expected a TextEntity type.")
     }
     
-    func test_whenContentIsDecoded_thenItShouldHaveValidValues() {
-        // Given
-        let expectedText = "some text"
-        guard let jsonData = """
-        {
-            "type": "beagle:Text",
-            "content": {
-                "text": "some text"
-            }
-        }
-        """.data(using: .utf8) else {
-            XCTFail("Could not create test data.")
-            return
-        }
-        
-        // When
-        let value = try? sut.decodeContent(ofType: TextEntity.self, from: jsonData) 
-        
-        // Then
-        XCTAssertNotNil(value, "Expected a valid TextEntity, but found nil.")
-        XCTAssertEqual(value?.text, expectedText, "The `text` property is not as expected.")
-    }
-    
-    func test_whenContentIsDecodedToAnUnknownType_thenItShouldBeNil() {
-        // Given
-        guard let jsonData = """
-        {
-            "type": "beagle:UnknownWidget",
-            "content": {
-                "something": "some text"
-            }
-        }
-        """.data(using: .utf8) else {
-            XCTFail("Could not create test data.")
-            return
-        }
-        
-        // When
-        let value = try? sut.decodeContent(ofType: UnknownWidgetEntity.self, from: jsonData)
-        
-        // Then
-        XCTAssertNil(value, "Expected a nil, but found something.")
-    }
-    
-    func test_whenWeHaveAnInvalidJSON_thenDecodeContentShouldFail() {
-        // Given
-        guard let jsonData = """
-        {
-            : "beagle:UnknownWidget",
-            "content": {
-                "something": "some text"
-        }
-        """.data(using: .utf8) else {
-            XCTFail("Could not create test data.")
-            return
-        }
-        
-        // When / Then
-        XCTAssertThrowsError(
-            try sut.decodeContent(ofType: UnknownWidgetEntity.self, from: jsonData),
-            "Expected to Throw an error, but it didn't."
-        )
-    }
-    
     func test_whenAplyingAValidTransformation_thenItShouldSucceed() {
         // Given
         let expectedText = "some text"
         guard let jsonData = """
         {
             "type": "beagle:Text",
-            "content": {
-                "text": "some text"
-            }
+            "text": "some text"
         }
         """.data(using: .utf8) else {
             XCTFail("Could not create test data.")

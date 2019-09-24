@@ -42,10 +42,14 @@ protocol WidgetDecoding {
     /// - Returns: the transformed value
     /// - Throws: a decoding error, as in JSONDecoder
     func decode<T>(from data: Data, transformer: (WidgetEntity) throws -> T?) throws -> T?
+    
+    /// Gets the name registred for a specific type
+    static func getTypeName<T: WidgetEntity>(for type: T.Type) -> String?
 }
 
 public enum WidgetDecodingError: Error {
     case couldNotDecodeValueFromData
+    case couldNotDecodeContentForEntityOnKey(String, String)
 }
 
 public final class WidgetDecoder: WidgetDecoding {
@@ -53,12 +57,18 @@ public final class WidgetDecoder: WidgetDecoding {
     // MARK: - Dependencies
     
     private let jsonDecoder: JSONDecoder
+    private let dataPreprocessor: DataPreprocessor
     private static var namespace: String = "beagle"
     
     // MARK: - Initialization
     
-    init(jsonDecoder: JSONDecoder = JSONDecoder(), namespace: String = "beagle") {
+    init(
+        jsonDecoder: JSONDecoder = JSONDecoder(),
+        dataPreprocessor: DataPreprocessor = DataPreprocessing(),
+        namespace: String = "beagle"
+    ) {
         self.jsonDecoder = jsonDecoder
+        self.dataPreprocessor = dataPreprocessor
         WidgetDecoder.namespace = namespace
         WidgetDecoder.registerDefaultTypes()
     }
@@ -81,7 +91,8 @@ public final class WidgetDecoder: WidgetDecoding {
     /// - Returns: a WidgetEntityContainer from it's data
     /// - Throws:  a decoding error, as in JSONDecoder
     func decodeToContainer(from data: Data) throws -> WidgetEntityContainer {
-        return try jsonDecoder.decode(WidgetEntityContainer.self, from: data)
+        let normalizedData = try dataPreprocessor.normalizeData(data, for: WidgetDecoder.namespace)
+        return try jsonDecoder.decode(WidgetEntityContainer.self, from: normalizedData)
     }
     
     /// Decodes a type from a data object, needs to be casted to the root type.
@@ -90,7 +101,8 @@ public final class WidgetDecoder: WidgetDecoding {
     /// - Returns: the widget entity
     /// - Throws: a decoding error, as in JSONDecoder
     func decode(from data: Data) throws -> WidgetEntity? {
-        return try jsonDecoder.decode(WidgetEntityContainer.self, from: data).content
+        let normalizedData = try dataPreprocessor.normalizeData(data, for: WidgetDecoder.namespace)
+        return try jsonDecoder.decode(WidgetEntityContainer.self, from: normalizedData).content
     }
     
     /// Decodes a container content to a given type
@@ -126,6 +138,12 @@ public final class WidgetDecoder: WidgetDecoding {
         } catch {
             throw error
         }
+    }
+    
+    /// Gets the name registred for a specific type
+    static func getTypeName<T: WidgetEntity>(for type: T.Type) -> String? {
+        guard let typeName = WidgetEntityContainer.getTypeName(for: type) else { return nil }
+        return WidgetDecoder.namespace + ":" + typeName
     }
     
     // MARK: - Private Helpers

@@ -10,18 +10,50 @@ import Foundation
 
 /// Defines an API representation for `DropDown`
 struct DropDownEntity: WidgetEntity {
-    let header: WidgetEntityContainer
-    let child: WidgetEntityContainer
+    
+    let header: WidgetEntity
+    let child: WidgetEntity
+    
+    let headerContainer: WidgetEntityContainer
+    let childContainer: WidgetEntityContainer
+    
+    enum CodingKeys: String, CodingKey {
+        case headerContainer = "header"
+        case childContainer = "content"
+    }
+    
+    init(from decoder: Decoder) throws {
+        
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        headerContainer = try container.decode(WidgetEntityContainer.self, forKey: .headerContainer)
+        guard let headerContainerValue = headerContainer.content else {
+            let entityType = String(describing: ContainerEntity.self)
+            let key = CodingKeys.headerContainer.rawValue
+            throw WidgetDecodingError.couldNotDecodeContentForEntityOnKey(entityType, key)
+        }
+        header = headerContainerValue
+        
+        childContainer = try container.decode(WidgetEntityContainer.self, forKey: .childContainer)
+        guard let childContainerValue = childContainer.content else {
+            let entityType = String(describing: ContainerEntity.self)
+            let key = CodingKeys.childContainer.rawValue
+            throw WidgetDecodingError.couldNotDecodeContentForEntityOnKey(entityType, key)
+        }
+        child = childContainerValue
+        
+    }
+    
 }
 extension DropDownEntity: WidgetConvertible {
     func mapToWidget() throws -> Widget {
         
-        guard let headerContent = header.content else {
-            throw WidgetConvertibleError.emptyContentForContainerOfType(header.type)
+        guard let headerContent = headerContainer.content else {
+            throw WidgetConvertibleError.emptyContentForContainerOfType(headerContainer.type)
         }
         
-        guard let childContent = child.content else {
-            throw WidgetConvertibleError.emptyContentForContainerOfType(child.type)
+        guard let childContent = childContainer.content else {
+            throw WidgetConvertibleError.emptyContentForContainerOfType(childContainer.type)
         }
         
         let header = try headerContent.mapToWidget()

@@ -26,7 +26,7 @@ extension ChildrenWidgetMapping {
     func mapChildren() throws -> [Widget] {
         
         let mirror = Mirror(reflecting: self)
-        guard let children = mirror.children.first(where: { $0.label == "children" })?.value as? [WidgetEntityContainer] else {
+        guard let children = mirror.children.first(where: { $0.label == "childrenContainer" })?.value as? [WidgetEntityContainer] else {
             let type = String(describing: self)
             throw WidgetConvertibleError.couldNotFindChildrenPropertyForType(type)
         }

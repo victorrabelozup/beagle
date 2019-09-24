@@ -10,9 +10,27 @@ import Foundation
 
 /// Defines an API representation for `StyledWidget`
 struct StyledWidgetEntity: WidgetEntity {
+    
     let border: BorderEntity?
     let color: String?
-    let child: WidgetEntityContainer?
+    let child: WidgetEntity?
+    
+    private let childContainer: WidgetEntityContainer?
+    
+    enum CodingKeys: String, CodingKey {
+        case border
+        case color
+        case childContainer = "child"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        border = try container.decode(BorderEntity.self, forKey: .border)
+        color = try container.decode(String.self, forKey: .color)
+        childContainer = try container.decode(WidgetEntityContainer.self, forKey: .childContainer)
+        child = childContainer?.content
+    }
+    
 }
 extension StyledWidgetEntity: WidgetConvertible {
     func mapToWidget() throws -> Widget {
@@ -20,7 +38,7 @@ extension StyledWidgetEntity: WidgetConvertible {
         if let border = border {
             uiBorder = Border(color: border.color, radius: border.radius, size: border.size)
         }
-        let child = try? self.child?.content?.mapToWidget()
+        let child = try? self.childContainer?.content?.mapToWidget()
         return StyledWidget(border: uiBorder, color: color, child: child)
     }
 }
