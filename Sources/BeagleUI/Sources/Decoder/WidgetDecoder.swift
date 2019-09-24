@@ -33,9 +33,6 @@ protocol WidgetDecoding {
     /// - Returns: the transformed value
     /// - Throws: a decoding error, as in JSONDecoder
     func decode<T>(from data: Data, transformer: (WidgetEntity) throws -> T?) throws -> T?
-    
-    /// Gets the name registred for a specific type
-    static func getTypeName<T: WidgetEntity>(for type: T.Type) -> String?
 }
 
 public enum WidgetDecodingError: Error {
@@ -119,12 +116,6 @@ public final class WidgetDecoder: WidgetDecoding {
         } catch {
             throw error
         }
-    }
-    
-    /// Gets the name registred for a specific type
-    static func getTypeName<T: WidgetEntity>(for type: T.Type) -> String? {
-        guard let typeName = WidgetEntityContainer.getTypeName(for: type) else { return nil }
-        return WidgetDecoder.namespace + ":" + typeName
     }
     
     // MARK: - Private Helpers

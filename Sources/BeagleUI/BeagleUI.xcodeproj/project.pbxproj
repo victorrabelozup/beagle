@@ -28,6 +28,7 @@
 		9368181F232A8DEA00E6E724 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368181E232A8DEA00E6E724 /* TextField.swift */; };
 		93681821232A8E0C00E6E724 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93681820232A8E0C00E6E724 /* Toolbar.swift */; };
 		E57FBB82233A795A00165D8D /* DataPreprocessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57FBB81233A795A00165D8D /* DataPreprocessor.swift */; };
+		E57FBB84233AA46600165D8D /* WidgetEntityContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57FBB83233AA46600165D8D /* WidgetEntityContainerTests.swift */; };
 		E5CE41A32331D55000295277 /* WidgetDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A22331D55000295277 /* WidgetDecoder.swift */; };
 		E5CE41A52331D59E00295277 /* WidgetEntityContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A42331D59E00295277 /* WidgetEntityContainer.swift */; };
 		E5CE41A72331D93F00295277 /* ContainerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A62331D93F00295277 /* ContainerEntity.swift */; };
@@ -111,6 +112,7 @@
 		9800D881233412540051B4F2 /* ChildrenWidgetMappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildrenWidgetMappingTests.swift; sourceTree = "<group>"; };
 		E53524AA23310F5A00D1A0C9 /* YogaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YogaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E57FBB81233A795A00165D8D /* DataPreprocessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPreprocessor.swift; sourceTree = "<group>"; };
+		E57FBB83233AA46600165D8D /* WidgetEntityContainerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntityContainerTests.swift; sourceTree = "<group>"; };
 		E5CE41A22331D55000295277 /* WidgetDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDecoder.swift; sourceTree = "<group>"; };
 		E5CE41A42331D59E00295277 /* WidgetEntityContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntityContainer.swift; sourceTree = "<group>"; };
 		E5CE41A62331D93F00295277 /* ContainerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerEntity.swift; sourceTree = "<group>"; };
@@ -424,6 +426,7 @@
 			isa = PBXGroup;
 			children = (
 				E5CE422723340EA100295277 /* UnitValueEntityTests.swift */,
+				E57FBB83233AA46600165D8D /* WidgetEntityContainerTests.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -641,6 +644,7 @@
 				E5CE422823340EA100295277 /* UnitValueEntityTests.swift in Sources */,
 				E5CE4225233408DF00295277 /* StringExtensionTests.swift in Sources */,
 				E5CE420B2334004400295277 /* ListViewEntityTests.swift in Sources */,
+				E57FBB84233AA46600165D8D /* WidgetEntityContainerTests.swift in Sources */,
 				E5CE41F62332B9DD00295277 /* WidgetDecoderTests.swift in Sources */,
 				E5CE42132334009F00295277 /* TextFieldEntityTests.swift in Sources */,
 				E5CE420F2334006B00295277 /* StyledWidgetEntityTests.swift in Sources */,
