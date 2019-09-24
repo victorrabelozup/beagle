@@ -25,9 +25,9 @@ struct StyledWidgetEntity: WidgetEntity {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        border = try container.decode(BorderEntity.self, forKey: .border)
-        color = try container.decode(String.self, forKey: .color)
-        childContainer = try container.decode(WidgetEntityContainer.self, forKey: .childContainer)
+        border = try container.decodeIfPresent(BorderEntity.self, forKey: .border)
+        color = try container.decodeIfPresent(String.self, forKey: .color)
+        childContainer = try container.decodeIfPresent(WidgetEntityContainer.self, forKey: .childContainer)
         child = childContainer?.content
     }
     

@@ -93,7 +93,13 @@ public final class WidgetDecoder: WidgetDecoding {
     /// - Throws: a decoding error, as in JSONDecoder
     func decode(from data: Data) throws -> WidgetEntity? {
         let normalizedData = try dataPreprocessor.normalizeData(data, for: WidgetDecoder.namespace)
-        return try jsonDecoder.decode(WidgetEntityContainer.self, from: normalizedData).content
+        do {
+            let container = try jsonDecoder.decode(WidgetEntityContainer.self, from: normalizedData)
+            return container.content
+        } catch {
+            debugPrint(error)
+            throw error
+        }
     }
     
     /// Decodes a value, from some data, also enabling it's transformation to some type
@@ -137,36 +143,27 @@ public final class WidgetDecoder: WidgetDecoding {
     }
     
     private static func registerCoreTypes() {
-        registerContainerSubTypes()
-        WidgetEntityContainer.register(FlexEntity.self, for: decodingKey(for: "flex"))
-    }
-    
-    private static func registerContainerSubTypes() {
-        WidgetEntityContainer.register(WidgetEntityContainer.self, for: decodingKey(for: "container"))
-        WidgetEntityContainer.register(WidgetEntityContainer.self, for: decodingKey(for: "body"))
-        WidgetEntityContainer.register(WidgetEntityContainer.self, for: decodingKey(for: "footer"))
-        WidgetEntityContainer.register(WidgetEntityContainer.self, for: decodingKey(for: "content"))
-        WidgetEntityContainer.register(WidgetEntityContainer.self, for: decodingKey(for: "children"))
+        WidgetEntityContainer.register(FlexEntity.self, for: decodingKey(for: "Flex"))
     }
     
     private static func registerLayoutTypes() {
-        WidgetEntityContainer.register(HorizontalEntity.self, for: decodingKey(for: "horizontal"))
-        WidgetEntityContainer.register(PaddingEntity.self, for: decodingKey(for: "padding"))
-        WidgetEntityContainer.register(SpacerEntity.self, for: decodingKey(for: "spacer"))
-        WidgetEntityContainer.register(StackEntity.self, for: decodingKey(for: "stack"))
-        WidgetEntityContainer.register(VerticalEntity.self, for: decodingKey(for: "vertical"))
+        WidgetEntityContainer.register(HorizontalEntity.self, for: decodingKey(for: "Horizontal"))
+        WidgetEntityContainer.register(PaddingEntity.self, for: decodingKey(for: "Padding"))
+        WidgetEntityContainer.register(SpacerEntity.self, for: decodingKey(for: "Spacer"))
+        WidgetEntityContainer.register(StackEntity.self, for: decodingKey(for: "Stack"))
+        WidgetEntityContainer.register(VerticalEntity.self, for: decodingKey(for: "Vertical"))
     }
     
     private static func registerUITypes() {
-        WidgetEntityContainer.register(ButtonEntity.self, for: decodingKey(for: "button"))
-        WidgetEntityContainer.register(DropDownEntity.self, for: decodingKey(for: "dropdown"))
-        WidgetEntityContainer.register(ImageEntity.self, for: decodingKey(for: "image"))
-        WidgetEntityContainer.register(ListViewEntity.self, for: decodingKey(for: "listview"))
-        WidgetEntityContainer.register(SelectViewEntity.self, for: decodingKey(for: "selectview"))
-        WidgetEntityContainer.register(StyledWidgetEntity.self, for: decodingKey(for: "styledwidget"))
-        WidgetEntityContainer.register(TextEntity.self, for: decodingKey(for: "text"))
-        WidgetEntityContainer.register(TextFieldEntity.self, for: decodingKey(for: "textfield"))
-        WidgetEntityContainer.register(ToolBarEntity.self, for: decodingKey(for: "toolbar"))
+        WidgetEntityContainer.register(ButtonEntity.self, for: decodingKey(for: "Button"))
+        WidgetEntityContainer.register(DropDownEntity.self, for: decodingKey(for: "Dropdown"))
+        WidgetEntityContainer.register(ImageEntity.self, for: decodingKey(for: "Image"))
+        WidgetEntityContainer.register(ListViewEntity.self, for: decodingKey(for: "ListView"))
+        WidgetEntityContainer.register(SelectViewEntity.self, for: decodingKey(for: "SelectView"))
+        WidgetEntityContainer.register(StyledWidgetEntity.self, for: decodingKey(for: "StyledWidget"))
+        WidgetEntityContainer.register(TextEntity.self, for: decodingKey(for: "Text"))
+        WidgetEntityContainer.register(TextFieldEntity.self, for: decodingKey(for: "TextField"))
+        WidgetEntityContainer.register(ToolBarEntity.self, for: decodingKey(for: "ToolBar"))
     }
     
 }

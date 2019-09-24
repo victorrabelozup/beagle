@@ -27,7 +27,7 @@ struct ContainerEntity: WidgetEntity {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        bodyContainer = try container.decode(WidgetEntityContainer.self, forKey: .bodyContainer)
+        bodyContainer = try container.decodeIfPresent(WidgetEntityContainer.self, forKey: .bodyContainer)
         body = bodyContainer?.content
         contentContainer = try container.decode(WidgetEntityContainer.self, forKey: .contentContainer)
         guard let contentContainerValue = contentContainer.content else {
@@ -36,7 +36,7 @@ struct ContainerEntity: WidgetEntity {
             throw WidgetDecodingError.couldNotDecodeContentForEntityOnKey(entityType, key)
         }
         content = contentContainerValue
-        footerContainer = try container.decode(WidgetEntityContainer.self, forKey: .footerContainer)
+        footerContainer = try container.decodeIfPresent(WidgetEntityContainer.self, forKey: .footerContainer)
         footer = footerContainer?.content
     }
     

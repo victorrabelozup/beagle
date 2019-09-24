@@ -50,26 +50,30 @@ final class DataPreprocessing: DataPreprocessor {
         
     }
     
-    private func transformValueIfNeeded(_ value: [String: Any], for namespace: String) -> [String: Any] {
+    private func transformValueIfNeeded(_ value: Any, for namespace: String) -> Any {
         
-        guard let type = value["type"] as? String, type.contains(namespace) else {
+        if let jsonArray = value as? [[String: Any]] {
+            
+            return jsonArray.map { transformValueIfNeeded($0, for: namespace) }
+            
+        } else if let dictionary = value as? [String: Any], let type = dictionary["type"] as? String, type.contains(namespace) {
+            
+            var newValue = [String: Any]()
+            var content = [String: Any]()
+            dictionary.forEach {
+                if let typeName = $0.value as? String, typeName == type {
+                    newValue[$0.key] = $0.value
+                } else {
+                    content[$0.key] = transformValueIfNeeded($0.value, for: namespace)
+                }
+            }
+            newValue["content"] = content
+            
+            return newValue
+            
+        } else {
             return value
         }
-        
-        var newValue = [String: Any]()
-        var content = [String: Any]()
-        value.forEach {
-            if let innerValue = $0.value as? [String: Any], $0.key != type {
-                content[$0.key] = transformValueIfNeeded(innerValue, for: namespace)
-            } else if let typeName = $0.value as? String, typeName == type {
-                newValue[$0.key] = $0.value
-            } else {
-                content[$0.key] = $0.value
-            }
-        }
-        newValue["content"] = content
-        
-        return newValue
         
     }
     
