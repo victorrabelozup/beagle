@@ -66,7 +66,7 @@ private extension ChildrenWidgetMappingTests {
         case .noChildren:
             jsonData = """
             {
-                "type": "beagle:Stack",
+                "type": "beagle:Stack"
             }
             """.data(using: .utf8)
         case .childrenContentEmpty:
