@@ -33,6 +33,20 @@ struct PaddingEntity: WidgetEntity {
         child = childContainerValue
     }
     
+    init(
+        value: PaddingValueEntity,
+        childContainer: WidgetEntityContainer
+    ) throws {
+        self.value = value
+        self.childContainer = childContainer
+        guard let childContainerValue = childContainer.content else {
+            let entityType = String(describing: PaddingEntity.self)
+            let key = CodingKeys.childContainer.rawValue
+            throw WidgetDecodingError.couldNotDecodeContentForEntityOnKey(entityType, key)
+        }
+        child = childContainerValue
+    }
+    
 }
 extension PaddingEntity: WidgetConvertible {
     

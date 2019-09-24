@@ -31,6 +31,17 @@ struct HorizontalEntity: WidgetEntity {
         reversed = try container.decode(Bool.self, forKey: .reversed)
     }
     
+    init(
+        childrenContainer: [WidgetEntityContainer]?,
+        flex: FlexEntity?,
+        reversed: Bool
+    ) {
+        self.childrenContainer = childrenContainer
+        children = childrenContainer?.compactMap { $0.content }
+        self.flex = flex
+        self.reversed = reversed
+    }
+    
 }
 extension HorizontalEntity: WidgetConvertible, ChildrenWidgetMapping {
     

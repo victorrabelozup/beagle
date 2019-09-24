@@ -28,6 +28,15 @@ struct StackEntity: WidgetEntity {
         flex = try container.decodeIfPresent(FlexEntity.self, forKey: .flex)
     }
     
+    init(
+        childrenContainer: [WidgetEntityContainer]?,
+        flex: FlexEntity?
+    ) {
+        self.childrenContainer = childrenContainer
+        children = childrenContainer?.compactMap { $0.content }
+        self.flex = flex
+    }
+    
 }
 extension StackEntity: WidgetConvertible, ChildrenWidgetMapping {
     
