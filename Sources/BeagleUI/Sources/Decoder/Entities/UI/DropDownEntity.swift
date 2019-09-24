@@ -44,6 +44,29 @@ struct DropDownEntity: WidgetEntity {
         
     }
     
+    init(
+        headerContainer: WidgetEntityContainer,
+        childContainer: WidgetEntityContainer
+    ) throws {
+        
+        self.headerContainer = headerContainer
+        guard let headerContainerValue = headerContainer.content else {
+            let entityType = String(describing: ContainerEntity.self)
+            let key = CodingKeys.headerContainer.rawValue
+            throw WidgetDecodingError.couldNotDecodeContentForEntityOnKey(entityType, key)
+        }
+        header = headerContainerValue
+        
+        self.childContainer = childContainer
+        guard let childContainerValue = childContainer.content else {
+            let entityType = String(describing: ContainerEntity.self)
+            let key = CodingKeys.childContainer.rawValue
+            throw WidgetDecodingError.couldNotDecodeContentForEntityOnKey(entityType, key)
+        }
+        child = childContainerValue
+        
+    }
+    
 }
 extension DropDownEntity: WidgetConvertible {
     func mapToWidget() throws -> Widget {

@@ -31,6 +31,17 @@ struct StyledWidgetEntity: WidgetEntity {
         child = childContainer?.content
     }
     
+    init(
+        border: BorderEntity?,
+        color: String?,
+        childContainer: WidgetEntityContainer?
+    ) {
+        self.border = border
+        self.color = color
+        self.childContainer = childContainer
+        self.child = childContainer?.content
+    }
+    
 }
 extension StyledWidgetEntity: WidgetConvertible {
     func mapToWidget() throws -> Widget {

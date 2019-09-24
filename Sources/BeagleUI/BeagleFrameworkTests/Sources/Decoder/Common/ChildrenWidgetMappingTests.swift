@@ -34,7 +34,7 @@ final class ChildrenWidgetMappingTests: XCTestCase {
         // Then
         XCTAssertNil(children, "Expected nil content for children.")
     }
-    
+
     func test_whenItHasChildren_thenItMapsChildrenPropertiesAsWidgets() {
         // Given
         guard let stackWidgetMock = buildStackEntityMock(for: .hasChildrenWidgets) else {

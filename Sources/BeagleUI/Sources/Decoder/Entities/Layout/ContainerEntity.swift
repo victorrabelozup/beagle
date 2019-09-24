@@ -39,16 +39,24 @@ struct ContainerEntity: WidgetEntity {
         footerContainer = try container.decodeIfPresent(WidgetEntityContainer.self, forKey: .footerContainer)
         footer = footerContainer?.content
     }
-    
-//    init(
-//        body: WidgetEntity?,
-//        content: WidgetEntity,
-//        footer: WidgetEntity?
-//    ) {
-//        self.body = body
-//        self.content = content
-//        self.footer = footer
-//    }
+
+    init(
+        bodyContainer: WidgetEntityContainer?,
+        contentContainer: WidgetEntityContainer,
+        footerContainer: WidgetEntityContainer?
+    ) throws {
+        self.bodyContainer = bodyContainer
+        body = bodyContainer?.content
+        self.contentContainer = contentContainer
+        guard let contentContainerValue = contentContainer.content else {
+            let entityType = String(describing: ContainerEntity.self)
+            let key = CodingKeys.contentContainer.rawValue
+            throw WidgetDecodingError.couldNotDecodeContentForEntityOnKey(entityType, key)
+        }
+        content = contentContainerValue
+        self.footerContainer = footerContainer
+        footer = footerContainer?.content
+    }
     
 }
 extension ContainerEntity: WidgetConvertible {

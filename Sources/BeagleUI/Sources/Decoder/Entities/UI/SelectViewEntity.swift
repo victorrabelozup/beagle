@@ -36,6 +36,18 @@ struct SelectViewEntity: WidgetEntity {
         loadingState = loadingStateContainer?.content
     }
     
+    init(
+        rowsContainer: [WidgetEntityContainer]?,
+        remoteDataSource: String?,
+        loadingStateContainer: WidgetEntityContainer?
+    ) {
+        self.rowsContainer = rowsContainer
+        rows = rowsContainer?.compactMap { $0.content }
+        self.remoteDataSource = remoteDataSource
+        self.loadingStateContainer = loadingStateContainer
+        self.loadingState = loadingStateContainer?.content
+    }
+    
 }
 extension SelectViewEntity: WidgetConvertible {
     func mapToWidget() throws -> Widget {

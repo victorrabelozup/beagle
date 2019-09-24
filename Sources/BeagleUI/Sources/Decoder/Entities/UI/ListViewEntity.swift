@@ -40,6 +40,23 @@ struct ListViewEntity: WidgetEntity {
         direction = try container.decode(Direction.self, forKey: .remoteDataSource)
     }
     
+    init(
+        rowsContainer: [WidgetEntityContainer]?,
+        remoteDataSource: String?,
+        loadingStateContainer: WidgetEntityContainer?,
+        direction: Direction
+    ) {
+        self.rowsContainer = rowsContainer
+        rows = rowsContainer?.compactMap { $0.content }
+        
+        self.remoteDataSource = remoteDataSource
+        
+        self.loadingStateContainer = loadingStateContainer
+        loadingState = loadingStateContainer?.content
+        
+        self.direction = direction
+    }
+    
 }
 extension ListViewEntity {
     /// Defines an API representation for `ListDirection`

@@ -10,20 +10,20 @@ import XCTest
 @testable import BeagleUI
 
 final class HorizontalEntityTests: XCTestCase {
-// @TODO: FIX TESTS 
-//    func test_whenMapToWidgetIsCalled_thenItShouldReturnAHorizontalWidget() {
-//        // Given
-//        let content = TextEntity(text: "text")
-//        let children = [WidgetEntityContainer(type: "beagle:Text", content: content)]
-//        let flex = FlexEntity.fixture()
-//        let sut = HorizontalEntity(children: children, flex: flex, reversed: false)
-//
-//        // When
-//        let horizontal = try? sut.mapToWidget()
-//
-//        // Then
-//        XCTAssertNotNil(horizontal, "The Horizontal widget should not be nil.")
-//        XCTAssertTrue(horizontal is Horizontal)
-//    }
+    
+    func test_whenMapToWidgetIsCalled_thenItShouldReturnAHorizontalWidget() {
+        // Given
+        let content = TextEntity(text: "text")
+        let children = [WidgetEntityContainer(type: "beagle:Text", content: content)]
+        let flex = FlexEntity.fixture()
+        let sut = HorizontalEntity(childrenContainer: children, flex: flex, reversed: false)
+
+        // When
+        let horizontal = try? sut.mapToWidget()
+
+        // Then
+        XCTAssertNotNil(horizontal, "The Horizontal widget should not be nil.")
+        XCTAssertTrue(horizontal is Horizontal)
+    }
 
 }
