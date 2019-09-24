@@ -24,18 +24,17 @@ final class ChildrenWidgetMappingTests: XCTestCase {
         XCTAssertNil(children, "Expected nil, but found something.")
     }
 
-// @TODO: Fix tests
-//    func test_whenItHasChildren_thenItsContentIsEmptyForContainer() {
-//        // Given
-//        guard let stackWidgetMock = buildStackEntityMock(for: .childrenContentEmpty) else {
-//            return
-//        }
-//        // When
-//        let children = try? stackWidgetMock.mapChildren()
-//        // Then
-//        XCTAssertNil(children, "Expected nil for children content.")
-//    }
-    
+    func test_whenItHasChildren_thenItsContentIsEmptyForContainer() {
+        // Given
+        guard let stackWidgetMock = buildStackEntityMock(for: .childrenContentEmpty) else {
+            return
+        }
+        // When
+        let children = try? stackWidgetMock.mapChildren()
+        // Then
+        XCTAssertNil(children, "Expected nil content for children.")
+    }
+
     func test_whenItHasChildren_thenItMapsChildrenPropertiesAsWidgets() {
         // Given
         guard let stackWidgetMock = buildStackEntityMock(for: .hasChildrenWidgets) else {
@@ -74,7 +73,11 @@ private extension ChildrenWidgetMappingTests {
             jsonData = """
             {
                 "type": "beagle:Stack",
-                "children": []
+                "children": [
+                    {
+                        "type": ""
+                    }
+                ]
             }
             """.data(using: .utf8)
         case .hasChildrenWidgets:
