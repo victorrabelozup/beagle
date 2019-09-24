@@ -25,15 +25,6 @@ protocol WidgetDecoding {
     /// - Throws: a decoding error, as in JSONDecoder
     func decode(from data: Data) throws -> WidgetEntity?
     
-    /// Decodes a container content to a given type
-    ///
-    /// - Parameters:
-    ///   - type: the expected type
-    ///   - data: the dat to decode
-    /// - Returns: the widget entity refering the type
-    /// - Throws: a decoding error, as in JSONDecoder
-    func decodeContent<T: WidgetEntity>(ofType type: T.Type, from data: Data) throws -> T?
-    
     /// Decodes a value, from some data, also enabling it's transformation to some 
     ///
     /// - Parameters:
@@ -103,22 +94,6 @@ public final class WidgetDecoder: WidgetDecoding {
     func decode(from data: Data) throws -> WidgetEntity? {
         let normalizedData = try dataPreprocessor.normalizeData(data, for: WidgetDecoder.namespace)
         return try jsonDecoder.decode(WidgetEntityContainer.self, from: normalizedData).content
-    }
-    
-    /// Decodes a container content to a given type
-    ///
-    /// - Parameters:
-    ///   - type: the expected type
-    ///   - data: the dat to decode
-    /// - Returns: the widget entity refering the type
-    /// - Throws: a decoding error, as in JSONDecoder
-    func decodeContent<T: WidgetEntity>(ofType type: T.Type, from data: Data) throws -> T? {
-        do {
-            let widget = try jsonDecoder.decode(WidgetEntityContainer.self, from: data)
-            return widget.content as? T
-        } catch {
-            throw error
-        }
     }
     
     /// Decodes a value, from some data, also enabling it's transformation to some type

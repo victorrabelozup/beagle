@@ -38,6 +38,26 @@ final class WidgetDecoderTests: XCTestCase {
         XCTAssertTrue(value is NewWidgetEntity, "Expected a NewWidgetEntity type.")
     }
     
+    func test_whenDecodingToContainer_thenItShouldFindAValidValue() {
+        // Given
+        guard let jsonData = """
+        {
+            "type": "beagle:Text",
+            "text": "some text"
+        }
+        """.data(using: .utf8) else {
+            XCTFail("Could not create test data.")
+            return
+        }
+        
+        // When
+        let value = try? sut.decodeToContainer(from: jsonData)
+        
+        // Then
+        XCTAssertNotNil(value, "Expected a WidgetEntityContainer, but found nil.")
+        XCTAssertNotNil(value?.content, "Expected a valid `content`, but found nil.")
+    }
+    
     func test_whenADefaultTypeIsRequested_thenItShouldBeAbleToDecodeIt() {
         // Given
         guard let jsonData = """
