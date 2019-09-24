@@ -23,25 +23,11 @@ struct DropDownEntity: WidgetEntity {
     }
     
     init(from decoder: Decoder) throws {
-        
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        headerContainer = try container.decode(WidgetEntityContainer.self, forKey: .headerContainer)
-        guard let headerContainerValue = headerContainer.content else {
-            let entityType = String(describing: ContainerEntity.self)
-            let key = CodingKeys.headerContainer.rawValue
-            throw WidgetDecodingError.couldNotDecodeContentForEntityOnKey(entityType, key)
-        }
-        header = headerContainerValue
-        
-        childContainer = try container.decode(WidgetEntityContainer.self, forKey: .childContainer)
-        guard let childContainerValue = childContainer.content else {
-            let entityType = String(describing: ContainerEntity.self)
-            let key = CodingKeys.childContainer.rawValue
-            throw WidgetDecodingError.couldNotDecodeContentForEntityOnKey(entityType, key)
-        }
-        child = childContainerValue
-        
+        try self.init(
+            headerContainer: container.decode(WidgetEntityContainer.self, forKey: .headerContainer),
+            childContainer: container.decode(WidgetEntityContainer.self, forKey: .childContainer)
+        )
     }
     
     init(

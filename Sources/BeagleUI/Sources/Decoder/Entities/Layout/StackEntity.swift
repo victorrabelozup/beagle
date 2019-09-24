@@ -23,9 +23,10 @@ struct StackEntity: WidgetEntity {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        childrenContainer = try container.decodeIfPresent([WidgetEntityContainer].self, forKey: .childrenContainer)
-        children = childrenContainer?.compactMap { $0.content }
-        flex = try container.decodeIfPresent(FlexEntity.self, forKey: .flex)
+        try self.init(
+            childrenContainer: container.decodeIfPresent([WidgetEntityContainer].self, forKey: .childrenContainer),
+            flex: container.decodeIfPresent(FlexEntity.self, forKey: .flex)
+        )
     }
     
     init(

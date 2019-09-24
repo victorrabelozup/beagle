@@ -12,7 +12,7 @@ import Foundation
 struct PaddingEntity: WidgetEntity {
     
     let value: PaddingValueEntity
-    let child: WidgetEntity
+    let child: WidgetEntityContainerContent
     
     private let childContainer: WidgetEntityContainer
     
@@ -23,14 +23,10 @@ struct PaddingEntity: WidgetEntity {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        value = try container.decode(PaddingValueEntity.self, forKey: .value)
-        childContainer = try container.decode(WidgetEntityContainer.self, forKey: .childContainer)
-        guard let childContainerValue = childContainer.content else {
-            let entityType = String(describing: PaddingEntity.self)
-            let key = CodingKeys.childContainer.rawValue
-            throw WidgetDecodingError.couldNotDecodeContentForEntityOnKey(entityType, key)
-        }
-        child = childContainerValue
+        try self.init(
+            value: container.decode(PaddingValueEntity.self, forKey: .value),
+            childContainer: container.decode(WidgetEntityContainer.self, forKey: .childContainer)
+        )
     }
     
     init(
@@ -52,12 +48,8 @@ extension PaddingEntity: WidgetConvertible {
     
     func mapToWidget() throws -> Widget {
         
-        guard let childContent = childContainer.content else {
-            throw WidgetConvertibleError.emptyContentForContainerOfType(childContainer.type)
-        }
-        
         let value = try mapPaddingValue()
-        let child = try childContent.mapToWidget()
+        let child = try self.child.mapToWidget()
         
         return Padding(value: value, child: child)
     }

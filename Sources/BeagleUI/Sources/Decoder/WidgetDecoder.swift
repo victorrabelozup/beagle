@@ -117,7 +117,7 @@ public final class WidgetDecoder: WidgetDecoding {
             throw error
         }
     }
-    
+
     // MARK: - Private Helpers
     
     private static func decodingKey(for typeName: String) -> String {

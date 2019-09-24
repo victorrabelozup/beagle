@@ -25,10 +25,11 @@ struct VerticalEntity: WidgetEntity {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        childrenContainer = try container.decodeIfPresent([WidgetEntityContainer].self, forKey: .childrenContainer)
-        children = childrenContainer?.compactMap { $0.content }
-        flex = try container.decodeIfPresent(FlexEntity.self, forKey: .flex)
-        reversed = try container.decode(Bool.self, forKey: .reversed)
+        try self.init(
+            childrenContainer: container.decodeIfPresent([WidgetEntityContainer].self, forKey: .childrenContainer),
+            flex: container.decodeIfPresent(FlexEntity.self, forKey: .flex),
+            reversed: container.decode(Bool.self, forKey: .reversed)
+        )
     }
     
     init(

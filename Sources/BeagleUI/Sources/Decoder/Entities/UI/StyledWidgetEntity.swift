@@ -25,10 +25,11 @@ struct StyledWidgetEntity: WidgetEntity {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        border = try container.decodeIfPresent(BorderEntity.self, forKey: .border)
-        color = try container.decodeIfPresent(String.self, forKey: .color)
-        childContainer = try container.decodeIfPresent(WidgetEntityContainer.self, forKey: .childContainer)
-        child = childContainer?.content
+        try self.init(
+            border: container.decodeIfPresent(BorderEntity.self, forKey: .border),
+            color: container.decodeIfPresent(String.self, forKey: .color),
+            childContainer: container.decodeIfPresent(WidgetEntityContainer.self, forKey: .childContainer)
+        )
     }
     
     init(
@@ -49,7 +50,7 @@ extension StyledWidgetEntity: WidgetConvertible {
         if let border = border {
             uiBorder = Border(color: border.color, radius: border.radius, size: border.size)
         }
-        let child = try? self.childContainer?.content?.mapToWidget()
+        let child = try self.childContainer?.content?.mapToWidget()
         return StyledWidget(border: uiBorder, color: color, child: child)
     }
 }

@@ -11,17 +11,16 @@ import Foundation
 /// Used as a markup interface for the API representation of Widgets
 public protocol WidgetEntity: Codable {}
 
+/// Combines both protocols in forder to add functionatily for the entities that are some type of content
+typealias WidgetEntityContainerContent = WidgetEntity & WidgetConvertible
+
 /// Defines a container to hold a WidgetEntity dynamic types
 struct WidgetEntityContainer: WidgetEntity {
-    
-    // MARK: - Aliases
-    
-    typealias Content = WidgetEntity & WidgetConvertible
     
     // MARK: - Properties
     
     let type: String
-    let content: Content?
+    let content: WidgetEntityContainerContent?
     
     // MARK: - CodingKeys
     
@@ -37,13 +36,13 @@ struct WidgetEntityContainer: WidgetEntity {
         type = try container.decode(String.self, forKey: .type)
         if let decodeFunction = WidgetEntityContainer.decoders[type] {
             let rawContent = try decodeFunction(container)
-            content = rawContent as? Content
+            content = rawContent as? WidgetEntityContainerContent
         } else {
             content = nil
         }
     }
     
-    init(type: String, content: Content? = nil) {
+    init(type: String, content: WidgetEntityContainerContent? = nil) {
         self.type = type
         self.content = content
     }

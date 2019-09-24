@@ -28,16 +28,12 @@ struct ListViewEntity: WidgetEntity {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        rowsContainer = try container.decodeIfPresent([WidgetEntityContainer].self, forKey: .rowsContainer)
-        rows = rowsContainer?.compactMap { $0.content }
-        
-        remoteDataSource = try container.decodeIfPresent(String.self, forKey: .remoteDataSource)
-        
-        loadingStateContainer = try container.decodeIfPresent(WidgetEntityContainer.self, forKey: .loadingStateContainer)
-        loadingState = loadingStateContainer?.content
-        
-        direction = try container.decode(Direction.self, forKey: .remoteDataSource)
+        try self.init(
+            rowsContainer: container.decodeIfPresent([WidgetEntityContainer].self, forKey: .rowsContainer),
+            remoteDataSource: container.decodeIfPresent(String.self, forKey: .remoteDataSource),
+            loadingStateContainer: container.decodeIfPresent(WidgetEntityContainer.self, forKey: .loadingStateContainer),
+            direction: container.decode(Direction.self, forKey: .remoteDataSource)
+        )
     }
     
     init(

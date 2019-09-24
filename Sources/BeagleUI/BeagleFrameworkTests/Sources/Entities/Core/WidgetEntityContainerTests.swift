@@ -11,4 +11,11 @@ import XCTest
 
 final class WidgetEntityContainerTests: XCTestCase {
     
+    func test() {
+        // Given
+        
+        // When
+        // Then
+    }
+    
 }

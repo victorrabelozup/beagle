@@ -11,9 +11,9 @@ import Foundation
 /// Defines an API representation for `Container`
 struct ContainerEntity: WidgetEntity {
     
-    let body: WidgetEntity?
-    let content: WidgetEntity
-    let footer: WidgetEntity?
+    let body: WidgetEntityContainerContent?
+    let content: WidgetEntityContainerContent
+    let footer: WidgetEntityContainerContent?
     
     private let bodyContainer: WidgetEntityContainer?
     private let contentContainer: WidgetEntityContainer
@@ -27,17 +27,11 @@ struct ContainerEntity: WidgetEntity {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        bodyContainer = try container.decodeIfPresent(WidgetEntityContainer.self, forKey: .bodyContainer)
-        body = bodyContainer?.content
-        contentContainer = try container.decode(WidgetEntityContainer.self, forKey: .contentContainer)
-        guard let contentContainerValue = contentContainer.content else {
-            let entityType = String(describing: ContainerEntity.self)
-            let key = CodingKeys.contentContainer.rawValue
-            throw WidgetDecodingError.couldNotDecodeContentForEntityOnKey(entityType, key)
-        }
-        content = contentContainerValue
-        footerContainer = try container.decodeIfPresent(WidgetEntityContainer.self, forKey: .footerContainer)
-        footer = footerContainer?.content
+        try self.init(
+            bodyContainer: container.decodeIfPresent(WidgetEntityContainer.self, forKey: .bodyContainer),
+            contentContainer: container.decode(WidgetEntityContainer.self, forKey: .contentContainer),
+            footerContainer: container.decodeIfPresent(WidgetEntityContainer.self, forKey: .footerContainer)
+        )
     }
 
     init(
@@ -63,14 +57,9 @@ extension ContainerEntity: WidgetConvertible {
 
     func mapToWidget() throws -> Widget {
 
-        guard let contentContainerValue = self.contentContainer.content else {
-            let type = self.contentContainer.type
-            throw WidgetConvertibleError.emptyContentForContainerOfType(type)
-        }
-
-        let body = try self.bodyContainer?.content?.mapToWidget()
-        let content = try contentContainerValue.mapToWidget()
-        let footer = try self.footerContainer?.content?.mapToWidget()
+        let body = try self.body?.mapToWidget()
+        let content = try self.content.mapToWidget()
+        let footer = try self.footer?.mapToWidget()
 
         return Container(
             body: body,

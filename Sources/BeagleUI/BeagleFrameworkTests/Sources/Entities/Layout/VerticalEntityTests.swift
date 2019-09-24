@@ -10,7 +10,7 @@ import XCTest
 @testable import BeagleUI
 
 final class VerticalEntityTests: XCTestCase {
-// @TODO: FIX TESTS 
+    
     func test_whenMapToWidgetIsCalled_thenItShouldReturnAVerticalWidget() {
         // Given
         let content = TextEntity(text: "text")
