@@ -4,10 +4,11 @@ import android.content.Context
 import android.view.View
 import br.com.zup.beagleui.framework.widget.layout.Stack
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
-import br.com.zup.beagleui.framework.engine.renderer.makeViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import com.facebook.yoga.YogaPositionType
 
-class StackViewRenderer(
+internal class StackViewRenderer(
+    private val viewRendererFactory: ViewRendererFactory,
     private val stack: Stack
 ) : ViewRenderer {
     override fun build(context: Context): View {
@@ -17,7 +18,7 @@ class StackViewRenderer(
         addFlexToColumn(stack.flex, lithoStack)
 
         stack.children.forEach { widget ->
-            lithoStack.child(makeViewRenderer(widget).build(context))
+            lithoStack.child(make(widget).build(context))
         }
 
         return lithoStack.build()*/

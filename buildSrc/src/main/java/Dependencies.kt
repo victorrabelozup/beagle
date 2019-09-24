@@ -42,8 +42,14 @@ object Versions {
 
     const val junit = "4.12"
 
-    const val androidxRunner = "1.2.0"
+    const val kotlinTest = "1.3.50"
+    const val kotlinCoroutinesTest = "1.3.1"
 
+    const val mockk = "1.9.3"
+
+    const val testRunner = "1.2.0"
+    const val testExt = "1.1.1"
+    const val archCoreTesting = "2.0.1"
     const val espressoCore = "3.2.0"
 }
 
@@ -91,8 +97,12 @@ object MoshiLibraries {
 
 object TestLibraries {
     const val junit = "junit:junit:${Versions.junit}"
-    const val litho = "com.facebook.litho:litho-testing:${Versions.litho}"
-    const val mockk = ""
-    const val androidxRunner = "androidx.test:runner:${Versions.androidxRunner}"
+    const val mockk = "io.mockk:mockk:${Versions.mockk}"
+    const val koin = "org.koin:koin-test:${Versions.koin}"
+    const val kotlinTest = "org.jetbrains.kotlin:kotlin-test:${Versions.kotlinTest}"
+    const val kotlinCoroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlinCoroutinesTest}"
+    const val testRunner = "androidx.test:runner:${Versions.testRunner}"
+    const val testExt = "androidx.test.ext:junit:${Versions.testExt}"
+    const val archCoreTesting = "androidx.arch.core:core-testing:${Versions.archCoreTesting}"
     const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
 }

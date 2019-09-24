@@ -8,10 +8,13 @@ android {
     buildToolsVersion Versions.buildTools
     defaultConfig {
         applicationId ApplicationId.id
+
         minSdkVersion Versions.minSdk
         targetSdkVersion Versions.targetSdk
+
         versionCode Releases.versionCode
         versionName Releases.versionName
+
         testInstrumentationRunner GeneralNames.testInstrumentationRunner
     }
     buildTypes {
@@ -36,5 +39,11 @@ dependencies {
 
     implementation project (Modules.beagleUi)
 
+    // Unit Testing
     testImplementation TestLibraries.junit
+
+    // Integration Testing
+    androidTestImplementation TestLibraries.testRunner
+    androidTestImplementation TestLibraries.testExt
+    androidTestImplementation TestLibraries.espressoCore
 }

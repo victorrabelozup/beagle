@@ -6,7 +6,7 @@ import android.widget.Button as AndroidButton
 import br.com.zup.beagleui.framework.widget.ui.Button
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 
-class ButtonRenderer(
+class ButtonViewRenderer(
     private val button: Button
 ) : ViewRenderer {
 

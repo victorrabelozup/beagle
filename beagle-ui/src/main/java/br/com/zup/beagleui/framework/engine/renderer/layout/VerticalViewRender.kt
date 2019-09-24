@@ -4,9 +4,10 @@ import android.content.Context
 import android.view.View
 import br.com.zup.beagleui.framework.widget.layout.Vertical
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
-import br.com.zup.beagleui.framework.engine.renderer.makeViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 
-class VerticalViewRender(
+internal class VerticalViewRender(
+    private val viewRendererFactory: ViewRendererFactory,
     private val vertical: Vertical
 ) : ViewRenderer {
 
@@ -15,7 +16,7 @@ class VerticalViewRender(
             .reverse(vertical.reversed)
 
         vertical.children.forEach { child ->
-            val layoutRenderer = makeViewRenderer(child)
+            val layoutRenderer = make(child)
             column.child(layoutRenderer.build(context))
         }
 

@@ -40,25 +40,29 @@ private const val BEAGLE_TEXT_FIELD = "beagle:TextField"
 private const val BEAGLE_TOOLBAR = "beagle:Toolbar"
 private const val BEAGLE_STYLED_WIDGET = "beagle:StyledWidget"
 
-internal fun makeMoshi(): Moshi {
-    val polymorphicJsonAdapterFactory = PolymorphicJsonAdapterFactory.of(Widget::class.java, BEAGLE_WIDGET_TYPE)
-        .withSubtype(Container::class.java, BEAGLE_CONTAINER)
-        .withSubtype(Vertical::class.java, BEAGLE_VERTICAL)
-        .withSubtype(Horizontal::class.java, BEAGLE_HORIZONTAL)
-        .withSubtype(Stack::class.java, BEAGLE_STACK)
-        .withSubtype(Spacer::class.java, BEAGLE_SPACER)
-        .withSubtype(Padding::class.java, BEAGLE_PADDING)
-        .withSubtype(Text::class.java, BEAGLE_TEXT)
-        .withSubtype(Image::class.java, BEAGLE_IMAGE)
-        .withSubtype(Button::class.java, BEAGLE_BUTTON)
-        .withSubtype(DropDown::class.java, BEAGLE_DROPDOWN)
-        .withSubtype(ListView::class.java, BEAGLE_LIST_VIEW)
-        .withSubtype(SelectView::class.java, BEAGLE_SELECT_VIEW)
-        .withSubtype(TextField::class.java, BEAGLE_TEXT_FIELD)
-        .withSubtype(Toolbar::class.java, BEAGLE_TOOLBAR)
+internal class BeagleMoshiFactory {
 
-    return Moshi.Builder()
-        .add(polymorphicJsonAdapterFactory)
-        .add(KotlinJsonAdapterFactory())
-        .build()
+    fun make(): Moshi {
+        val polymorphicJsonAdapterFactory = PolymorphicJsonAdapterFactory.of(Widget::class.java, BEAGLE_WIDGET_TYPE)
+            .withSubtype(Container::class.java, BEAGLE_CONTAINER)
+            .withSubtype(Vertical::class.java, BEAGLE_VERTICAL)
+            .withSubtype(Horizontal::class.java, BEAGLE_HORIZONTAL)
+            .withSubtype(Stack::class.java, BEAGLE_STACK)
+            .withSubtype(Spacer::class.java, BEAGLE_SPACER)
+            .withSubtype(Padding::class.java, BEAGLE_PADDING)
+            .withSubtype(Text::class.java, BEAGLE_TEXT)
+            .withSubtype(Image::class.java, BEAGLE_IMAGE)
+            .withSubtype(Button::class.java, BEAGLE_BUTTON)
+            .withSubtype(DropDown::class.java, BEAGLE_DROPDOWN)
+            .withSubtype(ListView::class.java, BEAGLE_LIST_VIEW)
+            .withSubtype(SelectView::class.java, BEAGLE_SELECT_VIEW)
+            .withSubtype(TextField::class.java, BEAGLE_TEXT_FIELD)
+            .withSubtype(Toolbar::class.java, BEAGLE_TOOLBAR)
+
+        return Moshi.Builder()
+            .add(polymorphicJsonAdapterFactory)
+            .add(KotlinJsonAdapterFactory())
+            .build()
+    }
 }
+

@@ -4,9 +4,10 @@ import android.content.Context
 import android.view.View
 import br.com.zup.beagleui.framework.widget.layout.Horizontal
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
-import br.com.zup.beagleui.framework.engine.renderer.makeViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 
-class HorizontalViewRenderer(
+internal class HorizontalViewRenderer(
+    private val viewRendererFactory: ViewRendererFactory,
     private val horizontal: Horizontal
 ) : ViewRenderer {
     override fun build(context: Context): View {
@@ -17,7 +18,7 @@ class HorizontalViewRenderer(
 
         horizontal.children.forEach { child ->
             val layoutRenderer =
-                makeViewRenderer(child)
+                make(child)
             row.child(layoutRenderer.build(context))
         }
 

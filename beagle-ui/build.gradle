@@ -9,6 +9,9 @@ android {
     buildToolsVersion Versions.buildTools
 
     defaultConfig {
+        minSdkVersion Versions.minSdk
+        targetSdkVersion Versions.targetSdk
+
         testInstrumentationRunner GeneralNames.testInstrumentationRunner
         consumerProguardFiles GeneralNames.consumerProguard
     }
@@ -46,9 +49,14 @@ dependencies {
 
     // Unit Testing
     testImplementation TestLibraries.junit
-    testImplementation TestLibraries.litho
+    testImplementation TestLibraries.kotlinTest
+    testImplementation TestLibraries.kotlinCoroutinesTest
+    testImplementation TestLibraries.mockk
+    testImplementation TestLibraries.koin
+    testImplementation TestLibraries.archCoreTesting
 
     // Integration Testing
-    androidTestImplementation TestLibraries.androidxRunner
+    androidTestImplementation TestLibraries.testRunner
+    androidTestImplementation TestLibraries.testExt
     androidTestImplementation TestLibraries.espressoCore
 }

@@ -1,8 +1,10 @@
 package br.com.zup.beagleui.framework.di
 
 import br.com.zup.beagleui.framework.data.BeagleHttpClient
+import br.com.zup.beagleui.framework.data.deserializer.BeagleMoshiFactory
 import br.com.zup.beagleui.framework.data.deserializer.BeagleUiDeserialization
 import br.com.zup.beagleui.framework.engine.BeagleViewBuilder
+import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.view.BeagleUiViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
@@ -13,7 +15,11 @@ val beagleModule: Module = module {
 
     factory { BeagleHttpClient(get()) }
 
-    factory { BeagleUiDeserialization() }
+    single { BeagleMoshiFactory() }
 
-    factory { BeagleViewBuilder() }
+    factory { BeagleUiDeserialization(get()) }
+
+    factory { ViewRendererFactory() }
+
+    factory { BeagleViewBuilder(get()) }
 }
