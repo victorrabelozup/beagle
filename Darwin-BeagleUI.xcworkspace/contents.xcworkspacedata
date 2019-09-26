@@ -15,13 +15,17 @@
       location = "container:"
       name = "Core">
       <FileRef
-         location = "group:Decodable.playground">
-      </FileRef>
-      <FileRef
-         location = "group:Sources/BeagleUIPlayground.playground">
-      </FileRef>
-      <FileRef
          location = "group:Sources/BeagleUI/BeagleUI.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:"
+      name = "Playgrounds">
+      <FileRef
+         location = "group:Sources/BeagleUI/BeagleUIPlayground.playground">
+      </FileRef>
+      <FileRef
+         location = "group:Libraries/YogaKit/YogaKit.playground">
       </FileRef>
    </Group>
    <Group
