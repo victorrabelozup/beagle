@@ -232,7 +232,7 @@
 			path = Layout;
 			sourceTree = "<group>";
 		};
-		936817FB232A882000E6E724 /* UIModels */ = {
+		936817FB232A882000E6E724 /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
 				93681810232A8D0F00E6E724 /* Button.swift */,
@@ -245,16 +245,14 @@
 				9368181E232A8DEA00E6E724 /* TextField.swift */,
 				93681820232A8E0C00E6E724 /* Toolbar.swift */,
 			);
-			path = UIModels;
+			path = UIComponents;
 			sourceTree = "<group>";
 		};
 		939CE4C4232996FD00EEEDFC /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E5CE41A02331D41500295277 /* Decoder */,
-				936817FB232A882000E6E724 /* UIModels */,
-				936817FA232A881600E6E724 /* Layout */,
-				936817F9232A880700E6E724 /* Core */,
+				E5CE41A02331D41500295277 /* Decoding */,
+				E5835BB9233D4F0900125140 /* Widgets */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -267,7 +265,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E5CE41A02331D41500295277 /* Decoder */ = {
+		E5835BB9233D4F0900125140 /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				936817FB232A882000E6E724 /* UIComponents */,
+				936817FA232A881600E6E724 /* Layout */,
+				936817F9232A880700E6E724 /* Core */,
+			);
+			path = Widgets;
+			sourceTree = "<group>";
+		};
+		E5CE41A02331D41500295277 /* Decoding */ = {
 			isa = PBXGroup;
 			children = (
 				E5CE41B92331DFE000295277 /* Common */,
@@ -275,7 +283,7 @@
 				E5CE41A22331D55000295277 /* WidgetDecoder.swift */,
 				E57FBB81233A795A00165D8D /* DataPreprocessor.swift */,
 			);
-			path = Decoder;
+			path = Decoding;
 			sourceTree = "<group>";
 		};
 		E5CE41A12331D42600295277 /* Entities */ = {
