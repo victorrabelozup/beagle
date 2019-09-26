@@ -8,12 +8,12 @@
 
 public struct Horizontal: Widget {
     
-    let children: [Widget]?
+    let children: [Widget]
     let flex: Flex?
     let reversed: Bool
     
     init(
-        children: [Widget]? = nil,
+        children: [Widget] = [],
         flex: Flex? = nil,
         reversed: Bool = false
     ) {

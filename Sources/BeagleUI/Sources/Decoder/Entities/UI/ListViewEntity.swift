@@ -22,7 +22,6 @@ struct ListViewEntity: WidgetEntity {
         case rowsContainer = "rows"
         case remoteDataSource
         case loadingStateContainer = "loadingState"
-        case direction
     }
     
     init(from decoder: Decoder) throws {
@@ -30,16 +29,14 @@ struct ListViewEntity: WidgetEntity {
         try self.init(
             rowsContainer: container.decodeIfPresent([WidgetEntityContainer].self, forKey: .rowsContainer),
             remoteDataSource: container.decodeIfPresent(String.self, forKey: .remoteDataSource),
-            loadingStateContainer: container.decodeIfPresent(WidgetEntityContainer.self, forKey: .loadingStateContainer),
-            direction: container.decode(Direction.self, forKey: .direction)
+            loadingStateContainer: container.decodeIfPresent(WidgetEntityContainer.self, forKey: .loadingStateContainer)
         )
     }
     
     init(
         rowsContainer: [WidgetEntityContainer]?,
         remoteDataSource: String?,
-        loadingStateContainer: WidgetEntityContainer?,
-        direction: Direction
+        loadingStateContainer: WidgetEntityContainer?
     ) {
         self.rowsContainer = rowsContainer
         rows = rowsContainer?.compactMap { $0.content } ?? []
@@ -75,10 +72,10 @@ extension ListViewEntity: WidgetConvertible {
     }
     
     private func inferDirection(from rows: [Widget]) -> ListView.Direction {
-        if rows.first is Vertical {
-            return .vertical
+        if rows.first is Horizontal {
+            return .horizontal
         }
-        return .horizontal
+        return .vertical
     }
     
 }

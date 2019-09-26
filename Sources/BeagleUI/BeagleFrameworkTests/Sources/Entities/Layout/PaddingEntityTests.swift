@@ -41,4 +41,31 @@ final class PaddingEntityTests: XCTestCase {
         )
     }
     
+    func test_whenDecodingAValidJSON_itShouldReturnAValidObject() {
+        // Given
+        let json = """
+            {
+                "type": "beagle:Padding",
+                "child": {
+                    "type": "beagle:Text",
+                    "text": "some text"
+                }
+            }
+        """
+        guard let jsonData = json.data(using: .utf8) else {
+            XCTFail("Could not create JSON data.")
+            return
+        }
+
+        // When
+        let object = try? WidgetDecoder().decodeToWidget(ofType: Padding.self, from: jsonData)
+
+        // Then
+        XCTAssertNotNil(object, "Expected a valid object, but found nil.")
+        XCTAssertNotNil(object?.value.bottom, "Expected a valid object, but found nil.")
+        XCTAssertNotNil(object?.value.left, "Expected a valid object, but found nil.")
+        XCTAssertNotNil(object?.value.right, "Expected a valid object, but found nil.")
+        XCTAssertNotNil(object?.value.top, "Expected a valid object, but found nil.")
+    }
+    
 }

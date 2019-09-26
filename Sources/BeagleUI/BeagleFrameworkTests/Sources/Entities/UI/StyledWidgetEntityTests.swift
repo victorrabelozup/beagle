@@ -69,4 +69,39 @@ final class StyledWidgetEntityTests: XCTestCase {
         XCTAssertTrue(object?.child is Text)
     }
     
+    func test_whenDecodingAValidJSONWithNoValidChild_itShouldReturnAnError() {
+        // Given
+        let json = """
+            {
+                "type": "beagle:StyledWidget",
+                "border": {
+                    "color": "white",
+                    "radius": 1.0,
+                    "size": 2.0
+                },
+                "color": "blue",
+                "child": {
+                    "type": "beagle:Invalid",
+                    "value": "meh"
+                }
+            }
+        """
+        guard let jsonData = json.data(using: .utf8) else {
+            XCTFail("Could not create JSON data.")
+            return
+        }
+
+        // When
+        var errorThrown: Error?
+        do {
+            _ = try WidgetDecoder().decodeToWidget(ofType: StyledWidget.self, from: jsonData)
+        } catch {
+            errorThrown = error
+        }
+
+        // Then
+        XCTAssertNotNil(errorThrown, "Expected to capture an error, but got nil.")
+        XCTAssertTrue(errorThrown is WidgetDecodingError, "Expected a `WidgetDecodingError`, but got \(errorThrown.debugDescription).")
+    }
+    
 }

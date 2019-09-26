@@ -14,7 +14,7 @@ struct StackEntity: WidgetEntity {
     let children: [WidgetConvertibleEntity]
     let flex: FlexEntity
     
-    private let childrenContainer: [WidgetEntityContainer]
+    private let childrenContainer: [WidgetEntityContainer]?
     
     private enum CodingKeys: String, CodingKey {
         case childrenContainer = "children"

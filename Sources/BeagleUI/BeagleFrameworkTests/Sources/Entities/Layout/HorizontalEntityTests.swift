@@ -25,5 +25,32 @@ final class HorizontalEntityTests: XCTestCase {
         XCTAssertNotNil(horizontal, "The Horizontal widget should not be nil.")
         XCTAssertTrue(horizontal is Horizontal)
     }
+    
+    func test_whenDecodingAValidJSON_itShouldReturnAValidObjectWithDefaultValues() {
+        // Given
+        let json = """
+            {
+                "type": "beagle:Horizontal",
+                "children": [
+                    {
+                        "type": "beagle:Text",
+                        "text": "some text"
+                    }
+                ]
+            }
+        """
+        guard let jsonData = json.data(using: .utf8) else {
+            XCTFail("Could not create JSON data.")
+            return
+        }
+
+        // When
+        let object = try? WidgetDecoder().decodeToWidget(ofType: Horizontal.self, from: jsonData)
+
+        // Then
+        XCTAssertNotNil(object, "Expected a valid object, but found nil.")
+        XCTAssertEqual(object?.children.count, 1, "Expected 1, but found ")
+        XCTAssertTrue(object?.reversed == false, "Expected `false`, but got false.")
+    }
 
 }

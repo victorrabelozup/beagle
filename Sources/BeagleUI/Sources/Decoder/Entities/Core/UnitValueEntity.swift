@@ -10,8 +10,12 @@ import Foundation
 
 /// Defines an API representation for `UnitValue`
 struct UnitValueEntity: WidgetEntity {
+    
     let value: Double
     let type: UnitTypeEntity
+    
+    static let `default` = UnitValueEntity(value: 0.0, type: .real)
+    
 }
 extension UnitValueEntity: UIModelConvertible {
     

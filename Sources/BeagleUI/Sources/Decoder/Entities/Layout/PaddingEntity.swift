@@ -24,16 +24,21 @@ struct PaddingEntity: WidgetEntity {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         try self.init(
-            value: container.decode(PaddingValueEntity.self, forKey: .value),
+            value: container.decodeIfPresent(PaddingValueEntity.self, forKey: .value),
             childContainer: container.decode(WidgetEntityContainer.self, forKey: .childContainer)
         )
     }
     
     init(
-        value: PaddingValueEntity,
+        value: PaddingValueEntity?,
         childContainer: WidgetEntityContainer
     ) throws {
-        self.value = value
+        self.value = value ?? PaddingValueEntity(
+            top: .default,
+            left: .default,
+            right: .default,
+            bottom: .default
+        )
         self.childContainer = childContainer
         guard let childContainerValue = childContainer.content else {
             let entityType = String(describing: PaddingEntity.self)
@@ -62,10 +67,10 @@ extension PaddingEntity: WidgetConvertible {
         let bottom = try value.bottom?.mapToUIModel()
         
         return PaddingValue(
-            top: top,
-            left: left,
-            right: right,
-            bottom: bottom
+            top: top ?? .default,
+            left: left ?? .default,
+            right: right ?? .default,
+            bottom: bottom ?? .default
         )
     }
     
