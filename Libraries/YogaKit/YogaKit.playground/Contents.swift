@@ -6,72 +6,104 @@ import PlaygroundSupport
 import YogaKit
 
 final class LayoutInclusionViewController: UIViewController {
-    private let button: UIButton = UIButton(type: .system)
-    private let disappearingView: UIView = UIView(frame: .zero)
-    private let contentView: UIView = UIView(frame: .zero)
+    
+    private let root: UIView = UIView(frame: .zero)
+    
+    private let contentView: UIScrollView = UIScrollView(frame: .zero)
+    
+    private let content: UIView = UIView(frame: .zero)
+    
+    private let headerView: UIView = UIView(frame: .zero)
+    
+    private let footerView: UIView = UIView(frame: .zero)
 
     override func viewDidLoad() {
-        let root = self.view!
         root.backgroundColor = .white
         root.configureLayout { (layout) in
             layout.isEnabled = true
             layout.flexDirection = .column
-            layout.justifyContent = .spaceAround
+            layout.justifyContent = .spaceBetween
+            layout.height = YGValue(self.view.bounds.size.height)
+            layout.width = YGValue(self.view.bounds.size.width)
         }
+        self.view.addSubview(root)
+        
+        headerView.backgroundColor = .red
+        headerView.configureLayout { (layout) in
+            layout.isEnabled = true
+            layout.height = 80
+        }
+        root.addSubview(headerView)
 
-        contentView.backgroundColor = .clear
+        contentView.backgroundColor = .green
         contentView.layer.borderColor = UIColor.lightGray.cgColor
         contentView.layer.borderWidth = 1.0
         contentView.configureLayout { (layout) in
             layout.isEnabled = true
-            layout.height = 300
-            layout.width = YGValue(self.view.bounds.size.width)
-            layout.flexDirection = .column
-            layout.justifyContent = .center
-            layout.paddingHorizontal = 25
-        }
-        self.view.addSubview(contentView)
-
-        let redView = UIView(frame: .zero)
-        redView.backgroundColor = .red
-        redView.configureLayout { (layout) in
-            layout.isEnabled = true
             layout.flexGrow = 1
-            layout.flexShrink = 1
+            layout.flexBasis = 1
+//            layout.width = YGValue(self.view.bounds.size.width)
+//            layout.flexDirection = .column
+//            layout.paddingHorizontal = 25
         }
-        contentView.addSubview(redView)
-
-        disappearingView.backgroundColor = .blue
-        disappearingView.configureLayout { (layout) in
+        root.addSubview(contentView)
+        
+        content.backgroundColor = .clear
+        content.configureLayout { (layout) in
             layout.isEnabled = true
-            layout.flexGrow = 1
+            layout.alignItems = .center
         }
-        contentView.addSubview(disappearingView)
+        contentView.addSubview(content)
+        
+        for _ in 1...8 {
+            addYellowView()
+        }
 
-        button.setTitle("Add Blue View", for: UIControl.State.selected)
-        button.setTitle("Remove Blue View", for: UIControl.State.normal)
+        footerView.backgroundColor = .blue
+        footerView.configureLayout { (layout) in
+            layout.isEnabled = true
+            layout.height = 60
+        }
+        root.addSubview(footerView)
+        
+        let button = UIButton(type: .system)
+        button.setTitle("Add Yellow View", for: UIControl.State.normal)
         button.addTarget(self, action: #selector(buttonWasTapped), for: UIControl.Event.touchUpInside)
         button.configureLayout { (layout) in
             layout.isEnabled = true
-            layout.height = 300
-            layout.width = 300
+            layout.height = 52
+            layout.width = 120
             layout.alignSelf = .center
         }
-        root.addSubview(button)
-
+        footerView.addSubview(button)
         root.yoga.applyLayout(preservingOrigin: false)
+    }
+    
+    override func viewDidLayoutSubviews() {
+      super.viewDidLayoutSubviews()
+      // Calculate and set the content size for the scroll view
+      var contentViewRect: CGRect = .zero
+      for view in contentView.subviews {
+        contentViewRect = contentViewRect.union(view.frame)
+      }
+      contentView.contentSize = contentViewRect.size
     }
 
     // MARK - UIButton Action
     @objc func buttonWasTapped() {
-        button.isSelected = !button.isSelected
-
-        button.isUserInteractionEnabled = false
-        disappearingView.yoga.isIncludedInLayout = !disappearingView.yoga.isIncludedInLayout
-        disappearingView.isHidden = !disappearingView.isHidden
-
-        contentView.yoga.applyLayout(preservingOrigin: true)
-        button.isUserInteractionEnabled = true
+        addYellowView()
+        content.yoga.applyLayout(preservingOrigin:true)
+    }
+    
+    func addYellowView() {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = .yellow
+        view.configureLayout { (layout) in
+            layout.isEnabled = true
+            layout.width = 100
+            layout.height = 100
+        }
+        content.addSubview(view)
     }
 }
 
