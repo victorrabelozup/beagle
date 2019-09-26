@@ -8,6 +8,9 @@
          location = "group:Libraries/Networking/Networking.xcodeproj">
       </FileRef>
       <FileRef
+         location = "group:YogaKit.playground">
+      </FileRef>
+      <FileRef
          location = "group:Libraries/YogaKit/YogaKit.xcodeproj">
       </FileRef>
    </Group>
