@@ -11,12 +11,12 @@ import Foundation
 /// Defines an API representation for `Stack`
 struct StackEntity: WidgetEntity {
     
-    let children: [WidgetEntity]?
-    let flex: FlexEntity?
+    let children: [WidgetConvertibleEntity]
+    let flex: FlexEntity
     
-    private let childrenContainer: [WidgetEntityContainer]?
+    private let childrenContainer: [WidgetEntityContainer]
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case childrenContainer = "children"
         case flex
     }
@@ -24,18 +24,18 @@ struct StackEntity: WidgetEntity {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         try self.init(
-            childrenContainer: container.decodeIfPresent([WidgetEntityContainer].self, forKey: .childrenContainer),
+            childrenContainer: container.decode([WidgetEntityContainer].self, forKey: .childrenContainer),
             flex: container.decodeIfPresent(FlexEntity.self, forKey: .flex)
         )
     }
     
     init(
-        childrenContainer: [WidgetEntityContainer]?,
+        childrenContainer: [WidgetEntityContainer],
         flex: FlexEntity?
     ) {
         self.childrenContainer = childrenContainer
-        children = childrenContainer?.compactMap { $0.content }
-        self.flex = flex
+        children = childrenContainer.compactMap { $0.content }
+        self.flex = flex ?? FlexEntity()
     }
     
 }
@@ -44,7 +44,7 @@ extension StackEntity: WidgetConvertible, ChildrenWidgetMapping {
     func mapToWidget() throws -> Widget {
         
         let children = try mapChildren()
-        let flex = try self.flex?.mapToUIModel()
+        let flex = try self.flex.mapToUIModel()
         
         return Stack(
             children: children,

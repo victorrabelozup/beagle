@@ -9,10 +9,10 @@
 import Foundation
 
 /// Used as a markup interface for the API representation of Widgets
-public protocol WidgetEntity: Codable {}
+public protocol WidgetEntity: Decodable {}
 
 /// Combines both protocols in forder to add functionatily for the entities that are some type of content
-typealias WidgetEntityContainerContent = WidgetEntity & WidgetConvertible
+typealias WidgetConvertibleEntity = WidgetEntity & WidgetConvertible
 
 /// Defines a container to hold a WidgetEntity dynamic types
 struct WidgetEntityContainer: WidgetEntity {
@@ -20,7 +20,7 @@ struct WidgetEntityContainer: WidgetEntity {
     // MARK: - Properties
     
     let type: String
-    let content: WidgetEntityContainerContent?
+    let content: WidgetConvertibleEntity?
     
     // MARK: - CodingKeys
     
@@ -34,42 +34,25 @@ struct WidgetEntityContainer: WidgetEntity {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         type = try container.decode(String.self, forKey: .type)
-        if let decodeFunction = WidgetEntityContainer.decoders[type] {
+        let uppercasedType = type.uppercased()
+        if let decodeFunction = WidgetEntityContainer.decoders[uppercasedType] {
             let rawContent = try decodeFunction(container)
-            content = rawContent as? WidgetEntityContainerContent
+            content = rawContent as? WidgetConvertibleEntity
         } else {
             content = nil
         }
     }
     
-    init(type: String, content: WidgetEntityContainerContent? = nil) {
+    init(type: String, content: WidgetConvertibleEntity? = nil) {
         self.type = type
         self.content = content
-    }
-    
-    // MARK: - Encoding
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(type, forKey: .type)
-        if let content = self.content {
-            guard let encode = WidgetEntityContainer.encoders[type] else {
-                let context = EncodingError.Context(codingPath: [], debugDescription: "Invalid attachment: \(type).")
-                throw EncodingError.invalidValue(self, context)
-            }
-            try encode(content, &container)
-        } else {
-            try container.encodeNil(forKey: .content)
-        }
     }
     
     // MARK: - Registration
     
     private typealias WidgetContainerDecoder = (KeyedDecodingContainer<CodingKeys>) throws -> Any
-    private typealias WidgetContainerEncoder = (WidgetEntity, inout KeyedEncodingContainer<CodingKeys>) throws -> Void
     
     private static var decoders: [String: WidgetContainerDecoder] = [:]
-    private static var encoders: [String: WidgetContainerEncoder] = [:]
     
     /// Registers a type to be dynamicaly decoded
     ///
@@ -77,19 +60,10 @@ struct WidgetEntityContainer: WidgetEntity {
     ///   - type: the type to register, which needs to conform to Decodable
     ///   - typeName: the type's name, or the key it will be found at
     static func register<T: WidgetEntity>(_ type: T.Type, for typeName: String) {
-        
-        decoders[typeName] = { container in
+        let uppercasedType = typeName.uppercased()
+        decoders[uppercasedType] = { container in
             try container.decode(T.self, forKey: .content)
         }
-        
-        encoders[typeName] = { value, container in
-            guard let typedValue = value as? T else {
-                let typeName = String(describing: T.self)
-                throw Error.cannotCastValueToType(typeName)
-            }
-            try container.encode(typedValue, forKey: .content)
-        }
-        
     }
     
 }

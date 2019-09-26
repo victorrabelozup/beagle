@@ -1,5 +1,5 @@
 //
-//  WidgetEntityContainerTests.swift
+//  WidgetConvertibleTests.swift
 //  BeagleFrameworkTests
 //
 //  Created by Eduardo Sanches Bocato on 25/09/19.
@@ -9,19 +9,19 @@
 import XCTest
 @testable import BeagleUI
 
-final class WidgetEntityContainerTests: XCTestCase {
-
-    func test_localizedDescriptionShouldReturnTheCorrectText() {
+final class WidgetConvertibleTests: XCTestCase {
+    
+    func test_localizedDescription_shouldReturnTheCorrectTextForEntityTypeIsNotConvertible() {
         // Given
         let type = "Something"
-        let expectedLocalizedDescription = "Could not cast value to Something"
+        let expectedLocalizedDescription = "\(type) does not conform with `WidgetConvertible`. Check this."
         
         // When
-        let error: WidgetEntityContainer.Error = .cannotCastValueToType(type)
+        let error: WidgetConvertibleError = .entityTypeIsNotConvertible(type)
         let localizedDescription = error.localizedDescription
         
         // Then
         XCTAssertEqual(expectedLocalizedDescription, localizedDescription, "Expected \(expectedLocalizedDescription), but got \(localizedDescription).")
     }
-
+    
 }

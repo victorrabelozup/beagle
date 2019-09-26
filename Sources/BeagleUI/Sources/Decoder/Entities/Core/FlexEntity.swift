@@ -10,14 +10,66 @@ import Foundation
 
 /// Defines an API representation for `Flex`
 struct FlexEntity: WidgetEntity {
+    
+    let itemDirection: ItemDirection
     let flexWrap: Wrap
     let justifyContent: JustifyContent
     let alignItems: Alignment
     let alignSelf: Alignment
     let alignContent: Alignment
-    let basis: String
+    let basis: UnitValueEntity
     let grow: Double
     let shrink: Int
+    
+    private enum CodingKeys: String, CodingKey {
+        case itemDirection
+        case flexWrap
+        case justifyContent
+        case alignItems
+        case alignSelf
+        case alignContent
+        case basis
+        case grow
+        case shrink
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        try self.init(
+            itemDirection: container.decodeIfPresent(ItemDirection.self, forKey: .itemDirection),
+            flexWrap: container.decodeIfPresent(Wrap.self, forKey: .flexWrap),
+            justifyContent: container.decodeIfPresent(JustifyContent.self, forKey: .justifyContent),
+            alignItems: container.decodeIfPresent(Alignment.self, forKey: .alignItems),
+            alignSelf: container.decodeIfPresent(Alignment.self, forKey: .alignSelf),
+            alignContent: container.decodeIfPresent(Alignment.self, forKey: .alignContent),
+            basis: container.decodeIfPresent(UnitValueEntity.self, forKey: .basis),
+            grow: container.decodeIfPresent(Double.self, forKey: .grow),
+            shrink: container.decodeIfPresent(Int.self, forKey: .shrink)
+        )
+    }
+    
+    init(
+        itemDirection: ItemDirection? = nil,
+        flexWrap: Wrap? = nil,
+        justifyContent: JustifyContent? = nil,
+        alignItems: Alignment? = nil,
+        alignSelf: Alignment? = nil,
+        alignContent: Alignment? = nil,
+        basis: UnitValueEntity? = nil,
+        grow: Double? = nil,
+        shrink: Int? = nil
+    ) {
+        self.itemDirection = itemDirection ?? .ltr
+        self.flexWrap = flexWrap ?? .no_wrap
+        self.justifyContent = justifyContent ?? .flex_start
+        self.alignItems = alignItems ?? .stretch
+        self.alignSelf = alignSelf ?? .auto
+        self.alignContent = alignContent ?? .flex_start
+        self.basis = basis ?? UnitValueEntity(value: .zero, type: .real)
+        self.grow = grow ?? 0.0
+        self.shrink = shrink ?? 0
+    }
+    
 }
 
 extension FlexEntity: UIModelConvertible {
@@ -31,6 +83,7 @@ extension FlexEntity: UIModelConvertible {
         let alignItems = try self.alignItems.mapToUIModel(ofType: Flex.Alignment.self)
         let alignSelf = try self.alignSelf.mapToUIModel(ofType: Flex.Alignment.self)
         let alignContent = try self.alignContent.mapToUIModel(ofType: Flex.Alignment.self)
+        let basis = try self.basis.mapToUIModel()
         
         return Flex(
             flexWrap: flexWrap,

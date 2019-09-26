@@ -7,7 +7,7 @@
 //
 
 public struct SelectView: Widget {
-    let rows: [Widget]?
+    let rows: [Widget]
     let remoteDataSource: String?
     let loadingState: Widget?
 }

@@ -13,11 +13,11 @@ struct StyledWidgetEntity: WidgetEntity {
     
     let border: BorderEntity?
     let color: String?
-    let child: WidgetEntity?
+    let child: WidgetConvertibleEntity
     
     private let childContainer: WidgetEntityContainer?
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case border
         case color
         case childContainer = "child"
@@ -28,19 +28,24 @@ struct StyledWidgetEntity: WidgetEntity {
         try self.init(
             border: container.decodeIfPresent(BorderEntity.self, forKey: .border),
             color: container.decodeIfPresent(String.self, forKey: .color),
-            childContainer: container.decodeIfPresent(WidgetEntityContainer.self, forKey: .childContainer)
+            childContainer: container.decode(WidgetEntityContainer.self, forKey: .childContainer)
         )
     }
     
     init(
         border: BorderEntity?,
         color: String?,
-        childContainer: WidgetEntityContainer?
-    ) {
+        childContainer: WidgetEntityContainer
+    ) throws {
         self.border = border
         self.color = color
         self.childContainer = childContainer
-        self.child = childContainer?.content
+        guard let childContainerValue = childContainer.content else {
+            let entityType = String(describing: StyledWidgetEntity.self)
+            let key = CodingKeys.childContainer.rawValue
+            throw WidgetDecodingError.couldNotDecodeContentForEntityOnKey(entityType, key)
+        }
+        self.child = childContainerValue
     }
     
 }
@@ -50,7 +55,7 @@ extension StyledWidgetEntity: WidgetConvertible {
         if let border = border {
             uiBorder = Border(color: border.color, radius: border.radius, size: border.size)
         }
-        let child = try self.childContainer?.content?.mapToWidget()
+        let child = try self.child.mapToWidget()
         return StyledWidget(border: uiBorder, color: color, child: child)
     }
 }

@@ -11,13 +11,13 @@ public struct ListView: Widget {
     let rows: [Widget]?
     let remoteDataSource: String?
     let loadingState: Widget?
-    let direction: ListDirection
+    let direction: Direction
     
     init(
         rows: [Widget]? = nil,
         remoteDataSource: String? = nil,
         loadingState: Widget? = nil,
-        direction: ListDirection = .vertical
+        direction: Direction = .vertical
     ) {
         self.rows = rows
         self.remoteDataSource = remoteDataSource
@@ -25,8 +25,9 @@ public struct ListView: Widget {
         self.direction = direction
     }
 }
-
-public enum ListDirection {
-    case vertical
-    case horizontal
+extension ListView {
+    public enum Direction {
+        case vertical
+        case horizontal
+    }
 }

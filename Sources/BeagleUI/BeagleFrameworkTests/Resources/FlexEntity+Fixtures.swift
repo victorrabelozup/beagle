@@ -17,7 +17,7 @@ extension FlexEntity {
         alignItems: Alignment = .stretch,
         alignSelf: Alignment = .auto,
         alignContent: Alignment = .flex_start,
-        basis: String = "0",
+        basis: UnitValueEntity = UnitValueEntity(value: 0.0, type: .real),
         grow: Double = 0.0,
         shrink: Int = 0
     ) -> FlexEntity {

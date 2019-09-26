@@ -28,14 +28,15 @@
 		9368181F232A8DEA00E6E724 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368181E232A8DEA00E6E724 /* TextField.swift */; };
 		93681821232A8E0C00E6E724 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93681820232A8E0C00E6E724 /* Toolbar.swift */; };
 		E57FBB82233A795A00165D8D /* DataPreprocessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57FBB81233A795A00165D8D /* DataPreprocessor.swift */; };
-		E57FBB84233AA46600165D8D /* WidgetEntityContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57FBB83233AA46600165D8D /* WidgetEntityContainerTests.swift */; };
+		E57FBB86233ABF3F00165D8D /* DataPreprocessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57FBB85233ABF3F00165D8D /* DataPreprocessorTests.swift */; };
+		E5835B33233BD84600125140 /* WidgetEntityContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5835B32233BD84600125140 /* WidgetEntityContainerTests.swift */; };
+		E5835B35233BD95C00125140 /* WidgetConvertibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5835B34233BD95C00125140 /* WidgetConvertibleTests.swift */; };
 		E5CE41A32331D55000295277 /* WidgetDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A22331D55000295277 /* WidgetDecoder.swift */; };
 		E5CE41A52331D59E00295277 /* WidgetEntityContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A42331D59E00295277 /* WidgetEntityContainer.swift */; };
 		E5CE41A72331D93F00295277 /* ContainerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A62331D93F00295277 /* ContainerEntity.swift */; };
 		E5CE41A92331D95300295277 /* VerticalEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A82331D95300295277 /* VerticalEntity.swift */; };
 		E5CE41AE2331D9A700295277 /* TextEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41AD2331D9A700295277 /* TextEntity.swift */; };
 		E5CE41BB2331DFF100295277 /* WidgetConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41BA2331DFF100295277 /* WidgetConvertible.swift */; };
-		E5CE41C02332586F00295277 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41BF2332586F00295277 /* StringExtension.swift */; };
 		E5CE41C223325E2100295277 /* FlexEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41C123325E2100295277 /* FlexEntity.swift */; };
 		E5CE41C623325E4500295277 /* UnitValueEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41C523325E4500295277 /* UnitValueEntity.swift */; };
 		E5CE41C82332749800295277 /* HorizontalEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41C72332749800295277 /* HorizontalEntity.swift */; };
@@ -68,7 +69,6 @@
 		E5CE421E233404A200295277 /* SpacerEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE421D233404A200295277 /* SpacerEntityTests.swift */; };
 		E5CE4220233404B800295277 /* StackEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE421F233404B800295277 /* StackEntityTests.swift */; };
 		E5CE4222233404C700295277 /* VerticalEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE4221233404C700295277 /* VerticalEntityTests.swift */; };
-		E5CE4225233408DF00295277 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE4224233408DF00295277 /* StringExtensionTests.swift */; };
 		E5CE422823340EA100295277 /* UnitValueEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE422723340EA100295277 /* UnitValueEntityTests.swift */; };
 		E5CE422E2334185300295277 /* UIModelConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE422D2334185300295277 /* UIModelConvertible.swift */; };
 		E5CE43182335052100295277 /* UIEnumModelConvertibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE43172335052100295277 /* UIEnumModelConvertibleTests.swift */; };
@@ -112,14 +112,15 @@
 		9800D881233412540051B4F2 /* ChildrenWidgetMappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildrenWidgetMappingTests.swift; sourceTree = "<group>"; };
 		E53524AA23310F5A00D1A0C9 /* YogaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YogaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E57FBB81233A795A00165D8D /* DataPreprocessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPreprocessor.swift; sourceTree = "<group>"; };
-		E57FBB83233AA46600165D8D /* WidgetEntityContainerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntityContainerTests.swift; sourceTree = "<group>"; };
+		E57FBB85233ABF3F00165D8D /* DataPreprocessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPreprocessorTests.swift; sourceTree = "<group>"; };
+		E5835B32233BD84600125140 /* WidgetEntityContainerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntityContainerTests.swift; sourceTree = "<group>"; };
+		E5835B34233BD95C00125140 /* WidgetConvertibleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetConvertibleTests.swift; sourceTree = "<group>"; };
 		E5CE41A22331D55000295277 /* WidgetDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDecoder.swift; sourceTree = "<group>"; };
 		E5CE41A42331D59E00295277 /* WidgetEntityContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntityContainer.swift; sourceTree = "<group>"; };
 		E5CE41A62331D93F00295277 /* ContainerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerEntity.swift; sourceTree = "<group>"; };
 		E5CE41A82331D95300295277 /* VerticalEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalEntity.swift; sourceTree = "<group>"; };
 		E5CE41AD2331D9A700295277 /* TextEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEntity.swift; sourceTree = "<group>"; };
 		E5CE41BA2331DFF100295277 /* WidgetConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetConvertible.swift; sourceTree = "<group>"; };
-		E5CE41BF2332586F00295277 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		E5CE41C123325E2100295277 /* FlexEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexEntity.swift; sourceTree = "<group>"; };
 		E5CE41C523325E4500295277 /* UnitValueEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitValueEntity.swift; sourceTree = "<group>"; };
 		E5CE41C72332749800295277 /* HorizontalEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalEntity.swift; sourceTree = "<group>"; };
@@ -153,7 +154,6 @@
 		E5CE421D233404A200295277 /* SpacerEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacerEntityTests.swift; sourceTree = "<group>"; };
 		E5CE421F233404B800295277 /* StackEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackEntityTests.swift; sourceTree = "<group>"; };
 		E5CE4221233404C700295277 /* VerticalEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalEntityTests.swift; sourceTree = "<group>"; };
-		E5CE4224233408DF00295277 /* StringExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionTests.swift; sourceTree = "<group>"; };
 		E5CE422723340EA100295277 /* UnitValueEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitValueEntityTests.swift; sourceTree = "<group>"; };
 		E5CE422D2334185300295277 /* UIModelConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIModelConvertible.swift; sourceTree = "<group>"; };
 		E5CE43172335052100295277 /* UIEnumModelConvertibleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEnumModelConvertibleTests.swift; sourceTree = "<group>"; };
@@ -251,7 +251,6 @@
 		939CE4C4232996FD00EEEDFC /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E5CE41BE2332586300295277 /* Extensions */,
 				E5CE41A02331D41500295277 /* Decoder */,
 				936817FB232A882000E6E724 /* UIModels */,
 				936817FA232A881600E6E724 /* Layout */,
@@ -338,14 +337,6 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		E5CE41BE2332586300295277 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				E5CE41BF2332586F00295277 /* StringExtension.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		E5CE41E82332B9B600295277 /* BeagleFrameworkTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,7 +350,6 @@
 		E5CE41F22332B9C000295277 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E5CE4223233408D000295277 /* Extensions */,
 				E5CE41F42332B9D200295277 /* Decoder */,
 				E5CE41FC2333FBDE00295277 /* Entities */,
 			);
@@ -371,6 +361,7 @@
 			children = (
 				E5CE43122334FBA300295277 /* Common */,
 				E5CE41F52332B9DD00295277 /* WidgetDecoderTests.swift */,
+				E57FBB85233ABF3F00165D8D /* DataPreprocessorTests.swift */,
 			);
 			path = Decoder;
 			sourceTree = "<group>";
@@ -414,19 +405,11 @@
 			path = Layout;
 			sourceTree = "<group>";
 		};
-		E5CE4223233408D000295277 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				E5CE4224233408DF00295277 /* StringExtensionTests.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		E5CE422623340E6600295277 /* Core */ = {
 			isa = PBXGroup;
 			children = (
 				E5CE422723340EA100295277 /* UnitValueEntityTests.swift */,
-				E57FBB83233AA46600165D8D /* WidgetEntityContainerTests.swift */,
+				E5835B32233BD84600125140 /* WidgetEntityContainerTests.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -436,6 +419,7 @@
 			children = (
 				9800D881233412540051B4F2 /* ChildrenWidgetMappingTests.swift */,
 				E5CE43172335052100295277 /* UIEnumModelConvertibleTests.swift */,
+				E5835B34233BD95C00125140 /* WidgetConvertibleTests.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -592,7 +576,6 @@
 				E5CE41A72331D93F00295277 /* ContainerEntity.swift in Sources */,
 				E5CE41C223325E2100295277 /* FlexEntity.swift in Sources */,
 				93681801232A884600E6E724 /* Screen.swift in Sources */,
-				E5CE41C02332586F00295277 /* StringExtension.swift in Sources */,
 				E5CE41A52331D59E00295277 /* WidgetEntityContainer.swift in Sources */,
 				93681813232A8D4000E6E724 /* DropDown.swift in Sources */,
 				E5CE41FB2333F7FB00295277 /* ChildrenWidgetMapping.swift in Sources */,
@@ -630,21 +613,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E57FBB86233ABF3F00165D8D /* DataPreprocessorTests.swift in Sources */,
 				E5CE43182335052100295277 /* UIEnumModelConvertibleTests.swift in Sources */,
 				E5CE421A2334047900295277 /* HorizontalEntityTests.swift in Sources */,
 				E5CE42092334003200295277 /* ImageEntityTests.swift in Sources */,
+				E5835B33233BD84600125140 /* WidgetEntityContainerTests.swift in Sources */,
 				E5CE4218233403E000295277 /* ContainerEntityTests.swift in Sources */,
 				E5CE431E2335402B00295277 /* ChildrenWidgetMappingTests.swift in Sources */,
 				E5CE421C2334049200295277 /* PaddingEntityTests.swift in Sources */,
 				E5CE421E233404A200295277 /* SpacerEntityTests.swift in Sources */,
 				E5CE4220233404B800295277 /* StackEntityTests.swift in Sources */,
 				E5CE42012333FC1F00295277 /* ButtonEntityTests.swift in Sources */,
+				E5835B35233BD95C00125140 /* WidgetConvertibleTests.swift in Sources */,
 				E5CE4215233400B100295277 /* ToolBarEntityTests.swift in Sources */,
 				E5CE431C2335069200295277 /* FlexEntity+Fixtures.swift in Sources */,
 				E5CE422823340EA100295277 /* UnitValueEntityTests.swift in Sources */,
-				E5CE4225233408DF00295277 /* StringExtensionTests.swift in Sources */,
 				E5CE420B2334004400295277 /* ListViewEntityTests.swift in Sources */,
-				E57FBB84233AA46600165D8D /* WidgetEntityContainerTests.swift in Sources */,
 				E5CE41F62332B9DD00295277 /* WidgetDecoderTests.swift in Sources */,
 				E5CE42132334009F00295277 /* TextFieldEntityTests.swift in Sources */,
 				E5CE420F2334006B00295277 /* StyledWidgetEntityTests.swift in Sources */,

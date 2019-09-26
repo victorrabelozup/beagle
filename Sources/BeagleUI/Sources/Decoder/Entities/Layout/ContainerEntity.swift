@@ -11,15 +11,15 @@ import Foundation
 /// Defines an API representation for `Container`
 struct ContainerEntity: WidgetEntity {
     
-    let body: WidgetEntityContainerContent?
-    let content: WidgetEntityContainerContent
-    let footer: WidgetEntityContainerContent?
+    let body: WidgetConvertibleEntity?
+    let content: WidgetConvertibleEntity
+    let footer: WidgetConvertibleEntity?
     
     private let bodyContainer: WidgetEntityContainer?
     private let contentContainer: WidgetEntityContainer
     private let footerContainer: WidgetEntityContainer?
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case bodyContainer = "body"
         case contentContainer = "content"
         case footerContainer = "footer"

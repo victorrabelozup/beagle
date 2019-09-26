@@ -13,7 +13,7 @@ struct Flex {
     let alignItems: Alignment
     let alignSelf: Alignment
     let alignContent: Alignment
-    let basis: String
+    let basis: UnitValue
     let grow: Double
     let shrink: Int
     
@@ -23,7 +23,7 @@ struct Flex {
         alignItems: Alignment = .stretch,
         alignSelf: Alignment = .auto,
         alignContent: Alignment = .flex_start,
-        basis: String = "0",
+        basis: UnitValue = UnitValue(value: 0.0, type: .real),
         grow: Double = 0.0,
         shrink: Int = 0
     ) {

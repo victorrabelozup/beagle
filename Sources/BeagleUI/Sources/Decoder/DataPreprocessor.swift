@@ -9,8 +9,8 @@
 import Foundation
 
 enum DataPreprocessorError: Error {
-    case invalidJSONForDataInNamespace(Data, String)
     case jsonSerialization(Error)
+    case emptyJSON
 }
 
 protocol DataPreprocessor {
@@ -29,42 +29,36 @@ final class DataPreprocessing: DataPreprocessor {
     
     func normalizeData(_ data: Data, for namespace: String) throws -> Data {
         
-        var rawJSON: Any?
+        let uppercasedNamespace = namespace.uppercased()
+        
+        var json: Any?
         do {
-            rawJSON = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+            json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
         } catch {
             throw DataPreprocessorError.jsonSerialization(error)
         }
         
-        guard let json = rawJSON as? [String: Any] else {
-            throw DataPreprocessorError.invalidJSONForDataInNamespace(data, namespace)
-        }
-        let newDataJSON = transformValueIfNeeded(json, for: namespace)
+        let newDataJSON = try transformValueIfNeeded(json, for: uppercasedNamespace)
         
-        do {
-            let newData = try JSONSerialization.data(withJSONObject: newDataJSON, options: .prettyPrinted)
-            return newData
-        } catch {
-            throw DataPreprocessorError.jsonSerialization(error)
-        }
+        return try JSONSerialization.data(withJSONObject: newDataJSON, options: .prettyPrinted)
         
     }
     
-    private func transformValueIfNeeded(_ value: Any, for namespace: String) -> Any {
+    private func transformValueIfNeeded(_ value: Any?, for namespace: String) throws -> Any {
         
         if let jsonArray = value as? [[String: Any]] {
+
+            return try jsonArray.map { try transformValueIfNeeded($0, for: namespace) }
             
-            return jsonArray.map { transformValueIfNeeded($0, for: namespace) }
-            
-        } else if let dictionary = value as? [String: Any], let type = dictionary["type"] as? String, type.contains(namespace) {
+        } else if let dictionary = value as? [String: Any], let type = (dictionary["type"] as? String)?.uppercased(), type.contains(namespace) {
             
             var newValue = [String: Any]()
             var content = [String: Any]()
-            dictionary.forEach {
-                if let typeName = $0.value as? String, typeName == type {
+            try dictionary.forEach {
+                if let typeName = ($0.value as? String)?.uppercased(), typeName == type {
                     newValue[$0.key] = $0.value
                 } else {
-                    content[$0.key] = transformValueIfNeeded($0.value, for: namespace)
+                    content[$0.key] = try transformValueIfNeeded($0.value, for: namespace)
                 }
             }
             newValue["content"] = content
@@ -72,7 +66,7 @@ final class DataPreprocessing: DataPreprocessor {
             return newValue
             
         } else {
-            return value
+            return value ?? ""
         }
         
     }

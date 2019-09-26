@@ -11,14 +11,14 @@ import Foundation
 /// Defines an API representation for `SelectView`
 struct SelectViewEntity: WidgetEntity {
     
-    let rows: [WidgetEntity]?
+    let rows: [WidgetConvertibleEntity]
     let remoteDataSource: String?
-    let loadingState: WidgetEntity?
+    let loadingState: WidgetConvertibleEntity?
     
     private let rowsContainer: [WidgetEntityContainer]?
     private let loadingStateContainer: WidgetEntityContainer?
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case rowsContainer = "rows"
         case remoteDataSource
         case loadingStateContainer = "loadingState"
@@ -39,7 +39,7 @@ struct SelectViewEntity: WidgetEntity {
         loadingStateContainer: WidgetEntityContainer?
     ) {
         self.rowsContainer = rowsContainer
-        rows = rowsContainer?.compactMap { $0.content }
+        rows = rowsContainer?.compactMap { $0.content } ?? []
         self.remoteDataSource = remoteDataSource
         self.loadingStateContainer = loadingStateContainer
         self.loadingState = loadingStateContainer?.content
@@ -48,8 +48,8 @@ struct SelectViewEntity: WidgetEntity {
 }
 extension SelectViewEntity: WidgetConvertible {
     func mapToWidget() throws -> Widget {
-        let rows = self.rowsContainer?.compactMap { try? $0.content?.mapToWidget() }
-        let loadingState = try? self.loadingStateContainer?.content?.mapToWidget()
+        let rows = try self.rows.compactMap { try $0.mapToWidget() }
+        let loadingState = try self.loadingState?.mapToWidget()
         return SelectView(rows: rows, remoteDataSource: remoteDataSource, loadingState: loadingState)
     }
 }

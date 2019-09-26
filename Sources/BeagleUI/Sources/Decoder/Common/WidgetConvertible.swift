@@ -20,18 +20,12 @@ public protocol WidgetConvertible {
 /// - unexpectedNilChildrensForType: a nil value was received for the `children`property when it was not expected
 public enum WidgetConvertibleError: Error {
     
-    case emptyContentForContainerOfType(String)
-    case couldNotFindChildrenPropertyForType(String)
-    case unexpectedNilChildrensForType(String)
+    case entityTypeIsNotConvertible(String)
     
     var localizedDescription: String {
         switch self {
-        case let .emptyContentForContainerOfType(type):
-            return "Empty content for container of \(type)"
-        case let .couldNotFindChildrenPropertyForType(type):
-            return "Could not find `children` property for \(type)"
-        case let .unexpectedNilChildrensForType(type):
-            return "A `nil` value was found for the `children` property for \(type) when it was not expected."
+        case let .entityTypeIsNotConvertible(type):
+            return "\(type) does not conform with `WidgetConvertible`. Check this."
         }
     }
 }

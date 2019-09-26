@@ -26,17 +26,13 @@ extension ChildrenWidgetMapping {
     func mapChildren() throws -> [Widget] {
         
         let mirror = Mirror(reflecting: self)
-        guard let children = mirror.children.first(where: { $0.label == "childrenContainer" })?.value as? [WidgetEntityContainer] else {
-            let type = String(describing: self)
-            throw WidgetConvertibleError.couldNotFindChildrenPropertyForType(type)
-        }
         
+        // swiftlint:disable trailing_closure
+        let children = mirror.children.first(where: { $0.label == "children" })?.value as? [WidgetConvertibleEntity]
+
         var childWidgets = [Widget]()
-        try children.forEach {
-            guard let content = $0.content else {
-                throw WidgetConvertibleError.emptyContentForContainerOfType($0.type)
-            }
-            let widget = try content.mapToWidget()
+        try children?.forEach {
+            let widget = try $0.mapToWidget()
             childWidgets.append(widget)
         }
         

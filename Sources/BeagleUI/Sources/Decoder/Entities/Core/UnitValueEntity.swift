@@ -15,10 +15,6 @@ struct UnitValueEntity: WidgetEntity {
 }
 extension UnitValueEntity: UIModelConvertible {
     
-//    // MARK: - Aliases
-//    
-    typealias UIModelType = UnitValue
-    
     // MARK: - Public Functions
     
     /// Converts the Entity to an UIModel

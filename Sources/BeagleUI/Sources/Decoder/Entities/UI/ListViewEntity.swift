@@ -11,15 +11,14 @@ import Foundation
 /// Defines an API representation for `ListView`
 struct ListViewEntity: WidgetEntity {
     
-    let rows: [WidgetEntity]?
+    let rows: [WidgetConvertibleEntity]
     let remoteDataSource: String?
-    let loadingState: WidgetEntity?
-    let direction: Direction
+    let loadingState: WidgetConvertibleEntity?
     
     private let rowsContainer: [WidgetEntityContainer]?
     private let loadingStateContainer: WidgetEntityContainer?
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case rowsContainer = "rows"
         case remoteDataSource
         case loadingStateContainer = "loadingState"
@@ -32,7 +31,7 @@ struct ListViewEntity: WidgetEntity {
             rowsContainer: container.decodeIfPresent([WidgetEntityContainer].self, forKey: .rowsContainer),
             remoteDataSource: container.decodeIfPresent(String.self, forKey: .remoteDataSource),
             loadingStateContainer: container.decodeIfPresent(WidgetEntityContainer.self, forKey: .loadingStateContainer),
-            direction: container.decode(Direction.self, forKey: .remoteDataSource)
+            direction: container.decode(Direction.self, forKey: .direction)
         )
     }
     
@@ -43,14 +42,12 @@ struct ListViewEntity: WidgetEntity {
         direction: Direction
     ) {
         self.rowsContainer = rowsContainer
-        rows = rowsContainer?.compactMap { $0.content }
+        rows = rowsContainer?.compactMap { $0.content } ?? []
         
         self.remoteDataSource = remoteDataSource
         
         self.loadingStateContainer = loadingStateContainer
         loadingState = loadingStateContainer?.content
-        
-        self.direction = direction
     }
     
 }
@@ -65,9 +62,9 @@ extension ListViewEntity: WidgetConvertible {
     
     func mapToWidget() throws -> Widget {
         
-        let rows = self.rowsContainer?.compactMap { try? $0.content?.mapToWidget() }
-        let loadingState = try? self.loadingStateContainer?.content?.mapToWidget()
-        let direction = mapDirection()
+        let rows = try self.rows.compactMap { try $0.mapToWidget() }
+        let loadingState = try self.loadingState?.mapToWidget()
+        let direction = inferDirection(from: rows)
         
         return ListView(
             rows: rows,
@@ -77,13 +74,11 @@ extension ListViewEntity: WidgetConvertible {
         )
     }
     
-    private func mapDirection() -> ListDirection {
-        switch direction {
-        case .horizontal:
-            return .horizontal
-        case .vertical:
+    private func inferDirection(from rows: [Widget]) -> ListView.Direction {
+        if rows.first is Vertical {
             return .vertical
         }
+        return .horizontal
     }
     
 }

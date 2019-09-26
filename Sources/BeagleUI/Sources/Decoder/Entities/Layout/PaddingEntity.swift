@@ -12,11 +12,11 @@ import Foundation
 struct PaddingEntity: WidgetEntity {
     
     let value: PaddingValueEntity
-    let child: WidgetEntityContainerContent
+    let child: WidgetConvertibleEntity
     
     private let childContainer: WidgetEntityContainer
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case value
         case childContainer = "child"
     }

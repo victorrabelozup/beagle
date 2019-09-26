@@ -11,15 +11,15 @@ import Foundation
 /// Defines an API representation for `DropDown`
 struct DropDownEntity: WidgetEntity {
     
-    let header: WidgetEntity
-    let child: WidgetEntity
+    let header: WidgetConvertibleEntity
+    let child: WidgetConvertibleEntity
     
-    let headerContainer: WidgetEntityContainer
-    let childContainer: WidgetEntityContainer
+    private let headerContainer: WidgetEntityContainer
+    private let childContainer: WidgetEntityContainer
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case headerContainer = "header"
-        case childContainer = "content"
+        case childContainer = "child"
     }
     
     init(from decoder: Decoder) throws {
@@ -56,18 +56,8 @@ struct DropDownEntity: WidgetEntity {
 }
 extension DropDownEntity: WidgetConvertible {
     func mapToWidget() throws -> Widget {
-        
-        guard let headerContent = headerContainer.content else {
-            throw WidgetConvertibleError.emptyContentForContainerOfType(headerContainer.type)
-        }
-        
-        guard let childContent = childContainer.content else {
-            throw WidgetConvertibleError.emptyContentForContainerOfType(childContainer.type)
-        }
-        
-        let header = try headerContent.mapToWidget()
-        let child = try childContent.mapToWidget()
-        
+        let header = try self.header.mapToWidget()
+        let child = try self.child.mapToWidget()
         return DropDown(header: header, child: child)
     }
 }

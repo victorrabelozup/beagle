@@ -51,5 +51,34 @@ final class DropDownEntityTests: XCTestCase {
             "Expected to Throw an error, but it didn't."
         )
     }
+    
+    func test_whenDecodingAValidJSON_itShouldReturnAValidObject() {
+        // Given
+        let json = """
+            {
+                "type": "beagle:DropDown",
+                "header": {
+                    "type": "beagle:Text",
+                    "text": "some text"
+                },
+                "child": {
+                    "type": "beagle:Text",
+                    "text": "some text"
+                }
+            }
+        """
+        guard let jsonData = json.data(using: .utf8) else {
+            XCTFail("Could not create JSON data.")
+            return
+        }
+
+        // When
+        let object = try? WidgetDecoder().decodeToWidget(ofType: DropDown.self, from: jsonData)
+
+        // Then
+        XCTAssertNotNil(object, "Expected a valid object, but found nil.")
+        XCTAssertTrue(object?.header is Text)
+        XCTAssertTrue(object?.child is Text)
+    }
 
 }

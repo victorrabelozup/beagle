@@ -25,19 +25,29 @@ protocol WidgetDecoding {
     /// - Throws: a decoding error, as in JSONDecoder
     func decode(from data: Data) throws -> WidgetEntity?
     
-    /// Decodes a value, from some data, also enabling it's transformation to some 
+    /// Decodes a top-level value of the given type from the given JSON representation.
+    ///
+    /// - parameter type: The type of the value to decode.
+    /// - parameter data: The data to decode from.
+    /// - returns: A value of the requested type.
+    /// - throws: `DecodingError.dataCorrupted` if values requested from the payload are corrupted, or if the given data is not valid JSON.
+    /// - throws: An error if any value throws an error during decoding.
+    func decodeToWidget<T>(ofType type: T.Type, from data: Data) throws -> T where T: Widget
+    
+    /// Decodes a value, from some data, also enabling it's transformation to some type
+    /// that conforms with `Widget`
     ///
     /// - Parameters:
     ///   - data: a data object from the API
     ///   - transformer: a value transformer
     /// - Returns: the transformed value
     /// - Throws: a decoding error, as in JSONDecoder
-    func decode<T>(from data: Data, transformer: (WidgetEntity) throws -> T?) throws -> T?
+    func decode<T>(from data: Data, transformer: (Widget) throws -> T?) throws -> T?
 }
 
 public enum WidgetDecodingError: Error {
-    case couldNotDecodeValueFromData
     case couldNotDecodeContentForEntityOnKey(String, String)
+    case couldNotCastToType(String)
 }
 
 public final class WidgetDecoder: WidgetDecoding {
@@ -73,56 +83,59 @@ public final class WidgetDecoder: WidgetDecoding {
         WidgetEntityContainer.register(type, for: decodingKey)
     }
     
-    /// Decodes some date to a WidgetEntityContainer
-    ///
-    /// - Parameter data: a data object from the API
-    /// - Returns: a WidgetEntityContainer from it's data
-    /// - Throws:  a decoding error, as in JSONDecoder
-    func decodeToContainer(from data: Data) throws -> WidgetEntityContainer {
-        let normalizedData = try dataPreprocessor.normalizeData(data, for: WidgetDecoder.namespace)
-        return try jsonDecoder.decode(WidgetEntityContainer.self, from: normalizedData)
-    }
-    
     /// Decodes a type from a data object, needs to be casted to the root type.
     ///
     /// - Parameter data: a data object from the API
     /// - Returns: the widget entity
     /// - Throws: a decoding error, as in JSONDecoder
     func decode(from data: Data) throws -> WidgetEntity? {
-        let normalizedData = try dataPreprocessor.normalizeData(data, for: WidgetDecoder.namespace)
-        do {
-            let container = try jsonDecoder.decode(WidgetEntityContainer.self, from: normalizedData)
-            return container.content
-        } catch {
-            debugPrint(error)
-            throw error
+        let container = try decodeContainer(from: data)
+        return container?.content
+    }
+    
+    /// Decodes a top-level value of the given type from the given JSON representation.
+    ///
+    /// - parameter type: The type of the value to decode.
+    /// - parameter data: The data to decode from.
+    /// - returns: A value of the requested type.
+    /// - throws: `DecodingError.dataCorrupted` if values requested from the payload are corrupted, or if the given data is not valid JSON.
+    /// - throws: An error if any value throws an error during decoding.
+    func decodeToWidget<T>(ofType type: T.Type, from data: Data) throws -> T where T: Widget {
+        guard let widget = try decode(from: data, transformer: { $0 as? T }) else {
+            let typeString = String(describing: type)
+            throw WidgetDecodingError.couldNotCastToType(typeString)
         }
+        return widget
     }
     
     /// Decodes a value, from some data, also enabling it's transformation to some type
-    /// that conforms with `WidgetEntity`
+    /// that conforms with `Widget`
     ///
     /// - Parameters:
     ///   - data: a data object from the API
     ///   - transformer: a value transformer
     /// - Returns: the transformed value
     /// - Throws: a decoding error, as in JSONDecoder
-    func decode<T>(from data: Data, transformer: (WidgetEntity) throws -> T?) throws -> T? {
-        do {
-            guard let value = try? decode(from: data) else {
-                throw WidgetDecodingError.couldNotDecodeValueFromData
-            }
-            return try transformer(value)
-        } catch {
-            throw error
+    func decode<T>(from data: Data, transformer: (Widget) throws -> T?) throws -> T? {
+        let container = try decodeContainer(from: data)
+        guard let uiModel = try container?.content?.mapToWidget() else {
+            return nil
         }
+        return try transformer(uiModel)
+    }
+    
+    // MARK: - Private Functions
+    
+    private func decodeContainer(from data: Data) throws -> WidgetEntityContainer? {
+        let normalizedData = try dataPreprocessor.normalizeData(data, for: WidgetDecoder.namespace)
+        return try jsonDecoder.decode(WidgetEntityContainer.self, from: normalizedData)
     }
 
     // MARK: - Private Helpers
     
     private static func decodingKey(for typeName: String) -> String {
         let prefix = namespace.isEmpty ? "" : namespace + ":"
-        return prefix + typeName.capitalizingFirstLetter()
+        return prefix.uppercased() + typeName.uppercased()
     }
     
     // MARK: - Types Registration
@@ -147,7 +160,7 @@ public final class WidgetDecoder: WidgetDecoding {
     
     private static func registerUITypes() {
         WidgetEntityContainer.register(ButtonEntity.self, for: decodingKey(for: "Button"))
-        WidgetEntityContainer.register(DropDownEntity.self, for: decodingKey(for: "Dropdown"))
+        WidgetEntityContainer.register(DropDownEntity.self, for: decodingKey(for: "DropDown"))
         WidgetEntityContainer.register(ImageEntity.self, for: decodingKey(for: "Image"))
         WidgetEntityContainer.register(ListViewEntity.self, for: decodingKey(for: "ListView"))
         WidgetEntityContainer.register(SelectViewEntity.self, for: decodingKey(for: "SelectView"))

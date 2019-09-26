@@ -11,13 +11,13 @@ import Foundation
 /// Defines an API representation for `Vertical`
 struct VerticalEntity: WidgetEntity {
     
-    let children: [WidgetEntity]?
-    let flex: FlexEntity?
+    let children: [WidgetConvertibleEntity]
+    let flex: FlexEntity
     let reversed: Bool
     
-    private let childrenContainer: [WidgetEntityContainer]?
+    private let childrenContainer: [WidgetEntityContainer]
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case childrenContainer = "children"
         case flex
         case reversed
@@ -26,21 +26,21 @@ struct VerticalEntity: WidgetEntity {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         try self.init(
-            childrenContainer: container.decodeIfPresent([WidgetEntityContainer].self, forKey: .childrenContainer),
+            childrenContainer: container.decode([WidgetEntityContainer].self, forKey: .childrenContainer),
             flex: container.decodeIfPresent(FlexEntity.self, forKey: .flex),
-            reversed: container.decode(Bool.self, forKey: .reversed)
+            reversed: container.decodeIfPresent(Bool.self, forKey: .reversed)
         )
     }
     
     init(
-        childrenContainer: [WidgetEntityContainer]?,
+        childrenContainer: [WidgetEntityContainer],
         flex: FlexEntity?,
-        reversed: Bool
+        reversed: Bool?
     ) {
         self.childrenContainer = childrenContainer
-        children = childrenContainer?.compactMap { $0.content }
-        self.flex = flex
-        self.reversed = reversed
+        children = childrenContainer.compactMap { $0.content }
+        self.flex = flex ?? FlexEntity()
+        self.reversed = reversed ?? false
     }
     
 }
@@ -49,7 +49,7 @@ extension VerticalEntity: WidgetConvertible, ChildrenWidgetMapping {
     func mapToWidget() throws -> Widget {
 
         let children = try mapChildren()
-        let flex = try self.flex?.mapToUIModel()
+        let flex = try self.flex.mapToUIModel()
 
         return Vertical(
             children: children,
