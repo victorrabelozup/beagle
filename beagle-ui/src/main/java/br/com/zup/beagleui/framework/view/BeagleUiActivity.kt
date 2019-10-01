@@ -3,11 +3,9 @@ package br.com.zup.beagleui.framework.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import br.com.zup.beagleui.framework.engine.BeagleViewBuilder
-import com.facebook.yogalayout.YogaViewLayoutFactory
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,8 +26,6 @@ class BeagleUiActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        LayoutInflater.from(this).factory = YogaViewLayoutFactory.getInstance()
-
         super.onCreate(savedInstanceState)
 
         viewModel.initialize(screenUrl)

@@ -1,29 +1,30 @@
 package br.com.zup.beagleui.framework.engine.renderer.layout
 
-import android.content.Context
-import android.view.View
-import br.com.zup.beagleui.framework.widget.layout.Horizontal
-import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
+import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
+import br.com.zup.beagleui.framework.engine.renderer.native.YogaFactory
+import br.com.zup.beagleui.framework.widget.layout.Horizontal
+import com.facebook.yoga.YogaFlexDirection
 
 internal class HorizontalViewRenderer(
-    private val viewRendererFactory: ViewRendererFactory,
-    private val horizontal: Horizontal
-) : ViewRenderer {
-    override fun build(context: Context): View {
-        /*val row = Row.create(context)
-            .reverse(horizontal.reversed)
+    private val horizontal: Horizontal,
+    viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
+    viewFactory: ViewFactory = ViewFactory(),
+    yogaFactory: YogaFactory = YogaFactory()
+) : DirectionalViewRenderer(
+    horizontal.children,
+    horizontal.flex,
+    viewRendererFactory,
+    viewFactory,
+    yogaFactory
+) {
 
-        addFlexToRow(horizontal.flex, row)
-
-        horizontal.children.forEach { child ->
-            val layoutRenderer =
-                make(child)
-            row.child(layoutRenderer.build(context))
+    override fun getYogaFlexDirection(): YogaFlexDirection {
+        return if (horizontal.reversed) {
+            YogaFlexDirection.ROW_REVERSE
+        } else {
+            YogaFlexDirection.ROW
         }
-
-        return row.build()*/
-
-        return View(context)
     }
+
 }

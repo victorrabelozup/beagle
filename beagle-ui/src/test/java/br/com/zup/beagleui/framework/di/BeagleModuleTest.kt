@@ -5,13 +5,15 @@ import br.com.zup.beagleui.framework.data.deserializer.BeagleMoshiFactory
 import br.com.zup.beagleui.framework.data.deserializer.BeagleUiDeserialization
 import br.com.zup.beagleui.framework.engine.BeagleViewBuilder
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
+import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
+import br.com.zup.beagleui.framework.engine.renderer.native.YogaFactory
 import br.com.zup.beagleui.framework.view.BeagleUiViewModel
 import org.junit.Before
 import org.junit.Test
 import org.koin.core.context.startKoin
 import org.koin.test.AutoCloseKoinTest
 import org.koin.test.inject
-import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 internal class BeagleModuleTest : AutoCloseKoinTest() {
 
@@ -31,31 +33,31 @@ internal class BeagleModuleTest : AutoCloseKoinTest() {
 
     @Test
     fun beagleUiViewModel_should_have_a_valid_instance() {
-        assertEquals(Class.forName(BeagleUiViewModel::class.java.name), beagleUiViewModel.javaClass)
+        assertNotNull(beagleUiViewModel)
     }
 
     @Test
     fun beagleHttpClient_should_have_a_valid_instance() {
-        assertEquals(Class.forName(BeagleHttpClient::class.java.name), beagleHttpClient.javaClass)
+        assertNotNull(beagleHttpClient)
     }
 
     @Test
     fun beagleMoshiFactory_should_have_a_valid_instance() {
-        assertEquals(Class.forName(BeagleMoshiFactory::class.java.name), beagleMoshiFactory.javaClass)
+        assertNotNull(beagleMoshiFactory)
     }
 
     @Test
     fun beagleUiDeserialization_should_have_a_valid_instance() {
-        assertEquals(Class.forName(BeagleUiDeserialization::class.java.name), beagleUiDeserialization.javaClass)
+        assertNotNull(beagleUiDeserialization)
     }
 
     @Test
     fun viewRendererFactory_should_have_a_valid_instance() {
-        assertEquals(Class.forName(ViewRendererFactory::class.java.name), viewRendererFactory.javaClass)
+        assertNotNull(viewRendererFactory)
     }
 
     @Test
     fun beagleViewBuilder_should_have_a_valid_instance() {
-        assertEquals(Class.forName(BeagleViewBuilder::class.java.name), beagleViewBuilder.javaClass)
+        assertNotNull(beagleViewBuilder)
     }
 }

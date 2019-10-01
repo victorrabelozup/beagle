@@ -5,12 +5,15 @@ import br.com.zup.beagleui.framework.engine.renderer.layout.HorizontalViewRender
 import br.com.zup.beagleui.framework.engine.renderer.layout.SpacerViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.StackViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.VerticalViewRender
+import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
+import br.com.zup.beagleui.framework.engine.renderer.native.YogaFactory
 import br.com.zup.beagleui.framework.engine.renderer.ui.ButtonViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.ImageViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.TextFieldViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.TextViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.ToolbarViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.UndefinedViewRenderer
+import br.com.zup.beagleui.framework.widget.core.Flex
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.layout.Container
 import br.com.zup.beagleui.framework.widget.layout.Horizontal
@@ -25,6 +28,8 @@ import br.com.zup.beagleui.framework.widget.ui.SelectView
 import br.com.zup.beagleui.framework.widget.ui.Text
 import br.com.zup.beagleui.framework.widget.ui.TextField
 import br.com.zup.beagleui.framework.widget.ui.Toolbar
+import io.mockk.every
+import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import org.junit.Before
 import org.junit.Test
@@ -56,6 +61,8 @@ class ViewRendererFactoryTest {
     fun make_should_return_VerticalViewRender_when_widget_is_a_Vertical() {
         // Given
         val widget = mockk<Vertical>()
+        every { widget.children } returns listOf()
+        every { widget.flex } returns mockk()
 
         // When
         val actual = viewRendererFactory.make(widget)
@@ -68,6 +75,8 @@ class ViewRendererFactoryTest {
     fun make_should_return_HorizontalViewRenderer_when_widget_is_a_Horizontal() {
         // Given
         val widget = mockk<Horizontal>()
+        every { widget.children } returns listOf()
+        every { widget.flex } returns mockk()
 
         // When
         val actual = viewRendererFactory.make(widget)

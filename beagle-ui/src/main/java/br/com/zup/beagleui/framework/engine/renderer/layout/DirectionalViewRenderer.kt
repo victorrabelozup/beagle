@@ -6,24 +6,25 @@ import br.com.zup.beagleui.framework.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
 import br.com.zup.beagleui.framework.engine.renderer.native.YogaFactory
+import br.com.zup.beagleui.framework.widget.core.Flex
 import br.com.zup.beagleui.framework.widget.core.Widget
-import br.com.zup.beagleui.framework.widget.layout.Stack
 import com.facebook.yoga.YogaFlexDirection
-import com.facebook.yoga.YogaPositionType
 import com.facebook.yogalayout.YogaLayout
 
-internal class StackViewRenderer(
-    private val stack: Stack,
-    viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
-    viewFactory: ViewFactory = ViewFactory(),
-    yogaFactory: YogaFactory = YogaFactory()
+internal abstract class DirectionalViewRenderer(
+    private val children: List<Widget>,
+    private val flex: Flex,
+    viewRendererFactory: ViewRendererFactory,
+    viewFactory: ViewFactory,
+    yogaFactory: YogaFactory
 ) : LayoutViewRenderer(viewRendererFactory, viewFactory, yogaFactory) {
 
+    abstract fun getYogaFlexDirection(): YogaFlexDirection
+
     override fun build(context: Context): View {
-        return yogaFactory.makeYogaLayout(context, stack.flex).apply {
-            yogaNode.flexDirection = YogaFlexDirection.COLUMN
-            yogaNode.positionType = YogaPositionType.ABSOLUTE
-            addChildrenViews(stack.children, this)
+        return yogaFactory.makeYogaLayout(context, flex).apply {
+            yogaNode.flexDirection = getYogaFlexDirection()
+            addChildrenViews(children, this)
         }
     }
 

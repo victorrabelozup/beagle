@@ -1,26 +1,29 @@
 package br.com.zup.beagleui.framework.engine.renderer.layout
 
-import android.content.Context
-import android.view.View
-import br.com.zup.beagleui.framework.widget.layout.Vertical
-import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
+import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
+import br.com.zup.beagleui.framework.engine.renderer.native.YogaFactory
+import br.com.zup.beagleui.framework.widget.layout.Vertical
+import com.facebook.yoga.YogaFlexDirection
 
 internal class VerticalViewRender(
-    private val viewRendererFactory: ViewRendererFactory,
-    private val vertical: Vertical
-) : ViewRenderer {
+    private val vertical: Vertical,
+    viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
+    viewFactory: ViewFactory = ViewFactory(),
+    yogaFactory: YogaFactory = YogaFactory()
+) : DirectionalViewRenderer(
+    vertical.children,
+    vertical.flex,
+    viewRendererFactory,
+    viewFactory,
+    yogaFactory
+) {
 
-    override fun build(context: Context): View {
-        /*val column = Column.create(context)
-            .reverse(vertical.reversed)
-
-        vertical.children.forEach { child ->
-            val layoutRenderer = make(child)
-            column.child(layoutRenderer.build(context))
+    override fun getYogaFlexDirection(): YogaFlexDirection {
+        return if (vertical.reversed) {
+            YogaFlexDirection.COLUMN_REVERSE
+        } else {
+            YogaFlexDirection.COLUMN
         }
-
-        return column.build()*/
-        return View(context)
     }
 }

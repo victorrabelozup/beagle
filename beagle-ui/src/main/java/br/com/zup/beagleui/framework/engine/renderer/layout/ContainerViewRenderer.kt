@@ -2,20 +2,25 @@ package br.com.zup.beagleui.framework.engine.renderer.layout
 
 import android.content.Context
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ScrollView
+import br.com.zup.beagleui.framework.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagleui.framework.widget.layout.Container
-import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
-import com.facebook.yogalayout.VirtualYogaLayout
+import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
+import br.com.zup.beagleui.framework.engine.renderer.native.YogaFactory
+import com.facebook.yoga.YogaFlexDirection
+import com.facebook.yoga.YogaJustify
 
 internal class ContainerViewRenderer(
-    private val viewRendererFactory: ViewRendererFactory,
-    private val container: Container
-) : ViewRenderer {
-    override fun build(context: Context): View {
-        val container = VirtualYogaLayout(context).apply {
+    private val container: Container,
+    viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
+    viewFactory: ViewFactory = ViewFactory(),
+    yogaFactory: YogaFactory = YogaFactory()
+) : LayoutViewRenderer(viewRendererFactory, viewFactory, yogaFactory) {
 
+    override fun build(context: Context): View {
+        val container = yogaFactory.makeYogaLayout(context).apply {
+            yogaNode.flexDirection = YogaFlexDirection.COLUMN
+            yogaNode.justifyContent = YogaJustify.SPACE_BETWEEN
         }
 
         if (this.container.header != null) {
@@ -24,7 +29,6 @@ internal class ContainerViewRenderer(
 
         val contentView = viewRendererFactory.make(this.container.content).build(context)
         val scrollView = createScrollViewForView(context, contentView)
-
         container.addView(scrollView)
 
         if (this.container.footer != null) {
@@ -35,10 +39,19 @@ internal class ContainerViewRenderer(
     }
 
     private fun createScrollViewForView(context: Context, view: View): View {
-        return ScrollView(context).apply { 
-            addView(view, ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
-            ))
+        val scrollView = viewFactory.makeScrollView(context).apply {
+            addView(yogaFactory.makeYogaLayout(context).apply {
+                addView(view)
+            })
+        }
+
+        val scrollNode = yogaFactory.makeYogaNode().apply {
+            flex = 1.0f
+        }
+
+        return yogaFactory.makeYogaLayout(context).apply {
+            yogaNode.flex = 1.0f
+            addView(scrollView, scrollNode)
         }
     }
 }

@@ -7,6 +7,8 @@ import br.com.zup.beagleui.framework.engine.renderer.layout.HorizontalViewRender
 import br.com.zup.beagleui.framework.engine.renderer.layout.SpacerViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.StackViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.VerticalViewRender
+import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
+import br.com.zup.beagleui.framework.engine.renderer.native.YogaFactory
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.engine.renderer.ui.ButtonViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.ImageViewRenderer
@@ -32,6 +34,14 @@ internal interface ViewRenderer {
     fun build(context: Context): View
 }
 
+internal abstract class LayoutViewRenderer(
+    protected val viewRendererFactory: ViewRendererFactory,
+    protected val viewFactory: ViewFactory,
+    protected val yogaFactory: YogaFactory
+) : ViewRenderer
+
+internal interface UiViewRenderer : ViewRenderer
+
 internal class ViewRendererFactory {
 
     fun make(widget: Widget): ViewRenderer {
@@ -40,10 +50,10 @@ internal class ViewRendererFactory {
 
     private fun tryMakeViewLayout(widget: Widget) : ViewRenderer? {
         return when (widget) {
-            is Container -> ContainerViewRenderer(this, widget)
-            is Vertical -> VerticalViewRender(this, widget)
-            is Horizontal -> HorizontalViewRenderer(this, widget)
-            is Stack -> StackViewRenderer(this, widget)
+            is Container -> ContainerViewRenderer(widget)
+            is Vertical -> VerticalViewRender(widget)
+            is Horizontal -> HorizontalViewRenderer(widget)
+            is Stack -> StackViewRenderer(widget)
             is Spacer -> SpacerViewRenderer(widget)
             else -> null
         }
@@ -55,7 +65,7 @@ internal class ViewRendererFactory {
             is Text -> TextViewRenderer(widget)
             is Image -> ImageViewRenderer(widget)
             is TextField -> TextFieldViewRenderer()
-            is Toolbar -> ToolbarViewRenderer()
+            is Toolbar -> ToolbarViewRenderer(widget)
             is SelectView -> UndefinedViewRenderer()
             is ListView -> UndefinedViewRenderer()
             is DropDown -> UndefinedViewRenderer()

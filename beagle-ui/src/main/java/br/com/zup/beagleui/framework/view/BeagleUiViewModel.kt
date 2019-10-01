@@ -6,7 +6,6 @@ import br.com.zup.beagleui.framework.data.BeagleHttpClient
 import br.com.zup.beagleui.framework.data.HttpLayerException
 import br.com.zup.beagleui.framework.widget.core.Widget
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 internal class BeagleUiViewModel(
     private val beagleHttpClient: BeagleHttpClient

@@ -19,7 +19,7 @@ val beagleModule: Module = module {
 
     factory { BeagleUiDeserialization(get()) }
 
-    factory { ViewRendererFactory() }
-
     factory { BeagleViewBuilder(get()) }
+
+    factory { ViewRendererFactory() }
 }

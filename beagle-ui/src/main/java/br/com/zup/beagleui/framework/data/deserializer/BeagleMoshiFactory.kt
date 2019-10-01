@@ -38,7 +38,6 @@ private const val BEAGLE_LIST_VIEW = "beagle:ListView"
 private const val BEAGLE_SELECT_VIEW = "beagle:SelectView"
 private const val BEAGLE_TEXT_FIELD = "beagle:TextField"
 private const val BEAGLE_TOOLBAR = "beagle:Toolbar"
-private const val BEAGLE_STYLED_WIDGET = "beagle:StyledWidget"
 
 internal class BeagleMoshiFactory {
 
