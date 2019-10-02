@@ -1,21 +1,5 @@
 package br.com.zup.beagleui.framework.engine.renderer.native
 
-import android.content.Context
-import br.com.zup.beagleui.framework.widget.core.Alignment
-import br.com.zup.beagleui.framework.widget.core.Flex
-import br.com.zup.beagleui.framework.widget.core.FlexWrap
-import br.com.zup.beagleui.framework.widget.core.ItemDirection
-import br.com.zup.beagleui.framework.widget.core.JustifyContent
-import com.facebook.yoga.YogaAlign
-import com.facebook.yoga.YogaDirection
-import com.facebook.yoga.YogaJustify
-import com.facebook.yoga.YogaWrap
-import io.mockk.mockk
-import org.junit.Before
-import org.junit.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
-
 /*
 class YogaFactoryTest {
 
@@ -42,7 +26,7 @@ class YogaFactoryTest {
             alignItems = Alignment.FLEX_START,
             alignSelf = Alignment.FLEX_START,
             justifyContent = JustifyContent.FLEX_START,
-            itemDirection = ItemDirection.INHERIT
+            direction = Direction.INHERIT
         )
 
         // When

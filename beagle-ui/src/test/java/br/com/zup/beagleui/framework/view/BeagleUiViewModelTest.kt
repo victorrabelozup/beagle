@@ -6,7 +6,6 @@ import br.com.zup.beagleui.framework.testutil.getPrivateField
 import br.com.zup.beagleui.framework.widget.core.Widget
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
-import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.setMain

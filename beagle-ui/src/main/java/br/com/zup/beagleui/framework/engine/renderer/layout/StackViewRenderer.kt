@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import br.com.zup.beagleui.framework.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
+import br.com.zup.beagleui.framework.engine.renderer.mapper.FlexMapper
 import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
 import br.com.zup.beagleui.framework.engine.renderer.native.YogaFactory
 import br.com.zup.beagleui.framework.widget.core.Widget
@@ -16,7 +17,7 @@ internal class StackViewRenderer(
     private val stack: Stack,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory(),
-    yogaFactory: YogaFactory = YogaFactory()
+    yogaFactory: YogaFactory = YogaFactory(FlexMapper())
 ) : LayoutViewRenderer(viewRendererFactory, viewFactory, yogaFactory) {
 
     override fun build(context: Context): View {

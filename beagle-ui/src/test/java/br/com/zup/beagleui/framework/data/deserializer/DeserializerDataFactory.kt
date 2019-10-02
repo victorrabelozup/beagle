@@ -9,7 +9,7 @@ fun makeUnitValueJson() = """
 
 fun makeFlexJson() = """
     {
-        "itemDirection": "LTR",
+        "direction": "LTR",
         "flexWrap": "NO_WRAP",
         "justifyContent": "FLEX_START",
         "alignItems": "STRETCH",

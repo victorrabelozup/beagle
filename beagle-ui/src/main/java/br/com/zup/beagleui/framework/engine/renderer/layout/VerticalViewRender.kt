@@ -1,6 +1,7 @@
 package br.com.zup.beagleui.framework.engine.renderer.layout
 
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
+import br.com.zup.beagleui.framework.engine.renderer.mapper.FlexMapper
 import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
 import br.com.zup.beagleui.framework.engine.renderer.native.YogaFactory
 import br.com.zup.beagleui.framework.widget.layout.Vertical
@@ -10,7 +11,7 @@ internal class VerticalViewRender(
     private val vertical: Vertical,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory(),
-    yogaFactory: YogaFactory = YogaFactory()
+    yogaFactory: YogaFactory = YogaFactory(FlexMapper())
 ) : DirectionalViewRenderer(
     vertical.children,
     vertical.flex,

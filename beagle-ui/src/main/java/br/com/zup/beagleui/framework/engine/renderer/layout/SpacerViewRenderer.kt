@@ -5,6 +5,7 @@ import android.view.View
 import br.com.zup.beagleui.framework.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagleui.framework.widget.layout.Spacer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
+import br.com.zup.beagleui.framework.engine.renderer.mapper.FlexMapper
 import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
 import br.com.zup.beagleui.framework.engine.renderer.native.YogaFactory
 
@@ -12,7 +13,7 @@ internal class SpacerViewRenderer(
     private val spacer: Spacer,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory(),
-    yogaFactory: YogaFactory = YogaFactory()
+    yogaFactory: YogaFactory = YogaFactory(FlexMapper())
 ) : LayoutViewRenderer(viewRendererFactory, viewFactory, yogaFactory) {
 
     override fun build(context: Context): View {
