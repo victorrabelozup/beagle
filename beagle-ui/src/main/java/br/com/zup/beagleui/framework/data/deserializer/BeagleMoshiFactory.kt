@@ -2,6 +2,8 @@ package br.com.zup.beagleui.framework.data.deserializer
 
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.layout.Container
+import br.com.zup.beagleui.framework.widget.layout.FlexSingleWidget
+import br.com.zup.beagleui.framework.widget.layout.FlexWidget
 import br.com.zup.beagleui.framework.widget.layout.Horizontal
 import br.com.zup.beagleui.framework.widget.layout.Padding
 import br.com.zup.beagleui.framework.widget.layout.Spacer
@@ -23,6 +25,8 @@ private const val BEAGLE_WIDGET_TYPE = "type"
 
 // Layout
 private const val BEAGLE_CONTAINER = "beagle:Container"
+private const val BEAGLE_FLEX_WIDGET = "beagle:FlexWidget"
+private const val BEAGLE_FLEX_SINGLE_WIDGET = "beagle:FlexSingleWidget"
 private const val BEAGLE_VERTICAL = "beagle:Vertical"
 private const val BEAGLE_HORIZONTAL = "beagle:Horizontal"
 private const val BEAGLE_STACK = "beagle:Stack"
@@ -44,6 +48,8 @@ internal class BeagleMoshiFactory {
     fun make(): Moshi {
         val polymorphicJsonAdapterFactory = PolymorphicJsonAdapterFactory.of(Widget::class.java, BEAGLE_WIDGET_TYPE)
             .withSubtype(Container::class.java, BEAGLE_CONTAINER)
+            .withSubtype(FlexWidget::class.java, BEAGLE_FLEX_WIDGET)
+            .withSubtype(FlexSingleWidget::class.java, BEAGLE_FLEX_SINGLE_WIDGET)
             .withSubtype(Vertical::class.java, BEAGLE_VERTICAL)
             .withSubtype(Horizontal::class.java, BEAGLE_HORIZONTAL)
             .withSubtype(Stack::class.java, BEAGLE_STACK)

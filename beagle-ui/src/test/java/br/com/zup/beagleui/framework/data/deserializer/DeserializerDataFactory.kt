@@ -30,6 +30,22 @@ fun makeContainerJson() = """
     }
 """
 
+fun makeFlexWidgetJson() = """
+    {
+        "type": "beagle:FlexWidget",
+        "flex": ${makeFlexJson()},
+        "children": [${makeButtonJson()}, ${makeButtonJson()}]
+    }
+"""
+
+fun makeFlexSingleWidgetJson() = """
+    {
+        "type": "beagle:FlexSingleWidget",
+        "flex": ${makeFlexJson()},
+        "child": ${makeVerticalJson()}
+    }
+"""
+
 fun makeVerticalJson() = """
     {
         "type": "beagle:Vertical",
