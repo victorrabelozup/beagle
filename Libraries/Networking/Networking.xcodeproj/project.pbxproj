@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E56A027F23421D5800C0F23D /* URLSessionAbstractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A027E23421D5800C0F23D /* URLSessionAbstractions.swift */; };
+		E56A028323421DDD00C0F23D /* DefaultURLRequestBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A028223421DDD00C0F23D /* DefaultURLRequestBuilderTests.swift */; };
+		E56A0286234239EE00C0F23D /* URLRequestTokenHolderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A0285234239EE00C0F23D /* URLRequestTokenHolderTests.swift */; };
+		E56A028D234242CC00C0F23D /* URLSessionDispatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A028C234242CC00C0F23D /* URLSessionDispatcherTests.swift */; };
+		E56A029323428CDF00C0F23D /* CodableSerializingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A029223428CDF00C0F23D /* CodableSerializingTests.swift */; };
+		E56A0295234295D200C0F23D /* CodableRequestingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A0294234295D200C0F23D /* CodableRequestingTests.swift */; };
+		E56A029A23429FF700C0F23D /* URLRequestErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A029923429FF700C0F23D /* URLRequestErrorTests.swift */; };
 		E5CE42B223344DCA00295277 /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5CE42A823344DC900295277 /* Networking.framework */; };
 		E5CE42B923344DCA00295277 /* Networking.h in Headers */ = {isa = PBXBuildFile; fileRef = E5CE42AB23344DC900295277 /* Networking.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E5CE42EE23344F5800295277 /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE42ED23344F5800295277 /* NetworkingService.swift */; };
@@ -20,7 +27,7 @@
 		E5CE42FF23344FC400295277 /* URLRequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE42FB23344FC400295277 /* URLRequestParameters.swift */; };
 		E5CE430023344FC400295277 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE42FC23344FC400295277 /* HTTPMethod.swift */; };
 		E5CE430223344FCA00295277 /* URLRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE430123344FCA00295277 /* URLRequestBuilder.swift */; };
-		E5CE43062334503500295277 /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE43052334503500295277 /* ServiceError.swift */; };
+		E5CE43062334503500295277 /* NetworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE43052334503500295277 /* NetworkingError.swift */; };
 		E5CE4309233450A400295277 /* NSErrorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE4308233450A400295277 /* NSErrorExtension.swift */; };
 		E5CE430C233450F000295277 /* NSErrorExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE430B233450F000295277 /* NSErrorExtensionTests.swift */; };
 		E5CE430F2334517300295277 /* CodableSerializing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE430E2334517300295277 /* CodableSerializing.swift */; };
@@ -38,6 +45,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E56A027E23421D5800C0F23D /* URLSessionAbstractions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionAbstractions.swift; sourceTree = "<group>"; };
+		E56A028223421DDD00C0F23D /* DefaultURLRequestBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultURLRequestBuilderTests.swift; sourceTree = "<group>"; };
+		E56A0285234239EE00C0F23D /* URLRequestTokenHolderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestTokenHolderTests.swift; sourceTree = "<group>"; };
+		E56A028C234242CC00C0F23D /* URLSessionDispatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionDispatcherTests.swift; sourceTree = "<group>"; };
+		E56A029223428CDF00C0F23D /* CodableSerializingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableSerializingTests.swift; sourceTree = "<group>"; };
+		E56A0294234295D200C0F23D /* CodableRequestingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableRequestingTests.swift; sourceTree = "<group>"; };
+		E56A029923429FF700C0F23D /* URLRequestErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestErrorTests.swift; sourceTree = "<group>"; };
 		E5CE42A823344DC900295277 /* Networking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Networking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5CE42AB23344DC900295277 /* Networking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Networking.h; sourceTree = "<group>"; };
 		E5CE42AC23344DC900295277 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -54,7 +68,7 @@
 		E5CE42FB23344FC400295277 /* URLRequestParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestParameters.swift; sourceTree = "<group>"; };
 		E5CE42FC23344FC400295277 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		E5CE430123344FCA00295277 /* URLRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestBuilder.swift; sourceTree = "<group>"; };
-		E5CE43052334503500295277 /* ServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
+		E5CE43052334503500295277 /* NetworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingError.swift; sourceTree = "<group>"; };
 		E5CE4308233450A400295277 /* NSErrorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSErrorExtension.swift; sourceTree = "<group>"; };
 		E5CE430B233450F000295277 /* NSErrorExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSErrorExtensionTests.swift; sourceTree = "<group>"; };
 		E5CE430E2334517300295277 /* CodableSerializing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableSerializing.swift; sourceTree = "<group>"; };
@@ -80,6 +94,68 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E56A027D23421CA400C0F23D /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				E5CE430A233450AC00295277 /* Extensions */,
+				E56A028E23427DD400C0F23D /* Service */,
+				E56A028B234242B500C0F23D /* Dispatcher */,
+				E56A028823423FC300C0F23D /* URLRequests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		E56A028123421DD100C0F23D /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				E56A028223421DDD00C0F23D /* DefaultURLRequestBuilderTests.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		E56A0284234239D700C0F23D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E56A0285234239EE00C0F23D /* URLRequestTokenHolderTests.swift */,
+				E56A029923429FF700C0F23D /* URLRequestErrorTests.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E56A028823423FC300C0F23D /* URLRequests */ = {
+			isa = PBXGroup;
+			children = (
+				E56A0284234239D700C0F23D /* Models */,
+				E56A028123421DD100C0F23D /* Tools */,
+			);
+			path = URLRequests;
+			sourceTree = "<group>";
+		};
+		E56A028B234242B500C0F23D /* Dispatcher */ = {
+			isa = PBXGroup;
+			children = (
+				E56A028C234242CC00C0F23D /* URLSessionDispatcherTests.swift */,
+			);
+			path = Dispatcher;
+			sourceTree = "<group>";
+		};
+		E56A028E23427DD400C0F23D /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				E56A02912342833600C0F23D /* Serialization */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		E56A02912342833600C0F23D /* Serialization */ = {
+			isa = PBXGroup;
+			children = (
+				E56A029223428CDF00C0F23D /* CodableSerializingTests.swift */,
+				E56A0294234295D200C0F23D /* CodableRequestingTests.swift */,
+			);
+			path = Serialization;
+			sourceTree = "<group>";
+		};
 		E5CE429E23344DC900295277 = {
 			isa = PBXGroup;
 			children = (
@@ -101,12 +177,8 @@
 		E5CE42AA23344DC900295277 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				E5CE43072334508A00295277 /* Extensions */,
-				E5CE42C823344DF600295277 /* Service */,
-				E5CE42C923344E0D00295277 /* Dispatcher */,
-				E5CE42CA23344E1600295277 /* URLRequests */,
-				E5CE42AB23344DC900295277 /* Networking.h */,
-				E5CE42AC23344DC900295277 /* Info.plist */,
+				E5D710DC233E99280026E111 /* Sources */,
+				E5D710DD233E99320026E111 /* Resources */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -114,7 +186,7 @@
 		E5CE42B523344DCA00295277 /* NetworkingTests */ = {
 			isa = PBXGroup;
 			children = (
-				E5CE430A233450AC00295277 /* Extensions */,
+				E56A027D23421CA400C0F23D /* Tests */,
 				E5CE42B823344DCA00295277 /* Info.plist */,
 			);
 			path = NetworkingTests;
@@ -190,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				E5CE42ED23344F5800295277 /* NetworkingService.swift */,
+				E56A027E23421D5800C0F23D /* URLSessionAbstractions.swift */,
 			);
 			path = Abstractions;
 			sourceTree = "<group>";
@@ -197,7 +270,7 @@
 		E5CE43042334502400295277 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				E5CE43052334503500295277 /* ServiceError.swift */,
+				E5CE43052334503500295277 /* NetworkingError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -225,6 +298,26 @@
 				E5CE4310233456CF00295277 /* CodableRequesting.swift */,
 			);
 			path = Serialization;
+			sourceTree = "<group>";
+		};
+		E5D710DC233E99280026E111 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				E5CE43072334508A00295277 /* Extensions */,
+				E5CE42C823344DF600295277 /* Service */,
+				E5CE42C923344E0D00295277 /* Dispatcher */,
+				E5CE42CA23344E1600295277 /* URLRequests */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		E5D710DD233E99320026E111 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E5CE42AB23344DC900295277 /* Networking.h */,
+				E5CE42AC23344DC900295277 /* Info.plist */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -339,7 +432,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5CE4309233450A400295277 /* NSErrorExtension.swift in Sources */,
-				E5CE43062334503500295277 /* ServiceError.swift in Sources */,
+				E5CE43062334503500295277 /* NetworkingError.swift in Sources */,
 				E5CE430223344FCA00295277 /* URLRequestBuilder.swift in Sources */,
 				E5CE42F223344F6200295277 /* URLRequestDispatching.swift in Sources */,
 				E5CE430F2334517300295277 /* CodableSerializing.swift in Sources */,
@@ -349,6 +442,7 @@
 				E5CE42FD23344FC400295277 /* URLRequestError.swift in Sources */,
 				E5CE42F823344FBE00295277 /* SimpleURLRequest.swift in Sources */,
 				E5CE42FE23344FC400295277 /* URLRequestToken.swift in Sources */,
+				E56A027F23421D5800C0F23D /* URLSessionAbstractions.swift in Sources */,
 				E5CE42FF23344FC400295277 /* URLRequestParameters.swift in Sources */,
 				E5CE42F623344F8500295277 /* URLRequestAdapter.swift in Sources */,
 				E5CE430023344FC400295277 /* HTTPMethod.swift in Sources */,
@@ -361,6 +455,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5CE430C233450F000295277 /* NSErrorExtensionTests.swift in Sources */,
+				E56A0295234295D200C0F23D /* CodableRequestingTests.swift in Sources */,
+				E56A028D234242CC00C0F23D /* URLSessionDispatcherTests.swift in Sources */,
+				E56A029A23429FF700C0F23D /* URLRequestErrorTests.swift in Sources */,
+				E56A028323421DDD00C0F23D /* DefaultURLRequestBuilderTests.swift in Sources */,
+				E56A0286234239EE00C0F23D /* URLRequestTokenHolderTests.swift in Sources */,
+				E56A029323428CDF00C0F23D /* CodableSerializingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,7 +527,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -485,7 +585,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -508,8 +608,9 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Networking/Info.plist;
+				INFOPLIST_FILE = Networking/Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -518,6 +619,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bocato.Networking;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -535,8 +637,9 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Networking/Info.plist;
+				INFOPLIST_FILE = Networking/Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -545,6 +648,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bocato.Networking;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

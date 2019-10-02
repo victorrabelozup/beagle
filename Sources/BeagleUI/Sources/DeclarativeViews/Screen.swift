@@ -1,5 +1,5 @@
 //
-//  Text.swift
+//  Screen.swift
 //  BeagleUI
 //
 //  Created by Daniel Tes on 12/09/19.
@@ -8,6 +8,4 @@
 
 import UIKit
 
-public struct Text: Widget {
-    let text: String
-}
+public protocol Screen {}
