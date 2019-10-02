@@ -68,7 +68,6 @@ final class DataPreprocessing: DataPreprocessor {
         } else {
             return value ?? ""
         }
-        
     }
     
 }

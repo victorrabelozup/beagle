@@ -151,6 +151,7 @@ public final class WidgetDecoder: WidgetDecoding {
     }
     
     private static func registerLayoutTypes() {
+        WidgetEntityContainer.register(ContainerEntity.self, for: decodingKey(for: "Container"))
         WidgetEntityContainer.register(HorizontalEntity.self, for: decodingKey(for: "Horizontal"))
         WidgetEntityContainer.register(PaddingEntity.self, for: decodingKey(for: "Padding"))
         WidgetEntityContainer.register(SpacerEntity.self, for: decodingKey(for: "Spacer"))

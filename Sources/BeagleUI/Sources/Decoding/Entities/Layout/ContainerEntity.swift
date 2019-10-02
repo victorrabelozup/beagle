@@ -11,16 +11,16 @@ import Foundation
 /// Defines an API representation for `Container`
 struct ContainerEntity: WidgetEntity {
     
-    let body: WidgetConvertibleEntity?
+    let header: WidgetConvertibleEntity?
     let content: WidgetConvertibleEntity
     let footer: WidgetConvertibleEntity?
     
-    private let bodyContainer: WidgetEntityContainer?
+    private let headerContainer: WidgetEntityContainer?
     private let contentContainer: WidgetEntityContainer
     private let footerContainer: WidgetEntityContainer?
     
     private enum CodingKeys: String, CodingKey {
-        case bodyContainer = "body"
+        case headerContainer = "header"
         case contentContainer = "content"
         case footerContainer = "footer"
     }
@@ -28,19 +28,19 @@ struct ContainerEntity: WidgetEntity {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         try self.init(
-            bodyContainer: container.decodeIfPresent(WidgetEntityContainer.self, forKey: .bodyContainer),
+            headerContainer: container.decodeIfPresent(WidgetEntityContainer.self, forKey: .headerContainer),
             contentContainer: container.decode(WidgetEntityContainer.self, forKey: .contentContainer),
             footerContainer: container.decodeIfPresent(WidgetEntityContainer.self, forKey: .footerContainer)
         )
     }
 
     init(
-        bodyContainer: WidgetEntityContainer?,
+        headerContainer: WidgetEntityContainer?,
         contentContainer: WidgetEntityContainer,
         footerContainer: WidgetEntityContainer?
     ) throws {
-        self.bodyContainer = bodyContainer
-        body = bodyContainer?.content
+        self.headerContainer = headerContainer
+        header = headerContainer?.content
         self.contentContainer = contentContainer
         guard let contentContainerValue = contentContainer.content else {
             let entityType = String(describing: ContainerEntity.self)
@@ -57,12 +57,12 @@ extension ContainerEntity: WidgetConvertible {
 
     func mapToWidget() throws -> Widget {
 
-        let body = try self.body?.mapToWidget()
+        let header = try self.header?.mapToWidget()
         let content = try self.content.mapToWidget()
         let footer = try self.footer?.mapToWidget()
 
         return Container(
-            body: body,
+            header: header,
             content: content,
             footer: footer
         )

@@ -16,11 +16,11 @@ final class ContainerEntityTests: XCTestCase {
         let innerContent = TextEntity(text: "text")
         let containerMock = WidgetEntityContainer(type: "beagle:Text", content: innerContent)
         guard let sut = try? ContainerEntity(
-            bodyContainer: containerMock,
+            headerContainer: containerMock,
             contentContainer: containerMock,
             footerContainer: containerMock
         ) else {
-            XCTFail("Could not create PaddingEntity.")
+            XCTFail("Could not create ContainerEntity.")
             return
         }
 
@@ -37,14 +37,42 @@ final class ContainerEntityTests: XCTestCase {
         let containerMock = WidgetEntityContainer(type: "beagle:Text", content: nil)
 
         // When/Then
-        XCTAssertThrowsError(
-            _ = try ContainerEntity(
-                bodyContainer: nil,
-                contentContainer: containerMock,
-                footerContainer: nil
-            ),
-            "Expected to Throw an error, but it didn't."
-        )
+        XCTAssertThrowsError(_ = try ContainerEntity(headerContainer: nil, contentContainer: containerMock, footerContainer: nil), "Expected to throw an error, but got none.") { error in
+            XCTAssertTrue(error is WidgetDecodingError, "Expected a `WidgetDecodingError`, but got \(error.localizedDescription).")
+        }
     }
     
+    func test_whenDecodingAValidJSON_itShouldReturnAValidObject() {
+        // Given
+        let json = """
+            {
+                "type": "beagle:Container",
+                "header": {
+                    "type": "beagle:Text",
+                    "text": "some text"
+                },
+                "content": {
+                     "type": "beagle:Text",
+                     "text": "some text"
+                },
+                "footer": {
+                     "type": "beagle:Text",
+                     "text": "some text"
+                }
+            }
+        """
+        guard let jsonData = json.data(using: .utf8) else {
+            XCTFail("Could not create JSON data.")
+            return
+        }
+
+        // When
+        let object = try? WidgetDecoder().decodeToWidget(ofType: Container.self, from: jsonData)
+
+        // Then
+        XCTAssertNotNil(object, "Expected a valid object, but found nil.")
+        XCTAssertTrue(object?.header is Text)
+        XCTAssertTrue(object?.content is Text)
+        XCTAssertTrue(object?.footer is Text)
+    }
 }

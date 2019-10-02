@@ -103,53 +103,53 @@ extension FlexEntity: UIModelConvertible {
 extension FlexEntity {
     /// Defines an API representation for `ItemDirection`
     enum ItemDirection: String, WidgetEntity, UIEnumModelConvertible {
-        case inherit
-        case ltr
-        case rtl
+        case inherit = "INHERIT"
+        case ltr = "LTR"
+        case rtl = "RTL"
     }
 }
 
 extension FlexEntity {
     /// Defines an API representation for `FlexDirection`
     enum Direction: String, WidgetEntity, UIEnumModelConvertible {
-        case row
-        case row_reverse
-        case column
-        case column_reverse
+        case row = "ROW"
+        case row_reverse = "ROW_REVERSE"
+        case column = "COLUMN"
+        case column_reverse = "COLUMN_REVERSE"
     }
 }
 
 extension FlexEntity {
     /// Defines an API representation for `FlexWrap`
     enum Wrap: String, WidgetEntity, UIEnumModelConvertible {
-        case no_wrap
-        case wrap
-        case wrap_reverse
+        case no_wrap = "NO_WRAP"
+        case wrap = "WRAP"
+        case wrap_reverse = "WRAP_REVERSE"
     }
 }
 
 extension FlexEntity {
     /// Defines an API representation for `JustifyContent`
     enum JustifyContent: String, WidgetEntity, UIEnumModelConvertible {
-        case flex_start
-        case center
-        case flex_end
-        case space_between
-        case space_around
-        case space_evenly
+        case flex_start = "FLEX_START"
+        case center = "CENTER"
+        case flex_end = "FLEX_END"
+        case space_between = "SPACE_BETWEEN"
+        case space_around = "SPACE_AROUND"
+        case space_evenly = "SPACE_EVENLY"
     }
 }
 
 extension FlexEntity {
     /// Defines an API representation for `Alignement`
     enum Alignment: String, WidgetEntity, UIEnumModelConvertible {
-        case flex_start
-        case center
-        case flex_end
-        case space_between
-        case space_around
-        case baseline
-        case auto
-        case stretch
+        case flex_start = "FLEX_START"
+        case center = "CENTER"
+        case flex_end = "FLEX_END"
+        case space_between = "SPACE_BETWEEN"
+        case space_around = "SPACE_AROUND"
+        case baseline = "BASELINE"
+        case auto = "AUTO"
+        case stretch = "STRETCH"
     }
 }

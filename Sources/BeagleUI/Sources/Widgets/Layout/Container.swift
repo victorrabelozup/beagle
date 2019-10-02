@@ -7,7 +7,7 @@
 //
 
 public struct Container: Widget {
-    let body: Widget?
+    let header: Widget?
     let content: Widget
     let footer: Widget?
 }
