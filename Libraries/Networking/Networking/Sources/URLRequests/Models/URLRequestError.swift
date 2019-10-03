@@ -61,7 +61,7 @@ public enum URLRequestError: Error {
     public var rawError: NSError {
         switch self {
         case let .raw(error):
-            return error as NSError
+            return NSError(domain: domain, code: URLRequestError.raw(error).code, description: URLRequestError.raw(error).localizedDescription)
         case .unknown:
             return NSError(domain: domain, code: code, description: localizedDescription)
         case .requestBuilderFailed:
@@ -69,7 +69,7 @@ public enum URLRequestError: Error {
         case let .withData(data, originalError):
             guard let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []), let errorJSON = jsonObject as? [String: Any] else {
                 if let originalError = originalError as NSError? {
-                    return originalError
+                    return NSError(domain: domain, code: URLRequestError.withData(data, originalError).code, description: URLRequestError.withData(data, originalError).localizedDescription)
                 }
                 return URLRequestError.unknown.rawError
             }
