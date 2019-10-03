@@ -14,6 +14,6 @@ struct SpacerEntity: WidgetEntity {
 }
 extension SpacerEntity: WidgetConvertible {
     func mapToWidget() throws -> Widget {
-        return Spacer(size: size)
+        return Spacer(size)
     }
 }

@@ -148,6 +148,8 @@ public final class WidgetDecoder: WidgetDecoding {
     
     private static func registerCoreTypes() {
         WidgetEntityContainer.register(FlexEntity.self, for: decodingKey(for: "Flex"))
+        WidgetEntityContainer.register(FlexWidgetEntity.self, for: decodingKey(for: "FlexWidget"))
+        WidgetEntityContainer.register(FlexSingleWidgetEntity.self, for: decodingKey(for: "FlexSingleWidget"))
     }
     
     private static func registerLayoutTypes() {
@@ -165,7 +167,6 @@ public final class WidgetDecoder: WidgetDecoding {
         WidgetEntityContainer.register(ImageEntity.self, for: decodingKey(for: "Image"))
         WidgetEntityContainer.register(ListViewEntity.self, for: decodingKey(for: "ListView"))
         WidgetEntityContainer.register(SelectViewEntity.self, for: decodingKey(for: "SelectView"))
-        WidgetEntityContainer.register(StyledWidgetEntity.self, for: decodingKey(for: "StyledWidget"))
         WidgetEntityContainer.register(TextEntity.self, for: decodingKey(for: "Text"))
         WidgetEntityContainer.register(TextFieldEntity.self, for: decodingKey(for: "TextField"))
         WidgetEntityContainer.register(ToolBarEntity.self, for: decodingKey(for: "ToolBar"))

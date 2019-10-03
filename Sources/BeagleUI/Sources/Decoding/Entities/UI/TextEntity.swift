@@ -14,6 +14,6 @@ struct TextEntity: WidgetEntity, Codable {
 }
 extension TextEntity: WidgetConvertible {
     func mapToWidget() throws -> Widget {
-        return Text(text: text)
+        return Text(text)
     }
 }

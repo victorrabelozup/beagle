@@ -1,58 +1,54 @@
 //
-//  VerticalEntity.swift
+//  FlexWidgetEntity.swift
 //  BeagleUI
 //
-//  Created by Eduardo Sanches Bocato on 18/09/19.
+//  Created by Eduardo Sanches Bocato on 02/10/19.
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
 import Foundation
 
-/// Defines an API representation for `Vertical`
-struct VerticalEntity: WidgetEntity {
+/// Defines an API representation for `FlexWidget`
+struct FlexWidgetEntity: WidgetEntity {
     
     let children: [WidgetConvertibleEntity]
     let flex: FlexEntity
-    let reversed: Bool
     
     private let childrenContainer: [WidgetEntityContainer]
     
     private enum CodingKeys: String, CodingKey {
         case childrenContainer = "children"
         case flex
-        case reversed
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         try self.init(
             childrenContainer: container.decode([WidgetEntityContainer].self, forKey: .childrenContainer),
-            flex: container.decodeIfPresent(FlexEntity.self, forKey: .flex),
-            reversed: container.decodeIfPresent(Bool.self, forKey: .reversed)
+            flex: container.decodeIfPresent(FlexEntity.self, forKey: .flex)
         )
     }
     
     init(
         childrenContainer: [WidgetEntityContainer],
-        flex: FlexEntity?,
-        reversed: Bool?
+        flex: FlexEntity?
     ) {
         self.childrenContainer = childrenContainer
         children = childrenContainer.compactMap { $0.content }
         self.flex = flex ?? FlexEntity()
-        self.reversed = reversed ?? false
     }
     
 }
-extension VerticalEntity: WidgetConvertible, ChildrenWidgetMapping {
+extension FlexWidgetEntity: WidgetConvertible, ChildrenWidgetMapping {
 
     func mapToWidget() throws -> Widget {
 
         let children = try mapChildren()
+        let flex = try self.flex.mapToUIModel()
 
-        return Vertical(
+        return FlexWidget(
             children: children,
-            reversed: reversed
+            flex: flex
         )
         
     }

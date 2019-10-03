@@ -59,14 +59,14 @@ extension PaddingEntity: WidgetConvertible {
         return Padding(value: value, child: child)
     }
     
-    private func mapPaddingValue() throws -> PaddingValue {
+    private func mapPaddingValue() throws -> Padding.Value {
         
         let top = try value.top?.mapToUIModel()
         let left = try value.left?.mapToUIModel()
         let right = try value.right?.mapToUIModel()
         let bottom = try value.bottom?.mapToUIModel()
         
-        return PaddingValue(
+        return Padding.Value(
             top: top ?? .default,
             left: left ?? .default,
             right: right ?? .default,
