@@ -6,10 +6,14 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct ToolBar: Widget {
+public struct ToolBar: UIComponentWidget {
+    
+    // MARK: - Public Properties
     
     public let title: String
     public let showBackButton: Bool
+    
+    // MARK: - Initialization
     
     public init(
         title: String,

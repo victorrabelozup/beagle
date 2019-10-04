@@ -6,9 +6,13 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct Stack: Widget {
+public struct Stack: LayoutWidget {
+    
+    // MARK: - Public Properties
     
     public let children: [Widget]
+    
+    // MARK: - Initialization
     
     init(
         children: [Widget] = []

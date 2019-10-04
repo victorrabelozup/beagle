@@ -6,10 +6,14 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct Horizontal: Widget {
+public struct Horizontal: LayoutWidget {
+    
+    // MARK: - Public Properties
     
     public let children: [Widget]
     public let reversed: Bool
+    
+    // MARK: - Initialization
     
     init(
         children: [Widget] = [],
@@ -32,6 +36,8 @@ public struct Horizontal: Widget {
         let children = childrenBuilder()
         self.init(children: children)
     }
+    
+    // MARK: - Configuration
     
     public func reversed(_ reversed: Bool = true) -> Horizontal {
         return Horizontal(children: children, reversed: reversed)

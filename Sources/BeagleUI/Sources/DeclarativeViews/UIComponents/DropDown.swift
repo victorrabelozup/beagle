@@ -6,10 +6,14 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct DropDown: Widget {
+public struct DropDown: UIComponentWidget {
     
-    let header: Widget
-    let child: Widget
+    // MARK: - Public Properties
+    
+    public let header: Widget
+    public let child: Widget
+    
+    // MARK: - Initialization
     
     init(
         header: Widget,

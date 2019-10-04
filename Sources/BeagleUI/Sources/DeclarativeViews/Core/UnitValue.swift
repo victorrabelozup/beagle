@@ -8,10 +8,16 @@
 
 public struct UnitValue {
     
+    // MARK: - Constants
+    
+    public static let `default` = UnitValue(value: 0.0, type: .real)
+    
+    // MARK: - Public Properties
+    
     public let value: Double
     public let type: UnitType
     
-    public static let `default` = UnitValue(value: 0.0, type: .real)
+    // MARK: - Initialization
     
     public init(
         value: Double,

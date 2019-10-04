@@ -6,11 +6,15 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct Container: Widget {
+public struct Container: LayoutWidget {
+
+    // MARK: - Public Properties
     
     public let header: Widget?
     public let content: Widget
     public let footer: Widget?
+    
+    // MARK: - Initialization
     
     init(
         header: Widget? = nil,

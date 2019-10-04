@@ -6,12 +6,16 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct ListView: Widget {
+public struct ListView: UIComponentWidget {
+    
+    // MARK: - Public Properties
     
     public let rows: [Widget]?
     public let remoteDataSource: String?
     public let loadingState: Widget?
     public let direction: Direction
+    
+    // MARK: - Initialization
     
     init(
         rows: [Widget]? = nil,
@@ -38,6 +42,8 @@ public struct ListView: Widget {
         let rows = rowsBuilder()
         self.init(rows: rows)
     }
+    
+    // MARK: - Configuration
     
     public func remoteDataSource(_ remoteDataSource: String) -> ListView {
         return ListView(

@@ -6,9 +6,13 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct Image: Widget {
+public struct Image: UIComponentWidget {
+    
+    // MARK: - Public Properties
     
     public let path: String
+    
+    // MARK: - Initialization
     
     public init(path: String) {
         self.path = path

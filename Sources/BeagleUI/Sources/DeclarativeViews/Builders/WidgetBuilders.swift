@@ -11,7 +11,7 @@ import Foundation
 @_functionBuilder
 public final class WidgetBuilder {
 
-    static func buildBlock(_ widget: Widget) -> Widget {
+    public static func buildBlock(_ widget: Widget) -> Widget {
         let widgetToReturn = widget
         return widgetToReturn
     }
@@ -21,7 +21,7 @@ public final class WidgetBuilder {
 @_functionBuilder
 public final class WidgetArrayBuilder {
 
-    static func buildBlock(_ children: Widget...) -> [Widget] {
+    public static func buildBlock(_ children: Widget...) -> [Widget] {
         var array = [Widget]()
         children.forEach { array.append($0) }
         return array

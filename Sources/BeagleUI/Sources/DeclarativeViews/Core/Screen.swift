@@ -6,30 +6,11 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public protocol Screen {
-    var content: Container { get }
-}
 
-//struct SomeScreen: Screen {
-//
-//    var content: Container {
-//        Container(
-//            header: {
-//                Stack {
-//                    Text("something")
-//                    Text("something")
-//                }
-//            },
-//            content: {
-//                Vertical {
-//                    Text("something")
-//                    Text("something")
-//                    Text("something")
-//                    Text("something")
-//                }
-//                .reversed()
-//            }
-//        )
-//    }
-//
-//}
+/// Defines some Beagle Screen, that is rendered from widgets
+public protocol Screen {
+    
+    /// A Content represents something that has a Flex positioning/configuration
+    /// system, and Widget representable views.
+    var content: FlexConfigurableWidget { get }
+}

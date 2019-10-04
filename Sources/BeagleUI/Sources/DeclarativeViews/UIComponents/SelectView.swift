@@ -6,11 +6,15 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct SelectView: Widget {
+public struct SelectView: UIComponentWidget {
+    
+    // MARK: - Public Properties
     
     public let rows: [Widget]
     public let remoteDataSource: String?
     public let loadingState: Widget?
+    
+    // MARK: - Initialization
     
     init(
         rows: [Widget] = [],
@@ -35,6 +39,8 @@ public struct SelectView: Widget {
         let rows = rowsBuilder()
         self.init(rows: rows)
     }
+    
+    // MARK: - Configuration
     
     public func remoteDataSource(_ remoteDataSource: String) -> SelectView {
         return SelectView(

@@ -8,6 +8,8 @@
 
 public struct Flex {
     
+    // MARK: - Public Properties
+    
     public let flexWrap: Wrap
     public let justifyContent: JustifyContent
     public let alignItems: Alignment
@@ -16,6 +18,8 @@ public struct Flex {
     public let basis: UnitValue
     public let grow: Double
     public let shrink: Int
+    
+    // MARK: - Public Properties
     
     public init (// TODO: Change this visibilty constraint in the future...
         flexWrap: Wrap = .no_wrap,
@@ -39,6 +43,7 @@ public struct Flex {
     
 }
 
+// MARK: - Flex ItemDirection
 extension Flex {
     public enum ItemDirection: String, StringRawRepresentable {
         case inherit = "INHERIT"
@@ -47,6 +52,7 @@ extension Flex {
     }
 }
 
+// MARK: - Flex Direction
 extension Flex {
     public enum Direction: String, StringRawRepresentable {
         case row = "ROW"
@@ -56,6 +62,7 @@ extension Flex {
     }
 }
 
+// MARK: - Flex Wrap
 extension Flex {
     public enum Wrap: String, StringRawRepresentable {
         case no_wrap = "NO_WRAP"
@@ -64,6 +71,7 @@ extension Flex {
     }
 }
 
+// MARK: - Flex JustifyContent
 extension Flex {
     public enum JustifyContent: String, StringRawRepresentable {
         case flex_start = "FLEX_START"
@@ -75,6 +83,7 @@ extension Flex {
     }
 }
 
+// MARK: - Flex Alignment
 extension Flex {
     public enum Alignment: String, StringRawRepresentable {
         case flex_start = "FLEX_START"

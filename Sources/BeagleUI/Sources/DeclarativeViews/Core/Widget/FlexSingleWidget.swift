@@ -8,17 +8,27 @@
 
 import Foundation
 
-public struct FlexSingleWidget: Widget {
+public struct FlexSingleWidget: FlexConfigurableWidget {
+    
+    // MARK: - Public Properties
     
     public let child: Widget
-    public let flex: Flex
+    public var flex: Flex {
+        return _flex
+    }
+    
+    // MARK: - Private Properties
+    
+    private let _flex: Flex
+    
+    // MARK: - Initialization
     
     init(
         child: Widget,
         flex: Flex = Flex()
     ) {
         self.child = child
-        self.flex = flex
+        self._flex = flex
     }
     
     public init(
@@ -27,6 +37,8 @@ public struct FlexSingleWidget: Widget {
         let child = childBuilder()
         self.init(child: child)
     }
+    
+    // MARK: - Configuration
     
     func applyFlex(_ flex: Flex = Flex()) -> FlexSingleWidget {
         return FlexSingleWidget(child: child, flex: flex)

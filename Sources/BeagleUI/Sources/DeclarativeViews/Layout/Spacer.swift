@@ -6,9 +6,13 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct Spacer: Widget {
+public struct Spacer: LayoutWidget {
+    
+    // MARK: - Public Properties
     
     public let size: Double
+    
+    // MARK: - Initialization
     
     public init(_ size: Double) {
         self.size = size

@@ -6,9 +6,13 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct Button: Widget {
+public struct Button: UIComponentWidget {
+    
+    // MARK: - Public Properties
     
     public let text: String
+    
+    // MARK: - Initialization
     
     public init(text: String) {
         self.text = text

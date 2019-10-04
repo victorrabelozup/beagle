@@ -8,9 +8,13 @@
 
 import UIKit
 
-public struct Text: Widget {
+public struct Text: UIComponentWidget {
+    
+    // MARK: - Public Properties
     
     public let text: String
+    
+    // MARK: - Initialization
     
     public init(_ text: String) {
         self.text = text
