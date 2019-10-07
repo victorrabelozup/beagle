@@ -23,17 +23,23 @@ final class LayoutInclusionViewController: UIViewController {
     
 }
 
-protocol WidgetViewRenderer {
-    func render(_ widget: Widget)
-}
-
 final class FlexConfigurableWidgetRenderer: WidgetViewRenderer {
     
+    func render<T: Widget>(_ widget: T) -> UIView {
+        switch widget {
+        // Core
+        case is FlexSingleWidget:
+            debugPrint("FlexSingleWidget")
+        case is FlexWidget:
+            debugPrint("FlexWidget")
+        }
+    }
+    
 }
 
-final class WidgetScreenRenderer: WidgetViewRenderer {
+final class WidgetScreenRenderer {
     
-    func render(_ widget: Widget) {
+    func render(_ widget: Scre) {
         switch widget {
         // Core
         case is FlexSingleWidget:

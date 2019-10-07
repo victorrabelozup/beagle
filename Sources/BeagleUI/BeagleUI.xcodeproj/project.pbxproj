@@ -45,6 +45,11 @@
 		E56A02CD23462B0000C0F23D /* StackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02CC23462B0000C0F23D /* StackTests.swift */; };
 		E56A02CF23462B8400C0F23D /* PaddingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02CE23462B8400C0F23D /* PaddingTests.swift */; };
 		E56A02D223462C0900C0F23D /* WidgetBuildersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02D123462C0900C0F23D /* WidgetBuildersTests.swift */; };
+		E56A02DF2347B6C600C0F23D /* WidgetViewRendererRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02DE2347B6C600C0F23D /* WidgetViewRendererRegister.swift */; };
+		E56A02E22347B6ED00C0F23D /* WidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02E12347B6ED00C0F23D /* WidgetViewRenderer.swift */; };
+		E56A02E52347C87C00C0F23D /* YogaTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02E42347C87C00C0F23D /* YogaTranslator.swift */; };
+		E56A02E72347C99F00C0F23D /* YogaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E56A02E62347C99F00C0F23D /* YogaKit.framework */; };
+		E56A02E82347C99F00C0F23D /* YogaKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E56A02E62347C99F00C0F23D /* YogaKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E57FBB82233A795A00165D8D /* DataPreprocessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57FBB81233A795A00165D8D /* DataPreprocessor.swift */; };
 		E57FBB86233ABF3F00165D8D /* DataPreprocessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57FBB85233ABF3F00165D8D /* DataPreprocessorTests.swift */; };
 		E5835B33233BD84600125140 /* WidgetEntityContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5835B32233BD84600125140 /* WidgetEntityContainerTests.swift */; };
@@ -102,6 +107,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		E56A02E92347C99F00C0F23D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E56A02E82347C99F00C0F23D /* YogaKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		932925CF2327E11000A61F01 /* BeagleUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BeagleUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		932925D22327E11000A61F01 /* BeagleUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BeagleUI.h; sourceTree = "<group>"; };
@@ -145,6 +164,10 @@
 		E56A02CC23462B0000C0F23D /* StackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTests.swift; sourceTree = "<group>"; };
 		E56A02CE23462B8400C0F23D /* PaddingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingTests.swift; sourceTree = "<group>"; };
 		E56A02D123462C0900C0F23D /* WidgetBuildersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetBuildersTests.swift; sourceTree = "<group>"; };
+		E56A02DE2347B6C600C0F23D /* WidgetViewRendererRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewRendererRegister.swift; sourceTree = "<group>"; };
+		E56A02E12347B6ED00C0F23D /* WidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewRenderer.swift; sourceTree = "<group>"; };
+		E56A02E42347C87C00C0F23D /* YogaTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YogaTranslator.swift; sourceTree = "<group>"; };
+		E56A02E62347C99F00C0F23D /* YogaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YogaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E57FBB81233A795A00165D8D /* DataPreprocessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPreprocessor.swift; sourceTree = "<group>"; };
 		E57FBB85233ABF3F00165D8D /* DataPreprocessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPreprocessorTests.swift; sourceTree = "<group>"; };
 		E5835B32233BD84600125140 /* WidgetEntityContainerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntityContainerTests.swift; sourceTree = "<group>"; };
@@ -197,6 +220,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E56A02E72347C99F00C0F23D /* YogaKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +308,7 @@
 			children = (
 				E5CE41A02331D41500295277 /* Decoding */,
 				E5835BB9233D4F0900125140 /* DeclarativeViews */,
+				E56A02DC2347B69C00C0F23D /* Renderization */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -308,6 +333,7 @@
 		E53524A923310F5A00D1A0C9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E56A02E62347C99F00C0F23D /* YogaKit.framework */,
 				E53524AA23310F5A00D1A0C9 /* YogaKit.framework */,
 			);
 			name = Frameworks;
@@ -370,6 +396,40 @@
 				E56A02D123462C0900C0F23D /* WidgetBuildersTests.swift */,
 			);
 			path = Builders;
+			sourceTree = "<group>";
+		};
+		E56A02DC2347B69C00C0F23D /* Renderization */ = {
+			isa = PBXGroup;
+			children = (
+				E56A02E32347C85800C0F23D /* LayoutTranslation */,
+				E56A02E02347B6E200C0F23D /* Renderers */,
+				E56A02DD2347B6AB00C0F23D /* Register */,
+			);
+			path = Renderization;
+			sourceTree = "<group>";
+		};
+		E56A02DD2347B6AB00C0F23D /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				E56A02DE2347B6C600C0F23D /* WidgetViewRendererRegister.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		E56A02E02347B6E200C0F23D /* Renderers */ = {
+			isa = PBXGroup;
+			children = (
+				E56A02E12347B6ED00C0F23D /* WidgetViewRenderer.swift */,
+			);
+			path = Renderers;
+			sourceTree = "<group>";
+		};
+		E56A02E32347C85800C0F23D /* LayoutTranslation */ = {
+			isa = PBXGroup;
+			children = (
+				E56A02E42347C87C00C0F23D /* YogaTranslator.swift */,
+			);
+			path = LayoutTranslation;
 			sourceTree = "<group>";
 		};
 		E5835BB9233D4F0900125140 /* DeclarativeViews */ = {
@@ -575,6 +635,7 @@
 				932925CC2327E11000A61F01 /* Frameworks */,
 				932925CD2327E11000A61F01 /* Resources */,
 				E5EB34B52330358000AC246B /* SwiftLint Run Script */,
+				E56A02E92347C99F00C0F23D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -696,6 +757,7 @@
 				E5CE41A72331D93F00295277 /* ContainerEntity.swift in Sources */,
 				E5CE41C223325E2100295277 /* FlexEntity.swift in Sources */,
 				93681801232A884600E6E724 /* Screen.swift in Sources */,
+				E56A02E22347B6ED00C0F23D /* WidgetViewRenderer.swift in Sources */,
 				E5CE41A52331D59E00295277 /* WidgetEntityContainer.swift in Sources */,
 				93681813232A8D4000E6E724 /* DropDown.swift in Sources */,
 				E5CE41FB2333F7FB00295277 /* ChildrenWidgetMapping.swift in Sources */,
@@ -707,11 +769,13 @@
 				93681811232A8D0F00E6E724 /* Button.swift in Sources */,
 				93681809232A888300E6E724 /* Padding.swift in Sources */,
 				E57FBB82233A795A00165D8D /* DataPreprocessor.swift in Sources */,
+				E56A02E52347C87C00C0F23D /* YogaTranslator.swift in Sources */,
 				E5CE41D42332767700295277 /* DropDownEntity.swift in Sources */,
 				93681803232A884F00E6E724 /* UnitValue.swift in Sources */,
 				9368180F232A88B300E6E724 /* Vertical.swift in Sources */,
 				936817FD232A882D00E6E724 /* Widget.swift in Sources */,
 				E5CE41CC233274BB00295277 /* SpacerEntity.swift in Sources */,
+				E56A02DF2347B6C600C0F23D /* WidgetViewRendererRegister.swift in Sources */,
 				93681819232A8D8100E6E724 /* SelectView.swift in Sources */,
 				E5CE41D62332768700295277 /* ImageEntity.swift in Sources */,
 				E5CE41A32331D55000295277 /* WidgetDecoder.swift in Sources */,

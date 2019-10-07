@@ -34,10 +34,10 @@ struct PaddingEntity: WidgetEntity {
         childContainer: WidgetEntityContainer
     ) throws {
         self.value = value ?? PaddingValueEntity(
-            top: .default,
-            left: .default,
-            right: .default,
-            bottom: .default
+            top: .zero,
+            left: .zero,
+            right: .zero,
+            bottom: .zero
         )
         self.childContainer = childContainer
         guard let childContainerValue = childContainer.content else {
@@ -67,10 +67,10 @@ extension PaddingEntity: WidgetConvertible {
         let bottom = try value.bottom?.mapToUIModel()
         
         return Padding.Value(
-            top: top ?? .default,
-            left: left ?? .default,
-            right: right ?? .default,
-            bottom: bottom ?? .default
+            top: top ?? .zero,
+            left: left ?? .zero,
+            right: right ?? .zero,
+            bottom: bottom ?? .zero
         )
     }
     

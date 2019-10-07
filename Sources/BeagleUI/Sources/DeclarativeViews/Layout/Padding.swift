@@ -48,10 +48,10 @@ extension Padding {
         // MARK: - Initialization
         
         public init(
-            top: UnitValue = .default,
-            left: UnitValue? = .default,
-            right: UnitValue? = .default,
-            bottom: UnitValue? = .default
+            top: UnitValue = .zero,
+            left: UnitValue? = .zero,
+            right: UnitValue? = .zero,
+            bottom: UnitValue? = .zero
         ) {
             self.top = top
             self.left = left

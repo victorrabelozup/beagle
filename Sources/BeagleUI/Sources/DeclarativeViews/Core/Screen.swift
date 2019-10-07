@@ -6,7 +6,6 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-
 /// Defines some Beagle Screen, that is rendered from widgets
 public protocol Screen {
     

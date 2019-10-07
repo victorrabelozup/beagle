@@ -14,7 +14,7 @@ struct UnitValueEntity: WidgetEntity {
     let value: Double
     let type: UnitTypeEntity
     
-    static let `default` = UnitValueEntity(value: 0.0, type: .real)
+    static let zero = UnitValueEntity(value: 0.0, type: .real)
     
 }
 extension UnitValueEntity: UIModelConvertible {

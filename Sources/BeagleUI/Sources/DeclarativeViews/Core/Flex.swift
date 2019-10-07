@@ -10,42 +10,66 @@ public struct Flex {
     
     // MARK: - Public Properties
     
-    public let flexWrap: Wrap
-    public let justifyContent: JustifyContent
-    public let alignItems: Alignment
-    public let alignSelf: Alignment
-    public let alignContent: Alignment
-    public let basis: UnitValue
-    public let grow: Double
-    public let shrink: Int
+    let flexDirection: Direction
+    let direction: FlexDirection
+    let flexWrap: Wrap
+    let justifyContent: JustifyContent
+    let alignItems: Alignment
+    let alignSelf: Alignment
+    let alignContent: Alignment
+    let basis: UnitValue
+    let flex: Double
+    let grow: Double
+    let shrink: Double
+    let display: Display
+    let size: Size
+    let margin: EdgeValue
+    let padding: EdgeValue
+    let position: EdgeValue
     
-    // MARK: - Public Properties
+    // MARK: - Initialization
     
     public init (// TODO: Change this visibilty constraint in the future...
-        flexWrap: Wrap = .no_wrap,
-        justifyContent: JustifyContent = .flex_end,
+        flexDirection: Direction = .column,
+        direction: FlexDirection = .ltr,
+        flexWrap: Wrap = .noWrap,
+        justifyContent: JustifyContent = .flexStart,
         alignItems: Alignment = .stretch,
         alignSelf: Alignment = .auto,
-        alignContent: Alignment = .flex_start,
-        basis: UnitValue = UnitValue(value: 0.0, type: .real),
-        grow: Double = 0.0,
-        shrink: Int = 0
+        alignContent: Alignment = .flexStart,
+        basis: UnitValue = .zero,
+        flex: Double = .zero,
+        grow: Double = .zero,
+        shrink: Double = .zero,
+        display: Display = .none,
+        size: Size = Size(),
+        margin: EdgeValue = EdgeValue(),
+        padding: EdgeValue = EdgeValue(),
+        position: EdgeValue = EdgeValue()
     ) {
+        self.flexDirection = flexDirection
+        self.direction = direction
         self.flexWrap = flexWrap
         self.justifyContent = justifyContent
         self.alignItems = alignItems
         self.alignSelf = alignSelf
         self.alignContent = alignContent
         self.basis = basis
+        self.flex = flex
         self.grow = grow
         self.shrink = shrink
+        self.display = display
+        self.size = size
+        self.margin = margin
+        self.padding = padding
+        self.position = position
     }
     
 }
 
-// MARK: - Flex ItemDirection
+// MARK: - Flex FlexDirection
 extension Flex {
-    public enum ItemDirection: String, StringRawRepresentable {
+    public enum FlexDirection: String, StringRawRepresentable {
         case inherit = "INHERIT"
         case ltr = "LTR"
         case rtl = "RTL"
@@ -56,43 +80,131 @@ extension Flex {
 extension Flex {
     public enum Direction: String, StringRawRepresentable {
         case row = "ROW"
-        case row_reverse = "ROW_REVERSE"
+        case rowReverse = "ROW_REVERSE"
         case column = "COLUMN"
-        case column_reverse = "COLUMN_REVERSE"
+        case columnReverse = "COLUMN_REVERSE"
     }
 }
 
 // MARK: - Flex Wrap
 extension Flex {
     public enum Wrap: String, StringRawRepresentable {
-        case no_wrap = "NO_WRAP"
+        case noWrap = "NO_WRAP"
         case wrap = "WRAP"
-        case wrap_reverse = "WRAP_REVERSE"
+        case wrapReverse = "WRAP_REVERSE"
     }
 }
 
 // MARK: - Flex JustifyContent
 extension Flex {
     public enum JustifyContent: String, StringRawRepresentable {
-        case flex_start = "FLEX_START"
+        case flexStart = "FLEX_START"
         case center = "CENTER"
-        case flex_end = "FLEX_END"
-        case space_between = "SPACE_BETWEEN"
-        case space_around = "SPACE_AROUND"
-        case space_evenly = "SPACE_EVENLY"
+        case flexEnd = "FLEX_END"
+        case spaceBetween = "SPACE_BETWEEN"
+        case spaceAround = "SPACE_AROUND"
+        case spaceEvenly = "SPACE_EVENLY"
     }
 }
 
 // MARK: - Flex Alignment
 extension Flex {
     public enum Alignment: String, StringRawRepresentable {
-        case flex_start = "FLEX_START"
+        case flexStart = "FLEX_START"
         case center = "CENTER"
-        case flex_end = "FLEX_END"
-        case space_between = "SPACE_BETWEEN"
-        case space_around = "SPACE_AROUND"
+        case flexEnd = "FLEX_END"
+        case spaceBetween = "SPACE_BETWEEN"
+        case spaceAround = "SPACE_AROUND"
         case baseline = "BASELINE"
         case auto = "AUTO"
         case stretch = "STRETCH"
+    }
+}
+
+// MARK: - Flex Display
+extension Flex {
+    public enum Display: String, StringRawRepresentable {
+        case flex = "FLEX"
+        case none = "NONE"
+    }
+}
+
+// MARK: - Flex Size
+extension Flex {
+    public struct Size {
+        
+        // MARK: - Public Properties
+        
+        public let width: UnitValue?
+        public let height: UnitValue?
+        public let maxWidth: UnitValue?
+        public let maxHeight: UnitValue?
+        public let minWidth: UnitValue?
+        public let minHeight: UnitValue?
+        public let aspectRatio: Double?
+        
+        // MARK: - Initialization
+        
+        public init(
+            width: UnitValue? = nil,
+            height: UnitValue? = nil,
+            maxWidth: UnitValue? = nil,
+            maxHeight: UnitValue? = nil,
+            minWidth: UnitValue? = nil,
+            minHeight: UnitValue? = nil,
+            aspectRatio: Double? = nil
+        ) {
+            self.width = width
+            self.height = height
+            self.maxWidth = maxWidth
+            self.maxHeight = maxHeight
+            self.minWidth = minWidth
+            self.minHeight = minHeight
+            self.aspectRatio = aspectRatio
+        }
+        
+    }
+}
+
+// MARK: - EdgeValue
+extension Flex {
+    public struct EdgeValue {
+        
+        // MARK: - Public Properties
+        
+        public let left: UnitValue?
+        public let top: UnitValue?
+        public let right: UnitValue?
+        public let bottom: UnitValue?
+        public let start: UnitValue?
+        public let end: UnitValue?
+        public let horizontal: UnitValue?
+        public let vertical: UnitValue?
+        public let all: UnitValue?
+        
+        // MARK: - Initialization
+        
+        public init(
+            left: UnitValue? = nil,
+            top: UnitValue? = nil,
+            right: UnitValue? = nil,
+            bottom: UnitValue? = nil,
+            start: UnitValue? = nil,
+            end: UnitValue? = nil,
+            horizontal: UnitValue? = nil,
+            vertical: UnitValue? = nil,
+            all: UnitValue? = nil
+        ) {
+            self.left = left
+            self.top = top
+            self.right = right
+            self.bottom = bottom
+            self.start = start
+            self.end = end
+            self.horizontal = horizontal
+            self.vertical = vertical
+            self.all = all
+        }
+        
     }
 }

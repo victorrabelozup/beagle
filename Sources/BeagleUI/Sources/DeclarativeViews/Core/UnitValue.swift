@@ -10,7 +10,7 @@ public struct UnitValue {
     
     // MARK: - Constants
     
-    public static let `default` = UnitValue(value: 0.0, type: .real)
+    public static let zero = UnitValue(value: 0.0, type: .real)
     
     // MARK: - Public Properties
     
