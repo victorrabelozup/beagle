@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct Stack: LayoutWidget {
+public struct Stack: Widget {
     
     // MARK: - Public Properties
     

@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct Button: UIComponentWidget {
+public struct Button: Widget {
     
     // MARK: - Public Properties
     

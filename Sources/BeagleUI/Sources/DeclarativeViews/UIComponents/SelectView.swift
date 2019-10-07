@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct SelectView: UIComponentWidget {
+public struct SelectView: Widget {
     
     // MARK: - Public Properties
     

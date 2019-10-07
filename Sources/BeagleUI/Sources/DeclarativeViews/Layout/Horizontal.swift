@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct Horizontal: LayoutWidget {
+public struct Horizontal: Widget {
     
     // MARK: - Public Properties
     

@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct ListView: UIComponentWidget {
+public struct ListView: Widget {
     
     // MARK: - Public Properties
     

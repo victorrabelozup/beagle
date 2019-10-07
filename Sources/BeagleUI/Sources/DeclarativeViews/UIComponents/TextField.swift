@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct TextField: UIComponentWidget {
+public struct TextField: Widget {
     
     // MARK: - Public Properties
     

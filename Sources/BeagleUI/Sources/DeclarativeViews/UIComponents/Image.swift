@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct Image: UIComponentWidget {
+public struct Image: Widget {
     
     // MARK: - Public Properties
     

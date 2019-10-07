@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct ToolBar: UIComponentWidget {
+public struct ToolBar: Widget {
     
     // MARK: - Public Properties
     

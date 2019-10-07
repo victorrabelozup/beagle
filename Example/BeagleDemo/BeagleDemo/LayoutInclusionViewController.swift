@@ -23,63 +23,6 @@ final class LayoutInclusionViewController: UIViewController {
     
 }
 
-final class FlexConfigurableWidgetRenderer: WidgetViewRenderer {
-    
-    func render<T: Widget>(_ widget: T) -> UIView {
-        switch widget {
-        // Core
-        case is FlexSingleWidget:
-            debugPrint("FlexSingleWidget")
-        case is FlexWidget:
-            debugPrint("FlexWidget")
-        }
-    }
-    
-}
-
-final class WidgetScreenRenderer {
-    
-    func render(_ widget: Scre) {
-        switch widget {
-        // Core
-        case is FlexSingleWidget:
-            debugPrint("FlexSingleWidget")
-        case is FlexWidget:
-            debugPrint("FlexWidget")
-        // Layout
-        case is Container:
-            debugPrint("Container")
-        case is Horizontal:
-            debugPrint("Horizontal")
-        case is Padding:
-            debugPrint("Padding")
-        case is Spacer:
-            debugPrint("Spacer")
-        case is Stack:
-            debugPrint("Stack")
-        case is Vertical:
-            debugPrint("Vertical")
-        // UIComponents
-        case is Button:
-            debugPrint("Button")
-        case is DropDown:
-            debugPrint("DropDown")
-        case is Image:
-            debugPrint("Image")
-        case is ListView:
-            debugPrint("ListView")
-        case is SelectView:
-            debugPrint("SelectView")
-        case is Text:
-            debugPrint("Text")
-        case is TextField:
-            debugPrint("TextField")
-        case is ToolBar:
-            debugPrint("ToolBar")
-        }
-    }
-}
-
 struct SomeScreen: Screen {
 
     var content: FlexConfigurableWidget {
