@@ -1,5 +1,3 @@
-@Library('ZupSharedLibs@darwin')
-
 node {
 
   try {
