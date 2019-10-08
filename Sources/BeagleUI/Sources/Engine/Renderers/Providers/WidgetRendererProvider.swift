@@ -21,9 +21,15 @@ final class WidgetRendererProviding: WidgetRendererProvider {
     
     // MARK: - Initialization
     
+    init(
+        layoutRendererProvider: LayoutWidgetRendererProvider = LayoutWidgetRendererProviding(),
+        uiComponentRendererProvider: UIComponentWidgetRendererProvider = UIComponentWidgetRendererProviding()
+    ) {
+        self.layoutRendererProvider = layoutRendererProvider
+        self.uiComponentRendererProvider = uiComponentRendererProvider
+    }
     
-    
-    // MARK: -
+    // MARK: - Public Methods
     
     func buildRenderer(for widget: Widget) -> WidgetViewRenderer {
         

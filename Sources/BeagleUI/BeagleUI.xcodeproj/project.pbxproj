@@ -30,6 +30,7 @@
 		980262B02345432B0025A9C3 /* FlexSingleWidgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980262AF2345432B0025A9C3 /* FlexSingleWidgetTests.swift */; };
 		9841FD0123454B7B0069D7D2 /* FlexWidgetEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9841FD0023454B7B0069D7D2 /* FlexWidgetEntityTests.swift */; };
 		9841FD0323454F080069D7D2 /* FlexSingleWidgetEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9841FD0223454F080069D7D2 /* FlexSingleWidgetEntityTests.swift */; };
+		E50B08FA234CC7C30091AF0A /* FailableWidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B08F9234CC7C30091AF0A /* FailableWidgetRendererProvider.swift */; };
 		E56A029D2344172400C0F23D /* WidgetBuilders.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A029C2344172400C0F23D /* WidgetBuilders.swift */; };
 		E56A02AB23451A4800C0F23D /* DropDownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02AA23451A4800C0F23D /* DropDownTests.swift */; };
 		E56A02B123451C6500C0F23D /* FlexSingleWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02AD23451BFE00C0F23D /* FlexSingleWidget.swift */; };
@@ -151,6 +152,7 @@
 		980262AF2345432B0025A9C3 /* FlexSingleWidgetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidgetTests.swift; sourceTree = "<group>"; };
 		9841FD0023454B7B0069D7D2 /* FlexWidgetEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexWidgetEntityTests.swift; sourceTree = "<group>"; };
 		9841FD0223454F080069D7D2 /* FlexSingleWidgetEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidgetEntityTests.swift; sourceTree = "<group>"; };
+		E50B08F9234CC7C30091AF0A /* FailableWidgetRendererProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailableWidgetRendererProvider.swift; sourceTree = "<group>"; };
 		E53524AA23310F5A00D1A0C9 /* YogaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YogaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E56A029C2344172400C0F23D /* WidgetBuilders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetBuilders.swift; sourceTree = "<group>"; };
 		E56A02AA23451A4800C0F23D /* DropDownTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownTests.swift; sourceTree = "<group>"; };
@@ -336,6 +338,14 @@
 			path = Widget;
 			sourceTree = "<group>";
 		};
+		E50B08F8234CC7910091AF0A /* Abstractions */ = {
+			isa = PBXGroup;
+			children = (
+				E50B08F9234CC7C30091AF0A /* FailableWidgetRendererProvider.swift */,
+			);
+			path = Abstractions;
+			sourceTree = "<group>";
+		};
 		E53524A923310F5A00D1A0C9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -477,6 +487,7 @@
 		E5A33FEA234BB3E900AB8EB0 /* Providers */ = {
 			isa = PBXGroup;
 			children = (
+				E50B08F8234CC7910091AF0A /* Abstractions */,
 				E5A33FEB234BB3F700AB8EB0 /* LayoutWidgetRendererProvider.swift */,
 				E5A33FED234BB41600AB8EB0 /* UIComponentWidgetRendererProvider.swift */,
 				E5A33FE8234BAFBC00AB8EB0 /* WidgetRendererProvider.swift */,
@@ -816,6 +827,7 @@
 				E5CE41D42332767700295277 /* DropDownEntity.swift in Sources */,
 				93681803232A884F00E6E724 /* UnitValue.swift in Sources */,
 				E5A33FE9234BAFBC00AB8EB0 /* WidgetRendererProvider.swift in Sources */,
+				E50B08FA234CC7C30091AF0A /* FailableWidgetRendererProvider.swift in Sources */,
 				9368180F232A88B300E6E724 /* Vertical.swift in Sources */,
 				936817FD232A882D00E6E724 /* Widget.swift in Sources */,
 				E5CE41CC233274BB00295277 /* SpacerEntity.swift in Sources */,
