@@ -31,7 +31,7 @@ final class UIComponentWidgetRendererProviding: UIComponentWidgetRendererProvide
 //        case is ToolBar:
 //            debugPrint("ToolBar")
         default:
-            throw NSError()
+            throw FailableWidgetRendererProviderError.couldNotFindRenrererForWidget(widget)
         }
     }
 

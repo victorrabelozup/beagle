@@ -25,7 +25,7 @@ final class UnknownWidgetViewRenderer: WidgetViewRenderer {
     func buildView() -> UIView {
         let label = UILabel(frame: .zero)
         label.numberOfLines = 2
-        label.text = "Unknown Widget of type \(String(describing: widget))"
+        label.text = "Unknown Widget of type:\n \(String(describing: widget))"
         label.textColor = .red
         label.backgroundColor = .yellow
         return label

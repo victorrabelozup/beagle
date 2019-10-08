@@ -8,6 +8,19 @@
 
 import Foundation
 
+enum FailableWidgetRendererProviderError: Error {
+    
+    case couldNotFindRenrererForWidget(Widget)
+    
+    var localizedDescription: String {
+        switch self {
+        case let .couldNotFindRenrererForWidget(widget):
+            return "\(String(describing: widget)) has no renderer's registered, please check this."
+        }
+    }
+    
+}
+
 protocol FailableWidgetRendererProvider {
     func buildRenderer(for widget: Widget) throws -> WidgetViewRenderer
 }

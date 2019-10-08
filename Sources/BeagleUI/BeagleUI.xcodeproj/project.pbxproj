@@ -100,6 +100,7 @@
 		E5CE431C2335069200295277 /* FlexEntity+Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE431B2335069200295277 /* FlexEntity+Fixtures.swift */; };
 		E5CE431E2335402B00295277 /* ChildrenWidgetMappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9800D881233412540051B4F2 /* ChildrenWidgetMappingTests.swift */; };
 		E5DD468B234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */; };
+		E5DD4691234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4690234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -223,6 +224,7 @@
 		E5CE43172335052100295277 /* UIEnumModelConvertibleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEnumModelConvertibleTests.swift; sourceTree = "<group>"; };
 		E5CE431B2335069200295277 /* FlexEntity+Fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlexEntity+Fixtures.swift"; sourceTree = "<group>"; };
 		E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownWidgetViewRenderer.swift; sourceTree = "<group>"; };
+		E5DD4690234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailableWidgetRendererProviderErrorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -574,6 +576,7 @@
 			children = (
 				E5CE41F42332B9D200295277 /* Decoding */,
 				E56A02A52345143700C0F23D /* DeclarativeViews */,
+				E5DD468C234CF1CB004B7289 /* Engine */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -665,6 +668,38 @@
 				E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */,
 			);
 			path = Renderers;
+			sourceTree = "<group>";
+		};
+		E5DD468C234CF1CB004B7289 /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				E5DD468D234CF1D8004B7289 /* Renderer */,
+			);
+			path = Engine;
+			sourceTree = "<group>";
+		};
+		E5DD468D234CF1D8004B7289 /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				E5DD468E234CF1DE004B7289 /* Providers */,
+			);
+			path = Renderer;
+			sourceTree = "<group>";
+		};
+		E5DD468E234CF1DE004B7289 /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				E5DD468F234CF1F1004B7289 /* Abstractions */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
+		E5DD468F234CF1F1004B7289 /* Abstractions */ = {
+			isa = PBXGroup;
+			children = (
+				E5DD4690234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift */,
+			);
+			path = Abstractions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -861,6 +896,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E56A02C123453CA700C0F23D /* ContainerTests.swift in Sources */,
+				E5DD4691234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift in Sources */,
 				E57FBB86233ABF3F00165D8D /* DataPreprocessorTests.swift in Sources */,
 				E5CE43182335052100295277 /* UIEnumModelConvertibleTests.swift in Sources */,
 				E5CE421A2334047900295277 /* HorizontalEntityTests.swift in Sources */,

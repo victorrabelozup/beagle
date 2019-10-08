@@ -31,7 +31,7 @@ final class LayoutWidgetRendererProviding: LayoutWidgetRendererProvider {
 //        case is Vertical:
 //            debugPrint("Vertical")
         default:
-            throw NSError()
+            throw FailableWidgetRendererProviderError.couldNotFindRenrererForWidget(widget)
         }
     }
     
