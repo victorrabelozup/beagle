@@ -32,7 +32,11 @@ final class WidgetRendererProviding: WidgetRendererProvider {
     // MARK: - Public Methods
     
     func buildRenderer(for widget: Widget) -> WidgetViewRenderer {
-        
+        do {
+            return try layoutRendererProvider
+        } catch <#pattern#> {
+            <#statements#>
+        }
     }
     
 }
