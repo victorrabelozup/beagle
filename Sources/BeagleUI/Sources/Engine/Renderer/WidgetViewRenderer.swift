@@ -10,10 +10,5 @@ import UIKit
 
 public protocol WidgetViewRenderer {
     init(_ widget: Widget)
-    func render() -> UIView
-}
-
-final class WidgetScreenRenderer {
-    
-    
+    func buildView() -> UIView
 }

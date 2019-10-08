@@ -33,9 +33,20 @@ final class WidgetRendererProviding: WidgetRendererProvider {
     
     func buildRenderer(for widget: Widget) -> WidgetViewRenderer {
         do {
-            return try layoutRendererProvider
-        } catch <#pattern#> {
-            <#statements#>
+            return try layoutRendererProvider.buildRenderer(for: widget)
+        } catch { // Don't treat specific errors for now, just try to provide a UIComponent
+            debugPrint("Error: \(error)")
+            return provideUIComponentRenderer(for: widget)
+        }
+    }
+    
+    // MARK: - Private Methods
+    
+    private func provideUIComponentRenderer(for widget: Widget) -> WidgetViewRenderer {
+        do {
+            return try uiComponentRendererProvider.buildRenderer(for: widget)
+        } catch { // Don't treat specific errors for now, just return a `UnknownWidgetRenderer`
+            return UnknownWidgetViewRenderer(widget)
         }
     }
     
