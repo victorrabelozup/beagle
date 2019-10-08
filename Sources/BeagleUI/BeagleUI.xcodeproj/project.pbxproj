@@ -104,6 +104,8 @@
 		E5DD4694234CF466004B7289 /* BeagleFlexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4693234CF466004B7289 /* BeagleFlexView.swift */; };
 		E5DD4696234CF481004B7289 /* BeagleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4695234CF481004B7289 /* BeagleViewController.swift */; };
 		E5DD4699234CF6CA004B7289 /* FlexMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4698234CF6CA004B7289 /* FlexMapper.swift */; };
+		E7A3624B234D117900F64B40 /* ButtonWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A3624A234D117900F64B40 /* ButtonWidgetViewRenderer.swift */; };
+		E7A3624D234D125800F64B40 /* ImageWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A3624C234D125800F64B40 /* ImageWidgetViewRenderer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -231,6 +233,8 @@
 		E5DD4693234CF466004B7289 /* BeagleFlexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleFlexView.swift; sourceTree = "<group>"; };
 		E5DD4695234CF481004B7289 /* BeagleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleViewController.swift; sourceTree = "<group>"; };
 		E5DD4698234CF6CA004B7289 /* FlexMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexMapper.swift; sourceTree = "<group>"; };
+		E7A3624A234D117900F64B40 /* ButtonWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtonWidgetViewRenderer.swift; path = Sources/Engine/Renderer/Renderers/ButtonWidgetViewRenderer.swift; sourceTree = SOURCE_ROOT; };
+		E7A3624C234D125800F64B40 /* ImageWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageWidgetViewRenderer.swift; path = Sources/Engine/Renderer/Renderers/ImageWidgetViewRenderer.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -674,6 +678,8 @@
 				E56A02E32347C85800C0F23D /* Layout */,
 				E5A33FE5234BAD3400AB8EB0 /* UI */,
 				E5DD468A234CCEEB004B7289 /* UnknownWidgetViewBuilder.swift */,
+				E7A3624A234D117900F64B40 /* ButtonWidgetViewRenderer.swift */,
+				E7A3624C234D125800F64B40 /* ImageWidgetViewRenderer.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -875,6 +881,7 @@
 				93681801232A884600E6E724 /* Screen.swift in Sources */,
 				E56A02E22347B6ED00C0F23D /* WidgetViewRenderer.swift in Sources */,
 				E5CE41A52331D59E00295277 /* WidgetEntityContainer.swift in Sources */,
+				E7A3624B234D117900F64B40 /* ButtonWidgetViewRenderer.swift in Sources */,
 				93681813232A8D4000E6E724 /* DropDown.swift in Sources */,
 				E5CE41FB2333F7FB00295277 /* ChildrenWidgetMapping.swift in Sources */,
 				E50B0900234CCAB90091AF0A /* UIComponentWidgetRendererProvider.swift in Sources */,
@@ -900,6 +907,7 @@
 				E5CE41D62332768700295277 /* ImageEntity.swift in Sources */,
 				E5CE41A32331D55000295277 /* WidgetDecoder.swift in Sources */,
 				E56A02B723451D5C00C0F23D /* FlexSingleWidgetEntity.swift in Sources */,
+				E7A3624D234D125800F64B40 /* ImageWidgetViewRenderer.swift in Sources */,
 				93681815232A8D6500E6E724 /* Image.swift in Sources */,
 				E5CE41C623325E4500295277 /* UnitValueEntity.swift in Sources */,
 				93681821232A8E0C00E6E724 /* Toolbar.swift in Sources */,
