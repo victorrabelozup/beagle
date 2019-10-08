@@ -46,6 +46,7 @@ final class WidgetRendererProviding: WidgetRendererProvider {
         do {
             return try uiComponentRendererProvider.buildRenderer(for: widget)
         } catch { // Don't treat specific errors for now, just return a `UnknownWidgetRenderer`
+            debugPrint("Error: \(error)")
             return UnknownWidgetViewRenderer(widget)
         }
     }

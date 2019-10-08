@@ -10,22 +10,22 @@ public struct Flex {
     
     // MARK: - Public Properties
     
-    let flexDirection: Direction
-    let direction: FlexDirection
-    let flexWrap: Wrap
-    let justifyContent: JustifyContent
-    let alignItems: Alignment
-    let alignSelf: Alignment
-    let alignContent: Alignment
-    let basis: UnitValue
-    let flex: Double
-    let grow: Double
-    let shrink: Double
-    let display: Display
-    let size: Size
-    let margin: EdgeValue
-    let padding: EdgeValue
-    let position: EdgeValue
+    public let flexDirection: Direction
+    public let direction: FlexDirection
+    public let flexWrap: Wrap
+    public let justifyContent: JustifyContent
+    public let alignItems: Alignment
+    public let alignSelf: Alignment
+    public let alignContent: Alignment
+    public let basis: UnitValue
+    public let flex: Double
+    public let grow: Double
+    public let shrink: Double
+    public let display: Display
+    public let size: Size
+    public let margin: EdgeValue
+    public let padding: EdgeValue
+    public let position: EdgeValue
     
     // MARK: - Initialization
     

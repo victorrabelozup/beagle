@@ -11,5 +11,4 @@ import XCTest
 
 final class FailableWidgetRendererProviderErrorTests: XCTestCase {
     
-    
 }
