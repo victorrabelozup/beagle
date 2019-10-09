@@ -106,6 +106,7 @@
 		E5DD4699234CF6CA004B7289 /* FlexMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4698234CF6CA004B7289 /* FlexMapper.swift */; };
 		E7A3624B234D117900F64B40 /* ButtonWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A3624A234D117900F64B40 /* ButtonWidgetViewRenderer.swift */; };
 		E7A3624D234D125800F64B40 /* ImageWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A3624C234D125800F64B40 /* ImageWidgetViewRenderer.swift */; };
+		E7EE2C1D234D1E3400C17EB9 /* ButtonWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EE2C1C234D1E3400C17EB9 /* ButtonWidgetViewRendererTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -235,6 +236,7 @@
 		E5DD4698234CF6CA004B7289 /* FlexMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexMapper.swift; sourceTree = "<group>"; };
 		E7A3624A234D117900F64B40 /* ButtonWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtonWidgetViewRenderer.swift; path = Sources/Engine/Renderer/Renderers/ButtonWidgetViewRenderer.swift; sourceTree = SOURCE_ROOT; };
 		E7A3624C234D125800F64B40 /* ImageWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageWidgetViewRenderer.swift; path = Sources/Engine/Renderer/Renderers/ImageWidgetViewRenderer.swift; sourceTree = SOURCE_ROOT; };
+		E7EE2C1C234D1E3400C17EB9 /* ButtonWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -704,6 +706,7 @@
 			isa = PBXGroup;
 			children = (
 				E5DD468F234CF1F1004B7289 /* Abstractions */,
+				E7EE2C1B234D1DDF00C17EB9 /* Renderers */,
 			);
 			path = Providers;
 			sourceTree = "<group>";
@@ -731,6 +734,14 @@
 				E5DD4695234CF481004B7289 /* BeagleViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E7EE2C1B234D1DDF00C17EB9 /* Renderers */ = {
+			isa = PBXGroup;
+			children = (
+				E7EE2C1C234D1E3400C17EB9 /* ButtonWidgetViewRendererTests.swift */,
+			);
+			path = Renderers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -951,6 +962,7 @@
 				E56A02CF23462B8400C0F23D /* PaddingTests.swift in Sources */,
 				E5CE42012333FC1F00295277 /* ButtonEntityTests.swift in Sources */,
 				E5835B35233BD95C00125140 /* WidgetConvertibleTests.swift in Sources */,
+				E7EE2C1D234D1E3400C17EB9 /* ButtonWidgetViewRendererTests.swift in Sources */,
 				E5CE4215233400B100295277 /* ToolBarEntityTests.swift in Sources */,
 				E5CE431C2335069200295277 /* FlexEntity+Fixtures.swift in Sources */,
 				E5CE422823340EA100295277 /* UnitValueEntityTests.swift in Sources */,

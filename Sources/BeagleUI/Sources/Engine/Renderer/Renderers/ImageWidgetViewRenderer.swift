@@ -16,7 +16,7 @@ final class ImageWidgetViewRenderer: WidgetViewRenderer {
     
     // MARK: - Initialization
     
-    init(_ widget: Widget) throws{
+    init(_ widget: Widget) throws {
         guard let image = widget as? Image else {
             throw WidgetViewRenderingError.invalidWidgetType
         }
