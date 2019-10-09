@@ -9,6 +9,10 @@
 import UIKit
 
 public protocol WidgetViewRenderer {
-    init(_ widget: Widget)
+    init(_ widget: Widget) throws
     func buildView() -> UIView
+}
+
+public enum WidgetViewRenderingError: Error {
+    case invalidWidgetType
 }
