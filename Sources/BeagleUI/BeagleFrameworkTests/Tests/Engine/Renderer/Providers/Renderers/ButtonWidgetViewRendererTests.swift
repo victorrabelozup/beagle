@@ -20,7 +20,7 @@ final class ButtonWidgetViewRendererTests: XCTestCase {
         
         //When
         
-        widget = Image(path: "PATH")
+        widget = Image(path: "path")
         
         //Then
         do {
@@ -37,7 +37,7 @@ final class ButtonWidgetViewRendererTests: XCTestCase {
         
         //When
         
-        widget = Button(text: "TITLE")
+        widget = Button(text: "title")
         
         //Then
         do {
@@ -51,7 +51,7 @@ final class ButtonWidgetViewRendererTests: XCTestCase {
     func test_buildViewButtonTitle() {
         //Given
         let widget: Widget
-        let buttonTitle = "TITLE"
+        let buttonTitle = "title"
         
         //When
         

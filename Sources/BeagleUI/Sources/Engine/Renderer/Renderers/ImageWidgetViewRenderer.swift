@@ -25,6 +25,7 @@ final class ImageWidgetViewRenderer: WidgetViewRenderer {
     
     // MARK: - Public Functions
     
+    //TODO: define how to set image with the path
     func buildView() -> UIView {
         let image = UIImageView(frame: .zero)
         return image

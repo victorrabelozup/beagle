@@ -107,6 +107,7 @@
 		E7A3624B234D117900F64B40 /* ButtonWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A3624A234D117900F64B40 /* ButtonWidgetViewRenderer.swift */; };
 		E7A3624D234D125800F64B40 /* ImageWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A3624C234D125800F64B40 /* ImageWidgetViewRenderer.swift */; };
 		E7EE2C1D234D1E3400C17EB9 /* ButtonWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EE2C1C234D1E3400C17EB9 /* ButtonWidgetViewRendererTests.swift */; };
+		E7EE2C1F234E6C7500C17EB9 /* ImageWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EE2C1E234E6C7500C17EB9 /* ImageWidgetViewRenderer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -237,6 +238,7 @@
 		E7A3624A234D117900F64B40 /* ButtonWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtonWidgetViewRenderer.swift; path = Sources/Engine/Renderer/Renderers/ButtonWidgetViewRenderer.swift; sourceTree = SOURCE_ROOT; };
 		E7A3624C234D125800F64B40 /* ImageWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageWidgetViewRenderer.swift; path = Sources/Engine/Renderer/Renderers/ImageWidgetViewRenderer.swift; sourceTree = SOURCE_ROOT; };
 		E7EE2C1C234D1E3400C17EB9 /* ButtonWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWidgetViewRendererTests.swift; sourceTree = "<group>"; };
+		E7EE2C1E234E6C7500C17EB9 /* ImageWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWidgetViewRenderer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -740,6 +742,7 @@
 			isa = PBXGroup;
 			children = (
 				E7EE2C1C234D1E3400C17EB9 /* ButtonWidgetViewRendererTests.swift */,
+				E7EE2C1E234E6C7500C17EB9 /* ImageWidgetViewRenderer.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -940,6 +943,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E56A02C123453CA700C0F23D /* ContainerTests.swift in Sources */,
+				E7EE2C1F234E6C7500C17EB9 /* ImageWidgetViewRenderer.swift in Sources */,
 				E5DD4691234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift in Sources */,
 				E57FBB86233ABF3F00165D8D /* DataPreprocessorTests.swift in Sources */,
 				E5CE43182335052100295277 /* UIEnumModelConvertibleTests.swift in Sources */,
