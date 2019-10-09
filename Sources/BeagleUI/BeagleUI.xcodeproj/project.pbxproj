@@ -103,7 +103,7 @@
 		E5DD4691234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4690234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift */; };
 		E5DD4694234CF466004B7289 /* BeagleFlexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4693234CF466004B7289 /* BeagleFlexView.swift */; };
 		E5DD4696234CF481004B7289 /* BeagleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4695234CF481004B7289 /* BeagleViewController.swift */; };
-		E5DD4699234CF6CA004B7289 /* FlexMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4698234CF6CA004B7289 /* FlexMapper.swift */; };
+		E5DD46A4234E2128004B7289 /* FlexViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD46A3234E2128004B7289 /* FlexViewConfigurator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -230,7 +230,7 @@
 		E5DD4690234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailableWidgetRendererProviderErrorTests.swift; sourceTree = "<group>"; };
 		E5DD4693234CF466004B7289 /* BeagleFlexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleFlexView.swift; sourceTree = "<group>"; };
 		E5DD4695234CF481004B7289 /* BeagleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleViewController.swift; sourceTree = "<group>"; };
-		E5DD4698234CF6CA004B7289 /* FlexMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexMapper.swift; sourceTree = "<group>"; };
+		E5DD46A3234E2128004B7289 /* FlexViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexViewConfigurator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -447,6 +447,7 @@
 			isa = PBXGroup;
 			children = (
 				E56A02E42347C87C00C0F23D /* YogaTranslator.swift */,
+				E5DD46A3234E2128004B7289 /* FlexViewConfigurator.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -467,21 +468,12 @@
 			children = (
 				E50B08FB234CCA640091AF0A /* Providers */,
 				E5DD4689234CCEC9004B7289 /* Renderers */,
-				E5A33FE3234BAD1B00AB8EB0 /* Mapper */,
 				E5A33FE4234BAD2500AB8EB0 /* Native */,
 				E5DD4692234CF444004B7289 /* View */,
 				E5A33FE6234BAF6E00AB8EB0 /* BeagleViewBuilder.swift */,
 				E56A02E12347B6ED00C0F23D /* WidgetViewRenderer.swift */,
 			);
 			path = Renderer;
-			sourceTree = "<group>";
-		};
-		E5A33FE3234BAD1B00AB8EB0 /* Mapper */ = {
-			isa = PBXGroup;
-			children = (
-				E5DD4698234CF6CA004B7289 /* FlexMapper.swift */,
-			);
-			path = Mapper;
 			sourceTree = "<group>";
 		};
 		E5A33FE4234BAD2500AB8EB0 /* Native */ = {
@@ -900,6 +892,7 @@
 				E5CE41D62332768700295277 /* ImageEntity.swift in Sources */,
 				E5CE41A32331D55000295277 /* WidgetDecoder.swift in Sources */,
 				E56A02B723451D5C00C0F23D /* FlexSingleWidgetEntity.swift in Sources */,
+				E5DD46A4234E2128004B7289 /* FlexViewConfigurator.swift in Sources */,
 				93681815232A8D6500E6E724 /* Image.swift in Sources */,
 				E5CE41C623325E4500295277 /* UnitValueEntity.swift in Sources */,
 				93681821232A8E0C00E6E724 /* Toolbar.swift in Sources */,
@@ -927,7 +920,6 @@
 				E5CE421A2334047900295277 /* HorizontalEntityTests.swift in Sources */,
 				E5CE42092334003200295277 /* ImageEntityTests.swift in Sources */,
 				E56A02BE23453BAA00C0F23D /* SelectViewTests.swift in Sources */,
-				E5DD4699234CF6CA004B7289 /* FlexMapper.swift in Sources */,
 				980262AE2345431B0025A9C3 /* FlexWidgetTests.swift in Sources */,
 				E5835B33233BD84600125140 /* WidgetEntityContainerTests.swift in Sources */,
 				E56A02CD23462B0000C0F23D /* StackTests.swift in Sources */,

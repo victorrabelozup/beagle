@@ -16,6 +16,7 @@ protocol YogaTranslator {
     func translate(_ direction: Flex.Direction) -> YGFlexDirection
     func translate(_ flexDirection: Flex.FlexDirection) -> YGDirection
     func translate(_ display: Flex.Display) -> YGDisplay
+    func translate(_ unitValue: UnitValue) -> YGValue
 }
 
 final class YogaTranslating: YogaTranslator {
@@ -99,6 +100,16 @@ final class YogaTranslating: YogaTranslator {
             return .flex
         case .none:
             return .none
+        }
+    }
+    
+    func translate(_ unitValue: UnitValue) -> YGValue {
+        let value = Float(unitValue.value)
+        switch unitValue.type {
+        case .percent:
+            return YGValue(value: value, unit: .percent)
+        case .real:
+            return YGValue(value: value, unit: .point)
         }
     }
     

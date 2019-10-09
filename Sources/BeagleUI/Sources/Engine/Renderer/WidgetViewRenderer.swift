@@ -8,7 +8,11 @@
 
 import UIKit
 
+enum WidgetViewRendererError: Error {
+    case couldNotCastWidget(Widget)
+}
+
 public protocol WidgetViewRenderer {
-    init(_ widget: Widget)
+    init(_ widget: Widget) throws
     func buildView() -> UIView
 }
