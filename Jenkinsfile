@@ -1,9 +1,8 @@
-@Library('ZupSharedLibs@darwin')
+@Library('ZupSharedLibs@darwin') _
 
 node {
 
   try {
-
     def projectName = "darwin-beagle-framework"
 
     buildWithMakefile {
@@ -14,12 +13,10 @@ node {
     }
 
   } catch (e) {
-
       notifyBuildStatus {
         buildStatus = "FAILED"
       }
       throw e
-
   }
 
 }
