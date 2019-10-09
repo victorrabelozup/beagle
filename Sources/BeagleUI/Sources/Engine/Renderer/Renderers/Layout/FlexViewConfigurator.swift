@@ -9,11 +9,11 @@
 import Foundation
 import YogaKit
 
-protocol FlexViewConfigurator {
-//    func apply(_ flex: Flex, to view: inout UIView)
+protocol FlexViewConfiguratorProtocol {
+    func applyFlex(_ flex: Flex, to view: UIView)
 }
 
-final class FlexViewConfigurating: FlexViewConfigurator {
+final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
     
     // MARK: - Dependencies
     
