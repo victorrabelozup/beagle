@@ -15,7 +15,7 @@ final class FlexWidgetEntityTests: XCTestCase {
         // Given
         let content = TextEntity(text: "text")
         let children = [WidgetEntityContainer(type: "beagle:Text", content: content)]
-        let flex = FlexEntity.fixture()
+        let flex = FlexEntity()
         let sut = FlexWidgetEntity(childrenContainer: children, flex: flex)
         
         // When
