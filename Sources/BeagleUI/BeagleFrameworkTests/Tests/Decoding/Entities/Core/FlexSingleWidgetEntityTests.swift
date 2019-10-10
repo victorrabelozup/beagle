@@ -49,7 +49,7 @@ final class FlexSingleWidgetEntityTests: XCTestCase {
         // Given
         let content = TextEntity(text: "Some text")
         let child = WidgetEntityContainer(type: "beagle:Text", content: content)
-        let flex = FlexEntity.fixture()
+        let flex = FlexEntity()
         guard let sut = try? FlexSingleWidgetEntity(childContainer: child, flex: flex) else {
             XCTFail("Could not create Flex single widget.")
             return
