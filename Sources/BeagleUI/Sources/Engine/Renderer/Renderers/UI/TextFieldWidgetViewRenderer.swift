@@ -13,7 +13,7 @@ final class TextFieldWidgetViewRenderer: WidgetViewRenderer {
 
     init(_ widget: Widget) throws {
         guard let textField = widget as? TextField else {
-            throw WidgetViewRenderingError.invalidWidgetType
+            throw WidgetViewRendererError.couldNotCastWidget(widget)
         }
         self.widget = textField
     }
@@ -25,4 +25,3 @@ final class TextFieldWidgetViewRenderer: WidgetViewRenderer {
         return textField
     }
 }
-

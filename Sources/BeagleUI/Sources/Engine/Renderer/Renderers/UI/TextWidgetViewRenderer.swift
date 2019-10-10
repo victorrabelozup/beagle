@@ -13,7 +13,7 @@ final class TextWidgetViewRenderer: WidgetViewRenderer {
     
     init(_ widget: Widget) throws {
         guard let text = widget as? Text else {
-            throw WidgetViewRenderingError.invalidWidgetType
+            throw WidgetViewRendererError.couldNotCastWidget(widget)
         }
         self.widget = text
     }

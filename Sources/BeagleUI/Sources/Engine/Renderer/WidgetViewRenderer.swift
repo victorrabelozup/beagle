@@ -17,6 +17,3 @@ public protocol WidgetViewRenderer {
     func buildView() -> UIView
 }
 
-public enum WidgetViewRenderingError: Error {
-    case invalidWidgetType
-}
