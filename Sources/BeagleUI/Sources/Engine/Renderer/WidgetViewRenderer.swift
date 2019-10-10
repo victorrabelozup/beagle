@@ -8,8 +8,17 @@
 
 import UIKit
 
-enum WidgetViewRendererError: Error {
-    case couldNotCastWidget(Widget)
+public enum WidgetViewRenderingError: Error {
+    
+    case couldNotCastWidgetToType(String)
+    
+    public var localizedDescription: String {
+        switch self {
+        case let .couldNotCastWidgetToType(type):
+            return "Could not cast widget to `\(type)`."
+        }
+    }
+    
 }
 
 public protocol WidgetViewRenderer {
@@ -17,3 +26,12 @@ public protocol WidgetViewRenderer {
     func buildView() -> UIView
 }
 
+extension Widget {
+    static func byCasting<T: Widget>(widget: Widget, to: T.Type) throws -> T {
+        guard let castedWidget = widget as? T else {
+            let widgetType = String(describing: widget)
+            throw WidgetViewRenderingError.couldNotCastWidgetToType(widgetType)
+        }
+        return castedWidget
+    }
+}

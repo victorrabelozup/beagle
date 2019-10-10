@@ -12,10 +12,8 @@ final class TextFieldWidgetViewRenderer: WidgetViewRenderer {
     private let widget: TextField
 
     init(_ widget: Widget) throws {
-        guard let textField = widget as? TextField else {
-            throw WidgetViewRendererError.couldNotCastWidget(widget)
-        }
-        self.widget = textField
+        self.widget = try .byCasting(widget: widget, to: TextField.self)
+
     }
     
     func buildView() -> UIView {
