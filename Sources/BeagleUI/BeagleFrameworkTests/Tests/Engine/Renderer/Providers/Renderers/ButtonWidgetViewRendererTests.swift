@@ -15,7 +15,7 @@ final class ButtonWidgetViewRendererTests: XCTestCase {
     
     func test_onInitWithNoButtonWidget_shouldReturnThrowError() {
         //Given
-        let widget = Image(path: "path")
+        let widget = UnknownWidget()
         
         // When / Then
         XCTAssertThrowsError(_ = try ButtonWidgetViewRenderer(widget), "Expected error, but got nil.") { error in
@@ -58,6 +58,4 @@ final class ButtonWidgetViewRendererTests: XCTestCase {
     }
 }
 
-enum unknowWidget: Widget {
-    
-}
+private struct UnknownWidget: Widget { }
