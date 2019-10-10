@@ -36,5 +36,28 @@ final class ButtonWidgetViewRendererTests: XCTestCase {
         // Then
         XCTAssertTrue(buttonWidgetRenderer.buildView() is UIButton, "Expected a button type to be created.")
     }
+    
+    func test_onInitWithButtonWidget_shouldSetRightButtonTitle() {
+        //Given
+        let buttonTitle = "title"
+        let widget = Button(text: buttonTitle)
+        
+        //When
+        guard let buttonWidgetRenderer = try? ButtonWidgetViewRenderer(widget) else {
+            XCTFail("Could not render TextField.")
+            return
+        }
+        
+        guard let button: UIButton = buttonWidgetRenderer.buildView() as? UIButton else {
+            XCTFail("Build View not returning UIButton")
+            return
+        }
+        
+        // Then
+        XCTAssertEqual(button.titleLabel?.text, buttonTitle)
+    }
 }
 
+enum unknowWidget: Widget {
+    
+}

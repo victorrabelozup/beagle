@@ -18,7 +18,7 @@ final class ImageWidgetViewRenderer: WidgetViewRenderer {
     
     init(_ widget: Widget) throws {
         guard let image = widget as? Image else {
-            throw WidgetViewRenderingError.couldNotCastWidget(widget)
+            throw WidgetViewRendererError.couldNotCastWidget(widget)
         }
         self.widget = image
     }
