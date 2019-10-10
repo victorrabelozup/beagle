@@ -14,14 +14,14 @@ final class TextFieldWidgetViewRendererTests: XCTestCase {
     func test_onInitWithNoTextFieldWidget_shouldReturnThrowError() {
         // Given
         let widget = UnknownWidget(hint: "", value: "")
-        
+
         // When / Then
         XCTAssertThrowsError(_ = try TextFieldWidgetViewRenderer(widget), "Expected error, but got nil.") { error in
-            XCTAssertNotNil(error, "Expected error, but got \(error.localizedDescription)")
+            XCTAssertTrue(error is WidgetViewRenderingError, "Expected to have a WidgetViewRenderingError, but got \(error)")
         }
     }
     
-    func test_onInitWithTextFieldWidget_shouldReturnTextFieldInstance() {
+    func test_onInitWithTextFieldWidget_shouldReturnUITextFieldInstanceWithIntegratedValues() {
         // Given
         let widget = TextField(hint: "Email", value: "teste@teste.com")
         
@@ -31,8 +31,15 @@ final class TextFieldWidgetViewRendererTests: XCTestCase {
             return
         }
 
+        guard let textField = textFieldViewRenderer.buildView() as? UITextField else {
+            XCTFail("Unable to type cast to UITextField.")
+            return
+        }
+        
         // Then
         XCTAssertTrue(textFieldViewRenderer.buildView() is UITextField, "Expected a textField type to be created.")
+        XCTAssertEqual(widget.value, textField.text, "Expected textfield to have the same text as the widget created, but it doesn`t")
+        XCTAssertEqual(widget.hint, textField.placeholder, "Expected textfield to have a placeholder, but it doesn`t")
     }
 }
 
