@@ -24,5 +24,3 @@ final class TextWidgetViewRenderer: WidgetViewRenderer {
         return label
     }
 }
-
-

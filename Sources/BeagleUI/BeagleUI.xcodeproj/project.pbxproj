@@ -32,6 +32,8 @@
 		9802EF4A234E340B00A7EE89 /* TextFieldWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9802EF49234E340B00A7EE89 /* TextFieldWidgetViewRenderer.swift */; };
 		9841FD0123454B7B0069D7D2 /* FlexWidgetEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9841FD0023454B7B0069D7D2 /* FlexWidgetEntityTests.swift */; };
 		9841FD0323454F080069D7D2 /* FlexSingleWidgetEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9841FD0223454F080069D7D2 /* FlexSingleWidgetEntityTests.swift */; };
+		98F6993D234E611900048A58 /* TextFieldWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F6993C234E611900048A58 /* TextFieldWidgetViewRendererTests.swift */; };
+		98F6993F234E613600048A58 /* TextWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F6993E234E613600048A58 /* TextWidgetViewRendererTests.swift */; };
 		E50B0900234CCAB90091AF0A /* UIComponentWidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B08FD234CCAB90091AF0A /* UIComponentWidgetRendererProvider.swift */; };
 		E50B0901234CCAB90091AF0A /* LayoutWidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B08FE234CCAB90091AF0A /* LayoutWidgetRendererProvider.swift */; };
 		E50B0902234CCAB90091AF0A /* WidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B08FF234CCAB90091AF0A /* WidgetRendererProvider.swift */; };
@@ -161,6 +163,8 @@
 		9802EF49234E340B00A7EE89 /* TextFieldWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextFieldWidgetViewRenderer.swift; path = BeagleFrameworkTests/Tests/Engine/Renderer/Providers/TextFieldWidgetViewRenderer.swift; sourceTree = SOURCE_ROOT; };
 		9841FD0023454B7B0069D7D2 /* FlexWidgetEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexWidgetEntityTests.swift; sourceTree = "<group>"; };
 		9841FD0223454F080069D7D2 /* FlexSingleWidgetEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidgetEntityTests.swift; sourceTree = "<group>"; };
+		98F6993C234E611900048A58 /* TextFieldWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWidgetViewRendererTests.swift; sourceTree = "<group>"; };
+		98F6993E234E613600048A58 /* TextWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		E50B08FD234CCAB90091AF0A /* UIComponentWidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIComponentWidgetRendererProvider.swift; sourceTree = "<group>"; };
 		E50B08FE234CCAB90091AF0A /* LayoutWidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutWidgetRendererProvider.swift; sourceTree = "<group>"; };
 		E50B08FF234CCAB90091AF0A /* WidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetRendererProvider.swift; sourceTree = "<group>"; };
@@ -350,6 +354,15 @@
 				980262AF2345432B0025A9C3 /* FlexSingleWidgetTests.swift */,
 			);
 			path = Widget;
+			sourceTree = "<group>";
+		};
+		98F6993B234E610000048A58 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				98F6993C234E611900048A58 /* TextFieldWidgetViewRendererTests.swift */,
+				98F6993E234E613600048A58 /* TextWidgetViewRendererTests.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		E50B08FB234CCA640091AF0A /* Providers */ = {
@@ -695,6 +708,7 @@
 		E5DD468D234CF1D8004B7289 /* Renderer */ = {
 			isa = PBXGroup;
 			children = (
+				98F6993B234E610000048A58 /* UI */,
 				E5DD468E234CF1DE004B7289 /* Providers */,
 			);
 			path = Renderer;
@@ -946,11 +960,13 @@
 				E5CE431E2335402B00295277 /* ChildrenWidgetMappingTests.swift in Sources */,
 				E5CE421C2334049200295277 /* PaddingEntityTests.swift in Sources */,
 				980262B02345432B0025A9C3 /* FlexSingleWidgetTests.swift in Sources */,
+				98F6993F234E613600048A58 /* TextWidgetViewRendererTests.swift in Sources */,
 				E5CE421E233404A200295277 /* SpacerEntityTests.swift in Sources */,
 				E5CE4220233404B800295277 /* StackEntityTests.swift in Sources */,
 				E56A02CF23462B8400C0F23D /* PaddingTests.swift in Sources */,
 				E5CE42012333FC1F00295277 /* ButtonEntityTests.swift in Sources */,
 				E5835B35233BD95C00125140 /* WidgetConvertibleTests.swift in Sources */,
+				98F6993D234E611900048A58 /* TextFieldWidgetViewRendererTests.swift in Sources */,
 				E5CE4215233400B100295277 /* ToolBarEntityTests.swift in Sources */,
 				E5CE431C2335069200295277 /* FlexEntity+Fixtures.swift in Sources */,
 				E5CE422823340EA100295277 /* UnitValueEntityTests.swift in Sources */,

@@ -18,9 +18,10 @@ final class TextFieldWidgetViewRenderer: WidgetViewRenderer {
         self.widget = textField
     }
     
-    func buildView() -> UIView {  // TODO: VERIFY TEXT FIELD ON ANDROID, HAS "HINT" ?? WTF
+    func buildView() -> UIView {
         let textField = UITextField(frame: .zero)
         textField.text = widget.value
+        textField.placeholder = widget.hint
         return textField
     }
 }

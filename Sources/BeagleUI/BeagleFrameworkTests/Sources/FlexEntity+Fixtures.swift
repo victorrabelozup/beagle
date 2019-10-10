@@ -12,14 +12,14 @@ import Foundation
 extension FlexEntity {
     
     static func fixture(
-        flexWrap: Wrap = .no_wrap,
-        justifyContent: JustifyContent = .flex_end,
+        flexWrap: Wrap = .noWrap,
+        justifyContent: JustifyContent = .flexEnd,
         alignItems: Alignment = .stretch,
         alignSelf: Alignment = .auto,
-        alignContent: Alignment = .flex_start,
+        alignContent: Alignment = .flexStart,
         basis: UnitValueEntity = UnitValueEntity(value: 0.0, type: .real),
         grow: Double = 0.0,
-        shrink: Int = 0
+        shrink: Double = 0.0
     ) -> FlexEntity {
         return FlexEntity(
             flexWrap: flexWrap,
