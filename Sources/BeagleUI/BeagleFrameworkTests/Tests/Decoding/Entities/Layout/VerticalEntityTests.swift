@@ -15,7 +15,7 @@ final class VerticalEntityTests: XCTestCase {
         // Given
         let content = TextEntity(text: "text")
         let children = [WidgetEntityContainer(type: "beagle:Text", content: content)]
-        let flex = FlexEntity.fixture()
+        let flex = FlexEntity()
         let sut = VerticalEntity(childrenContainer: children, flex: flex, reversed: false)
 
         // When
