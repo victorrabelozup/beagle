@@ -11,61 +11,30 @@ import XCTest
 
 final class ButtonWidgetViewRendererTests: XCTestCase {
     
-
     // MARK: - Tests
     
-    func test_whenTheWrongWidgetItsGivenToTheRendererInitializer() {
+    func test_onInitWithNoButtonWidget_shouldReturnThrowError() {
         //Given
-        let widget: Widget
+        let widget = Image(path: "path")
         
-        //When
-        
-        widget = Image(path: "path")
-        
-        //Then
-        do {
-            let _ = try ButtonWidgetViewRenderer(widget)
-            XCTAssert(false, "Should have throwed invalidWidgetType")
-        } catch {
-            XCTAssert(true)
+        // When / Then
+        XCTAssertThrowsError(_ = try ButtonWidgetViewRenderer(widget), "Expected error, but got nil.") { error in
+            XCTAssertNotNil(error, "Expected error, but got \(error.localizedDescription)")
         }
     }
     
-    func test_whenTheRightWidgetItsGivenToTheRendererInitializer() {
+    func test_onInitWithButtonWidget_shouldReturnButtonInstance() {
         //Given
-        let widget: Widget
+        let widget = Button(text: "title")
         
         //When
-        
-        widget = Button(text: "title")
-        
-        //Then
-        do {
-            let _ = try ButtonWidgetViewRenderer(widget)
-            XCTAssert(true)
-        } catch {
-            XCTAssert(false, "Invalid Data Type")
+        guard let buttonWidgetRenderer = try? ButtonWidgetViewRenderer(widget) else {
+            XCTFail("Could not render TextField.")
+            return
         }
+        
+        // Then
+        XCTAssertTrue(buttonWidgetRenderer.buildView() is UIButton, "Expected a button type to be created.")
     }
-    
-    func test_buildViewButtonTitle() {
-        //Given
-        let widget: Widget
-        let buttonTitle = "title"
-        
-        //When
-        
-        widget = Button(text: buttonTitle)
-        
-        //Then
-        do {
-            let viewRenderer = try ButtonWidgetViewRenderer(widget)
-            let view = viewRenderer.buildView() as? UIButton
-            XCTAssertEqual(view?.titleLabel?.text, buttonTitle)
-        } catch {
-            XCTAssert(false, "Invalid Data Type")
-        }
-    }
-    
 }
 

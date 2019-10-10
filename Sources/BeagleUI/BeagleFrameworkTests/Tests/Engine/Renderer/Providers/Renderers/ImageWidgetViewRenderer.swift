@@ -13,38 +13,28 @@ final class ImageWidgetViewRendererTests: XCTestCase {
     
     // MARK: - Tests
     
-    func test_whenTheWrongWidgetItsGivenToTheRendererInitializer() {
+    func test_onInitWithNoImageWidget_shouldReturnThrowError() {
         //Given
-        let widget: Widget
-        
-        //When
-        
-        widget = Button(text: "title")
-        
-        //Then
-        do {
-            let _ = try ImageWidgetViewRenderer(widget)
-            XCTAssert(false, "Should have throwed invalidWidgetType")
-        } catch {
-            XCTAssert(true)
+        let widget = Button(text: "title")
+
+        // When / Then
+        XCTAssertThrowsError(_ = try ImageWidgetViewRenderer(widget), "Expected error, but got nil.") { error in
+            XCTAssertNotNil(error, "Expected error, but got \(error.localizedDescription)")
         }
     }
     
     func test_whenTheRightWidgetItsGivenToTheRendererInitializer() {
         //Given
-        let widget: Widget
+        let widget = Image(path: "path")
         
         //When
-        
-        widget = Image(path: "path")
-        
-        //Then
-        do {
-            let _ = try ImageWidgetViewRenderer(widget)
-            XCTAssert(true)
-        } catch {
-            XCTAssert(false, "Invalid Data Type")
+        guard let imageWidgetRenderer = try? ImageWidgetViewRenderer(widget) else {
+            XCTFail("Could not render TextField.")
+            return
         }
+        
+        // Then
+        XCTAssertTrue(imageWidgetRenderer.buildView() is UIImageView, "Expected a button type to be created.")
     }
 }
 
