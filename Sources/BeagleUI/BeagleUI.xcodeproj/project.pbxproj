@@ -104,7 +104,6 @@
 		E5CE422823340EA100295277 /* UnitValueEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE422723340EA100295277 /* UnitValueEntityTests.swift */; };
 		E5CE422E2334185300295277 /* UIModelConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE422D2334185300295277 /* UIModelConvertible.swift */; };
 		E5CE43182335052100295277 /* UIEnumModelConvertibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE43172335052100295277 /* UIEnumModelConvertibleTests.swift */; };
-		E5CE431C2335069200295277 /* FlexEntity+Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE431B2335069200295277 /* FlexEntity+Fixtures.swift */; };
 		E5CE431E2335402B00295277 /* ChildrenWidgetMappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9800D881233412540051B4F2 /* ChildrenWidgetMappingTests.swift */; };
 		E5DD468B234CCEEB004B7289 /* UnknownWidgetViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD468A234CCEEB004B7289 /* UnknownWidgetViewBuilder.swift */; };
 		E5DD4691234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4690234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift */; };
@@ -237,7 +236,6 @@
 		E5CE422723340EA100295277 /* UnitValueEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitValueEntityTests.swift; sourceTree = "<group>"; };
 		E5CE422D2334185300295277 /* UIModelConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIModelConvertible.swift; sourceTree = "<group>"; };
 		E5CE43172335052100295277 /* UIEnumModelConvertibleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEnumModelConvertibleTests.swift; sourceTree = "<group>"; };
-		E5CE431B2335069200295277 /* FlexEntity+Fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlexEntity+Fixtures.swift"; sourceTree = "<group>"; };
 		E5DD468A234CCEEB004B7289 /* UnknownWidgetViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownWidgetViewBuilder.swift; sourceTree = "<group>"; };
 		E5DD4690234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailableWidgetRendererProviderErrorTests.swift; sourceTree = "<group>"; };
 		E5DD46A3234E2128004B7289 /* FlexViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexViewConfigurator.swift; sourceTree = "<group>"; };
@@ -683,7 +681,6 @@
 		E5CE431A2335068000295277 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E5CE431B2335069200295277 /* FlexEntity+Fixtures.swift */,
 				E56A02BB2345388100C0F23D /* CollectionExtension.swift */,
 			);
 			path = Sources;
@@ -966,7 +963,6 @@
 				E5835B35233BD95C00125140 /* WidgetConvertibleTests.swift in Sources */,
 				98F6993D234E611900048A58 /* TextFieldWidgetViewRendererTests.swift in Sources */,
 				E5CE4215233400B100295277 /* ToolBarEntityTests.swift in Sources */,
-				E5CE431C2335069200295277 /* FlexEntity+Fixtures.swift in Sources */,
 				E5CE422823340EA100295277 /* UnitValueEntityTests.swift in Sources */,
 				E5CE420B2334004400295277 /* ListViewEntityTests.swift in Sources */,
 				E5CE41F62332B9DD00295277 /* WidgetDecoderTests.swift in Sources */,
