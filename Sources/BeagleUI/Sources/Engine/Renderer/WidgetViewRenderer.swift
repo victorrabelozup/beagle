@@ -8,8 +8,8 @@
 
 import UIKit
 
-public enum WidgetViewRenderingError: Error {
-    case invalidWidgetType
+enum WidgetViewRendererError: Error {
+    case couldNotCastWidget(Widget)
 }
 
 public protocol WidgetViewRenderer {

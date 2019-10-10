@@ -17,7 +17,7 @@ final class ButtonWidgetViewRenderer: WidgetViewRenderer {
     
     init(_ widget: Widget) throws {
         guard let button = widget as? Button else {
-            throw WidgetViewRenderingError.invalidWidgetType
+            throw WidgetViewRenderingError.couldNotCastWidget(widget)
         }
         self.widget = button
     }
