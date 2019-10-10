@@ -8,20 +8,7 @@
 
 import UIKit
 
-
-protocol BeagleFlexViewContaining {
-    var beagleView: BeagleFlexView { get }
-}
-extension BeagleFlexViewContaining where Self: UIViewController {
-    var beagleView: BeagleFlexView {
-        guard let beagleView = view as? BeagleFlexView else {
-            fatalError("The view should be of type `BeagleFlexView`.")
-        }
-        return beagleView
-    }
-}
-
-final class BeagleFlexViewController: UIViewController, BeagleFlexViewContaining {
+public class BeagleFlexViewController: UIViewController, BeagleFlexViewContaining {
     
     // MARK: - Dependencies
     
@@ -50,11 +37,11 @@ final class BeagleFlexViewController: UIViewController, BeagleFlexViewContaining
     
     // MARK: - Lifecycle
     
-    override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    override func loadView() {
+    public override func loadView() {
         if let injectedView = injectedBeagleFlexView {
             view = injectedView
         } else {

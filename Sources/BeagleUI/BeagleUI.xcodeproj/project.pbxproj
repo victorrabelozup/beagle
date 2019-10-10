@@ -60,6 +60,7 @@
 		E5A33FE7234BAF6E00AB8EB0 /* BeagleViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A33FE6234BAF6E00AB8EB0 /* BeagleViewBuilder.swift */; };
 		E5CB5D63234E7A21009783A7 /* BeagleFlexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D62234E7A21009783A7 /* BeagleFlexView.swift */; };
 		E5CB5D65234E7CF6009783A7 /* BeagleFlexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D64234E7CF6009783A7 /* BeagleFlexViewController.swift */; };
+		E5CB5D68234F738F009783A7 /* BeagleFlexViewContaining.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D67234F738F009783A7 /* BeagleFlexViewContaining.swift */; };
 		E5CE41A32331D55000295277 /* WidgetDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A22331D55000295277 /* WidgetDecoder.swift */; };
 		E5CE41A52331D59E00295277 /* WidgetEntityContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A42331D59E00295277 /* WidgetEntityContainer.swift */; };
 		E5CE41A72331D93F00295277 /* ContainerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A62331D93F00295277 /* ContainerEntity.swift */; };
@@ -187,6 +188,7 @@
 		E5A33FE6234BAF6E00AB8EB0 /* BeagleViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleViewBuilder.swift; sourceTree = "<group>"; };
 		E5CB5D62234E7A21009783A7 /* BeagleFlexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleFlexView.swift; sourceTree = "<group>"; };
 		E5CB5D64234E7CF6009783A7 /* BeagleFlexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleFlexViewController.swift; sourceTree = "<group>"; };
+		E5CB5D67234F738F009783A7 /* BeagleFlexViewContaining.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleFlexViewContaining.swift; sourceTree = "<group>"; };
 		E5CE41A22331D55000295277 /* WidgetDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDecoder.swift; sourceTree = "<group>"; };
 		E5CE41A42331D59E00295277 /* WidgetEntityContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntityContainer.swift; sourceTree = "<group>"; };
 		E5CE41A62331D93F00295277 /* ContainerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerEntity.swift; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 				E5CE41A02331D41500295277 /* Decoding */,
 				E5835BB9233D4F0900125140 /* DeclarativeViews */,
 				E56A02DC2347B69C00C0F23D /* Engine */,
+				E5DD4692234CF444004B7289 /* View */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 			isa = PBXGroup;
 			children = (
 				E5A33FE2234BACDD00AB8EB0 /* Renderer */,
+				E5A33FE6234BAF6E00AB8EB0 /* BeagleViewBuilder.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -469,8 +473,6 @@
 				E50B08FB234CCA640091AF0A /* Providers */,
 				E5DD4689234CCEC9004B7289 /* Renderers */,
 				E5A33FE4234BAD2500AB8EB0 /* Native */,
-				E5DD4692234CF444004B7289 /* View */,
-				E5A33FE6234BAF6E00AB8EB0 /* BeagleViewBuilder.swift */,
 				E56A02E12347B6ED00C0F23D /* WidgetViewRenderer.swift */,
 			);
 			path = Renderer;
@@ -488,6 +490,14 @@
 			children = (
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		E5CB5D66234F7380009783A7 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				E5CB5D67234F738F009783A7 /* BeagleFlexViewContaining.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		E5CE41A02331D41500295277 /* Decoding */ = {
@@ -705,6 +715,7 @@
 		E5DD4692234CF444004B7289 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E5CB5D66234F7380009783A7 /* Protocols */,
 				E5CB5D62234E7A21009783A7 /* BeagleFlexView.swift */,
 				E5CB5D64234E7CF6009783A7 /* BeagleFlexViewController.swift */,
 			);
@@ -845,6 +856,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5CE41DE233276CC00295277 /* TextFieldEntity.swift in Sources */,
+				E5CB5D68234F738F009783A7 /* BeagleFlexViewContaining.swift in Sources */,
 				E5CE41CA233274AE00295277 /* PaddingEntity.swift in Sources */,
 				E5CE41D22332766900295277 /* ButtonEntity.swift in Sources */,
 				9368180B232A889100E6E724 /* Spacer.swift in Sources */,
