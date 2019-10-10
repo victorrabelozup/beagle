@@ -62,6 +62,9 @@
 		E5835B33233BD84600125140 /* WidgetEntityContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5835B32233BD84600125140 /* WidgetEntityContainerTests.swift */; };
 		E5835B35233BD95C00125140 /* WidgetConvertibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5835B34233BD95C00125140 /* WidgetConvertibleTests.swift */; };
 		E5A33FE7234BAF6E00AB8EB0 /* BeagleViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A33FE6234BAF6E00AB8EB0 /* BeagleViewBuilder.swift */; };
+		E5CB5D63234E7A21009783A7 /* BeagleFlexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D62234E7A21009783A7 /* BeagleFlexView.swift */; };
+		E5CB5D65234E7CF6009783A7 /* BeagleFlexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D64234E7CF6009783A7 /* BeagleFlexViewController.swift */; };
+		E5CB5D68234F738F009783A7 /* BeagleFlexViewContaining.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D67234F738F009783A7 /* BeagleFlexViewContaining.swift */; };
 		E5CE41A32331D55000295277 /* WidgetDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A22331D55000295277 /* WidgetDecoder.swift */; };
 		E5CE41A52331D59E00295277 /* WidgetEntityContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A42331D59E00295277 /* WidgetEntityContainer.swift */; };
 		E5CE41A72331D93F00295277 /* ContainerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A62331D93F00295277 /* ContainerEntity.swift */; };
@@ -105,9 +108,7 @@
 		E5CE431E2335402B00295277 /* ChildrenWidgetMappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9800D881233412540051B4F2 /* ChildrenWidgetMappingTests.swift */; };
 		E5DD468B234CCEEB004B7289 /* UnknownWidgetViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD468A234CCEEB004B7289 /* UnknownWidgetViewBuilder.swift */; };
 		E5DD4691234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4690234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift */; };
-		E5DD4694234CF466004B7289 /* BeagleFlexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4693234CF466004B7289 /* BeagleFlexView.swift */; };
-		E5DD4696234CF481004B7289 /* BeagleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4695234CF481004B7289 /* BeagleViewController.swift */; };
-		E5DD4699234CF6CA004B7289 /* FlexMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4698234CF6CA004B7289 /* FlexMapper.swift */; };
+		E5DD46A4234E2128004B7289 /* FlexViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD46A3234E2128004B7289 /* FlexViewConfigurator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,8 +160,8 @@
 		9800D881233412540051B4F2 /* ChildrenWidgetMappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildrenWidgetMappingTests.swift; sourceTree = "<group>"; };
 		980262AD2345431B0025A9C3 /* FlexWidgetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexWidgetTests.swift; sourceTree = "<group>"; };
 		980262AF2345432B0025A9C3 /* FlexSingleWidgetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidgetTests.swift; sourceTree = "<group>"; };
-		9802EF47234D2D1B00A7EE89 /* TextWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextWidgetViewRenderer.swift; path = BeagleFrameworkTests/Tests/Engine/Renderer/Providers/TextWidgetViewRenderer.swift; sourceTree = SOURCE_ROOT; };
-		9802EF49234E340B00A7EE89 /* TextFieldWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextFieldWidgetViewRenderer.swift; path = BeagleFrameworkTests/Tests/Engine/Renderer/Providers/TextFieldWidgetViewRenderer.swift; sourceTree = SOURCE_ROOT; };
+		9802EF47234D2D1B00A7EE89 /* TextWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextWidgetViewRenderer.swift; path = Sources/Engine/Renderer/Renderers/UI/TextWidgetViewRenderer.swift; sourceTree = SOURCE_ROOT; };
+		9802EF49234E340B00A7EE89 /* TextFieldWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextFieldWidgetViewRenderer.swift; path = Sources/Engine/Renderer/Renderers/UI/TextFieldWidgetViewRenderer.swift; sourceTree = SOURCE_ROOT; };
 		9841FD0023454B7B0069D7D2 /* FlexWidgetEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexWidgetEntityTests.swift; sourceTree = "<group>"; };
 		9841FD0223454F080069D7D2 /* FlexSingleWidgetEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidgetEntityTests.swift; sourceTree = "<group>"; };
 		98F6993C234E611900048A58 /* TextFieldWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWidgetViewRendererTests.swift; sourceTree = "<group>"; };
@@ -193,6 +194,9 @@
 		E5835B32233BD84600125140 /* WidgetEntityContainerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntityContainerTests.swift; sourceTree = "<group>"; };
 		E5835B34233BD95C00125140 /* WidgetConvertibleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetConvertibleTests.swift; sourceTree = "<group>"; };
 		E5A33FE6234BAF6E00AB8EB0 /* BeagleViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleViewBuilder.swift; sourceTree = "<group>"; };
+		E5CB5D62234E7A21009783A7 /* BeagleFlexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleFlexView.swift; sourceTree = "<group>"; };
+		E5CB5D64234E7CF6009783A7 /* BeagleFlexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleFlexViewController.swift; sourceTree = "<group>"; };
+		E5CB5D67234F738F009783A7 /* BeagleFlexViewContaining.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleFlexViewContaining.swift; sourceTree = "<group>"; };
 		E5CE41A22331D55000295277 /* WidgetDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDecoder.swift; sourceTree = "<group>"; };
 		E5CE41A42331D59E00295277 /* WidgetEntityContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntityContainer.swift; sourceTree = "<group>"; };
 		E5CE41A62331D93F00295277 /* ContainerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerEntity.swift; sourceTree = "<group>"; };
@@ -236,9 +240,7 @@
 		E5CE431B2335069200295277 /* FlexEntity+Fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlexEntity+Fixtures.swift"; sourceTree = "<group>"; };
 		E5DD468A234CCEEB004B7289 /* UnknownWidgetViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownWidgetViewBuilder.swift; sourceTree = "<group>"; };
 		E5DD4690234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailableWidgetRendererProviderErrorTests.swift; sourceTree = "<group>"; };
-		E5DD4693234CF466004B7289 /* BeagleFlexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleFlexView.swift; sourceTree = "<group>"; };
-		E5DD4695234CF481004B7289 /* BeagleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleViewController.swift; sourceTree = "<group>"; };
-		E5DD4698234CF6CA004B7289 /* FlexMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexMapper.swift; sourceTree = "<group>"; };
+		E5DD46A3234E2128004B7289 /* FlexViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexViewConfigurator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -335,6 +337,7 @@
 				E5CE41A02331D41500295277 /* Decoding */,
 				E5835BB9233D4F0900125140 /* DeclarativeViews */,
 				E56A02DC2347B69C00C0F23D /* Engine */,
+				E5DD4692234CF444004B7289 /* View */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 			isa = PBXGroup;
 			children = (
 				E5A33FE2234BACDD00AB8EB0 /* Renderer */,
+				E5A33FE6234BAF6E00AB8EB0 /* BeagleViewBuilder.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -464,6 +468,7 @@
 			isa = PBXGroup;
 			children = (
 				E56A02E42347C87C00C0F23D /* YogaTranslator.swift */,
+				E5DD46A3234E2128004B7289 /* FlexViewConfigurator.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -484,21 +489,10 @@
 			children = (
 				E50B08FB234CCA640091AF0A /* Providers */,
 				E5DD4689234CCEC9004B7289 /* Renderers */,
-				E5A33FE3234BAD1B00AB8EB0 /* Mapper */,
 				E5A33FE4234BAD2500AB8EB0 /* Native */,
-				E5DD4692234CF444004B7289 /* View */,
-				E5A33FE6234BAF6E00AB8EB0 /* BeagleViewBuilder.swift */,
 				E56A02E12347B6ED00C0F23D /* WidgetViewRenderer.swift */,
 			);
 			path = Renderer;
-			sourceTree = "<group>";
-		};
-		E5A33FE3234BAD1B00AB8EB0 /* Mapper */ = {
-			isa = PBXGroup;
-			children = (
-				E5DD4698234CF6CA004B7289 /* FlexMapper.swift */,
-			);
-			path = Mapper;
 			sourceTree = "<group>";
 		};
 		E5A33FE4234BAD2500AB8EB0 /* Native */ = {
@@ -515,6 +509,14 @@
 				9802EF49234E340B00A7EE89 /* TextFieldWidgetViewRenderer.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		E5CB5D66234F7380009783A7 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				E5CB5D67234F738F009783A7 /* BeagleFlexViewContaining.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		E5CE41A02331D41500295277 /* Decoding */ = {
@@ -733,18 +735,11 @@
 		E5DD4692234CF444004B7289 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E5DD4693234CF466004B7289 /* BeagleFlexView.swift */,
-				E5DD4697234CF491004B7289 /* ViewController */,
+				E5CB5D66234F7380009783A7 /* Protocols */,
+				E5CB5D62234E7A21009783A7 /* BeagleFlexView.swift */,
+				E5CB5D64234E7CF6009783A7 /* BeagleFlexViewController.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		E5DD4697234CF491004B7289 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				E5DD4695234CF481004B7289 /* BeagleViewController.swift */,
-			);
-			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -881,6 +876,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5CE41DE233276CC00295277 /* TextFieldEntity.swift in Sources */,
+				E5CB5D68234F738F009783A7 /* BeagleFlexViewContaining.swift in Sources */,
 				E5CE41CA233274AE00295277 /* PaddingEntity.swift in Sources */,
 				E5CE41D22332766900295277 /* ButtonEntity.swift in Sources */,
 				9368180B232A889100E6E724 /* Spacer.swift in Sources */,
@@ -921,12 +917,15 @@
 				E5CE41D62332768700295277 /* ImageEntity.swift in Sources */,
 				E5CE41A32331D55000295277 /* WidgetDecoder.swift in Sources */,
 				E56A02B723451D5C00C0F23D /* FlexSingleWidgetEntity.swift in Sources */,
+				E5DD46A4234E2128004B7289 /* FlexViewConfigurator.swift in Sources */,
 				93681815232A8D6500E6E724 /* Image.swift in Sources */,
 				E5CE41C623325E4500295277 /* UnitValueEntity.swift in Sources */,
 				93681821232A8E0C00E6E724 /* Toolbar.swift in Sources */,
 				936817FF232A883E00E6E724 /* Flex.swift in Sources */,
+				E5CB5D63234E7A21009783A7 /* BeagleFlexView.swift in Sources */,
 				93681805232A886C00E6E724 /* Container.swift in Sources */,
 				9802EF4A234E340B00A7EE89 /* TextFieldWidgetViewRenderer.swift in Sources */,
+				E5CB5D65234E7CF6009783A7 /* BeagleFlexViewController.swift in Sources */,
 				E5CE41AE2331D9A700295277 /* TextEntity.swift in Sources */,
 				93681817232A8D6E00E6E724 /* ListView.swift in Sources */,
 				93681807232A887A00E6E724 /* Horizontal.swift in Sources */,
@@ -949,7 +948,6 @@
 				E5CE421A2334047900295277 /* HorizontalEntityTests.swift in Sources */,
 				E5CE42092334003200295277 /* ImageEntityTests.swift in Sources */,
 				E56A02BE23453BAA00C0F23D /* SelectViewTests.swift in Sources */,
-				E5DD4699234CF6CA004B7289 /* FlexMapper.swift in Sources */,
 				980262AE2345431B0025A9C3 /* FlexWidgetTests.swift in Sources */,
 				E5835B33233BD84600125140 /* WidgetEntityContainerTests.swift in Sources */,
 				E56A02CD23462B0000C0F23D /* StackTests.swift in Sources */,
@@ -975,13 +973,11 @@
 				E56A02BA2345367D00C0F23D /* ListViewTests.swift in Sources */,
 				9841FD0323454F080069D7D2 /* FlexSingleWidgetEntityTests.swift in Sources */,
 				E5CE42132334009F00295277 /* TextFieldEntityTests.swift in Sources */,
-				E5DD4696234CF481004B7289 /* BeagleViewController.swift in Sources */,
 				E56A02D223462C0900C0F23D /* WidgetBuildersTests.swift in Sources */,
 				E5CE42112334007D00295277 /* TextEntityTests.swift in Sources */,
 				9841FD0123454B7B0069D7D2 /* FlexWidgetEntityTests.swift in Sources */,
 				E5CE42032333FC8200295277 /* DropDownEntityTests.swift in Sources */,
 				E5CE4222233404C700295277 /* VerticalEntityTests.swift in Sources */,
-				E5DD4694234CF466004B7289 /* BeagleFlexView.swift in Sources */,
 				E56A02AB23451A4800C0F23D /* DropDownTests.swift in Sources */,
 				E5CE420D2334005A00295277 /* SelectViewEntityTests.swift in Sources */,
 			);
