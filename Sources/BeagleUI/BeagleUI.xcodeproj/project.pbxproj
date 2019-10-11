@@ -101,7 +101,7 @@
 		E5CE422E2334185300295277 /* UIModelConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE422D2334185300295277 /* UIModelConvertible.swift */; };
 		E5CE43182335052100295277 /* UIEnumModelConvertibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE43172335052100295277 /* UIEnumModelConvertibleTests.swift */; };
 		E5CE431E2335402B00295277 /* ChildrenWidgetMappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9800D881233412540051B4F2 /* ChildrenWidgetMappingTests.swift */; };
-		E5DD468B234CCEEB004B7289 /* UnknownWidgetViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD468A234CCEEB004B7289 /* UnknownWidgetViewBuilder.swift */; };
+		E5DD468B234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */; };
 		E5DD4691234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4690234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift */; };
 		E5DD4694234CF466004B7289 /* BeagleFlexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4693234CF466004B7289 /* BeagleFlexView.swift */; };
 		E5DD4696234CF481004B7289 /* BeagleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4695234CF481004B7289 /* BeagleViewController.swift */; };
@@ -235,7 +235,7 @@
 		E5CE422723340EA100295277 /* UnitValueEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitValueEntityTests.swift; sourceTree = "<group>"; };
 		E5CE422D2334185300295277 /* UIModelConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIModelConvertible.swift; sourceTree = "<group>"; };
 		E5CE43172335052100295277 /* UIEnumModelConvertibleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEnumModelConvertibleTests.swift; sourceTree = "<group>"; };
-		E5DD468A234CCEEB004B7289 /* UnknownWidgetViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownWidgetViewBuilder.swift; sourceTree = "<group>"; };
+		E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownWidgetViewRenderer.swift; sourceTree = "<group>"; };
 		E5DD4690234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailableWidgetRendererProviderErrorTests.swift; sourceTree = "<group>"; };
 		E5DD4693234CF466004B7289 /* BeagleFlexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleFlexView.swift; sourceTree = "<group>"; };
 		E5DD4695234CF481004B7289 /* BeagleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleViewController.swift; sourceTree = "<group>"; };
@@ -686,6 +686,7 @@
 			children = (
 				E56A02E32347C85800C0F23D /* Layout */,
 				E5A33FE5234BAD3400AB8EB0 /* UI */,
+				E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */,
 				E5DD468A234CCEEB004B7289 /* UnknownWidgetViewBuilder.swift */,
 				E7A3624A234D117900F64B40 /* ButtonWidgetViewRenderer.swift */,
 				E7A3624C234D125800F64B40 /* ImageWidgetViewRenderer.swift */,
@@ -923,7 +924,7 @@
 				9368180F232A88B300E6E724 /* Vertical.swift in Sources */,
 				936817FD232A882D00E6E724 /* Widget.swift in Sources */,
 				E5CE41CC233274BB00295277 /* SpacerEntity.swift in Sources */,
-				E5DD468B234CCEEB004B7289 /* UnknownWidgetViewBuilder.swift in Sources */,
+				E5DD468B234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift in Sources */,
 				93681819232A8D8100E6E724 /* SelectView.swift in Sources */,
 				E5CE41D62332768700295277 /* ImageEntity.swift in Sources */,
 				E5CE41A32331D55000295277 /* WidgetDecoder.swift in Sources */,
