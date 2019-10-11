@@ -13,10 +13,10 @@ final class TextFieldWidgetViewRendererTests: XCTestCase {
 
     func test_onInitWithNoTextFieldWidget_shouldReturnThrowError() {
         // Given
-        let widget = UnknownWidget(hint: "", value: "")
+        let unkownWidget = WidgetDummy()
 
         // When / Then
-        XCTAssertThrowsError(_ = try TextFieldWidgetViewRenderer(widget), "Expected error, but got nil.") { error in
+        XCTAssertThrowsError(_ = try TextFieldWidgetViewRenderer(unkownWidget), "Expected error, but got nil.") { error in
             XCTAssertTrue(error is WidgetViewRenderingError, "Expected to have a WidgetViewRenderingError, but got \(error)")
         }
     }
@@ -43,7 +43,4 @@ final class TextFieldWidgetViewRendererTests: XCTestCase {
     }
 }
 
-private struct UnknownWidget: Widget {
-    let hint: String
-    let value: String
-}
+private struct WidgetDummy: Widget {}
