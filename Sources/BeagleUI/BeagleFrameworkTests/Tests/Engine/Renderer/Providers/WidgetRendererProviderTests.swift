@@ -38,3 +38,5 @@ final class WidgetRendererProviderTests: XCTestCase {
         XCTAssertTrue(widgetViewRenderer is UnknownWidgetViewRenderer, "Expected a type to be Unknown Widget, but it is not.")
     }
 }
+
+struct WidgetDummy: Widget {}

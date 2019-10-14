@@ -14,10 +14,6 @@ public protocol WidgetConvertible {
 }
 
 /// Describes the possible errors when mapping to a UIModel (Widget)
-///
-/// - emptyContentForContainerOfType: some container has an empty content, when it shouldn't
-/// - couldNotFindChildrenPropertyForType: some entity that should have a `children` property does not have it
-/// - unexpectedNilChildrensForType: a nil value was received for the `children`property when it was not expected
 public enum WidgetConvertibleError: Error {
     
     case entityTypeIsNotConvertible(String)

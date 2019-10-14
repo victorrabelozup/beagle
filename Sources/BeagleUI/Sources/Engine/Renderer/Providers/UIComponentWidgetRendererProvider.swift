@@ -26,8 +26,6 @@ final class UIComponentWidgetRendererProviding: UIComponentWidgetRendererProvide
 //            debugPrint("SelectView")
         case is Text:
             return try TextWidgetViewRenderer(widget)
-        case is TextField:
-            return try TextFieldWidgetViewRenderer(widget)
 //        case is ToolBar:
 //            debugPrint("ToolBar")
         default:

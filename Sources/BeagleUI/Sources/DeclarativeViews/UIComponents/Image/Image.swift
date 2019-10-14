@@ -10,12 +10,19 @@ public struct Image: Widget {
     
     // MARK: - Public Properties
     
-    public let path: String
+    public let name: String
+    private let contentMode: ImageContentMode
     
     // MARK: - Initialization
     
-    public init(path: String) {
-        self.path = path
+    public init(
+        name: String,
+        contentMode: ImageContentMode = .scaleAspectFit
+    ) {
+        self.name = name
+        self.contentMode = contentMode
     }
     
 }
+
+   

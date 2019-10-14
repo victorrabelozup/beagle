@@ -163,13 +163,9 @@ public final class WidgetDecoder: WidgetDecoding {
     
     private static func registerUITypes() {
         WidgetEntityContainer.register(ButtonEntity.self, for: decodingKey(for: "Button"))
-        WidgetEntityContainer.register(DropDownEntity.self, for: decodingKey(for: "DropDown"))
         WidgetEntityContainer.register(ImageEntity.self, for: decodingKey(for: "Image"))
         WidgetEntityContainer.register(ListViewEntity.self, for: decodingKey(for: "ListView"))
-        WidgetEntityContainer.register(SelectViewEntity.self, for: decodingKey(for: "SelectView"))
         WidgetEntityContainer.register(TextEntity.self, for: decodingKey(for: "Text"))
-        WidgetEntityContainer.register(TextFieldEntity.self, for: decodingKey(for: "TextField"))
-        WidgetEntityContainer.register(ToolBarEntity.self, for: decodingKey(for: "ToolBar"))
     }
     
 }
