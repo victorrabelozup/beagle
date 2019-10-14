@@ -715,8 +715,8 @@
 		E5DD468D234CF1D8004B7289 /* Renderer */ = {
 			isa = PBXGroup;
 			children = (
-				9802EF3F234D107000A7EE89 /* Renderers */,
 				E5DD468E234CF1DE004B7289 /* Providers */,
+				9802EF3F234D107000A7EE89 /* Renderers */,
 			);
 			path = Renderer;
 			sourceTree = "<group>";
