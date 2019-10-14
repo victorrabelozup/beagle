@@ -10,8 +10,8 @@ public struct Flex {
     
     // MARK: - Public Properties
     
-    public let flexDirection: Direction
-    public let direction: FlexDirection
+    public let direction: Direction
+    public let flexDirection: FlexDirection
     public let flexWrap: Wrap
     public let justifyContent: JustifyContent
     public let alignItems: Alignment
@@ -30,8 +30,8 @@ public struct Flex {
     // MARK: - Initialization
     
     public init (// TODO: Change this visibilty constraint in the future...
-        flexDirection: Direction = .column,
-        direction: FlexDirection = .ltr,
+        direction: Direction = .ltr,
+        flexDirection: FlexDirection = .column,
         flexWrap: Wrap = .noWrap,
         justifyContent: JustifyContent = .flexStart,
         alignItems: Alignment = .stretch,
@@ -69,7 +69,7 @@ public struct Flex {
 
 // MARK: - Flex FlexDirection
 extension Flex {
-    public enum FlexDirection: String, StringRawRepresentable {
+    public enum Direction: String, StringRawRepresentable {
         case inherit = "INHERIT"
         case ltr = "LTR"
         case rtl = "RTL"
@@ -78,7 +78,7 @@ extension Flex {
 
 // MARK: - Flex Direction
 extension Flex {
-    public enum Direction: String, StringRawRepresentable {
+    public enum FlexDirection: String, StringRawRepresentable {
         case row = "ROW"
         case rowReverse = "ROW_REVERSE"
         case column = "COLUMN"

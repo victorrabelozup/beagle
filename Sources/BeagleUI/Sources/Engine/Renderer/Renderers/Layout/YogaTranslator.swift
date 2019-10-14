@@ -13,8 +13,8 @@ protocol YogaTranslator {
     func translate(_ wrap: Flex.Wrap) -> YGWrap
     func translate(_ alignment: Flex.Alignment) -> YGAlign
     func translate(_ justifyContent: Flex.JustifyContent) -> YGJustify
-    func translate(_ direction: Flex.Direction) -> YGFlexDirection
-    func translate(_ flexDirection: Flex.FlexDirection) -> YGDirection
+    func translate(_ direction: Flex.Direction) -> YGDirection
+    func translate(_ flexDirection: Flex.FlexDirection) -> YGFlexDirection
     func translate(_ display: Flex.Display) -> YGDisplay
     func translate(_ unitValue: UnitValue) -> YGValue
 }
@@ -70,8 +70,8 @@ final class YogaTranslating: YogaTranslator {
         }
     }
     
-    func translate(_ direction: Flex.Direction) -> YGFlexDirection {
-        switch direction {
+    func translate(_ flexDirection: Flex.FlexDirection) -> YGFlexDirection {
+        switch flexDirection {
         case .row:
             return .row
         case .rowReverse:
@@ -83,8 +83,8 @@ final class YogaTranslating: YogaTranslator {
         }
     }
     
-    func translate(_ flexDirection: Flex.FlexDirection) -> YGDirection {
-        switch flexDirection {
+    func translate(_ direction: Flex.Direction) -> YGDirection {
+        switch direction {
         case .inherit:
             return .inherit
         case .ltr:
