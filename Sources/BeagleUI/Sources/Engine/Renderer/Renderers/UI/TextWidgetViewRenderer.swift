@@ -12,7 +12,7 @@ final class TextWidgetViewRenderer: WidgetViewRenderer {
     private let widget: Text
     
     init(_ widget: Widget) throws {
-        self.widget = try .byCasting(widget: widget, to: Text.self)
+        self.widget = try .newByCasting(widget: widget, to: Text.self)
     }
     
     func buildView() -> UIView {

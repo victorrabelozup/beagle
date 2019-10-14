@@ -24,7 +24,3 @@ final class FailableWidgetRendererProviderErrorTests: XCTestCase {
         XCTAssertEqual(expectedLocalizedDescription, localizedDescription, "Expected \(expectedLocalizedDescription), but got \(localizedDescription).")
     }
 }
-
-// MARK: - Testing Helpers
-
-private struct WidgetDummy: Widget {}

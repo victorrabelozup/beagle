@@ -12,7 +12,7 @@ final class TextFieldWidgetViewRenderer: WidgetViewRenderer {
     private let widget: TextField
 
     init(_ widget: Widget) throws {
-        self.widget = try .byCasting(widget: widget, to: TextField.self)
+        self.widget = try .newByCasting(widget: widget, to: TextField.self)
 
     }
     

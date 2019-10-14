@@ -16,7 +16,7 @@ final class ButtonWidgetViewRenderer: WidgetViewRenderer {
     // MARK: - Initialization
     
     init(_ widget: Widget) throws {
-        self.widget = try .byCasting(widget: widget, to: Button.self)
+        self.widget = try .newByCasting(widget: widget, to: Button.self)
     }
     
     // MARK: - Public Functions

@@ -43,4 +43,4 @@ final class TextFieldWidgetViewRendererTests: XCTestCase {
     }
 }
 
-private struct WidgetDummy: Widget {}
+struct WidgetDummy: Widget {}

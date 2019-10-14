@@ -72,6 +72,9 @@
 		E5CB5D7B2354AE13009783A7 /* ButtonWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D7A2354AE13009783A7 /* ButtonWidgetViewRendererTests.swift */; };
 		E5CB5D7E2354AE62009783A7 /* TextWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D7C2354AE62009783A7 /* TextWidgetViewRendererTests.swift */; };
 		E5CB5D7F2354AE62009783A7 /* TextFieldWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D7D2354AE62009783A7 /* TextFieldWidgetViewRendererTests.swift */; };
+		E5CB5D812354C08E009783A7 /* UnknownWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D802354C08E009783A7 /* UnknownWidgetViewRendererTests.swift */; };
+		E5CB5D842354C600009783A7 /* BeagleFlexViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D832354C600009783A7 /* BeagleFlexViewTests.swift */; };
+		E5CB5D862354C830009783A7 /* MirrorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D852354C830009783A7 /* MirrorExtension.swift */; };
 		E5CE41A32331D55000295277 /* WidgetDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A22331D55000295277 /* WidgetDecoder.swift */; };
 		E5CE41A52331D59E00295277 /* WidgetEntityContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A42331D59E00295277 /* WidgetEntityContainer.swift */; };
 		E5CE41A72331D93F00295277 /* ContainerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A62331D93F00295277 /* ContainerEntity.swift */; };
@@ -210,6 +213,9 @@
 		E5CB5D7A2354AE13009783A7 /* ButtonWidgetViewRendererTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		E5CB5D7C2354AE62009783A7 /* TextWidgetViewRendererTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		E5CB5D7D2354AE62009783A7 /* TextFieldWidgetViewRendererTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldWidgetViewRendererTests.swift; sourceTree = "<group>"; };
+		E5CB5D802354C08E009783A7 /* UnknownWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownWidgetViewRendererTests.swift; sourceTree = "<group>"; };
+		E5CB5D832354C600009783A7 /* BeagleFlexViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleFlexViewTests.swift; sourceTree = "<group>"; };
+		E5CB5D852354C830009783A7 /* MirrorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirrorExtension.swift; sourceTree = "<group>"; };
 		E5CE41A22331D55000295277 /* WidgetDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDecoder.swift; sourceTree = "<group>"; };
 		E5CE41A42331D59E00295277 /* WidgetEntityContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntityContainer.swift; sourceTree = "<group>"; };
 		E5CE41A62331D93F00295277 /* ContainerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerEntity.swift; sourceTree = "<group>"; };
@@ -528,6 +534,7 @@
 				E5CB5D782354ADF9009783A7 /* ButtonWidgetViewRenderer.swift */,
 				E5CB5D702354ADC7009783A7 /* TextFieldWidgetViewRenderer.swift */,
 				E5CB5D712354ADC7009783A7 /* TextWidgetViewRenderer.swift */,
+				E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -546,8 +553,17 @@
 				E5CB5D7D2354AE62009783A7 /* TextFieldWidgetViewRendererTests.swift */,
 				E5CB5D7C2354AE62009783A7 /* TextWidgetViewRendererTests.swift */,
 				E5CB5D7A2354AE13009783A7 /* ButtonWidgetViewRendererTests.swift */,
+				E5CB5D802354C08E009783A7 /* UnknownWidgetViewRendererTests.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		E5CB5D822354C5E7009783A7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E5CB5D832354C600009783A7 /* BeagleFlexViewTests.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		E5CE41A02331D41500295277 /* Decoding */ = {
@@ -637,6 +653,7 @@
 				E5CE41F42332B9D200295277 /* Decoding */,
 				E56A02A52345143700C0F23D /* DeclarativeViews */,
 				E5DD468C234CF1CB004B7289 /* Engine */,
+				E5CB5D822354C5E7009783A7 /* View */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -716,6 +733,7 @@
 			isa = PBXGroup;
 			children = (
 				E56A02BB2345388100C0F23D /* CollectionExtension.swift */,
+				E5CB5D852354C830009783A7 /* MirrorExtension.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -725,7 +743,6 @@
 			children = (
 				E56A02E32347C85800C0F23D /* Layout */,
 				E5A33FE5234BAD3400AB8EB0 /* UI */,
-				E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -994,6 +1011,7 @@
 				E5CE4218233403E000295277 /* ContainerEntityTests.swift in Sources */,
 				E5CB5D7B2354AE13009783A7 /* ButtonWidgetViewRendererTests.swift in Sources */,
 				E56A02C3234542B600C0F23D /* HorizontalTests.swift in Sources */,
+				E5CB5D812354C08E009783A7 /* UnknownWidgetViewRendererTests.swift in Sources */,
 				9802EF42234D10A400A7EE89 /* YogaTranslatorTests.swift in Sources */,
 				E5CB5D7F2354AE62009783A7 /* TextFieldWidgetViewRendererTests.swift in Sources */,
 				E5CE431E2335402B00295277 /* ChildrenWidgetMappingTests.swift in Sources */,
@@ -1006,6 +1024,7 @@
 				E5835B35233BD95C00125140 /* WidgetConvertibleTests.swift in Sources */,
 				E5CE4215233400B100295277 /* ToolBarEntityTests.swift in Sources */,
 				E5CE422823340EA100295277 /* UnitValueEntityTests.swift in Sources */,
+				E5CB5D842354C600009783A7 /* BeagleFlexViewTests.swift in Sources */,
 				E5CE420B2334004400295277 /* ListViewEntityTests.swift in Sources */,
 				E5CE41F62332B9DD00295277 /* WidgetDecoderTests.swift in Sources */,
 				9802EF3E234CFD3200A7EE89 /* LayoutWidgetRendererProvidingTests.swift in Sources */,
@@ -1019,6 +1038,7 @@
 				E5CE42032333FC8200295277 /* DropDownEntityTests.swift in Sources */,
 				E5CE4222233404C700295277 /* VerticalEntityTests.swift in Sources */,
 				E56A02AB23451A4800C0F23D /* DropDownTests.swift in Sources */,
+				E5CB5D862354C830009783A7 /* MirrorExtension.swift in Sources */,
 				E5CE420D2334005A00295277 /* SelectViewEntityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -22,7 +22,3 @@ final class LayoutWidgetRendererProvidingTests: XCTestCase {
         }
     }
 }
-
-// MARK: - Testing Helpers
-
-private struct WidgetDummy: Widget {}

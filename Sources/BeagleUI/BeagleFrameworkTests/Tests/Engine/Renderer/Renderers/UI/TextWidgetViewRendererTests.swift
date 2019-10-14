@@ -37,10 +37,7 @@ final class TextWidgetViewRendererTests: XCTestCase {
         }
         
         // Then
-        XCTAssertTrue(textViewRenderer.buildView() is UILabel, "Expected a UILabel type to be created.")
         XCTAssertEqual(widget.text, label.text, "Expected label to have the same text as widget when created, but it doesn`t.")
     }
     
 }
-
-private struct WidgetDummy: Widget {}

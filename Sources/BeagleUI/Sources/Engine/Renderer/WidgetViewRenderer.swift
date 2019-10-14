@@ -27,7 +27,7 @@ public protocol WidgetViewRenderer {
 }
 
 extension Widget {
-    static func byCasting<T: Widget>(widget: Widget, to: T.Type) throws -> T {
+    static func newByCasting<T: Widget>(widget: Widget, to: T.Type) throws -> T {
         guard let castedWidget = widget as? T else {
             let widgetType = String(describing: widget)
             throw WidgetViewRenderingError.couldNotCastWidgetToType(widgetType)

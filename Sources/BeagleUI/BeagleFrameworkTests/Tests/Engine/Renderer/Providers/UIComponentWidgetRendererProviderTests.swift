@@ -22,7 +22,3 @@ final class UIComponentWidgetRendererProviderTests: XCTestCase {
         }
     }
 }
-
-// MARK: - Testing Helpers
-
-private struct WidgetDummy: Widget {}

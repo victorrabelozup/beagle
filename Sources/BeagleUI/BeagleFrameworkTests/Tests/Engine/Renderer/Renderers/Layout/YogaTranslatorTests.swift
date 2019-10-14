@@ -11,11 +11,17 @@ import YogaKit
 @testable import BeagleUI
 
 final class YogaTranslatorTests: XCTestCase {
+    
+    // MARK: - Properties
+    
+    private lazy var yogaTranslator: YogaTranslator = {
+        return YogaTranslating()
+    }()
 
-    // MARK: - Wrap Tests
+    // MARK: -  Tests
+    
     func test_translateWhenNoWrap_shouldReturnYGNoWrap() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaWrap: YGWrap = .noWrap
         let flexWrap: Flex.Wrap = .noWrap
         // When
@@ -26,7 +32,6 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateWhenWrap_shouldReturnYGWrap() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaWrap: YGWrap = .wrap
         let flexWrap: Flex.Wrap = .wrap
         // When
@@ -37,7 +42,6 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateWhenWrapReverse_shouldReturnYGWrapReverse() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaWrap: YGWrap = .wrapReverse
         let flexWrap: Flex.Wrap = .wrapReverse
         // When
@@ -49,7 +53,6 @@ final class YogaTranslatorTests: XCTestCase {
     // MARK: - Alignment Tests
     func test_translateWhenAutoAlignment_shouldReturnAutoYGAlign() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaAlign: YGAlign = .auto
         let flexAlignment: Flex.Alignment = .auto
         // When
@@ -60,7 +63,6 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateWhenBaselineAlignment_shouldReturnBaselineYGAlign() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaAlign: YGAlign = .baseline
         let flexAlignment: Flex.Alignment = .baseline
         // When
@@ -71,7 +73,6 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateWhenCenterAlignment_shouldReturnCenterYGAlign() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaAlign: YGAlign = .center
         let flexAlignment: Flex.Alignment = .center
         // When
@@ -82,7 +83,6 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateWhenFlexStartAlignment_shouldReturnFlexStartYGAlign() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaAlign: YGAlign = .flexStart
         let flexAlignment: Flex.Alignment = .flexStart
         // When
@@ -93,7 +93,6 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateWhenFlexEndAlignment_shouldReturnFlexEndYGAlign() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaAlign: YGAlign = .flexEnd
         let flexAlignment: Flex.Alignment = .flexEnd
         // When
@@ -104,7 +103,6 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateWhenSpaceAroundAlignment_shouldReturnSpaceAroundYGAlign() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaAlign: YGAlign = .spaceAround
         let flexAlignment: Flex.Alignment = .spaceAround
         // When
@@ -115,7 +113,6 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateWhenSpaceBetweenAlignment_shouldReturnSpaceBetweenYGAlign() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaAlign: YGAlign = .spaceBetween
         let flexAlignment: Flex.Alignment = .spaceBetween
         // When
@@ -126,7 +123,6 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateWhenStretchAlignment_shouldReturnStretchYGAlign() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaAlign: YGAlign = .stretch
         let flexAlignment: Flex.Alignment = .stretch
         // When
@@ -138,7 +134,6 @@ final class YogaTranslatorTests: XCTestCase {
     // MARK: - Justify Content Tests
     func test_translateWhenCenterJustifyContent_shouldReturnCenterYGJustify() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaJustify: YGJustify = .center
         let flexJustifyContent: Flex.JustifyContent = .center
         // When
@@ -149,7 +144,6 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateWhenFlexStartJustifyContent_shouldReturnFlexStartYGJustify() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaJustify: YGJustify = .flexStart
         let flexJustifyContent: Flex.JustifyContent = .flexStart
         // When
@@ -160,7 +154,6 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateWhenFlexEndJustifyContent_shouldReturnFlexEndYGJustify() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaJustify: YGJustify = .flexEnd
         let flexJustifyContent: Flex.JustifyContent = .flexEnd
         // When
@@ -171,7 +164,6 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateWhenSpaceAroundJustifyContent_shouldReturnSpaceAroundYGJustify() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaJustify: YGJustify = .spaceAround
         let flexJustifyContent: Flex.JustifyContent = .spaceAround
         // When
@@ -182,7 +174,6 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateWhenSpaceBetweenJustifyContent_shouldReturnSpaceBetweenYGJustify() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaJustify: YGJustify = .spaceBetween
         let flexJustifyContent: Flex.JustifyContent = .spaceBetween
         // When
@@ -193,7 +184,6 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateWhenSpaceEvenlyJustifyContent_shouldReturnSpaceEvenlyYGJustify() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaJustify: YGJustify = .spaceEvenly
         let flexJustifyContent: Flex.JustifyContent = .spaceEvenly
         // When
@@ -205,7 +195,6 @@ final class YogaTranslatorTests: XCTestCase {
     // MARK: - FlexDirection Tests
     func test_translateWhenRowFlexDirection_shouldReturnRowYGFlexDirection() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaFlexDirection: YGFlexDirection = .row
         let flexDirection: Flex.FlexDirection = .row
         // When
@@ -216,7 +205,6 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateWhenRowReverseFlexDirection_shouldReturnRowReverseYGFlexDirection() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaFlexDirection: YGFlexDirection = .rowReverse
         let flexDirection: Flex.FlexDirection = .rowReverse
         // When
@@ -227,7 +215,6 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateWhenColumnFlexDirection_shouldReturnColumnYGFlexDirection() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaFlexDirection: YGFlexDirection = .column
         let flexDirection: Flex.FlexDirection = .column
         // When
@@ -238,7 +225,6 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateWhenColumnReverseFlexDirection_shouldReturnColumnReverseYGFlexDirection() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaFlexDirection: YGFlexDirection = .columnReverse
         let flexDirection: Flex.FlexDirection = .columnReverse
         // When
@@ -250,7 +236,6 @@ final class YogaTranslatorTests: XCTestCase {
     // MARK: - Direction Tests
     func test_translateWhenLeftToRightDirection_shouldReturnLeftToRightYGDirection() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaDirection: YGDirection = .LTR
         let direction: Flex.Direction = .ltr
         // When
@@ -261,7 +246,6 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateWhenRightToLeftlDirection_shouldReturnRightTLeftYGDirection() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaDirection: YGDirection = .RTL
         let direction: Flex.Direction = .rtl
         // When
@@ -272,7 +256,6 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateWhenInheritDirection_shouldReturnInheritYGDirection() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaDirection: YGDirection = .inherit
         let direction: Flex.Direction = .inherit
         // When
@@ -284,7 +267,6 @@ final class YogaTranslatorTests: XCTestCase {
     // MARK: - Display Tests
     func test_translateWhenFlexDisplay_shouldReturnFlexYGDisplay() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaDisplay: YGDisplay = .flex
         let display: Flex.Display = .flex
         // When
@@ -295,12 +277,39 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateWhenNoneDisplay_shouldReturnNoneYGDisplay() {
         // Given
-        let yogaTranslator = YogaTranslating()
         let expectedYogaDisplay: YGDisplay = .none
         let display: Flex.Display = .none
         // When
         let displayTranslated = yogaTranslator.translate(display)
         // Then
         XCTAssertEqual(expectedYogaDisplay, displayTranslated, "Expected none type of YGDisplay, but got \(String(describing: type(of: displayTranslated.self)))")
+    }
+    
+    func test_translatePercentUnitValue_shouldReturnPercentYGValue() {
+        // Given
+        let expectedYGValue = YGValue(value: 1.0, unit: .percent)
+        let unitValue = UnitValue(value: 1.0, type: .percent)
+        // When
+        let translated = yogaTranslator.translate(unitValue)
+        // Then
+        XCTAssertEqual(expectedYGValue, translated, "Expected \(expectedYGValue), but got \(String(describing: translated))")
+    }
+    
+    func test_translateRealUnitValue_shouldReturnPointYGValue() {
+        // Given
+        let expectedYGValue = YGValue(value: 1.0, unit: .point)
+        let unitValue = UnitValue(value: 1.0, type: .real)
+        // When
+        let translated = yogaTranslator.translate(unitValue)
+        // Then
+        XCTAssertEqual(expectedYGValue, translated, "Expected \(expectedYGValue), but got \(String(describing: translated))")
+    }
+}
+
+// MARK: - Testing Helpers
+
+extension YGValue: Equatable {
+    public static func == (lhs: YGValue, rhs: YGValue) -> Bool {
+        return lhs.value == rhs.value && lhs.unit == rhs.unit
     }
 }
