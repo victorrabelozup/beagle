@@ -11,13 +11,17 @@ import XCTest
 
 final class FlexSingleWidgetTests: XCTestCase {
     
-    func test_initWithChild_shouldReturnFlexSingleWidget() {
-        // Given / When
-        let flexSingleWidget = FlexSingleWidget {
-            Text("Some texts")
-        }
+    func test_initWithChild_shouldReturnFlexSingleWidgetAndSetDependenciesProperly() {
+        // Given
+        let sut = FlexSingleWidget(child: Text("Teste"), flex: Flex())
+        let mirror = Mirror(reflecting: sut)
+        // When
+        let flex = mirror.firstChild(of: Flex.self)
+        let widget = mirror.firstChild(of: Widget.self)
         // Then
-        XCTAssertNotNil(flexSingleWidget.child, "Expected flex single widget to have a child.")
+        XCTAssertNotNil(flex, "Expected a valid instance of type `Flex`, but got nil.")
+        XCTAssertNotNil(widget, "Expected a valid instance of type `Widget`, but got nil.")
+        
     }
     
     func test_applyFlex_shouldReturnFlexWidget() {
