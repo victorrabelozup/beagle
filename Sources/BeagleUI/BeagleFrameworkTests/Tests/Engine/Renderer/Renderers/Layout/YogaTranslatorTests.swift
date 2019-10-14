@@ -14,11 +14,9 @@ final class YogaTranslatorTests: XCTestCase {
     
     // MARK: - Properties
     
-    private lazy var yogaTranslator: YogaTranslator = {
-        return YogaTranslating()
-    }()
+    private lazy var yogaTranslator: YogaTranslator = YogaTranslating()
 
-    // MARK: -  Tests
+    // MARK: - Tests
     
     func test_translateWhenNoWrap_shouldReturnYGNoWrap() {
         // Given
