@@ -11,6 +11,8 @@ import XCTest
 
 final class CustomWidgetsRendererProviderRegisterTests: XCTestCase {
 
+    // MARK: - CustomWidgetsRendererProviderRegister Tests
+    
     func test_register_shouldArchiveTheRegisteredType() {
         // Given
         let sut = CustomWidgetsRendererProviderRegister()
@@ -48,6 +50,21 @@ final class CustomWidgetsRendererProviderRegisterTests: XCTestCase {
         XCTAssertThrowsError(_ = try sut.dequeueRenderer(for: dummyWidget), "Expected an error, but got nothing.") { error in
             XCTAssertTrue(error is CustomWidgetsRendererProviderRegisterError)
         }
+    }
+    
+    // MARK: - CustomWidgetsRendererProviderRegisterError Tests
+    
+    func test_CustomWidgetsRendererProviderRegisterError_localizedDescription_shouldReturnCorrectText() {
+        // Given
+        let typeName = "Something"
+        let expectedLocalizedDescription = "Could not find renderer for Widget of type \(typeName)."
+        
+        // When
+        let error: CustomWidgetsRendererProviderRegisterError = .couldNotFindRendererForWidgetOfType(typeName)
+        let localizedDescription = error.localizedDescription
+        
+        // Then
+        XCTAssertEqual(expectedLocalizedDescription, localizedDescription, "Expected \(expectedLocalizedDescription), but got \(localizedDescription).")
     }
     
 }
