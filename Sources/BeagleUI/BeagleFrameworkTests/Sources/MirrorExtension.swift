@@ -9,6 +9,7 @@
 import Foundation
 
 extension Mirror {
+    
     func firstChild<T>(of type: T.Type, in label: String? = nil) -> T? {
         return children.lazy.compactMap {
             guard let value = $0.value as? T else { return nil }
@@ -16,4 +17,5 @@ extension Mirror {
             return $0.label == label ? value : nil
         }.first
     }
+    
 }
