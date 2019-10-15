@@ -8,18 +8,19 @@
 
 import Foundation
 
-struct NetworkImage: Widget {
+public struct NetworkImage: Widget {
     
-    let url: String
-    let contentMode: ImageContentMode
+    public let url: String
+    public let contentMode: ImageContentMode
     
     // MARK: - Initialization
-       
-       public init(
-           url: String,
-           contentMode: ImageContentMode = .scaleAspectFit
-       ) {
-           self.url = url
-           self.contentMode = contentMode
-       }
+    
+    public init(
+        url: String,
+        contentMode: ImageContentMode = .fitCenter
+    ) {
+        self.url = url
+        self.contentMode = contentMode
+    }
+    
 }

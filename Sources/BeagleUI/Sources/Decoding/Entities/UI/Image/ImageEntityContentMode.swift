@@ -6,11 +6,25 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-enum ImageEntityContentMode: Int, Codable {
-    case scaleToFill
-    case scaleAspectFit // contents scaled to fit with fixed aspect. remainder is transparent
-    case scaleAspectFill // contents scaled to fill with fixed aspect. some portion of content may be clipped.
-    case center // contents remain same size. positioned adjusted.
+enum ImageEntityContentMode: String, Codable, UIEnumModelConvertible {
+    case fitXY = "FIT_XY" // scaleToFill
+    case fitCenter = "FIT_CENTER" // scaleAspectFit
+    case centerCrop = "CENTER_CROP" // scaleAspectFill
+    case center = "CENTER" // center
+}
+extension ImageEntityContentMode {
+    func toUIKit() -> UIImageView.ContentMode {
+        switch self {
+        case .fitXY:
+            return .scaleToFill
+        case .fitCenter:
+            return .scaleAspectFit
+        case .centerCrop:
+            return .scaleAspectFill
+        case .center:
+            return .center
+        }
+    }
 }

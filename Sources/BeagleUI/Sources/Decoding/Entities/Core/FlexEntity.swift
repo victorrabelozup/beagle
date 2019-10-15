@@ -69,7 +69,7 @@ struct FlexEntity: WidgetEntity {
         )
     }
     
-    init (// TODO: Change this visibilty constraint in the future...
+    init (
         flexDirection: Direction? = nil,
         direction: FlexDirection? = nil,
         flexWrap: Wrap? = nil,

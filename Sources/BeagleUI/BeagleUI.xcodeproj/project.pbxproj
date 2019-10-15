@@ -74,6 +74,8 @@
 		E5CB5DB22355088F009783A7 /* NetworkImageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DB12355088F009783A7 /* NetworkImageEntity.swift */; };
 		E5CB5DB5235508B9009783A7 /* NetworkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DB4235508B9009783A7 /* NetworkImage.swift */; };
 		E5CB5DB7235508CE009783A7 /* ImageContentMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DB6235508CE009783A7 /* ImageContentMode.swift */; };
+		E5CB5DB923550CEF009783A7 /* WidgetRegisterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DB823550CEF009783A7 /* WidgetRegisterItem.swift */; };
+		E5CB5DBD2355FD0B009783A7 /* CustomWidgetsRendererProviderRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DBA23550D32009783A7 /* CustomWidgetsRendererProviderRegister.swift */; };
 		E5CE41A32331D55000295277 /* WidgetDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A22331D55000295277 /* WidgetDecoder.swift */; };
 		E5CE41A52331D59E00295277 /* WidgetEntityContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A42331D59E00295277 /* WidgetEntityContainer.swift */; };
 		E5CE41A72331D93F00295277 /* ContainerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A62331D93F00295277 /* ContainerEntity.swift */; };
@@ -204,6 +206,10 @@
 		E5CB5DB12355088F009783A7 /* NetworkImageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageEntity.swift; sourceTree = "<group>"; };
 		E5CB5DB4235508B9009783A7 /* NetworkImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImage.swift; sourceTree = "<group>"; };
 		E5CB5DB6235508CE009783A7 /* ImageContentMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContentMode.swift; sourceTree = "<group>"; };
+		E5CB5DB823550CEF009783A7 /* WidgetRegisterItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetRegisterItem.swift; sourceTree = "<group>"; };
+		E5CB5DBA23550D32009783A7 /* CustomWidgetsRendererProviderRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWidgetsRendererProviderRegister.swift; sourceTree = "<group>"; };
+		E5CB5DBE2355FFFA009783A7 /* BeagleUIPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = BeagleUIPlayground.playground; path = Sources/BeagleUI/BeagleUIPlayground.playground; sourceTree = "<group>"; };
+		E5CB5DBF2355FFFA009783A7 /* YogaKit.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = YogaKit.playground; path = Libraries/YogaKit/YogaKit.playground; sourceTree = "<group>"; };
 		E5CE41A22331D55000295277 /* WidgetDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDecoder.swift; sourceTree = "<group>"; };
 		E5CE41A42331D59E00295277 /* WidgetEntityContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntityContainer.swift; sourceTree = "<group>"; };
 		E5CE41A62331D93F00295277 /* ContainerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerEntity.swift; sourceTree = "<group>"; };
@@ -369,15 +375,13 @@
 			path = Layout;
 			sourceTree = "<group>";
 		};
-		E50B08FB234CCA640091AF0A /* Providers */ = {
+		E50B08FB234CCA640091AF0A /* Provider */ = {
 			isa = PBXGroup;
 			children = (
-				E50B08FC234CCAA40091AF0A /* Abstractions */,
-				E50B08FE234CCAB90091AF0A /* LayoutWidgetRendererProvider.swift */,
-				E50B08FD234CCAB90091AF0A /* UIComponentWidgetRendererProvider.swift */,
+				E5CB5DBC2355FBD4009783A7 /* WidgetProviders */,
 				E50B08FF234CCAB90091AF0A /* WidgetRendererProvider.swift */,
 			);
-			path = Providers;
+			path = Provider;
 			sourceTree = "<group>";
 		};
 		E50B08FC234CCAA40091AF0A /* Abstractions */ = {
@@ -458,6 +462,7 @@
 			isa = PBXGroup;
 			children = (
 				E5A33FE2234BACDD00AB8EB0 /* Renderer */,
+				E5CB5DC02355FFFA009783A7 /* Playgrounds */,
 				E5A33FE6234BAF6E00AB8EB0 /* BeagleViewBuilder.swift */,
 			);
 			path = Engine;
@@ -486,7 +491,7 @@
 		E5A33FE2234BACDD00AB8EB0 /* Renderer */ = {
 			isa = PBXGroup;
 			children = (
-				E50B08FB234CCA640091AF0A /* Providers */,
+				E50B08FB234CCA640091AF0A /* Provider */,
 				E5DD4689234CCEC9004B7289 /* Renderers */,
 				E5A33FE4234BAD2500AB8EB0 /* Native */,
 				E56A02E12347B6ED00C0F23D /* WidgetViewRenderer.swift */,
@@ -542,6 +547,7 @@
 			children = (
 				E5CB5DAA23550012009783A7 /* BeagleSetup.swift */,
 				E5CB5D8E2354E4CD009783A7 /* BeagleEnvironment.swift */,
+				E5CB5DB823550CEF009783A7 /* WidgetRegisterItem.swift */,
 			);
 			path = Setup;
 			sourceTree = "<group>";
@@ -564,6 +570,27 @@
 				E5CB5DB6235508CE009783A7 /* ImageContentMode.swift */,
 			);
 			path = Image;
+			sourceTree = "<group>";
+		};
+		E5CB5DBC2355FBD4009783A7 /* WidgetProviders */ = {
+			isa = PBXGroup;
+			children = (
+				E50B08FC234CCAA40091AF0A /* Abstractions */,
+				E50B08FE234CCAB90091AF0A /* LayoutWidgetRendererProvider.swift */,
+				E50B08FD234CCAB90091AF0A /* UIComponentWidgetRendererProvider.swift */,
+				E5CB5DBA23550D32009783A7 /* CustomWidgetsRendererProviderRegister.swift */,
+			);
+			path = WidgetProviders;
+			sourceTree = "<group>";
+		};
+		E5CB5DC02355FFFA009783A7 /* Playgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				E5CB5DBE2355FFFA009783A7 /* BeagleUIPlayground.playground */,
+				E5CB5DBF2355FFFA009783A7 /* YogaKit.playground */,
+			);
+			name = Playgrounds;
+			path = ../../../..;
 			sourceTree = "<group>";
 		};
 		E5CE41A02331D41500295277 /* Decoding */ = {
@@ -920,6 +947,7 @@
 				E5CB5D68234F738F009783A7 /* BeagleFlexViewContaining.swift in Sources */,
 				E5CE41CA233274AE00295277 /* PaddingEntity.swift in Sources */,
 				E5CE41D22332766900295277 /* ButtonEntity.swift in Sources */,
+				E5CB5DB923550CEF009783A7 /* WidgetRegisterItem.swift in Sources */,
 				9368180B232A889100E6E724 /* Spacer.swift in Sources */,
 				E5CE41D82332769500295277 /* ListViewEntity.swift in Sources */,
 				E5A33FE7234BAF6E00AB8EB0 /* BeagleViewBuilder.swift in Sources */,
@@ -969,6 +997,7 @@
 				E5CB5D65234E7CF6009783A7 /* BeagleFlexViewController.swift in Sources */,
 				E5CE41AE2331D9A700295277 /* TextEntity.swift in Sources */,
 				93681817232A8D6E00E6E724 /* ListView.swift in Sources */,
+				E5CB5DBD2355FD0B009783A7 /* CustomWidgetsRendererProviderRegister.swift in Sources */,
 				93681807232A887A00E6E724 /* Horizontal.swift in Sources */,
 				E56A029D2344172400C0F23D /* WidgetBuilders.swift in Sources */,
 				E56A02B123451C6500C0F23D /* FlexSingleWidget.swift in Sources */,

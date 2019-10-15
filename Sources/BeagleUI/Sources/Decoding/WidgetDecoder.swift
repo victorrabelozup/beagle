@@ -45,12 +45,12 @@ protocol WidgetDecoding {
     func decode<T>(from data: Data, transformer: (Widget) throws -> T?) throws -> T?
 }
 
-public enum WidgetDecodingError: Error {
+enum WidgetDecodingError: Error {
     case couldNotDecodeContentForEntityOnKey(String, String)
     case couldNotCastToType(String)
 }
 
-public final class WidgetDecoder: WidgetDecoding {
+final class WidgetDecoder: WidgetDecoding {
     
     // MARK: - Dependencies
     

@@ -18,15 +18,18 @@ final class WidgetRendererProviding: WidgetRendererProvider {
     
     private let layoutRendererProvider: LayoutWidgetRendererProvider
     private let uiComponentRendererProvider: UIComponentWidgetRendererProvider
+    private let customWidgetsProvider: CustomWidgetsRendererProviderDequeuing
     
     // MARK: - Initialization
     
     init(
         layoutRendererProvider: LayoutWidgetRendererProvider = LayoutWidgetRendererProviding(),
-        uiComponentRendererProvider: UIComponentWidgetRendererProvider = UIComponentWidgetRendererProviding()
+        uiComponentRendererProvider: UIComponentWidgetRendererProvider = UIComponentWidgetRendererProviding(),
+        customWidgetsProvider: CustomWidgetsRendererProviderDequeuing = Beagle.environment.shared.customWidgetsProvider
     ) {
         self.layoutRendererProvider = layoutRendererProvider
         self.uiComponentRendererProvider = uiComponentRendererProvider
+        self.customWidgetsProvider = customWidgetsProvider
     }
     
     // MARK: - Public Methods
@@ -35,7 +38,7 @@ final class WidgetRendererProviding: WidgetRendererProvider {
         do {
             return try layoutRendererProvider.buildRenderer(for: widget)
         } catch { // Don't treat specific errors for now, just try to provide a UIComponent
-            debugPrint("Error: \(error)")
+            debugPrint("LayoutRendererError: \(error)")
             return provideUIComponentRenderer(for: widget)
         }
     }
@@ -45,8 +48,17 @@ final class WidgetRendererProviding: WidgetRendererProvider {
     private func provideUIComponentRenderer(for widget: Widget) -> WidgetViewRenderer {
         do {
             return try uiComponentRendererProvider.buildRenderer(for: widget)
+        } catch {
+            debugPrint("UIComponentRendererError: \(error)")
+            return provideCustomWidgetRendenrer(for: widget)
+        }
+    }
+    
+    private func provideCustomWidgetRendenrer(for widget: Widget) -> WidgetViewRenderer {
+        do {
+            return try customWidgetsProvider.dequeueRenderer(for: widget)
         } catch { // Don't treat specific errors for now, just return a `UnknownWidgetRenderer`
-            debugPrint("Error: \(error)")
+            debugPrint("CustomWidgetsRendererProvider: \(error)")
             return UnknownWidgetViewRenderer(widget)
         }
     }

@@ -12,7 +12,7 @@ import Foundation
 public protocol WidgetEntity: Decodable {}
 
 /// Combines both protocols in forder to add functionatily for the entities that are some type of content
-typealias WidgetConvertibleEntity = WidgetEntity & WidgetConvertible
+public typealias WidgetConvertibleEntity = WidgetEntity & WidgetConvertible
 
 /// Defines a container to hold a WidgetEntity dynamic types
 struct WidgetEntityContainer: WidgetEntity {

@@ -13,23 +13,24 @@ final class WidgetRendererProviderTests: XCTestCase {
 
     func test_whenInitializing_shouldReturnInstanceOfWidgetRendererProvider() {
         // Given
+        Beagle.start()
         let sut = WidgetRendererProviding()
-        
+
         // When
-        let widgetRendererProvidingMirror = Mirror(reflecting: sut)
-        guard let layoutRendererProvider = widgetRendererProvidingMirror.children.first else {
-            XCTFail("Unable to create LayoutRenderer Provider.")
-            return
-        }
-        
-        //Then
-        XCTAssertNotNil(sut, "Expected creation of a object, but got none.")
-        XCTAssert(layoutRendererProvider.value is LayoutWidgetRendererProviding, "Expected creation of LayoutWidgetRenderer, but got \(type(of: layoutRendererProvider.value))")
+        let mirror = Mirror(reflecting: sut)
+        let layoutRendererProvider = mirror.firstChild(of: LayoutWidgetRendererProviding.self)
+        let uiComponentRendererProvider = mirror.firstChild(of: UIComponentWidgetRendererProviding.self)
+        let customWidgetsProvider = mirror.firstChild(of: CustomWidgetsRendererProviderRegister.self)
+
+        // Then
+        XCTAssertNotNil(layoutRendererProvider, "Expected a `LayoutWidgetRendererProviding` instance, but got nil.")
+        XCTAssertNotNil(uiComponentRendererProvider, "Expected a `UIComponentWidgetRendererProviding` instance, but got nil.")
+        XCTAssertNotNil(customWidgetsProvider, "Expected a `CustomWidgetsRendererProviderRegister` instance, but got nil.")
     }
     
     func test_buildRendererWithUnkownWidget_shouldReturnAnWidgetViewRenderer() {
         // Given
-        let rendererProvider = WidgetRendererProviding()
+        let rendererProvider = WidgetRendererProviding(customWidgetsProvider: CustomWidgetsRendererProviderDequeuingStub())
         let unkownWidget = WidgetDummy()
         // When
         let widgetViewRenderer = rendererProvider.buildRenderer(for: unkownWidget)
@@ -37,6 +38,20 @@ final class WidgetRendererProviderTests: XCTestCase {
         XCTAssertNotNil(widgetViewRenderer, "Expected a unknown Widget View renderer, but got nil.")
         XCTAssertTrue(widgetViewRenderer is UnknownWidgetViewRenderer, "Expected a type to be Unknown Widget, but it is not.")
     }
+    
 }
 
+// MARK: - Testing Helpers
+
 struct WidgetDummy: Widget {}
+
+private class CustomWidgetsRendererProviderDequeuingStub: CustomWidgetsRendererProviderDequeuing {
+    var rendererToReturn: WidgetViewRenderer?
+    var errorToThrow: Error = NSError(domain: "CustomWidgetsRendererProviderDequeuingStub", code: 1, userInfo: nil)
+    func dequeueRenderer(for widget: Widget) throws -> WidgetViewRenderer {
+        if let rendererToReturn = rendererToReturn {
+            return rendererToReturn
+        }
+        throw errorToThrow
+    }
+}

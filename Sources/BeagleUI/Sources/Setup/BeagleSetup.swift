@@ -8,21 +8,24 @@
 
 import Foundation
 
+/// Defines the Beagle namespace
 public final class Beagle {
     
+    /// Defines a, internal point of access to the beagle environment as a type
     static var environment: BeagleEnvironmentProtocol.Type = BeagleEnvironment.self
     
-    public class func start(
-        appName: String
-    ) {
-        environment.initialize(appName: appName, decoder: nil)
+    /// Starts the application, setting up it's environment based on the appName
+    public class func start(appName: String = "Beagle") {
+        environment.initialize(appName: appName)
     }
     
-    public class func registerCustomWidgets<T: WidgetEntity>(_ items: WidgetRegisterItem<T>...) {
+    /// Register multiple custom widgets and entities
+    public class func registerCustomWidgets<E: WidgetConvertibleEntity, W: Widget, R: WidgetViewRenderer>(_ items: WidgetRegisterItem<E, W, R>...) {
         environment.shared.registerCustomWidgets(items)
     }
     
-    public class func registerCustomWidgets<T: WidgetEntity>(_ item: WidgetRegisterItem<T>) {
+    /// Register a single custom widget and entity
+    public class func registerCustomWidgets<E: WidgetConvertibleEntity, W: Widget, R: WidgetViewRenderer>(_ item: WidgetRegisterItem<E, W, R>) {
         environment.shared.registerCustomWidgets([item])
     }
     

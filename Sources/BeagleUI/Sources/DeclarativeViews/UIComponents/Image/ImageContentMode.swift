@@ -8,9 +8,9 @@
 
 import Foundation
 
-public enum ImageContentMode: Int {
-    case scaleToFill
-    case scaleAspectFit // contents scaled to fit with fixed aspect. remainder is transparent
-    case scaleAspectFill // contents scaled to fill with fixed aspect. some portion of content may be clipped.
-    case center // contents remain same size. positioned adjusted.
+public enum ImageContentMode: String {
+    case fitXY = "FIT_XY" // scaleToFill
+    case fitCenter = "FIT_CENTER" // scaleAspectFit
+    case centerCrop = "CENTER_CROP" // scaleAspectFill
+    case center = "CENTER" // center
 }

@@ -17,12 +17,10 @@ public struct Image: Widget {
     
     public init(
         name: String,
-        contentMode: ImageContentMode = .scaleAspectFit
+        contentMode: ImageContentMode = .fitCenter
     ) {
         self.name = name
         self.contentMode = contentMode
     }
     
 }
-
-   
