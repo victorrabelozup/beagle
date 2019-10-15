@@ -15,19 +15,14 @@ final class UIComponentWidgetRendererProviding: UIComponentWidgetRendererProvide
     func buildRenderer(for widget: Widget) throws -> WidgetViewRenderer {
         switch widget {
         case is Button:
-            return try ButtonWidgetViewRenderer(widget)
-//        case is DropDown:
-//            debugPrint("DropDown")
-//        case is Image:
+            return try ButtonWidgetViewRenderer(widget)//        case is Image:
 //            debugPrint("Image")
+//        case is NetworkImage:
+//            debugPrint("NetworkImage")
 //        case is ListView:
 //            debugPrint("ListView")
-//        case is SelectView:
-//            debugPrint("SelectView")
         case is Text:
             return try TextWidgetViewRenderer(widget)
-//        case is ToolBar:
-//            debugPrint("ToolBar")
         default:
             throw FailableWidgetRendererProviderError.couldNotFindRenrererForWidget(widget)
         }
