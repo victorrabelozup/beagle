@@ -14,17 +14,3 @@ enum ImageEntityContentMode: String, Codable, UIEnumModelConvertible {
     case centerCrop = "CENTER_CROP" // scaleAspectFill
     case center = "CENTER" // center
 }
-extension ImageEntityContentMode {
-    func toUIKit() -> UIImageView.ContentMode {
-        switch self {
-        case .fitXY:
-            return .scaleToFill
-        case .fitCenter:
-            return .scaleAspectFit
-        case .centerCrop:
-            return .scaleAspectFill
-        case .center:
-            return .center
-        }
-    }
-}

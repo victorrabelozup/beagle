@@ -15,10 +15,7 @@ struct NetworkImageEntity: WidgetEntity {
 }
 extension NetworkImageEntity: WidgetConvertible {
     func mapToWidget() throws -> Widget {
-        guard let contentMode = ImageContentMode(rawValue: self.contentMode.rawValue) else {
-            let typeName = String(describing: type(of: ImageContentMode.self))
-            throw WidgetConvertibleError.entityTypeIsNotConvertible(typeName)
-        }
+        let contentMode = try self.contentMode.mapToUIModel(ofType: ImageContentMode.self)
         return NetworkImage(url: url, contentMode: contentMode)
     }
 }
