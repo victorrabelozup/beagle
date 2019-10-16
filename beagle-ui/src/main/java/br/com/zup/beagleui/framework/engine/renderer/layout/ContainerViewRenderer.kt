@@ -1,27 +1,31 @@
 package br.com.zup.beagleui.framework.engine.renderer.layout
 
 import android.content.Context
+import android.graphics.Color
 import android.view.View
 import br.com.zup.beagleui.framework.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagleui.framework.widget.layout.Container
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
-import br.com.zup.beagleui.framework.engine.renderer.mapper.FlexMapper
 import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
-import br.com.zup.beagleui.framework.engine.renderer.native.YogaFactory
-import com.facebook.yoga.YogaFlexDirection
-import com.facebook.yoga.YogaJustify
+import br.com.zup.beagleui.framework.widget.core.Flex
+import br.com.zup.beagleui.framework.widget.core.FlexDirection
+import br.com.zup.beagleui.framework.widget.core.JustifyContent
 
 internal class ContainerViewRenderer(
     private val container: Container,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
-    viewFactory: ViewFactory = ViewFactory(),
-    yogaFactory: YogaFactory = YogaFactory(FlexMapper())
-) : LayoutViewRenderer(viewRendererFactory, viewFactory, yogaFactory) {
+    viewFactory: ViewFactory = ViewFactory()
+) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
 
     override fun build(context: Context): View {
-        val container = yogaFactory.makeYogaLayout(context).apply {
-            yogaNode.flexDirection = YogaFlexDirection.COLUMN
-            yogaNode.justifyContent = YogaJustify.SPACE_BETWEEN
+        val flex = Flex(
+            flexDirection = FlexDirection.COLUMN,
+            justifyContent = JustifyContent.SPACE_BETWEEN
+        )
+        val container = viewFactory.makeBeagleFlexView(context, flex)
+
+        this.container.backgroundColor?.let {
+            container.setBackgroundColor(Color.parseColor(it))
         }
 
         if (this.container.header != null) {
@@ -41,18 +45,17 @@ internal class ContainerViewRenderer(
 
     private fun createScrollViewForView(context: Context, view: View): View {
         val scrollView = viewFactory.makeScrollView(context).apply {
-            addView(yogaFactory.makeYogaLayout(context).apply {
+            addView(viewFactory.makeBeagleFlexView(context).apply {
                 addView(view)
             })
         }
 
-        val scrollNode = yogaFactory.makeYogaNode().apply {
-            flex = 1.0f
-        }
+        val flex = Flex(
+            grow = 1.0
+        )
 
-        return yogaFactory.makeYogaLayout(context).apply {
-            yogaNode.flex = 1.0f
-            addView(scrollView, scrollNode)
+        return viewFactory.makeBeagleFlexView(context, flex).apply {
+            addView(scrollView, flex)
         }
     }
 }

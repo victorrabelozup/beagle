@@ -8,9 +8,11 @@ data class Flex (
     val alignItems: Alignment = Alignment.STRETCH,
     val alignSelf: Alignment = Alignment.AUTO,
     val alignContent: Alignment = Alignment.FLEX_START,
-    val basis: UnitValue = UnitValue(0.0, UnitType.REAL),
+    val positionType: FlexPositionType = FlexPositionType.RELATIVE,
+    val basis: UnitValue = UnitValue(0.0, UnitType.AUTO),
+    val flex: Double = 0.0,
     val grow: Double = 0.0,
-    val shrink: Double = 0.0,
+    val shrink: Double = 1.0,
     val display: FlexDisplay = FlexDisplay.FLEX,
     val size: Size = Size(),
     val margin: EdgeValue = EdgeValue(),
@@ -82,4 +84,9 @@ enum class Alignment {
 enum class FlexDisplay {
     FLEX,
     NONE
+}
+
+enum class FlexPositionType {
+    ABSOLUTE,
+    RELATIVE
 }

@@ -5,32 +5,32 @@ import android.view.View
 import br.com.zup.beagleui.framework.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
-import br.com.zup.beagleui.framework.engine.renderer.native.YogaFactory
+import br.com.zup.beagleui.framework.view.BeagleFlexView
 import br.com.zup.beagleui.framework.widget.core.Flex
+import br.com.zup.beagleui.framework.widget.core.FlexDirection
 import br.com.zup.beagleui.framework.widget.core.Widget
-import com.facebook.yoga.YogaFlexDirection
-import com.facebook.yogalayout.YogaLayout
 
 internal abstract class DirectionalViewRenderer(
     private val children: List<Widget>,
     private val flex: Flex,
     viewRendererFactory: ViewRendererFactory,
-    viewFactory: ViewFactory,
-    yogaFactory: YogaFactory
-) : LayoutViewRenderer(viewRendererFactory, viewFactory, yogaFactory) {
+    viewFactory: ViewFactory
+) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
 
-    abstract fun getYogaFlexDirection(): YogaFlexDirection
+    abstract fun getYogaFlexDirection(): FlexDirection
 
     override fun build(context: Context): View {
-        return yogaFactory.makeYogaLayout(context, flex).apply {
-            yogaNode.flexDirection = getYogaFlexDirection()
+        val flexCopy = flex.copy(
+            flexDirection = getYogaFlexDirection()
+        )
+        return viewFactory.makeBeagleFlexView(context, flexCopy).apply {
             addChildrenViews(children, this)
         }
     }
 
-    private fun addChildrenViews(children: List<Widget>, yogaLayout: YogaLayout) {
+    private fun addChildrenViews(children: List<Widget>, beagleFlexView: BeagleFlexView) {
         children.forEach { widget ->
-            yogaLayout.addView(viewRendererFactory.make(widget).build(yogaLayout.context))
+            beagleFlexView.addView(viewRendererFactory.make(widget).build(beagleFlexView.context))
         }
     }
 }

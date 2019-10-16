@@ -3,12 +3,13 @@ package br.com.zup.beagleui.framework.engine.renderer
 import android.content.Context
 import android.view.View
 import br.com.zup.beagleui.framework.engine.renderer.layout.ContainerViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.layout.FlexSingleWidgetViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.layout.FlexWidgetViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.HorizontalViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.SpacerViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.StackViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.VerticalViewRender
 import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
-import br.com.zup.beagleui.framework.engine.renderer.native.YogaFactory
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.engine.renderer.ui.ButtonViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.ImageViewRenderer
@@ -17,6 +18,8 @@ import br.com.zup.beagleui.framework.engine.renderer.ui.TextViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.ToolbarViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.UndefinedViewRenderer
 import br.com.zup.beagleui.framework.widget.layout.Container
+import br.com.zup.beagleui.framework.widget.layout.FlexSingleWidget
+import br.com.zup.beagleui.framework.widget.layout.FlexWidget
 import br.com.zup.beagleui.framework.widget.layout.Horizontal
 import br.com.zup.beagleui.framework.widget.layout.Spacer
 import br.com.zup.beagleui.framework.widget.layout.Stack
@@ -36,11 +39,10 @@ internal interface ViewRenderer {
 
 internal abstract class LayoutViewRenderer(
     protected val viewRendererFactory: ViewRendererFactory,
-    protected val viewFactory: ViewFactory,
-    protected val yogaFactory: YogaFactory
+    protected val viewFactory: ViewFactory
 ) : ViewRenderer
 
-internal interface UiViewRenderer : ViewRenderer
+internal interface UIViewRenderer : ViewRenderer
 
 internal class ViewRendererFactory {
 
@@ -50,6 +52,8 @@ internal class ViewRendererFactory {
 
     private fun tryMakeViewLayout(widget: Widget) : ViewRenderer? {
         return when (widget) {
+            is FlexWidget -> FlexWidgetViewRenderer(widget)
+            is FlexSingleWidget -> FlexSingleWidgetViewRenderer(widget)
             is Container -> ContainerViewRenderer(widget)
             is Vertical -> VerticalViewRender(widget)
             is Horizontal -> HorizontalViewRenderer(widget)

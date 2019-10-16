@@ -1,30 +1,26 @@
 package br.com.zup.beagleui.framework.engine.renderer.layout
 
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
-import br.com.zup.beagleui.framework.engine.renderer.mapper.FlexMapper
 import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
-import br.com.zup.beagleui.framework.engine.renderer.native.YogaFactory
+import br.com.zup.beagleui.framework.widget.core.FlexDirection
 import br.com.zup.beagleui.framework.widget.layout.Vertical
-import com.facebook.yoga.YogaFlexDirection
 
 internal class VerticalViewRender(
     private val vertical: Vertical,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
-    viewFactory: ViewFactory = ViewFactory(),
-    yogaFactory: YogaFactory = YogaFactory(FlexMapper())
+    viewFactory: ViewFactory = ViewFactory()
 ) : DirectionalViewRenderer(
     vertical.children,
     vertical.flex,
     viewRendererFactory,
-    viewFactory,
-    yogaFactory
+    viewFactory
 ) {
 
-    override fun getYogaFlexDirection(): YogaFlexDirection {
+    override fun getYogaFlexDirection(): FlexDirection {
         return if (vertical.reversed) {
-            YogaFlexDirection.COLUMN_REVERSE
+            FlexDirection.COLUMN_REVERSE
         } else {
-            YogaFlexDirection.COLUMN
+            FlexDirection.COLUMN
         }
     }
 }

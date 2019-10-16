@@ -43,6 +43,8 @@ dependencies {
 
     implementation project(Modules.yoga)
 
+    implementation GeneralLibraries.soLoader
+
     implementation MoshiLibraries.moshi
     implementation MoshiLibraries.kotlin
     implementation MoshiLibraries.adapters

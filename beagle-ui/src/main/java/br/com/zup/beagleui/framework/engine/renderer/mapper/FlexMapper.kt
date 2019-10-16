@@ -6,6 +6,7 @@ import br.com.zup.beagleui.framework.engine.renderer.makeYogaDisplay
 import br.com.zup.beagleui.framework.engine.renderer.makeYogaFlexDirection
 import br.com.zup.beagleui.framework.engine.renderer.makeYogaJustify
 import br.com.zup.beagleui.framework.engine.renderer.makeYogaWrap
+import br.com.zup.beagleui.framework.utils.px
 import br.com.zup.beagleui.framework.widget.core.EdgeValue
 import br.com.zup.beagleui.framework.widget.core.Flex
 import br.com.zup.beagleui.framework.widget.core.Size
@@ -47,8 +48,8 @@ class FlexMapper {
     private fun setWidth(size: Size, yogaNode: YogaNode) {
         size.width?.let { width ->
             if (width.type == UnitType.REAL) {
-                yogaNode.setWidth(width.value.toFloat())
-            } else {
+                yogaNode.setWidth(width.value.px().toFloat())
+            } else if (width.type == UnitType.PERCENT) {
                 yogaNode.setWidthPercent(width.value.toFloat())
             }
         }
@@ -57,8 +58,8 @@ class FlexMapper {
     private fun setHeight(size: Size, yogaNode: YogaNode) {
         size.height?.let { height ->
             if (height.type == UnitType.REAL) {
-                yogaNode.setHeight(height.value.toFloat())
-            } else {
+                yogaNode.setHeight(height.value.px().toFloat())
+            } else if (height.type == UnitType.PERCENT) {
                 yogaNode.setHeightPercent(height.value.toFloat())
             }
         }
@@ -67,8 +68,8 @@ class FlexMapper {
     private fun setMaxWidth(size: Size, yogaNode: YogaNode) {
         size.maxWidth?.let { maxWidth ->
             if (maxWidth.type == UnitType.REAL) {
-                yogaNode.setMaxWidth(maxWidth.value.toFloat())
-            } else {
+                yogaNode.setMaxWidth(maxWidth.value.px().toFloat())
+            } else if (maxWidth.type == UnitType.PERCENT) {
                 yogaNode.setMaxWidthPercent(maxWidth.value.toFloat())
             }
         }
@@ -77,8 +78,8 @@ class FlexMapper {
     private fun setMaxHeight(size: Size, yogaNode: YogaNode) {
         size.maxHeight?.let { maxHeight ->
             if (maxHeight.type == UnitType.REAL) {
-                yogaNode.setMaxHeight(maxHeight.value.toFloat())
-            } else {
+                yogaNode.setMaxHeight(maxHeight.value.px().toFloat())
+            } else if (maxHeight.type == UnitType.PERCENT) {
                 yogaNode.setMaxHeightPercent(maxHeight.value.toFloat())
             }
         }
@@ -87,8 +88,8 @@ class FlexMapper {
     private fun setMinWidth(size: Size, yogaNode: YogaNode) {
         size.minWidth?.let { minWidth ->
             if (minWidth.type == UnitType.REAL) {
-                yogaNode.setMinWidth(minWidth.value.toFloat())
-            } else {
+                yogaNode.setMinWidth(minWidth.value.px().toFloat())
+            } else if (minWidth.type == UnitType.PERCENT) {
                 yogaNode.setMinWidthPercent(minWidth.value.toFloat())
             }
         }
@@ -97,8 +98,8 @@ class FlexMapper {
     private fun setMinHeight(size: Size, yogaNode: YogaNode) {
         size.minHeight?.let { minHeight ->
             if (minHeight.type == UnitType.REAL) {
-                yogaNode.setMinHeight(minHeight.value.toFloat())
-            } else {
+                yogaNode.setMinHeight(minHeight.value.px().toFloat())
+            } else if (minHeight.type == UnitType.PERCENT) {
                 yogaNode.setMinHeightPercent(minHeight.value.toFloat())
             }
         }
@@ -111,18 +112,18 @@ class FlexMapper {
     }
 
     private fun setBasis(basis: UnitValue, yogaNode: YogaNode) {
-        if (basis.type == UnitType.REAL) {
-            yogaNode.setFlexBasis(basis.value.toFloat())
-        } else {
-            yogaNode.setFlexBasisPercent(basis.value.toFloat())
+        when {
+            basis.type == UnitType.REAL -> yogaNode.setFlexBasis(basis.value.toFloat())
+            basis.type == UnitType.PERCENT -> yogaNode.setFlexBasisPercent(basis.value.toFloat())
+            else -> yogaNode.setFlexBasisAuto()
         }
     }
 
     private fun setMargin(margin: EdgeValue, yogaNode: YogaNode) {
         applyEdgeValue(margin) { yogaEdge, unitValue ->
             if (unitValue.type == UnitType.REAL) {
-                yogaNode.setMargin(yogaEdge, unitValue.value.toFloat())
-            } else {
+                yogaNode.setMargin(yogaEdge, unitValue.value.px().toFloat())
+            } else if (unitValue.type == UnitType.PERCENT) {
                 yogaNode.setMarginPercent(yogaEdge, unitValue.value.toFloat())
             }
         }
@@ -131,8 +132,8 @@ class FlexMapper {
     private fun setPadding(margin: EdgeValue, yogaNode: YogaNode) {
         applyEdgeValue(margin) { yogaEdge, unitValue ->
             if (unitValue.type == UnitType.REAL) {
-                yogaNode.setPadding(yogaEdge, unitValue.value.toFloat())
-            } else {
+                yogaNode.setPadding(yogaEdge, unitValue.value.px().toFloat())
+            } else if (unitValue.type == UnitType.PERCENT) {
                 yogaNode.setPaddingPercent(yogaEdge, unitValue.value.toFloat())
             }
         }
@@ -141,8 +142,8 @@ class FlexMapper {
     private fun setPosition(position: EdgeValue, yogaNode: YogaNode) {
         applyEdgeValue(position) { yogaEdge, unitValue ->
             if (unitValue.type == UnitType.REAL) {
-                yogaNode.setPosition(yogaEdge, unitValue.value.toFloat())
-            } else {
+                yogaNode.setPosition(yogaEdge, unitValue.value.px().toFloat())
+            } else if (unitValue.type == UnitType.PERCENT) {
                 yogaNode.setPositionPercent(yogaEdge, unitValue.value.toFloat())
             }
         }
