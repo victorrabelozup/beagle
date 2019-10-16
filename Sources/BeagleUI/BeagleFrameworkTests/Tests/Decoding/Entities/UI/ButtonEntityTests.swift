@@ -22,5 +22,4 @@ final class ButtonEntityTests: XCTestCase {
         XCTAssertNotNil(button, "The Button widget should not be nil.")
         XCTAssertTrue(button is Button)
     }
-
 }
