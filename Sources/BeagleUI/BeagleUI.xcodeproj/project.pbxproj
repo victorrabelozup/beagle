@@ -36,6 +36,11 @@
 		985EBA7B2354D1320042C19A /* WidgetViewRenderingErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985EBA7A2354D1320042C19A /* WidgetViewRenderingErrorTests.swift */; };
 		985EBA7F2354E15E0042C19A /* FlexViewConfiguratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985EBA7E2354E15E0042C19A /* FlexViewConfiguratorTests.swift */; };
 		985EBA812355110D0042C19A /* Flex+Fixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985EBA802355110D0042C19A /* Flex+Fixture.swift */; };
+		985EBA8D2356467B0042C19A /* ListViewEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985EBA8C2356467B0042C19A /* ListViewEntityTests.swift */; };
+		985EBA9123565F180042C19A /* ImageEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985EBA9023565F180042C19A /* ImageEntityTests.swift */; };
+		985EBA93235661F60042C19A /* NetworkImageEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985EBA92235661F60042C19A /* NetworkImageEntityTests.swift */; };
+		E50B0900234CCAB90091AF0A /* UIComponentWidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B08FD234CCAB90091AF0A /* UIComponentWidgetRendererProvider.swift */; };
+		E50B0901234CCAB90091AF0A /* LayoutWidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B08FE234CCAB90091AF0A /* LayoutWidgetRendererProvider.swift */; };
 		E50B0902234CCAB90091AF0A /* WidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B08FF234CCAB90091AF0A /* WidgetRendererProvider.swift */; };
 		E50B0904234CCACB0091AF0A /* FailableWidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B0903234CCACB0091AF0A /* FailableWidgetRendererProvider.swift */; };
 		E56A029D2344172400C0F23D /* WidgetBuilders.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A029C2344172400C0F23D /* WidgetBuilders.swift */; };
@@ -172,6 +177,11 @@
 		985EBA7A2354D1320042C19A /* WidgetViewRenderingErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewRenderingErrorTests.swift; sourceTree = "<group>"; };
 		985EBA7E2354E15E0042C19A /* FlexViewConfiguratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexViewConfiguratorTests.swift; sourceTree = "<group>"; };
 		985EBA802355110D0042C19A /* Flex+Fixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Flex+Fixture.swift"; sourceTree = "<group>"; };
+		985EBA8C2356467B0042C19A /* ListViewEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewEntityTests.swift; sourceTree = "<group>"; };
+		985EBA9023565F180042C19A /* ImageEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEntityTests.swift; sourceTree = "<group>"; };
+		985EBA92235661F60042C19A /* NetworkImageEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageEntityTests.swift; sourceTree = "<group>"; };
+		E50B08FD234CCAB90091AF0A /* UIComponentWidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIComponentWidgetRendererProvider.swift; sourceTree = "<group>"; };
+		E50B08FE234CCAB90091AF0A /* LayoutWidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutWidgetRendererProvider.swift; sourceTree = "<group>"; };
 		E50B08FF234CCAB90091AF0A /* WidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetRendererProvider.swift; sourceTree = "<group>"; };
 		E50B0903234CCACB0091AF0A /* FailableWidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailableWidgetRendererProvider.swift; sourceTree = "<group>"; };
 		E53524AA23310F5A00D1A0C9 /* YogaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YogaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -745,6 +755,9 @@
 			children = (
 				E5CE42002333FC1F00295277 /* ButtonEntityTests.swift */,
 				E5CE42102334007D00295277 /* TextEntityTests.swift */,
+				985EBA8C2356467B0042C19A /* ListViewEntityTests.swift */,
+				985EBA9023565F180042C19A /* ImageEntityTests.swift */,
+				985EBA92235661F60042C19A /* NetworkImageEntityTests.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1053,6 +1066,7 @@
 				E5DD4691234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift in Sources */,
 				E5CB5DC32356375E009783A7 /* CustomWidgetsRendererProviderRegisterTests.swift in Sources */,
 				E57FBB86233ABF3F00165D8D /* DataPreprocessorTests.swift in Sources */,
+				985EBA93235661F60042C19A /* NetworkImageEntityTests.swift in Sources */,
 				9802EF3C234CFBAB00A7EE89 /* FlexEntityTests.swift in Sources */,
 				E5CE43182335052100295277 /* UIEnumModelConvertibleTests.swift in Sources */,
 				E5CE421A2334047900295277 /* HorizontalEntityTests.swift in Sources */,
@@ -1080,8 +1094,11 @@
 				E5CE422823340EA100295277 /* UnitValueEntityTests.swift in Sources */,
 				E5CB5D842354C600009783A7 /* BeagleFlexViewTests.swift in Sources */,
 				E5CE41F62332B9DD00295277 /* WidgetDecoderTests.swift in Sources */,
+				985EBA9123565F180042C19A /* ImageEntityTests.swift in Sources */,
+				9802EF3E234CFD3200A7EE89 /* LayoutWidgetRendererProvidingTests.swift in Sources */,
 				E56A02BA2345367D00C0F23D /* ListViewTests.swift in Sources */,
 				985EBA7F2354E15E0042C19A /* FlexViewConfiguratorTests.swift in Sources */,
+				985EBA8D2356467B0042C19A /* ListViewEntityTests.swift in Sources */,
 				9841FD0323454F080069D7D2 /* FlexSingleWidgetEntityTests.swift in Sources */,
 				E56A02D223462C0900C0F23D /* WidgetBuildersTests.swift in Sources */,
 				E5CE42112334007D00295277 /* TextEntityTests.swift in Sources */,
