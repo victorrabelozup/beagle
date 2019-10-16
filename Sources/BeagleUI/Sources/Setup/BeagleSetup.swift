@@ -19,14 +19,9 @@ public final class Beagle {
         environment.initialize(appName: appName)
     }
     
-    /// Register multiple custom widgets and entities
-    public class func registerCustomWidgets<E: WidgetConvertibleEntity, W: Widget, R: WidgetViewRenderer>(_ items: WidgetRegisterItem<E, W, R>...) {
-        environment.shared.registerCustomWidgets(items)
-    }
-    
     /// Register a single custom widget and entity
-    public class func registerCustomWidgets<E: WidgetConvertibleEntity, W: Widget, R: WidgetViewRenderer>(_ item: WidgetRegisterItem<E, W, R>) {
-        environment.shared.registerCustomWidgets([item])
+    public class func registerCustomWidget<E: WidgetConvertibleEntity, W: Widget, R: WidgetViewRenderer>(_ item: WidgetRegisterItem<E, W, R>) {
+        environment.shared.registerCustomWidget(item)
     }
     
 }

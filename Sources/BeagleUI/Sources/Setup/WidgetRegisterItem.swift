@@ -8,19 +8,22 @@
 
 import Foundation
 
+/// Defines a holder for entity and view types, in order to register custom widgets
 public struct WidgetRegisterItem<E: WidgetConvertibleEntity, W: Widget, R: WidgetViewRenderer> {
     
     let entity: EntityPair<E>
     let view: ViewPair<W, R>
     
+    /// Defines a pair (typeName, type) for describing a WidgetEntity
     public struct EntityPair<E: WidgetEntity> {
-        let typeName: String
-        let type: E.Type
+        public let typeName: String
+        public let type: E.Type
     }
     
+    /// Defines a pair (widgetType, viewRenderer) for describing a UI-related representation of a Widget
     public struct ViewPair<W: Widget, R: WidgetViewRenderer> {
-        let widgetType: W.Type
-        let viewRenderer: R.Type
+        public let widgetType: W.Type
+        public let viewRenderer: R.Type
     }
     
 }

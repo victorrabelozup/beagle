@@ -17,12 +17,12 @@ protocol BeagleEnvironmentProtocol {
     // MARK: - Initialization
     static func initialize(
         appName: String,
-        decoder: WidgetDecoder,
+        decoder: WidgetDecoding,
         customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing
     )
     static func initialize(appName: String)
     // MARK: - Public Functions
-    func registerCustomWidgets<E: WidgetConvertibleEntity, W: Widget, R: WidgetViewRenderer>(_ items: [WidgetRegisterItem<E, W, R>])
+    func registerCustomWidget<E: WidgetConvertibleEntity, W: Widget, R: WidgetViewRenderer>(_ item: WidgetRegisterItem<E, W, R>)
 }
 
 final class BeagleEnvironment: BeagleEnvironmentProtocol {
@@ -61,7 +61,7 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
     
     static func initialize(
         appName: String,
-        decoder: WidgetDecoder,
+        decoder: WidgetDecoding,
         customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing = CustomWidgetsRendererProviderRegister()
     ) {
         let decoderInstance = decoder
@@ -75,11 +75,9 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
         initialize(appName: appName, decoder: WidgetDecoder(namespace: appName))
     }
     
-    func registerCustomWidgets<E: WidgetConvertibleEntity, W: Widget, R: WidgetViewRenderer>(_ items: [WidgetRegisterItem<E, W, R>]) {
-        items.forEach {
-            decoder.register($0.entity.type, for: $0.entity.typeName)
-            customWidgetsRendererProviderRegister.registerRenderer($0.view.viewRenderer, for: $0.view.widgetType)
-        }
+    func registerCustomWidget<E: WidgetConvertibleEntity, W: Widget, R: WidgetViewRenderer>(_ item: WidgetRegisterItem<E, W, R>) {
+        decoder.register(item.entity.type, for: item.entity.typeName)
+        customWidgetsRendererProviderRegister.registerRenderer(item.view.viewRenderer, for: item.view.widgetType)
     }
     
 }

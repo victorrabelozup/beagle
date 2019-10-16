@@ -11,7 +11,7 @@ import Foundation
 /// Defines UIModel conversion errors
 ///
 /// - invalidRawValueTypeForEnum: states that the UIModel Enum does not has a RawValue == String
-/// - invalidRawValueTypeForEnum: states that the Entity Enum does not has a RawValue == String
+/// - rawValueIsNotOfStringForType: states that the Entity Enum does not has a RawValue == String
 enum UIModelConversionError: Error {
     
     case couldNotInitializeEnumOfType(String)

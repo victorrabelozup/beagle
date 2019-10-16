@@ -13,6 +13,8 @@ final class WidgetRendererProviderTests: XCTestCase {
 
     func test_whenInitializing_shouldReturnInstanceOfWidgetRendererProvider() {
         // Given
+        let environmentSpy = BeagleEnvironmentSpy.self
+        Beagle.environment = environmentSpy
         Beagle.start()
         let sut = WidgetRendererProviding()
 
@@ -20,7 +22,7 @@ final class WidgetRendererProviderTests: XCTestCase {
         let mirror = Mirror(reflecting: sut)
         let layoutRendererProvider = mirror.firstChild(of: LayoutWidgetRendererProviding.self)
         let uiComponentRendererProvider = mirror.firstChild(of: UIComponentWidgetRendererProviding.self)
-        let customWidgetsProvider = mirror.firstChild(of: CustomWidgetsRendererProviderRegister.self)
+        let customWidgetsProvider = mirror.children.first(where: { $0.label == "customWidgetsProvider" } )
 
         // Then
         XCTAssertNotNil(layoutRendererProvider, "Expected a `LayoutWidgetRendererProviding` instance, but got nil.")
