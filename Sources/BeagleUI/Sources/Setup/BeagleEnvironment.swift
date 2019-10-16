@@ -7,10 +7,12 @@
 //
 
 import Foundation
+import Networking
 
 protocol BeagleEnvironmentProtocol {
     // MARK: - Properties
     var decoder: WidgetDecoding { get }
+    var networkingDispatcher: URLRequestDispatching { get }
     var customWidgetsProvider: CustomWidgetsRendererProviderDequeuing { get }
     // MARK: - Singleton
     static var shared: BeagleEnvironmentProtocol { get }
@@ -18,9 +20,10 @@ protocol BeagleEnvironmentProtocol {
     static func initialize(
         appName: String,
         decoder: WidgetDecoding,
+        networkingDispatcher: URLRequestDispatching,
         customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing
     )
-    static func initialize(appName: String)
+    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching?)
     // MARK: - Public Functions
     func registerCustomWidget<E: WidgetConvertibleEntity, W: Widget>(_ item: WidgetRegisterItem<E, W>)
 }
@@ -30,11 +33,13 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
     // MARK: - Dependencies
     
     private let _decoder: WidgetDecoding
-    let customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing
+    private let _networkingDispatcher: URLRequestDispatching
+    private let customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing
     
     // MARK: - Public Properties
     
     var decoder: WidgetDecoding { _decoder }
+    var networkingDispatcher: URLRequestDispatching { _networkingDispatcher }
     var customWidgetsProvider: CustomWidgetsRendererProviderDequeuing { customWidgetsRendererProviderRegister }
     
     // MARK: - Singleton
@@ -51,9 +56,11 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
     
     private init(
         decoder: WidgetDecoding,
+        networkingDispatcher: URLRequestDispatching,
         customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing
     ) {
         self._decoder = decoder
+        self._networkingDispatcher = networkingDispatcher
         self.customWidgetsRendererProviderRegister = customWidgetsRendererProviderRegister
     }
     
@@ -62,17 +69,21 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
     static func initialize(
         appName: String,
         decoder: WidgetDecoding,
+        networkingDispatcher: URLRequestDispatching,
         customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing = CustomWidgetsRendererProviderRegister()
     ) {
         let decoderInstance = decoder
         _shared = BeagleEnvironment(
             decoder: decoderInstance,
+            networkingDispatcher: networkingDispatcher,
             customWidgetsRendererProviderRegister: customWidgetsRendererProviderRegister
         )
     }
     
-    public static func initialize(appName: String) {
-        initialize(appName: appName, decoder: WidgetDecoder(namespace: appName))
+    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching?) {
+        let decoder = WidgetDecoder(namespace: appName)
+        let dispatcher = networkingDispatcher ?? URLSessionDispatcher()
+        initialize(appName: appName, decoder: decoder, networkingDispatcher: dispatcher)
     }
     
     func registerCustomWidget<E: WidgetConvertibleEntity, W: Widget>(_ item: WidgetRegisterItem<E, W>) {
