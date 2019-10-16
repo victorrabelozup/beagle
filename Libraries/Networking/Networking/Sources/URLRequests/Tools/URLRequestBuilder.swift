@@ -87,6 +87,7 @@ public final class DefaultURLRequestBuilder: URLRequestBuilder {
         self.method = request.method
         self.headers = request.headers
         self.parameters = request.parameters
+        self.adapters = request.adapters ?? []
     }
     
     /// Initializes the request.
