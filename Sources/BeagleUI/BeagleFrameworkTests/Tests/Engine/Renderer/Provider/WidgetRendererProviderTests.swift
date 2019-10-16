@@ -20,13 +20,9 @@ final class WidgetRendererProviderTests: XCTestCase {
 
         // When
         let mirror = Mirror(reflecting: sut)
-        let layoutRendererProvider = mirror.firstChild(of: LayoutWidgetRendererProviding.self)
-        let uiComponentRendererProvider = mirror.firstChild(of: UIComponentWidgetRendererProviding.self)
         let customWidgetsProvider = mirror.children.first(where: { $0.label == "customWidgetsProvider" } )
 
         // Then
-        XCTAssertNotNil(layoutRendererProvider, "Expected a `LayoutWidgetRendererProviding` instance, but got nil.")
-        XCTAssertNotNil(uiComponentRendererProvider, "Expected a `UIComponentWidgetRendererProviding` instance, but got nil.")
         XCTAssertNotNil(customWidgetsProvider, "Expected a `CustomWidgetsRendererProviderRegister` instance, but got nil.")
     }
     
@@ -48,12 +44,14 @@ final class WidgetRendererProviderTests: XCTestCase {
 struct WidgetDummy: Widget {}
 
 private class CustomWidgetsRendererProviderDequeuingStub: CustomWidgetsRendererProviderDequeuing {
-    var rendererToReturn: WidgetViewRenderer?
+    
+    var rendererToReturn: WidgetViewRendererProtocol?
     var errorToThrow: Error = NSError(domain: "CustomWidgetsRendererProviderDequeuingStub", code: 1, userInfo: nil)
-    func dequeueRenderer(for widget: Widget) throws -> WidgetViewRenderer {
+    func dequeueRenderer(for widget: Widget) throws -> WidgetViewRendererProtocol {
         if let rendererToReturn = rendererToReturn {
             return rendererToReturn
         }
         throw errorToThrow
     }
+    
 }

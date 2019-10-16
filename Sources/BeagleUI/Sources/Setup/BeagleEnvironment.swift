@@ -22,7 +22,7 @@ protocol BeagleEnvironmentProtocol {
     )
     static func initialize(appName: String)
     // MARK: - Public Functions
-    func registerCustomWidget<E: WidgetConvertibleEntity, W: Widget, R: WidgetViewRenderer>(_ item: WidgetRegisterItem<E, W, R>)
+    func registerCustomWidget<E: WidgetConvertibleEntity, W: Widget>(_ item: WidgetRegisterItem<E, W>)
 }
 
 final class BeagleEnvironment: BeagleEnvironmentProtocol {
@@ -75,7 +75,7 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
         initialize(appName: appName, decoder: WidgetDecoder(namespace: appName))
     }
     
-    func registerCustomWidget<E: WidgetConvertibleEntity, W: Widget, R: WidgetViewRenderer>(_ item: WidgetRegisterItem<E, W, R>) {
+    func registerCustomWidget<E: WidgetConvertibleEntity, W: Widget>(_ item: WidgetRegisterItem<E, W>) {
         decoder.register(item.entity.type, for: item.entity.typeName)
         customWidgetsRendererProviderRegister.registerRenderer(item.view.viewRenderer, for: item.view.widgetType)
     }

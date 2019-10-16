@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class UnknownWidgetViewRenderer: WidgetViewRenderer {
+final class UnknownWidgetViewRenderer: WidgetViewRendererProtocol {
     
     let widget: AnyWidget
     

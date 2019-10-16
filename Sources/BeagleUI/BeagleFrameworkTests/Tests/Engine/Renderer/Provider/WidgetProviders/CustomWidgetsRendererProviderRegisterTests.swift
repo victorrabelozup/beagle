@@ -21,7 +21,7 @@ final class CustomWidgetsRendererProviderRegisterTests: XCTestCase {
         sut.registerRenderer(DummyRenderer.self, for: WidgetDummy.self)
         
         // Then
-        let renderers = Mirror(reflecting: sut).firstChild(of: [String: WidgetViewRenderer.Type].self, in: "renderers")
+        let renderers = Mirror(reflecting: sut).firstChild(of: [String: Any.Type].self, in: "renderers")
         let containsDummyRenderer = renderers?.values.contains(where: { $0.self == DummyRenderer.self } ) ?? false
         XCTAssertEqual(renderers?.keys.count, 1, "Expected to have 1 key, but found \(String(describing: renderers?.keys.count)).")
         XCTAssertTrue(containsDummyRenderer, "Expected to have a `DummyRenderer`, but it didn't.")
@@ -70,26 +70,12 @@ final class CustomWidgetsRendererProviderRegisterTests: XCTestCase {
 }
 
 // MARK: - Testing Helpers
-private class DummyRenderer: WidgetViewRenderer {
+private class DummyRenderer: WidgetViewRenderer<WidgetDummy> {
     
-    private let widget: WidgetDummy
-    
-    required init(_ widget: Widget) throws {
-        self.widget = try .newByCasting(widget: widget, to: WidgetDummy.self)
-    }
-    
-    func buildView() -> UIView {
+    override func buildView() -> UIView {
         return DummyView()
     }
     
 }
 
 private class DummyView: UIView {}
-
-//func dequeueRenderer(for widget: Widget) throws -> WidgetViewRenderer {
-//    let widgetTypeName = String(describing: type(of: widget))
-//    guard let rendererType = renderers[widgetTypeName] else {
-//        throw CustomWidgetsRendererProviderRegisterError.couldNotFindRendererForWidgetOfType(widgetTypeName)
-//    }
-//    return try rendererType.init(widget)
-//}

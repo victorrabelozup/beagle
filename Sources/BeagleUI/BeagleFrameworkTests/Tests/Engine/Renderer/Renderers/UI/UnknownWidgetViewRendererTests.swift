@@ -15,7 +15,8 @@ final class UnknownWidgetViewRendererTests: XCTestCase {
         // Given
         let unknownWidget = WidgetDummy()
         let unknownWidgetViewRenderer = UnknownWidgetViewRenderer(unknownWidget)
-        let expectedText = "Unknown Widget of type:\n \(String(describing: unknownWidget))"
+        let anyWidget = AnyWidget(value: unknownWidget as Any)
+        let expectedText = "Unknown Widget of type:\n \(String(describing: anyWidget))"
         
         // When
         let builtView = unknownWidgetViewRenderer.buildView()

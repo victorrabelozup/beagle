@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class ButtonWidgetViewRenderer: BaseWidgetViewRenderer<Button> {
+final class ButtonWidgetViewRenderer: WidgetViewRenderer<Button> {
     
     // MARK: - Public Functions
     

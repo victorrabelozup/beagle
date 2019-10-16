@@ -88,7 +88,7 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
     
     private(set) var registerCustomWidgetsCalled = false
     private(set) var itemPassed: Any?
-    func registerCustomWidget<E, W, R>(_ item: WidgetRegisterItem<E, W, R>) where E : WidgetConvertible, E : WidgetEntity, W : Widget, R : WidgetViewRenderer {
+    func registerCustomWidget<E, W>(_ item: WidgetRegisterItem<E, W>) where E : WidgetConvertible, E : WidgetEntity, W : Widget {
         registerCustomWidgetsCalled = true
         itemPassed = item
     }
@@ -103,18 +103,20 @@ private final class WidgetDecodingDummy: WidgetDecoding {
 }
 
 private final class CustomWidgetsRendererProviderDequeuingDummy: CustomWidgetsRendererProviderDequeuing {
-    func dequeueRenderer(for widget: Widget) throws -> WidgetViewRenderer { return WidgetViewRendererDummy() }
+    func dequeueRenderer(for widget: Widget) throws -> WidgetViewRendererProtocol {
+        return try WidgetViewRendererDummy(widget)
+    }
 }
 
-final class WidgetViewRendererDummy: WidgetViewRenderer {
-    init() {}
-    init(_ widget: Widget) throws {}
-    func buildView() -> UIView { return UIView() }
+final class WidgetViewRendererDummy: WidgetViewRenderer<WidgetDummy> {
+    override func buildView() -> UIView { return UIView() }
 }
 
 private final class CustomWidgetsRendererProviderDummy: CustomWidgetsRendererProviderDequeuing, CustomWidgetsRendererProviderRegistering {
-    func registerRenderer<R, W>(_ rendererType: R.Type, for widgetType: W.Type) where R : WidgetViewRenderer, W : Widget {}
-    func dequeueRenderer(for widget: Widget) throws -> WidgetViewRenderer { return WidgetViewRendererDummy() }
+    func registerRenderer<W>(_ rendererType: WidgetViewRenderer<W>.Type, for widgetType: W.Type) where W : Widget {}
+    func dequeueRenderer(for widget: Widget) throws -> WidgetViewRendererProtocol {
+        return try WidgetViewRendererDummy(widget)
+    }
 }
 
 private struct WidgetDummyEntity: WidgetConvertibleEntity {

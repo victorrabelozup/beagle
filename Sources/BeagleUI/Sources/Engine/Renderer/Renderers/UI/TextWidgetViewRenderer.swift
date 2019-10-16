@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class TextWidgetViewRenderer: BaseWidgetViewRenderer<Text> {
+final class TextWidgetViewRenderer: WidgetViewRenderer<Text> {
     
     override func buildView() -> UIView {
         let label = UILabel(frame: .zero)

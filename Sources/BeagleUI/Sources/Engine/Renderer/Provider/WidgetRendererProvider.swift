@@ -8,8 +8,8 @@
 
 import Foundation
 
-public protocol WidgetRendererProvider {
-    func buildRenderer<W: Widget>(for widget: W) -> WidgetViewRenderer
+protocol WidgetRendererProvider {
+    func buildRenderer(for widget: Widget) -> WidgetViewRendererProtocol
 }
 
 final class WidgetRendererProviding: WidgetRendererProvider {
@@ -19,7 +19,7 @@ final class WidgetRendererProviding: WidgetRendererProvider {
     
     // MARK: - Initialization
     
-    public init(
+    init(
         customWidgetsProvider: CustomWidgetsRendererProviderDequeuing? = nil
     ) {
         self.customWidgetsProvider = customWidgetsProvider ?? Beagle.environment.shared.customWidgetsProvider
@@ -27,7 +27,7 @@ final class WidgetRendererProviding: WidgetRendererProvider {
     
     // MARK: - Public Methods
     
-    public func buildRenderer<W: Widget>(for widget: W) -> WidgetViewRenderer {
+    func buildRenderer(for widget: Widget) -> WidgetViewRendererProtocol {
         do {
             return try buildLayoutRenderer(for: widget)
         } catch { // Don't treat specific errors for now, just try to provide a UIComponent
@@ -38,7 +38,7 @@ final class WidgetRendererProviding: WidgetRendererProvider {
     
     // MARK: - Private Methods
     
-    private func provideUIComponentRenderer<W: Widget>(for widget: W) -> WidgetViewRenderer {
+    private func provideUIComponentRenderer(for widget: Widget) -> WidgetViewRendererProtocol {
         do {
             return try buildUIComponentsRenderer(for: widget)
         } catch {
@@ -47,7 +47,7 @@ final class WidgetRendererProviding: WidgetRendererProvider {
         }
     }
     
-    private func provideCustomWidgetRendenrer<W: Widget>(for widget: W) -> WidgetViewRenderer {
+    private func provideCustomWidgetRendenrer(for widget: Widget) -> WidgetViewRendererProtocol {
         do {
             return try customWidgetsProvider.dequeueRenderer(for: widget)
         } catch { // Don't treat specific errors for now, just return a `UnknownWidgetRenderer`
@@ -57,7 +57,7 @@ final class WidgetRendererProviding: WidgetRendererProvider {
     }
     
     // MARK: - Builders Map
-    public func buildLayoutRenderer<W: Widget>(for widget: W) throws -> WidgetViewRenderer {
+    func buildLayoutRenderer(for widget: Widget) throws -> WidgetViewRendererProtocol {
         switch widget {
             //        case is FlexSingleWidget:
             //            debugPrint("FlexSingleWidget")
@@ -80,7 +80,7 @@ final class WidgetRendererProviding: WidgetRendererProvider {
         }
     }
     
-    func buildUIComponentsRenderer<W: Widget>(for widget: W) throws -> WidgetViewRenderer {
+    func buildUIComponentsRenderer(for widget: Widget) throws -> WidgetViewRendererProtocol {
         switch widget {
         case is Button:
             // TODO: Check what is better...
@@ -93,7 +93,7 @@ final class WidgetRendererProviding: WidgetRendererProvider {
             //        case is ListView:
         //            debugPrint("ListView")
         case is Text:
-            return try TextWidgetViewRenderer(widget, rendenrerProvider: self)
+            return try TextWidgetViewRenderer(widget)
         default:
             throw FailableWidgetRendererProviderError.couldNotFindRenrererForWidget(widget)
         }

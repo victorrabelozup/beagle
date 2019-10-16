@@ -20,7 +20,7 @@ public final class Beagle {
     }
     
     /// Register a single custom widget and entity
-    public class func registerCustomWidget<E: WidgetConvertibleEntity, W: Widget, R: WidgetViewRenderer>(_ item: WidgetRegisterItem<E, W, R>) {
+    public class func registerCustomWidget<E: WidgetConvertibleEntity, W: Widget>(_ item: WidgetRegisterItem<E, W>) {
         environment.shared.registerCustomWidget(item)
     }
     
