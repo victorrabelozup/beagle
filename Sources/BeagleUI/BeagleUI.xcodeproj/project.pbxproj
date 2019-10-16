@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		930A2B5823574B23003A945C /* FlexWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930A2B5723574B23003A945C /* FlexWidgetViewRenderer.swift */; };
+		930A2B5A23574B55003A945C /* FlexSingleWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930A2B5923574B55003A945C /* FlexSingleWidgetViewRenderer.swift */; };
 		932925E02327E11000A61F01 /* BeagleUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 932925D22327E11000A61F01 /* BeagleUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		936817FD232A882D00E6E724 /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936817FC232A882D00E6E724 /* Widget.swift */; };
 		936817FF232A883E00E6E724 /* Flex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936817FE232A883E00E6E724 /* Flex.swift */; };
@@ -22,6 +24,8 @@
 		93681815232A8D6500E6E724 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93681814232A8D6500E6E724 /* Image.swift */; };
 		93681817232A8D6E00E6E724 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93681816232A8D6E00E6E724 /* ListView.swift */; };
 		9368181D232A8DE100E6E724 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368181C232A8DE100E6E724 /* Text.swift */; };
+		9397F5D02357615F00054D42 /* FlexViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9397F5CE2357615F00054D42 /* FlexViewConfigurator.swift */; };
+		9397F5D12357615F00054D42 /* YogaTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9397F5CF2357615F00054D42 /* YogaTranslator.swift */; };
 		980262AE2345431B0025A9C3 /* FlexWidgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980262AD2345431B0025A9C3 /* FlexWidgetTests.swift */; };
 		980262B02345432B0025A9C3 /* FlexSingleWidgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980262AF2345432B0025A9C3 /* FlexSingleWidgetTests.swift */; };
 		9802EF3C234CFBAB00A7EE89 /* FlexEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9802EF3B234CFBAB00A7EE89 /* FlexEntityTests.swift */; };
@@ -48,7 +52,6 @@
 		E56A02CF23462B8400C0F23D /* PaddingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02CE23462B8400C0F23D /* PaddingTests.swift */; };
 		E56A02D223462C0900C0F23D /* WidgetBuildersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02D123462C0900C0F23D /* WidgetBuildersTests.swift */; };
 		E56A02E22347B6ED00C0F23D /* WidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02E12347B6ED00C0F23D /* WidgetViewRenderer.swift */; };
-		E56A02E52347C87C00C0F23D /* YogaTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02E42347C87C00C0F23D /* YogaTranslator.swift */; };
 		E56A02E72347C99F00C0F23D /* YogaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E56A02E62347C99F00C0F23D /* YogaKit.framework */; };
 		E56A02E82347C99F00C0F23D /* YogaKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E56A02E62347C99F00C0F23D /* YogaKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E57FBB82233A795A00165D8D /* DataPreprocessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57FBB81233A795A00165D8D /* DataPreprocessor.swift */; };
@@ -110,7 +113,6 @@
 		E5CE431E2335402B00295277 /* ChildrenWidgetMappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9800D881233412540051B4F2 /* ChildrenWidgetMappingTests.swift */; };
 		E5DD468B234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */; };
 		E5DD4691234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4690234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift */; };
-		E5DD46A4234E2128004B7289 /* FlexViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD46A3234E2128004B7289 /* FlexViewConfigurator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +140,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		930A2B5723574B23003A945C /* FlexWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexWidgetViewRenderer.swift; sourceTree = "<group>"; };
+		930A2B5923574B55003A945C /* FlexSingleWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidgetViewRenderer.swift; sourceTree = "<group>"; };
 		932925CF2327E11000A61F01 /* BeagleUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BeagleUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		932925D22327E11000A61F01 /* BeagleUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BeagleUI.h; sourceTree = "<group>"; };
 		932925D32327E11000A61F01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -155,6 +159,8 @@
 		93681814232A8D6500E6E724 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		93681816232A8D6E00E6E724 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		9368181C232A8DE100E6E724 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
+		9397F5CE2357615F00054D42 /* FlexViewConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexViewConfigurator.swift; sourceTree = "<group>"; };
+		9397F5CF2357615F00054D42 /* YogaTranslator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YogaTranslator.swift; sourceTree = "<group>"; };
 		9800D881233412540051B4F2 /* ChildrenWidgetMappingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildrenWidgetMappingTests.swift; sourceTree = "<group>"; };
 		980262AD2345431B0025A9C3 /* FlexWidgetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexWidgetTests.swift; sourceTree = "<group>"; };
 		980262AF2345432B0025A9C3 /* FlexSingleWidgetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidgetTests.swift; sourceTree = "<group>"; };
@@ -183,7 +189,6 @@
 		E56A02CE23462B8400C0F23D /* PaddingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingTests.swift; sourceTree = "<group>"; };
 		E56A02D123462C0900C0F23D /* WidgetBuildersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetBuildersTests.swift; sourceTree = "<group>"; };
 		E56A02E12347B6ED00C0F23D /* WidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewRenderer.swift; sourceTree = "<group>"; };
-		E56A02E42347C87C00C0F23D /* YogaTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YogaTranslator.swift; sourceTree = "<group>"; };
 		E56A02E62347C99F00C0F23D /* YogaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YogaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E57FBB81233A795A00165D8D /* DataPreprocessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPreprocessor.swift; sourceTree = "<group>"; };
 		E57FBB85233ABF3F00165D8D /* DataPreprocessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPreprocessorTests.swift; sourceTree = "<group>"; };
@@ -209,7 +214,7 @@
 		E5CB5DB823550CEF009783A7 /* WidgetRegisterItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetRegisterItem.swift; sourceTree = "<group>"; };
 		E5CB5DBA23550D32009783A7 /* CustomWidgetsRendererProviderRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWidgetsRendererProviderRegister.swift; sourceTree = "<group>"; };
 		E5CB5DBE2355FFFA009783A7 /* BeagleUIPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = BeagleUIPlayground.playground; path = Sources/BeagleUI/BeagleUIPlayground.playground; sourceTree = "<group>"; };
-		E5CB5DBF2355FFFA009783A7 /* YogaKit.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = YogaKit.playground; path = Libraries/YogaKit/YogaKit.playground; sourceTree = "<group>"; };
+		E5CB5DBF2355FFFA009783A7 /* YogaKit.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = YogaKit.playground; path = Libraries/YogaKit/YogaKit.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E5CB5DC22356375E009783A7 /* CustomWidgetsRendererProviderRegisterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWidgetsRendererProviderRegisterTests.swift; sourceTree = "<group>"; };
 		E5CB5DC523565440009783A7 /* BeagleSetupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleSetupTests.swift; sourceTree = "<group>"; };
 		E5CB5DCD23578837009783A7 /* LayoutViewRendererProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutViewRendererProvider.swift; sourceTree = "<group>"; };
@@ -246,7 +251,6 @@
 		E5CE43172335052100295277 /* UIEnumModelConvertibleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEnumModelConvertibleTests.swift; sourceTree = "<group>"; };
 		E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownWidgetViewRenderer.swift; sourceTree = "<group>"; };
 		E5DD4690234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailableWidgetRendererProviderErrorTests.swift; sourceTree = "<group>"; };
-		E5DD46A3234E2128004B7289 /* FlexViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexViewConfigurator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -478,6 +482,8 @@
 			isa = PBXGroup;
 			children = (
 				E5CB5DC723566781009783A7 /* Util */,
+				930A2B5923574B55003A945C /* FlexSingleWidgetViewRenderer.swift */,
+				930A2B5723574B23003A945C /* FlexWidgetViewRenderer.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -618,8 +624,8 @@
 		E5CB5DC723566781009783A7 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				E56A02E42347C87C00C0F23D /* YogaTranslator.swift */,
-				E5DD46A3234E2128004B7289 /* FlexViewConfigurator.swift */,
+				9397F5CE2357615F00054D42 /* FlexViewConfigurator.swift */,
+				9397F5CF2357615F00054D42 /* YogaTranslator.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -982,7 +988,9 @@
 				E5CE41D82332769500295277 /* ListViewEntity.swift in Sources */,
 				E5A33FE7234BAF6E00AB8EB0 /* BeagleViewBuilder.swift in Sources */,
 				E5CE422E2334185300295277 /* UIModelConvertible.swift in Sources */,
+				930A2B5A23574B55003A945C /* FlexSingleWidgetViewRenderer.swift in Sources */,
 				E5CE41BB2331DFF100295277 /* WidgetConvertible.swift in Sources */,
+				9397F5D02357615F00054D42 /* FlexViewConfigurator.swift in Sources */,
 				9368180D232A889900E6E724 /* Stack.swift in Sources */,
 				E5CE41A72331D93F00295277 /* ContainerEntity.swift in Sources */,
 				E5CE41C223325E2100295277 /* FlexEntity.swift in Sources */,
@@ -1001,7 +1009,6 @@
 				93681809232A888300E6E724 /* Padding.swift in Sources */,
 				E5CB5D792354ADF9009783A7 /* ButtonWidgetViewRenderer.swift in Sources */,
 				E57FBB82233A795A00165D8D /* DataPreprocessor.swift in Sources */,
-				E56A02E52347C87C00C0F23D /* YogaTranslator.swift in Sources */,
 				E5CB5D732354ADC7009783A7 /* TextWidgetViewRenderer.swift in Sources */,
 				E5CB5D8F2354E4CD009783A7 /* BeagleEnvironment.swift in Sources */,
 				93681803232A884F00E6E724 /* UnitValue.swift in Sources */,
@@ -1013,11 +1020,12 @@
 				936817FD232A882D00E6E724 /* Widget.swift in Sources */,
 				E5CB5DAB23550012009783A7 /* BeagleSetup.swift in Sources */,
 				E5CE41CC233274BB00295277 /* SpacerEntity.swift in Sources */,
+				930A2B5823574B23003A945C /* FlexWidgetViewRenderer.swift in Sources */,
+				9397F5D12357615F00054D42 /* YogaTranslator.swift in Sources */,
 				E5DD468B234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift in Sources */,
 				E5CE41D62332768700295277 /* ImageEntity.swift in Sources */,
 				E5CE41A32331D55000295277 /* WidgetDecoder.swift in Sources */,
 				E56A02B723451D5C00C0F23D /* FlexSingleWidgetEntity.swift in Sources */,
-				E5DD46A4234E2128004B7289 /* FlexViewConfigurator.swift in Sources */,
 				93681815232A8D6500E6E724 /* Image.swift in Sources */,
 				E5CE41C623325E4500295277 /* UnitValueEntity.swift in Sources */,
 				936817FF232A883E00E6E724 /* Flex.swift in Sources */,
