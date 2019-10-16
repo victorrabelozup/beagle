@@ -15,8 +15,6 @@ final class UIComponentViewRendererProviding: UIComponentViewRendererProvider {
     func buildRenderer(for widget: Widget) throws -> WidgetViewRendererProtocol {
         switch widget {
         case is Button:
-            // TODO: Check what is better...
-            // Injecting self or creating a new instance of `WidgetRendererProviding` to inject on the renderer
             return try ButtonWidgetViewRenderer(widget)
             //        case is Image:
             //            debugPrint("Image")

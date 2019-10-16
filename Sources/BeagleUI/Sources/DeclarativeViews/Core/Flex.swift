@@ -29,7 +29,7 @@ public struct Flex {
     
     // MARK: - Initialization
     
-    public init (// TODO: Change this visibilty constraint in the future...
+    public init (
         direction: Direction = .ltr,
         flexDirection: FlexDirection = .column,
         flexWrap: Wrap = .noWrap,
