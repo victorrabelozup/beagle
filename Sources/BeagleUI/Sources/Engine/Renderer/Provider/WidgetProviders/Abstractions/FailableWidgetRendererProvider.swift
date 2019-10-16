@@ -22,5 +22,5 @@ enum FailableWidgetRendererProviderError: Error {
 }
 
 public protocol FailableWidgetRendererProvider {
-    func buildRenderer<W: Widget>(for widget: W) throws -> WidgetViewRendererProtocol
+    func buildRenderer(for widget: Widget) throws -> WidgetViewRendererProtocol
 }
