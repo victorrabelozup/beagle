@@ -1,4 +1,4 @@
-package br.com.zup.beagleui.framework.core
+package br.com.zup.beagleui.framework.widget.core
 
 open class NativeWidget : Widget {
     override fun buildResultName(): String = "none"

@@ -1,4 +1,4 @@
-package br.com.zup.beagleui.framework.core
+package br.com.zup.beagleui.framework.widget.core
 
 data class UnitValue(
     val value: Double,

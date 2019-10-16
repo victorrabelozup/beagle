@@ -1,8 +1,8 @@
 package br.com.zup.beagleui.framework.serialization.jackson
 
 import br.com.zup.beagleui.framework.config.BeagleInitializer
-import br.com.zup.beagleui.framework.core.NativeWidget
-import br.com.zup.beagleui.framework.core.Widget
+import br.com.zup.beagleui.framework.widget.core.NativeWidget
+import br.com.zup.beagleui.framework.widget.core.Widget
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.ser.std.StdSerializer
