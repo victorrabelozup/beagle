@@ -13,3 +13,8 @@ public protocol Widget {}
 public protocol FlexConfigurableWidget: Widget {
     var flex: Flex { get }
 }
+
+// Defines a representation of an unknwon Widget
+struct AnyWidget: Widget {
+    let value: Any
+}

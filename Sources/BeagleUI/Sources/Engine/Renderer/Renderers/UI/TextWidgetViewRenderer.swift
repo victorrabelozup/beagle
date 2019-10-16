@@ -8,16 +8,12 @@
 
 import UIKit
 
-final class TextWidgetViewRenderer: WidgetViewRenderer {
-    private let widget: Text
+final class TextWidgetViewRenderer: BaseWidgetViewRenderer<Text> {
     
-    init(_ widget: Widget) throws {
-        self.widget = try .newByCasting(widget: widget, to: Text.self)
-    }
-    
-    func buildView() -> UIView {
+    override func buildView() -> UIView {
         let label = UILabel(frame: .zero)
         label.text = widget.text
         return label
     }
+    
 }

@@ -34,8 +34,6 @@
 		985EBA7B2354D1320042C19A /* WidgetViewRenderingErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985EBA7A2354D1320042C19A /* WidgetViewRenderingErrorTests.swift */; };
 		985EBA7F2354E15E0042C19A /* FlexViewConfiguratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985EBA7E2354E15E0042C19A /* FlexViewConfiguratorTests.swift */; };
 		985EBA812355110D0042C19A /* Flex+Fixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985EBA802355110D0042C19A /* Flex+Fixture.swift */; };
-		E50B0900234CCAB90091AF0A /* UIComponentWidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B08FD234CCAB90091AF0A /* UIComponentWidgetRendererProvider.swift */; };
-		E50B0901234CCAB90091AF0A /* LayoutWidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B08FE234CCAB90091AF0A /* LayoutWidgetRendererProvider.swift */; };
 		E50B0902234CCAB90091AF0A /* WidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B08FF234CCAB90091AF0A /* WidgetRendererProvider.swift */; };
 		E50B0904234CCACB0091AF0A /* FailableWidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B0903234CCACB0091AF0A /* FailableWidgetRendererProvider.swift */; };
 		E56A029D2344172400C0F23D /* WidgetBuilders.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A029C2344172400C0F23D /* WidgetBuilders.swift */; };
@@ -170,8 +168,6 @@
 		985EBA7A2354D1320042C19A /* WidgetViewRenderingErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewRenderingErrorTests.swift; sourceTree = "<group>"; };
 		985EBA7E2354E15E0042C19A /* FlexViewConfiguratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexViewConfiguratorTests.swift; sourceTree = "<group>"; };
 		985EBA802355110D0042C19A /* Flex+Fixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Flex+Fixture.swift"; sourceTree = "<group>"; };
-		E50B08FD234CCAB90091AF0A /* UIComponentWidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIComponentWidgetRendererProvider.swift; sourceTree = "<group>"; };
-		E50B08FE234CCAB90091AF0A /* LayoutWidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutWidgetRendererProvider.swift; sourceTree = "<group>"; };
 		E50B08FF234CCAB90091AF0A /* WidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetRendererProvider.swift; sourceTree = "<group>"; };
 		E50B0903234CCACB0091AF0A /* FailableWidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailableWidgetRendererProvider.swift; sourceTree = "<group>"; };
 		E53524AA23310F5A00D1A0C9 /* YogaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YogaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -481,8 +477,7 @@
 		E56A02E32347C85800C0F23D /* Layout */ = {
 			isa = PBXGroup;
 			children = (
-				E56A02E42347C87C00C0F23D /* YogaTranslator.swift */,
-				E5DD46A3234E2128004B7289 /* FlexViewConfigurator.swift */,
+				E5CB5DC723566781009783A7 /* Util */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -586,8 +581,6 @@
 			isa = PBXGroup;
 			children = (
 				E50B08FC234CCAA40091AF0A /* Abstractions */,
-				E50B08FE234CCAB90091AF0A /* LayoutWidgetRendererProvider.swift */,
-				E50B08FD234CCAB90091AF0A /* UIComponentWidgetRendererProvider.swift */,
 				E5CB5DBA23550D32009783A7 /* CustomWidgetsRendererProviderRegister.swift */,
 			);
 			path = WidgetProviders;
@@ -620,6 +613,15 @@
 				E5CB5DC523565440009783A7 /* BeagleSetupTests.swift */,
 			);
 			path = Setup;
+			sourceTree = "<group>";
+		};
+		E5CB5DC723566781009783A7 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				E56A02E42347C87C00C0F23D /* YogaTranslator.swift */,
+				E5DD46A3234E2128004B7289 /* FlexViewConfigurator.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		E5CE41A02331D41500295277 /* Decoding */ = {
@@ -989,7 +991,6 @@
 				E5CE41A52331D59E00295277 /* WidgetEntityContainer.swift in Sources */,
 				E5CE41FB2333F7FB00295277 /* ChildrenWidgetMapping.swift in Sources */,
 				E5CB5DB023550877009783A7 /* ImageEntityContentMode.swift in Sources */,
-				E50B0900234CCAB90091AF0A /* UIComponentWidgetRendererProvider.swift in Sources */,
 				E5CB5DB22355088F009783A7 /* NetworkImageEntity.swift in Sources */,
 				9368181D232A8DE100E6E724 /* Text.swift in Sources */,
 				E5CE41A92331D95300295277 /* VerticalEntity.swift in Sources */,
@@ -999,7 +1000,6 @@
 				93681811232A8D0F00E6E724 /* Button.swift in Sources */,
 				93681809232A888300E6E724 /* Padding.swift in Sources */,
 				E5CB5D792354ADF9009783A7 /* ButtonWidgetViewRenderer.swift in Sources */,
-				E50B0901234CCAB90091AF0A /* LayoutWidgetRendererProvider.swift in Sources */,
 				E57FBB82233A795A00165D8D /* DataPreprocessor.swift in Sources */,
 				E56A02E52347C87C00C0F23D /* YogaTranslator.swift in Sources */,
 				E5CB5D732354ADC7009783A7 /* TextWidgetViewRenderer.swift in Sources */,

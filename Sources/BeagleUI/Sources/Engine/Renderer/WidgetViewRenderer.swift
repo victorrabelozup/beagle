@@ -22,8 +22,28 @@ public enum WidgetViewRenderingError: Error {
 }
 
 public protocol WidgetViewRenderer {
-    init(_ widget: Widget) throws
     func buildView() -> UIView
+}
+
+public class BaseWidgetViewRenderer<W: Widget>: WidgetViewRenderer {
+    
+    let flexViewConfigurator: FlexViewConfiguratorProtocol
+    let rendenrerProvider: WidgetRendererProvider
+    private(set) var widget: W
+    
+    public init(
+        _ widget: Widget,
+        rendenrerProvider: WidgetRendererProvider? = nil,
+        flexViewConfigurator: FlexViewConfiguratorProtocol? = nil
+    ) throws {
+        self.widget = try .newByCasting(widget: widget, to: W.self)
+        self.rendenrerProvider = rendenrerProvider ?? WidgetRendererProviding()
+        self.flexViewConfigurator = flexViewConfigurator ?? FlexViewConfigurator()
+    }
+    
+    open func buildView() -> UIView {
+        fatalError("This needs to be overriden.")
+    }
 }
 
 extension Widget {

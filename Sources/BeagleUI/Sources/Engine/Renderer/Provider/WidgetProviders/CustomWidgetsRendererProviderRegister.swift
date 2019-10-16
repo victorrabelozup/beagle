@@ -22,32 +22,32 @@ enum CustomWidgetsRendererProviderRegisterError: Error {
 }
 
 protocol CustomWidgetsRendererProviderRegistering {
-    func registerRenderer<R: WidgetViewRenderer, W: Widget>(_ rendererType: R.Type, for widgetType: W.Type)
+    func registerRenderer<W: Widget, R: WidgetViewRenderer>(_ rendererType: R.Type, for widgetType: W.Type)
 }
 
-protocol CustomWidgetsRendererProviderDequeuing {
-    func dequeueRenderer(for widget: Widget) throws -> WidgetViewRenderer
+public protocol CustomWidgetsRendererProviderDequeuing {
+    func dequeueRenderer<T: Widget>(for widget: T) throws -> WidgetViewRenderer
 }
 
 final class CustomWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering, CustomWidgetsRendererProviderDequeuing {
     
     // MARK: - Private Properties
     
-    private var renderers = [String: WidgetViewRenderer.Type]()
+    private var renderers = [String: Any]()
     
     // MARK: - Public Functions
     
-    func registerRenderer<R: WidgetViewRenderer, W: Widget>(_ rendererType: R.Type, for widgetType: W.Type) {
+    func registerRenderer<W: Widget, R: WidgetViewRenderer>(_ rendererType: R.Type, for widgetType: W.Type) {
         let widgetTypeName = String(describing: widgetType)
         renderers[widgetTypeName] = rendererType
     }
     
-    func dequeueRenderer(for widget: Widget) throws -> WidgetViewRenderer {
+    public func dequeueRenderer<T: Widget>(for widget: T) throws -> WidgetViewRenderer {
         let widgetTypeName = String(describing: type(of: widget))
-        guard let rendererType = renderers[widgetTypeName] else {
+        guard let renderer = renderers[widgetTypeName] as? WidgetViewRenderer else {
             throw CustomWidgetsRendererProviderRegisterError.couldNotFindRendererForWidgetOfType(widgetTypeName)
         }
-        return try rendererType.init(widget)
+        return renderer
     }
     
 }

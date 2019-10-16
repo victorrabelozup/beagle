@@ -9,7 +9,7 @@
 import Foundation
 import YogaKit
 
-protocol FlexViewConfiguratorProtocol {
+public protocol FlexViewConfiguratorProtocol {
     func applyFlex(_ flex: Flex, to view: UIView)
 }
 
@@ -17,7 +17,7 @@ final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
     
     // MARK: - Dependencies
     
-    private let yogaTranslator: YogaTranslator
+    let yogaTranslator: YogaTranslator
     
     // MARK: - Initialization
     

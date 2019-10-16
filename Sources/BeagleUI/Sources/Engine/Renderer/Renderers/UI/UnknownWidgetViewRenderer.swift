@@ -10,14 +10,10 @@ import UIKit
 
 final class UnknownWidgetViewRenderer: WidgetViewRenderer {
     
-    // MARK: - Properties
-    
-    private let widget: Widget
-    
-    // MARK: - Initialization
+    let widget: AnyWidget
     
     init(_ widget: Widget) {
-        self.widget = widget
+        self.widget = AnyWidget(value: widget as Any)
     }
     
     // MARK: - Public Functions

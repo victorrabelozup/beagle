@@ -8,22 +8,14 @@
 
 import UIKit
 
-final class ButtonWidgetViewRenderer: WidgetViewRenderer {
-    // MARK: - Properties
-    
-    private let widget: Button
-    
-    // MARK: - Initialization
-    
-    init(_ widget: Widget) throws {
-        self.widget = try .newByCasting(widget: widget, to: Button.self)
-    }
+final class ButtonWidgetViewRenderer: BaseWidgetViewRenderer<Button> {
     
     // MARK: - Public Functions
     
-    func buildView() -> UIView {
+    override func buildView() -> UIView {
         let button = UIButton(frame: .zero)
         button.setTitle(widget.text, for: .normal)
         return button
     }
+    
 }
