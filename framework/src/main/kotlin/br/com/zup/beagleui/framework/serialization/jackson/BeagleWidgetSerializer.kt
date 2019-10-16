@@ -1,5 +1,6 @@
-package br.com.zup.beagleui.framework.jackson
+package br.com.zup.beagleui.framework.serialization.jackson
 
+import br.com.zup.beagleui.framework.config.BeagleInitializer
 import br.com.zup.beagleui.framework.core.NativeWidget
 import br.com.zup.beagleui.framework.core.Widget
 import com.fasterxml.jackson.core.JsonGenerator
@@ -35,12 +36,23 @@ class BeagleWidgetSerializer : StdSerializer<Widget>(Widget::class.java) {
     }
 
     private fun buildNativeWidget(value: Widget, gen: JsonGenerator, provider: SerializerProvider) {
-        val widgetName = getClassName(value)
-
         gen.writeStartObject()
-        gen.writeStringField(TYPE, "$BEAGLE_NAMESPACE:$widgetName")
+        addTypeToJson(value, gen)
         serializeFields(value, gen)
         gen.writeEndObject()
+    }
+
+    private fun addTypeToJson(value: Widget, gen: JsonGenerator) {
+        val widgetName = getClassName(value)
+        val configuration = BeagleInitializer.configuration
+
+        val appName = configuration.appName
+        val registeredWidgets = configuration.widgets
+        if (registeredWidgets.contains(value::class.java)) {
+            gen.writeStringField(TYPE, "$appName:$widgetName")
+        } else {
+            gen.writeStringField(TYPE, "$BEAGLE_NAMESPACE:$widgetName")
+        }
     }
 
     private fun serializeFields(value: Widget, gen: JsonGenerator) {
