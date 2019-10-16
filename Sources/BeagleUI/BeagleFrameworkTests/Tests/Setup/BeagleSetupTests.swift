@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import BeagleUI
+import Networking
 
 final class BeagleSetupTests: XCTestCase {
     
@@ -59,6 +60,7 @@ final class BeagleSetupTests: XCTestCase {
 final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
     
     var decoder: WidgetDecoding { WidgetDecodingDummy() }
+    var networkingDispatcher: URLRequestDispatching { URLRequestDispatchingDummy() }
     var customWidgetsProvider: CustomWidgetsRendererProviderDequeuing { CustomWidgetsRendererProviderDequeuingDummy() }
     
     private(set) static var _shared: BeagleEnvironmentSpy?
@@ -72,16 +74,18 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
     static func initialize(
         appName: String,
         decoder: WidgetDecoding,
+        networkingDispatcher: URLRequestDispatching,
         customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderDequeuing & CustomWidgetsRendererProviderRegistering
     ) {
         _shared = BeagleEnvironmentSpy()
         initializeCalled = true
     }
     
-    static func initialize(appName: String) {
+    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching?) {
         initialize(
             appName: appName,
             decoder: WidgetDecodingDummy(),
+            networkingDispatcher: networkingDispatcher ?? URLRequestDispatchingDummy(),
             customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderDummy()
         )
     }
@@ -122,5 +126,11 @@ private final class CustomWidgetsRendererProviderDummy: CustomWidgetsRendererPro
 private struct WidgetDummyEntity: WidgetConvertibleEntity {
     func mapToWidget() throws -> Widget {
         return WidgetDummy()
+    }
+}
+
+private class URLRequestDispatchingDummy: URLRequestDispatching {
+    func execute(request: URLRequestProtocol, completion: @escaping (Result<Data?, URLRequestError>) -> Void) -> URLRequestToken? {
+        return nil
     }
 }
