@@ -15,7 +15,7 @@ final class FlexSingleWidgetViewRenderer: WidgetViewRenderer<FlexSingleWidget> {
     override func buildView() -> UIView {
         let view = UIView()
         
-        let childView = rendenrerProvider.buildRenderer(for: widget).buildView()
+        let childView = rendererProvider.buildRenderer(for: widget).buildView()
         view.addSubview(childView)
         
         flexViewConfigurator.applyFlex(widget.flex, to: view)

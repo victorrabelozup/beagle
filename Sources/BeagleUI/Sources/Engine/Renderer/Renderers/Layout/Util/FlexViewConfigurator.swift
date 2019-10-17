@@ -11,6 +11,7 @@ import YogaKit
 
 protocol FlexViewConfiguratorProtocol {
     func applyFlex(_ flex: Flex, to view: UIView)
+    func configFlex(_ flex: Flex, to view: UIView)
 }
 
 final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
@@ -28,10 +29,14 @@ final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
     // MARK: - Public Methods
     
     func applyFlex(_ flex: Flex, to view: UIView) {
+        configFlex(flex, to: view)
+        view.yoga.applyLayout(preservingOrigin: true)
+    }
+    
+    func configFlex(_ flex: Flex, to view: UIView) {
         view.yoga.isEnabled = true
         applyYogaProperties(from: flex, to: view.yoga)
         applyAtributes(from: flex, to: view.yoga)
-        view.yoga.applyLayout(preservingOrigin: true)
     }
     
     // MARK: - Private Methods
