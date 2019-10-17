@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class ContainerViewRenderer: WidgetViewRenderer<Container> {
+final class ContainerWidgetViewRenderer: WidgetViewRenderer<Container> {
     
     // MARK: - Public Functions
     
