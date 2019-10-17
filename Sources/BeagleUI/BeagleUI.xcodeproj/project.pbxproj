@@ -63,6 +63,10 @@
 		E5835B33233BD84600125140 /* WidgetEntityContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5835B32233BD84600125140 /* WidgetEntityContainerTests.swift */; };
 		E5835B35233BD95C00125140 /* WidgetConvertibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5835B34233BD95C00125140 /* WidgetConvertibleTests.swift */; };
 		E5A33FE7234BAF6E00AB8EB0 /* BeagleViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A33FE6234BAF6E00AB8EB0 /* BeagleViewBuilder.swift */; };
+		E5A6F4A92358A547008906F8 /* FatalErrorUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6F4A82358A547008906F8 /* FatalErrorUtil.swift */; };
+		E5A6F4AD2358A76F008906F8 /* XCTestCase+FatalError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6F4AC2358A76F008906F8 /* XCTestCase+FatalError.swift */; };
+		E5A6F4AF2358AA85008906F8 /* BeagleEnvironmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6F4AE2358AA85008906F8 /* BeagleEnvironmentTests.swift */; };
+		E5A6F4B12358DF06008906F8 /* WidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6F4B02358DF06008906F8 /* WidgetViewRendererTests.swift */; };
 		E5CB5D63234E7A21009783A7 /* BeagleFlexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D62234E7A21009783A7 /* BeagleFlexView.swift */; };
 		E5CB5D65234E7CF6009783A7 /* BeagleFlexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D64234E7CF6009783A7 /* BeagleFlexViewController.swift */; };
 		E5CB5D68234F738F009783A7 /* BeagleFlexViewContaining.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D67234F738F009783A7 /* BeagleFlexViewContaining.swift */; };
@@ -206,6 +210,10 @@
 		E5835B32233BD84600125140 /* WidgetEntityContainerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntityContainerTests.swift; sourceTree = "<group>"; };
 		E5835B34233BD95C00125140 /* WidgetConvertibleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetConvertibleTests.swift; sourceTree = "<group>"; };
 		E5A33FE6234BAF6E00AB8EB0 /* BeagleViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleViewBuilder.swift; sourceTree = "<group>"; };
+		E5A6F4A82358A547008906F8 /* FatalErrorUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatalErrorUtil.swift; sourceTree = "<group>"; };
+		E5A6F4AC2358A76F008906F8 /* XCTestCase+FatalError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FatalError.swift"; sourceTree = "<group>"; };
+		E5A6F4AE2358AA85008906F8 /* BeagleEnvironmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleEnvironmentTests.swift; sourceTree = "<group>"; };
+		E5A6F4B02358DF06008906F8 /* WidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		E5CB5D62234E7A21009783A7 /* BeagleFlexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleFlexView.swift; sourceTree = "<group>"; };
 		E5CB5D64234E7CF6009783A7 /* BeagleFlexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleFlexViewController.swift; sourceTree = "<group>"; };
 		E5CB5D67234F738F009783A7 /* BeagleFlexViewContaining.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleFlexViewContaining.swift; sourceTree = "<group>"; };
@@ -354,6 +362,7 @@
 		939CE4C4232996FD00EEEDFC /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				E5A6F4A62358A530008906F8 /* Common */,
 				E5CB5D892354E481009783A7 /* Setup */,
 				E5CE41A02331D41500295277 /* Decoding */,
 				E5835BB9233D4F0900125140 /* DeclarativeViews */,
@@ -385,6 +394,7 @@
 			children = (
 				9802EF40234D108200A7EE89 /* Layout */,
 				E5CB5D6B2354AC7C009783A7 /* UI */,
+				E5A6F4B02358DF06008906F8 /* WidgetViewRendererTests.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -519,17 +529,9 @@
 			children = (
 				E50B08FB234CCA640091AF0A /* Provider */,
 				E5DD4689234CCEC9004B7289 /* Renderers */,
-				E5A33FE4234BAD2500AB8EB0 /* Native */,
 				E56A02E12347B6ED00C0F23D /* WidgetViewRenderer.swift */,
 			);
 			path = Renderer;
-			sourceTree = "<group>";
-		};
-		E5A33FE4234BAD2500AB8EB0 /* Native */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Native;
 			sourceTree = "<group>";
 		};
 		E5A33FE5234BAD3400AB8EB0 /* UI */ = {
@@ -540,6 +542,32 @@
 				E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		E5A6F4A62358A530008906F8 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E5A6F4A72358A53B008906F8 /* Util */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		E5A6F4A72358A53B008906F8 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				E5A6F4A82358A547008906F8 /* FatalErrorUtil.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		E5A6F4AA2358A759008906F8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E56A02BB2345388100C0F23D /* CollectionExtension.swift */,
+				E5CB5D852354C830009783A7 /* MirrorExtension.swift */,
+				E5A6F4AC2358A76F008906F8 /* XCTestCase+FatalError.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		E5CB5D66234F7380009783A7 /* Protocols */ = {
@@ -632,6 +660,7 @@
 			isa = PBXGroup;
 			children = (
 				E5CB5DC523565440009783A7 /* BeagleSetupTests.swift */,
+				E5A6F4AE2358AA85008906F8 /* BeagleEnvironmentTests.swift */,
 			);
 			path = Setup;
 			sourceTree = "<group>";
@@ -805,8 +834,7 @@
 		E5CE431A2335068000295277 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E56A02BB2345388100C0F23D /* CollectionExtension.swift */,
-				E5CB5D852354C830009783A7 /* MirrorExtension.swift */,
+				E5A6F4AA2358A759008906F8 /* Extensions */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -1033,6 +1061,7 @@
 				E50B0902234CCAB90091AF0A /* WidgetRendererProvider.swift in Sources */,
 				E5CB5DB7235508CE009783A7 /* ImageContentMode.swift in Sources */,
 				9368180F232A88B300E6E724 /* Vertical.swift in Sources */,
+				E5A6F4A92358A547008906F8 /* FatalErrorUtil.swift in Sources */,
 				E5CB5DB5235508B9009783A7 /* NetworkImage.swift in Sources */,
 				E5CB5DD023578967009783A7 /* UIComponentViewRendererProvider.swift in Sources */,
 				936817FD232A882D00E6E724 /* Widget.swift in Sources */,
@@ -1083,6 +1112,7 @@
 				E56A02BC2345388100C0F23D /* CollectionExtension.swift in Sources */,
 				E5CE4218233403E000295277 /* ContainerEntityTests.swift in Sources */,
 				985EBA812355110D0042C19A /* Flex+Fixture.swift in Sources */,
+				E5A6F4AD2358A76F008906F8 /* XCTestCase+FatalError.swift in Sources */,
 				E5CB5D7B2354AE13009783A7 /* ButtonWidgetViewRendererTests.swift in Sources */,
 				E56A02C3234542B600C0F23D /* HorizontalTests.swift in Sources */,
 				E5CB5D812354C08E009783A7 /* UnknownWidgetViewRendererTests.swift in Sources */,
@@ -1098,7 +1128,9 @@
 				E5CE42012333FC1F00295277 /* ButtonEntityTests.swift in Sources */,
 				E5835B35233BD95C00125140 /* WidgetConvertibleTests.swift in Sources */,
 				E5CE422823340EA100295277 /* UnitValueEntityTests.swift in Sources */,
+				E5A6F4B12358DF06008906F8 /* WidgetViewRendererTests.swift in Sources */,
 				E5CB5D842354C600009783A7 /* BeagleFlexViewTests.swift in Sources */,
+				E5A6F4AF2358AA85008906F8 /* BeagleEnvironmentTests.swift in Sources */,
 				E5CE41F62332B9DD00295277 /* WidgetDecoderTests.swift in Sources */,
 				985EBA9123565F180042C19A /* ImageEntityTests.swift in Sources */,
 				E56A02BA2345367D00C0F23D /* ListViewTests.swift in Sources */,
