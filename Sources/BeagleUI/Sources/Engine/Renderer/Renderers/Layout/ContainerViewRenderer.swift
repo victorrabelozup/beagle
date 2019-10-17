@@ -17,7 +17,7 @@ final class ContainerViewRenderer: WidgetViewRenderer<Container> {
         let flex = Flex(flexDirection: .column, justifyContent: .spaceBetween)
         
         if let header = widget.header {
-            let headerView = rendenrerProvider.buildRenderer(for: header).buildView()
+            let headerView = rendererProvider.buildRenderer(for: header).buildView()
             view.addSubview(headerView)
         }
         
@@ -25,7 +25,7 @@ final class ContainerViewRenderer: WidgetViewRenderer<Container> {
         view.addSubview(scrollView)
         
         if let footer = widget.footer {
-            let footerView = rendenrerProvider.buildRenderer(for: footer).buildView()
+            let footerView = rendererProvider.buildRenderer(for: footer).buildView()
             view.addSubview(footerView)
         }
         
@@ -39,7 +39,7 @@ final class ContainerViewRenderer: WidgetViewRenderer<Container> {
         let scrollView = UIScrollView(frame: .zero)
         let flex = Flex(grow: 1)
         
-        let contentView = rendenrerProvider.buildRenderer(for: widget.content).buildView()
+        let contentView = rendererProvider.buildRenderer(for: widget.content).buildView()
         scrollView.addSubview(contentView)
         
         flexViewConfigurator.configFlex(flex, to: scrollView)
