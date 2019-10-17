@@ -106,7 +106,7 @@ private final class WidgetDecodingDummy: WidgetDecoding {
     func decode<T>(from data: Data, transformer: (Widget) throws -> T?) throws -> T? { return nil }
 }
 
-private final class CustomWidgetsRendererProviderDequeuingDummy: CustomWidgetsRendererProviderDequeuing {
+final class CustomWidgetsRendererProviderDequeuingDummy: CustomWidgetsRendererProviderDequeuing {
     func dequeueRenderer(for widget: Widget) throws -> WidgetViewRendererProtocol {
         return try WidgetViewRendererDummy(widget)
     }
@@ -116,20 +116,20 @@ final class WidgetViewRendererDummy: WidgetViewRenderer<WidgetDummy> {
     override func buildView() -> UIView { return UIView() }
 }
 
-private final class CustomWidgetsRendererProviderDummy: CustomWidgetsRendererProviderDequeuing, CustomWidgetsRendererProviderRegistering {
+final class CustomWidgetsRendererProviderDummy: CustomWidgetsRendererProviderDequeuing, CustomWidgetsRendererProviderRegistering {
     func registerRenderer<W>(_ rendererType: WidgetViewRenderer<W>.Type, for widgetType: W.Type) where W : Widget {}
     func dequeueRenderer(for widget: Widget) throws -> WidgetViewRendererProtocol {
         return try WidgetViewRendererDummy(widget)
     }
 }
 
-private struct WidgetDummyEntity: WidgetConvertibleEntity {
+struct WidgetDummyEntity: WidgetConvertibleEntity {
     func mapToWidget() throws -> Widget {
         return WidgetDummy()
     }
 }
 
-private class URLRequestDispatchingDummy: URLRequestDispatching {
+class URLRequestDispatchingDummy: URLRequestDispatching {
     func execute(request: URLRequestProtocol, completion: @escaping (Result<Data?, URLRequestError>) -> Void) -> URLRequestToken? {
         return nil
     }

@@ -80,7 +80,7 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
         )
     }
     
-    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching?) {
+    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching? = nil) {
         let decoder = WidgetDecoder(namespace: appName)
         let dispatcher = networkingDispatcher ?? URLSessionDispatcher()
         initialize(appName: appName, decoder: decoder, networkingDispatcher: dispatcher)
