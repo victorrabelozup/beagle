@@ -1,7 +1,10 @@
 package br.com.zup.beagleui.framework.engine.renderer.native
 
 import android.content.Context
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.ScrollView
+import android.widget.TextView
 import br.com.zup.beagleui.framework.view.BeagleFlexView
 import br.com.zup.beagleui.framework.widget.core.Flex
 
@@ -16,4 +19,10 @@ internal class ViewFactory {
     fun makeScrollView(context: Context) = ScrollView(context).apply {
         isFillViewport = true
     }
+
+    fun makeButton(context: Context) = Button(context)
+
+    fun makeTextView(context: Context) = TextView(context)
+
+    fun makeImageView(context: Context) = ImageView(context)
 }

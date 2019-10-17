@@ -13,9 +13,8 @@ import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.engine.renderer.ui.ButtonViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.ImageViewRenderer
-import br.com.zup.beagleui.framework.engine.renderer.ui.TextFieldViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.ui.NetworkImageViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.TextViewRenderer
-import br.com.zup.beagleui.framework.engine.renderer.ui.ToolbarViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.UndefinedViewRenderer
 import br.com.zup.beagleui.framework.widget.layout.Container
 import br.com.zup.beagleui.framework.widget.layout.FlexSingleWidget
@@ -25,13 +24,10 @@ import br.com.zup.beagleui.framework.widget.layout.Spacer
 import br.com.zup.beagleui.framework.widget.layout.Stack
 import br.com.zup.beagleui.framework.widget.layout.Vertical
 import br.com.zup.beagleui.framework.widget.ui.Button
-import br.com.zup.beagleui.framework.widget.ui.DropDown
 import br.com.zup.beagleui.framework.widget.ui.Image
 import br.com.zup.beagleui.framework.widget.ui.ListView
-import br.com.zup.beagleui.framework.widget.ui.SelectView
+import br.com.zup.beagleui.framework.widget.ui.NetworkImage
 import br.com.zup.beagleui.framework.widget.ui.Text
-import br.com.zup.beagleui.framework.widget.ui.TextField
-import br.com.zup.beagleui.framework.widget.ui.Toolbar
 
 internal interface ViewRenderer {
     fun build(context: Context): View
@@ -68,11 +64,8 @@ internal class ViewRendererFactory {
             is Button -> ButtonViewRenderer(widget)
             is Text -> TextViewRenderer(widget)
             is Image -> ImageViewRenderer(widget)
-            is TextField -> TextFieldViewRenderer()
-            is Toolbar -> ToolbarViewRenderer(widget)
-            is SelectView -> UndefinedViewRenderer()
+            is NetworkImage -> NetworkImageViewRenderer(widget)
             is ListView -> UndefinedViewRenderer()
-            is DropDown -> UndefinedViewRenderer()
             else -> UndefinedViewRenderer()
         }
     }

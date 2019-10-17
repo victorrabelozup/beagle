@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.TextView
 import br.com.zup.beagleui.framework.engine.renderer.UIViewRenderer
 
-class UndefinedViewRenderer : UIViewRenderer {
+internal class UndefinedViewRenderer : UIViewRenderer {
 
     override fun build(context: Context): View {
         return TextView(context).apply {

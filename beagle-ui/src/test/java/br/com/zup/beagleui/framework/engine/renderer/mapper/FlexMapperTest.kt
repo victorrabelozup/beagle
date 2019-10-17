@@ -1,6 +1,6 @@
 package br.com.zup.beagleui.framework.engine.renderer.mapper
 
-import br.com.zup.beagleui.framework.utils.px
+import br.com.zup.beagleui.framework.utils.dp
 import br.com.zup.beagleui.framework.widget.core.Alignment
 import br.com.zup.beagleui.framework.widget.core.Direction
 import br.com.zup.beagleui.framework.widget.core.EdgeValue
@@ -51,8 +51,8 @@ class FlexMapperTest {
         mockkStatic(YogaNode::class)
         mockkStatic("br.com.zup.beagleui.framework.utils.NumberExtensionsKt")
 
-        every { HUNDRED_UNIT_VALUE.px() } returns HUNDRED_UNIT_VALUE
-        every { ONE_UNIT_VALUE.px() } returns ONE_UNIT_VALUE
+        every { HUNDRED_UNIT_VALUE.dp() } returns HUNDRED_UNIT_VALUE
+        every { ONE_UNIT_VALUE.dp() } returns ONE_UNIT_VALUE
         every { YogaNode.create() } returns yogaNode
         every { yogaNode.flexDirection = any() } just Runs
         every { yogaNode.setDirection(any()) } just Runs

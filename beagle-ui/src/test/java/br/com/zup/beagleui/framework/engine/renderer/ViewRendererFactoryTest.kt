@@ -5,15 +5,11 @@ import br.com.zup.beagleui.framework.engine.renderer.layout.HorizontalViewRender
 import br.com.zup.beagleui.framework.engine.renderer.layout.SpacerViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.StackViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.VerticalViewRender
-import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
-import br.com.zup.beagleui.framework.engine.renderer.native.YogaFactory
 import br.com.zup.beagleui.framework.engine.renderer.ui.ButtonViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.ImageViewRenderer
-import br.com.zup.beagleui.framework.engine.renderer.ui.TextFieldViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.ui.NetworkImageViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.TextViewRenderer
-import br.com.zup.beagleui.framework.engine.renderer.ui.ToolbarViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.UndefinedViewRenderer
-import br.com.zup.beagleui.framework.widget.core.Flex
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.layout.Container
 import br.com.zup.beagleui.framework.widget.layout.Horizontal
@@ -21,15 +17,11 @@ import br.com.zup.beagleui.framework.widget.layout.Spacer
 import br.com.zup.beagleui.framework.widget.layout.Stack
 import br.com.zup.beagleui.framework.widget.layout.Vertical
 import br.com.zup.beagleui.framework.widget.ui.Button
-import br.com.zup.beagleui.framework.widget.ui.DropDown
 import br.com.zup.beagleui.framework.widget.ui.Image
 import br.com.zup.beagleui.framework.widget.ui.ListView
-import br.com.zup.beagleui.framework.widget.ui.SelectView
+import br.com.zup.beagleui.framework.widget.ui.NetworkImage
 import br.com.zup.beagleui.framework.widget.ui.Text
-import br.com.zup.beagleui.framework.widget.ui.TextField
-import br.com.zup.beagleui.framework.widget.ui.Toolbar
 import io.mockk.every
-import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import org.junit.Before
 import org.junit.Test
@@ -148,7 +140,7 @@ class ViewRendererFactoryTest {
     @Test
     fun make_should_return_ImageViewRenderer_when_widget_is_a_Image() {
         // Given
-        val widget = Image(path = "")
+        val widget = Image(name = "")
 
         // When
         val actual = viewRendererFactory.make(widget)
@@ -158,57 +150,21 @@ class ViewRendererFactoryTest {
     }
 
     @Test
-    fun make_should_return_TextFieldViewRenderer_when_widget_is_a_TextField() {
+    fun make_should_return_NetworkImageViewRenderer_when_widget_is_a_NetworkImage() {
         // Given
-        val widget = TextField()
+        val widget = NetworkImage(url = "")
 
         // When
         val actual = viewRendererFactory.make(widget)
 
         // Then
-        assertTrue(actual is TextFieldViewRenderer)
-    }
-
-    @Test
-    fun make_should_return_ToolbarViewRenderer_when_widget_is_a_Toolbar() {
-        // Given
-        val widget = Toolbar(title = "")
-
-        // When
-        val actual = viewRendererFactory.make(widget)
-
-        // Then
-        assertTrue(actual is ToolbarViewRenderer)
-    }
-
-    @Test
-    fun make_should_return_UndefinedViewRenderer_when_widget_is_a_SelectView() {
-        // Given
-        val widget = SelectView()
-
-        // When
-        val actual = viewRendererFactory.make(widget)
-
-        // Then
-        assertTrue(actual is UndefinedViewRenderer)
+        assertTrue(actual is NetworkImageViewRenderer)
     }
 
     @Test
     fun make_should_return_UndefinedViewRenderer_when_widget_is_a_ListView() {
         // Given
         val widget = ListView()
-
-        // When
-        val actual = viewRendererFactory.make(widget)
-
-        // Then
-        assertTrue(actual is UndefinedViewRenderer)
-    }
-
-    @Test
-    fun make_should_return_UndefinedViewRenderer_when_widget_is_a_DropDown() {
-        // Given
-        val widget = DropDown(Button(""), Button(""))
 
         // When
         val actual = viewRendererFactory.make(widget)

@@ -24,7 +24,7 @@ fun makeFlexJson() = """
 fun makeContainerJson() = """
     {
         "type": "beagle:Container",
-        "header": ${makeToolbarJson()},
+        "header": ${makeButtonJson()},
         "content": ${makeVerticalJson()},
         "footer": ${makeButtonJson()}
     }
@@ -79,22 +79,6 @@ fun makeSpacerJson() = """
     }
 """
 
-fun makePaddingJson() = """
-    {
-        "type": "beagle:Padding",
-        "value": {},
-        "child": ${makeButtonJson()}
-    }
-"""
-
-fun makeToolbarJson() = """
-    {
-        "type": "beagle:Toolbar",
-        "title": "Test",
-        "showBackButton": false
-    }
-"""
-
 fun makeButtonJson() = """
     {
         "type": "beagle:Button",
@@ -112,15 +96,14 @@ fun makeTextJson() = """
 fun makeImageJson() = """
     {
         "type": "beagle:Image",
-        "path": "http://test.com/test.png"
+        "name": "test"
     }
 """
 
-fun makeDropDownJson() = """
+fun makeNetworkImageJson() = """
     {
-        "type": "beagle:DropDown",
-        "header": ${makeHorizontalJson()},
-        "child": ${makeVerticalJson()}
+        "type": "beagle:NetworkImage",
+        "url": "http://test.com/test.png"
     }
 """
 

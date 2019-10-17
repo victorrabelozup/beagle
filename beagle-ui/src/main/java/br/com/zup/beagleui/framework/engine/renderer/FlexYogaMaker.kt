@@ -13,13 +13,13 @@ import com.facebook.yoga.YogaFlexDirection
 import com.facebook.yoga.YogaJustify
 import com.facebook.yoga.YogaWrap
 
-fun makeYogaWrap(flexWrap: FlexWrap): YogaWrap = when (flexWrap) {
+internal fun makeYogaWrap(flexWrap: FlexWrap): YogaWrap = when (flexWrap) {
     FlexWrap.NO_WRAP -> YogaWrap.NO_WRAP
     FlexWrap.WRAP -> YogaWrap.WRAP
     FlexWrap.WRAP_REVERSE -> YogaWrap.WRAP_REVERSE
 }
 
-fun makeYogaAlign(alignment: Alignment): YogaAlign = when (alignment) {
+internal fun makeYogaAlign(alignment: Alignment): YogaAlign = when (alignment) {
     Alignment.CENTER -> YogaAlign.CENTER
     Alignment.FLEX_START -> YogaAlign.FLEX_START
     Alignment.FLEX_END -> YogaAlign.FLEX_END
@@ -30,7 +30,7 @@ fun makeYogaAlign(alignment: Alignment): YogaAlign = when (alignment) {
     Alignment.STRETCH -> YogaAlign.STRETCH
 }
 
-fun makeYogaJustify(justifyContent: JustifyContent): YogaJustify = when (justifyContent) {
+internal fun makeYogaJustify(justifyContent: JustifyContent): YogaJustify = when (justifyContent) {
     JustifyContent.FLEX_START -> YogaJustify.FLEX_START
     JustifyContent.CENTER -> YogaJustify.CENTER
     JustifyContent.FLEX_END -> YogaJustify.FLEX_END
@@ -39,20 +39,20 @@ fun makeYogaJustify(justifyContent: JustifyContent): YogaJustify = when (justify
     JustifyContent.SPACE_EVENLY -> YogaJustify.SPACE_EVENLY
 }
 
-fun makeYogaDirection(direction: Direction): YogaDirection = when (direction) {
+internal fun makeYogaDirection(direction: Direction): YogaDirection = when (direction) {
     Direction.INHERIT -> YogaDirection.INHERIT
     Direction.LTR -> YogaDirection.LTR
     Direction.RTL -> YogaDirection.RTL
 }
 
-fun makeYogaFlexDirection(flexDirection: FlexDirection): YogaFlexDirection = when (flexDirection) {
+internal fun makeYogaFlexDirection(flexDirection: FlexDirection): YogaFlexDirection = when (flexDirection) {
     FlexDirection.COLUMN -> YogaFlexDirection.COLUMN
     FlexDirection.ROW -> YogaFlexDirection.ROW
     FlexDirection.COLUMN_REVERSE -> YogaFlexDirection.COLUMN_REVERSE
     FlexDirection.ROW_REVERSE -> YogaFlexDirection.ROW_REVERSE
 }
 
-fun makeYogaDisplay(display: FlexDisplay): YogaDisplay = when (display) {
+internal fun makeYogaDisplay(display: FlexDisplay): YogaDisplay = when (display) {
     FlexDisplay.FLEX -> YogaDisplay.FLEX
     FlexDisplay.NONE -> YogaDisplay.NONE
 }
