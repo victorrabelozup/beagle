@@ -34,7 +34,16 @@ workflows:
         inputs:
         - CODECOV_TOKEN: "$CODECOV_TOKEN"
     - deploy-to-bitrise-io@1.6.0: {}
-    - cache-push@2.2.0: {}
+    - cache-push@2.2.0:
+        inputs:
+        - cache_paths: |-
+            $HOME/.gradle
+            ./.gradle
+        - ignore_check_on_paths: |-
+            $HOME/.gradle/caches/*.lock
+            $HOME/.gradle/caches/*.bin
+            ./.gradle/*.lock
+            ./.gradle/*.bin
 app:
   envs:
   - opts:
