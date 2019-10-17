@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9303B08C2357B49A008BAA6D /* ContainerViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9303B08B2357B49A008BAA6D /* ContainerViewRenderer.swift */; };
 		930A2B5823574B23003A945C /* FlexWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930A2B5723574B23003A945C /* FlexWidgetViewRenderer.swift */; };
 		930A2B5A23574B55003A945C /* FlexSingleWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930A2B5923574B55003A945C /* FlexSingleWidgetViewRenderer.swift */; };
 		932925E02327E11000A61F01 /* BeagleUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 932925D22327E11000A61F01 /* BeagleUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -147,6 +148,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9303B08B2357B49A008BAA6D /* ContainerViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewRenderer.swift; sourceTree = "<group>"; };
 		930A2B5723574B23003A945C /* FlexWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexWidgetViewRenderer.swift; sourceTree = "<group>"; };
 		930A2B5923574B55003A945C /* FlexSingleWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidgetViewRenderer.swift; sourceTree = "<group>"; };
 		932925CF2327E11000A61F01 /* BeagleUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BeagleUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -499,6 +501,7 @@
 				E5CB5DC723566781009783A7 /* Util */,
 				930A2B5923574B55003A945C /* FlexSingleWidgetViewRenderer.swift */,
 				930A2B5723574B23003A945C /* FlexWidgetViewRenderer.swift */,
+				9303B08B2357B49A008BAA6D /* ContainerViewRenderer.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -1027,6 +1030,7 @@
 				93681809232A888300E6E724 /* Padding.swift in Sources */,
 				E5CB5D792354ADF9009783A7 /* ButtonWidgetViewRenderer.swift in Sources */,
 				E57FBB82233A795A00165D8D /* DataPreprocessor.swift in Sources */,
+				9303B08C2357B49A008BAA6D /* ContainerViewRenderer.swift in Sources */,
 				E5CB5D732354ADC7009783A7 /* TextWidgetViewRenderer.swift in Sources */,
 				E5CB5D8F2354E4CD009783A7 /* BeagleEnvironment.swift in Sources */,
 				93681803232A884F00E6E724 /* UnitValue.swift in Sources */,
