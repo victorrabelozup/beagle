@@ -60,12 +60,18 @@ final class BeagleFlexViewTests: XCTestCase {
 // MARK: - Testing Helpers
 
 final class FlexViewConfiguratorSpy: FlexViewConfiguratorProtocol {
-    
+    private(set) var configFlexCalled = false
     private(set) var applyFlexCalled = false
     private(set) var flexPassed: Flex?
     private(set) var viewPassed: UIView?
     func applyFlex(_ flex: Flex, to view: UIView) {
         applyFlexCalled = true
+        flexPassed = flex
+        viewPassed = view
+    }
+    
+    func configFlex(_ flex: Flex, to view: UIView) {
+        configFlexCalled = true
         flexPassed = flex
         viewPassed = view
     }
