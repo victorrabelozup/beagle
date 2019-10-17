@@ -59,7 +59,7 @@ final class BeagleFlexViewTests: XCTestCase {
 
 // MARK: - Testing Helpers
 
-private class FlexViewConfiguratorSpy: FlexViewConfiguratorProtocol {
+final class FlexViewConfiguratorSpy: FlexViewConfiguratorProtocol {
     
     private(set) var applyFlexCalled = false
     private(set) var flexPassed: Flex?
@@ -72,7 +72,7 @@ private class FlexViewConfiguratorSpy: FlexViewConfiguratorProtocol {
     
 }
 
-private class UIButtonSpy: UIButton {
+private final class UIButtonSpy: UIButton {
     
     private(set) var removeFromSuperviewCalled = false
     override func removeFromSuperview() {

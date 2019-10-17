@@ -16,7 +16,7 @@ final class FlexWidgetViewRenderer: WidgetViewRenderer<FlexWidget> {
         let view = UIView()
         
         widget.children.forEach {
-            let childView = rendenrerProvider.buildRenderer(for: $0).buildView()
+            let childView = rendererProvider.buildRenderer(for: $0).buildView()
             view.addSubview(childView)
         }
         

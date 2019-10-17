@@ -29,7 +29,7 @@ public protocol WidgetViewRendererProtocol {
 public class WidgetViewRenderer<W: Widget>: WidgetViewRendererProtocol {
     
     let flexViewConfigurator: FlexViewConfiguratorProtocol
-    let rendenrerProvider: WidgetRendererProvider
+    let rendererProvider: WidgetRendererProvider
     private(set) var widget: W
     
     required public convenience init(_ widget: Widget) throws {
@@ -38,11 +38,11 @@ public class WidgetViewRenderer<W: Widget>: WidgetViewRendererProtocol {
     
     init(
         widget: Widget,
-        rendenrerProvider: WidgetRendererProvider = WidgetRendererProviding(),
+        rendererProvider: WidgetRendererProvider = WidgetRendererProviding(),
         flexViewConfigurator: FlexViewConfiguratorProtocol = FlexViewConfigurator()
     ) throws {
         self.widget = try .newByCasting(widget: widget, to: W.self)
-        self.rendenrerProvider = rendenrerProvider
+        self.rendererProvider = rendererProvider
         self.flexViewConfigurator = flexViewConfigurator
     }
     

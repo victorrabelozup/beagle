@@ -88,6 +88,9 @@
 		E5CB5DD023578967009783A7 /* UIComponentViewRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DCF23578967009783A7 /* UIComponentViewRendererProvider.swift */; };
 		E5CB5DD3235796BE009783A7 /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5CB5DD2235796BE009783A7 /* Networking.framework */; };
 		E5CB5DD4235796BE009783A7 /* Networking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E5CB5DD2235796BE009783A7 /* Networking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E5CB5DD62357B10C009783A7 /* SpacerWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DD52357B10C009783A7 /* SpacerWidgetViewRenderer.swift */; };
+		E5CB5DDB2357B6F7009783A7 /* SpacerWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DDA2357B6F7009783A7 /* SpacerWidgetViewRendererTests.swift */; };
+		E5CB5DDD2357B91A009783A7 /* WidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DDC2357B91A009783A7 /* WidgetViewRendererTests.swift */; };
 		E5CE41A32331D55000295277 /* WidgetDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A22331D55000295277 /* WidgetDecoder.swift */; };
 		E5CE41A52331D59E00295277 /* WidgetEntityContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A42331D59E00295277 /* WidgetEntityContainer.swift */; };
 		E5CE41A72331D93F00295277 /* ContainerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A62331D93F00295277 /* ContainerEntity.swift */; };
@@ -233,6 +236,9 @@
 		E5CB5DCD23578837009783A7 /* LayoutViewRendererProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutViewRendererProvider.swift; sourceTree = "<group>"; };
 		E5CB5DCF23578967009783A7 /* UIComponentViewRendererProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponentViewRendererProvider.swift; sourceTree = "<group>"; };
 		E5CB5DD2235796BE009783A7 /* Networking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Networking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5CB5DD52357B10C009783A7 /* SpacerWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacerWidgetViewRenderer.swift; sourceTree = "<group>"; };
+		E5CB5DDA2357B6F7009783A7 /* SpacerWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacerWidgetViewRendererTests.swift; sourceTree = "<group>"; };
+		E5CB5DDC2357B91A009783A7 /* WidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		E5CE41A22331D55000295277 /* WidgetDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDecoder.swift; sourceTree = "<group>"; };
 		E5CE41A42331D59E00295277 /* WidgetEntityContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEntityContainer.swift; sourceTree = "<group>"; };
 		E5CE41A62331D93F00295277 /* ContainerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerEntity.swift; sourceTree = "<group>"; };
@@ -394,9 +400,8 @@
 		9802EF40234D108200A7EE89 /* Layout */ = {
 			isa = PBXGroup;
 			children = (
-				9802EF41234D10A400A7EE89 /* YogaTranslatorTests.swift */,
-				985EBA7E2354E15E0042C19A /* FlexViewConfiguratorTests.swift */,
-				985EBA802355110D0042C19A /* Flex+Fixture.swift */,
+				E5CB5DD92357B6E9009783A7 /* Util */,
+				E5CB5DDA2357B6F7009783A7 /* SpacerWidgetViewRendererTests.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -501,6 +506,7 @@
 				E5CB5DC723566781009783A7 /* Util */,
 				930A2B5923574B55003A945C /* FlexSingleWidgetViewRenderer.swift */,
 				930A2B5723574B23003A945C /* FlexWidgetViewRenderer.swift */,
+				E5CB5DD52357B10C009783A7 /* SpacerWidgetViewRenderer.swift */,
 				9303B08B2357B49A008BAA6D /* ContainerViewRenderer.swift */,
 			);
 			path = Layout;
@@ -644,6 +650,32 @@
 			children = (
 				9397F5CE2357615F00054D42 /* FlexViewConfigurator.swift */,
 				9397F5CF2357615F00054D42 /* YogaTranslator.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		E5CB5DD72357B676009783A7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E56A02BB2345388100C0F23D /* CollectionExtension.swift */,
+				E5CB5D852354C830009783A7 /* MirrorExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E5CB5DD82357B67D009783A7 /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				985EBA802355110D0042C19A /* Flex+Fixture.swift */,
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		E5CB5DD92357B6E9009783A7 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				9802EF41234D10A400A7EE89 /* YogaTranslatorTests.swift */,
+				985EBA7E2354E15E0042C19A /* FlexViewConfiguratorTests.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -808,8 +840,8 @@
 		E5CE431A2335068000295277 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E56A02BB2345388100C0F23D /* CollectionExtension.swift */,
-				E5CB5D852354C830009783A7 /* MirrorExtension.swift */,
+				E5CB5DD82357B67D009783A7 /* Fixtures */,
+				E5CB5DD72357B676009783A7 /* Extensions */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -837,6 +869,7 @@
 				E5DD468E234CF1DE004B7289 /* Provider */,
 				9802EF3F234D107000A7EE89 /* Renderers */,
 				985EBA7A2354D1320042C19A /* WidgetViewRenderingErrorTests.swift */,
+				E5CB5DDC2357B91A009783A7 /* WidgetViewRendererTests.swift */,
 			);
 			path = Renderer;
 			sourceTree = "<group>";
@@ -1043,6 +1076,7 @@
 				E5CB5DAB23550012009783A7 /* BeagleSetup.swift in Sources */,
 				E5CE41CC233274BB00295277 /* SpacerEntity.swift in Sources */,
 				930A2B5823574B23003A945C /* FlexWidgetViewRenderer.swift in Sources */,
+				E5CB5DD62357B10C009783A7 /* SpacerWidgetViewRenderer.swift in Sources */,
 				9397F5D12357615F00054D42 /* YogaTranslator.swift in Sources */,
 				E5DD468B234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift in Sources */,
 				E5CE41D62332768700295277 /* ImageEntity.swift in Sources */,
@@ -1101,12 +1135,14 @@
 				E56A02CF23462B8400C0F23D /* PaddingTests.swift in Sources */,
 				E5CE42012333FC1F00295277 /* ButtonEntityTests.swift in Sources */,
 				E5835B35233BD95C00125140 /* WidgetConvertibleTests.swift in Sources */,
+				E5CB5DDB2357B6F7009783A7 /* SpacerWidgetViewRendererTests.swift in Sources */,
 				E5CE422823340EA100295277 /* UnitValueEntityTests.swift in Sources */,
 				E5CB5D842354C600009783A7 /* BeagleFlexViewTests.swift in Sources */,
 				E5CE41F62332B9DD00295277 /* WidgetDecoderTests.swift in Sources */,
 				985EBA9123565F180042C19A /* ImageEntityTests.swift in Sources */,
 				E56A02BA2345367D00C0F23D /* ListViewTests.swift in Sources */,
 				985EBA7F2354E15E0042C19A /* FlexViewConfiguratorTests.swift in Sources */,
+				E5CB5DDD2357B91A009783A7 /* WidgetViewRendererTests.swift in Sources */,
 				985EBA8D2356467B0042C19A /* ListViewEntityTests.swift in Sources */,
 				9841FD0323454F080069D7D2 /* FlexSingleWidgetEntityTests.swift in Sources */,
 				E56A02D223462C0900C0F23D /* WidgetBuildersTests.swift in Sources */,
