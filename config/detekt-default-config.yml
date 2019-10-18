@@ -167,7 +167,7 @@ exceptions:
       - NullPointerException
       - IndexOutOfBoundsException
       - RuntimeException
-      - Throwable
+#      - Throwable
     allowedExceptionNameRegex: "^(_|(ignore|expected).*)"
   TooGenericExceptionThrown:
     active: true
@@ -476,7 +476,7 @@ style:
   NestedClassesVisibility:
     active: false
   NewLineAtEndOfFile:
-    active: true
+    active: false
   NoTabs:
     active: false
   OptionalAbstractKeyword:

@@ -1,5 +1,7 @@
 package br.com.zup.beagleui.framework.di
 
+import br.com.zup.beagleui.framework.config.networking.URLFactory
+import br.com.zup.beagleui.framework.config.networking.URLRequestDispatchingFactory
 import br.com.zup.beagleui.framework.data.BeagleHttpClient
 import br.com.zup.beagleui.framework.data.deserializer.BeagleMoshiFactory
 import br.com.zup.beagleui.framework.data.deserializer.BeagleUiDeserialization
@@ -22,4 +24,8 @@ val beagleModule: Module = module {
     factory { BeagleViewBuilder(get()) }
 
     factory { ViewRendererFactory() }
+
+    factory { URLFactory() }
+
+    single { URLRequestDispatchingFactory(get()).make() }
 }
