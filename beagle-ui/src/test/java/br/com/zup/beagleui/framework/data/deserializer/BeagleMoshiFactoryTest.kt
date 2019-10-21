@@ -1,5 +1,9 @@
 package br.com.zup.beagleui.framework.data.deserializer
 
+import br.com.zup.beagleui.framework.mockdata.CustomWidgetFactory
+import br.com.zup.beagleui.framework.mockdata.CustomWidget
+import br.com.zup.beagleui.framework.setup.BeagleEnvironment
+import br.com.zup.beagleui.framework.view.WidgetViewFactory
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.layout.Container
 import br.com.zup.beagleui.framework.widget.layout.FlexSingleWidget
@@ -13,10 +17,18 @@ import br.com.zup.beagleui.framework.widget.ui.Image
 import br.com.zup.beagleui.framework.widget.ui.ListView
 import br.com.zup.beagleui.framework.widget.ui.NetworkImage
 import br.com.zup.beagleui.framework.widget.ui.Text
+import io.mockk.MockKAnnotations
+import io.mockk.every
+import io.mockk.mockkObject
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
+
+private const val APP_NAME = "sample"
+private val WIDGETS = mapOf(
+    CustomWidget::class.java as Class<Widget> to CustomWidgetFactory() as WidgetViewFactory<Widget>
+)
 
 class BeagleMoshiFactoryTest {
 
@@ -24,7 +36,14 @@ class BeagleMoshiFactoryTest {
 
     @Before
     fun setUp() {
+        MockKAnnotations.init(this)
+
         beagleMoshiFactory = BeagleMoshiFactory()
+
+        mockkObject(BeagleEnvironment)
+
+        every { BeagleEnvironment.appName } returns APP_NAME
+        every { BeagleEnvironment.widgets } returns WIDGETS
     }
 
     @Test
@@ -181,5 +200,18 @@ class BeagleMoshiFactoryTest {
         // Then
         assertNotNull(actual)
         assertTrue(actual is ListView)
+    }
+
+    @Test
+    fun make_should_return_moshi_to_deserialize_a_CustomWidget() {
+        // Given
+        val json = makeCustomWidgetJson()
+
+        // When
+        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+
+        // Then
+        assertNotNull(actual)
+        assertTrue(actual is CustomWidget)
     }
 }

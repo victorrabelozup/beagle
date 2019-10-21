@@ -116,10 +116,8 @@ fun makeListViewJson() = """
     }
 """
 
-fun makeTextFieldJson() = """
+fun makeCustomWidgetJson() = """
     {
-        "type": "beagle:TextField",
-        "hint": "Test",
-        "text": "Test"
+        "type": "sample:CustomWidget"
     }
 """

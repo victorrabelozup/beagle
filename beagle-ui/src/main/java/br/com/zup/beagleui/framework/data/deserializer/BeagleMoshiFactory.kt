@@ -1,5 +1,6 @@
 package br.com.zup.beagleui.framework.data.deserializer
 
+import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.layout.Container
 import br.com.zup.beagleui.framework.widget.layout.FlexSingleWidget
@@ -38,7 +39,7 @@ private const val BEAGLE_LIST_VIEW = "beagle:ListView"
 internal class BeagleMoshiFactory {
 
     fun make(): Moshi {
-        val polymorphicJsonAdapterFactory = PolymorphicJsonAdapterFactory.of(Widget::class.java, BEAGLE_WIDGET_TYPE)
+        var polymorphicJsonAdapterFactory = PolymorphicJsonAdapterFactory.of(Widget::class.java, BEAGLE_WIDGET_TYPE)
             .withSubtype(Container::class.java, BEAGLE_CONTAINER)
             .withSubtype(FlexWidget::class.java, BEAGLE_FLEX_WIDGET)
             .withSubtype(FlexSingleWidget::class.java, BEAGLE_FLEX_SINGLE_WIDGET)
@@ -51,6 +52,16 @@ internal class BeagleMoshiFactory {
             .withSubtype(NetworkImage::class.java, BEAGLE_NETWORK_IMAGE)
             .withSubtype(Button::class.java, BEAGLE_BUTTON)
             .withSubtype(ListView::class.java, BEAGLE_LIST_VIEW)
+
+        val appName = BeagleEnvironment.appName
+        val widgets = BeagleEnvironment.widgets
+
+        widgets.forEach {
+            polymorphicJsonAdapterFactory = polymorphicJsonAdapterFactory.withSubtype(
+                it.key,
+                "$appName:${it.key.simpleName}"
+            )
+        }
 
         return Moshi.Builder()
             .add(polymorphicJsonAdapterFactory)

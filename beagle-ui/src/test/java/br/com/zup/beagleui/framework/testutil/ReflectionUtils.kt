@@ -8,7 +8,7 @@ fun <T> Any.getPrivateField(fieldName: String): T {
     return field.get(this) as T
 }
 
-fun Any.setPrivateField(fieldName: String, fieldValue: Any) {
+fun Any.setPrivateField(fieldName: String, fieldValue: Any?) {
     val field = getFieldFromHierarchy(this.javaClass, fieldName)
     field.set(this, fieldValue)
 }
@@ -42,5 +42,4 @@ private fun getField(clazz: Class<*>, field: String): Field? {
     } catch (e: NoSuchFieldException) {
         null
     }
-
 }
