@@ -1,6 +1,6 @@
 package br.com.zup.beagleui.framework.serialization.jackson
 
-import br.com.zup.beagleui.framework.config.BeagleInitializer
+import br.com.zup.beagleui.framework.config.BeagleEnvironment
 import br.com.zup.beagleui.framework.widget.core.NativeWidget
 import br.com.zup.beagleui.framework.widget.core.Widget
 import com.fasterxml.jackson.core.JsonGenerator
@@ -13,29 +13,17 @@ private const val BEAGLE_NAMESPACE = "beagle"
 
 class BeagleWidgetSerializer : StdSerializer<Widget>(Widget::class.java) {
 
-    override fun serialize(value: Widget?, gen: JsonGenerator?, provider: SerializerProvider?) {
-        if (value != null && gen != null && provider != null) {
-            if (value !is NativeWidget) {
-                buildNonNativeWidget(value, gen)
+    override fun serialize(widget: Widget?, gen: JsonGenerator?, provider: SerializerProvider?) {
+        if (widget != null && gen != null) {
+            if (widget is NativeWidget) {
+                serializeWidget(widget, gen)
             } else {
-                buildNativeWidget(value, gen, provider)
+                serializeWidget(widget.build(), gen)
             }
         }
     }
 
-    private fun buildNonNativeWidget(value: Widget, gen: JsonGenerator) {
-        val widgetName = getClassName(value)
-        val buildResultName = value.buildResultName()
-        val buildResultWidget = value.build()
-
-        gen.writeStartObject()
-        gen.writeStringField(TYPE, "$BEAGLE_NAMESPACE:$widgetName")
-        gen.writeObjectField(buildResultName, buildResultWidget)
-        serializeFields(value, gen)
-        gen.writeEndObject()
-    }
-
-    private fun buildNativeWidget(value: Widget, gen: JsonGenerator, provider: SerializerProvider) {
+    private fun serializeWidget(value: Widget, gen: JsonGenerator) {
         gen.writeStartObject()
         addTypeToJson(value, gen)
         serializeFields(value, gen)
@@ -44,11 +32,10 @@ class BeagleWidgetSerializer : StdSerializer<Widget>(Widget::class.java) {
 
     private fun addTypeToJson(value: Widget, gen: JsonGenerator) {
         val widgetName = getClassName(value)
-        val configuration = BeagleInitializer.configuration
+        val registeredWidgets = BeagleEnvironment.widgets
 
-        val appName = configuration.appName
-        val registeredWidgets = configuration.widgets
         if (registeredWidgets.contains(value::class.java)) {
+            val appName = BeagleEnvironment.appName
             gen.writeStringField(TYPE, "$appName:$widgetName")
         } else {
             gen.writeStringField(TYPE, "$BEAGLE_NAMESPACE:$widgetName")
