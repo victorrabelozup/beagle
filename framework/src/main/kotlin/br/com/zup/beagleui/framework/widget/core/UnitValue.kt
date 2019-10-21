@@ -7,5 +7,6 @@ data class UnitValue(
 
 enum class UnitType {
     REAL,
-    PERCENT
+    PERCENT,
+    AUTO
 }
