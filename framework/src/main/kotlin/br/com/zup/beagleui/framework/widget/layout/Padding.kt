@@ -14,4 +14,4 @@ data class PaddingValue(
 data class Padding(
     val value: PaddingValue,
     val child: Widget
-) : NativeWidget()
+) : NativeWidget

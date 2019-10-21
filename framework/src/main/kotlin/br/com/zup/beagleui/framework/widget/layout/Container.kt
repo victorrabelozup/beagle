@@ -7,4 +7,4 @@ data class Container(
     val header: Widget? = null,
     val content: Widget,
     val footer: Widget? = null
-) : NativeWidget()
+) : NativeWidget

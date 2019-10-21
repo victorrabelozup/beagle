@@ -1,5 +1,6 @@
 package br.com.zup.beagleui.framework.widget.navigation
 
+import br.com.zup.beagleui.framework.widget.core.NativeWidget
 import br.com.zup.beagleui.framework.widget.core.Widget
 
 data class Event(
@@ -23,4 +24,4 @@ enum class EventType {
 data class Navigator(
     val event: Event,
     val child: Widget
-)
+) : NativeWidget

@@ -18,7 +18,6 @@ data class ListView(
     @Transient val rowBuilder: RowBuilder,
     @Transient val direction: ListDirection = ListDirection.VERTICAL
 ) : Widget {
-    override fun buildResultName(): String = "rows"
 
     override fun build(): Widget {
         val children = generateRows(size, rowBuilder)
