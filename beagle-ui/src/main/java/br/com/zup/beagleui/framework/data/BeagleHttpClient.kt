@@ -2,25 +2,29 @@ package br.com.zup.beagleui.framework.data
 
 import br.com.zup.beagleui.framework.data.deserializer.BeagleDeserializationException
 import br.com.zup.beagleui.framework.data.deserializer.BeagleUiDeserialization
+import br.com.zup.beagleui.framework.exception.BeagleDataException
+import br.com.zup.beagleui.framework.networking.RequestData
+import br.com.zup.beagleui.framework.networking.URLRequestDispatching
 import br.com.zup.beagleui.framework.widget.core.Widget
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import java.net.HttpURLConnection
-import java.net.URL
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
-class HttpLayerException(
-    override val message: String?
-) : Exception()
+internal class BeagleHttpClient(
+    private val deserialization: BeagleUiDeserialization,
+    private val requestDispatching: URLRequestDispatching
+) {
 
-internal class BeagleHttpClient(private val deserialization: BeagleUiDeserialization) {
-
-    suspend fun fetchWidget(url: String): Widget = withContext(Dispatchers.IO) {
-        val urlConnection = URL(url).openConnection() as HttpURLConnection
+    suspend fun fetchWidget(url: String): Widget = suspendCancellableCoroutine { cont ->
         try {
-            val response = String(urlConnection.inputStream.readBytes())
-            return@withContext deserializeWidget(response)
-        } finally {
-            urlConnection.disconnect()
+            requestDispatching.execute(request = RequestData(url),
+                onSuccess = { response ->
+                    cont.resume(deserializeWidget(String(response.data)))
+                }, onError = { error ->
+                    cont.resumeWithException(BeagleDataException(error.message, error))
+                })
+        } catch (e: Exception) {
+            cont.resumeWithException(BeagleDataException(e.message, e))
         }
     }
 
@@ -29,10 +33,10 @@ internal class BeagleHttpClient(private val deserialization: BeagleUiDeserializa
             try {
                 return deserialization.deserialize(response)
             } catch (exception: BeagleDeserializationException) {
-                throw HttpLayerException("Widget deserialization error for url")
+                throw BeagleDataException("Widget deserialization error for url")
             }
         }
 
-        throw HttpLayerException("The requested widget return were empty response")
+        throw BeagleDataException("The requested widget return were empty response")
     }
 }

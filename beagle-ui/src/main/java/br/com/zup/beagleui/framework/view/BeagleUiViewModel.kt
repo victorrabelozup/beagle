@@ -2,13 +2,13 @@ package br.com.zup.beagleui.framework.view
 
 import androidx.lifecycle.MutableLiveData
 import br.com.zup.beagleui.framework.base.BaseViewModel
-import br.com.zup.beagleui.framework.data.BeagleHttpClient
-import br.com.zup.beagleui.framework.data.HttpLayerException
+import br.com.zup.beagleui.framework.data.repository.BeagleDataRepository
+import br.com.zup.beagleui.framework.exception.BeagleDataException
 import br.com.zup.beagleui.framework.widget.core.Widget
 import kotlinx.coroutines.launch
 
 internal class BeagleUiViewModel(
-    private val beagleHttpClient: BeagleHttpClient
+    private val beagleDataRepository: BeagleDataRepository
 ) : BaseViewModel() {
 
     val widgetToRender = MutableLiveData<Widget>()
@@ -23,9 +23,9 @@ internal class BeagleUiViewModel(
 
     private fun getScreenScheme() = launch {
         try {
-            val widget = beagleHttpClient.fetchWidget(screenUrl)
+            val widget = beagleDataRepository.fetchWidget(screenUrl)
             widgetToRender.value = widget
-        } catch (exception: HttpLayerException) {
+        } catch (exception: BeagleDataException) {
             print(exception)
         }
     }

@@ -1,7 +1,7 @@
 package br.com.zup.beagleui.framework.setup
 
 import android.app.Application
-import br.com.zup.beagleui.framework.config.networking.URLRequestDispatching
+import br.com.zup.beagleui.framework.networking.URLRequestDispatching
 import br.com.zup.beagleui.framework.view.WidgetViewFactory
 import br.com.zup.beagleui.framework.widget.core.Widget
 

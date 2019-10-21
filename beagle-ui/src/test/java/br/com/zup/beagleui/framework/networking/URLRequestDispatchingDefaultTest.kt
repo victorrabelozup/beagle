@@ -1,4 +1,4 @@
-package br.com.zup.beagleui.framework.config.networking
+package br.com.zup.beagleui.framework.networking
 
 import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
