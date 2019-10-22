@@ -110,7 +110,7 @@ fun makeNetworkImageJson() = """
 fun makeListViewJson() = """
     {
         "type": "beagle:ListView",
-        "rows": [${makeHorizontalJson()}],
+        "rows": [${makeButtonJson()}],
         "remoteDataSource": "/dataSource",
         "loadingState": ${makeVerticalJson()}
     }
