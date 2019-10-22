@@ -1,5 +1,11 @@
 package br.com.zup.beagleui.framework.engine.renderer
 
+import br.com.zup.beagleui.framework.engine.renderer.mapper.makeYogaAlign
+import br.com.zup.beagleui.framework.engine.renderer.mapper.makeYogaDirection
+import br.com.zup.beagleui.framework.engine.renderer.mapper.makeYogaDisplay
+import br.com.zup.beagleui.framework.engine.renderer.mapper.makeYogaFlexDirection
+import br.com.zup.beagleui.framework.engine.renderer.mapper.makeYogaJustify
+import br.com.zup.beagleui.framework.engine.renderer.mapper.makeYogaWrap
 import br.com.zup.beagleui.framework.widget.core.Alignment
 import br.com.zup.beagleui.framework.widget.core.FlexWrap
 import br.com.zup.beagleui.framework.widget.core.Direction
@@ -16,7 +22,7 @@ import org.junit.Test
 
 import org.junit.Assert.*
 
-class FlexYogaMakerTest {
+class FlexYogaMapperTest {
 
     @Test
     fun makeYogaWrap_should_return_YogaWrap_NO_WRAP_when_FlexWrap_NO_WRAP() {
@@ -52,6 +58,18 @@ class FlexYogaMakerTest {
 
         // Then
         assertEquals(YogaWrap.WRAP_REVERSE, actual)
+    }
+
+    @Test
+    fun makeYogaWrap_should_return_null_when_FlexWrap_is_null() {
+        // Given
+        val flexWrap: FlexWrap? = null
+
+        // When
+        val actual = makeYogaWrap(flexWrap)
+
+        // Then
+        assertNull(actual)
     }
 
     @Test
@@ -151,6 +169,18 @@ class FlexYogaMakerTest {
     }
 
     @Test
+    fun makeYogaAlign_should_return_null_when_Alignment_is_null() {
+        // Given
+        val alignment: Alignment? = null
+
+        // When
+        val actual = makeYogaAlign(alignment)
+
+        // Then
+        assertNull(actual)
+    }
+
+    @Test
     fun makeYogaJustify_should_return_YogaJustify_FLEX_START_when_JustifyContent_FLEX_START() {
         // Given
         val alignment = JustifyContent.FLEX_START
@@ -223,12 +253,25 @@ class FlexYogaMakerTest {
     }
 
     @Test
-    fun makeYogaDirection_should_return_YogaDirection_INHERIT_when_ItemDirection_INHERIT() {
+    fun makeYogaJustify_should_return_null_when_JustifyContent_is_null() {
         // Given
-        val alignment = Direction.INHERIT
+        val justifyContent: JustifyContent? = null
 
         // When
-        val actual = makeYogaDirection(alignment)
+        val actual = makeYogaJustify(justifyContent)
+
+        // Then
+        assertNull(actual)
+    }
+
+    @Test
+    fun makeYogaDirection_should_return_YogaDirection_INHERIT_when_ItemDirection_INHERIT() {
+        // Given
+        val direction = Direction.INHERIT
+
+        // When
+        val actual =
+            makeYogaDirection(direction)
 
         // Then
         assertEquals(YogaDirection.INHERIT, actual)
@@ -237,10 +280,11 @@ class FlexYogaMakerTest {
     @Test
     fun makeYogaDirection_should_return_YogaDirection_LTR_when_ItemDirection_LTR() {
         // Given
-        val alignment = Direction.LTR
+        val direction = Direction.LTR
 
         // When
-        val actual = makeYogaDirection(alignment)
+        val actual =
+            makeYogaDirection(direction)
 
         // Then
         assertEquals(YogaDirection.LTR, actual)
@@ -249,13 +293,25 @@ class FlexYogaMakerTest {
     @Test
     fun makeYogaDirection_should_return_YogaDirection_RTL_when_ItemDirection_RTL() {
         // Given
-        val alignment = Direction.RTL
+        val direction = Direction.RTL
 
         // When
-        val actual = makeYogaDirection(alignment)
+        val actual = makeYogaDirection(direction)
 
         // Then
         assertEquals(YogaDirection.RTL, actual)
+    }
+
+    @Test
+    fun makeYogaDirection_should_return_null_when_Direction_is_null() {
+        // Given
+        val direction: Direction? = null
+
+        // When
+        val actual = makeYogaDirection(direction)
+
+        // Then
+        assertNull(actual)
     }
 
     @Test
@@ -264,7 +320,8 @@ class FlexYogaMakerTest {
         val direction = FlexDirection.COLUMN
 
         // When
-        val actual = makeYogaFlexDirection(direction)
+        val actual =
+            makeYogaFlexDirection(direction)
 
         // Then
         assertEquals(YogaFlexDirection.COLUMN, actual)
@@ -276,7 +333,8 @@ class FlexYogaMakerTest {
         val direction = FlexDirection.ROW
 
         // When
-        val actual = makeYogaFlexDirection(direction)
+        val actual =
+            makeYogaFlexDirection(direction)
 
         // Then
         assertEquals(YogaFlexDirection.ROW, actual)
@@ -288,7 +346,8 @@ class FlexYogaMakerTest {
         val direction = FlexDirection.ROW_REVERSE
 
         // When
-        val actual = makeYogaFlexDirection(direction)
+        val actual =
+            makeYogaFlexDirection(direction)
 
         // Then
         assertEquals(YogaFlexDirection.ROW_REVERSE, actual)
@@ -300,10 +359,23 @@ class FlexYogaMakerTest {
         val direction = FlexDirection.COLUMN_REVERSE
 
         // When
-        val actual = makeYogaFlexDirection(direction)
+        val actual =
+            makeYogaFlexDirection(direction)
 
         // Then
         assertEquals(YogaFlexDirection.COLUMN_REVERSE, actual)
+    }
+
+    @Test
+    fun makeYogaFlexDirection_should_return_null_when_FlexDirection_is_null() {
+        // Given
+        val direction: FlexDirection? = null
+
+        // When
+        val actual = makeYogaFlexDirection(direction)
+
+        // Then
+        assertNull(actual)
     }
 
     @Test
@@ -328,5 +400,17 @@ class FlexYogaMakerTest {
 
         // Then
         assertEquals(YogaDisplay.NONE, actual)
+    }
+
+    @Test
+    fun makeYogaDisplay_should_return_null_when_FlexDisplay_is_null() {
+        // Given
+        val flexDisplay: FlexDisplay? = null
+
+        // When
+        val actual = makeYogaDisplay(flexDisplay)
+
+        // Then
+        assertNull(actual)
     }
 }

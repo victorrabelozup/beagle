@@ -2,6 +2,7 @@ package br.com.zup.beagleui.framework.engine.renderer.layout
 
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
+import br.com.zup.beagleui.framework.widget.core.Flex
 import br.com.zup.beagleui.framework.widget.core.FlexDirection
 import br.com.zup.beagleui.framework.widget.layout.Vertical
 
@@ -11,13 +12,13 @@ internal class VerticalViewRender(
     viewFactory: ViewFactory = ViewFactory()
 ) : DirectionalViewRenderer(
     vertical.children,
-    vertical.flex,
+    Flex(),
     viewRendererFactory,
     viewFactory
 ) {
 
     override fun getYogaFlexDirection(): FlexDirection {
-        return if (vertical.reversed) {
+        return if (vertical.reversed == true) {
             FlexDirection.COLUMN_REVERSE
         } else {
             FlexDirection.COLUMN

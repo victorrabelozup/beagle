@@ -6,6 +6,7 @@ import br.com.zup.beagleui.framework.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
 import br.com.zup.beagleui.framework.view.BeagleFlexView
+import br.com.zup.beagleui.framework.widget.core.Flex
 import br.com.zup.beagleui.framework.widget.core.FlexDirection
 import br.com.zup.beagleui.framework.widget.core.FlexPositionType
 import br.com.zup.beagleui.framework.widget.core.Widget
@@ -18,7 +19,7 @@ internal class StackViewRenderer(
 ) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
 
     override fun build(context: Context): View {
-        val flex = stack.flex.copy(
+        val flex = Flex(
             flexDirection = FlexDirection.COLUMN,
             positionType = FlexPositionType.ABSOLUTE
         )

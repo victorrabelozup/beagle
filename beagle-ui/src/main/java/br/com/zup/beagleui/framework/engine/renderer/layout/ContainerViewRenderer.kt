@@ -1,7 +1,6 @@
 package br.com.zup.beagleui.framework.engine.renderer.layout
 
 import android.content.Context
-import android.graphics.Color
 import android.view.View
 import br.com.zup.beagleui.framework.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagleui.framework.widget.layout.Container
@@ -24,20 +23,20 @@ internal class ContainerViewRenderer(
         )
         val container = viewFactory.makeBeagleFlexView(context, flex)
 
-        this.container.backgroundColor?.let {
+        /*this.container.backgroundColor?.let {
             container.setBackgroundColor(Color.parseColor(it))
-        }
+        }*/
 
-        if (this.container.header != null) {
-            container.addView(viewRendererFactory.make(this.container.header).build(context))
+        this.container.header?.let {
+            container.addView(viewRendererFactory.make(it).build(context))
         }
 
         val contentView = viewRendererFactory.make(this.container.content).build(context)
         val scrollView = createScrollViewForView(context, contentView)
         container.addView(scrollView)
 
-        if (this.container.footer != null) {
-            container.addView(viewRendererFactory.make(this.container.footer).build(context))
+        this.container.footer?.let {
+            container.addView(viewRendererFactory.make(it).build(context))
         }
 
         return container

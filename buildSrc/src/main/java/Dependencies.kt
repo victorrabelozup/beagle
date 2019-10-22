@@ -38,6 +38,8 @@ object Versions {
 
     const val findsBug = "3.0.1"
 
+    const val beagleDeclarative = "0.0.1-alpha1"
+
     const val glide = "4.9.0"
 
     const val junit = "4.12"
@@ -74,19 +76,14 @@ object GeneralLibraries {
     const val soLoader = "com.facebook.soloader:soloader:${Versions.soLoader}"
 
     const val findsBug = "com.google.code.findbugs:jsr305:${Versions.findsBug}"
+
+    const val beagleDeclarative = "br.com.zup:beagle-ui-sdk:${Versions.beagleDeclarative}"
 }
 
 object AndroidxLibraries {
     const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
     const val coreKtx = "androidx.core:core-ktx:${Versions.appcompat}"
     const val viewModel = "androidx.lifecycle:lifecycle-viewmodel:${Versions.viewModel}"
-}
-
-object LithoLibraries {
-    const val core = "com.facebook.litho:litho-core:${Versions.litho}"
-    const val widget = "com.facebook.litho:litho-widget:${Versions.litho}"
-    const val processor = "com.facebook.litho:litho-processor:${Versions.litho}"
-    const val fresco = "com.facebook.litho:litho-fresco:${Versions.litho}"
 }
 
 object MoshiLibraries {

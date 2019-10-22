@@ -49,7 +49,7 @@ class SpacerViewRendererTest {
 
         // Then
         assertNotNull(actual)
-        assertEquals(10.0, flexSlot.captured.size.width?.value)
-        assertEquals(10.0, flexSlot.captured.size.height?.value)
+        assertEquals(10.0, flexSlot.captured.size?.width?.value)
+        assertEquals(10.0, flexSlot.captured.size?.height?.value)
     }
 }

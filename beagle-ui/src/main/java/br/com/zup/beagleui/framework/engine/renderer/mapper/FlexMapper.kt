@@ -1,33 +1,33 @@
 package br.com.zup.beagleui.framework.engine.renderer.mapper
 
-import br.com.zup.beagleui.framework.engine.renderer.makeYogaAlign
-import br.com.zup.beagleui.framework.engine.renderer.makeYogaDirection
-import br.com.zup.beagleui.framework.engine.renderer.makeYogaDisplay
-import br.com.zup.beagleui.framework.engine.renderer.makeYogaFlexDirection
-import br.com.zup.beagleui.framework.engine.renderer.makeYogaJustify
-import br.com.zup.beagleui.framework.engine.renderer.makeYogaWrap
 import br.com.zup.beagleui.framework.utils.dp
 import br.com.zup.beagleui.framework.widget.core.EdgeValue
 import br.com.zup.beagleui.framework.widget.core.Flex
 import br.com.zup.beagleui.framework.widget.core.Size
 import br.com.zup.beagleui.framework.widget.core.UnitType
 import br.com.zup.beagleui.framework.widget.core.UnitValue
+import com.facebook.yoga.YogaAlign
+import com.facebook.yoga.YogaDirection
+import com.facebook.yoga.YogaDisplay
 import com.facebook.yoga.YogaEdge
+import com.facebook.yoga.YogaFlexDirection
+import com.facebook.yoga.YogaJustify
 import com.facebook.yoga.YogaNode
+import com.facebook.yoga.YogaWrap
 
 class FlexMapper {
 
     fun makeYogaNode(flex: Flex): YogaNode = YogaNode.create().apply {
-        flexDirection = makeYogaFlexDirection(flex.flexDirection)
-        setDirection(makeYogaDirection(flex.direction))
-        wrap = makeYogaWrap(flex.flexWrap)
-        justifyContent = makeYogaJustify(flex.justifyContent)
-        alignItems = makeYogaAlign(flex.alignItems)
-        alignSelf = makeYogaAlign(flex.alignSelf)
-        alignContent = makeYogaAlign(flex.alignContent)
-        flexGrow = flex.grow.toFloat()
-        flexShrink = flex.shrink.toFloat()
-        display = makeYogaDisplay(flex.display)
+        flexDirection = makeYogaFlexDirection(flex.flexDirection) ?: YogaFlexDirection.COLUMN
+        setDirection(makeYogaDirection(flex.direction) ?: YogaDirection.LTR)
+        wrap = makeYogaWrap(flex.flexWrap) ?: YogaWrap.NO_WRAP
+        justifyContent = makeYogaJustify(flex.justifyContent) ?: YogaJustify.FLEX_START
+        alignItems = makeYogaAlign(flex.alignItems) ?: YogaAlign.STRETCH
+        alignSelf = makeYogaAlign(flex.alignSelf) ?: YogaAlign.AUTO
+        alignContent = makeYogaAlign(flex.alignContent) ?: YogaAlign.FLEX_START
+        flexGrow = flex.grow?.toFloat() ?: 0.0f
+        flexShrink = flex.shrink?.toFloat() ?: 1.0f
+        display = makeYogaDisplay(flex.display) ?: YogaDisplay.FLEX
         applyAttributes(flex, this)
     }
 
@@ -39,14 +39,14 @@ class FlexMapper {
         setMinWidth(flex.size, yogaNode)
         setMinHeight(flex.size, yogaNode)
         setBasis(flex.basis, yogaNode)
-        setAspectRatio(flex.size.aspectRatio, yogaNode)
+        setAspectRatio(flex.size?.aspectRatio, yogaNode)
         setMargin(flex.margin, yogaNode)
         setPadding(flex.padding, yogaNode)
         setPosition(flex.position, yogaNode)
     }
 
-    private fun setWidth(size: Size, yogaNode: YogaNode) {
-        size.width?.let { width ->
+    private fun setWidth(size: Size?, yogaNode: YogaNode) {
+        size?.width?.let { width ->
             if (width.type == UnitType.REAL) {
                 yogaNode.setWidth(width.value.dp().toFloat())
             } else if (width.type == UnitType.PERCENT) {
@@ -55,8 +55,8 @@ class FlexMapper {
         }
     }
 
-    private fun setHeight(size: Size, yogaNode: YogaNode) {
-        size.height?.let { height ->
+    private fun setHeight(size: Size?, yogaNode: YogaNode) {
+        size?.height?.let { height ->
             if (height.type == UnitType.REAL) {
                 yogaNode.setHeight(height.value.dp().toFloat())
             } else if (height.type == UnitType.PERCENT) {
@@ -65,8 +65,8 @@ class FlexMapper {
         }
     }
 
-    private fun setMaxWidth(size: Size, yogaNode: YogaNode) {
-        size.maxWidth?.let { maxWidth ->
+    private fun setMaxWidth(size: Size?, yogaNode: YogaNode) {
+        size?.maxWidth?.let { maxWidth ->
             if (maxWidth.type == UnitType.REAL) {
                 yogaNode.setMaxWidth(maxWidth.value.dp().toFloat())
             } else if (maxWidth.type == UnitType.PERCENT) {
@@ -75,8 +75,8 @@ class FlexMapper {
         }
     }
 
-    private fun setMaxHeight(size: Size, yogaNode: YogaNode) {
-        size.maxHeight?.let { maxHeight ->
+    private fun setMaxHeight(size: Size?, yogaNode: YogaNode) {
+        size?.maxHeight?.let { maxHeight ->
             if (maxHeight.type == UnitType.REAL) {
                 yogaNode.setMaxHeight(maxHeight.value.dp().toFloat())
             } else if (maxHeight.type == UnitType.PERCENT) {
@@ -85,8 +85,8 @@ class FlexMapper {
         }
     }
 
-    private fun setMinWidth(size: Size, yogaNode: YogaNode) {
-        size.minWidth?.let { minWidth ->
+    private fun setMinWidth(size: Size?, yogaNode: YogaNode) {
+        size?.minWidth?.let { minWidth ->
             if (minWidth.type == UnitType.REAL) {
                 yogaNode.setMinWidth(minWidth.value.dp().toFloat())
             } else if (minWidth.type == UnitType.PERCENT) {
@@ -95,8 +95,8 @@ class FlexMapper {
         }
     }
 
-    private fun setMinHeight(size: Size, yogaNode: YogaNode) {
-        size.minHeight?.let { minHeight ->
+    private fun setMinHeight(size: Size?, yogaNode: YogaNode) {
+        size?.minHeight?.let { minHeight ->
             if (minHeight.type == UnitType.REAL) {
                 yogaNode.setMinHeight(minHeight.value.dp().toFloat())
             } else if (minHeight.type == UnitType.PERCENT) {
@@ -111,15 +111,15 @@ class FlexMapper {
         }
     }
 
-    private fun setBasis(basis: UnitValue, yogaNode: YogaNode) {
+    private fun setBasis(basis: UnitValue?, yogaNode: YogaNode) {
         when {
-            basis.type == UnitType.REAL -> yogaNode.setFlexBasis(basis.value.toFloat())
-            basis.type == UnitType.PERCENT -> yogaNode.setFlexBasisPercent(basis.value.toFloat())
+            basis?.type == UnitType.REAL -> yogaNode.setFlexBasis(basis.value.toFloat())
+            basis?.type == UnitType.PERCENT -> yogaNode.setFlexBasisPercent(basis.value.toFloat())
             else -> yogaNode.setFlexBasisAuto()
         }
     }
 
-    private fun setMargin(margin: EdgeValue, yogaNode: YogaNode) {
+    private fun setMargin(margin: EdgeValue?, yogaNode: YogaNode) {
         applyEdgeValue(margin) { yogaEdge, unitValue ->
             if (unitValue.type == UnitType.REAL) {
                 yogaNode.setMargin(yogaEdge, unitValue.value.dp().toFloat())
@@ -129,7 +129,7 @@ class FlexMapper {
         }
     }
 
-    private fun setPadding(margin: EdgeValue, yogaNode: YogaNode) {
+    private fun setPadding(margin: EdgeValue?, yogaNode: YogaNode) {
         applyEdgeValue(margin) { yogaEdge, unitValue ->
             if (unitValue.type == UnitType.REAL) {
                 yogaNode.setPadding(yogaEdge, unitValue.value.dp().toFloat())
@@ -139,7 +139,7 @@ class FlexMapper {
         }
     }
 
-    private fun setPosition(position: EdgeValue, yogaNode: YogaNode) {
+    private fun setPosition(position: EdgeValue?, yogaNode: YogaNode) {
         applyEdgeValue(position) { yogaEdge, unitValue ->
             if (unitValue.type == UnitType.REAL) {
                 yogaNode.setPosition(yogaEdge, unitValue.value.dp().toFloat())
@@ -149,32 +149,32 @@ class FlexMapper {
         }
     }
 
-    private fun applyEdgeValue(edgeValue: EdgeValue, finish: (yogaEdge: YogaEdge, unitValue: UnitValue) -> Unit) {
-        edgeValue.top?.let {
+    private fun applyEdgeValue(edgeValue: EdgeValue?, finish: (yogaEdge: YogaEdge, unitValue: UnitValue) -> Unit) {
+        edgeValue?.top?.let {
             finish(YogaEdge.TOP, it)
         }
-        edgeValue.left?.let {
+        edgeValue?.left?.let {
             finish(YogaEdge.LEFT, it)
         }
-        edgeValue.right?.let {
+        edgeValue?.right?.let {
             finish(YogaEdge.RIGHT, it)
         }
-        edgeValue.bottom?.let {
+        edgeValue?.bottom?.let {
             finish(YogaEdge.BOTTOM, it)
         }
-        edgeValue.start?.let {
+        edgeValue?.start?.let {
             finish(YogaEdge.START, it)
         }
-        edgeValue.end?.let {
+        edgeValue?.end?.let {
             finish(YogaEdge.END, it)
         }
-        edgeValue.vertical?.let {
+        edgeValue?.vertical?.let {
             finish(YogaEdge.VERTICAL, it)
         }
-        edgeValue.horizontal?.let {
+        edgeValue?.horizontal?.let {
             finish(YogaEdge.HORIZONTAL, it)
         }
-        edgeValue.all?.let {
+        edgeValue?.all?.let {
             finish(YogaEdge.ALL, it)
         }
     }

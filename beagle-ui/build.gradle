@@ -38,6 +38,8 @@ dependencies {
 
     implementation GeneralLibraries.koin
 
+    implementation GeneralLibraries.beagleDeclarative
+
     implementation GlideLibraries.glide
     kapt GlideLibraries.glideCompiler
 

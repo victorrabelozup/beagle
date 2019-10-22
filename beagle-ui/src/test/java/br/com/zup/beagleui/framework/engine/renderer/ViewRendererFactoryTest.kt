@@ -10,7 +10,7 @@ import br.com.zup.beagleui.framework.engine.renderer.ui.ImageViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.NetworkImageViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.TextViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.UndefinedViewRenderer
-import br.com.zup.beagleui.framework.widget.core.Widget
+import br.com.zup.beagleui.framework.widget.core.NativeWidget
 import br.com.zup.beagleui.framework.widget.layout.Container
 import br.com.zup.beagleui.framework.widget.layout.Horizontal
 import br.com.zup.beagleui.framework.widget.layout.Spacer
@@ -54,7 +54,6 @@ class ViewRendererFactoryTest {
         // Given
         val widget = mockk<Vertical>()
         every { widget.children } returns listOf()
-        every { widget.flex } returns mockk()
 
         // When
         val actual = viewRendererFactory.make(widget)
@@ -68,7 +67,6 @@ class ViewRendererFactoryTest {
         // Given
         val widget = mockk<Horizontal>()
         every { widget.children } returns listOf()
-        every { widget.flex } returns mockk()
 
         // When
         val actual = viewRendererFactory.make(widget)
@@ -164,7 +162,7 @@ class ViewRendererFactoryTest {
     @Test
     fun make_should_return_UndefinedViewRenderer_when_widget_is_a_ListView() {
         // Given
-        val widget = ListView()
+        val widget = ListView(listOf())
 
         // When
         val actual = viewRendererFactory.make(widget)
@@ -174,4 +172,4 @@ class ViewRendererFactoryTest {
     }
 }
 
-class UndefinedWidget : Widget
+class UndefinedWidget : NativeWidget

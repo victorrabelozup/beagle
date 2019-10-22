@@ -5,6 +5,7 @@ import android.view.View
 import br.com.zup.beagleui.framework.engine.renderer.UIViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.mapper.ViewMapper
 import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
+import br.com.zup.beagleui.framework.widget.core.ImageContentMode
 import br.com.zup.beagleui.framework.widget.ui.Image
 
 internal class ImageViewRenderer (
@@ -15,7 +16,8 @@ internal class ImageViewRenderer (
 
     override fun build(context: Context): View {
         return viewFactory.makeImageView(context).apply {
-            scaleType = viewMapper.toScaleType(image.contentMode)
+            val contentMode = image.contentMode ?: ImageContentMode.FIT_CENTER
+            scaleType = viewMapper.toScaleType(contentMode)
         }
     }
 }

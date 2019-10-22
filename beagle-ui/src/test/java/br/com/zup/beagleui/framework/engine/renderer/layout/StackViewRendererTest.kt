@@ -37,8 +37,7 @@ class StackViewRendererTest {
         MockKAnnotations.init(this)
 
         val stack = Stack(
-            listOf(Button(""), Button("")),
-            Flex()
+            listOf(Button(""), Button(""))
         )
 
         stackViewRenderer = StackViewRenderer(
