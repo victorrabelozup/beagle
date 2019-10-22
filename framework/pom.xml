@@ -5,7 +5,7 @@
 
     <groupId>br.com.zup</groupId>
     <artifactId>beagle-ui-sdk</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1-alpha1</version>
 
     <name>beagle-ui-sdk</name>
     <description>Beagle UI SDK Project</description>
@@ -89,7 +89,39 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.5.1</version>
+                <executions>
+                    <execution>
+                        <id>default-deploy</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <serverId>nexus</serverId>
+                    <nexusUrl>http://repo.zup.com.br:8081</nexusUrl>
+                    <skipStaging>true</skipStaging>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>dw-nexus-release-admin</id>
+            <name>Darwin Nexus Release Repository Admin</name>
+            <url>https://repo.zup.com.br/repository/darwin-jars-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>dw-nexus-snapshot-admin</id>
+            <name>Darwin Nexus Snapshots Repository Admin</name>
+            <url>https://repo.zup.com.br/repository/darwin-jars-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>
