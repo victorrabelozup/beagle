@@ -1,16 +1,21 @@
 package br.com.zup.beagleui.framework.networking
 
-import io.mockk.*
+import io.mockk.MockKAnnotations
+import io.mockk.Runs
+import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import junit.framework.Assert.assertTrue
-import org.junit.Assert
+import io.mockk.just
+import io.mockk.mockkStatic
+import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+import kotlin.test.fail
 
 private val REQUEST_DATA = RequestData(url = "http://www.mocky.io/v2/5d855b4b320000b90607b244")
 private val REQUEST_DATA_METHOD_NOT_SUPPORTED =
@@ -59,7 +64,7 @@ class URLRequestDispatchingDefaultTest {
         urlRequestDispatchingDefault.execute(REQUEST_DATA, onSuccess = {
             assertEquals(BYTE_ARRAY_DATA, it.data)
         }, onError = {
-            Assert.fail("Test failed, should execute successfully")
+            fail("Test failed, should execute successfully")
         })
 
         verify(exactly = 1) { httpURLConnection.disconnect() }
@@ -69,7 +74,7 @@ class URLRequestDispatchingDefaultTest {
     fun execute_should_be_executed_successfully_with_headers() {
         urlRequestDispatchingDefault.execute(REQUEST_DATA_WITH_HEADERS, onSuccess = {
         }, onError = {
-            Assert.fail("Test failed, should execute successfully")
+            fail("Test failed, should execute successfully")
         })
 
         HEADERS.forEach {
@@ -85,7 +90,7 @@ class URLRequestDispatchingDefaultTest {
 
 
         urlRequestDispatchingDefault.execute(REQUEST_DATA, onSuccess = {
-            Assert.fail("Test failed, should execute with error")
+            fail("Test failed, should execute with error")
 
         }, onError = {
             assertEquals(runtimeException, it)
@@ -96,7 +101,7 @@ class URLRequestDispatchingDefaultTest {
     fun execute_should_be_executed_with_error_method_not_supported() {
 
         urlRequestDispatchingDefault.execute(REQUEST_DATA_METHOD_NOT_SUPPORTED, onSuccess = {
-            Assert.fail("Test failed, should execute with error")
+            fail("Test failed, should execute with error")
         }, onError = {
             assertTrue(it is IllegalArgumentException)
         })

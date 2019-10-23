@@ -14,10 +14,10 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.slot
 import io.mockk.verify
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFails
 
 const val URL = "http://www.mocky.io/v2/5d855b4b320000b90607b244"
 
@@ -76,11 +76,15 @@ class BeagleHttpClientTest {
         assertEquals(widget, widgetResult)
     }
 
-    @Test(expected = BeagleDataException::class)
+    @Test
     fun test_fetch_widget_should_return_error() = runBlocking {
-        val exception = BeagleDataException("Error")
-        mockListenerExecution {onErrorSlot.captured(exception)}
-        beagleHttpClient.fetchWidget(JSON_ERROR)
-        Assert.fail("Error should throw exception")
+        val message = "Error"
+        val expectedException = BeagleDataException(message)
+        mockListenerExecution {onErrorSlot.captured(expectedException)}
+        val exceptionResponse = assertFails(message) {
+            beagleHttpClient.fetchWidget(JSON_ERROR)
+        }
+
+        assertEquals(expectedException.message, exceptionResponse.message)
     }
 }

@@ -3,9 +3,8 @@ package br.com.zup.beagleui.framework.setup
 import android.app.Application
 import br.com.zup.beagleui.framework.mockdata.CustomWidget
 import br.com.zup.beagleui.framework.mockdata.CustomWidgetFactory
-import br.com.zup.beagleui.framework.view.WidgetViewFactory
+import br.com.zup.beagleui.framework.networking.URLRequestDispatching
 import br.com.zup.beagleui.framework.widget.core.NativeWidget
-import br.com.zup.beagleui.framework.widget.core.Widget
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
@@ -17,6 +16,8 @@ import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 private const val APP_NAME = "beagle"
 
@@ -24,6 +25,17 @@ class BeagleInitializerTest {
 
     @MockK
     private lateinit var application: Application
+
+    @MockK
+    private lateinit var buttonTheme: ButtonTheme
+
+    @MockK
+    private lateinit var textAppearanceTheme: TextAppearanceTheme
+
+    private lateinit var theme: Theme
+
+    @MockK
+    private lateinit var networkingDispatcher: URLRequestDispatching
 
     @Before
     fun setUp() {
@@ -43,6 +55,8 @@ class BeagleInitializerTest {
     @After
     fun after() {
         unmockkObject(BeagleEnvironment)
+        BeagleEnvironment.theme = null
+        BeagleEnvironment.networkingDispatcher = null
     }
 
     @Test
@@ -63,5 +77,32 @@ class BeagleInitializerTest {
 
         // Then
         verify(exactly = 1) { BeagleEnvironment.registerWidget(button, factory) }
+    }
+
+    @Test
+    fun registerTheme_should_call_BeagleEnvironment_registerTheme() {
+        theme = Theme(
+            buttonTheme = buttonTheme,
+            textAppearanceTheme = textAppearanceTheme
+        )
+        // When
+        BeagleInitializer.registerTheme(theme = theme)
+
+        // Then
+        assertNotNull(BeagleEnvironment.theme)
+        assertEquals(theme, BeagleEnvironment.theme)
+        assertEquals(theme.buttonTheme, BeagleEnvironment.theme?.buttonTheme)
+        assertEquals(theme.textAppearanceTheme, BeagleEnvironment.theme?.textAppearanceTheme)
+    }
+
+    @Test
+    fun registerNetworkingDispatcher_should_call_BeagleEnvironment_registerNetworkingDispatcher() {
+
+        // When
+        BeagleInitializer.registerNetworkingDispatcher(networkingDispatcher = networkingDispatcher)
+
+        // Then
+        assertNotNull(BeagleEnvironment.networkingDispatcher)
+        assertEquals(networkingDispatcher, BeagleEnvironment.networkingDispatcher)
     }
 }

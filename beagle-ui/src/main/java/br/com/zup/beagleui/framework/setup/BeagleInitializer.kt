@@ -5,17 +5,16 @@ import br.com.zup.beagleui.framework.networking.URLRequestDispatching
 import br.com.zup.beagleui.framework.view.WidgetViewFactory
 import br.com.zup.beagleui.framework.widget.core.NativeWidget
 
-class BeagleInitializer {
+class BeagleInitializer private constructor() {
 
     companion object {
 
         @JvmStatic
         fun setup(
             appName: String,
-            application: Application,
-            networkingDispatcher: URLRequestDispatching? = null
+            application: Application
         ) {
-            BeagleEnvironment.setup(appName, application, networkingDispatcher)
+            BeagleEnvironment.setup(appName, application)
         }
 
         @JvmStatic
@@ -24,6 +23,18 @@ class BeagleInitializer {
             factory: WidgetViewFactory<T>
         ): Companion {
             BeagleEnvironment.registerWidget(clazz, factory)
+            return this
+        }
+
+        @JvmStatic
+        fun registerNetworkingDispatcher(networkingDispatcher: URLRequestDispatching): Companion {
+            BeagleEnvironment.networkingDispatcher = networkingDispatcher
+            return this
+        }
+
+        @JvmStatic
+        fun registerTheme(theme: Theme): Companion {
+            BeagleEnvironment.theme = theme
             return this
         }
     }
