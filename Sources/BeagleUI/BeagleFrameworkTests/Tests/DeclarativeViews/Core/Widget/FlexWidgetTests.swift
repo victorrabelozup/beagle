@@ -56,12 +56,11 @@ final class FlexWidgetTests: XCTestCase {
     
     func test_applyFlex_shouldReturnFlexWidget() {
         // Given
-        let flex = Flex(justifyContent: .center)
-        // When
         let widget = FlexWidget {
             Text("Some texts")
         }
-        let flexWidget = widget.applyFlex(flex)
+        // When
+        let flexWidget = widget.applyFlex(justifyContent: .center)
         // Then
         XCTAssertNotNil(flexWidget.flex, "Expected to have a flex type, but got none.")
     }

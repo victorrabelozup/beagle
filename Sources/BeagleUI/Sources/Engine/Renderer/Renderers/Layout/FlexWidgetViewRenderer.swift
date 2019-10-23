@@ -7,20 +7,24 @@
 //
 
 import UIKit
+import YogaKit
 
 final class FlexWidgetViewRenderer: WidgetViewRenderer<FlexWidget> {
     
     // MARK: - Public Functions
     
     override func buildView() -> UIView {
-        let view = UIView()
+        
+        let containerView = UIView()
         
         widget.children.forEach {
             let childView = rendererProvider.buildRenderer(for: $0).buildView()
-            view.addSubview(childView)
+            containerView.addSubview(childView)
         }
         
-        flexViewConfigurator.applyFlex(widget.flex, to: view)
-        return view
+        flexViewConfigurator.applyFlex(widget.flex, to: containerView)
+        
+        return containerView
     }
+    
 }

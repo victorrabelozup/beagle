@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct Spacer: Widget {
+public struct Spacer: NativeWidget {
     
     // MARK: - Public Properties
     

@@ -29,9 +29,9 @@ final class SpacerWidgetViewRendererTests: XCTestCase {
     
         // Then
         XCTAssertTrue(flexConfiguratorSpy.applyFlexCalled, "Expected to call `applyFlex`.")
-        XCTAssertEqual(spacer.size, flexConfiguratorSpy.flexPassed?.size.width?.value, "Expected \(spacer.size), but got \(String(describing: flexConfiguratorSpy.flexPassed?.size.width?.value)).")
-        XCTAssertEqual(spacer.size, flexConfiguratorSpy.flexPassed?.size.height?.value, "Expected \(spacer.size), but got \(String(describing: flexConfiguratorSpy.flexPassed?.size.height?.value)).")
-        XCTAssertEqual(resultingView, flexConfiguratorSpy.viewPassed, "Expected \(String(describing: resultingView)), but got \(String(describing: flexConfiguratorSpy.viewPassed)).")
+        XCTAssertEqual(spacer.size, flexConfiguratorSpy.flexPassed?.size?.width?.value, "Expected \(spacer.size), but got \(String(describing: flexConfiguratorSpy.flexPassed?.size?.width?.value)).")
+        XCTAssertEqual(spacer.size, flexConfiguratorSpy.flexPassed?.size?.height?.value, "Expected \(spacer.size), but got \(String(describing: flexConfiguratorSpy.flexPassed?.size?.height?.value)).")
+        XCTAssertEqual(resultingView, flexConfiguratorSpy.viewPassedToApplyFlex, "Expected \(String(describing: resultingView)), but got \(String(describing: flexConfiguratorSpy.viewPassedToApplyFlex)).")
     }
     
 }
@@ -48,4 +48,36 @@ private class WidgetRendererProviderDummy: WidgetRendererProvider {
     func buildRenderer(for widget: Widget) -> WidgetViewRendererProtocol {
         return WidgetViewRendererProtocolDummy()
     }
+}
+
+final class FlexViewConfiguratorSpy: FlexViewConfiguratorProtocol {
+    
+    private(set) var applyFlexCalled = false
+    private(set) var flexPassed: Flex?
+    private(set) var viewPassedToApplyFlex: UIView?
+    func applyFlex(_ flex: Flex, to view: UIView) {
+        applyFlexCalled = true
+        flexPassed = flex
+        viewPassedToApplyFlex = view
+        
+    }
+    
+    private(set) var applyYogaLayoutCalled = false
+    private(set) var viewPassedToApplyYogaLayout: UIView?
+    private(set) var preservingOriginPassed: Bool?
+    func applyYogaLayout(to view: UIView, preservingOrigin: Bool) {
+        applyYogaLayoutCalled = true
+        viewPassedToApplyYogaLayout = view
+        preservingOriginPassed = preservingOrigin
+    }
+    
+    private(set) var enableYogaCalled = false
+    private(set) var enablePassed: Bool?
+    private(set) var viewPassedToEnableYoga: UIView?
+    func enableYoga(_ enable: Bool, for view: UIView) {
+        enableYogaCalled = true
+        enablePassed = enable
+        viewPassedToEnableYoga = view
+    }
+    
 }

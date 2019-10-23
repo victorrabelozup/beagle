@@ -26,12 +26,11 @@ final class FlexSingleWidgetTests: XCTestCase {
     
     func test_applyFlex_shouldReturnFlexWidget() {
         // Given
-        let flex = Flex(justifyContent: .center)
-        // When
         let widget = FlexSingleWidget {
             Text("Some texts")
         }
-        let flexSingleWidget = widget.applyFlex(flex)
+        // When
+        let flexSingleWidget = widget.applyFlex(justifyContent: .center)
         // Then
         XCTAssertNotNil(flexSingleWidget.flex, "Expected to have a flex widget to have flex attribute, but got none.")
     }

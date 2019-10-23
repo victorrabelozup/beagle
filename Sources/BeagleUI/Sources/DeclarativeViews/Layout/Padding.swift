@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct Padding: Widget {
+public struct Padding: NativeWidget {
     
     // MARK: - Public Properties
     
@@ -37,6 +37,10 @@ public struct Padding: Widget {
 extension Padding {
     
     public struct Value {
+        
+        // MARK: - Static
+        
+        public static let zero = Value()
         
         // MARK: - Public Properties
         

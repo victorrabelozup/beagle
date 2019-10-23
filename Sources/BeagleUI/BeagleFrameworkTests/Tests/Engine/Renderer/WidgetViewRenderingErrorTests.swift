@@ -23,4 +23,5 @@ final class WidgetViewRenderingErrorTests: XCTestCase {
         // Then
         XCTAssertEqual(expectedLocalizedDescription, localizedDescription, "Expected \(expectedLocalizedDescription), but got \(localizedDescription).")
     }
+    
 }

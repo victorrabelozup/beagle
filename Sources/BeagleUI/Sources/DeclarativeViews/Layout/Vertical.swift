@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct Vertical: Widget {
+public struct Vertical: NativeWidget {
     
     // MARK: - Public Properties
     

@@ -9,9 +9,10 @@
 import Foundation
 import YogaKit
 
-protocol FlexViewConfiguratorProtocol {
+public protocol FlexViewConfiguratorProtocol {
     func applyFlex(_ flex: Flex, to view: UIView)
-    func configFlex(_ flex: Flex, to view: UIView)
+    func applyYogaLayout(to view: UIView, preservingOrigin: Bool)
+    func enableYoga(_ enable: Bool, for view: UIView)
 }
 
 final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
@@ -29,40 +30,75 @@ final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
     // MARK: - Public Methods
     
     func applyFlex(_ flex: Flex, to view: UIView) {
-        configFlex(flex, to: view)
-        view.yoga.applyLayout(preservingOrigin: true)
-    }
-    
-    func configFlex(_ flex: Flex, to view: UIView) {
         view.yoga.isEnabled = true
+        view.yoga.position = .relative
         applyYogaProperties(from: flex, to: view.yoga)
         applyAtributes(from: flex, to: view.yoga)
+    }
+    
+    func applyYogaLayout(to view: UIView, preservingOrigin: Bool) {
+        view.yoga.applyLayout(preservingOrigin: preservingOrigin)
+    }
+    
+    func enableYoga(_ enable: Bool, for view: UIView) {
+        view.yoga.isEnabled = enable
     }
     
     // MARK: - Private Methods
     
     private func applyYogaProperties(from flex: Flex, to layout: YGLayout) {
-        layout.flexDirection = yogaTranslator.translate(flex.flexDirection)
-        layout.direction = yogaTranslator.translate(flex.direction)
-        layout.flexWrap = yogaTranslator.translate(flex.flexWrap)
-        layout.justifyContent = yogaTranslator.translate(flex.justifyContent)
-        layout.alignItems = yogaTranslator.translate(flex.alignItems)
-        layout.alignSelf = yogaTranslator.translate(flex.alignItems)
-        layout.alignContent = yogaTranslator.translate(flex.alignContent)
-        layout.flexGrow = CGFloat(flex.grow)
-        layout.flexShrink = CGFloat(flex.shrink)
-        layout.display = yogaTranslator.translate(flex.display)
+        
+        if let flexDirection = flex.flexDirection {
+            layout.flexDirection = yogaTranslator.translate(flexDirection)
+        }
+        
+        if let direction = flex.direction {
+           layout.direction = yogaTranslator.translate(direction)
+        }
+        
+        if let flexWrap = flex.flexWrap {
+            layout.flexWrap = yogaTranslator.translate(flexWrap)
+        }
+        
+        if let justifyContent = flex.justifyContent {
+            layout.justifyContent = yogaTranslator.translate(justifyContent)
+        }
+        
+        if let alignItems = flex.alignItems {
+            layout.alignItems = yogaTranslator.translate(alignItems)
+        }
+        
+        if let alignSelf = flex.alignSelf {
+            layout.alignSelf = yogaTranslator.translate(alignSelf)
+        }
+        
+        if let alignContent = flex.alignContent {
+           layout.alignContent = yogaTranslator.translate(alignContent)
+        }
+        
+        if let flexGrow = flex.grow {
+           layout.flexGrow = CGFloat(flexGrow)
+        }
+        
+        if let flexShrink = flex.shrink {
+           layout.flexShrink = CGFloat(flexShrink)
+        }
+        
+        if let display = flex.display {
+           layout.display = yogaTranslator.translate(display)
+        }
+        
     }
     
     private func applyAtributes(from flex: Flex, to layout: YGLayout) {
-        setWidth(flex.size.width, to: layout)
-        setHeight(flex.size.height, to: layout)
-        setMaxWidth(flex.size.maxWidth, to: layout)
-        setMaxHeight(flex.size.maxHeight, to: layout)
-        setMinWidth(flex.size.minWidth, to: layout)
-        setMinHeight(flex.size.minHeight, to: layout)
+        setWidth(flex.size?.width, to: layout)
+        setHeight(flex.size?.height, to: layout)
+        setMaxWidth(flex.size?.maxWidth, to: layout)
+        setMaxHeight(flex.size?.maxHeight, to: layout)
+        setMinWidth(flex.size?.minWidth, to: layout)
+        setMinHeight(flex.size?.minHeight, to: layout)
         setBasis(flex.basis, to: layout)
-        setAspectRatio(flex.size.aspectRatio, to: layout)
+        setAspectRatio(flex.size?.aspectRatio, to: layout)
         setMargin(flex.margin, to: layout)
         setPadding(flex.padding, to: layout)
         setPosition(flex.position, to: layout)
@@ -120,91 +156,93 @@ final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
         }
     }
     
-    private func setMargin(_ margin: Flex.EdgeValue, to layout: YGLayout) {
+    private func setMargin(_ margin: Flex.EdgeValue?, to layout: YGLayout) {
         
-        if let all = margin.all {
+        if let all = margin?.all {
             layout.margin = yogaTranslator.translate(all)
             return
         }
         
-        if let left = margin.left {
+        if let left = margin?.left {
             layout.marginLeft = yogaTranslator.translate(left)
         }
         
-        if let top = margin.top {
+        if let top = margin?.top {
             layout.marginTop = yogaTranslator.translate(top)
         }
         
-        if let right = margin.right {
+        if let right = margin?.right {
             layout.marginRight = yogaTranslator.translate(right)
         }
         
-        if let bottom = margin.bottom {
+        if let bottom = margin?.bottom {
             layout.marginBottom = yogaTranslator.translate(bottom)
         }
         
-        if let start = margin.start {
+        if let start = margin?.start {
             layout.marginStart = yogaTranslator.translate(start)
         }
         
-        if let end = margin.end {
+        if let end = margin?.end {
             layout.marginEnd = yogaTranslator.translate(end)
         }
         
-        if let horizontal = margin.horizontal {
+        if let horizontal = margin?.horizontal {
             layout.marginHorizontal = yogaTranslator.translate(horizontal)
         }
         
-        if let vertical = margin.vertical {
+        if let vertical = margin?.vertical {
             layout.marginVertical = yogaTranslator.translate(vertical)
         }
         
     }
     
-    private func setPadding(_ padding: Flex.EdgeValue, to layout: YGLayout) {
+    private func setPadding(_ padding: Flex.EdgeValue?, to layout: YGLayout) {
         
-        if let all = padding.all {
+        if let all = padding?.all {
             layout.padding = yogaTranslator.translate(all)
             return
         }
         
-        if let left = padding.left {
+        if let left = padding?.left {
             layout.paddingLeft = yogaTranslator.translate(left)
         }
         
-        if let top = padding.top {
+        if let top = padding?.top {
             layout.paddingTop = yogaTranslator.translate(top)
         }
         
-        if let right = padding.right {
+        if let right = padding?.right {
             layout.paddingRight = yogaTranslator.translate(right)
         }
         
-        if let bottom = padding.bottom {
+        if let bottom = padding?.bottom {
             layout.paddingBottom = yogaTranslator.translate(bottom)
         }
         
-        if let start = padding.start {
+        if let start = padding?.start {
             layout.paddingStart = yogaTranslator.translate(start)
         }
         
-        if let end = padding.end {
+        if let end = padding?.end {
             layout.paddingEnd = yogaTranslator.translate(end)
         }
         
-        if let horizontal = padding.horizontal {
+        if let horizontal = padding?.horizontal {
             layout.paddingHorizontal = yogaTranslator.translate(horizontal)
         }
         
-        if let vertical = padding.vertical {
+        if let vertical = padding?.vertical {
             layout.paddingVertical = yogaTranslator.translate(vertical)
         }
         
+        debugPrint("finish")
+        
     }
     
-    private func setPosition(_ position: Flex.EdgeValue, to layout: YGLayout) {
+    private func setPosition(_ position: Flex.EdgeValue?, to layout: YGLayout) {
         
-        if let all = position.all {
+        if let all = position?.all {
             let value = yogaTranslator.translate(all)
             layout.top = value
             layout.left = value
@@ -213,27 +251,27 @@ final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
             return
         }
         
-        if let left = position.left {
+        if let left = position?.left {
             layout.left = yogaTranslator.translate(left)
         }
 
-        if let top = position.top {
+        if let top = position?.top {
             layout.top = yogaTranslator.translate(top)
         }
 
-        if let right = position.right {
+        if let right = position?.right {
             layout.right = yogaTranslator.translate(right)
         }
 
-        if let bottom = position.bottom {
+        if let bottom = position?.bottom {
             layout.bottom = yogaTranslator.translate(bottom)
         }
 
-        if let start = position.start {
+        if let start = position?.start {
             layout.start = yogaTranslator.translate(start)
         }
 
-        if let end = position.end {
+        if let end = position?.end {
             layout.end = yogaTranslator.translate(end)
         }
         

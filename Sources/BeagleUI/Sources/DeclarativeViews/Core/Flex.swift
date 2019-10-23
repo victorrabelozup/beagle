@@ -6,46 +6,107 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
+//public struct Flex {
+//
+//    // MARK: - Public Properties
+//
+//    public let direction: Direction
+//    public let flexDirection: FlexDirection
+//    public let flexWrap: Wrap
+//    public let justifyContent: JustifyContent
+//    public let alignItems: Alignment
+//    public let alignSelf: Alignment
+//    public let alignContent: Alignment
+//    public let basis: UnitValue
+//    public let flex: Double
+//    public let grow: Double
+//    public let shrink: Double
+//    public let display: Display
+//    public let size: Size
+//    public let margin: EdgeValue
+//    public let padding: EdgeValue
+//    public let position: EdgeValue
+//
+//    // MARK: - Initialization
+//
+//    public init (
+//        direction: Direction = .ltr,
+//        flexDirection: FlexDirection = .column,
+//        flexWrap: Wrap = .noWrap,
+//        justifyContent: JustifyContent = .flexStart,
+//        alignItems: Alignment = .stretch,
+//        alignSelf: Alignment = .auto,
+//        alignContent: Alignment = .flexStart,
+//        basis: UnitValue = .zero,
+//        flex: Double = .zero,
+//        grow: Double = .zero,
+//        shrink: Double = .zero,
+//        display: Display = .none,
+//        size: Size = Size(),
+//        margin: EdgeValue = EdgeValue(),
+//        padding: EdgeValue = EdgeValue(),
+//        position: EdgeValue = EdgeValue()
+//    ) {
+//        self.flexDirection = flexDirection
+//        self.direction = direction
+//        self.flexWrap = flexWrap
+//        self.justifyContent = justifyContent
+//        self.alignItems = alignItems
+//        self.alignSelf = alignSelf
+//        self.alignContent = alignContent
+//        self.basis = basis
+//        self.flex = flex
+//        self.grow = grow
+//        self.shrink = shrink
+//        self.display = display
+//        self.size = size
+//        self.margin = margin
+//        self.padding = padding
+//        self.position = position
+//    }
+//
+//}
+
 public struct Flex {
     
     // MARK: - Public Properties
     
-    public let direction: Direction
-    public let flexDirection: FlexDirection
-    public let flexWrap: Wrap
-    public let justifyContent: JustifyContent
-    public let alignItems: Alignment
-    public let alignSelf: Alignment
-    public let alignContent: Alignment
-    public let basis: UnitValue
-    public let flex: Double
-    public let grow: Double
-    public let shrink: Double
-    public let display: Display
-    public let size: Size
-    public let margin: EdgeValue
-    public let padding: EdgeValue
-    public let position: EdgeValue
+    public let direction: Direction?
+    public let flexDirection: FlexDirection?
+    public let flexWrap: Wrap?
+    public let justifyContent: JustifyContent?
+    public let alignItems: Alignment?
+    public let alignSelf: Alignment?
+    public let alignContent: Alignment?
+    public let basis: UnitValue?
+    public let flex: Double?
+    public let grow: Double?
+    public let shrink: Double?
+    public let display: Display?
+    public let size: Size?
+    public let margin: EdgeValue?
+    public let padding: EdgeValue?
+    public let position: EdgeValue?
     
     // MARK: - Initialization
     
     public init (
-        direction: Direction = .ltr,
-        flexDirection: FlexDirection = .column,
-        flexWrap: Wrap = .noWrap,
-        justifyContent: JustifyContent = .flexStart,
-        alignItems: Alignment = .stretch,
-        alignSelf: Alignment = .auto,
-        alignContent: Alignment = .flexStart,
-        basis: UnitValue = .zero,
-        flex: Double = .zero,
-        grow: Double = .zero,
-        shrink: Double = .zero,
-        display: Display = .none,
-        size: Size = Size(),
-        margin: EdgeValue = EdgeValue(),
-        padding: EdgeValue = EdgeValue(),
-        position: EdgeValue = EdgeValue()
+        direction: Direction? = nil,
+        flexDirection: FlexDirection? = nil,
+        flexWrap: Wrap? = nil,
+        justifyContent: JustifyContent? = nil,
+        alignItems: Alignment? = nil,
+        alignSelf: Alignment? = nil,
+        alignContent: Alignment? = nil,
+        basis: UnitValue? = nil,
+        flex: Double? = nil,
+        grow: Double? = nil,
+        shrink: Double? = nil,
+        display: Display? = nil,
+        size: Size? = nil,
+        margin: EdgeValue? = nil,
+        padding: EdgeValue? = nil,
+        position: EdgeValue? = nil
     ) {
         self.flexDirection = flexDirection
         self.direction = direction

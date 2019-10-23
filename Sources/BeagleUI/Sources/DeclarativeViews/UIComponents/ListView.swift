@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct ListView: Widget {
+public struct ListView: NativeWidget {
     
     // MARK: - Public Properties
     
@@ -29,6 +29,8 @@ public struct ListView: Widget {
         self.direction = direction
     }
     
+    // MARK: - Builders
+    
     public init(
         @WidgetBuilder _ rowBuilder: () -> Widget
     ) {
@@ -41,6 +43,18 @@ public struct ListView: Widget {
     ) {
         let rows = rowsBuilder()
         self.init(rows: rows)
+    }
+    
+    public static func dynamic(_ size: Int, @WidgetBuilder builder: () -> Widget) -> ListView {
+        
+        var rows = [Widget]()
+        let widget = builder()
+        for _ in stride(from: 0, through: size, by: 1) {
+            rows.append(widget)
+        }
+        
+        return ListView(rows: rows)
+        
     }
     
     // MARK: - Configuration

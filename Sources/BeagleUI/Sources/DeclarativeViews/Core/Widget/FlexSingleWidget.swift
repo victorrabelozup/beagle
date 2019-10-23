@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct FlexSingleWidget: FlexConfigurableWidget {
+public struct FlexSingleWidget: NativeWidget, FlexConfigurableWidget {
     
     // MARK: - Public Properties
     
@@ -40,7 +40,42 @@ public struct FlexSingleWidget: FlexConfigurableWidget {
     
     // MARK: - Configuration
     
-    func applyFlex(_ flex: Flex = Flex()) -> FlexSingleWidget {
+    public func applyFlex(
+        direction: Flex.Direction? = nil,
+        flexDirection: Flex.FlexDirection? = nil,
+        flexWrap: Flex.Wrap? = nil,
+        justifyContent: Flex.JustifyContent? = nil,
+        alignItems: Flex.Alignment? = nil,
+        alignSelf: Flex.Alignment? = nil,
+        alignContent: Flex.Alignment? = nil,
+        basis: UnitValue? = nil,
+        flex: Double? = nil,
+        grow: Double? = nil,
+        shrink: Double? = nil,
+        display: Flex.Display? = nil,
+        size: Flex.Size? = nil,
+        margin: Flex.EdgeValue? = nil,
+        padding: Flex.EdgeValue? = nil,
+        position: Flex.EdgeValue? = nil
+    ) -> FlexSingleWidget {
+        let flex = Flex(
+            direction: direction,
+            flexDirection: flexDirection,
+            flexWrap: flexWrap,
+            justifyContent: justifyContent,
+            alignItems: alignItems,
+            alignSelf: alignItems,
+            alignContent: alignContent,
+            basis: basis,
+            flex: flex,
+            grow: grow,
+            shrink: shrink,
+            display: display,
+            size: size,
+            margin: margin,
+            padding: padding,
+            position: position
+        )
         return FlexSingleWidget(child: child, flex: flex)
     }
     

@@ -16,12 +16,8 @@ final class UIComponentViewRendererProviding: UIComponentViewRendererProvider {
         switch widget {
         case is Button:
             return try ButtonWidgetViewRenderer(widget)
-            //        case is Image:
-            //            debugPrint("Image")
-            //        case is NetworkImage:
-            //            debugPrint("NetworkImage")
-            //        case is ListView:
-        //            debugPrint("ListView")
+//      case is Image:
+//      case is NetworkImage:
         case is Text:
             return try TextWidgetViewRenderer(widget)
         default:

@@ -41,6 +41,12 @@
 		985EBAA32358BC960042C19A /* ContainerWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985EBAA22358BC960042C19A /* ContainerWidgetViewRendererTests.swift */; };
 		E50B0902234CCAB90091AF0A /* WidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B08FF234CCAB90091AF0A /* WidgetRendererProvider.swift */; };
 		E50B0904234CCACB0091AF0A /* FailableWidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B0903234CCACB0091AF0A /* FailableWidgetRendererProvider.swift */; };
+		E531D6B12359FD18007EEBA7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531D6B02359FD18007EEBA7 /* LoadingView.swift */; };
+		E531D6B42359FE19007EEBA7 /* UIView+AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531D6B32359FE19007EEBA7 /* UIView+AutoLayout.swift */; };
+		E531D6BA2359FEE1007EEBA7 /* UIView+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531D6B92359FEE1007EEBA7 /* UIView+Loading.swift */; };
+		E531D6BC235A007C007EEBA7 /* UIView+LoadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531D6BB235A007C007EEBA7 /* UIView+LoadingTests.swift */; };
+		E531D6C1235A3230007EEBA7 /* NSErrorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531D6BF235A30DB007EEBA7 /* NSErrorExtension.swift */; };
+		E531D6C8235A4CFF007EEBA7 /* DispatchingQueues.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531D6C7235A4CFF007EEBA7 /* DispatchingQueues.swift */; };
 		E56A029D2344172400C0F23D /* WidgetBuilders.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A029C2344172400C0F23D /* WidgetBuilders.swift */; };
 		E56A02B123451C6500C0F23D /* FlexSingleWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02AD23451BFE00C0F23D /* FlexSingleWidget.swift */; };
 		E56A02B423451CE900C0F23D /* FlexWidgetEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02B223451CC300C0F23D /* FlexWidgetEntity.swift */; };
@@ -71,15 +77,14 @@
 		E5A6F4BF2358ECA1008906F8 /* YogaTranslatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6F4BD2358ECA1008906F8 /* YogaTranslatorTests.swift */; };
 		E5A6F4C22358ED00008906F8 /* Flex+Fixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6F4C12358ED00008906F8 /* Flex+Fixture.swift */; };
 		E5A6F4C52358ED7D008906F8 /* SpacerWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6F4C32358ED41008906F8 /* SpacerWidgetViewRenderer.swift */; };
-		E5CB5D63234E7A21009783A7 /* BeagleFlexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D62234E7A21009783A7 /* BeagleFlexView.swift */; };
-		E5CB5D65234E7CF6009783A7 /* BeagleFlexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D64234E7CF6009783A7 /* BeagleFlexViewController.swift */; };
-		E5CB5D68234F738F009783A7 /* BeagleFlexViewContaining.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D67234F738F009783A7 /* BeagleFlexViewContaining.swift */; };
+		E5A6F4C92358F373008906F8 /* ServerDrivenScreenLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6F4C82358F373008906F8 /* ServerDrivenScreenLoader.swift */; };
+		E5A6F4CB2358F621008906F8 /* ServerDrivenWidgetFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6F4CA2358F621008906F8 /* ServerDrivenWidgetFetcher.swift */; };
+		E5CB5D65234E7CF6009783A7 /* BeagleScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D64234E7CF6009783A7 /* BeagleScreenViewController.swift */; };
 		E5CB5D732354ADC7009783A7 /* TextWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D712354ADC7009783A7 /* TextWidgetViewRenderer.swift */; };
 		E5CB5D792354ADF9009783A7 /* ButtonWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D782354ADF9009783A7 /* ButtonWidgetViewRenderer.swift */; };
 		E5CB5D7B2354AE13009783A7 /* ButtonWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D7A2354AE13009783A7 /* ButtonWidgetViewRendererTests.swift */; };
 		E5CB5D7E2354AE62009783A7 /* TextWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D7C2354AE62009783A7 /* TextWidgetViewRendererTests.swift */; };
 		E5CB5D812354C08E009783A7 /* UnknownWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D802354C08E009783A7 /* UnknownWidgetViewRendererTests.swift */; };
-		E5CB5D842354C600009783A7 /* BeagleFlexViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D832354C600009783A7 /* BeagleFlexViewTests.swift */; };
 		E5CB5D862354C830009783A7 /* MirrorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D852354C830009783A7 /* MirrorExtension.swift */; };
 		E5CB5D8F2354E4CD009783A7 /* BeagleEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D8E2354E4CD009783A7 /* BeagleEnvironment.swift */; };
 		E5CB5DAB23550012009783A7 /* BeagleSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DAA23550012009783A7 /* BeagleSetup.swift */; };
@@ -192,6 +197,12 @@
 		985EBAA22358BC960042C19A /* ContainerWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		E50B08FF234CCAB90091AF0A /* WidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetRendererProvider.swift; sourceTree = "<group>"; };
 		E50B0903234CCACB0091AF0A /* FailableWidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailableWidgetRendererProvider.swift; sourceTree = "<group>"; };
+		E531D6B02359FD18007EEBA7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		E531D6B32359FE19007EEBA7 /* UIView+AutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AutoLayout.swift"; sourceTree = "<group>"; };
+		E531D6B92359FEE1007EEBA7 /* UIView+Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Loading.swift"; sourceTree = "<group>"; };
+		E531D6BB235A007C007EEBA7 /* UIView+LoadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+LoadingTests.swift"; sourceTree = "<group>"; };
+		E531D6BF235A30DB007EEBA7 /* NSErrorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSErrorExtension.swift; sourceTree = "<group>"; };
+		E531D6C7235A4CFF007EEBA7 /* DispatchingQueues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchingQueues.swift; sourceTree = "<group>"; };
 		E53524AA23310F5A00D1A0C9 /* YogaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YogaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E56A029C2344172400C0F23D /* WidgetBuilders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetBuilders.swift; sourceTree = "<group>"; };
 		E56A02AD23451BFE00C0F23D /* FlexSingleWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidget.swift; sourceTree = "<group>"; };
@@ -222,15 +233,14 @@
 		E5A6F4BD2358ECA1008906F8 /* YogaTranslatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YogaTranslatorTests.swift; sourceTree = "<group>"; };
 		E5A6F4C12358ED00008906F8 /* Flex+Fixture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Flex+Fixture.swift"; sourceTree = "<group>"; };
 		E5A6F4C32358ED41008906F8 /* SpacerWidgetViewRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpacerWidgetViewRenderer.swift; sourceTree = "<group>"; };
-		E5CB5D62234E7A21009783A7 /* BeagleFlexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleFlexView.swift; sourceTree = "<group>"; };
-		E5CB5D64234E7CF6009783A7 /* BeagleFlexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleFlexViewController.swift; sourceTree = "<group>"; };
-		E5CB5D67234F738F009783A7 /* BeagleFlexViewContaining.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleFlexViewContaining.swift; sourceTree = "<group>"; };
+		E5A6F4C82358F373008906F8 /* ServerDrivenScreenLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDrivenScreenLoader.swift; sourceTree = "<group>"; };
+		E5A6F4CA2358F621008906F8 /* ServerDrivenWidgetFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDrivenWidgetFetcher.swift; sourceTree = "<group>"; };
+		E5CB5D64234E7CF6009783A7 /* BeagleScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleScreenViewController.swift; sourceTree = "<group>"; };
 		E5CB5D712354ADC7009783A7 /* TextWidgetViewRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextWidgetViewRenderer.swift; sourceTree = "<group>"; };
 		E5CB5D782354ADF9009783A7 /* ButtonWidgetViewRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonWidgetViewRenderer.swift; sourceTree = "<group>"; };
 		E5CB5D7A2354AE13009783A7 /* ButtonWidgetViewRendererTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		E5CB5D7C2354AE62009783A7 /* TextWidgetViewRendererTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		E5CB5D802354C08E009783A7 /* UnknownWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownWidgetViewRendererTests.swift; sourceTree = "<group>"; };
-		E5CB5D832354C600009783A7 /* BeagleFlexViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleFlexViewTests.swift; sourceTree = "<group>"; };
 		E5CB5D852354C830009783A7 /* MirrorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirrorExtension.swift; sourceTree = "<group>"; };
 		E5CB5D8E2354E4CD009783A7 /* BeagleEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleEnvironment.swift; sourceTree = "<group>"; };
 		E5CB5DAA23550012009783A7 /* BeagleSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleSetup.swift; sourceTree = "<group>"; };
@@ -434,6 +444,70 @@
 			path = Abstractions;
 			sourceTree = "<group>";
 		};
+		E531D6AF2359FD0E007EEBA7 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				E531D6B02359FD18007EEBA7 /* LoadingView.swift */,
+			);
+			path = Loading;
+			sourceTree = "<group>";
+		};
+		E531D6B22359FE09007EEBA7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E531D6B32359FE19007EEBA7 /* UIView+AutoLayout.swift */,
+				E531D6B92359FEE1007EEBA7 /* UIView+Loading.swift */,
+				E531D6BF235A30DB007EEBA7 /* NSErrorExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E531D6B52359FE95007EEBA7 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E531D6B62359FE9D007EEBA7 /* Extensions */,
+				E531D6B72359FEA3007EEBA7 /* Loading */,
+				E531D6B82359FEAF007EEBA7 /* Util */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		E531D6B62359FE9D007EEBA7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E531D6BB235A007C007EEBA7 /* UIView+LoadingTests.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E531D6B72359FEA3007EEBA7 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Loading;
+			sourceTree = "<group>";
+		};
+		E531D6B82359FEAF007EEBA7 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		E531D6BD235A00DF007EEBA7 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		E531D6BE235A00E6007EEBA7 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		E53524A923310F5A00D1A0C9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -557,6 +631,8 @@
 		E5A6F4A62358A530008906F8 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				E531D6B22359FE09007EEBA7 /* Extensions */,
+				E531D6AF2359FD0E007EEBA7 /* Loading */,
 				E5A6F4A72358A53B008906F8 /* Util */,
 			);
 			path = Common;
@@ -566,6 +642,7 @@
 			isa = PBXGroup;
 			children = (
 				E5A6F4A82358A547008906F8 /* FatalErrorUtil.swift */,
+				E531D6C7235A4CFF007EEBA7 /* DispatchingQueues.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -597,12 +674,29 @@
 			path = Fixtures;
 			sourceTree = "<group>";
 		};
-		E5CB5D66234F7380009783A7 /* Protocols */ = {
+		E5A6F4CC2359050E008906F8 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				E5CB5D67234F738F009783A7 /* BeagleFlexViewContaining.swift */,
+				E5CB5D64234E7CF6009783A7 /* BeagleScreenViewController.swift */,
 			);
-			path = Protocols;
+			path = UI;
+			sourceTree = "<group>";
+		};
+		E5A6F4CD23590529008906F8 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E5A6F4CE2359053D008906F8 /* Networking */,
+				E5A6F4C82358F373008906F8 /* ServerDrivenScreenLoader.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		E5A6F4CE2359053D008906F8 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				E5A6F4CA2358F621008906F8 /* ServerDrivenWidgetFetcher.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		E5CB5D6B2354AC7C009783A7 /* UI */ = {
@@ -618,7 +712,8 @@
 		E5CB5D822354C5E7009783A7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E5CB5D832354C600009783A7 /* BeagleFlexViewTests.swift */,
+				E531D6BD235A00DF007EEBA7 /* Utilities */,
+				E531D6BE235A00E6007EEBA7 /* UI */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -781,6 +876,7 @@
 		E5CE41F22332B9C000295277 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				E531D6B52359FE95007EEBA7 /* Common */,
 				E5CB5DC42356542E009783A7 /* Setup */,
 				E5CE41F42332B9D200295277 /* Decoding */,
 				E56A02A52345143700C0F23D /* DeclarativeViews */,
@@ -914,9 +1010,8 @@
 		E5DD4692234CF444004B7289 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E5CB5D66234F7380009783A7 /* Protocols */,
-				E5CB5D62234E7A21009783A7 /* BeagleFlexView.swift */,
-				E5CB5D64234E7CF6009783A7 /* BeagleFlexViewController.swift */,
+				E5A6F4CD23590529008906F8 /* Utilities */,
+				E5A6F4CC2359050E008906F8 /* UI */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1054,9 +1149,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5CB5D68234F738F009783A7 /* BeagleFlexViewContaining.swift in Sources */,
 				E5CE41CA233274AE00295277 /* PaddingEntity.swift in Sources */,
 				E5CE41D22332766900295277 /* ButtonEntity.swift in Sources */,
+				E531D6BA2359FEE1007EEBA7 /* UIView+Loading.swift in Sources */,
 				E5CB5DB923550CEF009783A7 /* WidgetRegisterItem.swift in Sources */,
 				9368180B232A889100E6E724 /* Spacer.swift in Sources */,
 				E5CE41D82332769500295277 /* ListViewEntity.swift in Sources */,
@@ -1074,9 +1169,11 @@
 				E5CE41A52331D59E00295277 /* WidgetEntityContainer.swift in Sources */,
 				E5CE41FB2333F7FB00295277 /* ChildrenWidgetMapping.swift in Sources */,
 				E5CB5DB023550877009783A7 /* ImageEntityContentMode.swift in Sources */,
+				E5A6F4CB2358F621008906F8 /* ServerDrivenWidgetFetcher.swift in Sources */,
 				E5CB5DB22355088F009783A7 /* NetworkImageEntity.swift in Sources */,
 				9368181D232A8DE100E6E724 /* Text.swift in Sources */,
 				E5CE41A92331D95300295277 /* VerticalEntity.swift in Sources */,
+				E531D6C8235A4CFF007EEBA7 /* DispatchingQueues.swift in Sources */,
 				E50B0904234CCACB0091AF0A /* FailableWidgetRendererProvider.swift in Sources */,
 				E5CE41C82332749800295277 /* HorizontalEntity.swift in Sources */,
 				E56A02B8234530C900C0F23D /* FlexWidget.swift in Sources */,
@@ -1085,15 +1182,18 @@
 				E5CB5D792354ADF9009783A7 /* ButtonWidgetViewRenderer.swift in Sources */,
 				E57FBB82233A795A00165D8D /* DataPreprocessor.swift in Sources */,
 				9303B08C2357B49A008BAA6D /* ContainerWidgetViewRenderer.swift in Sources */,
+				E531D6B42359FE19007EEBA7 /* UIView+AutoLayout.swift in Sources */,
 				E5CB5D732354ADC7009783A7 /* TextWidgetViewRenderer.swift in Sources */,
 				E5CB5D8F2354E4CD009783A7 /* BeagleEnvironment.swift in Sources */,
 				93681803232A884F00E6E724 /* UnitValue.swift in Sources */,
 				E50B0902234CCAB90091AF0A /* WidgetRendererProvider.swift in Sources */,
+				E531D6C1235A3230007EEBA7 /* NSErrorExtension.swift in Sources */,
 				E5CB5DB7235508CE009783A7 /* ImageContentMode.swift in Sources */,
 				9368180F232A88B300E6E724 /* Vertical.swift in Sources */,
 				E5A6F4A92358A547008906F8 /* FatalErrorUtil.swift in Sources */,
 				E5CB5DB5235508B9009783A7 /* NetworkImage.swift in Sources */,
 				E5CB5DD023578967009783A7 /* UIComponentViewRendererProvider.swift in Sources */,
+				E5A6F4C92358F373008906F8 /* ServerDrivenScreenLoader.swift in Sources */,
 				936817FD232A882D00E6E724 /* Widget.swift in Sources */,
 				E5CB5DAB23550012009783A7 /* BeagleSetup.swift in Sources */,
 				E5CE41CC233274BB00295277 /* SpacerEntity.swift in Sources */,
@@ -1106,9 +1206,8 @@
 				93681815232A8D6500E6E724 /* Image.swift in Sources */,
 				E5CE41C623325E4500295277 /* UnitValueEntity.swift in Sources */,
 				936817FF232A883E00E6E724 /* Flex.swift in Sources */,
-				E5CB5D63234E7A21009783A7 /* BeagleFlexView.swift in Sources */,
 				93681805232A886C00E6E724 /* Container.swift in Sources */,
-				E5CB5D65234E7CF6009783A7 /* BeagleFlexViewController.swift in Sources */,
+				E5CB5D65234E7CF6009783A7 /* BeagleScreenViewController.swift in Sources */,
 				E5CE41AE2331D9A700295277 /* TextEntity.swift in Sources */,
 				93681817232A8D6E00E6E724 /* ListView.swift in Sources */,
 				E5CB5DCE23578837009783A7 /* LayoutViewRendererProvider.swift in Sources */,
@@ -1117,6 +1216,7 @@
 				E56A029D2344172400C0F23D /* WidgetBuilders.swift in Sources */,
 				E56A02B123451C6500C0F23D /* FlexSingleWidget.swift in Sources */,
 				E5CE41CE233274CA00295277 /* StackEntity.swift in Sources */,
+				E531D6B12359FD18007EEBA7 /* LoadingView.swift in Sources */,
 				E56A02B423451CE900C0F23D /* FlexWidgetEntity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1135,6 +1235,7 @@
 				E5CE43182335052100295277 /* UIEnumModelConvertibleTests.swift in Sources */,
 				E5CE421A2334047900295277 /* HorizontalEntityTests.swift in Sources */,
 				E5CB5D7E2354AE62009783A7 /* TextWidgetViewRendererTests.swift in Sources */,
+				E531D6BC235A007C007EEBA7 /* UIView+LoadingTests.swift in Sources */,
 				980262AE2345431B0025A9C3 /* FlexWidgetTests.swift in Sources */,
 				E5835B33233BD84600125140 /* WidgetEntityContainerTests.swift in Sources */,
 				E56A02CD23462B0000C0F23D /* StackTests.swift in Sources */,
@@ -1161,7 +1262,6 @@
 				E5CE422823340EA100295277 /* UnitValueEntityTests.swift in Sources */,
 				E5A6F4C22358ED00008906F8 /* Flex+Fixture.swift in Sources */,
 				E5A6F4B12358DF06008906F8 /* WidgetViewRendererTests.swift in Sources */,
-				E5CB5D842354C600009783A7 /* BeagleFlexViewTests.swift in Sources */,
 				E5A6F4AF2358AA85008906F8 /* BeagleEnvironmentTests.swift in Sources */,
 				E5CE41F62332B9DD00295277 /* WidgetDecoderTests.swift in Sources */,
 				985EBA9123565F180042C19A /* ImageEntityTests.swift in Sources */,

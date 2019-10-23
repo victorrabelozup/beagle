@@ -14,22 +14,14 @@ final class LayoutViewRendererProviding: LayoutViewRendererProvider {
     
     func buildRenderer(for widget: Widget) throws -> WidgetViewRendererProtocol {
         switch widget {
-            //        case is FlexSingleWidget:
-            //            debugPrint("FlexSingleWidget")
-            //        case is FlexWidget:
-            //            debugPrint("FlexWidget")
-            //        case is Container:
-            //            debugPrint("Container")
-            //        case is Horizontal:
-            //            debugPrint("Horizontal")
-            //        case is Padding:
-            //            debugPrint("Padding")
-            //        case is Spacer:
-            //            debugPrint("Spacer")
-            //        case is Stack:
-            //            debugPrint("Stack")
-            //        case is Vertical:
-        //            debugPrint("Vertical")
+        case is FlexSingleWidget:
+            return try FlexSingleWidgetViewRenderer(widget)
+        case is FlexWidget:
+            return try FlexWidgetViewRenderer(widget)
+        case is Container:
+            return try ContainerWidgetViewRenderer(widget)
+        case is Spacer:
+            return try SpacerWidgetViewRenderer(widget)
         default:
             throw FailableWidgetRendererProviderError.couldNotFindRenrererForWidget(widget)
         }

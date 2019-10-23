@@ -8,27 +8,38 @@
 
 import UIKit
 
-protocol BeagleViewBuilder {
+public protocol BeagleViewBuilder {
     func buildFromRootWidget(_ widget: Widget) -> UIView
 }
 
-final class BeagleViewBuilding: BeagleViewBuilder {
+public final class BeagleViewBuilding: BeagleViewBuilder {
     
     // MARK: - Dependencies
     
     private let rendererProvider: WidgetRendererProvider
+    private let flexConfigurator: FlexViewConfiguratorProtocol
     
     // MARK: - Initialization
     
-    init(rendererProvider: WidgetRendererProvider = WidgetRendererProviding()) {
-        self.rendererProvider = rendererProvider
+    public convenience init() {
+        self.init(rendererProvider: nil)
+    }
+    
+    init(
+        rendererProvider: WidgetRendererProvider? = nil,
+        flexConfigurator: FlexViewConfiguratorProtocol? = nil
+    ) {
+        self.rendererProvider = rendererProvider ?? WidgetRendererProviding()
+        self.flexConfigurator = flexConfigurator ?? FlexViewConfigurator()
     }
     
     // MARK: - Public Functions
     
-    func buildFromRootWidget(_ widget: Widget) -> UIView {
+    public func buildFromRootWidget(_ widget: Widget) -> UIView {
         let renderer = rendererProvider.buildRenderer(for: widget)
-        return renderer.buildView()
+        let view = renderer.buildView()
+        flexConfigurator.applyYogaLayout(to: view, preservingOrigin: true)
+        return view
     }
     
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol WidgetRendererProvider {
+public protocol WidgetRendererProvider {
     func buildRenderer(for widget: Widget) -> WidgetViewRendererProtocol
 }
 
@@ -36,9 +36,9 @@ final class WidgetRendererProviding: WidgetRendererProvider {
     
     func buildRenderer(for widget: Widget) -> WidgetViewRendererProtocol {
         do {
-            return try layoutViewRendererProvider.buildRenderer(for: widget)
+            let layoutRenderer = try layoutViewRendererProvider.buildRenderer(for: widget)
+            return layoutRenderer
         } catch { // Don't treat specific errors for now, just try to provide a UIComponent
-            debugPrint("LayoutRendererError: \(error)")
             return provideUIComponentRenderer(for: widget)
         }
     }
@@ -47,18 +47,18 @@ final class WidgetRendererProviding: WidgetRendererProvider {
     
     private func provideUIComponentRenderer(for widget: Widget) -> WidgetViewRendererProtocol {
         do {
-            return try uiComponentViewRendererProvider.buildRenderer(for: widget)
+            let uiComponentRenderer = try uiComponentViewRendererProvider.buildRenderer(for: widget)
+            return uiComponentRenderer
         } catch {
-            debugPrint("UIComponentRendererError: \(error)")
             return provideCustomWidgetRendenrer(for: widget)
         }
     }
     
     private func provideCustomWidgetRendenrer(for widget: Widget) -> WidgetViewRendererProtocol {
         do {
-            return try customWidgetsProvider.dequeueRenderer(for: widget)
+            let customWidgetRenderer = try customWidgetsProvider.dequeueRenderer(for: widget)
+            return customWidgetRenderer
         } catch { // Don't treat specific errors for now, just return a `UnknownWidgetRenderer`
-            debugPrint("CustomWidgetsRendererProvider: \(error)")
             return UnknownWidgetViewRenderer(widget)
         }
     }

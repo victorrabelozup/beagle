@@ -44,4 +44,4 @@ final class ButtonWidgetViewRendererTests: XCTestCase {
     }
 }
 
-private struct UnknownWidget: Widget { }
+private struct UnknownWidget: NativeWidget { }

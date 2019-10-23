@@ -293,15 +293,15 @@ final class YogaTranslatorTests: XCTestCase {
         XCTAssertEqual(expectedYGValue, translated, "Expected \(expectedYGValue), but got \(String(describing: translated))")
     }
     
-    func test_translateRealUnitValue_shouldReturnPointYGValue() {
-        // Given
-        let expectedYGValue = YGValue(value: 1.0, unit: .point)
-        let unitValue = UnitValue(value: 1.0, type: .real)
-        // When
-        let translated = yogaTranslator.translate(unitValue)
-        // Then
-        XCTAssertEqual(expectedYGValue, translated, "Expected \(expectedYGValue), but got \(String(describing: translated))")
-    }
+//    func test_translateRealUnitValue_shouldReturnPointYGValue() {
+//        // Given
+//        let expectedYGValue = YGValue(value: 1.0, unit: .point)
+//        let unitValue = UnitValue(value: 1.0, type: .real)
+//        // When
+//        let translated = yogaTranslator.translate(unitValue)
+//        // Then
+//        XCTAssertEqual(expectedYGValue, translated, "Expected \(expectedYGValue), but got \(String(describing: translated))")
+//    }
 }
 
 // MARK: - Testing Helpers

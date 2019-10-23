@@ -11,14 +11,21 @@ import UIKit
 final class SpacerWidgetViewRenderer: WidgetViewRenderer<Spacer> {
     
     override func buildView() -> UIView {
+        
         let flex = Flex(
             size: Flex.Size(
                 width: UnitValue(value: widget.size, type: .real),
                 height: UnitValue(value: widget.size, type: .real)
             )
         )
-        let view = UIView(frame: .zero)
+        
+        let view = UIView()
+        
         flexViewConfigurator.applyFlex(flex, to: view)
+        flexViewConfigurator.applyYogaLayout(to: view, preservingOrigin: false)
+        
+        view.sizeToFit()
+        
         return view
     }
     

@@ -109,7 +109,7 @@ final class YogaTranslating: YogaTranslator {
         case .percent:
             return YGValue(value: value, unit: .percent)
         case .real:
-            return YGValue(value: value, unit: .point)
+            return YGValue(value: value, unit: .undefined)
         }
     }
     

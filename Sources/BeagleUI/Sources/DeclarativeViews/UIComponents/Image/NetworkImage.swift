@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct NetworkImage: Widget {
+public struct NetworkImage: NativeWidget {
     
     public let url: String
     public let contentMode: ImageContentMode

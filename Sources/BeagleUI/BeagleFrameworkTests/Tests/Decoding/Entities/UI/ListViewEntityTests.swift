@@ -20,6 +20,10 @@ final class ListViewEntityTests: XCTestCase {
                     {
                         "type": "beagle:Text",
                         "text": "some text"
+                    },
+                    {
+                        "type": "beagle:Text",
+                        "text": "some text"
                     }
                 ],
                 "loadingState": {
@@ -37,7 +41,7 @@ final class ListViewEntityTests: XCTestCase {
         
         // Then
         XCTAssertNotNil(object, "Expected a valid object, but found nil.")
-        XCTAssertEqual(object?.rows?.count, 1, "Expected 1, but found \(object?.rows?.count ?? 0).")
+        XCTAssertEqual(object?.rows?.count, 2, "Expected 2, but found \(object?.rows?.count ?? 0).")
     }
     
     func test_whenMapToWidgetIsCalledOnVerticalListViewEntity_thenItShouldReturnAVerticalListView() {

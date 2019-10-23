@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct Button: Widget {
+public struct Button: NativeWidget {
     
     // MARK: - Public Properties
     

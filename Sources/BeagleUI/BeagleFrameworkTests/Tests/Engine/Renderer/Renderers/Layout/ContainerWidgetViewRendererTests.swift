@@ -28,10 +28,9 @@ final class ContainerWidgetViewRendererTests: XCTestCase {
         
         // Then
         XCTAssertTrue(flexConfiguratorSpy.applyFlexCalled, "Expected to call `applyFlex`.")
-        XCTAssertTrue(flexConfiguratorSpy.configFlexCalled, "Expected to call `configFlex` function.")
         XCTAssertEqual(Flex.FlexDirection.column, flexConfiguratorSpy.flexPassed?.flexDirection, "Expected flex to have column as a flexDirection, but got \(String(describing: flexConfiguratorSpy.flexPassed?.flexDirection)).")
         XCTAssertEqual(Flex.JustifyContent.spaceBetween, flexConfiguratorSpy.flexPassed?.justifyContent, "Expected flex to have spaceBetween as a justifyContent, but got \(String(describing: flexConfiguratorSpy.flexPassed?.justifyContent)).")
-        XCTAssertEqual(resultingView, flexConfiguratorSpy.viewPassed, "Expected \(String(describing: resultingView)), but got \(String(describing: flexConfiguratorSpy.viewPassed)).")
+        XCTAssertEqual(resultingView, flexConfiguratorSpy.viewPassedToApplyFlex, "Expected \(String(describing: resultingView)), but got \(String(describing: flexConfiguratorSpy.viewPassedToApplyFlex)).")
         XCTAssertTrue(resultingView.subviews.count == 3, "Expected view to have 3 subviews, a header, a content and a footer, but has \(resultingView.subviews)")
     }
 }
