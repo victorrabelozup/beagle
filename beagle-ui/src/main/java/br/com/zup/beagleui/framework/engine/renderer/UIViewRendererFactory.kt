@@ -3,6 +3,7 @@ package br.com.zup.beagleui.framework.engine.renderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.BuildableWidgetViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.ButtonViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.ImageViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.ui.NativeWidgetViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.NetworkImageViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.TextViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.UndefinedViewRenderer
@@ -24,7 +25,7 @@ internal class UIViewRendererFactory : AbstractViewRendererFactory {
                 is Image -> ImageViewRenderer(widget)
                 is NetworkImage -> NetworkImageViewRenderer(widget)
                 is ListView -> UndefinedViewRenderer()
-                else -> UndefinedViewRenderer()
+                else -> NativeWidgetViewRenderer(widget)
             }
         } else {
             BuildableWidgetViewRenderer(widget)

@@ -3,7 +3,7 @@ package br.com.zup.beagleui.framework.setup
 import android.app.Application
 import br.com.zup.beagleui.framework.networking.URLRequestDispatching
 import br.com.zup.beagleui.framework.view.WidgetViewFactory
-import br.com.zup.beagleui.framework.widget.core.Widget
+import br.com.zup.beagleui.framework.widget.core.NativeWidget
 
 class BeagleInitializer {
 
@@ -19,7 +19,7 @@ class BeagleInitializer {
         }
 
         @JvmStatic
-        fun <T: Widget> registerWidget(
+        fun <T: NativeWidget> registerWidget(
             clazz: Class<T>,
             factory: WidgetViewFactory<T>
         ): Companion {

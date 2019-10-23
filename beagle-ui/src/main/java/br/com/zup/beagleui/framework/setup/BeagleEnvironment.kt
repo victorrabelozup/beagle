@@ -4,7 +4,7 @@ import android.app.Application
 import br.com.zup.beagleui.framework.di.beagleModule
 import br.com.zup.beagleui.framework.networking.URLRequestDispatching
 import br.com.zup.beagleui.framework.view.WidgetViewFactory
-import br.com.zup.beagleui.framework.widget.core.Widget
+import br.com.zup.beagleui.framework.widget.core.NativeWidget
 import com.facebook.soloader.SoLoader
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -19,10 +19,10 @@ internal object BeagleEnvironment {
     var networkingDispatcher: URLRequestDispatching? = null
         private set
 
-    val widgets: Map<Class<Widget>, WidgetViewFactory<Widget>>
+    val widgets: Map<Class<NativeWidget>, WidgetViewFactory<NativeWidget>>
         get() = internalWidgets
 
-    private var internalWidgets = HashMap<Class<Widget>, WidgetViewFactory<Widget>>()
+    private var internalWidgets = HashMap<Class<NativeWidget>, WidgetViewFactory<NativeWidget>>()
 
     fun setup(
         applicationName: String,
@@ -48,7 +48,7 @@ internal object BeagleEnvironment {
         }
     }
 
-    fun <T: Widget> registerWidget(clazz: Class<T>, factory: WidgetViewFactory<T>) {
-        internalWidgets[clazz as Class<Widget>] = factory as WidgetViewFactory<Widget>
+    fun <T: NativeWidget> registerWidget(clazz: Class<T>, factory: WidgetViewFactory<T>) {
+        internalWidgets[clazz as Class<NativeWidget>] = factory as WidgetViewFactory<NativeWidget>
     }
 }

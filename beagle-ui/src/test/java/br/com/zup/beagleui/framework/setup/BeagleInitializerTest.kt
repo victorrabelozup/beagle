@@ -4,6 +4,7 @@ import android.app.Application
 import br.com.zup.beagleui.framework.mockdata.CustomWidget
 import br.com.zup.beagleui.framework.mockdata.CustomWidgetFactory
 import br.com.zup.beagleui.framework.view.WidgetViewFactory
+import br.com.zup.beagleui.framework.widget.core.NativeWidget
 import br.com.zup.beagleui.framework.widget.core.Widget
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
@@ -33,8 +34,8 @@ class BeagleInitializerTest {
         every { BeagleEnvironment.setup(any(), any()) } just Runs
         every {
             BeagleEnvironment.registerWidget(
-                any<Class<Widget>>(),
-                any<WidgetViewFactory<Widget>>()
+                any<Class<NativeWidget>>(),
+                any()
             )
         } just Runs
     }

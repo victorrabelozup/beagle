@@ -3,6 +3,7 @@ package br.com.zup.beagleui.framework.engine.renderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.BuildableWidgetViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.ButtonViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.ImageViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.ui.NativeWidgetViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.NetworkImageViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.TextViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.UndefinedViewRenderer
@@ -90,13 +91,13 @@ class UIViewRendererFactoryTest {
     @Test
     fun make_should_return_UndefinedViewRenderer_when_widget_is_a_UnknownWidget() {
         // Given
-        val widget = mockk<UnknownWidget>()
+        val widget = mockk<NativeWidget>()
 
         // When
         val actual = viewRendererFactory.make(widget)
 
         // Then
-        assertTrue(actual is UndefinedViewRenderer)
+        assertTrue(actual is NativeWidgetViewRenderer)
     }
 
     @Test
@@ -111,5 +112,3 @@ class UIViewRendererFactoryTest {
         assertTrue(actual is BuildableWidgetViewRenderer)
     }
 }
-
-class UnknownWidget : NativeWidget
