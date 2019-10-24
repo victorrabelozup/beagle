@@ -98,67 +98,14 @@ public class BeagleScreenViewController: UIViewController {
     
     private func setupWidgetView(_ widgetView: UIView) {
         view.backgroundColor = .white
-        
-//        let rootFlex = Flex(
-//            flexDirection: .column,
-//            justifyContent: .spaceAround
-//        )
-//        FlexViewConfigurator().applyFlex(rootFlex, to: view)
-//        FlexViewConfigurator().applyYogaLayout(to: view, preservingOrigin: false)
-        
-//        view.addSubview(widgetView)
-//        widgetView.anchor(
-//            top: view.topAnchor,
-//            left: view.leftAnchor,
-//            bottom: view.bottomAnchor,
-//            right: view.rightAnchor,
-//            bottomConstant: 10
-//        )
-//
-        let flexConfigurator = FlexViewConfigurator()
-        
-        view.backgroundColor = .blue
-        let rootFlex = Flex(
-            direction: .ltr,
-            flexDirection: .row,
-            flexWrap: .noWrap,
-            justifyContent: .flexStart,
-            alignItems: .flexStart,
-            alignSelf: .auto,
-            basis: .zero,
-            grow: .zero,
-            shrink: 1.0,
-            padding: .init(
-                left: .init(value: 20, type: .real),
-                top: .init(value: 20, type: .real),
-                right: .init(value: 20, type: .real),
-                bottom: .init(value: 20, type: .real)
-            )
+        view.addSubview(widgetView)
+        widgetView.anchor(
+            top: view.topAnchor,
+            left: view.leftAnchor,
+            bottom: view.bottomAnchor,
+            right: view.rightAnchor,
+            bottomConstant: 10
         )
-        flexConfigurator.applyFlex(rootFlex, to: view)
-        
-//        let squareOne = UIView(frame: .zero)
-//        squareOne.backgroundColor = .red
-//        view.addSubview(squareOne)
-//        let squareOneFlex = Flex(
-//            direction: .ltr,
-//            flexDirection: .row,
-//            flexWrap: .noWrap,
-//            justifyContent: .flexStart,
-//            alignItems: .stretch,
-//            alignSelf: .auto,
-//            basis: .zero,
-//            grow: .zero,
-//            shrink: 1.0,
-//            size: .init(
-//                width: .init(value: 100, type: .real),
-//                height: .init(value: 100, type: .real)
-//            )
-//        )
-//        flexConfigurator.applyFlex(squareOneFlex, to: squareOne)
-        
-        flexConfigurator.applyYogaLayout(to: view, preservingOrigin: true)
-
     }
     
     // MARK: - Error Handling
@@ -166,5 +113,48 @@ public class BeagleScreenViewController: UIViewController {
     private func handleError(_ error: Error) {
         delegate?.beagleScreenViewController(self, didFailToLoadWithError: error)
     }
+    
+    // TODO: REMOVE THIS BELOW
+//    private func setupTestView() {
+//
+//        let flexConfigurator = FlexViewConfigurator()
+//
+//        let root = UIView(frame: view.frame)
+//        view.addSubview(root)
+//        root.backgroundColor = .blue
+//        let rootFlex = Flex(
+//            direction: .ltr,
+//            flexDirection: .row,
+//            flexWrap: .noWrap,
+//            justifyContent: .flexStart,
+//            alignItems: .flexStart,
+//            alignSelf: .auto,
+//            alignContent: .stretch
+//        )
+//        flexConfigurator.applyFlex(rootFlex, to: root)
+//        flexConfigurator.applyYogaLayout(to: root, preservingOrigin: true)
+//
+//        let squareOne = UIView(frame: .zero)
+//        squareOne.backgroundColor = .red
+//        root.addSubview(squareOne)
+//        let squareOneFlex = Flex(
+//            direction: .ltr,
+//            flexDirection: .row,
+//            flexWrap: .noWrap,
+//            justifyContent: .flexStart,
+//            alignItems: .stretch,
+//            alignSelf: .flexStart,
+//            alignContent: .stretch,
+//            shrink: 1.0,
+//            size: .init(
+//                width: .init(value: 100, type: .real),
+//                height: .init(value: 100, type: .real)
+//            ),
+//            position: .relative
+//        )
+//        flexConfigurator.applyFlex(squareOneFlex, to: squareOne)
+//        flexConfigurator.applyYogaLayout(to: squareOne, preservingOrigin: true)
+//
+//    }
     
 }

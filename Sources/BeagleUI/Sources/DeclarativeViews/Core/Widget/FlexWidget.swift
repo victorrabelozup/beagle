@@ -63,7 +63,7 @@ public struct FlexWidget: FlexConfigurableWidget {
         size: Flex.Size? = nil,
         margin: Flex.EdgeValue? = nil,
         padding: Flex.EdgeValue? = nil,
-        position: Flex.EdgeValue? = nil
+        position: Flex.Position? = nil
     ) -> FlexWidget {
         let flex = Flex(
             direction: direction,

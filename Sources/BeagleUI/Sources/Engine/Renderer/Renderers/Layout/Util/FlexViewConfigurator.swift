@@ -31,7 +31,6 @@ final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
     
     func applyFlex(_ flex: Flex, to view: UIView) {
         view.yoga.isEnabled = true
-        view.yoga.position = .relative
         applyYogaProperties(from: flex, to: view.yoga)
         applyAtributes(from: flex, to: view.yoga)
     }
@@ -236,45 +235,12 @@ final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
             layout.paddingVertical = yogaTranslator.translate(vertical)
         }
         
-        debugPrint("finish")
-        
     }
     
-    private func setPosition(_ position: Flex.EdgeValue?, to layout: YGLayout) {
-        
-        if let all = position?.all {
-            let value = yogaTranslator.translate(all)
-            layout.top = value
-            layout.left = value
-            layout.bottom = value
-            layout.right = value
-            return
+    private func setPosition(_ position: Flex.Position?, to layout: YGLayout) {
+        if let position = position {
+            layout.position = yogaTranslator.translate(position)
         }
-        
-        if let left = position?.left {
-            layout.left = yogaTranslator.translate(left)
-        }
-
-        if let top = position?.top {
-            layout.top = yogaTranslator.translate(top)
-        }
-
-        if let right = position?.right {
-            layout.right = yogaTranslator.translate(right)
-        }
-
-        if let bottom = position?.bottom {
-            layout.bottom = yogaTranslator.translate(bottom)
-        }
-
-        if let start = position?.start {
-            layout.start = yogaTranslator.translate(start)
-        }
-
-        if let end = position?.end {
-            layout.end = yogaTranslator.translate(end)
-        }
-        
     }
     
 }

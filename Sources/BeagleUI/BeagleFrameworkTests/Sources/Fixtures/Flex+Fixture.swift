@@ -44,15 +44,7 @@ extension Flex {
                                    horizontal: nil,
                                    vertical: nil,
                                    all: UnitValue(value: 10.0, type: .real)),
-        position: EdgeValue = .init(left: nil,
-                                    top: nil,
-                                    right: nil,
-                                    bottom: nil,
-                                    start: nil,
-                                    end: nil,
-                                    horizontal: nil,
-                                    vertical: nil,
-                                    all: UnitValue(value: 10.0, type: .real))
+        position: Position = .relative
     ) -> Flex {
         return Flex(direction: direction,
                     flexDirection: flexDirection,
@@ -115,15 +107,7 @@ extension Flex {
                                    horizontal: UnitValue(value: 10.0, type: .real),
                                    vertical: UnitValue(value: 10.0, type: .real),
                                    all: nil),
-        position: EdgeValue = .init(left: UnitValue(value: 10.0, type: .real),
-                                    top: UnitValue(value: 10.0, type: .real),
-                                    right: UnitValue(value: 10.0, type: .real),
-                                    bottom: UnitValue(value: 10.0, type: .real),
-                                    start: UnitValue(value: 10.0, type: .real),
-                                    end: UnitValue(value: 10.0, type: .real),
-                                    horizontal: UnitValue(value: 10.0, type: .real),
-                                    vertical: UnitValue(value: 10.0, type: .real),
-                                    all: nil)
+        position: Position = .relative
     ) -> Flex {
             return Flex(direction: direction,
                         flexDirection: flexDirection,

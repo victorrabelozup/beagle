@@ -17,10 +17,11 @@ protocol YogaTranslator {
     func translate(_ flexDirection: Flex.FlexDirection) -> YGFlexDirection
     func translate(_ display: Flex.Display) -> YGDisplay
     func translate(_ unitValue: UnitValue) -> YGValue
+    func translate(_ position: Flex.Position) -> YGPositionType
 }
 
 final class YogaTranslating: YogaTranslator {
-    
+
     func translate(_ wrap: Flex.Wrap) -> YGWrap {
         switch wrap {
         case .noWrap:
@@ -109,7 +110,16 @@ final class YogaTranslating: YogaTranslator {
         case .percent:
             return YGValue(value: value, unit: .percent)
         case .real:
-            return YGValue(value: value, unit: .undefined)
+            return YGValue(value: value, unit: .point)
+        }
+    }
+    
+    func translate(_ position: Flex.Position) -> YGPositionType {
+        switch position {
+        case .absolute:
+            return .absolute
+        case .relative:
+            return .relative
         }
     }
     

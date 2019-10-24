@@ -39,10 +39,18 @@ struct SomeScreen: Screen {
     var content: FlexConfigurableWidget {
         FlexWidget {
             Text("Text 1")
+            Text("Text 2")
+            Text("Text 3")
+            Text("Text 4")
+            Text("Text 5")
         }.applyFlex(
-            flexDirection: .column,
-            justifyContent: .center,
-            grow: 1.0
+            direction: .ltr,
+            flexDirection: .row,
+            flexWrap: .noWrap,
+            justifyContent: .flexStart,
+            alignItems: .flexStart,
+            alignSelf: .auto,
+            alignContent: .stretch
         )
     }
 
