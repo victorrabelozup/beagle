@@ -60,7 +60,7 @@ final class DataPreprocessorTests: XCTestCase {
         let sut = DataPreprocessing()
         
         // When
-        guard let normalizedData = try? sut.normalizeData(jsonData, for: "beagle") else {
+        guard let normalizedData = try? sut.normalizeData(jsonData, for: ["Beagle"]) else {
             XCTFail("Could not normalize Data!")
             return
         }
@@ -95,7 +95,7 @@ final class DataPreprocessorTests: XCTestCase {
         
         // When / Then
         XCTAssertThrowsError(
-            try sut.normalizeData(jsonData, for: "beagle"),
+            try sut.normalizeData(jsonData, for: ["Beagle"]),
             "Invalid data should throw error."
         )
     }

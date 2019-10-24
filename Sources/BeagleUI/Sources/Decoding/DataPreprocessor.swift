@@ -22,14 +22,14 @@ protocol DataPreprocessor {
     ///   - namespace: the namespace identifier for you entities
     /// - Returns: a normalized data
     /// - Throws: a DataPreprocessorError
-    func normalizeData(_ data: Data, for namespace: String) throws -> Data
+    func normalizeData(_ data: Data, for namespaces: [String]) throws -> Data
 }
 
 final class DataPreprocessing: DataPreprocessor {
     
-    func normalizeData(_ data: Data, for namespace: String) throws -> Data {
+    func normalizeData(_ data: Data, for namespaces: [String]) throws -> Data {
         
-        let uppercasedNamespace = namespace.uppercased()
+        let uppercasedNamespaces = namespaces.map { $0.uppercased() }
         
         var json: Any?
         do {
@@ -38,19 +38,19 @@ final class DataPreprocessing: DataPreprocessor {
             throw DataPreprocessorError.jsonSerialization(error)
         }
         
-        let newDataJSON = try transformValueIfNeeded(json, for: uppercasedNamespace)
+        let newDataJSON = try transformValueIfNeeded(json, for: uppercasedNamespaces)
         
         return try JSONSerialization.data(withJSONObject: newDataJSON, options: .prettyPrinted)
         
     }
     
-    private func transformValueIfNeeded(_ value: Any?, for namespace: String) throws -> Any {
+    private func transformValueIfNeeded(_ value: Any?, for namespaces: [String]) throws -> Any {
         
         if let jsonArray = value as? [[String: Any]] {
 
-            return try jsonArray.map { try transformValueIfNeeded($0, for: namespace) }
+            return try jsonArray.map { try transformValueIfNeeded($0, for: namespaces) }
             
-        } else if let dictionary = value as? [String: Any], let type = (dictionary["type"] as? String)?.uppercased(), type.contains(namespace) {
+        } else if let dictionary = value as? [String: Any], let type = (dictionary["type"] as? String)?.uppercased(), containsNamespace(namespaces, in: type) {
             
             var newValue = [String: Any]()
             var content = [String: Any]()
@@ -58,7 +58,7 @@ final class DataPreprocessing: DataPreprocessor {
                 if let typeName = ($0.value as? String)?.uppercased(), typeName == type {
                     newValue[$0.key] = $0.value
                 } else {
-                    content[$0.key] = try transformValueIfNeeded($0.value, for: namespace)
+                    content[$0.key] = try transformValueIfNeeded($0.value, for: namespaces)
                 }
             }
             newValue["content"] = content
@@ -68,6 +68,10 @@ final class DataPreprocessing: DataPreprocessor {
         } else {
             return value ?? ""
         }
+    }
+    
+    private func containsNamespace(_ namespaces: [String], in type: String) -> Bool {
+        return namespaces.map { type.contains($0) }.filter { $0 == true }.count > 0
     }
     
 }

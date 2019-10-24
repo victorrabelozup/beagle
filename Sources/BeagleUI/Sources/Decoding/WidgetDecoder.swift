@@ -56,18 +56,25 @@ final class WidgetDecoder: WidgetDecoding {
     
     private let jsonDecoder: JSONDecoder
     private let dataPreprocessor: DataPreprocessor
-    private static var namespace: String = "beagle"
+    private static let beagleNamespace = "Beagle"
+    private static var customWidgetsNamespace: String = beagleNamespace
+    private static var namespaces: [String] {
+        if customWidgetsNamespace != beagleNamespace {
+            return [beagleNamespace, customWidgetsNamespace]
+        }
+        return [beagleNamespace]
+    }
     
     // MARK: - Initialization
     
     init(
         jsonDecoder: JSONDecoder = JSONDecoder(),
         dataPreprocessor: DataPreprocessor = DataPreprocessing(),
-        namespace: String = "beagle"
+        namespace: String = "Beagle"
     ) {
         self.jsonDecoder = jsonDecoder
         self.dataPreprocessor = dataPreprocessor
-        WidgetDecoder.namespace = namespace
+        WidgetDecoder.customWidgetsNamespace = namespace
         WidgetDecoder.registerDefaultTypes()
     }
     
@@ -79,7 +86,7 @@ final class WidgetDecoder: WidgetDecoding {
     ///   - type: the type to register, which needs to conform to Decodable
     ///   - typeName: the type's name, or the key it will be found at
     func register<T: WidgetEntity>(_ type: T.Type, for typeName: String) {
-        let decodingKey = WidgetDecoder.decodingKey(for: typeName)
+        let decodingKey = WidgetDecoder.decodingKey(for: typeName, isCustom: true)
         WidgetEntityContainer.register(type, for: decodingKey)
     }
     
@@ -127,14 +134,17 @@ final class WidgetDecoder: WidgetDecoding {
     // MARK: - Private Functions
     
     private func decodeContainer(from data: Data) throws -> WidgetEntityContainer? {
-        let normalizedData = try dataPreprocessor.normalizeData(data, for: WidgetDecoder.namespace)
+        let normalizedData = try dataPreprocessor.normalizeData(data, for: WidgetDecoder.namespaces)
         return try jsonDecoder.decode(WidgetEntityContainer.self, from: normalizedData)
     }
 
     // MARK: - Private Helpers
     
-    private static func decodingKey(for typeName: String) -> String {
-        let prefix = namespace.isEmpty ? "" : namespace + ":"
+    private static func decodingKey(for typeName: String, isCustom: Bool = false) -> String {
+        var prefix = beagleNamespace + ":"
+        if isCustom {
+            prefix = customWidgetsNamespace.isEmpty ? "" : customWidgetsNamespace + ":"
+        }
         return prefix.uppercased() + typeName.uppercased()
     }
     
