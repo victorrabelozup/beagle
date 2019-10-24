@@ -130,7 +130,7 @@ struct WidgetDummyEntity: WidgetConvertibleEntity {
 }
 
 class URLRequestDispatchingDummy: URLRequestDispatching {
-    func execute(request: URLRequestProtocol, completion: @escaping (Result<Data?, URLRequestError>) -> Void) -> URLRequestToken? {
+    func execute(on queue: DispatchQueue, request: URLRequestProtocol, completion: @escaping (Result<Data?, URLRequestError>) -> Void) -> URLRequestToken? {
         return nil
     }
 }

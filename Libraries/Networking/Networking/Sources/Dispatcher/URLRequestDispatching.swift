@@ -14,9 +14,27 @@ public protocol URLRequestDispatching {
     /// Executes the request and provides a completion with the response.
     ///
     /// - Parameters:
+    ///   - queue: the queue you what to dispatch the requests.
+    ///   - request: The request to be executed.
+    ///   - completion: The request's callback.
+    /// - Returns: A token that allows us manipulate the task if needed.
+    @discardableResult
+    func execute(on queue: DispatchQueue, request: URLRequestProtocol, completion: @escaping (_ response: Result<Data?, URLRequestError>) -> Void) -> URLRequestToken?
+    
+    /// Executes the request and provides a completion with the response.
+    ///
+    /// - Parameters:
     ///   - request: The request to be executed.
     ///   - completion: The request's callback.
     /// - Returns: A token that allows us manipulate the task if needed.
     @discardableResult
     func execute(request: URLRequestProtocol, completion: @escaping (_ response: Result<Data?, URLRequestError>) -> Void) -> URLRequestToken?
+}
+extension URLRequestDispatching {
+    
+    @discardableResult
+    public func execute(request: URLRequestProtocol, completion: @escaping (_ response: Result<Data?, URLRequestError>) -> Void) -> URLRequestToken? {
+        return execute(on: .main, request: request, completion: completion)
+    }
+    
 }
