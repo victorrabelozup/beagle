@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import YogaKit
 
 final class ContainerWidgetViewRenderer: WidgetViewRenderer<Container> {
     
@@ -14,11 +15,13 @@ final class ContainerWidgetViewRenderer: WidgetViewRenderer<Container> {
     
     override func buildView() -> UIView {
         
-        let view = UIView(frame: .zero)
+        let frame = CGRect(x: 0, y: 0, width: screenSizeProvider.size.width, height: screenSizeProvider.size.height)
+        let view = UIView(frame: frame)
         let flex = Flex(flexDirection: .column, justifyContent: .spaceBetween)
         
         if let header = widget.header {
-            let headerView = rendererProvider.buildRenderer(for: header).buildView()
+            let renderer = rendererProvider.buildRenderer(for: header)
+            let headerView = renderer.buildView()
             headerView.backgroundColor = .red
             view.addSubview(headerView)
         }
@@ -28,12 +31,15 @@ final class ContainerWidgetViewRenderer: WidgetViewRenderer<Container> {
         view.addSubview(scrollView)
         
         if let footer = widget.footer {
-            let footerView = rendererProvider.buildRenderer(for: footer).buildView()
+            let renderer = rendererProvider.buildRenderer(for: footer)
+            let footerView = renderer.buildView()
             footerView.backgroundColor = .gray
             view.addSubview(footerView)
         }
         
-        flexViewConfigurator.applyFlex(flex, to: view)
+        flexViewConfigurator.setupFlex(flex, for: view)
+        
+        view.sizeToFit()
         
         return view
     }
@@ -41,13 +47,15 @@ final class ContainerWidgetViewRenderer: WidgetViewRenderer<Container> {
     // MARK: - Private Functions
     
     private func buildContentScrollView() -> UIScrollView {
+        
         let scrollView = UIScrollView(frame: .zero)
+        
         let flex = Flex(grow: 1)
         
         let contentView = rendererProvider.buildRenderer(for: widget.content).buildView()
         scrollView.addSubview(contentView)
         
-        flexViewConfigurator.applyFlex(flex, to: scrollView)
+        flexViewConfigurator.setupFlex(flex, for: scrollView)
         
         return scrollView
     }

@@ -24,7 +24,7 @@ public class BeagleScreenViewController: UIViewController {
     // MARK: - Dependencies
     
     private let screenType: ScreenType
-    private let mainQueue: Dispatching
+    private let flexConfigurator: FlexViewConfiguratorProtocol
     private let viewBuilder: BeagleViewBuilder
     private let serverDrivenScreenLoader: ServerDrivenScreenLoader
     
@@ -36,12 +36,12 @@ public class BeagleScreenViewController: UIViewController {
     
     public init(
         screenType: ScreenType,
-        mainQueue: Dispatching? = nil,
+        flexConfigurator: FlexViewConfiguratorProtocol? = nil,
         viewBuilder: BeagleViewBuilder = BeagleViewBuilding(),
         serverDrivenScreenLoader: ServerDrivenScreenLoader = ServerDrivenScreenLoading()
     ) {
         self.screenType = screenType
-        self.mainQueue = mainQueue ?? AsyncQueue.main
+        self.flexConfigurator = flexConfigurator ?? FlexViewConfigurator()
         self.viewBuilder = viewBuilder
         self.serverDrivenScreenLoader = serverDrivenScreenLoader
         super.init(nibName: nil, bundle: nil)
@@ -56,10 +56,15 @@ public class BeagleScreenViewController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
         loadScreen()
     }
     
     // MARK: - Private Functions
+    
+    private func setupView() {
+        view.backgroundColor = .white
+    }
     
     private func loadScreen() {
         switch screenType {
@@ -83,13 +88,11 @@ public class BeagleScreenViewController: UIViewController {
         view.showLoading(.whiteLarge)
         serverDrivenScreenLoader.loadScreen(from: url) { [weak self] result in
             self?.view.hideLoading()
-            self?.mainQueue.dispatch {
-                switch result {
-                case let .success(view):
-                    self?.setupWidgetView(view)
-                case let .failure(error):
-                    self?.handleError(error)
-                }
+            switch result {
+            case let .success(view):
+                self?.setupWidgetView(view)
+            case let .failure(error):
+                self?.handleError(error)
             }
         }
     }
@@ -97,8 +100,8 @@ public class BeagleScreenViewController: UIViewController {
     // MARK: - View Setup
     
     private func setupWidgetView(_ widgetView: UIView) {
-        view.backgroundColor = .white
         view.addSubview(widgetView)
+        flexConfigurator.applyYogaLayout(to: widgetView, preservingOrigin: true)
         widgetView.anchor(
             top: view.topAnchor,
             left: view.leftAnchor,
@@ -113,48 +116,5 @@ public class BeagleScreenViewController: UIViewController {
     private func handleError(_ error: Error) {
         delegate?.beagleScreenViewController(self, didFailToLoadWithError: error)
     }
-    
-    // TODO: REMOVE THIS BELOW
-//    private func setupTestView() {
-//
-//        let flexConfigurator = FlexViewConfigurator()
-//
-//        let root = UIView(frame: view.frame)
-//        view.addSubview(root)
-//        root.backgroundColor = .blue
-//        let rootFlex = Flex(
-//            direction: .ltr,
-//            flexDirection: .row,
-//            flexWrap: .noWrap,
-//            justifyContent: .flexStart,
-//            alignItems: .flexStart,
-//            alignSelf: .auto,
-//            alignContent: .stretch
-//        )
-//        flexConfigurator.applyFlex(rootFlex, to: root)
-//        flexConfigurator.applyYogaLayout(to: root, preservingOrigin: true)
-//
-//        let squareOne = UIView(frame: .zero)
-//        squareOne.backgroundColor = .red
-//        root.addSubview(squareOne)
-//        let squareOneFlex = Flex(
-//            direction: .ltr,
-//            flexDirection: .row,
-//            flexWrap: .noWrap,
-//            justifyContent: .flexStart,
-//            alignItems: .stretch,
-//            alignSelf: .flexStart,
-//            alignContent: .stretch,
-//            shrink: 1.0,
-//            size: .init(
-//                width: .init(value: 100, type: .real),
-//                height: .init(value: 100, type: .real)
-//            ),
-//            position: .relative
-//        )
-//        flexConfigurator.applyFlex(squareOneFlex, to: squareOne)
-//        flexConfigurator.applyYogaLayout(to: squareOne, preservingOrigin: true)
-//
-//    }
     
 }

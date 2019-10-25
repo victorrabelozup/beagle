@@ -28,6 +28,7 @@ public protocol WidgetViewRendererProtocol {
 
 public class WidgetViewRenderer<W: Widget>: WidgetViewRendererProtocol {
     
+    let screenSizeProvider: ScreenSizeProvider
     let flexViewConfigurator: FlexViewConfiguratorProtocol
     let rendererProvider: WidgetRendererProvider
     private(set) var widget: W
@@ -38,10 +39,12 @@ public class WidgetViewRenderer<W: Widget>: WidgetViewRendererProtocol {
     
     init(
         widget: Widget,
+        screenSizeProvider: ScreenSizeProvider = UIScreen.main,
         rendererProvider: WidgetRendererProvider = WidgetRendererProviding(),
         flexViewConfigurator: FlexViewConfiguratorProtocol = FlexViewConfigurator()
     ) throws {
         self.widget = try .newByCasting(widget: widget, to: W.self)
+        self.screenSizeProvider = screenSizeProvider
         self.rendererProvider = rendererProvider
         self.flexViewConfigurator = flexViewConfigurator
     }

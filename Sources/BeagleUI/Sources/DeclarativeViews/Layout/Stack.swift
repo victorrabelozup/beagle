@@ -27,10 +27,25 @@ public struct Stack: NativeWidget {
         self.init(children: [singleChild])
     }
     
+    public static func new(
+        closure: () -> Widget
+    ) -> Stack {
+        let singleChild = closure()
+        return .init(children: [singleChild])
+    }
+    
     public init(
         @WidgetArrayBuilder _ childrenBuilder: () -> [Widget]
     ) {
-        children = childrenBuilder()
+        let children = childrenBuilder()
+        self.init(children: children)
+    }
+    
+    public static func new(
+        closure: () -> [Widget]
+    ) -> Stack {
+        let children = closure()
+        return .init(children: children)
     }
     
 }

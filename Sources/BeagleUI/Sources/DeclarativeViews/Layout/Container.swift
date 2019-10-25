@@ -6,6 +6,8 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
+import UIKit
+
 public struct Container: NativeWidget {
 
     // MARK: - Public Properties
@@ -31,9 +33,14 @@ public struct Container: NativeWidget {
         content contentBuilder: () -> Widget,
         footer footerBuilder: (() -> Widget?)? = nil
     ) {
-        header = headerBuilder?()
-        content = contentBuilder()
-        footer = footerBuilder?()
+        let header = headerBuilder?()
+        let content = contentBuilder()
+        let footer = footerBuilder?()
+        self.init(
+            header: header,
+            content: content,
+            footer: footer
+        )
     }
     
 }

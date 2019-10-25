@@ -21,10 +21,7 @@ final class SpacerWidgetViewRenderer: WidgetViewRenderer<Spacer> {
         
         let view = UIView()
         
-        flexViewConfigurator.applyFlex(flex, to: view)
-        flexViewConfigurator.applyYogaLayout(to: view, preservingOrigin: false)
-        
-        view.sizeToFit()
+        flexViewConfigurator.setupFlex(flex, for: view)
         
         return view
     }

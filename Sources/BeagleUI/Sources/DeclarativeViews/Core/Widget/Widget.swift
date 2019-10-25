@@ -27,11 +27,6 @@ private let unbuildableWidgetError = NSError(
     description: "NativeWidgets don't need to be built!"
 )
 
-/// Defines a component that has a Flex based positioning configuration
-public protocol FlexConfigurableWidget: NativeWidget {
-    var flex: Flex { get }
-}
-
 // Defines a representation of an unknwon Widget
 struct AnyWidget: Widget {
     

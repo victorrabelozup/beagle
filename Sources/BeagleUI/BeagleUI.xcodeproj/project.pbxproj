@@ -41,6 +41,8 @@
 		985EBAA32358BC960042C19A /* ContainerWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985EBAA22358BC960042C19A /* ContainerWidgetViewRendererTests.swift */; };
 		E50B0902234CCAB90091AF0A /* WidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B08FF234CCAB90091AF0A /* WidgetRendererProvider.swift */; };
 		E50B0904234CCACB0091AF0A /* FailableWidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B0903234CCACB0091AF0A /* FailableWidgetRendererProvider.swift */; };
+		E50B283E23623D27005E2E6D /* ScreenSizeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B283D23623D27005E2E6D /* ScreenSizeProvider.swift */; };
+		E50B2841236350B9005E2E6D /* ServerDrivenWidgetFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B2840236350B9005E2E6D /* ServerDrivenWidgetFetcherTests.swift */; };
 		E531D6B12359FD18007EEBA7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531D6B02359FD18007EEBA7 /* LoadingView.swift */; };
 		E531D6B42359FE19007EEBA7 /* UIView+AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531D6B32359FE19007EEBA7 /* UIView+AutoLayout.swift */; };
 		E531D6BA2359FEE1007EEBA7 /* UIView+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531D6B92359FEE1007EEBA7 /* UIView+Loading.swift */; };
@@ -200,6 +202,8 @@
 		985EBAA22358BC960042C19A /* ContainerWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		E50B08FF234CCAB90091AF0A /* WidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetRendererProvider.swift; sourceTree = "<group>"; };
 		E50B0903234CCACB0091AF0A /* FailableWidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailableWidgetRendererProvider.swift; sourceTree = "<group>"; };
+		E50B283D23623D27005E2E6D /* ScreenSizeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSizeProvider.swift; sourceTree = "<group>"; };
+		E50B2840236350B9005E2E6D /* ServerDrivenWidgetFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDrivenWidgetFetcherTests.swift; sourceTree = "<group>"; };
 		E531D6B02359FD18007EEBA7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		E531D6B32359FE19007EEBA7 /* UIView+AutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AutoLayout.swift"; sourceTree = "<group>"; };
 		E531D6B92359FEE1007EEBA7 /* UIView+Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Loading.swift"; sourceTree = "<group>"; };
@@ -453,6 +457,14 @@
 			path = Abstractions;
 			sourceTree = "<group>";
 		};
+		E50B283F236350A6005E2E6D /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				E50B2840236350B9005E2E6D /* ServerDrivenWidgetFetcherTests.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		E531D6AF2359FD0E007EEBA7 /* Loading */ = {
 			isa = PBXGroup;
 			children = (
@@ -467,6 +479,7 @@
 				E531D6B32359FE19007EEBA7 /* UIView+AutoLayout.swift */,
 				E531D6B92359FEE1007EEBA7 /* UIView+Loading.swift */,
 				E531D6BF235A30DB007EEBA7 /* NSErrorExtension.swift */,
+				E50B283D23623D27005E2E6D /* ScreenSizeProvider.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -506,6 +519,7 @@
 		E531D6BD235A00DF007EEBA7 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				E50B283F236350A6005E2E6D /* Networking */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1203,6 +1217,7 @@
 				E5CB5DB5235508B9009783A7 /* NetworkImage.swift in Sources */,
 				E5CB5DD023578967009783A7 /* UIComponentViewRendererProvider.swift in Sources */,
 				E5A6F4C92358F373008906F8 /* ServerDrivenScreenLoader.swift in Sources */,
+				E50B283E23623D27005E2E6D /* ScreenSizeProvider.swift in Sources */,
 				936817FD232A882D00E6E724 /* Widget.swift in Sources */,
 				E5CB5DAB23550012009783A7 /* BeagleSetup.swift in Sources */,
 				E5CE41CC233274BB00295277 /* SpacerEntity.swift in Sources */,
@@ -1262,6 +1277,7 @@
 				E5CB5D812354C08E009783A7 /* UnknownWidgetViewRendererTests.swift in Sources */,
 				985EBA9D235667E00042C19A /* ImageContentModeTests.swift in Sources */,
 				E5CE431E2335402B00295277 /* ChildrenWidgetMappingTests.swift in Sources */,
+				E50B2841236350B9005E2E6D /* ServerDrivenWidgetFetcherTests.swift in Sources */,
 				E5CE421C2334049200295277 /* PaddingEntityTests.swift in Sources */,
 				980262B02345432B0025A9C3 /* FlexSingleWidgetTests.swift in Sources */,
 				E5CB5DC623565440009783A7 /* BeagleSetupTests.swift in Sources */,

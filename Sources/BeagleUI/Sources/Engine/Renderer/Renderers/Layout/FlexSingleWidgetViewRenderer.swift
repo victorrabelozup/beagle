@@ -21,7 +21,7 @@ final class FlexSingleWidgetViewRenderer: WidgetViewRenderer<FlexSingleWidget> {
         let view = UIView()
         view.addSubview(childView)
         
-        flexViewConfigurator.applyFlex(widget.flex, to: view)
+        flexViewConfigurator.setupFlex(widget.flex, for: view)
         
         return view
     }

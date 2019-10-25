@@ -11,5 +11,5 @@ public protocol Screen {
     
     /// A Content represents something that has a Flex positioning/configuration
     /// system, and Widget representable views.
-    var content: FlexConfigurableWidget { get }
+    var content: Widget { get }
 }

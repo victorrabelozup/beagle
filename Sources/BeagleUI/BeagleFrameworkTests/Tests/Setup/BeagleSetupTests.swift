@@ -99,7 +99,7 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
     
 }
 
-private final class WidgetDecodingDummy: WidgetDecoding {
+final class WidgetDecodingDummy: WidgetDecoding {
     func register<T>(_ type: T.Type, for typeName: String) where T : WidgetEntity {}
     func decode(from data: Data) throws -> WidgetEntity? { return nil }
     func decodeToWidget<T>(ofType type: T.Type, from data: Data) throws -> T where T : Widget { return WidgetDummy() as! T }

@@ -30,11 +30,25 @@ public struct Horizontal: NativeWidget {
         self.init(children: [singleChild])
     }
     
+    public static func new(
+        closure: () -> Widget
+    ) -> Horizontal {
+        let singleChild = closure()
+        return .init(children: [singleChild])
+    }
+    
     public init(
         @WidgetArrayBuilder _ childrenBuilder: () -> [Widget]
     ) {
         let children = childrenBuilder()
         self.init(children: children)
+    }
+    
+    public static func new(
+        closure: () -> [Widget]
+    ) -> Horizontal {
+        let children = closure()
+        return .init(children: children)
     }
     
     // MARK: - Configuration

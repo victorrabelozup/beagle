@@ -209,7 +209,7 @@ extension Flex {
     }
 }
 
-// MARK: - EdgeValue
+// MARK: - Position
 extension Flex {
     public enum Position: String, StringRawRepresentable {
         case relative = "RELATIVE"

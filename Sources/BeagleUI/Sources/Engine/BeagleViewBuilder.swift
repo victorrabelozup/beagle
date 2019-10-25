@@ -38,7 +38,6 @@ public final class BeagleViewBuilding: BeagleViewBuilder {
     public func buildFromRootWidget(_ widget: Widget) -> UIView {
         let renderer = rendererProvider.buildRenderer(for: widget)
         let view = renderer.buildView()
-        flexConfigurator.applyYogaLayout(to: view, preservingOrigin: true)
         return view
     }
     

@@ -26,7 +26,7 @@ struct FlexEntity: WidgetEntity {
     let size: Size
     let margin: EdgeValue
     let padding: EdgeValue
-    let position: EdgeValue
+    let position: Position
     
     private enum CodingKeys: String, CodingKey {
         case flexDirection
@@ -65,7 +65,7 @@ struct FlexEntity: WidgetEntity {
             size: container.decodeIfPresent(Size.self, forKey: .size),
             margin: container.decodeIfPresent(EdgeValue.self, forKey: .margin),
             padding: container.decodeIfPresent(EdgeValue.self, forKey: .padding),
-            position: container.decodeIfPresent(EdgeValue.self, forKey: .position)
+            position: container.decodeIfPresent(Position.self, forKey: .position)
         )
     }
     
@@ -85,7 +85,7 @@ struct FlexEntity: WidgetEntity {
         size: Size? = nil,
         margin: EdgeValue? = nil,
         padding: EdgeValue? = nil,
-        position: EdgeValue? = nil
+        position: Position? = nil
     ) {
         self.flexDirection = flexDirection ?? .column
         self.direction = direction ?? .ltr
@@ -102,7 +102,7 @@ struct FlexEntity: WidgetEntity {
         self.size = size ?? Size()
         self.margin = margin ?? EdgeValue()
         self.padding = padding ?? EdgeValue()
-        self.position = position ?? EdgeValue()
+        self.position = position ?? .relative
     }
     
 }
@@ -268,5 +268,13 @@ extension FlexEntity {
             self.all = all
         }
         
+    }
+}
+
+// MARK: - Position
+extension FlexEntity {
+    public enum Position: String, WidgetEntity, UIEnumModelConvertible {
+        case relative = "RELATIVE"
+        case absolute = "ABSOLUTE"
     }
 }

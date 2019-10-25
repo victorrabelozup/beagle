@@ -14,7 +14,8 @@ final class TextWidgetViewRenderer: WidgetViewRenderer<Text> {
         
         let label = UILabel(frame: .zero)
         label.text = widget.text
-        label.backgroundColor = .red
+        label.numberOfLines = 0
+        flexViewConfigurator.enableYoga(true, for: label)
         label.sizeToFit()
         
         return label

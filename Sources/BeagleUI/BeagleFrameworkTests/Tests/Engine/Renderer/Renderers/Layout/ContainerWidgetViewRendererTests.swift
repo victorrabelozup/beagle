@@ -27,25 +27,25 @@ final class ContainerWidgetViewRendererTests: XCTestCase {
         let resultingView = renderer.buildView()
         
         // Then
-        XCTAssertTrue(flexConfiguratorSpy.applyFlexCalled, "Expected to call `applyFlex`.")
+        XCTAssertTrue(flexConfiguratorSpy.setupFlexCalled, "Expected to call `applyFlex`.")
         XCTAssertEqual(Flex.FlexDirection.column, flexConfiguratorSpy.flexPassed?.flexDirection, "Expected flex to have column as a flexDirection, but got \(String(describing: flexConfiguratorSpy.flexPassed?.flexDirection)).")
         XCTAssertEqual(Flex.JustifyContent.spaceBetween, flexConfiguratorSpy.flexPassed?.justifyContent, "Expected flex to have spaceBetween as a justifyContent, but got \(String(describing: flexConfiguratorSpy.flexPassed?.justifyContent)).")
-        XCTAssertEqual(resultingView, flexConfiguratorSpy.viewPassedToApplyFlex, "Expected \(String(describing: resultingView)), but got \(String(describing: flexConfiguratorSpy.viewPassedToApplyFlex)).")
+        XCTAssertEqual(resultingView, flexConfiguratorSpy.viewPassedToSetupFlex, "Expected \(String(describing: resultingView)), but got \(String(describing: flexConfiguratorSpy.viewPassedToSetupFlex)).")
         XCTAssertTrue(resultingView.subviews.count == 3, "Expected view to have 3 subviews, a header, a content and a footer, but has \(resultingView.subviews)")
     }
 }
 
 // MARK: - Testing Helpers
 
-private final class FlexViewConfiguratorSpy: FlexViewConfiguratorProtocol {
+final class FlexViewConfiguratorSpy: FlexViewConfiguratorProtocol {
     
-    private(set) var applyFlexCalled = false
+    private(set) var setupFlexCalled = false
     private(set) var flexPassed: Flex?
-    private(set) var viewPassedToApplyFlex: UIView?
-    func applyFlex(_ flex: Flex, to view: UIView) {
-        applyFlexCalled = true
+    private(set) var viewPassedToSetupFlex: UIView?
+    func setupFlex(_ flex: Flex, for view: UIView) {
+        setupFlexCalled = true
         flexPassed = flex
-        viewPassedToApplyFlex = view
+        viewPassedToSetupFlex = view
         
     }
     

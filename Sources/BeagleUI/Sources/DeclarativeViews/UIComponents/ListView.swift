@@ -38,11 +38,25 @@ public struct ListView: NativeWidget {
         self.init(rows: [singleRow])
     }
     
+    public static func new(
+        closure: () -> Widget
+    ) -> ListView {
+        let singleRow = closure()
+        return .init(rows: [singleRow])
+    }
+    
     public init(
         @WidgetArrayBuilder _ rowsBuilder: () -> [Widget]
     ) {
         let rows = rowsBuilder()
         self.init(rows: rows)
+    }
+    
+    public static func new(
+        closure: () -> [Widget]
+    ) -> ListView {
+        let rows = closure()
+        return .init(rows: rows)
     }
     
     public static func dynamic(_ size: Int, @WidgetBuilder builder: () -> Widget) -> ListView {

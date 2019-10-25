@@ -31,6 +31,14 @@ public struct Padding: NativeWidget {
         self.child = childBuilder()
     }
     
+    public static func new(
+        value: Value = Value(),
+        closure: () -> Widget
+    ) -> Padding {
+        let child = closure()
+        return .init(value: value, child: child)
+    }
+    
 }
 
 // MARK: - PaddingValue

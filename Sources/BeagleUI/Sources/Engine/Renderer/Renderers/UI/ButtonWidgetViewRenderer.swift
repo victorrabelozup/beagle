@@ -14,11 +14,9 @@ final class ButtonWidgetViewRenderer: WidgetViewRenderer<Button> {
     
     override func buildView() -> UIView {
         
-        let button = UIButton(frame: .zero)
+        let button = UIButton(frame: .init(x: 0, y: 0, width: 100, height: 44))
         button.setTitle(widget.text, for: .normal)
-        
-        flexViewConfigurator.enableYoga(true, for: button) // TODO: Remove-me? For tests.
-        
+        flexViewConfigurator.enableYoga(true, for: button)
         button.sizeToFit()
         
         return button

@@ -36,21 +36,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 struct SomeScreen: Screen {
 
-    var content: FlexConfigurableWidget {
-        FlexWidget {
-            Text("Text 1")
-            Text("Text 2")
-            Text("Text 3")
-            Text("Text 4")
-            Text("Text 5")
-        }.applyFlex(
-            direction: .ltr,
-            flexDirection: .row,
-            flexWrap: .noWrap,
-            justifyContent: .flexStart,
-            alignItems: .flexStart,
-            alignSelf: .auto,
-            alignContent: .stretch
+    var content: Widget {
+        Container(
+            header: {
+                FlexWidget {
+                    Text("Header")
+                }.applyFlex(
+                    direction: .ltr,
+                    flexDirection: .column,
+                    flexWrap: .noWrap,
+                    justifyContent: .center,
+                    alignItems: .center,
+                    alignSelf: .auto,
+                    alignContent: .center,
+                    size: .init(width: .init(value: 100, type: .percent), height: .init(value: 140, type: .real))
+                )
+            },
+            content: {
+                FlexWidget(closure: {
+                    var content = [Text]()
+                    for i in stride(from: 0, through: 200, by: 1) {
+                        content.append(Text("Content \(i+1)"))
+                    }
+                    return content
+                })
+                .applyFlex(
+                    direction: .ltr,
+                    flexDirection: .column,
+                    flexWrap: .noWrap,
+                    justifyContent: .center,
+                    alignItems: .center,
+                    alignSelf: .auto,
+                    alignContent: .center
+                )
+            },
+            footer: {
+                Spacer(20)
+            }
         )
     }
 

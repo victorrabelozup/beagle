@@ -8,18 +8,12 @@
 
 import Foundation
 
-public struct FlexSingleWidget: NativeWidget, FlexConfigurableWidget {
+public struct FlexSingleWidget: NativeWidget {
     
     // MARK: - Public Properties
     
     public let child: Widget
-    public var flex: Flex {
-        return _flex
-    }
-    
-    // MARK: - Private Properties
-    
-    private let _flex: Flex
+    public let flex: Flex
     
     // MARK: - Initialization
     
@@ -28,7 +22,7 @@ public struct FlexSingleWidget: NativeWidget, FlexConfigurableWidget {
         flex: Flex = Flex()
     ) {
         self.child = child
-        self._flex = flex
+        self.flex = flex
     }
     
     public init(
