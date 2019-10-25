@@ -12,6 +12,7 @@ object Modules {
 object Releases {
     const val versionCode = 1
     const val versionName = "1.0"
+    const val beagleUiVersionName = "1.0.0-alpha1"
 }
 
 object Versions {

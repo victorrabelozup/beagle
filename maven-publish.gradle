@@ -1,0 +1,43 @@
+ext {
+    localProp = new Properties()
+    fileName = 'local.properties'
+    if (project.rootProject.file(fileName).exists()) {
+        localProp.load(new FileInputStream(rootProject.file(fileName)))
+    }
+    groupName = "br.com.zup.beagleui"
+    publishUsername = System.env.NX_USR_SNP != null ? System.env.NX_USR_SNP : localProp["publishUsername"] ?: ""
+    publishPassword = System.env.NX_PSS_SNP != null ? System.env.NX_PSS_SNP : localProp["publishPassword"] ?: ""
+}
+
+afterEvaluate {
+
+    if (plugins.hasPlugin("com.android.library")) {
+
+        apply plugin: 'maven-publish'
+
+        if (!project.ext.properties.containsKey("artifactId")) {
+            ext.artifactId = project.name
+        }
+
+        publishing {
+            repositories {
+                maven {
+                    credentials {
+                        username publishUsername
+                        password publishPassword
+                    }
+                    url 'http://23.97.100.209:8081/repository/darwin-jars-releases/'
+                }
+            }
+            publications {
+                print "Publishing version ${project.getVersion()}"
+                projectRelease(MavenPublication) {
+                    artifactId project.artifactId
+                    groupId groupName
+                    artifact "build/outputs/aar/${project.name}-release.aar"
+                    version "${project.getVersion()}"
+                }
+            }
+        }
+    }
+}

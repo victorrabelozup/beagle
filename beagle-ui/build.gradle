@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply from: '../jacoco.gradle'
+apply from: '../maven-publish.gradle'
 
 android {
     compileSdkVersion Versions.compileSdk
@@ -11,6 +12,11 @@ android {
     defaultConfig {
         minSdkVersion Versions.minSdk
         targetSdkVersion Versions.targetSdk
+
+        versionCode Releases.versionCode
+        versionName "${Releases.beagleUiVersionName}"
+        //Needed for maven-publish
+        project.setVersion(versionName)
 
         testInstrumentationRunner GeneralNames.testInstrumentationRunner
         consumerProguardFiles GeneralNames.consumerProguard
