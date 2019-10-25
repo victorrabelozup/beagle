@@ -59,8 +59,18 @@ final class BeagleSetupTests: XCTestCase {
 
 final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
     
-    var decoder: WidgetDecoding { WidgetDecodingDummy() }
-    var networkingDispatcher: URLRequestDispatching { URLRequestDispatchingDummy() }
+    private(set) var decoderCalled = false
+    var decoder: WidgetDecoding {
+        decoderCalled = true
+        return WidgetDecodingDummy()
+    }
+    
+    private(set) var networkingDispatcherCalled = false
+    var networkingDispatcher: URLRequestDispatching {
+        networkingDispatcherCalled = true
+        return URLRequestDispatchingDummy()
+    }
+    
     var customWidgetsProvider: CustomWidgetsRendererProviderDequeuing { CustomWidgetsRendererProviderDequeuingDummy() }
     
     private(set) static var _shared: BeagleEnvironmentSpy?

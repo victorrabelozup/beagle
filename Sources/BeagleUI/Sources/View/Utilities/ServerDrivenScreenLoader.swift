@@ -14,7 +14,7 @@ public enum ServerDrivenScreenLoaderError: Error {
 }
 
 public protocol ServerDrivenScreenLoader {
-    func loadScreen(from url: URL, then: @escaping (Result<UIView, ServerDrivenScreenLoaderError>) -> Void)
+    func loadScreen(from url: URL, completion: @escaping (Result<UIView, ServerDrivenScreenLoaderError>) -> Void)
 }
 
 public final class ServerDrivenScreenLoading: ServerDrivenScreenLoader {
@@ -43,12 +43,12 @@ public final class ServerDrivenScreenLoading: ServerDrivenScreenLoader {
     
     // MARK: - Public functions
     
-    public func loadScreen(from url: URL, then: @escaping (Result<UIView, ServerDrivenScreenLoaderError>) -> Void) {
+    public func loadScreen(from url: URL, completion: @escaping (Result<UIView, ServerDrivenScreenLoaderError>) -> Void) {
         widgetFetcher.fetchWidget(from: url) {
             let mappedResult: Result<UIView, ServerDrivenScreenLoaderError> = $0
                 .map { self.viewBuilder.buildFromRootWidget($0) }
                 .mapError { .fetchError($0) }
-            then(mappedResult)
+            completion(mappedResult)
         }
     }
     

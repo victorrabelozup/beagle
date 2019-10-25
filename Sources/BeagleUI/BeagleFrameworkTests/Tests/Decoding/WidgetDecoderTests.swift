@@ -187,6 +187,6 @@ private struct NewWidgetEntity: WidgetEntity, WidgetConvertible {
     
 }
 
-private struct UnconvertibleWidget: WidgetEntity {
+struct UnconvertibleWidget: WidgetEntity {
     let text: String
 }
