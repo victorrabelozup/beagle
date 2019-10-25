@@ -1,6 +1,7 @@
 package br.com.zup.beagleui.framework.setup
 
 import android.app.Application
+import br.com.zup.beagleui.framework.navigation.BeagleDeepLinkHandler
 import br.com.zup.beagleui.framework.networking.URLRequestDispatching
 import br.com.zup.beagleui.framework.view.WidgetViewFactory
 import br.com.zup.beagleui.framework.widget.core.NativeWidget
@@ -13,8 +14,9 @@ class BeagleInitializer private constructor() {
         fun setup(
             appName: String,
             application: Application
-        ) {
+        ): Companion {
             BeagleEnvironment.setup(appName, application)
+            return this
         }
 
         @JvmStatic
@@ -35,6 +37,12 @@ class BeagleInitializer private constructor() {
         @JvmStatic
         fun registerTheme(theme: Theme): Companion {
             BeagleEnvironment.theme = theme
+            return this
+        }
+
+        @JvmStatic
+        fun registerBeagleDeepLinkHandler(beagleDeepLinkHandler: BeagleDeepLinkHandler): Companion {
+            BeagleEnvironment.beagleDeepLinkHandler = beagleDeepLinkHandler
             return this
         }
     }

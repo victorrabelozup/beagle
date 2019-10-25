@@ -1,10 +1,13 @@
 package br.com.zup.beagleui.framework.setup
 
 import android.app.Application
+import android.content.Intent
 import br.com.zup.beagleui.framework.mockdata.CustomWidget
 import br.com.zup.beagleui.framework.mockdata.CustomWidgetFactory
+import br.com.zup.beagleui.framework.navigation.BeagleDeepLinkHandler
 import br.com.zup.beagleui.framework.networking.URLRequestDispatching
 import br.com.zup.beagleui.framework.widget.core.NativeWidget
+import br.com.zup.beagleui.framework.widget.navigation.DeeplinkURL
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
@@ -32,7 +35,14 @@ class BeagleInitializerTest {
     @MockK
     private lateinit var textAppearanceTheme: TextAppearanceTheme
 
+    @MockK
+    private lateinit var intent: Intent
+
     private lateinit var theme: Theme
+
+    private var beagleDeepLinkHandler: BeagleDeepLinkHandler = object : BeagleDeepLinkHandler {
+        override fun getDeepLinkIntent(deepLinkURL: DeeplinkURL): Intent = intent
+    }
 
     @MockK
     private lateinit var networkingDispatcher: URLRequestDispatching
@@ -77,6 +87,17 @@ class BeagleInitializerTest {
 
         // Then
         verify(exactly = 1) { BeagleEnvironment.registerWidget(button, factory) }
+    }
+
+    @Test
+    fun beagleDeepLinkHandler_should_call_BeagleEnvironment_beagleDeepLinkHandler() {
+
+        // When
+        BeagleInitializer.registerBeagleDeepLinkHandler(beagleDeepLinkHandler)
+
+        // Then
+        assertNotNull(BeagleEnvironment.beagleDeepLinkHandler)
+        assertEquals(beagleDeepLinkHandler, BeagleEnvironment.beagleDeepLinkHandler)
     }
 
     @Test
