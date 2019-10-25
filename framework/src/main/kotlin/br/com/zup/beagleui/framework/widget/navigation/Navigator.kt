@@ -5,10 +5,10 @@ import br.com.zup.beagleui.framework.widget.core.Widget
 
 data class Event(
     val type: EventType,
-    val value: DeeplinkURL? = null
+    val value: EventData? = null
 )
 
-data class DeeplinkURL(
+data class EventData(
     val path: String,
     val data: Map<String, String>? = null
 )
