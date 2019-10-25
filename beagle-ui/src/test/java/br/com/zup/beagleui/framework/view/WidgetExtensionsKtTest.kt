@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.View
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
+import br.com.zup.beagleui.framework.utils.toView
+import br.com.zup.beagleui.framework.utils.viewRenderer
 import br.com.zup.beagleui.framework.widget.core.Widget
 import io.mockk.MockKAnnotations
 import io.mockk.every

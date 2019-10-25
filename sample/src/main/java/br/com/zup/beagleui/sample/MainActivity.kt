@@ -2,7 +2,7 @@ package br.com.zup.beagleui.sample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import br.com.zup.beagleui.framework.view.BeagleUiActivity
+import br.com.zup.beagleui.framework.view.BeagleUIActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -26,9 +26,8 @@ class MainActivity : AppCompatActivity() {
         * http://www.mocky.io/v2/5d88da4e33000020e6d7dc27
         */
 
-
         btFetchWidgets.setOnClickListener {
-            startActivity(BeagleUiActivity.newIntent(this, "http://www.mocky.io/v2/5d855b4b320000b90607b244"))
+            startActivity(BeagleUIActivity.newIntent(this, "http://www.mocky.io/v2/5d855b4b320000b90607b244"))
         }
     }
 }

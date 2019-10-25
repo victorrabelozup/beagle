@@ -1,4 +1,4 @@
-package br.com.zup.beagleui.framework.view
+package br.com.zup.beagleui.framework.utils
 
 import android.content.Context
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory

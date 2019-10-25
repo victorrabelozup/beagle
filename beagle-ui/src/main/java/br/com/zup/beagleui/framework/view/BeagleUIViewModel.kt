@@ -7,11 +7,17 @@ import br.com.zup.beagleui.framework.exception.BeagleDataException
 import br.com.zup.beagleui.framework.widget.core.Widget
 import kotlinx.coroutines.launch
 
-internal class BeagleUiViewModel(
+internal sealed class ViewState {
+    class Loading(val value: Boolean) : ViewState()
+    object Error : ViewState()
+    class Render(val widget: Widget) : ViewState()
+}
+
+internal class BeagleUIViewModel(
     private val beagleDataRepository: BeagleDataRepository
 ) : BaseViewModel() {
 
-    val widgetToRender = MutableLiveData<Widget>()
+    val state = MutableLiveData<ViewState>()
 
     private lateinit var screenUrl: String
 
@@ -22,11 +28,18 @@ internal class BeagleUiViewModel(
     }
 
     private fun getScreenScheme() = launch {
+        state.value = ViewState.Loading(true)
+
         try {
             val widget = beagleDataRepository.fetchWidget(screenUrl)
-            widgetToRender.value = widget
+            state.value = ViewState.Render(widget)
         } catch (exception: BeagleDataException) {
-            print(exception)
+            state.value = ViewState.Error
         }
+
+        state.value = ViewState.Loading(false)
     }
 }
+
+
+

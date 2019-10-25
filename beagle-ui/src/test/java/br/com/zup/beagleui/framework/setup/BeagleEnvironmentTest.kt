@@ -4,7 +4,7 @@ import android.app.Application
 import br.com.zup.beagleui.framework.mockdata.CustomWidgetFactory
 import br.com.zup.beagleui.framework.mockdata.CustomWidget
 import br.com.zup.beagleui.framework.testutil.setPrivateField
-import br.com.zup.beagleui.framework.view.BeagleUiViewModel
+import br.com.zup.beagleui.framework.view.BeagleUIViewModel
 import com.facebook.soloader.SoLoader
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
@@ -60,7 +60,7 @@ class BeagleEnvironmentTest : AutoCloseKoinTest() {
     fun setup_should_start_koin() {
         BeagleEnvironment.setup(APP_NAME, application)
 
-        val viewModel by inject<BeagleUiViewModel>()
+        val viewModel by inject<BeagleUIViewModel>()
         assertNotNull(viewModel)
     }
 
