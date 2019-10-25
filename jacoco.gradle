@@ -13,7 +13,8 @@ def fileFilter = ['**/R.class',
                   'android/**/*.*',
                   '**/*Function*',
                   '**/*_impl*',
-                  '**/*.DefaultImpls.*']
+                  '**/*.DefaultImpls.*',
+                  '**/beagleui/framework/view/*.class']
 
 task jacocoTestReport(type: JacocoReport, overwrite: true) {
 
