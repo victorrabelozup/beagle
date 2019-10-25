@@ -1,37 +1,37 @@
 //
-//  ContainerWidgetViewRendererTests.swift
+//  FlexSingleWidgetViewRendererTests.swift
 //  BeagleFrameworkTests
 //
-//  Created by Gabriela Coelho on 17/10/19.
+//  Created by Yan Dias on 17/10/19.
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
 import XCTest
 @testable import BeagleUI
 
-final class ContainerWidgetViewRendererTests: XCTestCase {
+final class FlexSingleWidgetViewRendererTests: XCTestCase {
     
     func test_buildView_shouldReturnTheExpectedView() {
+        
         // Given
+        let expectedNumberOfSubviews = 1
         let flexConfiguratorSpy = FlexViewConfiguratorSpy()
-        let container = Container(header: WidgetDummy(), content: WidgetDummy(), footer: WidgetDummy())
-        guard let renderer = try? ContainerWidgetViewRenderer(
-            widget: container,
-            rendererProvider: WidgetRendererProviderDummy(),
-            flexViewConfigurator: flexConfiguratorSpy) else {
-                XCTFail("Could not create renderer.")
-                return
+        let flexWidget = FlexSingleWidget(child: WidgetDummy())
+        guard let renderer = try? FlexSingleWidgetViewRenderer(widget: flexWidget, rendererProvider: WidgetRendererProviderDummy(), flexViewConfigurator: flexConfiguratorSpy) else {
+            XCTFail("Could not create renderer.")
+            return
         }
         
         // When
         let resultingView = renderer.buildView()
         
-        // Then
+        //Then
         XCTAssertTrue(flexConfiguratorSpy.applyFlexCalled, "Expected to call `applyFlex`.")
-        XCTAssertEqual(Flex.FlexDirection.column, flexConfiguratorSpy.flexPassed?.flexDirection, "Expected flex to have column as a flexDirection, but got \(String(describing: flexConfiguratorSpy.flexPassed?.flexDirection)).")
-        XCTAssertEqual(Flex.JustifyContent.spaceBetween, flexConfiguratorSpy.flexPassed?.justifyContent, "Expected flex to have spaceBetween as a justifyContent, but got \(String(describing: flexConfiguratorSpy.flexPassed?.justifyContent)).")
         XCTAssertEqual(resultingView, flexConfiguratorSpy.viewPassedToApplyFlex, "Expected \(String(describing: resultingView)), but got \(String(describing: flexConfiguratorSpy.viewPassedToApplyFlex)).")
-        XCTAssertTrue(resultingView.subviews.count == 3, "Expected view to have 3 subviews, a header, a content and a footer, but has \(resultingView.subviews)")
+        XCTAssertEqual(flexWidget.flex.size?.height, flexConfiguratorSpy.flexPassed?.size?.height,"Expected \(String(describing: flexWidget.flex.size?.height)), but got \(String(describing: flexConfiguratorSpy.flexPassed?.size?.height)).")
+        XCTAssertEqual(flexWidget.flex.size?.width, flexConfiguratorSpy.flexPassed?.size?.width,"Expected \(String(describing: flexWidget.flex.size?.width)), but got \(String(describing: flexConfiguratorSpy.flexPassed?.size?.width)).")
+        XCTAssertEqual(resultingView.subviews.count, expectedNumberOfSubviews, "Expected \(expectedNumberOfSubviews) subview, but got \(resultingView.subviews.count).")
+        
     }
 }
 

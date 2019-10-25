@@ -132,6 +132,9 @@
 		E5CE431E2335402B00295277 /* ChildrenWidgetMappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9800D881233412540051B4F2 /* ChildrenWidgetMappingTests.swift */; };
 		E5DD468B234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */; };
 		E5DD4691234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4690234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift */; };
+		E759590C2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E759590B2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift */; };
+		E759590E2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E759590D2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift */; };
+		E7595912235E120600EB80C2 /* ViewRenderersTestingHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7595911235E120600EB80C2 /* ViewRenderersTestingHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -289,6 +292,9 @@
 		E5CE43172335052100295277 /* UIEnumModelConvertibleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEnumModelConvertibleTests.swift; sourceTree = "<group>"; };
 		E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownWidgetViewRenderer.swift; sourceTree = "<group>"; };
 		E5DD4690234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailableWidgetRendererProviderErrorTests.swift; sourceTree = "<group>"; };
+		E759590B2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidgetViewRendererTests.swift; sourceTree = "<group>"; };
+		E759590D2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexWidgetViewRendererTests.swift; sourceTree = "<group>"; };
+		E7595911235E120600EB80C2 /* ViewRenderersTestingHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRenderersTestingHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -423,6 +429,9 @@
 				E5A6F4BB2358EC8E008906F8 /* Util */,
 				E5A6F4B82358EC80008906F8 /* SpacerWidgetViewRendererTests.swift */,
 				985EBAA22358BC960042C19A /* ContainerWidgetViewRendererTests.swift */,
+				E759590B2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift */,
+				E759590D2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift */,
+				E7595911235E120600EB80C2 /* ViewRenderersTestingHelpers.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -1244,8 +1253,10 @@
 				E5A6F4BF2358ECA1008906F8 /* YogaTranslatorTests.swift in Sources */,
 				E56A02BC2345388100C0F23D /* CollectionExtension.swift in Sources */,
 				E5CE4218233403E000295277 /* ContainerEntityTests.swift in Sources */,
+				E759590C2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift in Sources */,
 				E5A6F4AD2358A76F008906F8 /* XCTestCase+FatalError.swift in Sources */,
 				E5CB5D7B2354AE13009783A7 /* ButtonWidgetViewRendererTests.swift in Sources */,
+				E7595912235E120600EB80C2 /* ViewRenderersTestingHelpers.swift in Sources */,
 				E5A6F4B92358EC80008906F8 /* SpacerWidgetViewRendererTests.swift in Sources */,
 				E56A02C3234542B600C0F23D /* HorizontalTests.swift in Sources */,
 				E5CB5D812354C08E009783A7 /* UnknownWidgetViewRendererTests.swift in Sources */,
@@ -1257,6 +1268,7 @@
 				E5CE421E233404A200295277 /* SpacerEntityTests.swift in Sources */,
 				E5CE4220233404B800295277 /* StackEntityTests.swift in Sources */,
 				E56A02CF23462B8400C0F23D /* PaddingTests.swift in Sources */,
+				E759590E2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift in Sources */,
 				E5CE42012333FC1F00295277 /* ButtonEntityTests.swift in Sources */,
 				E5835B35233BD95C00125140 /* WidgetConvertibleTests.swift in Sources */,
 				E5CE422823340EA100295277 /* UnitValueEntityTests.swift in Sources */,

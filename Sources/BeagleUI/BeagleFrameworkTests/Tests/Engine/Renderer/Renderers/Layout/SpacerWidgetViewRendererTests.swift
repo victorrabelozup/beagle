@@ -38,19 +38,7 @@ final class SpacerWidgetViewRendererTests: XCTestCase {
 
 // MARK: - Testing Helpers
 
-private final class WidgetViewRendererProtocolDummy: WidgetViewRendererProtocol {
-    init() { }
-    init(_ widget: Widget) throws {}
-    func buildView() -> UIView { return UIView() }
-}
-
-private class WidgetRendererProviderDummy: WidgetRendererProvider {
-    func buildRenderer(for widget: Widget) -> WidgetViewRendererProtocol {
-        return WidgetViewRendererProtocolDummy()
-    }
-}
-
-final class FlexViewConfiguratorSpy: FlexViewConfiguratorProtocol {
+private final class FlexViewConfiguratorSpy: FlexViewConfiguratorProtocol {
     
     private(set) var applyFlexCalled = false
     private(set) var flexPassed: Flex?
