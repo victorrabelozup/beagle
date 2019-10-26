@@ -65,4 +65,23 @@ final class FlexWidgetTests: XCTestCase {
         XCTAssertNotNil(flexWidget.flex, "Expected to have a flex type, but got none.")
     }
     
+    func test_onNewClosure_shouldInstantiateChild() {
+        // Given / When
+        let widget = FlexWidget.new { () -> Widget in
+            return Text("Some text")
+        }
+        // Then
+        XCTAssert(widget.children.count == 1, "Expected flex widget to have created only one child, but it has \(widget.children.count).")
+        XCTAssert(widget.children.first is Text, "Expected child to be a Text, but it is \(String(describing: type(of: widget.children.first))).")
+    }
+    
+    func test_onNewClosure_shouldInstantiateChildren() {
+        // Given / When
+        let widget = FlexWidget.new { () -> [Widget] in
+            return [Text("One text"), Text("Two texts"), Button(text: "One button")]
+        }
+        // Then
+        XCTAssert(widget.children.count > 1, "Expected flex widget to have created more than one child, but it has \(widget.children.count).")
+        XCTAssert(widget.children.last is Button, "Expected last child to be a Button, but it is \(String(describing: type(of: widget.children.last))).")
+    }
 }

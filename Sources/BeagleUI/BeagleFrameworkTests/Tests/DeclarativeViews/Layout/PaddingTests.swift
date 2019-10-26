@@ -20,5 +20,14 @@ final class PaddingTests: XCTestCase {
         // Then
         XCTAssertTrue(widget.child is Text, "Expected to find `Text`.")
     }
+    
+    func test_newClosure_shouldReturnExpectedInstance() {
+        // Given / When
+        let widget = Padding.new(value: .zero) { () -> Widget in
+            Text("Coisa")
+        }
 
+        // Then
+        XCTAssertTrue(widget.child is Text, "Expected to find `Text`.")
+    }
 }
