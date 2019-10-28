@@ -21,6 +21,8 @@ import br.com.zup.beagleui.framework.widget.ui.Text
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.mockkObject
+import io.mockk.unmockkObject
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertNotNull
@@ -45,6 +47,11 @@ class BeagleMoshiFactoryTest {
 
         every { BeagleEnvironment.appName } returns APP_NAME
         every { BeagleEnvironment.widgets } returns WIDGETS
+    }
+
+    @After
+    fun tearDown() {
+        unmockkObject(BeagleEnvironment)
     }
 
     @Test

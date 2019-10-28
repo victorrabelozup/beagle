@@ -3,6 +3,7 @@ package br.com.zup.beagleui.framework.engine.renderer
 import android.content.Context
 import android.view.View
 import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
+import br.com.zup.beagleui.framework.engine.renderer.ui.UndefinedViewRenderer
 import br.com.zup.beagleui.framework.widget.core.Widget
 
 internal interface ViewRenderer {
@@ -32,4 +33,6 @@ internal class ViewRendererFactory(
             ui.make(widget)
         }
     }
+
+    fun makeUndefinedViewRenderer(): ViewRenderer = UndefinedViewRenderer()
 }

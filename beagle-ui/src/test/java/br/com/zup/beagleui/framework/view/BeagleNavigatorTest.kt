@@ -1,5 +1,7 @@
 package br.com.zup.beagleui.framework.view
 
+import android.app.Activity
+import android.content.Intent
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import br.com.zup.beagleui.R
@@ -12,7 +14,9 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.mockkStatic
+import io.mockk.unmockkObject
 import io.mockk.verify
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
@@ -28,17 +32,18 @@ class BeagleNavigatorTest {
     private lateinit var fragmentTransaction: FragmentTransaction
     @MockK
     private lateinit var fragment: BeagleUIFragment
-
-    @InjectMockKs
-    private lateinit var navigator: BeagleNavigator
+    @MockK
+    private lateinit var intent: Intent
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
 
         mockkObject(BeagleUIFragment.Companion)
+        mockkObject(BeagleUIActivity.Companion)
 
         every { BeagleUIFragment.newInstance(any()) } returns fragment
+        every { BeagleUIActivity.newIntent(any(), any()) } returns intent
 
         val supportFragmentManager = mockk<FragmentManager>()
         every { context.supportFragmentManager } returns supportFragmentManager
@@ -49,13 +54,19 @@ class BeagleNavigatorTest {
         every { fragmentTransaction.commit() } returns 0
     }
 
+    @After
+    fun tearDown() {
+        unmockkObject(BeagleUIFragment.Companion)
+        unmockkObject(BeagleUIActivity.Companion)
+    }
+
     @Test
     fun finish_should_call_finish_activity() {
         // Given
         every { context.finish() } just Runs
 
         // When
-        navigator.finish()
+        BeagleNavigator.finish(context)
 
         // Then
         verify(exactly = 1) { context.finish() }
@@ -67,7 +78,7 @@ class BeagleNavigatorTest {
         every { context.onBackPressed() } just Runs
 
         // When
-        navigator.pop()
+        BeagleNavigator.pop(context)
 
         // Then
         verify(exactly = 1) { context.onBackPressed() }
@@ -75,7 +86,7 @@ class BeagleNavigatorTest {
 
     @Test
     fun addScreen_should_set_customAnimations() {
-        navigator.addScreen(URL)
+        BeagleNavigator.addScreen(context, URL)
 
         verify(exactly = 1) {
             fragmentTransaction.setCustomAnimations(
@@ -86,8 +97,21 @@ class BeagleNavigatorTest {
     }
 
     @Test
+    fun addScreen_should_start_BeagleUIActivity() {
+        // Given
+        val context = mockk<Activity>()
+        every { context.startActivity(any()) } just Runs
+
+        // When
+        BeagleNavigator.addScreen(context, URL)
+
+        // Then
+        verify(exactly = 1) { context.startActivity(intent) }
+    }
+
+    @Test
     fun addScreen_should_replace_fragment_with_beagle_content() {
-        navigator.addScreen(URL)
+        BeagleNavigator.addScreen(context, URL)
 
         verify(exactly = 1) {
             fragmentTransaction.replace(R.id.beagle_content, fragment)
@@ -97,21 +121,21 @@ class BeagleNavigatorTest {
 
     @Test
     fun addScreen_should_addToBackStack_with_given_url() {
-        navigator.addScreen(URL)
+        BeagleNavigator.addScreen(context, URL)
 
         verify(exactly = 1) { fragmentTransaction.addToBackStack(URL) }
     }
 
     @Test
     fun addScreen_should_commit_transaction() {
-        navigator.addScreen(URL)
+        BeagleNavigator.addScreen(context, URL)
 
         verify(exactly = 1) { fragmentTransaction.commit() }
     }
 
     @Test
     fun openScreen_should_set_customAnimations() {
-        navigator.openScreen(URL)
+        BeagleNavigator.openScreen(context, URL)
 
         verify(exactly = 1) {
             fragmentTransaction.setCustomAnimations(
@@ -122,8 +146,21 @@ class BeagleNavigatorTest {
     }
 
     @Test
+    fun openScreen_should_start_BeagleUIActivity() {
+        // Given
+        val context = mockk<Activity>()
+        every { context.startActivity(any()) } just Runs
+
+        // When
+        BeagleNavigator.openScreen(context, URL)
+
+        // Then
+        verify(exactly = 1) { context.startActivity(intent) }
+    }
+
+    @Test
     fun openScreen_should_replace_fragment_with_beagle_content() {
-        navigator.openScreen(URL)
+        BeagleNavigator.openScreen(context, URL)
 
         verify(exactly = 1) {
             fragmentTransaction.replace(R.id.beagle_content, fragment)
@@ -133,14 +170,14 @@ class BeagleNavigatorTest {
 
     @Test
     fun openScreen_should_addToBackStack_with_given_url() {
-        navigator.openScreen(URL)
+        BeagleNavigator.openScreen(context, URL)
 
         verify(exactly = 0) { fragmentTransaction.addToBackStack(URL) }
     }
 
     @Test
     fun openScreen_should_commit_transaction() {
-        navigator.openScreen(URL)
+        BeagleNavigator.openScreen(context, URL)
 
         verify(exactly = 1) { fragmentTransaction.commit() }
     }

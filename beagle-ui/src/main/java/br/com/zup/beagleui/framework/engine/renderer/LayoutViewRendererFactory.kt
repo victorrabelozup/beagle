@@ -4,6 +4,7 @@ import br.com.zup.beagleui.framework.engine.renderer.layout.ContainerViewRendere
 import br.com.zup.beagleui.framework.engine.renderer.layout.FlexSingleWidgetViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.FlexWidgetViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.HorizontalViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.layout.NavigatorViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.SpacerViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.StackViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.VerticalViewRender
@@ -15,6 +16,7 @@ import br.com.zup.beagleui.framework.widget.layout.Horizontal
 import br.com.zup.beagleui.framework.widget.layout.Spacer
 import br.com.zup.beagleui.framework.widget.layout.Stack
 import br.com.zup.beagleui.framework.widget.layout.Vertical
+import br.com.zup.beagleui.framework.widget.navigation.Navigator
 
 internal class LayoutViewRendererFactory : AbstractViewRendererFactory {
 
@@ -28,6 +30,7 @@ internal class LayoutViewRendererFactory : AbstractViewRendererFactory {
             is Horizontal -> HorizontalViewRenderer(widget)
             is Stack -> StackViewRenderer(widget)
             is Spacer -> SpacerViewRenderer(widget)
+            is Navigator -> NavigatorViewRenderer(widget)
             else -> throw IllegalArgumentException("$widget is not a Layout Widget.")
         }
     }

@@ -4,6 +4,7 @@ import br.com.zup.beagleui.framework.engine.renderer.layout.ContainerViewRendere
 import br.com.zup.beagleui.framework.engine.renderer.layout.FlexSingleWidgetViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.FlexWidgetViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.HorizontalViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.layout.NavigatorViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.SpacerViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.StackViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.VerticalViewRender
@@ -15,6 +16,7 @@ import br.com.zup.beagleui.framework.widget.layout.Horizontal
 import br.com.zup.beagleui.framework.widget.layout.Spacer
 import br.com.zup.beagleui.framework.widget.layout.Stack
 import br.com.zup.beagleui.framework.widget.layout.Vertical
+import br.com.zup.beagleui.framework.widget.navigation.Navigator
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.Before
@@ -116,6 +118,18 @@ class LayoutViewRendererFactoryTest {
 
         // Then
         assertTrue(actual is FlexSingleWidgetViewRenderer)
+    }
+
+    @Test
+    fun make_should_return_NavigatorViewRenderer_when_widget_is_a_Navigator() {
+        // Given
+        val widget = mockk<Navigator>()
+
+        // When
+        val actual = viewRendererFactory.make(widget)
+
+        // Then
+        assertTrue(actual is NavigatorViewRenderer)
     }
 
     @Test

@@ -19,15 +19,11 @@ import kotlin.test.assertNotNull
 
 internal class BeagleModuleTest : AutoCloseKoinTest() {
 
-    @MockK
-    private lateinit var context: Context
-
     private val beagleUiViewModel by inject<BeagleUIViewModel>()
     private val beagleHttpClient by inject<BeagleHttpClient>()
     private val beagleMoshiFactory by inject<BeagleMoshiFactory>()
     private val beagleUiDeserialization by inject<BeagleUiDeserialization>()
     private val viewRendererFactory by inject<ViewRendererFactory>()
-    private val beagleNavigator by inject<BeagleNavigator>{ parametersOf(context) }
 
     @Before
     fun before() {
@@ -61,10 +57,5 @@ internal class BeagleModuleTest : AutoCloseKoinTest() {
     @Test
     fun viewRendererFactory_should_have_a_valid_instance() {
         assertNotNull(viewRendererFactory)
-    }
-
-    @Test
-    fun beagleNavigator_should_have_a_valid_instance() {
-        assertNotNull(beagleNavigator)
     }
 }

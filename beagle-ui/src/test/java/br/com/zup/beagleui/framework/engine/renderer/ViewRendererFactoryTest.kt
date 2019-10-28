@@ -1,5 +1,6 @@
 package br.com.zup.beagleui.framework.engine.renderer
 
+import br.com.zup.beagleui.framework.engine.renderer.ui.UndefinedViewRenderer
 import br.com.zup.beagleui.framework.widget.core.Widget
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -43,10 +44,17 @@ class ViewRendererFactoryTest {
         // Given
         every { viewRendererFactory.make(widget) } throws IllegalArgumentException()
 
-        // Given When
+        // When
         val actual = viewRendererFactory.make(widget)
 
         // Then
         assertTrue(actual is UIViewRenderer)
+    }
+
+    @Test
+    fun makeUndefinedViewRenderer_should_return_a_UndefinedViewRenderer() {
+        val actual = viewRendererFactory.makeUndefinedViewRenderer()
+
+        assertTrue(actual is UndefinedViewRenderer)
     }
 }

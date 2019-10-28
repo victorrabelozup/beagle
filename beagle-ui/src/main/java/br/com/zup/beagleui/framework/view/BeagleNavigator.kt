@@ -4,31 +4,33 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import br.com.zup.beagleui.R
 
-class BeagleNavigator(
-    private val context: Context
-) {
+internal object BeagleNavigator {
 
-    fun finish() {
+    fun finish(context: Context) {
         if (context is BeagleUIActivity) {
             context.finish()
         }
     }
 
-    fun pop() {
+    fun pop(context: Context) {
         if (context is BeagleUIActivity) {
             context.onBackPressed()
         }
     }
 
-    fun addScreen(url: String) {
+    fun addScreen(context: Context, url: String) {
         if (context is BeagleUIActivity) {
             showScreen(context, url, true)
+        } else {
+            context.startActivity(BeagleUIActivity.newIntent(context, url))
         }
     }
 
-    fun openScreen(url: String) {
+    fun openScreen(context: Context, url: String) {
         if (context is BeagleUIActivity) {
             showScreen(context, url, false)
+        } else {
+            context.startActivity(BeagleUIActivity.newIntent(context, url))
         }
     }
 
