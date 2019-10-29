@@ -12,6 +12,8 @@
 		932925B92327E0E400A61F01 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 932925B72327E0E400A61F01 /* Main.storyboard */; };
 		932925BB2327E0E500A61F01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 932925BA2327E0E500A61F01 /* Assets.xcassets */; };
 		932925BE2327E0E500A61F01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 932925BC2327E0E500A61F01 /* LaunchScreen.storyboard */; };
+		93365E4123624AD40017CB89 /* BeagleUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93365E4023624AD40017CB89 /* BeagleUI.framework */; };
+		93365E4223624AD40017CB89 /* BeagleUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 93365E4023624AD40017CB89 /* BeagleUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -21,6 +23,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				93365E4223624AD40017CB89 /* BeagleUI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -35,6 +38,7 @@
 		932925BA2327E0E500A61F01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		932925BD2327E0E500A61F01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		932925BF2327E0E500A61F01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93365E4023624AD40017CB89 /* BeagleUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BeagleUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93365E4123624AD40017CB89 /* BeagleUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +58,7 @@
 			children = (
 				932925B02327E0E400A61F01 /* BeagleDemo */,
 				932925AF2327E0E400A61F01 /* Products */,
+				93365E3F23624AD40017CB89 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,6 +81,14 @@
 				932925BF2327E0E500A61F01 /* Info.plist */,
 			);
 			path = BeagleDemo;
+			sourceTree = "<group>";
+		};
+		93365E3F23624AD40017CB89 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				93365E4023624AD40017CB89 /* BeagleUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

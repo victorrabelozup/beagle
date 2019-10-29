@@ -11,93 +11,45 @@ import XCTest
 
 final class FlexEntityTests: XCTestCase {
     
-    func test_whenDecodingAValidJson_itShouldReturnAValidFlexEntityObject() {
-        
+    func test_whenMapToUIModelIsCalled_thenItShouldReturnAFlex() {
         // Given
-        let json = """
-             {
-                "itemDirection": "LTR",
-                "flexWrap": "NO_WRAP",
-                "justifyContent": "FLEX_START",
-                "alignItems": "STRETCH",
-                "alignSelf": "FLEX_START",
-                "alignContent": "AUTO",
-                "basis": {
-                    "value": 0.0,
-                    "type": "real"
-                },
-                "grow": 0.0,
-                "shrink": 0
-             }
-         """
-        guard let jsonData = json.data(using: .utf8) else {
-            XCTFail("Could not create JSON data.")
-            return
-        }
-        
-        // When
-        let object = decodingFlexEntityHelper(jsonData: jsonData)
-        
-        // Then
-        XCTAssertNotNil(object, "Expected a valid object, but found nil.")
-    }
-    
-    func test_whenDecodingNullValueJson_itShouldReturnFlexEntityWithDefaultValues() {
-        
-        // Given
-        let json = """
-             {
-                "itemDirection": null,
-                "flexWrap": null,
-                "justifyContent": null,
-                "alignItems": null,
-                "alignSelf": null,
-                "alignContent": null
-             }
-         """
-        guard let jsonData = json.data(using: .utf8) else {
-            XCTFail("Could not create JSON data.")
-            return
-        }
-        
-        // When
-        let object = decodingFlexEntityHelper(jsonData: jsonData)
-        
-        // Then
-        XCTAssertNotNil(object, "Expected a valid object, but found nil.")
-        XCTAssertNotNil(object?.alignItems, "Expected object to have initialized with default value, but it hasn't.")
-    }
-    
-    func test_whenDecodingEmptyValueJson_itShouldReturnFlexEntityWithDefaultValues() {
-        
-        // Given
-        let json = """
-             {}
-         """
-        guard let jsonData = json.data(using: .utf8) else {
-            XCTFail("Could not create JSON data.")
-            return
-        }
-        
-        // When
-        let object = decodingFlexEntityHelper(jsonData: jsonData)
-        
-        // Then
-        XCTAssertNotNil(object, "Expected a valid object, but found nil.")
-        XCTAssertNotNil(object?.alignItems, "Expected object to have initialized with default value, but it hasn't.")
-    }
-    
-}
+        let sut = FlexEntity()
 
-// MARK: - FlexEntity Decoding Helper
-private extension FlexEntityTests {
-    func decodingFlexEntityHelper(jsonData: Data) -> FlexEntity? {
-        var object: FlexEntity?
-        do {
-            object = try JSONDecoder().decode(FlexEntity.self, from: jsonData)
-        } catch {
-            XCTFail("Unable to decode JSON. Got \(error.localizedDescription)")
+        // When
+        guard let flex = try? sut.mapToUIModel() else {
+            XCTFail("Could not create Flex Model.")
+            return
         }
-        return object
+
+        // Then
+        XCTAssertNotNil(flex, "The Flex should not be nil.")
+    }
+    
+    func test_whenMapToUIModelIsCalled_thenItShouldReturnAEdgeValue() {
+        // Given
+        let sut = FlexEntity.EdgeValue()
+
+        // When
+        guard let edgeValue = try? sut.mapToUIModel() else {
+            XCTFail("Could not create Flex.EdgeValue Model.")
+            return
+        }
+
+        // Then
+        XCTAssertNotNil(edgeValue, "The EdgeValue should not be nil.")
+    }
+    
+    func test_whenMapToUIModelIsCalled_thenItShouldReturnASize() {
+        // Given
+        let sut = FlexEntity.Size()
+
+        // When
+        guard let size = try? sut.mapToUIModel() else {
+            XCTFail("Could not create Flex.Size Model.")
+            return
+        }
+
+        // Then
+        XCTAssertNotNil(size, "The Size should not be nil.")
     }
 }

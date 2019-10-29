@@ -293,15 +293,45 @@ final class YogaTranslatorTests: XCTestCase {
         XCTAssertEqual(expectedYGValue, translated, "Expected \(expectedYGValue), but got \(String(describing: translated))")
     }
     
-//    func test_translateRealUnitValue_shouldReturnPointYGValue() {
-//        // Given
-//        let expectedYGValue = YGValue(value: 1.0, unit: .point)
-//        let unitValue = UnitValue(value: 1.0, type: .real)
-//        // When
-//        let translated = yogaTranslator.translate(unitValue)
-//        // Then
-//        XCTAssertEqual(expectedYGValue, translated, "Expected \(expectedYGValue), but got \(String(describing: translated))")
-//    }
+    func test_translateRealUnitValue_shouldReturnPointYGValue() {
+        // Given
+        let expectedYGValue = YGValue(value: 1.0, unit: .point)
+        let unitValue = UnitValue(value: 1.0, type: .real)
+        // When
+        let translated = yogaTranslator.translate(unitValue)
+        // Then
+        XCTAssertEqual(expectedYGValue, translated, "Expected \(expectedYGValue), but got \(String(describing: translated))")
+    }
+    
+    func test_translateAutoUnitValue_shouldReturnAutoYGValue() {
+        // Given
+        let expectedYGValue = YGValue(value: 1.0, unit: .auto)
+        let unitValue = UnitValue(value: 1.0, type: .auto)
+        // When
+        let translated = yogaTranslator.translate(unitValue)
+        // Then
+        XCTAssertEqual(expectedYGValue, translated, "Expected \(expectedYGValue), but got \(String(describing: translated))")
+    }
+    
+    func test_translateAbsolutePositionType_shouldReturnAbsoluteYGPositionType() {
+        // Given
+        let expectedYGValue = YGValue(value: 1.0, unit: .point)
+        let unitValue = UnitValue(value: 1.0, type: .real)
+        // When
+        let translated = yogaTranslator.translate(unitValue)
+        // Then
+        XCTAssertEqual(expectedYGValue, translated, "Expected \(expectedYGValue), but got \(String(describing: translated))")
+    }
+    
+    func test_translateRelativePositionType_shouldReturnRelativeYGPositionType() {
+        // Given
+        let expectedYGPositionType: YGPositionType = .relative
+        let positionType: Flex.PositionType = .relative
+        // When
+        let translated = yogaTranslator.translate(positionType)
+        // Then
+        XCTAssertEqual(expectedYGPositionType, translated, "Expected \(expectedYGPositionType), but got \(String(describing: translated))")
+    }
 }
 
 // MARK: - Testing Helpers

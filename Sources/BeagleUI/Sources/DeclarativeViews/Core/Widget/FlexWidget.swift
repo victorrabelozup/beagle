@@ -63,6 +63,7 @@ public struct FlexWidget: NativeWidget {
         alignItems: Flex.Alignment? = nil,
         alignSelf: Flex.Alignment? = nil,
         alignContent: Flex.Alignment? = nil,
+        positionType: Flex.PositionType? = nil,
         basis: UnitValue? = nil,
         flex: Double? = nil,
         grow: Double? = nil,
@@ -71,7 +72,7 @@ public struct FlexWidget: NativeWidget {
         size: Flex.Size? = nil,
         margin: Flex.EdgeValue? = nil,
         padding: Flex.EdgeValue? = nil,
-        position: Flex.Position? = nil
+        position: Flex.EdgeValue? = nil
     ) -> FlexWidget {
         let flex = Flex(
             direction: direction,
@@ -81,6 +82,7 @@ public struct FlexWidget: NativeWidget {
             alignItems: alignItems,
             alignSelf: alignItems,
             alignContent: alignContent,
+            positionType: positionType,
             basis: basis,
             flex: flex,
             grow: grow,

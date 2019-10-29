@@ -16,64 +16,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        Beagle.start(appName: "BeagleTest")
+        Beagle.start(appName: "BeagleDemo")
         
-//        let rootViewController = LayoutInclusionViewController()
-        
-        let someScreen = SomeScreen()
-        let rootViewController = BeagleScreenViewController(screenType: .declarative(someScreen))
+        guard let url = URL(string: "http://localhost:8000/home.json") else {
+            fatalError()
+        }
+        let rootViewController = BeagleScreenViewController(screenType: .remote(url))
         
         window = UIWindow()
         window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
         
-        
         return true
-    }
-
-}
-
-
-struct SomeScreen: Screen {
-
-    var content: Widget {
-        Container(
-            header: {
-                FlexWidget {
-                    Text("Header")
-                }.applyFlex(
-                    direction: .ltr,
-                    flexDirection: .column,
-                    flexWrap: .noWrap,
-                    justifyContent: .center,
-                    alignItems: .center,
-                    alignSelf: .auto,
-                    alignContent: .center,
-                    size: .init(width: .init(value: 100, type: .percent), height: .init(value: 140, type: .real))
-                )
-            },
-            content: {
-                FlexWidget(closure: {
-                    var content = [Text]()
-                    for i in stride(from: 0, through: 200, by: 1) {
-                        content.append(Text("Content \(i+1)"))
-                    }
-                    return content
-                })
-                .applyFlex(
-                    direction: .ltr,
-                    flexDirection: .column,
-                    flexWrap: .noWrap,
-                    justifyContent: .center,
-                    alignItems: .center,
-                    alignSelf: .auto,
-                    alignContent: .center
-                )
-            },
-            footer: {
-                Spacer(20)
-            }
-        )
     }
 
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Defines an API representation for `UnitValue`
-struct UnitValueEntity: WidgetEntity {
+struct UnitValueEntity: Decodable {
     
     let value: Double
     let type: UnitTypeEntity
@@ -33,6 +33,8 @@ extension UnitValueEntity: UIModelConvertible {
     
     private func mapType() -> UnitType {
         switch type {
+        case .auto:
+            return .auto
         case .real:
             return .real
         case .percent:
@@ -43,7 +45,8 @@ extension UnitValueEntity: UIModelConvertible {
 }
 
 /// Defines an API representation for `UnitType`
-enum UnitTypeEntity: String, WidgetEntity {
-    case real
-    case percent
+enum UnitTypeEntity: String, Decodable {
+    case auto = "AUTO"
+    case real = "REAL"
+    case percent = "PERCENT"
 }

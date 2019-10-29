@@ -16,7 +16,6 @@ final class FlexWidgetViewRenderer: WidgetViewRenderer<FlexWidget> {
     override func buildView() -> UIView {
         
         let containerView = UIView()
-        containerView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         
         widget.children.forEach {
             let childView = rendererProvider.buildRenderer(for: $0).buildView()

@@ -219,6 +219,7 @@
 		E531D6BB235A007C007EEBA7 /* UIView+LoadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+LoadingTests.swift"; sourceTree = "<group>"; };
 		E531D6BF235A30DB007EEBA7 /* NSErrorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSErrorExtension.swift; sourceTree = "<group>"; };
 		E53524AA23310F5A00D1A0C9 /* YogaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YogaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E531D6C7235A4CFF007EEBA7 /* DispatchingQueues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchingQueues.swift; sourceTree = "<group>"; };
 		E56A029C2344172400C0F23D /* WidgetBuilders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetBuilders.swift; sourceTree = "<group>"; };
 		E56A02AD23451BFE00C0F23D /* FlexSingleWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidget.swift; sourceTree = "<group>"; };
 		E56A02AF23451C0700C0F23D /* FlexWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexWidget.swift; sourceTree = "<group>"; };
@@ -547,7 +548,6 @@
 			children = (
 				E5CB5DD2235796BE009783A7 /* Networking.framework */,
 				E56A02E62347C99F00C0F23D /* YogaKit.framework */,
-				E53524AA23310F5A00D1A0C9 /* YogaKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

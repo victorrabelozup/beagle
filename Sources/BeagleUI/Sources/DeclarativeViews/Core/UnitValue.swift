@@ -11,6 +11,7 @@ public struct UnitValue {
     // MARK: - Constants
     
     public static let zero = UnitValue(value: 0.0, type: .real)
+    public static let auto = UnitValue(value: 0.0, type: .auto)
     
     // MARK: - Public Properties
     
@@ -30,6 +31,7 @@ public struct UnitValue {
 }
 
 public enum UnitType {
+    case auto
     case real
     case percent
 }

@@ -157,7 +157,6 @@ final class WidgetDecoder: WidgetDecoding {
     }
     
     private static func registerCoreTypes() {
-        WidgetEntityContainer.register(FlexEntity.self, for: decodingKey(for: "Flex"))
         WidgetEntityContainer.register(FlexWidgetEntity.self, for: decodingKey(for: "FlexWidget"))
         WidgetEntityContainer.register(FlexSingleWidgetEntity.self, for: decodingKey(for: "FlexSingleWidget"))
     }

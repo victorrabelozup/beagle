@@ -114,14 +114,8 @@ public class BeagleScreenViewController: UIViewController {
     
     private func setupWidgetView(_ widgetView: UIView) {
         view.addSubview(widgetView)
+        widgetView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         flexConfigurator.applyYogaLayout(to: widgetView, preservingOrigin: true)
-        widgetView.anchor(
-            top: view.topAnchor,
-            left: view.leftAnchor,
-            bottom: view.bottomAnchor,
-            right: view.rightAnchor,
-            bottomConstant: 10
-        )
     }
     
     // MARK: - Error Handling

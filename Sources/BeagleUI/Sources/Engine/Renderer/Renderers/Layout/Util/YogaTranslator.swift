@@ -10,20 +10,19 @@ import Foundation
 import YogaKit
 
 protocol YogaTranslator {
-    func translate(_ wrap: Flex.Wrap) -> YGWrap
-    func translate(_ alignment: Flex.Alignment) -> YGAlign
-    func translate(_ justifyContent: Flex.JustifyContent) -> YGJustify
     func translate(_ direction: Flex.Direction) -> YGDirection
     func translate(_ flexDirection: Flex.FlexDirection) -> YGFlexDirection
-    func translate(_ display: Flex.Display) -> YGDisplay
+    func translate(_ flexWrap: Flex.Wrap) -> YGWrap
+    func translate(_ justifyContent: Flex.JustifyContent) -> YGJustify
+    func translate(_ alignment: Flex.Alignment) -> YGAlign
+    func translate(_ positionType: Flex.PositionType) -> YGPositionType
     func translate(_ unitValue: UnitValue) -> YGValue
-    func translate(_ position: Flex.Position) -> YGPositionType
+    func translate(_ display: Flex.Display) -> YGDisplay
 }
 
 final class YogaTranslating: YogaTranslator {
-
-    func translate(_ wrap: Flex.Wrap) -> YGWrap {
-        switch wrap {
+    func translate(_ flexWrap: Flex.Wrap) -> YGWrap {
+        switch flexWrap {
         case .noWrap:
             return .noWrap
         case .wrap:
@@ -107,6 +106,8 @@ final class YogaTranslating: YogaTranslator {
     func translate(_ unitValue: UnitValue) -> YGValue {
         let value = Float(unitValue.value)
         switch unitValue.type {
+        case .auto:
+            return YGValue(value: value, unit: .auto)
         case .percent:
             return YGValue(value: value, unit: .percent)
         case .real:
@@ -114,8 +115,8 @@ final class YogaTranslating: YogaTranslator {
         }
     }
     
-    func translate(_ position: Flex.Position) -> YGPositionType {
-        switch position {
+    func translate(_ positionType: Flex.PositionType) -> YGPositionType {
+        switch positionType {
         case .absolute:
             return .absolute
         case .relative:
