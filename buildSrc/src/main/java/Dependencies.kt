@@ -12,7 +12,8 @@ object Modules {
 object Releases {
     const val versionCode = 1
     const val versionName = "1.0"
-    const val beagleUiVersionName = "1.0.0-alpha1"
+    const val beagleUiVersionName = "0.0.1-alpha1"
+    const val yogaVersionName = "0.0.1-alpha1"
 }
 
 object Versions {
@@ -79,6 +80,7 @@ object GeneralLibraries {
     const val findsBug = "com.google.code.findbugs:jsr305:${Versions.findsBug}"
 
     const val beagleDeclarative = "br.com.zup:beagle-ui-sdk:${Versions.beagleDeclarative}"
+    const val yoga = "br.com.zup.beagleui:yoga:${Releases.yogaVersionName}"
 }
 
 object AndroidxLibraries {

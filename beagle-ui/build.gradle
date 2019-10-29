@@ -44,12 +44,12 @@ dependencies {
 
     implementation GeneralLibraries.koin
 
-    implementation GeneralLibraries.beagleDeclarative
+    api GeneralLibraries.beagleDeclarative
 
     implementation GlideLibraries.glide
     kapt GlideLibraries.glideCompiler
 
-    implementation project(Modules.yoga)
+    implementation GeneralLibraries.yoga
 
     implementation GeneralLibraries.soLoader
 
