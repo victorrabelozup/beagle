@@ -4,8 +4,8 @@ services:
   darwin-beagle-framework:
     image: ${DOCKER_REGISTRY_URL}/darwin-beagle-framework:builder
     volumes:
-      - .:/home/darwin-beagle-framework
-    working_dir: /home/darwin-beagle-framework
-    command: ["/home/darwin-beagle-framework/run-ci.sh"] 
+      - .:/home/application
+    working_dir: /home/application
+    command: ["/home/application/run-ci.sh"]
 
 #ci-compose
