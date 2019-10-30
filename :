@@ -5,7 +5,6 @@ node {
     buildDockerBuilder {
             dockerRepositoryName = "darwin-beagle-framework"
             dockerFileLocation = "."
-	    dockerFileBuilder = "DockerfileBuilder"
             team = "Realwave"
     }
 
@@ -14,7 +13,7 @@ node {
             composeFileName = "docker-compose-ci.yml"
             composeService = "darwin-beagle-framework"
             composeProjectName = "darwin-beagle-framework"
-            team = "Realwave"
+            team = "Realwavei"
 	    useBuilder="true"
      }
 

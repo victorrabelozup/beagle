@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  darwin-beagle-framework:
+    image: ${DOCKER_REGISTRY_URL}/darwin-beagle-framework:builder
+    volumes:
+      - .:/home/darwin-beagle-framework
+    working_dir: /home/darwin-beagle-framework
+    command: ["/home/darwin-beagle-framework/run-ci.sh"] 
+
+#ci-compose
