@@ -37,6 +37,7 @@ android {
 dependencies {
     implementation AndroidxLibraries.appcompat
     implementation AndroidxLibraries.coreKtx
+    implementation AndroidxLibraries.recyclerView
     implementation AndroidxLibraries.viewModel
 
     implementation GeneralLibraries.kotlin

@@ -27,6 +27,7 @@ object Versions {
 
     const val appcompat = "1.1.0"
     const val viewModel = "2.1.0"
+    const val recyclerView = "1.0.0"
 
     const val koin = "2.0.1"
 
@@ -86,6 +87,7 @@ object GeneralLibraries {
 object AndroidxLibraries {
     const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
     const val coreKtx = "androidx.core:core-ktx:${Versions.appcompat}"
+    const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
     const val viewModel = "androidx.lifecycle:lifecycle-viewmodel:${Versions.viewModel}"
 }
 

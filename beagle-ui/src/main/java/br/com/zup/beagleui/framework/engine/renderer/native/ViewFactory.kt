@@ -5,6 +5,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import br.com.zup.beagleui.framework.view.BeagleFlexView
 import br.com.zup.beagleui.framework.widget.core.Flex
 
@@ -25,4 +26,6 @@ internal class ViewFactory {
     fun makeTextView(context: Context) = TextView(context)
 
     fun makeImageView(context: Context) = ImageView(context)
+
+    fun makeRecyclerView(context: Context) = RecyclerView(context)
 }
