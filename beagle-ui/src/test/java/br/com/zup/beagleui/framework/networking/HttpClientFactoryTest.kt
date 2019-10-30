@@ -13,42 +13,45 @@ import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class URLRequestDispatchingFactoryTest {
+class HttpClientFactoryTest {
 
     @MockK
     private lateinit var urlFactory: URLFactory
 
     @InjectMockKs
-    private lateinit var urlRequestDispatchingFactory: URLRequestDispatchingFactory
+    private lateinit var httpClientFactory: HttpClientFactory
 
     @MockK
-    private lateinit var networkingDispatcher: URLRequestDispatching
+    private lateinit var networkingDispatcher: HttpClient
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
+
         mockkObject(BeagleEnvironment)
-        every { BeagleEnvironment.networkingDispatcher } returns null
+        every { BeagleEnvironment.httpClient } returns null
     }
 
     @After
     fun after() {
         unmockkObject(BeagleEnvironment)
-        BeagleEnvironment.theme = null
-        BeagleEnvironment.networkingDispatcher = null
     }
 
     @Test
     fun test_make_should_return_default_dispatcher() {
-        val response = urlRequestDispatchingFactory.make()
-        assertTrue { response is URLRequestDispatchingDefault }
+        val response = httpClientFactory.make()
+        assertTrue { response is HttpClientDefault }
     }
 
     @Test
     fun test_make_should_return_custom_dispatcher() {
-        every { BeagleEnvironment.networkingDispatcher } returns networkingDispatcher
+        // Given
+        every { BeagleEnvironment.httpClient } returns networkingDispatcher
 
-        val response = urlRequestDispatchingFactory.make()
-        assertEquals(networkingDispatcher, response)
+        // When
+        val actual = httpClientFactory.make()
+
+        // Then
+        assertEquals(networkingDispatcher, actual)
     }
 }

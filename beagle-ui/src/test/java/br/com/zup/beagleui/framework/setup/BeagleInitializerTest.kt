@@ -5,7 +5,7 @@ import android.content.Intent
 import br.com.zup.beagleui.framework.mockdata.CustomWidget
 import br.com.zup.beagleui.framework.mockdata.CustomWidgetFactory
 import br.com.zup.beagleui.framework.navigation.BeagleDeepLinkHandler
-import br.com.zup.beagleui.framework.networking.URLRequestDispatching
+import br.com.zup.beagleui.framework.networking.HttpClient
 import br.com.zup.beagleui.framework.widget.core.NativeWidget
 import br.com.zup.beagleui.framework.widget.navigation.DeeplinkURL
 import io.mockk.MockKAnnotations
@@ -45,7 +45,7 @@ class BeagleInitializerTest {
     }
 
     @MockK
-    private lateinit var networkingDispatcher: URLRequestDispatching
+    private lateinit var networkingDispatcher: HttpClient
 
     @Before
     fun setUp() {
@@ -66,7 +66,7 @@ class BeagleInitializerTest {
     fun after() {
         unmockkObject(BeagleEnvironment)
         BeagleEnvironment.theme = null
-        BeagleEnvironment.networkingDispatcher = null
+        BeagleEnvironment.httpClient = null
     }
 
     @Test
@@ -120,10 +120,10 @@ class BeagleInitializerTest {
     fun registerNetworkingDispatcher_should_call_BeagleEnvironment_registerNetworkingDispatcher() {
 
         // When
-        BeagleInitializer.registerNetworkingDispatcher(networkingDispatcher = networkingDispatcher)
+        BeagleInitializer.registerHttpClient(httpClient = networkingDispatcher)
 
         // Then
-        assertNotNull(BeagleEnvironment.networkingDispatcher)
-        assertEquals(networkingDispatcher, BeagleEnvironment.networkingDispatcher)
+        assertNotNull(BeagleEnvironment.httpClient)
+        assertEquals(networkingDispatcher, BeagleEnvironment.httpClient)
     }
 }

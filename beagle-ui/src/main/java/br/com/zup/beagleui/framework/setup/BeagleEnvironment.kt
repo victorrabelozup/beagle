@@ -3,7 +3,7 @@ package br.com.zup.beagleui.framework.setup
 import android.app.Application
 import br.com.zup.beagleui.framework.di.beagleModule
 import br.com.zup.beagleui.framework.navigation.BeagleDeepLinkHandler
-import br.com.zup.beagleui.framework.networking.URLRequestDispatching
+import br.com.zup.beagleui.framework.networking.HttpClient
 import br.com.zup.beagleui.framework.view.WidgetViewFactory
 import br.com.zup.beagleui.framework.widget.core.NativeWidget
 import com.facebook.soloader.SoLoader
@@ -17,7 +17,7 @@ internal object BeagleEnvironment {
     lateinit var application: Application
         private set
 
-    var networkingDispatcher: URLRequestDispatching? = null
+    var httpClient: HttpClient? = null
 
     var beagleDeepLinkHandler: BeagleDeepLinkHandler? = null
 

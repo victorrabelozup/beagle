@@ -6,7 +6,7 @@ import br.com.zup.beagleui.framework.data.deserializer.BeagleUiDeserialization
 import br.com.zup.beagleui.framework.data.repository.BeagleDataRepository
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.networking.URLFactory
-import br.com.zup.beagleui.framework.networking.URLRequestDispatchingFactory
+import br.com.zup.beagleui.framework.networking.HttpClientFactory
 import br.com.zup.beagleui.framework.view.BeagleUIViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
@@ -25,7 +25,7 @@ val beagleModule: Module = module {
 
     factory { URLFactory() }
 
-    single { URLRequestDispatchingFactory(get()).make() }
+    single { HttpClientFactory(get()).make() }
 
     factory { BeagleDataRepository(get()) }
 }

@@ -5,7 +5,7 @@ import br.com.zup.beagleui.framework.data.deserializer.makeContainerJson
 import br.com.zup.beagleui.framework.exception.BeagleDataException
 import br.com.zup.beagleui.framework.networking.RequestCall
 import br.com.zup.beagleui.framework.networking.ResponseData
-import br.com.zup.beagleui.framework.networking.URLRequestDispatching
+import br.com.zup.beagleui.framework.networking.HttpClient
 import br.com.zup.beagleui.framework.widget.core.Widget
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -32,7 +32,7 @@ class BeagleHttpClientTest {
     private lateinit var deserialization: BeagleUiDeserialization
 
     @MockK
-    private lateinit var requestDispatching: URLRequestDispatching
+    private lateinit var requestDispatching: HttpClient
 
     @InjectMockKs
     private lateinit var beagleHttpClient: BeagleHttpClient

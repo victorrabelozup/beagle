@@ -2,7 +2,7 @@ package br.com.zup.beagleui.framework.setup
 
 import android.app.Application
 import br.com.zup.beagleui.framework.navigation.BeagleDeepLinkHandler
-import br.com.zup.beagleui.framework.networking.URLRequestDispatching
+import br.com.zup.beagleui.framework.networking.HttpClient
 import br.com.zup.beagleui.framework.view.WidgetViewFactory
 import br.com.zup.beagleui.framework.widget.core.NativeWidget
 
@@ -29,8 +29,8 @@ class BeagleInitializer private constructor() {
         }
 
         @JvmStatic
-        fun registerNetworkingDispatcher(networkingDispatcher: URLRequestDispatching): Companion {
-            BeagleEnvironment.networkingDispatcher = networkingDispatcher
+        fun registerHttpClient(httpClient: HttpClient): Companion {
+            BeagleEnvironment.httpClient = httpClient
             return this
         }
 

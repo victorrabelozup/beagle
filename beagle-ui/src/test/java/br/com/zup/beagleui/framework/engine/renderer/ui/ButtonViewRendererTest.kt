@@ -73,7 +73,7 @@ class ButtonViewRendererTest {
         unmockkStatic(TextViewCompat::class)
 
         BeagleEnvironment.theme = null
-        BeagleEnvironment.networkingDispatcher = null
+        BeagleEnvironment.httpClient = null
     }
 
     @Test
