@@ -44,6 +44,92 @@ workflows:
             $HOME/.gradle/caches/*.bin
             ./.gradle/*.lock
             ./.gradle/*.bin
+  ci_deploy:
+    steps:
+      - activate-ssh-key@4.0.3:
+          run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+      - git-clone@4.0.14: {}
+      - change-android-versioncode-and-versionname@1.1.1:
+          inputs:
+            - new_version_name: "$BITRISE_GIT_TAG"
+            - build_gradle_path: "$PROJECT_LOCATION/$MODULE/build.gradle"
+      - cache-pull@2.0.1: {}
+      - install-missing-android-tools@2.3.5:
+          inputs:
+            - gradlew_path: "$PROJECT_LOCATION/gradlew"
+      - gradle-runner@1.8.4:
+          inputs:
+            - gradle_task: :beagle-ui:build :beagle-ui:publish
+            - gradlew_path: "$PROJECT_LOCATION/gradlew"
+      - script@1.1.5:
+          title: Do anything with Script step
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+
+                wget https://github.com/github/hub/releases/download/v2.7.1/hub-linux-amd64-2.7.1.tgz
+                tar zvxvf hub-linux-amd64-2.7.1.tgz
+                sudo ./hub-linux-amd64-2.7.1/install
+
+                # Setup autocomplete for bash:
+                mkdir -p ~/.bash/completions
+                mv ./hub-linux-amd64-2.7.1/etc/hub.bash_completion.sh ~/.bash/completions/_hub
+                echo "if [ -f ~/.bash/completions/_hub ]; then" >> ~/.bashrc
+                echo "    . ~/.bash/completions/_hub" >> ~/.bashrc
+                echo "fi" >> ~/.bashrc
+
+                # add alias
+                echo "eval "$(hub alias -s)"" >> ~/.bashrc
+
+                # Cleanup
+                rm -rf hub-linux-amd64-2.7.1
+
+                hub version
+
+                set -e
+
+                # Authorize hub
+                mkdir -p ~/.config/
+
+                cat << EOF > ~/.config/hub
+                github.com:
+                - user: "$GITHUB_USERNAME"
+                  oauth_token: "$GITHUB_TOKEN_ACESS"
+                  protocol: https
+                EOF
+
+                set +e
+
+                cd $PROJECT_LOCATION
+                pwd
+                # errors if release doesn't exist
+                hub release delete $BITRISE_GIT_TAG
+
+                exit 0
+      - git-commit-changelog@1.0.5: {}
+      - github-release@0.10.0:
+          inputs:
+            - body: |-
+                Release $BITRISE_GIT_TAG
+
+                Changes
+                $COMMIT_CHANGELOG
+            - draft: 'no'
+            - api_token: "$GITHUB_TOKEN_ACESS"
+            - username: "$GITHUB_USERNAME"
+            - files_to_upload: "$BITRISE_APK_PATH"
+            - name: "$BITRISE_GIT_TAG"
+      - deploy-to-bitrise-io@1.6.0: {}
+      - cache-push:
+          inputs:
+            - cache_paths: |-
+                $HOME/.gradle
+                ./.gradle
+            - ignore_check_on_paths: |-
+                $HOME/.gradle/caches/*.lock
+                $HOME/.gradle/caches/*.bin
+                ./.gradle/*.lock
+                ./.gradle/*.bin
 app:
   envs:
   - opts:

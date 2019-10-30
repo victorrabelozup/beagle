@@ -65,7 +65,6 @@ project.afterEvaluate {
         }
 
         publications {
-            print "Publishing version ${project.getVersion()} on ${destinationRepoUrl}"
 
             maven(MavenPublication) {
                 artifactId project.artifactId
