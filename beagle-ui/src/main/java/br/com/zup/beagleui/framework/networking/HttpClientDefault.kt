@@ -24,7 +24,7 @@ internal class HttpClientDefault(
         onSuccess: OnSuccess,
         onError: OnError
     ): RequestCall {
-        require(!getOrDeleteOrHeadHasData(request)) { "${request.method} does not support request data" }
+        require(!getOrDeleteOrHeadHasData(request)) { "${request.method} does not support request body" }
 
         launch(CoroutineDispatchers.Main) {
             doHttpRequest(request, onSuccess, onError)
@@ -41,7 +41,7 @@ internal class HttpClientDefault(
         return (request.method == HttpMethod.GET ||
                 request.method == HttpMethod.DELETE ||
                 request.method == HttpMethod.HEAD) &&
-                request.data != null
+                request.body != null
     }
 
     private suspend fun doHttpRequest(
@@ -57,8 +57,8 @@ internal class HttpClientDefault(
 
         addRequestMethod(urlConnection, request.method)
 
-        if (request.data != null) {
-            setRequestBody(urlConnection, request.data)
+        if (request.body != null) {
+            setRequestBody(urlConnection, request.body)
         }
 
         try {

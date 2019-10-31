@@ -105,7 +105,7 @@ class HttpClientDefaultTest {
         // Given
         val data = RandomData.string()
         val outputStream = mockk<OutputStream>()
-        val requestData = RequestData(url = RandomData.httpUrl(), data = data, method = HttpMethod.POST)
+        val requestData = RequestData(url = RandomData.httpUrl(), body = data, method = HttpMethod.POST)
         every { httpURLConnection.outputStream } returns outputStream
         every { outputStream.write(any<ByteArray>()) } just Runs
 
@@ -123,12 +123,12 @@ class HttpClientDefaultTest {
         val method = HttpMethod.GET
         val requestData = RequestData(
             url = RandomData.httpUrl(),
-            data = RandomData.string(),
+            body = RandomData.string(),
             method = method
         )
 
         // When
-        val exception = assertFails("$method does not support request data") {
+        val exception = assertFails("$method does not support request body") {
             urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
         }
 
@@ -142,12 +142,12 @@ class HttpClientDefaultTest {
         val method = HttpMethod.DELETE
         val requestData = RequestData(
             url = RandomData.httpUrl(),
-            data = RandomData.string(),
+            body = RandomData.string(),
             method = method
         )
 
         // When
-        val exception = assertFails("$method does not support request data") {
+        val exception = assertFails("$method does not support request body") {
             urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
         }
 
@@ -161,12 +161,12 @@ class HttpClientDefaultTest {
         val method = HttpMethod.HEAD
         val requestData = RequestData(
             url = RandomData.httpUrl(),
-            data = RandomData.string(),
+            body = RandomData.string(),
             method = method
         )
 
         // When
-        val exception = assertFails("$method does not support request data") {
+        val exception = assertFails("$method does not support request body") {
             urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
         }
 
@@ -180,12 +180,12 @@ class HttpClientDefaultTest {
         val method = HttpMethod.GET
         val requestData = RequestData(
             url = RandomData.httpUrl(),
-            data = RandomData.string(),
+            body = RandomData.string(),
             method = method
         )
 
         // When
-        val exception = assertFails("$method does not support request data") {
+        val exception = assertFails("$method does not support request body") {
             urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
         }
 

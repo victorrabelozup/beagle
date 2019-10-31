@@ -4,7 +4,7 @@ data class RequestData(
     val url: String,
     val method: HttpMethod = HttpMethod.GET,
     val headers: Map<String, String> = mapOf(),
-    val data: String? = null
+    val body: String? = null
 )
 
 enum class HttpMethod {

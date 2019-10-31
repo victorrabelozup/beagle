@@ -29,6 +29,6 @@ class RequestDataTest {
 
     @Test
     fun requestData_should_have_data_null() {
-        assertNull(requestData.data)
+        assertNull(requestData.body)
     }
 }
