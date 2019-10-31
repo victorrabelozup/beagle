@@ -1,10 +1,9 @@
 package br.com.zup.beagleui.framework.setup
 
 import android.app.Application
-import br.com.zup.beagleui.framework.mockdata.CustomWidgetFactory
 import br.com.zup.beagleui.framework.mockdata.CustomWidget
+import br.com.zup.beagleui.framework.mockdata.CustomWidgetFactory
 import br.com.zup.beagleui.framework.testutil.setPrivateField
-import br.com.zup.beagleui.framework.view.BeagleUIViewModel
 import com.facebook.soloader.SoLoader
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
@@ -13,18 +12,15 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.just
 import io.mockk.mockkStatic
 import io.mockk.verify
-import org.koin.test.inject
 import org.junit.Before
 import org.junit.Test
-import org.koin.test.AutoCloseKoinTest
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 private const val APP_NAME = "sample"
 
-class BeagleEnvironmentTest : AutoCloseKoinTest() {
+class BeagleEnvironmentTest {
 
     @MockK
     private lateinit var application: Application
@@ -54,14 +50,6 @@ class BeagleEnvironmentTest : AutoCloseKoinTest() {
         BeagleEnvironment.setup(APP_NAME, application)
 
         verify(exactly = 1) { SoLoader.init(application, false) }
-    }
-
-    @Test
-    fun setup_should_start_koin() {
-        BeagleEnvironment.setup(APP_NAME, application)
-
-        val viewModel by inject<BeagleUIViewModel>()
-        assertNotNull(viewModel)
     }
 
     @Test

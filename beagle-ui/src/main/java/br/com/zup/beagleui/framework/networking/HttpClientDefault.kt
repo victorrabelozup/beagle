@@ -13,7 +13,7 @@ typealias OnSuccess = (responseData: ResponseData) -> Unit
 typealias OnError = (throwable: Throwable) -> Unit
 
 internal class HttpClientDefault(
-    private val urlFactory: URLFactory
+    private val urlFactory: URLFactory = URLFactory()
 ) : HttpClient, CoroutineScope {
 
     private val job = Job()

@@ -29,8 +29,6 @@ object Versions {
     const val viewModel = "2.1.0"
     const val recyclerView = "1.0.0"
 
-    const val koin = "2.0.1"
-
     const val litho = "0.31.0"
 
     const val fresco = "2.0.0"
@@ -72,8 +70,6 @@ object GeneralLibraries {
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
     const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinCoroutines}"
 
-    const val koin = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
-
     const val fresco = "com.facebook.fresco:fresco:${Versions.fresco}"
 
     const val soLoader = "com.facebook.soloader:soloader:${Versions.soLoader}"
@@ -100,7 +96,6 @@ object MoshiLibraries {
 object TestLibraries {
     const val junit = "junit:junit:${Versions.junit}"
     const val mockk = "io.mockk:mockk:${Versions.mockk}"
-    const val koin = "org.koin:koin-test:${Versions.koin}"
     const val kotlinTest = "org.jetbrains.kotlin:kotlin-test:${Versions.kotlinTest}"
     const val kotlinCoroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlinCoroutinesTest}"
     const val testRunner = "androidx.test:runner:${Versions.testRunner}"

@@ -17,9 +17,9 @@ private fun getFieldFromHierarchy(clazz: Class<*>, fieldName: String): Field {
     var clazzToSearch = clazz
     var field = getField(clazzToSearch, fieldName)
     while (field == null && clazzToSearch != Any::class.java && clazzToSearch != Object::class.java) {
-        val clazz = clazzToSearch.superclass
-        if (clazz != null) {
-            clazzToSearch = clazz
+        val superclass = clazzToSearch.superclass
+        if (superclass != null) {
+            clazzToSearch = superclass
             field = getField(clazzToSearch, fieldName)
             break
         }

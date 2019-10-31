@@ -6,7 +6,7 @@ import br.com.zup.beagleui.framework.widget.core.Widget
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-internal class BeagleDataRepository(private val beagleHttpClient: BeagleHttpClient) {
+internal class BeagleDataRepository(private val beagleHttpClient: BeagleHttpClient = BeagleHttpClient()) {
 
     @Throws(BeagleDataException::class)
     suspend fun fetchWidget(url: String): Widget = withContext(Dispatchers.IO) {

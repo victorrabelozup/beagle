@@ -7,7 +7,7 @@ internal class BeagleDeserializationException(
 ) : Exception()
 
 internal class BeagleUiDeserialization(
-    private val beagleMoshiFactory: BeagleMoshiFactory
+    private val beagleMoshiFactory: BeagleMoshiFactory = BeagleMoshiFactory()
 ) {
 
     fun deserialize(json: String): Widget {

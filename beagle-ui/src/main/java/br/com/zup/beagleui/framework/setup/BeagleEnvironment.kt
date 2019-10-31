@@ -1,14 +1,11 @@
 package br.com.zup.beagleui.framework.setup
 
 import android.app.Application
-import br.com.zup.beagleui.framework.di.beagleModule
 import br.com.zup.beagleui.framework.navigation.BeagleDeepLinkHandler
 import br.com.zup.beagleui.framework.networking.HttpClient
 import br.com.zup.beagleui.framework.view.WidgetViewFactory
 import br.com.zup.beagleui.framework.widget.core.NativeWidget
 import com.facebook.soloader.SoLoader
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
 
 internal object BeagleEnvironment {
 
@@ -43,14 +40,9 @@ internal object BeagleEnvironment {
 
     private fun initialize() {
         SoLoader.init(application, false)
-
-        startKoin {
-            androidContext(application)
-            modules(listOf(beagleModule))
-        }
     }
 
-    fun <T: NativeWidget> registerWidget(clazz: Class<T>, factory: WidgetViewFactory<T>) {
+    fun <T : NativeWidget> registerWidget(clazz: Class<T>, factory: WidgetViewFactory<T>) {
         internalWidgets[clazz as Class<NativeWidget>] = factory as WidgetViewFactory<NativeWidget>
     }
 }

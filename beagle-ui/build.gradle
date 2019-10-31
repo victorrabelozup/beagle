@@ -43,8 +43,6 @@ dependencies {
     implementation GeneralLibraries.kotlin
     implementation GeneralLibraries.kotlinCoroutines
 
-    implementation GeneralLibraries.koin
-
     api GeneralLibraries.beagleDeclarative
 
     implementation GlideLibraries.glide
@@ -63,7 +61,6 @@ dependencies {
     testImplementation TestLibraries.kotlinTest
     testImplementation TestLibraries.kotlinCoroutinesTest
     testImplementation TestLibraries.mockk
-    testImplementation TestLibraries.koin
     testImplementation TestLibraries.archCoreTesting
 
     // Integration Testing

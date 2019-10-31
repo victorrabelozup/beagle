@@ -32,8 +32,6 @@ dependencies {
 
     implementation GeneralLibraries.kotlin
 
-    implementation GeneralLibraries.koin
-
     implementation GeneralLibraries.soLoader
 
     implementation project (Modules.beagleUi)

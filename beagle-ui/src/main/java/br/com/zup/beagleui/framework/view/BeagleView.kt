@@ -13,22 +13,20 @@ import br.com.zup.beagleui.R
 import br.com.zup.beagleui.framework.utils.dp
 import br.com.zup.beagleui.framework.utils.toView
 import br.com.zup.beagleui.framework.widget.core.Widget
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 
 class BeagleView(
     context: Context,
     attrs: AttributeSet?,
     @AttrRes defStyleAttr: Int
-) : FrameLayout(context, attrs, defStyleAttr), KoinComponent {
+) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private val viewModel: BeagleUIViewModel by inject()
+    private val viewModel: BeagleUIViewModel = BeagleUIViewModel()
 
     private lateinit var progressBar: ProgressBar
 
     constructor(context: Context) : this(context, null, 0)
 
-    constructor(context: Context, attrs: AttributeSet?): this(context, attrs, 0)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     init {
         initializeAttributes(attrs)

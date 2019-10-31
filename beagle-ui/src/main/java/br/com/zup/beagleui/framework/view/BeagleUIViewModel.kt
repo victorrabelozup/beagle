@@ -14,7 +14,7 @@ internal sealed class ViewState {
 }
 
 internal class BeagleUIViewModel(
-    private val beagleDataRepository: BeagleDataRepository
+    private val beagleDataRepository: BeagleDataRepository = BeagleDataRepository()
 ) : BaseViewModel() {
 
     val state = MutableLiveData<ViewState>()
