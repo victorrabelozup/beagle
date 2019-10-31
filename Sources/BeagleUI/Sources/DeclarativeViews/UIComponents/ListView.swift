@@ -63,7 +63,7 @@ public struct ListView: NativeWidget {
         
         var rows = [Widget]()
         let widget = builder()
-        for _ in stride(from: 0, through: size, by: 1) {
+        for _ in stride(from: 0, through: size-1, by: 1) {
             rows.append(widget)
         }
         

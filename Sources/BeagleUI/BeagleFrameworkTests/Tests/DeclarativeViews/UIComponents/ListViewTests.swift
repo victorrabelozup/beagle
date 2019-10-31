@@ -22,11 +22,34 @@ final class ListViewTests: XCTestCase {
         XCTAssertTrue(widget.rows?[safe: 0] is Text, "Expected to find `Text`.")
     }
     
+    func test_initWithClosureSingleWidget_shouldReturnExpectedInstance() {
+        // Given / When
+        let widget = ListView.new {
+            Text("text")
+        }
+
+        // Then
+        XCTAssertEqual(widget.rows?.count, 1, "Expected `rows.count` to be `1`.")
+        XCTAssertTrue(widget.rows?[safe: 0] is Text, "Expected to find `Text`.")
+    }
+    
     func test_initWithRowsBuilder_shouldReturnExpectedInstance() {
         // Given / When
         let widget = ListView {
             Text("text")
             Button(text: "text")
+        }
+
+        // Then
+        XCTAssertEqual(widget.rows?.count, 2, "Expected `rows.count` to be `2`.")
+        XCTAssertTrue(widget.rows?[safe: 0] is Text, "Expected to find `Text`.")
+        XCTAssertTrue(widget.rows?[safe: 1] is Button, "Expected to find `Button`.")
+    }
+    
+    func test_initWithClosureMultipleWidget_shouldReturnExpectedInstance() {
+        // Given / When
+        let widget = ListView.new {
+            [Text("text"), Button(text: "text")]
         }
 
         // Then
@@ -75,6 +98,20 @@ final class ListViewTests: XCTestCase {
 
         // Then
         XCTAssertNotEqual(widget.direction, updatedWidget.direction, "Expected `direction` to be diferent from initial value.")
+    }
+    
+    func test_initWithDynamic_shouldReturnExpectedInstance() {
+        // Given / When
+        let widgetsCount = 5
+        let widget = ListView.dynamic(widgetsCount) {
+            Text("text")
+        }
+
+        // Then
+        XCTAssertEqual(widget.rows?.count, widgetsCount, "Expected `rows.count` to be `\(widgetsCount)`.")
+        widget.rows?.forEach { widget in
+            XCTAssertTrue(widget is Text, "Expected to find `Text`.")
+        }
     }
 
 }
