@@ -14,11 +14,8 @@ final class ContainerWidgetViewRenderer: WidgetViewRenderer<Container> {
     // MARK: - Public Functions
     
     override func buildView() -> UIView {
-        
-        let frame = CGRect(x: 0, y: 0, width: screenSizeProvider.size.width, height: screenSizeProvider.size.height)
-        let view = UIView(frame: frame)
-        let flex = Flex(flexDirection: .column, justifyContent: .spaceBetween)
-        
+
+        let view = UIView()
         if let header = widget.header {
             let renderer = rendererProvider.buildRenderer(for: header)
             let headerView = renderer.buildView()
@@ -36,10 +33,7 @@ final class ContainerWidgetViewRenderer: WidgetViewRenderer<Container> {
             footerView.backgroundColor = .gray
             view.addSubview(footerView)
         }
-        
-        flexViewConfigurator.setupFlex(flex, for: view)
-        
-        view.sizeToFit()
+        flexViewConfigurator.setupFlex(Flex(), for: view)
         
         return view
     }
@@ -48,10 +42,8 @@ final class ContainerWidgetViewRenderer: WidgetViewRenderer<Container> {
     
     private func buildContentScrollView() -> UIScrollView {
         
-        let scrollView = UIScrollView(frame: .zero)
-        
+        let scrollView = ContainerScrollView()
         let flex = Flex(grow: 1)
-        
         let contentView = rendererProvider.buildRenderer(for: widget.content).buildView()
         scrollView.addSubview(contentView)
         
@@ -60,4 +52,13 @@ final class ContainerWidgetViewRenderer: WidgetViewRenderer<Container> {
         return scrollView
     }
     
+}
+
+private class ContainerScrollView: UIScrollView {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if let contentView = subviews.first {
+            contentSize = contentView.frame.size
+        }
+    }
 }
