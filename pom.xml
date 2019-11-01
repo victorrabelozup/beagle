@@ -35,7 +35,7 @@
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test</artifactId>
+            <artifactId>kotlin-test-junit</artifactId>
             <version>${kotlin.version}</version>
             <scope>test</scope>
         </dependency>
@@ -89,26 +89,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.5.1</version>
-                <executions>
-                    <execution>
-                        <id>default-deploy</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>deploy</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <serverId>nexus</serverId>
-                    <nexusUrl>http://repo.zup.com.br:8081</nexusUrl>
-                    <skipStaging>true</skipStaging>
-                </configuration>
-            </plugin>
-	    <plugin>
+	        <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <executions>
@@ -142,5 +123,12 @@
             <url>https://repo.zup.com.br/repository/darwin-jars-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
+
+    <scm>
+        <connection>scm:git@github.com:ZupIT/darwin-beagle-framework.git</connection>
+        <url>https://github.com/ZupIT/darwin-beagle-framework</url>
+        <developerConnection>scm:git:git@github.com:ZupIT/darwin-beagle-framework.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 
 </project>
