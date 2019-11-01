@@ -26,7 +26,7 @@ extension UIView {
     }
     
     /// Tries to hide the loadingView that is visible
-    func hideLoading() {
+    func hideLoading(completion: (() -> Void)? = nil) {
         let loadingView = viewWithTag(LoadingView.tag)
         // swiftlint:disable multiline_arguments
         UIView.animate(withDuration: 0.25, animations: {
@@ -34,6 +34,7 @@ extension UIView {
         }, completion: { _ in
             (loadingView as? LoadingView)?.stopAnimating()
             loadingView?.removeFromSuperview()
+            completion?()
         })
     }
 

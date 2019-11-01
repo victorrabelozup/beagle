@@ -29,12 +29,11 @@ final class UIViewLoadingTests: XCTestCase {
         let theViewHadALoadingView = view.viewWithTag(LoadingView.tag) != nil
         
         // When
-        view.hideLoading()
-        let loadingViewWasRemovedExpectation = expectation(description: "loadingViewWasRemovedExpectation")
-        DispatchQueue.global().asyncAfter(deadline: .now() + 0.26) {
-            loadingViewWasRemovedExpectation.fulfill()
+        let hideLoadingExpectation = expectation(description: "hideLoadingExpectation")
+        view.hideLoading {
+            hideLoadingExpectation.fulfill()
         }
-        wait(for: [loadingViewWasRemovedExpectation], timeout: 0.5)
+        wait(for: [hideLoadingExpectation], timeout: 1.0)
         
         // Then
         XCTAssertTrue(theViewHadALoadingView, "The view had a `LoadingView` that needed to be hidden.")

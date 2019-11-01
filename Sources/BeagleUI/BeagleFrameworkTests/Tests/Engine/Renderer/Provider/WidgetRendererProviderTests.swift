@@ -15,6 +15,7 @@ final class WidgetRendererProviderTests: XCTestCase {
         // Given
         let environmentSpy = BeagleEnvironmentSpy.self
         Beagle.environment = environmentSpy
+        Beagle.didCallStart = false
         Beagle.start()
         let sut = WidgetRendererProviding()
 

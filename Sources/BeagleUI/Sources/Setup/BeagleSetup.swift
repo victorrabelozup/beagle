@@ -10,11 +10,11 @@ import Foundation
 import Networking
 
 /// Defines the Beagle namespace
-public final class Beagle {
+public struct Beagle {
     
-    // MARK: - Initialization
+    // MARK: - Private Properties
     
-    private init() {}
+    static var didCallStart: Bool = false
     
     // MARK: - Dependencies
     
@@ -24,12 +24,16 @@ public final class Beagle {
     // MARK: - Public Functions
     
     /// Starts the application, setting up it's environment based on the appName
-    public class func start(appName: String = "Beagle", networkingDispatcher: URLRequestDispatching? = nil) {
+    public static func start(appName: String = "Beagle", networkingDispatcher: URLRequestDispatching? = nil) {
+        guard didCallStart == false else {
+            fatalError("Beagle.start should be called only one time!")
+        }
+        didCallStart = true
         environment.initialize(appName: appName, networkingDispatcher: networkingDispatcher)
     }
     
     /// Register a single custom widget and entity
-    public class func registerCustomWidget<E: WidgetConvertibleEntity, W: Widget>(_ item: WidgetRegisterItem<E, W>) {
+    public static func registerCustomWidget<E: WidgetConvertibleEntity, W: Widget>(_ item: WidgetRegisterItem<E, W>) {
         environment.shared.registerCustomWidget(item)
     }
     

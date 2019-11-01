@@ -16,6 +16,7 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
         // Given
         let environmentSpy = BeagleEnvironmentSpy.self
         Beagle.environment = environmentSpy
+        Beagle.didCallStart = false
         Beagle.start()
         
         // When

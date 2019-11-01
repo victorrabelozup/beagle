@@ -15,6 +15,7 @@ final class BeagleSetupTests: XCTestCase {
     func test_start_shouldStartTheEnvironment() {
         // Given
         let environmentSpy = BeagleEnvironmentSpy.self
+        Beagle.didCallStart = false
         Beagle.environment = environmentSpy
         
         // When
@@ -24,9 +25,23 @@ final class BeagleSetupTests: XCTestCase {
         XCTAssertTrue(environmentSpy.initializeCalled)
     }
     
+    func test_start_shouldThrowFatalErrorIfCalledTwice() {
+        // Given
+        let environmentSpy = BeagleEnvironmentSpy.self
+        Beagle.didCallStart = false
+        Beagle.environment = environmentSpy
+        Beagle.start()
+        
+        // When / Then
+        expectFatalError(expectedMessage: "Beagle.start should be called only one time!") {
+            Beagle.start()
+        }
+    }
+    
     func test_registerCustomWidgets_shouldCallRegisterWidgetsOnEnvironment_passingOnlyOneWidget() {
         // Given
         let environmentSpy = BeagleEnvironmentSpy.self
+        Beagle.didCallStart = false
         Beagle.environment = environmentSpy
         Beagle.start()
         let customWidgetToRegister = WidgetRegisterItem(
