@@ -36,7 +36,9 @@ node {
            }
      }
     
-
+     tagRelease {
+     	gitRepo = "github.com/ZupIT/darwin-beagle-framework"
+     }
   } catch (e) {
       notifyBuildStatus {
         buildStatus = "FAILED"
