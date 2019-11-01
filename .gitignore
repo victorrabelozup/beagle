@@ -18,9 +18,12 @@ build/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-*.iws
-*.iml
-*.ipr
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/dynamic.xml
+.idea/uiDesigner.xml
 
 ### VS Code ###
 .vscode/
