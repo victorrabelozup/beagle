@@ -14,20 +14,15 @@ import io.mockk.just
 import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
-import kotlin.test.assertEquals
 
 private const val APP_NAME = "test"
 
 class BeagleWidgetSerializerTest {
 
     @MockK
+    private lateinit var objectFieldSerializer: ObjectFieldSerializer
+    @MockK
     private lateinit var jsonGenerator: JsonGenerator
-
-    private val keyStringFieldCaptured = mutableListOf<String>()
-    private val valueStringFieldCaptured = mutableListOf<String>()
-
-    private val keyObjectFieldCaptured = mutableListOf<String>()
-    private val valueObjectFieldCaptured = mutableListOf<Any>()
 
     private lateinit var beagleWidgetSerializer: BeagleWidgetSerializer
 
@@ -35,13 +30,14 @@ class BeagleWidgetSerializerTest {
     fun setUp() {
         MockKAnnotations.init(this)
 
-        beagleWidgetSerializer = BeagleWidgetSerializer()
+        beagleWidgetSerializer = BeagleWidgetSerializer(objectFieldSerializer)
 
         every { jsonGenerator.writeStartObject() } just Runs
-        every { jsonGenerator.writeStringField(capture(keyStringFieldCaptured), capture(valueStringFieldCaptured)) } just Runs
-        every { jsonGenerator.writeObjectField(capture(keyObjectFieldCaptured), capture(valueObjectFieldCaptured)) } just Runs
+        every { jsonGenerator.writeStringField(any(), any()) } just Runs
+        every { jsonGenerator.writeObjectField(any(), any()) } just Runs
         every { jsonGenerator.writeEndObject() } just Runs
         every { jsonGenerator.writeObject(any()) } just Runs
+        every { objectFieldSerializer.serializeFields(any(), any()) } just Runs
     }
 
     @Test
@@ -55,13 +51,9 @@ class BeagleWidgetSerializerTest {
 
         // Then
         verify(exactly = 1) { jsonGenerator.writeStartObject() }
+        verify(exactly = 1) { jsonGenerator.writeStringField("type", "beagle:widget:text") }
+        verify(exactly = 1) { objectFieldSerializer.serializeFields(widget, jsonGenerator) }
         verify(exactly = 1) { jsonGenerator.writeEndObject() }
-
-        assertEquals("type", keyStringFieldCaptured[0])
-        assertEquals("beagle:Text", valueStringFieldCaptured[0])
-
-        assertEquals("text", keyObjectFieldCaptured[0])
-        assertEquals(textValue, valueObjectFieldCaptured[0])
     }
 
     @Test
@@ -75,13 +67,9 @@ class BeagleWidgetSerializerTest {
 
         // Then
         verify(exactly = 1) { jsonGenerator.writeStartObject() }
+        verify(exactly = 1) { jsonGenerator.writeStringField("type", "beagle:widget:button") }
+        verify(exactly = 1) { objectFieldSerializer.serializeFields(widget.build(), jsonGenerator) }
         verify(exactly = 1) { jsonGenerator.writeEndObject() }
-
-        assertEquals("type", keyStringFieldCaptured[0])
-        assertEquals("beagle:Button", valueStringFieldCaptured[0])
-
-        assertEquals("text", keyObjectFieldCaptured[0])
-        assertEquals(testValue, valueObjectFieldCaptured[0])
     }
 
     @Test
@@ -96,10 +84,9 @@ class BeagleWidgetSerializerTest {
 
         // Then
         verify(exactly = 1) { jsonGenerator.writeStartObject() }
+        verify(exactly = 1) { jsonGenerator.writeStringField("type", "$APP_NAME:widget:customnativewidget") }
+        verify(exactly = 1) { objectFieldSerializer.serializeFields(widget, jsonGenerator) }
         verify(exactly = 1) { jsonGenerator.writeEndObject() }
-
-        assertEquals("type", keyStringFieldCaptured[0])
-        assertEquals("$APP_NAME:CustomNativeWidget", valueStringFieldCaptured[0])
     }
 }
 

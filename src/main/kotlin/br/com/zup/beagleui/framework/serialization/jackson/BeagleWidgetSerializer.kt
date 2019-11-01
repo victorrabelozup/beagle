@@ -9,9 +9,12 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer
 import java.lang.reflect.Modifier
 
 private const val TYPE = "type"
+private const val WIDGET_NAMESPACE = "widget"
 private const val BEAGLE_NAMESPACE = "beagle"
 
-class BeagleWidgetSerializer : StdSerializer<Widget>(Widget::class.java) {
+class BeagleWidgetSerializer(
+    private val objectFieldSerializer: ObjectFieldSerializer = ObjectFieldSerializer()
+) : StdSerializer<Widget>(Widget::class.java) {
 
     override fun serialize(widget: Widget?, gen: JsonGenerator?, provider: SerializerProvider?) {
         if (widget != null && gen != null) {
@@ -26,7 +29,7 @@ class BeagleWidgetSerializer : StdSerializer<Widget>(Widget::class.java) {
     private fun serializeWidget(value: Widget, gen: JsonGenerator) {
         gen.writeStartObject()
         addTypeToJson(value, gen)
-        serializeFields(value, gen)
+        objectFieldSerializer.serializeFields(value, gen)
         gen.writeEndObject()
     }
 
@@ -36,24 +39,13 @@ class BeagleWidgetSerializer : StdSerializer<Widget>(Widget::class.java) {
 
         if (registeredWidgets.contains(value::class.java)) {
             val appName = BeagleEnvironment.appName
-            gen.writeStringField(TYPE, "$appName:$widgetName")
+            gen.writeStringField(TYPE, "$appName:$WIDGET_NAMESPACE:$widgetName")
         } else {
-            gen.writeStringField(TYPE, "$BEAGLE_NAMESPACE:$widgetName")
-        }
-    }
-
-    private fun serializeFields(value: Widget, gen: JsonGenerator) {
-        val fields = Class.forName(value.javaClass.name).declaredFields
-        fields.forEach { field ->
-            field.isAccessible = true
-            val fieldValue = field.get(value)
-            if (fieldValue != null && !Modifier.isTransient(field.modifiers)) {
-                gen.writeObjectField(field.name, fieldValue)
-            }
+            gen.writeStringField(TYPE, "$BEAGLE_NAMESPACE:$WIDGET_NAMESPACE:$widgetName")
         }
     }
 
     private fun getClassName(value: Widget): String {
-        return value::class.java.simpleName
+        return value::class.java.simpleName.toLowerCase()
     }
 }

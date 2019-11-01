@@ -3,17 +3,7 @@ package br.com.zup.beagleui.framework.widget.navigation
 import br.com.zup.beagleui.framework.widget.core.NativeWidget
 import br.com.zup.beagleui.framework.widget.core.Widget
 
-data class Event(
-    val type: EventType,
-    val value: EventData? = null
-)
-
-data class EventData(
-    val path: String,
-    val data: Map<String, String>? = null
-)
-
-enum class EventType {
+enum class NavigatorEventType {
     OPEN_DEEP_LINK,
     ADD_VIEW,
     OPEN_VIEW,
@@ -21,7 +11,13 @@ enum class EventType {
     POP_VIEW
 }
 
+data class NavigatorData(
+    val path: String,
+    val data: Map<String, String>? = null
+)
+
 data class Navigator(
-    val event: Event,
+    val type: NavigatorEventType,
+    val value: NavigatorData? = null,
     val child: Widget
 ) : NativeWidget
