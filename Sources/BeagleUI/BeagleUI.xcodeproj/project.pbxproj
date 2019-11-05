@@ -52,6 +52,8 @@
 		E531D6BA2359FEE1007EEBA7 /* UIView+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531D6B92359FEE1007EEBA7 /* UIView+Loading.swift */; };
 		E531D6BC235A007C007EEBA7 /* UIView+LoadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531D6BB235A007C007EEBA7 /* UIView+LoadingTests.swift */; };
 		E531D6C1235A3230007EEBA7 /* NSErrorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531D6BF235A30DB007EEBA7 /* NSErrorExtension.swift */; };
+		E53C7AB22371E56300F8FE28 /* YogaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E53C7AB12371E56300F8FE28 /* YogaKit.framework */; };
+		E53C7AB32371E56300F8FE28 /* YogaKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E53C7AB12371E56300F8FE28 /* YogaKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E56A029D2344172400C0F23D /* WidgetBuilders.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A029C2344172400C0F23D /* WidgetBuilders.swift */; };
 		E56A02B123451C6500C0F23D /* FlexSingleWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02AD23451BFE00C0F23D /* FlexSingleWidget.swift */; };
 		E56A02B423451CE900C0F23D /* FlexWidgetEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02B223451CC300C0F23D /* FlexWidgetEntity.swift */; };
@@ -66,8 +68,6 @@
 		E56A02CF23462B8400C0F23D /* PaddingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02CE23462B8400C0F23D /* PaddingTests.swift */; };
 		E56A02D223462C0900C0F23D /* WidgetBuildersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02D123462C0900C0F23D /* WidgetBuildersTests.swift */; };
 		E56A02E22347B6ED00C0F23D /* WidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02E12347B6ED00C0F23D /* WidgetViewRenderer.swift */; };
-		E56A02E72347C99F00C0F23D /* YogaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E56A02E62347C99F00C0F23D /* YogaKit.framework */; };
-		E56A02E82347C99F00C0F23D /* YogaKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E56A02E62347C99F00C0F23D /* YogaKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E57FBB82233A795A00165D8D /* DataPreprocessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57FBB81233A795A00165D8D /* DataPreprocessor.swift */; };
 		E57FBB86233ABF3F00165D8D /* DataPreprocessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57FBB85233ABF3F00165D8D /* DataPreprocessorTests.swift */; };
 		E5835B33233BD84600125140 /* WidgetEntityContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5835B32233BD84600125140 /* WidgetEntityContainerTests.swift */; };
@@ -84,6 +84,10 @@
 		E5A6F4C52358ED7D008906F8 /* SpacerWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6F4C32358ED41008906F8 /* SpacerWidgetViewRenderer.swift */; };
 		E5A6F4C92358F373008906F8 /* ServerDrivenScreenLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6F4C82358F373008906F8 /* ServerDrivenScreenLoader.swift */; };
 		E5A6F4CB2358F621008906F8 /* ServerDrivenWidgetFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6F4CA2358F621008906F8 /* ServerDrivenWidgetFetcher.swift */; };
+		E5B052C32370AA83008EB9BE /* Caching.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5B052C12370AA83008EB9BE /* Caching.framework */; };
+		E5B052C42370AA83008EB9BE /* Caching.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E5B052C12370AA83008EB9BE /* Caching.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E5B052C52370AA83008EB9BE /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5B052C22370AA83008EB9BE /* Networking.framework */; };
+		E5B052C62370AA83008EB9BE /* Networking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E5B052C22370AA83008EB9BE /* Networking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E5CB5D65234E7CF6009783A7 /* BeagleScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D64234E7CF6009783A7 /* BeagleScreenViewController.swift */; };
 		E5CB5D732354ADC7009783A7 /* TextWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D712354ADC7009783A7 /* TextWidgetViewRenderer.swift */; };
 		E5CB5D792354ADF9009783A7 /* ButtonWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5D782354ADF9009783A7 /* ButtonWidgetViewRenderer.swift */; };
@@ -103,8 +107,6 @@
 		E5CB5DC623565440009783A7 /* BeagleSetupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DC523565440009783A7 /* BeagleSetupTests.swift */; };
 		E5CB5DCE23578837009783A7 /* LayoutViewRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DCD23578837009783A7 /* LayoutViewRendererProvider.swift */; };
 		E5CB5DD023578967009783A7 /* UIComponentViewRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DCF23578967009783A7 /* UIComponentViewRendererProvider.swift */; };
-		E5CB5DD3235796BE009783A7 /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5CB5DD2235796BE009783A7 /* Networking.framework */; };
-		E5CB5DD4235796BE009783A7 /* Networking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E5CB5DD2235796BE009783A7 /* Networking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E5CE41A32331D55000295277 /* WidgetDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A22331D55000295277 /* WidgetDecoder.swift */; };
 		E5CE41A52331D59E00295277 /* WidgetEntityContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A42331D59E00295277 /* WidgetEntityContainer.swift */; };
 		E5CE41A72331D93F00295277 /* ContainerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE41A62331D93F00295277 /* ContainerEntity.swift */; };
@@ -153,14 +155,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		E56A02E92347C99F00C0F23D /* Embed Frameworks */ = {
+		E5B052C72370AA83008EB9BE /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E5CB5DD4235796BE009783A7 /* Networking.framework in Embed Frameworks */,
-				E56A02E82347C99F00C0F23D /* YogaKit.framework in Embed Frameworks */,
+				E5B052C62370AA83008EB9BE /* Networking.framework in Embed Frameworks */,
+				E5B052C42370AA83008EB9BE /* Caching.framework in Embed Frameworks */,
+				E53C7AB32371E56300F8FE28 /* YogaKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -216,6 +219,7 @@
 		E531D6B92359FEE1007EEBA7 /* UIView+Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Loading.swift"; sourceTree = "<group>"; };
 		E531D6BB235A007C007EEBA7 /* UIView+LoadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+LoadingTests.swift"; sourceTree = "<group>"; };
 		E531D6BF235A30DB007EEBA7 /* NSErrorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSErrorExtension.swift; sourceTree = "<group>"; };
+		E53C7AB12371E56300F8FE28 /* YogaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YogaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E56A029C2344172400C0F23D /* WidgetBuilders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetBuilders.swift; sourceTree = "<group>"; };
 		E56A02AD23451BFE00C0F23D /* FlexSingleWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidget.swift; sourceTree = "<group>"; };
 		E56A02AF23451C0700C0F23D /* FlexWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexWidget.swift; sourceTree = "<group>"; };
@@ -247,6 +251,8 @@
 		E5A6F4C32358ED41008906F8 /* SpacerWidgetViewRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpacerWidgetViewRenderer.swift; sourceTree = "<group>"; };
 		E5A6F4C82358F373008906F8 /* ServerDrivenScreenLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDrivenScreenLoader.swift; sourceTree = "<group>"; };
 		E5A6F4CA2358F621008906F8 /* ServerDrivenWidgetFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDrivenWidgetFetcher.swift; sourceTree = "<group>"; };
+		E5B052C12370AA83008EB9BE /* Caching.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Caching.framework; path = ../../ThirdParty/Carthage/Build/iOS/Caching.framework; sourceTree = "<group>"; };
+		E5B052C22370AA83008EB9BE /* Networking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Networking.framework; path = ../../ThirdParty/Carthage/Build/iOS/Networking.framework; sourceTree = "<group>"; };
 		E5CB5D64234E7CF6009783A7 /* BeagleScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleScreenViewController.swift; sourceTree = "<group>"; };
 		E5CB5D712354ADC7009783A7 /* TextWidgetViewRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextWidgetViewRenderer.swift; sourceTree = "<group>"; };
 		E5CB5D782354ADF9009783A7 /* ButtonWidgetViewRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonWidgetViewRenderer.swift; sourceTree = "<group>"; };
@@ -311,8 +317,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5CB5DD3235796BE009783A7 /* Networking.framework in Frameworks */,
-				E56A02E72347C99F00C0F23D /* YogaKit.framework in Frameworks */,
+				E5B052C52370AA83008EB9BE /* Networking.framework in Frameworks */,
+				E5B052C32370AA83008EB9BE /* Caching.framework in Frameworks */,
+				E53C7AB22371E56300F8FE28 /* YogaKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,7 +548,10 @@
 		E53524A923310F5A00D1A0C9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E53C7AB12371E56300F8FE28 /* YogaKit.framework */,
 				E5CB5DD2235796BE009783A7 /* Networking.framework */,
+				E5B052C12370AA83008EB9BE /* Caching.framework */,
+				E5B052C22370AA83008EB9BE /* Networking.framework */,
 				E56A02E62347C99F00C0F23D /* YogaKit.framework */,
 			);
 			name = Frameworks;
@@ -1069,7 +1079,8 @@
 				932925CC2327E11000A61F01 /* Frameworks */,
 				932925CD2327E11000A61F01 /* Resources */,
 				E5EB34B52330358000AC246B /* SwiftLint Run Script */,
-				E56A02E92347C99F00C0F23D /* Embed Frameworks */,
+				E5B052C02370A9CA008EB9BE /* Carthage Run Script */,
+				E5B052C72370AA83008EB9BE /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1087,6 +1098,7 @@
 				E5CE41E32332B9B600295277 /* Sources */,
 				E5CE41E42332B9B600295277 /* Frameworks */,
 				E5CE41E52332B9B600295277 /* Resources */,
+				E53C7AB42371E90E00F8FE28 /* Carthage Run Script */,
 			);
 			buildRules = (
 			);
@@ -1154,6 +1166,46 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		E53C7AB42371E90E00F8FE28 /* Carthage Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../../ThirdParty/Carthage/Build/iOS/Networking.framework",
+				"$(SRCROOT)/../../ThirdParty/Carthage/Build/iOS/Caching.framework",
+			);
+			name = "Carthage Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+		E5B052C02370A9CA008EB9BE /* Carthage Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../../ThirdParty/Carthage/Build/iOS/Networking.framework",
+				"$(SRCROOT)/../../ThirdParty/Carthage/Build/iOS/Caching.framework",
+			);
+			name = "Carthage Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
 		E5EB34B52330358000AC246B /* SwiftLint Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1461,6 +1513,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../../ThirdParty/Carthage/Build/iOS/";
 				INFOPLIST_FILE = Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -1490,6 +1543,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../../ThirdParty/Carthage/Build/iOS/";
 				INFOPLIST_FILE = Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -1514,6 +1568,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YKYJK8YBGT;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../../ThirdParty/Carthage/Build/iOS/";
 				INFOPLIST_FILE = BeagleFrameworkTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1534,6 +1589,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YKYJK8YBGT;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../../ThirdParty/Carthage/Build/iOS/";
 				INFOPLIST_FILE = BeagleFrameworkTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
