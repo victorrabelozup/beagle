@@ -26,5 +26,5 @@ comment:
   require_changes: no
 
 ignore:
- - "*Test/.*" # ignore Tests from code coverage
- - "*Tests/.*" # ignore Tests from code coverage
+ - "Sources/BeagleUI/BeagleFrameworkTests/.*"
+ - "Libraries/YogaKit/.*" 
