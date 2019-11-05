@@ -31,7 +31,7 @@ extension XCTestCase {
         
         DispatchQueue.global(qos: .userInitiated).async(execute: testcase)
         
-        waitForExpectations(timeout: 2) { _ in
+        waitForExpectations(timeout: timeout) { _ in
             XCTAssertEqual(assertionMessage, expectedMessage)
             FatalErrorUtil.restoreFatalError()
         }
