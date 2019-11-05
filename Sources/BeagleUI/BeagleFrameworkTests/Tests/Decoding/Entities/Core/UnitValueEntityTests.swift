@@ -11,6 +11,18 @@ import XCTest
 
 final class UnitValueEntityTests: XCTestCase {
     
+    func test_whenMapToUIModelIsCalledForAuto_thenItShouldReturnAValidUnitValue() {
+        // Given
+        let expectedUIModel = UnitValue(value: 1.0, type: .auto)
+        let sut = UnitValueEntity(value: 1.0, type: .auto)
+        
+        // When
+        let uiModel = try? sut.mapToUIModel()
+        
+        // Then
+        XCTAssertEqual(uiModel, expectedUIModel, "Expected \(expectedUIModel), but got \(uiModel.debugDescription)")
+    }
+    
     func test_whenMapToUIModelIsCalledForReal_thenItShouldReturnAValidUnitValue() {
         // Given
         let expectedUIModel = UnitValue(value: 1.0, type: .real)

@@ -50,9 +50,9 @@ final class LoadingView: UIView {
         setup()
     }
     
+    @available(*, unavailable)
     public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Setup

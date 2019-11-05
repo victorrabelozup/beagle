@@ -14,7 +14,7 @@ final class FlexViewConfiguratorTests: XCTestCase {
     
     func test_init_shouldReturnInstanceWithYogaTranslatorDependencySetProperly() {
         // Given
-        let sut = FlexViewConfigurator(yogaTranslator: YogaTranslating())
+        let sut = FlexViewConfigurator()
         let mirror = Mirror(reflecting: sut)
         // When
         let yogaTranslator = mirror.firstChild(of: YogaTranslating.self)
@@ -24,7 +24,7 @@ final class FlexViewConfiguratorTests: XCTestCase {
     
     func test_setupFlex_shouldApplyDefaultYogaPropertiesProperly() {
         // Given
-        let sut = FlexViewConfigurator(yogaTranslator: YogaTranslating())
+        let sut = FlexViewConfigurator()
         let flex = Flex()
         let view = UIView()
         // When
@@ -47,7 +47,7 @@ final class FlexViewConfiguratorTests: XCTestCase {
     
     func test_setupFlex_shouldApplyAllYogaPropertiesProperly() {
         // Given
-        let sut = FlexViewConfigurator(yogaTranslator: YogaTranslating())
+        let sut = FlexViewConfigurator()
         let size = Flex.Size(
             width: UnitValue(value: 1, type: .real),
             height: UnitValue(value: 1, type: .real),
@@ -114,4 +114,31 @@ final class FlexViewConfiguratorTests: XCTestCase {
         XCTAssertEqual(view.yoga.start, expectedYGValue)
         XCTAssertEqual(view.yoga.end, expectedYGValue)
     }
+    
+    func test_applyYogaLayout_shouldEnableYoga_and_applyLayout() {
+        // Given
+        let sut = FlexViewConfigurator()
+        let expectedOrigin = CGPoint(x: 1, y: 1)
+        let view = UIView(frame: .init(x: expectedOrigin.x, y: expectedOrigin.y, width: 1, height: 1))
+        
+        // When
+        sut.applyYogaLayout(to: view, preservingOrigin: true)
+        
+        // Then
+        XCTAssertTrue(view.yoga.isEnabled, "Yoga should be enabled.")
+        XCTAssertEqual(expectedOrigin, view.frame.origin, "Expected \(expectedOrigin) but got \(view.frame.origin).")
+    }
+    
+    func test_enableYoga_shouldEnableIt() {
+        // Given
+        let sut = FlexViewConfigurator()
+        let view = UIView()
+        
+        // When
+        sut.enableYoga(true, for: view)
+        
+        // Then
+        XCTAssertTrue(view.yoga.isEnabled, "Yoga should be enabled.")
+    }
+    
 }
