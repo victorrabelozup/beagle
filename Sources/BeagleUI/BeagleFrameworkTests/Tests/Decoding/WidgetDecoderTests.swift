@@ -21,7 +21,7 @@ final class WidgetDecoderTests: XCTestCase {
         // Given
         guard let jsonData = """
         {
-            "type": "beagle:NewWidget",
+            "_beagleType_": "beagle:widget:newwidget",
             "something": "something"
         }
         """.data(using: .utf8) else {
@@ -42,7 +42,7 @@ final class WidgetDecoderTests: XCTestCase {
         // Given
         guard let jsonData = """
         {
-            "type": "beagle:Text",
+            "_beagleType_": "beagle:widget:text",
             "text": "some text"
         }
         """.data(using: .utf8) else {
@@ -62,7 +62,7 @@ final class WidgetDecoderTests: XCTestCase {
         // Given
         guard let jsonData = """
         {
-            "type": "beagle:Unknown",
+            "_beagleType_": "beagle:widget:unknown",
             "text": "some text"
         }
         """.data(using: .utf8) else {
@@ -81,7 +81,7 @@ final class WidgetDecoderTests: XCTestCase {
         // Given
         guard let jsonData = """
         {
-            "type": "beagle:Text",
+            "_beagleType_": "beagle:widget:text",
             "text": "some text"
         }
         """.data(using: .utf8) else {
@@ -107,7 +107,7 @@ final class WidgetDecoderTests: XCTestCase {
         let expectedText = "some text"
         guard let jsonData = """
         {
-            "type": "beagle:Text",
+            "_beagleType_": "beagle:widget:text",
             "text": "some text"
         }
         """.data(using: .utf8) else {
@@ -128,7 +128,7 @@ final class WidgetDecoderTests: XCTestCase {
         let expectedText = "some text"
         guard let jsonData = """
         {
-            "type": "beagle:Text",
+            "_beagleType_": "beagle:widget:text",
             "text": "some text"
         }
         """.data(using: .utf8) else {
@@ -149,7 +149,7 @@ final class WidgetDecoderTests: XCTestCase {
         // Given
         guard let jsonData = """
         {
-            "type": "beagle:UnconvertibleWidget",
+            "_beagleType_": "beagle:widget:unconvertiblewidget",
             "text": "some text"
         }
         """.data(using: .utf8) else {

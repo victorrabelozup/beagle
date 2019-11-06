@@ -29,10 +29,10 @@ final class FlexWidgetEntityTests: XCTestCase {
     func test_whenDecodingAValidJson_itShouldReturnAValidObject() {
         let json = """
             {
-                "type": "beagle:FlexWidget",
+                "_beagleType_": "beagle:widget:flexwidget",
                 "children": [
                     {
-                        "type": "beagle:Text",
+                        "_beagleType_": "beagle:widget:text",
                         "text": "some text"
                     }
                 ],

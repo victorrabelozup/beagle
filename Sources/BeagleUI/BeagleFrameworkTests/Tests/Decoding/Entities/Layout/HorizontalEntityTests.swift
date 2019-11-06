@@ -30,10 +30,10 @@ final class HorizontalEntityTests: XCTestCase {
         // Given
         let json = """
             {
-                "type": "beagle:Horizontal",
+                "_beagleType_": "beagle:widget:horizontal",
                 "children": [
                     {
-                        "type": "beagle:Text",
+                        "_beagleType_": "beagle:widget:text",
                         "text": "some text"
                     }
                 ]

@@ -31,7 +31,7 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
         // Given
         guard let jsonData = """
         {
-            "type": "beagle:Text",
+            "_beagleType_": "beagle:widget:text",
             "text": "some text"
         }
         """.data(using: .utf8) else {
@@ -132,7 +132,7 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
         // Given
         guard let jsonData = """
         {
-            "type": "beagle:UnconvertibleWidget",
+            "_beagleType_": "beagle:widget:unconvertiblewidget",
             "text": "some text"
         }
         """.data(using: .utf8) else {

@@ -14,9 +14,9 @@ final class FlexSingleWidgetEntityTests: XCTestCase {
     func test_whenDecodingAValidJson_itShouldReturnAValidObject() {
         let json = """
             {
-                "type": "beagle:FlexSingleWidget",
+                "_beagleType_": "beagle:widget:flexsinglewidget",
                 "child": {
-                        "type": "beagle:Text",
+                        "_beagleType_": "beagle:widget:text",
                         "text": "Some Text"
                     },
                 "justifyContent": "CENTER"

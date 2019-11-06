@@ -24,8 +24,8 @@ struct WidgetEntityContainer: WidgetEntity {
     
     // MARK: - CodingKeys
     
-    private enum CodingKeys: String, CodingKey {
-        case type
+    enum CodingKeys: String, CodingKey {
+        case type = "_beagleType_"
         case content
     }
     
@@ -34,8 +34,8 @@ struct WidgetEntityContainer: WidgetEntity {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         type = try container.decode(String.self, forKey: .type)
-        let uppercasedType = type.uppercased()
-        if let decodeFunction = WidgetEntityContainer.decoders[uppercasedType] {
+        let lowercasedType = type.lowercased()
+        if let decodeFunction = WidgetEntityContainer.decoders[lowercasedType] {
             let rawContent = try decodeFunction(container)
             content = rawContent as? WidgetConvertibleEntity
         } else {
@@ -60,7 +60,7 @@ struct WidgetEntityContainer: WidgetEntity {
     ///   - type: the type to register, which needs to conform to Decodable
     ///   - typeName: the type's name, or the key it will be found at
     static func register<T: WidgetEntity>(_ type: T.Type, for typeName: String) {
-        let uppercasedType = typeName.uppercased()
+        let uppercasedType = typeName.lowercased()
         decoders[uppercasedType] = { container in
             try container.decode(T.self, forKey: .content)
         }

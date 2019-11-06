@@ -15,14 +15,14 @@ final class DataPreprocessorTests: XCTestCase {
         // Given
         let json = """
             {
-                "type": "beagle:Stack",
+                "_beagleType_": "beagle:widget:stack",
                 "children": [
                     {
-                        "type": "beagle:Text",
+                        "_beagleType_": "beagle:widget:text",
                         "text": "some text"
                     },
                     {
-                        "type": "beagle:Text",
+                        "_beagleType_": "beagle:widget:text",
                         "text": "some text 2"
                     }
                 ]
@@ -34,17 +34,17 @@ final class DataPreprocessorTests: XCTestCase {
         }
         guard let expectedJSONData = """
             {
-                "type": "beagle:Stack",
+                "_beagleType_": "beagle:widget:stack",
                 "content": {
                     "children": [
                         {
-                            "type": "beagle:Text",
+                            "_beagleType_": "beagle:widget:text",
                             "content": {
                                 "text": "some text"
                             }
                         },
                         {
-                            "type": "beagle:Text",
+                            "_beagleType_": "beagle:widget:text",
                             "content": {
                                 "text": "some text 2"
                             }
@@ -78,10 +78,10 @@ final class DataPreprocessorTests: XCTestCase {
         // Given
         let json = """
         {
-            "type": "beagle:Stack",
+            "_beagleType_": "beagle:widget:stack",
             children": [
                 {
-                    "type": "beagle:Text",
+                    "_beagleType_": "beagle:widget:text",
                     "text": "some text 2"
             ]
         }

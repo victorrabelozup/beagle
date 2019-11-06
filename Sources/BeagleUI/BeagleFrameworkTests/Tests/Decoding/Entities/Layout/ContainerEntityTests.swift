@@ -46,17 +46,17 @@ final class ContainerEntityTests: XCTestCase {
         // Given
         let json = """
             {
-                "type": "beagle:Container",
+                "_beagleType_": "beagle:widget:container",
                 "header": {
-                    "type": "beagle:Text",
+                    "_beagleType_": "beagle:widget:text",
                     "text": "some text"
                 },
                 "content": {
-                     "type": "beagle:Text",
+                     "_beagleType_": "beagle:widget:text",
                      "text": "some text"
                 },
                 "footer": {
-                     "type": "beagle:Text",
+                     "_beagleType_": "beagle:widget:text",
                      "text": "some text"
                 }
             }

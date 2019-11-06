@@ -30,10 +30,10 @@ final class VerticalEntityTests: XCTestCase {
         // Given
         let json = """
             {
-                "type": "beagle:Vertical",
+                "_beagleType_": "beagle:widget:vertical",
                 "children": [
                     {
-                        "type": "beagle:Text",
+                        "_beagleType_": "beagle:widget:text",
                         "text": "some text"
                     }
                 ]

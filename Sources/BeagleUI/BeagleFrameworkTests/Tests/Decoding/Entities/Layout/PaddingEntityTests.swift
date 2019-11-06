@@ -45,9 +45,9 @@ final class PaddingEntityTests: XCTestCase {
         // Given
         let json = """
             {
-                "type": "beagle:Padding",
+                "_beagleType_": "beagle:widget:padding",
                 "child": {
-                    "type": "beagle:Text",
+                    "_beagleType_": "beagle:widget:text",
                     "text": "some text"
                 }
             }

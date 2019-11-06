@@ -56,7 +56,7 @@ final class WidgetDecoder: WidgetDecoding {
     
     private let jsonDecoder: JSONDecoder
     private let dataPreprocessor: DataPreprocessor
-    private static let beagleNamespace = "Beagle"
+    private static let beagleNamespace = "beagle"
     private static var customWidgetsNamespace: String = beagleNamespace
     private static var namespaces: [String] {
         if customWidgetsNamespace != beagleNamespace {
@@ -70,7 +70,7 @@ final class WidgetDecoder: WidgetDecoding {
     init(
         jsonDecoder: JSONDecoder = JSONDecoder(),
         dataPreprocessor: DataPreprocessor = DataPreprocessing(),
-        namespace: String = "Beagle"
+        namespace: String = "beagle"
     ) {
         self.jsonDecoder = jsonDecoder
         self.dataPreprocessor = dataPreprocessor
@@ -141,11 +141,11 @@ final class WidgetDecoder: WidgetDecoding {
     // MARK: - Private Helpers
     
     private static func decodingKey(for typeName: String, isCustom: Bool = false) -> String {
-        var prefix = beagleNamespace + ":"
+        var prefix = beagleNamespace + ":widget:"
         if isCustom {
-            prefix = customWidgetsNamespace.isEmpty ? "" : customWidgetsNamespace + ":"
+            prefix = customWidgetsNamespace.isEmpty ? "" : customWidgetsNamespace + ":widget:"
         }
-        return prefix.uppercased() + typeName.uppercased()
+        return prefix.lowercased() + typeName.lowercased()
     }
     
     // MARK: - Types Registration

@@ -15,19 +15,19 @@ final class ListViewEntityTests: XCTestCase {
         // Given
         let json = """
             {
-                "type": "beagle:ListView",
+                "_beagleType_": "beagle:widget:listview",
                 "rows": [
                     {
-                        "type": "beagle:Text",
+                        "_beagleType_": "beagle:widget:text",
                         "text": "some text"
                     },
                     {
-                        "type": "beagle:Text",
+                        "_beagleType_": "beagle:widget:text",
                         "text": "some text"
                     }
                 ],
                 "loadingState": {
-                    "type": "beagle:Text",
+                    "_beagleType_": "beagle:widget:text",
                     "text": "some text"
                 }
             }

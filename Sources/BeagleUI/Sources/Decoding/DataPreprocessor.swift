@@ -27,9 +27,12 @@ protocol DataPreprocessor {
 
 final class DataPreprocessing: DataPreprocessor {
     
+    private let typeKey: String = "_beagleType_"
+    private let contentKey: String = "content"
+    
     func normalizeData(_ data: Data, for namespaces: [String]) throws -> Data {
         
-        let uppercasedNamespaces = namespaces.map { $0.uppercased() }
+        let lowercasedNamespaces = namespaces.map { $0.lowercased() }
         
         var json: Any?
         do {
@@ -38,7 +41,7 @@ final class DataPreprocessing: DataPreprocessor {
             throw DataPreprocessorError.jsonSerialization(error)
         }
         
-        let newDataJSON = try transformValueIfNeeded(json, for: uppercasedNamespaces)
+        let newDataJSON = try transformValueIfNeeded(json, for: lowercasedNamespaces)
         
         return try JSONSerialization.data(withJSONObject: newDataJSON, options: .prettyPrinted)
         
@@ -50,18 +53,18 @@ final class DataPreprocessing: DataPreprocessor {
 
             return try jsonArray.map { try transformValueIfNeeded($0, for: namespaces) }
             
-        } else if let dictionary = value as? [String: Any], let type = (dictionary["type"] as? String)?.uppercased(), containsNamespace(namespaces, in: type) {
+        } else if let dictionary = value as? [String: Any], let type = (dictionary[typeKey] as? String)?.lowercased(), containsNamespace(namespaces, in: type) {
             
             var newValue = [String: Any]()
             var content = [String: Any]()
             try dictionary.forEach {
-                if let typeName = ($0.value as? String)?.uppercased(), typeName == type {
+                if let typeName = ($0.value as? String)?.lowercased(), typeName == type {
                     newValue[$0.key] = $0.value
                 } else {
                     content[$0.key] = try transformValueIfNeeded($0.value, for: namespaces)
                 }
             }
-            newValue["content"] = content
+            newValue[contentKey] = content
             
             return newValue
             

@@ -29,10 +29,10 @@ final class StackEntityTests: XCTestCase {
         // Given
         let json = """
             {
-                "type": "beagle:Stack",
+                "_beagleType_": "beagle:widget:stack",
                 "children": [
                     {
-                        "type": "beagle:Text",
+                        "_beagleType_": "beagle:widget:text",
                         "text": "some text"
                     }
                 ]
