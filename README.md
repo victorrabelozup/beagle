@@ -3,4 +3,4 @@ Project: Products - Darwin
 
 ## Setup
 ### Run:
-`carthage bootstrap --platform iOS --project-directory "./ThirdParty" --cache-builds`
+`make carthage_install`
