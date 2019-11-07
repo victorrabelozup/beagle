@@ -6,17 +6,13 @@ import android.view.View
 import android.widget.ScrollView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
-import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
-import br.com.zup.beagleui.framework.engine.renderer.native.YogaFactory
+import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.view.BeagleFlexView
 import br.com.zup.beagleui.framework.widget.core.Flex
 import br.com.zup.beagleui.framework.widget.core.FlexDirection
 import br.com.zup.beagleui.framework.widget.core.JustifyContent
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.layout.Container
-import com.facebook.yoga.YogaFlexDirection
-import com.facebook.yoga.YogaJustify
-import com.facebook.yoga.YogaNode
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
@@ -24,7 +20,6 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkStatic
-import io.mockk.slot
 import io.mockk.verify
 import org.junit.Before
 import org.junit.Test

@@ -2,7 +2,7 @@ package br.com.zup.beagleui.framework.engine.renderer.ui
 
 import android.content.Context
 import androidx.core.widget.TextViewCompat
-import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
+import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.setup.ButtonTheme
 import br.com.zup.beagleui.framework.setup.Theme

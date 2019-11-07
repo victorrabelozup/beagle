@@ -3,7 +3,7 @@ package br.com.zup.beagleui.framework.engine.renderer.ui
 import android.content.Context
 import android.graphics.Color
 import android.widget.TextView
-import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
+import br.com.zup.beagleui.framework.view.ViewFactory
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every

@@ -1,11 +1,11 @@
 package br.com.zup.beagleui.framework.engine.renderer
 
-import br.com.zup.beagleui.framework.engine.renderer.mapper.makeYogaAlign
-import br.com.zup.beagleui.framework.engine.renderer.mapper.makeYogaDirection
-import br.com.zup.beagleui.framework.engine.renderer.mapper.makeYogaDisplay
-import br.com.zup.beagleui.framework.engine.renderer.mapper.makeYogaFlexDirection
-import br.com.zup.beagleui.framework.engine.renderer.mapper.makeYogaJustify
-import br.com.zup.beagleui.framework.engine.renderer.mapper.makeYogaWrap
+import br.com.zup.beagleui.framework.engine.mapper.makeYogaAlign
+import br.com.zup.beagleui.framework.engine.mapper.makeYogaDirection
+import br.com.zup.beagleui.framework.engine.mapper.makeYogaDisplay
+import br.com.zup.beagleui.framework.engine.mapper.makeYogaFlexDirection
+import br.com.zup.beagleui.framework.engine.mapper.makeYogaJustify
+import br.com.zup.beagleui.framework.engine.mapper.makeYogaWrap
 import br.com.zup.beagleui.framework.widget.core.Alignment
 import br.com.zup.beagleui.framework.widget.core.FlexWrap
 import br.com.zup.beagleui.framework.widget.core.Direction

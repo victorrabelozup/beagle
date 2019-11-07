@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.view.View
 import br.com.zup.beagleui.framework.engine.renderer.UIViewRenderer
-import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
+import br.com.zup.beagleui.framework.view.ViewFactory
 
 internal class UndefinedViewRenderer(
     private val viewFactory: ViewFactory = ViewFactory()

@@ -4,8 +4,8 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
-import br.com.zup.beagleui.framework.engine.renderer.mapper.ViewMapper
-import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
+import br.com.zup.beagleui.framework.engine.mapper.ViewMapper
+import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.widget.ui.NetworkImage
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder

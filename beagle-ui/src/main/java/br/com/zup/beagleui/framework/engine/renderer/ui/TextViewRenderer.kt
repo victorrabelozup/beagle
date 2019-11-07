@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.View
 import androidx.core.widget.TextViewCompat
 import br.com.zup.beagleui.framework.engine.renderer.UIViewRenderer
-import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
+import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.widget.ui.Text
 

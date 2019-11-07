@@ -1,4 +1,4 @@
-package br.com.zup.beagleui.framework.engine.renderer.mapper
+package br.com.zup.beagleui.framework.engine.mapper
 
 import android.widget.ImageView
 import br.com.zup.beagleui.framework.widget.core.ImageContentMode

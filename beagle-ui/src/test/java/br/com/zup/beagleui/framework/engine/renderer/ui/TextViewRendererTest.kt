@@ -3,7 +3,7 @@ package br.com.zup.beagleui.framework.engine.renderer.ui
 import android.content.Context
 import android.widget.TextView
 import androidx.core.widget.TextViewCompat
-import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
+import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.setup.TextAppearanceTheme
 import br.com.zup.beagleui.framework.setup.Theme

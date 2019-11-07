@@ -2,7 +2,7 @@ package br.com.zup.beagleui.framework.view
 
 import android.content.Context
 import android.view.View
-import br.com.zup.beagleui.framework.engine.renderer.mapper.FlexMapper
+import br.com.zup.beagleui.framework.engine.mapper.FlexMapper
 import br.com.zup.beagleui.framework.widget.core.Flex
 import com.facebook.yogalayout.YogaLayout
 

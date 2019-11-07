@@ -1,4 +1,4 @@
-package br.com.zup.beagleui.framework.engine.renderer.mapper
+package br.com.zup.beagleui.framework.engine.mapper
 
 import br.com.zup.beagleui.framework.widget.core.Alignment
 import br.com.zup.beagleui.framework.widget.core.FlexWrap

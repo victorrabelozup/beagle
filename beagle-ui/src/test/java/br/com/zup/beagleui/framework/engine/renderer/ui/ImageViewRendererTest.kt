@@ -2,8 +2,8 @@ package br.com.zup.beagleui.framework.engine.renderer.ui
 
 import android.content.Context
 import android.widget.ImageView
-import br.com.zup.beagleui.framework.engine.renderer.mapper.ViewMapper
-import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
+import br.com.zup.beagleui.framework.engine.mapper.ViewMapper
+import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.widget.ui.Image
 import io.mockk.MockKAnnotations
 import io.mockk.Runs

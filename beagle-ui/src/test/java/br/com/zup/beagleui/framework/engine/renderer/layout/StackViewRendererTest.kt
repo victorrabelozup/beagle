@@ -4,12 +4,10 @@ import android.content.Context
 import android.view.View
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
-import br.com.zup.beagleui.framework.engine.renderer.native.ViewFactory
+import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.view.BeagleFlexView
-import br.com.zup.beagleui.framework.widget.core.Flex
 import br.com.zup.beagleui.framework.widget.layout.Stack
 import br.com.zup.beagleui.framework.widget.ui.Button
-import com.facebook.yoga.YogaNode
 import com.facebook.yogalayout.YogaLayout
 import io.mockk.MockKAnnotations
 import io.mockk.Runs

@@ -1,7 +1,7 @@
-package br.com.zup.beagleui.framework.engine.renderer.native
+package br.com.zup.beagleui.framework.view
 
 import android.content.Context
-import br.com.zup.beagleui.framework.engine.renderer.mapper.FlexMapper
+import br.com.zup.beagleui.framework.engine.mapper.FlexMapper
 import br.com.zup.beagleui.framework.widget.core.Flex
 import com.facebook.yoga.YogaNode
 import com.facebook.yogalayout.YogaLayout
