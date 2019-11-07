@@ -1,6 +1,7 @@
 package br.com.zup.beagleui.framework.setup
 
 import android.app.Application
+import br.com.zup.beagleui.framework.action.CustomActionHandler
 import br.com.zup.beagleui.framework.navigation.BeagleDeepLinkHandler
 import br.com.zup.beagleui.framework.networking.HttpClient
 import br.com.zup.beagleui.framework.view.WidgetViewFactory
@@ -14,16 +15,14 @@ internal object BeagleEnvironment {
     lateinit var application: Application
         private set
 
+    private var internalWidgets = mutableMapOf<Class<NativeWidget>, WidgetViewFactory<NativeWidget>>()
+
     var httpClient: HttpClient? = null
-
     var beagleDeepLinkHandler: BeagleDeepLinkHandler? = null
-
+    var customActionHandler: CustomActionHandler? = null
     var theme: Theme? = null
-
     val widgets: Map<Class<NativeWidget>, WidgetViewFactory<NativeWidget>>
         get() = internalWidgets
-
-    private var internalWidgets = HashMap<Class<NativeWidget>, WidgetViewFactory<NativeWidget>>()
 
     fun setup(
         applicationName: String,

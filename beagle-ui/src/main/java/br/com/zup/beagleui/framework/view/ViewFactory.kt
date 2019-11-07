@@ -5,6 +5,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import br.com.zup.beagleui.framework.widget.core.Flex
 
@@ -27,4 +28,6 @@ internal class ViewFactory {
     fun makeImageView(context: Context) = ImageView(context)
 
     fun makeRecyclerView(context: Context) = RecyclerView(context)
+
+    fun makeAlertDialogBuilder(context: Context) = AlertDialog.Builder(context)
 }

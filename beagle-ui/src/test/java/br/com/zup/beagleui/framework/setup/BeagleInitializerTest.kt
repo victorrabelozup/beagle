@@ -2,17 +2,19 @@ package br.com.zup.beagleui.framework.setup
 
 import android.app.Application
 import android.content.Intent
+import br.com.zup.beagleui.framework.action.CustomActionHandler
 import br.com.zup.beagleui.framework.mockdata.CustomWidget
 import br.com.zup.beagleui.framework.mockdata.CustomWidgetFactory
 import br.com.zup.beagleui.framework.navigation.BeagleDeepLinkHandler
 import br.com.zup.beagleui.framework.networking.HttpClient
 import br.com.zup.beagleui.framework.widget.core.NativeWidget
-import br.com.zup.beagleui.framework.widget.navigation.DeeplinkURL
+import br.com.zup.beagleui.framework.widget.navigation.NavigatorData
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
+import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
@@ -41,11 +43,8 @@ class BeagleInitializerTest {
     private lateinit var theme: Theme
 
     private var beagleDeepLinkHandler: BeagleDeepLinkHandler = object : BeagleDeepLinkHandler {
-        override fun getDeepLinkIntent(deepLinkURL: DeeplinkURL): Intent = intent
+        override fun getDeepLinkIntent(data: NavigatorData): Intent = intent
     }
-
-    @MockK
-    private lateinit var networkingDispatcher: HttpClient
 
     @Before
     fun setUp() {
@@ -117,13 +116,25 @@ class BeagleInitializerTest {
     }
 
     @Test
-    fun registerNetworkingDispatcher_should_call_BeagleEnvironment_registerNetworkingDispatcher() {
+    fun registerHttpClient_should_call_BeagleEnvironment_registerNetworkingDispatcher() {
+        // Given
+        val httpClient = mockk<HttpClient>()
 
         // When
-        BeagleInitializer.registerHttpClient(httpClient = networkingDispatcher)
+        BeagleInitializer.registerHttpClient(httpClient = httpClient)
 
         // Then
-        assertNotNull(BeagleEnvironment.httpClient)
-        assertEquals(networkingDispatcher, BeagleEnvironment.httpClient)
+        verify(exactly = 1) { BeagleEnvironment.httpClient = httpClient }
+    }
+
+    @Test
+    fun registerCustomActionHandler_should_call_BeagleEnvironment_customActionHandler() {
+        val customActionHandler = mockk<CustomActionHandler>()
+
+        // When
+        BeagleInitializer.registerCustomActionHandler(customActionHandler)
+
+        // Then
+        verify(exactly = 1) { BeagleEnvironment.customActionHandler = customActionHandler }
     }
 }

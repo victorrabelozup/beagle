@@ -1,8 +1,8 @@
 package br.com.zup.beagleui.framework.navigation
 
 import android.content.Intent
-import br.com.zup.beagleui.framework.widget.navigation.DeeplinkURL
+import br.com.zup.beagleui.framework.widget.navigation.NavigatorData
 
 interface BeagleDeepLinkHandler {
-    fun getDeepLinkIntent(deepLinkURL: DeeplinkURL): Intent
+    fun getDeepLinkIntent(data: NavigatorData): Intent
 }

@@ -1,6 +1,7 @@
 package br.com.zup.beagleui.framework.setup
 
 import android.app.Application
+import br.com.zup.beagleui.framework.action.CustomActionHandler
 import br.com.zup.beagleui.framework.navigation.BeagleDeepLinkHandler
 import br.com.zup.beagleui.framework.networking.HttpClient
 import br.com.zup.beagleui.framework.view.WidgetViewFactory
@@ -43,6 +44,12 @@ class BeagleInitializer private constructor() {
         @JvmStatic
         fun registerBeagleDeepLinkHandler(beagleDeepLinkHandler: BeagleDeepLinkHandler): Companion {
             BeagleEnvironment.beagleDeepLinkHandler = beagleDeepLinkHandler
+            return this
+        }
+
+        @JvmStatic
+        fun registerCustomActionHandler(customActionHandler: CustomActionHandler): Companion {
+            BeagleEnvironment.customActionHandler = customActionHandler
             return this
         }
     }
