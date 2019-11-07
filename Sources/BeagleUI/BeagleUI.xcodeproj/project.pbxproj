@@ -138,6 +138,8 @@
 		E5CE431E2335402B00295277 /* ChildrenWidgetMappingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9800D881233412540051B4F2 /* ChildrenWidgetMappingTests.swift */; };
 		E5DD468B234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */; };
 		E5DD4691234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4690234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift */; };
+		E70B4EAE236B586700BBC921 /* ImageWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B4EAD236B586700BBC921 /* ImageWidgetViewRenderer.swift */; };
+		E70B4EB0236B6B5700BBC921 /* ImageWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B4EAF236B6B5600BBC921 /* ImageWidgetViewRendererTests.swift */; };
 		E759590C2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E759590B2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift */; };
 		E759590E2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E759590D2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift */; };
 		E7595912235E120600EB80C2 /* ViewRenderersTestingHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7595911235E120600EB80C2 /* ViewRenderersTestingHelpers.swift */; };
@@ -306,6 +308,8 @@
 		E5CE43172335052100295277 /* UIEnumModelConvertibleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEnumModelConvertibleTests.swift; sourceTree = "<group>"; };
 		E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownWidgetViewRenderer.swift; sourceTree = "<group>"; };
 		E5DD4690234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailableWidgetRendererProviderErrorTests.swift; sourceTree = "<group>"; };
+		E70B4EAD236B586700BBC921 /* ImageWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWidgetViewRenderer.swift; sourceTree = "<group>"; };
+		E70B4EAF236B6B5600BBC921 /* ImageWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		E759590B2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		E759590D2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		E7595911235E120600EB80C2 /* ViewRenderersTestingHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRenderersTestingHelpers.swift; sourceTree = "<group>"; };
@@ -660,6 +664,7 @@
 				E5CB5D782354ADF9009783A7 /* ButtonWidgetViewRenderer.swift */,
 				E5CB5D712354ADC7009783A7 /* TextWidgetViewRenderer.swift */,
 				E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */,
+				E70B4EAD236B586700BBC921 /* ImageWidgetViewRenderer.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -740,6 +745,7 @@
 				E5CB5D7C2354AE62009783A7 /* TextWidgetViewRendererTests.swift */,
 				E5CB5D7A2354AE13009783A7 /* ButtonWidgetViewRendererTests.swift */,
 				E5CB5D802354C08E009783A7 /* UnknownWidgetViewRendererTests.swift */,
+				E70B4EAF236B6B5600BBC921 /* ImageWidgetViewRendererTests.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1251,6 +1257,7 @@
 				E5CB5DB023550877009783A7 /* ImageEntityContentMode.swift in Sources */,
 				E5A6F4CB2358F621008906F8 /* ServerDrivenWidgetFetcher.swift in Sources */,
 				E5CB5DB22355088F009783A7 /* NetworkImageEntity.swift in Sources */,
+				E70B4EAE236B586700BBC921 /* ImageWidgetViewRenderer.swift in Sources */,
 				9368181D232A8DE100E6E724 /* Text.swift in Sources */,
 				E5CE41A92331D95300295277 /* VerticalEntity.swift in Sources */,
 				E50B0904234CCACB0091AF0A /* FailableWidgetRendererProvider.swift in Sources */,
@@ -1363,6 +1370,7 @@
 				E5CE42112334007D00295277 /* TextEntityTests.swift in Sources */,
 				985EBA7B2354D1320042C19A /* WidgetViewRenderingErrorTests.swift in Sources */,
 				9841FD0123454B7B0069D7D2 /* FlexWidgetEntityTests.swift in Sources */,
+				E70B4EB0236B6B5700BBC921 /* ImageWidgetViewRendererTests.swift in Sources */,
 				E5CE4222233404C700295277 /* VerticalEntityTests.swift in Sources */,
 				E5CB5D862354C830009783A7 /* MirrorExtension.swift in Sources */,
 			);

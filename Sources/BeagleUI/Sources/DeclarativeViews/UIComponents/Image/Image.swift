@@ -11,7 +11,7 @@ public struct Image: NativeWidget {
     // MARK: - Public Properties
     
     public let name: String
-    private let contentMode: ImageContentMode
+    public let contentMode: ImageContentMode
     
     // MARK: - Initialization
     

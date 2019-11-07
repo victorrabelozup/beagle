@@ -38,6 +38,21 @@ final class BeagleSetupTests: XCTestCase {
         }
     }
     
+    func test_start_shouldStartTheEnviromentWithRightBundle() {
+        // Given
+        let environmentSpy = BeagleEnvironmentSpy.self
+        Beagle.didCallStart = false
+        Beagle.environment = environmentSpy
+        let bundle = Bundle()
+        
+        // When
+        Beagle.start(appName: "appName", appBundle: bundle)
+        
+        // Then
+        XCTAssertNotNil(environmentSpy.bundlePassed, "Expected a bundle to be passed.")
+        XCTAssertEqual(bundle, environmentSpy.bundlePassed)
+    }
+    
     func test_registerCustomWidgets_shouldCallRegisterWidgetsOnEnvironment_passingOnlyOneWidget() {
         // Given
         let environmentSpy = BeagleEnvironmentSpy.self
@@ -73,6 +88,11 @@ final class BeagleSetupTests: XCTestCase {
 // MARK: - Testing Helpers
 
 final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
+    private(set) var appBundleCalled = false
+    var appBundle: Bundle {
+        appBundleCalled = true
+        return Bundle()
+    }
     
     private(set) var decoderCalled = false
     var decoder: WidgetDecoding {
@@ -96,22 +116,25 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
     init() {}
     
     static private(set) var initializeCalled = false
-    static func initialize(
-        appName: String,
-        decoder: WidgetDecoding,
-        networkingDispatcher: URLRequestDispatching,
-        customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderDequeuing & CustomWidgetsRendererProviderRegistering
+    static private(set) var bundlePassed: Bundle?
+    static func initialize(appName: String,
+                           decoder: WidgetDecoding,
+                           networkingDispatcher: URLRequestDispatching,
+                           customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderDequeuing & CustomWidgetsRendererProviderRegistering,
+                           appBundle: Bundle
     ) {
         _shared = BeagleEnvironmentSpy()
         initializeCalled = true
+        bundlePassed = appBundle
     }
     
-    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching?) {
+    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching?, appBundle: Bundle?) {
         initialize(
             appName: appName,
             decoder: WidgetDecodingDummy(),
             networkingDispatcher: networkingDispatcher ?? URLRequestDispatchingDummy(),
-            customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderDummy()
+            customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderDummy(),
+            appBundle: appBundle ?? Bundle.main
         )
     }
     

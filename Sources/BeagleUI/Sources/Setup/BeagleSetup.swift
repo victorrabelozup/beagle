@@ -24,12 +24,12 @@ public struct Beagle {
     // MARK: - Public Functions
     
     /// Starts the application, setting up it's environment based on the appName
-    public static func start(appName: String = "Beagle", networkingDispatcher: URLRequestDispatching? = nil) {
+    public static func start(appName: String = "Beagle", networkingDispatcher: URLRequestDispatching? = nil, appBundle: Bundle? = nil) {
         guard didCallStart == false else {
             fatalError("Beagle.start should be called only one time!")
         }
         didCallStart = true
-        environment.initialize(appName: appName, networkingDispatcher: networkingDispatcher)
+        environment.initialize(appName: appName, networkingDispatcher: networkingDispatcher, appBundle: appBundle)
     }
     
     /// Register a single custom widget and entity

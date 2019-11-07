@@ -22,9 +22,10 @@ final class BeagleEnvironmentTests: XCTestCase {
     func test_initialize_shouldSetupTheDependeciesCorrectly() {
         // Given
         let appName = "AppName"
+        let bundle = Bundle()
         
         // When
-        BeagleEnvironment.initialize(appName: appName)
+        BeagleEnvironment.initialize(appName: appName, appBundle: bundle)
         let environment = BeagleEnvironment.shared
         
         let mirror = Mirror(reflecting: environment)
@@ -39,6 +40,20 @@ final class BeagleEnvironmentTests: XCTestCase {
         XCTAssertTrue(environment.networkingDispatcher is URLSessionDispatcher)
         XCTAssertNotNil(customWidgetsRendererProviderRegister, "Expected a `customWidgetsRendererProviderRegister` to be set.")
         XCTAssertTrue(environment.customWidgetsProvider is CustomWidgetsRendererProviderRegister)
+        XCTAssertEqual(bundle, environment.appBundle, "Expected a `appBundle` to be set.")
+    }
+    
+    func test_initialize_whenAppBundleItsNotPassed_shouldSetMainBundle() {
+        // Given
+        let appName = "AppName"
+        let expectedBundle = Bundle.main
+        
+        // When
+        BeagleEnvironment.initialize(appName: appName)
+        let environment = BeagleEnvironment.shared
+        
+        // Then
+        XCTAssertEqual(expectedBundle, environment.appBundle, "Expected a `appBundle` to be Bundle.main.")
     }
     
     func test_registerCustomWidgets_shouldCallDecoderAndCustomWidgersRendererProviderRegister() {
@@ -49,7 +64,8 @@ final class BeagleEnvironmentTests: XCTestCase {
             appName: "EnvironmentTest",
             decoder: decoderSpy,
             networkingDispatcher: URLRequestDispatchingDummy(),
-            customWidgetsRendererProviderRegister: widgetRegisterSpy
+            customWidgetsRendererProviderRegister: widgetRegisterSpy,
+            appBundle: Bundle.main
         )
         let sut: BeagleEnvironmentProtocol = BeagleEnvironment.shared
         
