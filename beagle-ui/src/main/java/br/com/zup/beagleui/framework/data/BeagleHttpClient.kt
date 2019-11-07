@@ -32,7 +32,7 @@ internal class BeagleHttpClient(
     private fun deserializeWidget(response: String): Widget {
         if (response != "") {
             try {
-                return deserialization.deserialize(response)
+                return deserialization.deserializeWidget(response)
             } catch (exception: BeagleDeserializationException) {
                 throw BeagleDataException("Widget deserialization error for url")
             }

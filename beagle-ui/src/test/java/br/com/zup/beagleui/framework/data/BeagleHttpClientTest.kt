@@ -51,7 +51,7 @@ class BeagleHttpClientTest {
         MockKAnnotations.init(this)
 
         mockListenerExecution {onSuccessSlot.captured(responseData)}
-        every { deserialization.deserialize(any()) } returns widget
+        every { deserialization.deserializeWidget(any()) } returns widget
         every { responseData.data } returns JSON_SUCCESS.toByteArray()
     }
 
@@ -72,7 +72,7 @@ class BeagleHttpClientTest {
     fun test_fetch_widget_should_return_widget_successfully() = runBlocking {
         val widgetResult = beagleHttpClient.fetchWidget(URL)
 
-        verify(exactly = 1) { deserialization.deserialize(any()) }
+        verify(exactly = 1) { deserialization.deserializeWidget(any()) }
         assertEquals(widget, widgetResult)
     }
 

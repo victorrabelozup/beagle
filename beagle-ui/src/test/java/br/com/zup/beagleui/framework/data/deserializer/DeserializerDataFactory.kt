@@ -1,5 +1,7 @@
 package br.com.zup.beagleui.framework.data.deserializer
 
+import br.com.zup.beagleui.framework.testutil.RandomData
+
 fun makeUnitValueJson() = """
     {
         "value": 100.0,
@@ -23,7 +25,7 @@ fun makeFlexJson() = """
 
 fun makeContainerJson() = """
     {
-        "type": "beagle:Container",
+        "_beagleType_": "beagle:widget:container",
         "header": ${makeButtonJson()},
         "content": ${makeVerticalJson()},
         "footer": ${makeButtonJson()}
@@ -32,7 +34,7 @@ fun makeContainerJson() = """
 
 fun makeFlexWidgetJson() = """
     {
-        "type": "beagle:FlexWidget",
+        "_beagleType_": "beagle:widget:flexwidget",
         "flex": ${makeFlexJson()},
         "children": [${makeButtonJson()}, ${makeButtonJson()}]
     }
@@ -40,7 +42,7 @@ fun makeFlexWidgetJson() = """
 
 fun makeFlexSingleWidgetJson() = """
     {
-        "type": "beagle:FlexSingleWidget",
+        "_beagleType_": "beagle:widget:flexsinglewidget",
         "flex": ${makeFlexJson()},
         "child": ${makeVerticalJson()}
     }
@@ -48,7 +50,7 @@ fun makeFlexSingleWidgetJson() = """
 
 fun makeVerticalJson() = """
     {
-        "type": "beagle:Vertical",
+        "_beagleType_": "beagle:widget:vertical",
         "reversed": false,
         "flex": ${makeFlexJson()},
         "children": [${makeButtonJson()}, ${makeButtonJson()}]
@@ -57,7 +59,7 @@ fun makeVerticalJson() = """
 
 fun makeHorizontalJson() = """
     {
-        "type": "beagle:Horizontal",
+        "_beagleType_": "beagle:widget:horizontal",
         "reversed": false,
         "flex": ${makeFlexJson()},
         "children": [${makeButtonJson()}, ${makeButtonJson()}]
@@ -66,7 +68,7 @@ fun makeHorizontalJson() = """
 
 fun makeStackJson() = """
     {
-        "type": "beagle:Stack",
+        "_beagleType_": "beagle:widget:stack",
         "flex": ${makeFlexJson()},
         "children": [${makeButtonJson()}, ${makeButtonJson()}]
     }
@@ -74,42 +76,42 @@ fun makeStackJson() = """
 
 fun makeSpacerJson() = """
     {
-        "type": "beagle:Spacer",
+        "_beagleType_": "beagle:widget:spacer",
         "size": 30.0
     }
 """
 
 fun makeButtonJson() = """
     {
-        "type": "beagle:Button",
+        "_beagleType_": "beagle:widget:button",
         "text": "Test"
     }
 """
 
 fun makeTextJson() = """
     {
-        "type": "beagle:Text",
+        "_beagleType_": "beagle:widget:text",
         "text": "Test"
     }
 """
 
 fun makeImageJson() = """
     {
-        "type": "beagle:Image",
+        "_beagleType_": "beagle:widget:image",
         "name": "test"
     }
 """
 
 fun makeNetworkImageJson() = """
     {
-        "type": "beagle:NetworkImage",
+        "_beagleType_": "beagle:widget:networkimage",
         "url": "http://test.com/test.png"
     }
 """
 
 fun makeListViewJson() = """
     {
-        "type": "beagle:ListView",
+        "_beagleType_": "beagle:widget:listview",
         "rows": [${makeButtonJson()}],
         "remoteDataSource": "/dataSource",
         "loadingState": ${makeVerticalJson()}
@@ -118,6 +120,40 @@ fun makeListViewJson() = """
 
 fun makeCustomWidgetJson() = """
     {
-        "type": "sample:CustomWidget"
+        "_beagleType_": "sample:widget:customwidget"
+    }
+"""
+
+fun makeNavigationActionJson() = """
+    {
+        "_beagleType_": "beagle:action:navigate",
+        "type": "ADD_VIEW",
+        "value": {
+            "path": "${RandomData.httpUrl()}"
+        }
+    }
+"""
+
+fun makeShowNativeDialogJson() = """
+    {
+        "_beagleType_": "beagle:action:shownativedialog",
+        "title": "${RandomData.string()}",
+        "message": "${RandomData.string()}",
+        "buttonText": "Ok"
+    }
+"""
+
+fun makeCustomActionJson() = """
+    {
+        "_beagleType_": "beagle:action:customaction",
+        "name": "${RandomData.string()}",
+        "data": {}
+    }
+"""
+
+fun makeFormValidationJson() = """
+    {
+        "_beagleType_": "beagle:action:formvalidation",
+        "errors": []
     }
 """

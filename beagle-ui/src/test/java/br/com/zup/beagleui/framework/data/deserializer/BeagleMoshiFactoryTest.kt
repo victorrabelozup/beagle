@@ -1,5 +1,10 @@
 package br.com.zup.beagleui.framework.data.deserializer
 
+import br.com.zup.beagleui.framework.action.Action
+import br.com.zup.beagleui.framework.action.CustomAction
+import br.com.zup.beagleui.framework.action.FormValidation
+import br.com.zup.beagleui.framework.action.Navigate
+import br.com.zup.beagleui.framework.action.ShowNativeDialog
 import br.com.zup.beagleui.framework.mockdata.CustomWidgetFactory
 import br.com.zup.beagleui.framework.mockdata.CustomWidget
 import br.com.zup.beagleui.framework.setup.BeagleEnvironment
@@ -221,5 +226,57 @@ class BeagleMoshiFactoryTest {
         // Then
         assertNotNull(actual)
         assertTrue(actual is CustomWidget)
+    }
+
+    @Test
+    fun make_should_return_moshi_to_deserialize_a_Navigate() {
+        // Given
+        val json = makeNavigationActionJson()
+
+        // When
+        val actual = beagleMoshiFactory.make().adapter(Action::class.java).fromJson(json)
+
+        // Then
+        assertNotNull(actual)
+        assertTrue(actual is Navigate)
+    }
+
+    @Test
+    fun make_should_return_moshi_to_deserialize_a_ShowNativeDialog() {
+        // Given
+        val json = makeShowNativeDialogJson()
+
+        // When
+        val actual = beagleMoshiFactory.make().adapter(Action::class.java).fromJson(json)
+
+        // Then
+        assertNotNull(actual)
+        assertTrue(actual is ShowNativeDialog)
+    }
+
+    @Test
+    fun make_should_return_moshi_to_deserialize_a_CustomAction() {
+        // Given
+        val json = makeCustomActionJson()
+
+        // When
+        val actual = beagleMoshiFactory.make().adapter(Action::class.java).fromJson(json)
+
+        // Then
+        assertNotNull(actual)
+        assertTrue(actual is CustomAction)
+    }
+
+    @Test
+    fun make_should_return_moshi_to_deserialize_a_FormValidation() {
+        // Given
+        val json = makeFormValidationJson()
+
+        // When
+        val actual = beagleMoshiFactory.make().adapter(Action::class.java).fromJson(json)
+
+        // Then
+        assertNotNull(actual)
+        assertTrue(actual is FormValidation)
     }
 }
