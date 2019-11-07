@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -70,7 +71,8 @@ class BeagleView(
                     }
                 }
                 is ViewState.Error -> {
-                    TODO()
+                    // TODO
+                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
                 }
                 is ViewState.Render -> renderWidget(state.widget)
             }
