@@ -1,4 +1,4 @@
-package br.com.zup.beagleui.framework.base
+package br.com.zup.beagleui.framework.utils
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

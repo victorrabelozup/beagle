@@ -1,6 +1,6 @@
 package br.com.zup.beagleui.framework.networking
 
-import br.com.zup.beagleui.framework.base.CoroutineDispatchers
+import br.com.zup.beagleui.framework.utils.CoroutineDispatchers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

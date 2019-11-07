@@ -6,6 +6,7 @@ import br.com.zup.beagleui.framework.exception.BeagleDataException
 import br.com.zup.beagleui.framework.networking.RequestCall
 import br.com.zup.beagleui.framework.networking.ResponseData
 import br.com.zup.beagleui.framework.networking.HttpClient
+import br.com.zup.beagleui.framework.testutil.RandomData
 import br.com.zup.beagleui.framework.widget.core.Widget
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -19,7 +20,7 @@ import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
 
-const val URL = "http://www.mocky.io/v2/5d855b4b320000b90607b244"
+private val URL = RandomData.httpUrl()
 
 class BeagleHttpClientTest {
 

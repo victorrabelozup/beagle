@@ -11,6 +11,9 @@ import br.com.zup.beagleui.framework.widget.core.Flex
 
 internal class ViewFactory {
 
+    fun makeBeagleView(context: Context) =
+        BeagleView(context = context)
+
     fun makeBeagleFlexView(context: Context) =
         BeagleFlexView(context = context)
 

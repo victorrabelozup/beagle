@@ -39,6 +39,7 @@ dependencies {
     implementation AndroidxLibraries.coreKtx
     implementation AndroidxLibraries.recyclerView
     implementation AndroidxLibraries.viewModel
+    implementation AndroidxLibraries.viewModelExtensions
 
     implementation GeneralLibraries.kotlin
     implementation GeneralLibraries.kotlinCoroutines

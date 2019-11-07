@@ -2,84 +2,100 @@ package br.com.zup.beagleui.framework.view
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.Gravity
-import android.view.View
 import android.widget.FrameLayout
-import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import br.com.zup.beagleui.R
-import br.com.zup.beagleui.framework.utils.dp
+import androidx.lifecycle.ViewModelProviders
+import br.com.zup.beagleui.framework.data.BeagleViewModel
+import br.com.zup.beagleui.framework.data.ViewState
 import br.com.zup.beagleui.framework.utils.toView
 import br.com.zup.beagleui.framework.widget.core.Widget
 
-class BeagleView(
+sealed class BeagleViewState {
+    object Error : BeagleViewState()
+    object LoadStated : BeagleViewState()
+    object LoadFinished : BeagleViewState()
+}
+
+interface StateChangedListener {
+    fun onStateChanged(state: BeagleViewState)
+}
+
+internal class BeagleView(
     context: Context,
     attrs: AttributeSet?,
     @AttrRes defStyleAttr: Int
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private val viewModel: BeagleUIViewModel = BeagleUIViewModel()
+    var stateChangedListener: StateChangedListener? = null
 
-    private lateinit var progressBar: ProgressBar
+    private var fragment: Fragment? = null
+    private var activity: FragmentActivity? = null
+    private var viewLifecycleOwner: LifecycleOwner? = null
+
+    private val viewModel by lazy { generateViewModelInstance() }
 
     constructor(context: Context) : this(context, null, 0)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    init {
-        initializeAttributes(attrs)
-        createProgressBar()
+    fun loadView(activity: AppCompatActivity, url: String) {
+        this.activity = activity
+        this.viewLifecycleOwner = activity
+
+        loadView(url)
     }
 
-    private fun initializeAttributes(attrs: AttributeSet?) {
-        attrs?.let {
-            val attributes = context.obtainStyledAttributes(attrs, R.styleable.BeagleView)
-            val contentURL = attributes.getString(R.styleable.BeagleView_bv_contentURL)
-            attributes.recycle()
+    fun loadView(fragment: Fragment, url: String) {
+        this.fragment = fragment
+        this.viewLifecycleOwner = fragment.viewLifecycleOwner
 
-            contentURL?.let {
-                setContentURL(contentURL)
-            }
-        }
+        loadView(url)
     }
 
-    private fun createProgressBar() {
-        progressBar = ProgressBar(context, null, android.R.attr.progressBarStyleLarge).apply {
-            isIndeterminate = true
-        }
+    private fun loadView(url: String) {
+        viewModel.fetchWidget(url)
 
-        val layoutParams = LayoutParams(32.dp(), 32.dp()).apply {
-            gravity = Gravity.CENTER
-        }
-
-        addView(progressBar, layoutParams)
-    }
-
-    fun setContentURL(url: String) {
-        viewModel.initialize(url)
-
-        viewModel.state.observe(context as AppCompatActivity, Observer { state ->
-            when (state) {
-                is ViewState.Loading -> {
-                    progressBar.visibility = if (state.value) {
-                        View.VISIBLE
-                    } else {
-                        View.GONE
-                    }
+        viewLifecycleOwner?.let {
+            viewModel.state.observe(it, Observer { state ->
+                when (state) {
+                    is ViewState.Loading -> handleLoading(state.value)
+                    is ViewState.Error -> handleError()
+                    is ViewState.Result<*> -> renderWidget(state.data as Widget)
                 }
-                is ViewState.Error -> {
-                    // TODO
-                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
-                }
-                is ViewState.Render -> renderWidget(state.widget)
-            }
-        })
+            })
+        }
+    }
+
+    private fun handleLoading(isLoading: Boolean) {
+        val state = if (isLoading) {
+            BeagleViewState.LoadStated
+        } else {
+            BeagleViewState.LoadFinished
+        }
+        stateChangedListener?.onStateChanged(state)
+    }
+
+    private fun handleError() {
+        stateChangedListener?.onStateChanged(BeagleViewState.Error)
     }
 
     private fun renderWidget(widget: Widget) {
         addView(widget.toView(context))
     }
+
+    private fun generateViewModelInstance(): BeagleViewModel {
+        return fragment?.let {
+            ViewModelProviders.of(it)[BeagleViewModel::class.java]
+        } ?: activity?.let {
+            ViewModelProviders.of(it)[BeagleViewModel::class.java]
+        } ?: run {
+            throw IllegalStateException("You should call loadView with a fragment or activity instance.")
+        }
+    }
 }
+
