@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.ser.std.StdSerializer
 import java.lang.reflect.Modifier
 
-private const val TYPE = "type"
+private const val TYPE = "_beagleType_"
 private const val WIDGET_NAMESPACE = "widget"
 private const val BEAGLE_NAMESPACE = "beagle"
 

@@ -20,7 +20,7 @@ class BeagleActionSerializer(
 
     private fun addTypeToJson(value: Action, gen: JsonGenerator) {
         val actionName = getClassName(value)
-        gen.writeStringField("type", "beagle:action:$actionName")
+        gen.writeStringField("_beagleType_", "beagle:action:$actionName")
     }
 
     private fun getClassName(value: Action): String {

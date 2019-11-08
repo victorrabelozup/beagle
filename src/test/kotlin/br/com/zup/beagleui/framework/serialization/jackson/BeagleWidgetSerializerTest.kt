@@ -15,6 +15,7 @@ import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 
+private const val TYPE = "_beagleType_"
 private const val APP_NAME = "test"
 
 class BeagleWidgetSerializerTest {
@@ -51,7 +52,7 @@ class BeagleWidgetSerializerTest {
 
         // Then
         verify(exactly = 1) { jsonGenerator.writeStartObject() }
-        verify(exactly = 1) { jsonGenerator.writeStringField("type", "beagle:widget:text") }
+        verify(exactly = 1) { jsonGenerator.writeStringField(TYPE, "beagle:widget:text") }
         verify(exactly = 1) { objectFieldSerializer.serializeFields(widget, jsonGenerator) }
         verify(exactly = 1) { jsonGenerator.writeEndObject() }
     }
@@ -67,7 +68,7 @@ class BeagleWidgetSerializerTest {
 
         // Then
         verify(exactly = 1) { jsonGenerator.writeStartObject() }
-        verify(exactly = 1) { jsonGenerator.writeStringField("type", "beagle:widget:button") }
+        verify(exactly = 1) { jsonGenerator.writeStringField(TYPE, "beagle:widget:button") }
         verify(exactly = 1) { objectFieldSerializer.serializeFields(widget.build(), jsonGenerator) }
         verify(exactly = 1) { jsonGenerator.writeEndObject() }
     }
@@ -84,7 +85,7 @@ class BeagleWidgetSerializerTest {
 
         // Then
         verify(exactly = 1) { jsonGenerator.writeStartObject() }
-        verify(exactly = 1) { jsonGenerator.writeStringField("type", "$APP_NAME:widget:customnativewidget") }
+        verify(exactly = 1) { jsonGenerator.writeStringField(TYPE, "$APP_NAME:widget:customnativewidget") }
         verify(exactly = 1) { objectFieldSerializer.serializeFields(widget, jsonGenerator) }
         verify(exactly = 1) { jsonGenerator.writeEndObject() }
     }

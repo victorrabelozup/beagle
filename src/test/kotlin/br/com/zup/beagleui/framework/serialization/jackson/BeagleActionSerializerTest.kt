@@ -46,7 +46,7 @@ class BeagleActionSerializerTest {
 
         // Then
         verify(exactly = 1) { jsonGenerator.writeStartObject() }
-        verify(exactly = 1) { jsonGenerator.writeStringField("type", "beagle:action:dumbaction") }
+        verify(exactly = 1) { jsonGenerator.writeStringField("_beagleType_", "beagle:action:dumbaction") }
         verify(exactly = 1) { jsonGenerator.writeEndObject() }
     }
 
