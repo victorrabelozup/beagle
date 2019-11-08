@@ -2,7 +2,7 @@ package br.com.zup.beagleui.framework.widget.form
 
 import br.com.zup.beagleui.framework.widget.core.NativeWidget
 
-class InputWidget : NativeWidget
+interface InputWidget : NativeWidget
 
 data class FormInput(
     val name: String,
