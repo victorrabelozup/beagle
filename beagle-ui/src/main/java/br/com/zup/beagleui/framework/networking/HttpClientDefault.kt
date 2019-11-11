@@ -2,11 +2,9 @@ package br.com.zup.beagleui.framework.networking
 
 import br.com.zup.beagleui.framework.utils.CoroutineDispatchers
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.net.HttpURLConnection
 
 typealias OnSuccess = (responseData: ResponseData) -> Unit
@@ -17,7 +15,7 @@ internal class HttpClientDefault(
 ) : HttpClient, CoroutineScope {
 
     private val job = Job()
-    override val coroutineContext = job + Dispatchers.Main
+    override val coroutineContext = job + CoroutineDispatchers.IO
 
     override fun execute(
         request: RequestData,
@@ -26,7 +24,7 @@ internal class HttpClientDefault(
     ): RequestCall {
         require(!getOrDeleteOrHeadHasData(request)) { "${request.method} does not support request body" }
 
-        launch(CoroutineDispatchers.Main) {
+        launch {
             doHttpRequest(request, onSuccess, onError)
         }
 
@@ -44,11 +42,11 @@ internal class HttpClientDefault(
                 request.body != null
     }
 
-    private suspend fun doHttpRequest(
+    private fun doHttpRequest(
         request: RequestData,
         onSuccess: OnSuccess,
         onError: OnError
-    ) = withContext(CoroutineDispatchers.IO) {
+    ) {
         val urlConnection = urlFactory.make(request.url).openConnection() as HttpURLConnection
 
         request.headers.forEach {

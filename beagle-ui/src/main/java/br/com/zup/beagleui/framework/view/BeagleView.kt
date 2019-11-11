@@ -16,8 +16,8 @@ import br.com.zup.beagleui.framework.utils.toView
 import br.com.zup.beagleui.framework.widget.core.Widget
 
 sealed class BeagleViewState {
-    object Error : BeagleViewState()
-    object LoadStated : BeagleViewState()
+    data class Error(val throwable: Throwable) : BeagleViewState()
+    object LoadStarted : BeagleViewState()
     object LoadFinished : BeagleViewState()
 }
 
@@ -64,7 +64,7 @@ internal class BeagleView(
             viewModel.state.observe(it, Observer { state ->
                 when (state) {
                     is ViewState.Loading -> handleLoading(state.value)
-                    is ViewState.Error -> handleError()
+                    is ViewState.Error -> handleError(state.throwable)
                     is ViewState.Result<*> -> renderWidget(state.data as Widget)
                 }
             })
@@ -73,15 +73,15 @@ internal class BeagleView(
 
     private fun handleLoading(isLoading: Boolean) {
         val state = if (isLoading) {
-            BeagleViewState.LoadStated
+            BeagleViewState.LoadStarted
         } else {
             BeagleViewState.LoadFinished
         }
         stateChangedListener?.onStateChanged(state)
     }
 
-    private fun handleError() {
-        stateChangedListener?.onStateChanged(BeagleViewState.Error)
+    private fun handleError(throwable: Throwable) {
+        stateChangedListener?.onStateChanged(BeagleViewState.Error(throwable))
     }
 
     private fun renderWidget(widget: Widget) {

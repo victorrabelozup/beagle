@@ -2,7 +2,7 @@ package br.com.zup.beagleui.framework.data
 
 import br.com.zup.beagleui.framework.data.deserializer.BeagleDeserializationException
 import br.com.zup.beagleui.framework.data.deserializer.BeagleUiDeserialization
-import br.com.zup.beagleui.framework.exception.BeagleDataException
+import br.com.zup.beagleui.framework.exception.BeagleException
 import br.com.zup.beagleui.framework.networking.HttpClient
 import br.com.zup.beagleui.framework.networking.HttpClientFactory
 import br.com.zup.beagleui.framework.networking.RequestData
@@ -22,10 +22,10 @@ internal class BeagleHttpClient(
                 onSuccess = { response ->
                     cont.resume(deserializeWidget(String(response.data)))
                 }, onError = { error ->
-                    cont.resumeWithException(BeagleDataException(error.message, error))
+                    cont.resumeWithException(BeagleException(error.message, error))
                 })
         } catch (e: Exception) {
-            cont.resumeWithException(BeagleDataException(e.message, e))
+            cont.resumeWithException(BeagleException(e.message, e))
         }
     }
 
@@ -34,10 +34,10 @@ internal class BeagleHttpClient(
             try {
                 return deserialization.deserializeWidget(response)
             } catch (exception: BeagleDeserializationException) {
-                throw BeagleDataException("Widget deserialization error for url")
+                throw BeagleException("Widget deserialization error for url")
             }
         }
 
-        throw BeagleDataException("The requested widget return were empty response")
+        throw BeagleException("The requested widget return were empty response")
     }
 }

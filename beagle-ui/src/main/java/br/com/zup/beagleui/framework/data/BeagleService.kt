@@ -3,7 +3,7 @@ package br.com.zup.beagleui.framework.data
 import br.com.zup.beagleui.framework.action.Action
 import br.com.zup.beagleui.framework.data.deserializer.BeagleDeserializationException
 import br.com.zup.beagleui.framework.data.deserializer.BeagleUiDeserialization
-import br.com.zup.beagleui.framework.exception.BeagleDataException
+import br.com.zup.beagleui.framework.exception.BeagleException
 import br.com.zup.beagleui.framework.networking.HttpClient
 import br.com.zup.beagleui.framework.networking.HttpClientFactory
 import br.com.zup.beagleui.framework.networking.RequestData
@@ -31,7 +31,7 @@ internal class BeagleService(
                 onSuccess = { response ->
                     cont.resume(String(response.data))
                 }, onError = { error ->
-                    cont.resumeWithException(BeagleDataException(error.message, error))
+                    cont.resumeWithException(BeagleException(error.message, error))
                 }
             )
 
@@ -39,7 +39,7 @@ internal class BeagleService(
                 call.cancel()
             }
         } catch (ex: Exception) {
-            cont.resumeWithException(BeagleDataException(ex.message, ex))
+            cont.resumeWithException(BeagleException(ex.message, ex))
         }
     }
 
@@ -47,7 +47,7 @@ internal class BeagleService(
         try {
             return deserialization.deserializeAction(response)
         } catch (exception: BeagleDeserializationException) {
-            throw BeagleDataException("Action deserialization error with respective json: $response")
+            throw BeagleException("Action deserialization error with respective json: $response")
         }
     }
 
@@ -55,7 +55,7 @@ internal class BeagleService(
         try {
             return deserialization.deserializeWidget(response)
         } catch (exception: BeagleDeserializationException) {
-            throw BeagleDataException("Widget deserialization error with respective json: $response")
+            throw BeagleException("Widget deserialization error with respective json: $response")
         }
     }
 }

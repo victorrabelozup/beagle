@@ -4,7 +4,7 @@ import br.com.zup.beagleui.framework.action.Action
 import br.com.zup.beagleui.framework.data.deserializer.BeagleDeserializationException
 import br.com.zup.beagleui.framework.data.deserializer.BeagleUiDeserialization
 import br.com.zup.beagleui.framework.data.deserializer.makeContainerJson
-import br.com.zup.beagleui.framework.exception.BeagleDataException
+import br.com.zup.beagleui.framework.exception.BeagleException
 import br.com.zup.beagleui.framework.networking.RequestCall
 import br.com.zup.beagleui.framework.networking.ResponseData
 import br.com.zup.beagleui.framework.networking.HttpClient
@@ -85,7 +85,7 @@ class BeagleServiceTest {
     fun fetchWidget_should_return_a_exception_when_some_http_call_fails() = runBlockingTest {
         // Given
         val message = RandomData.string()
-        val expectedException = BeagleDataException(message)
+        val expectedException = BeagleException(message)
         mockListenerExecution { onErrorSlot.captured(expectedException) }
 
         // When
@@ -109,7 +109,7 @@ class BeagleServiceTest {
         }
 
         // Then
-        assertTrue(exceptionResponse is BeagleDataException)
+        assertTrue(exceptionResponse is BeagleException)
     }
 
     @Test
@@ -124,7 +124,7 @@ class BeagleServiceTest {
         }
 
         // Then
-        assertTrue(exceptionResponse is BeagleDataException)
+        assertTrue(exceptionResponse is BeagleException)
     }
 
     @Test
@@ -147,6 +147,6 @@ class BeagleServiceTest {
         }
 
         // Then
-        assertTrue(exceptionResponse is BeagleDataException)
+        assertTrue(exceptionResponse is BeagleException)
     }
 }

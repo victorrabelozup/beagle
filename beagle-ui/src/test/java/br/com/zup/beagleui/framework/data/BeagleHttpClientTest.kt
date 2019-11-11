@@ -1,8 +1,9 @@
 package br.com.zup.beagleui.framework.data
 
+import br.com.zup.beagleui.framework.data.deserializer.BeagleDeserializationException
 import br.com.zup.beagleui.framework.data.deserializer.BeagleUiDeserialization
 import br.com.zup.beagleui.framework.data.deserializer.makeContainerJson
-import br.com.zup.beagleui.framework.exception.BeagleDataException
+import br.com.zup.beagleui.framework.exception.BeagleException
 import br.com.zup.beagleui.framework.networking.RequestCall
 import br.com.zup.beagleui.framework.networking.ResponseData
 import br.com.zup.beagleui.framework.networking.HttpClient
@@ -17,11 +18,12 @@ import io.mockk.verify
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
+import java.lang.RuntimeException
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
 
 private val URL = RandomData.httpUrl()
-
+private val WIDGET_DESERIALIZATION_ERROR = "Widget deserialization error for url"
 class BeagleHttpClientTest {
 
     private val JSON_SUCCESS = makeContainerJson()
@@ -80,8 +82,56 @@ class BeagleHttpClientTest {
     @Test
     fun test_fetch_widget_should_return_error() = runBlocking {
         val message = "Error"
-        val expectedException = BeagleDataException(message)
+        val expectedException = BeagleException(message)
         mockListenerExecution {onErrorSlot.captured(expectedException)}
+        val exceptionResponse = assertFails(message) {
+            beagleHttpClient.fetchWidget(JSON_ERROR)
+        }
+
+        assertEquals(expectedException.message, exceptionResponse.message)
+    }
+
+    @Test
+    fun test_fetch_widget_should_return_execute_error() = runBlocking {
+        val message = "Any Error"
+        val expectedException = BeagleDeserializationException(message)
+
+        every { deserialization.deserializeWidget(any()) } throws expectedException
+
+        val exceptionResponse = assertFails(message) {
+            beagleHttpClient.fetchWidget(JSON_ERROR)
+        }
+
+        assertEquals(WIDGET_DESERIALIZATION_ERROR, exceptionResponse.message)
+    }
+
+    @Test
+    fun test_fetch_widget_should_return_deserialization_error() = runBlocking {
+        val message = "Error"
+        val expectedException = IllegalArgumentException(message)
+
+        every {
+            requestDispatching.execute(
+                any(),
+                onSuccess = capture(onSuccessSlot),
+                onError = capture(onErrorSlot)
+            )
+        } throws expectedException
+
+        val exceptionResponse = assertFails(message) {
+            beagleHttpClient.fetchWidget(JSON_ERROR)
+        }
+
+        assertEquals(expectedException.message, exceptionResponse.message)
+    }
+
+    @Test
+    fun test_fetch_widget_should_return_empty_data_error() = runBlocking {
+        val message = "The requested widget return were empty response"
+        val expectedException = BeagleException(message)
+
+        every { responseData.data } returns JSON_ERROR.toByteArray()
+
         val exceptionResponse = assertFails(message) {
             beagleHttpClient.fetchWidget(JSON_ERROR)
         }

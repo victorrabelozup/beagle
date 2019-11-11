@@ -41,6 +41,7 @@ class BeagleUIFragment : Fragment(), StateChangedListener {
                 )
                 loadView(this@BeagleUIFragment, screenUrl)
                 createProgressBar(this)
+                stateChangedListener = this@BeagleUIFragment
             }
         }
     }
@@ -59,12 +60,15 @@ class BeagleUIFragment : Fragment(), StateChangedListener {
 
     override fun onStateChanged(state: BeagleViewState) {
         when (state) {
-            is BeagleViewState.Error -> Toast.makeText(
-                context,
-                "Something went wrong!",
-                Toast.LENGTH_SHORT
-            ).show()
-            is BeagleViewState.LoadStated -> progressBar.visibility = View.VISIBLE
+            is BeagleViewState.Error -> {
+                state.throwable.printStackTrace()
+                Toast.makeText(
+                    context,
+                    "Something went wrong! ",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            is BeagleViewState.LoadStarted -> progressBar.visibility = View.VISIBLE
             is BeagleViewState.LoadFinished -> progressBar.visibility = View.GONE
         }
     }

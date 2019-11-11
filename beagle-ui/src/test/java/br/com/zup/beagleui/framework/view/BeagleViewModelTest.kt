@@ -5,7 +5,7 @@ import br.com.zup.beagleui.framework.action.Action
 import br.com.zup.beagleui.framework.data.BeagleService
 import br.com.zup.beagleui.framework.data.BeagleViewModel
 import br.com.zup.beagleui.framework.data.ViewState
-import br.com.zup.beagleui.framework.exception.BeagleDataException
+import br.com.zup.beagleui.framework.exception.BeagleException
 import br.com.zup.beagleui.framework.testutil.RandomData
 import br.com.zup.beagleui.framework.utils.CoroutineDispatchers
 import br.com.zup.beagleui.framework.widget.core.Widget
@@ -85,7 +85,7 @@ class BeagleViewModelTest {
     fun fetchWidget_should_return_a_error_ViewState() {
         // Given
         val url = RandomData.httpUrl()
-        val exception = BeagleDataException("Error")
+        val exception = BeagleException("Error")
         coEvery { beagleService.fetchWidget(any()) } throws exception
 
         // When
@@ -93,7 +93,7 @@ class BeagleViewModelTest {
 
         // Then
         assertLoading(viewModelStates[0], true)
-        assertEquals(ViewState.Error, viewModelStates[1])
+        assertEquals(ViewState.Error(exception), viewModelStates[1])
         assertLoading(viewModelStates[2], false)
     }
 
@@ -115,7 +115,7 @@ class BeagleViewModelTest {
     fun fetchAction_should_return_a_error_ViewState() {
         // Given
         val url = RandomData.httpUrl()
-        val exception = BeagleDataException("Error")
+        val exception = BeagleException("Error")
         coEvery { beagleService.fetchAction(any()) } throws exception
 
         // When
@@ -123,7 +123,7 @@ class BeagleViewModelTest {
 
         // Then
         assertLoading(viewModelStates[0], true)
-        assertEquals(ViewState.Error, viewModelStates[1])
+        assertEquals(ViewState.Error(exception), viewModelStates[1])
         assertLoading(viewModelStates[2], false)
     }
 

@@ -18,7 +18,7 @@ internal class BeagleUiDeserialization(
         try {
             return beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json) ?:
                 throw makeBeagleDeserializationException(json)
-        } catch (ex: IOException) {
+        } catch (ex: Exception) {
             throw makeBeagleDeserializationException(json)
         }
     }

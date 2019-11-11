@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         */
 
         btFetchWidgets.setOnClickListener {
-            startActivity(BeagleUIActivity.newIntent(this, "http://www.mocky.io/v2/5da9f2243100006b184e0c99"))
+            startActivity(BeagleUIActivity.newIntent(this, "http://www.mocky.io/v2/5dc99f492f0000560073ee42"))
         }
     }
 }
