@@ -168,6 +168,7 @@ final class WidgetDecoder: WidgetDecoding {
         WidgetEntityContainer.register(SpacerEntity.self, for: decodingKey(for: "Spacer"))
         WidgetEntityContainer.register(StackEntity.self, for: decodingKey(for: "Stack"))
         WidgetEntityContainer.register(VerticalEntity.self, for: decodingKey(for: "Vertical"))
+        WidgetEntityContainer.register(ScrollViewEntity.self, for: decodingKey(for: "ScrollView"))
     }
     
     private static func registerUITypes() {

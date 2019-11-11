@@ -42,7 +42,7 @@ final class ContainerWidgetViewRenderer: WidgetViewRenderer<Container> {
     
     private func buildContentScrollView() -> UIScrollView {
         
-        let scrollView = ContainerScrollView()
+        let scrollView = BeagleContainerScrollView()
         let flex = Flex(grow: 1)
         let contentView = rendererProvider.buildRenderer(for: widget.content).buildView()
         scrollView.addSubview(contentView)
@@ -54,7 +54,7 @@ final class ContainerWidgetViewRenderer: WidgetViewRenderer<Container> {
     
 }
 
-private class ContainerScrollView: UIScrollView {
+final class BeagleContainerScrollView: UIScrollView {
     override func layoutSubviews() {
         super.layoutSubviews()
         if let contentView = subviews.first {

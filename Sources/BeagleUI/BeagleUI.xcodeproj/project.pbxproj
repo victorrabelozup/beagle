@@ -42,6 +42,12 @@
 		989F7AA123637F2800E4E0E8 /* LayoutViewRendererProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F7AA023637F2800E4E0E8 /* LayoutViewRendererProviderTests.swift */; };
 		989F7AA32363842E00E4E0E8 /* UIComponentViewRendererProvidingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F7AA22363842E00E4E0E8 /* UIComponentViewRendererProvidingTests.swift */; };
 		989F7AA523638C5700E4E0E8 /* WidgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F7AA423638C5700E4E0E8 /* WidgetTests.swift */; };
+		C62E8EAC2373581200FF1497 /* ScrollViewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62E8EAB2373581200FF1497 /* ScrollViewEntity.swift */; };
+		C62E8EAE2373588900FF1497 /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62E8EAD2373588900FF1497 /* ScrollView.swift */; };
+		C62E8EB023735DB300FF1497 /* ScrollViewWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62E8EAF23735DB300FF1497 /* ScrollViewWidgetViewRenderer.swift */; };
+		C65F25352375DAE9007670EC /* ScrollViewEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F25342375DAE9007670EC /* ScrollViewEntityTests.swift */; };
+		C65F25372375E6C2007670EC /* ScrollViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F25362375E6C2007670EC /* ScrollViewTests.swift */; };
+		C65F25392375E93C007670EC /* ScrollViewWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F25382375E93C007670EC /* ScrollViewWidgetViewRendererTests.swift */; };
 		E50B0902234CCAB90091AF0A /* WidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B08FF234CCAB90091AF0A /* WidgetRendererProvider.swift */; };
 		E50B0904234CCACB0091AF0A /* FailableWidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B0903234CCACB0091AF0A /* FailableWidgetRendererProvider.swift */; };
 		E50B2841236350B9005E2E6D /* ServerDrivenWidgetFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B2840236350B9005E2E6D /* ServerDrivenWidgetFetcherTests.swift */; };
@@ -209,6 +215,12 @@
 		989F7AA023637F2800E4E0E8 /* LayoutViewRendererProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutViewRendererProviderTests.swift; sourceTree = "<group>"; };
 		989F7AA22363842E00E4E0E8 /* UIComponentViewRendererProvidingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponentViewRendererProvidingTests.swift; sourceTree = "<group>"; };
 		989F7AA423638C5700E4E0E8 /* WidgetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTests.swift; sourceTree = "<group>"; };
+		C62E8EAB2373581200FF1497 /* ScrollViewEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewEntity.swift; sourceTree = "<group>"; };
+		C62E8EAD2373588900FF1497 /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
+		C62E8EAF23735DB300FF1497 /* ScrollViewWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewWidgetViewRenderer.swift; sourceTree = "<group>"; };
+		C65F25342375DAE9007670EC /* ScrollViewEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewEntityTests.swift; sourceTree = "<group>"; };
+		C65F25362375E6C2007670EC /* ScrollViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewTests.swift; sourceTree = "<group>"; };
+		C65F25382375E93C007670EC /* ScrollViewWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		E50B08FF234CCAB90091AF0A /* WidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetRendererProvider.swift; sourceTree = "<group>"; };
 		E50B0903234CCACB0091AF0A /* FailableWidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailableWidgetRendererProvider.swift; sourceTree = "<group>"; };
 		E50B2840236350B9005E2E6D /* ServerDrivenWidgetFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDrivenWidgetFetcherTests.swift; sourceTree = "<group>"; };
@@ -385,6 +397,7 @@
 				9368180A232A889100E6E724 /* Spacer.swift */,
 				9368180C232A889900E6E724 /* Stack.swift */,
 				9368180E232A88B300E6E724 /* Vertical.swift */,
+				C62E8EAD2373588900FF1497 /* ScrollView.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -450,6 +463,7 @@
 				E759590B2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift */,
 				E759590D2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift */,
 				E7595911235E120600EB80C2 /* ViewRenderersTestingHelpers.swift */,
+				C65F25382375E93C007670EC /* ScrollViewWidgetViewRendererTests.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -604,6 +618,7 @@
 				E56A02CE23462B8400C0F23D /* PaddingTests.swift */,
 				E56A02CC23462B0000C0F23D /* StackTests.swift */,
 				E56A02CA23462AD100C0F23D /* VerticalTests.swift */,
+				C65F25362375E6C2007670EC /* ScrollViewTests.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -633,6 +648,7 @@
 				930A2B5923574B55003A945C /* FlexSingleWidgetViewRenderer.swift */,
 				930A2B5723574B23003A945C /* FlexWidgetViewRenderer.swift */,
 				9303B08B2357B49A008BAA6D /* ContainerWidgetViewRenderer.swift */,
+				C62E8EAF23735DB300FF1497 /* ScrollViewWidgetViewRenderer.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -881,6 +897,7 @@
 				E5CE41CB233274BB00295277 /* SpacerEntity.swift */,
 				E5CE41CD233274CA00295277 /* StackEntity.swift */,
 				E5CE41A82331D95300295277 /* VerticalEntity.swift */,
+				C62E8EAB2373581200FF1497 /* ScrollViewEntity.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -971,6 +988,7 @@
 				E5CE421D233404A200295277 /* SpacerEntityTests.swift */,
 				E5CE421F233404B800295277 /* StackEntityTests.swift */,
 				E5CE4221233404C700295277 /* VerticalEntityTests.swift */,
+				C65F25342375DAE9007670EC /* ScrollViewEntityTests.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -1235,6 +1253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C62E8EAC2373581200FF1497 /* ScrollViewEntity.swift in Sources */,
 				E5CE41CA233274AE00295277 /* PaddingEntity.swift in Sources */,
 				E5CE41D22332766900295277 /* ButtonEntity.swift in Sources */,
 				E531D6BA2359FEE1007EEBA7 /* UIView+Loading.swift in Sources */,
@@ -1278,6 +1297,7 @@
 				9368180F232A88B300E6E724 /* Vertical.swift in Sources */,
 				E5A6F4A92358A547008906F8 /* FatalErrorUtil.swift in Sources */,
 				E5CB5DB5235508B9009783A7 /* NetworkImage.swift in Sources */,
+				C62E8EAE2373588900FF1497 /* ScrollView.swift in Sources */,
 				E5CB5DD023578967009783A7 /* UIComponentViewRendererProvider.swift in Sources */,
 				E5A6F4C92358F373008906F8 /* ServerDrivenScreenLoader.swift in Sources */,
 				936817FD232A882D00E6E724 /* Widget.swift in Sources */,
@@ -1286,6 +1306,7 @@
 				930A2B5823574B23003A945C /* FlexWidgetViewRenderer.swift in Sources */,
 				9397F5D12357615F00054D42 /* YogaTranslator.swift in Sources */,
 				E5DD468B234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift in Sources */,
+				C62E8EB023735DB300FF1497 /* ScrollViewWidgetViewRenderer.swift in Sources */,
 				E5CE41D62332768700295277 /* ImageEntity.swift in Sources */,
 				E5CE41A32331D55000295277 /* WidgetDecoder.swift in Sources */,
 				E56A02B723451D5C00C0F23D /* FlexSingleWidgetEntity.swift in Sources */,
@@ -1324,6 +1345,7 @@
 				E5CE421A2334047900295277 /* HorizontalEntityTests.swift in Sources */,
 				E5CB5D7E2354AE62009783A7 /* TextWidgetViewRendererTests.swift in Sources */,
 				E531D6BC235A007C007EEBA7 /* UIView+LoadingTests.swift in Sources */,
+				C65F25372375E6C2007670EC /* ScrollViewTests.swift in Sources */,
 				980262AE2345431B0025A9C3 /* FlexWidgetTests.swift in Sources */,
 				E5835B33233BD84600125140 /* WidgetEntityContainerTests.swift in Sources */,
 				E56A02CD23462B0000C0F23D /* StackTests.swift in Sources */,
@@ -1352,6 +1374,7 @@
 				E5CE421E233404A200295277 /* SpacerEntityTests.swift in Sources */,
 				E5CE4220233404B800295277 /* StackEntityTests.swift in Sources */,
 				E56A02CF23462B8400C0F23D /* PaddingTests.swift in Sources */,
+				C65F25392375E93C007670EC /* ScrollViewWidgetViewRendererTests.swift in Sources */,
 				E759590E2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift in Sources */,
 				E5CE42012333FC1F00295277 /* ButtonEntityTests.swift in Sources */,
 				E5835B35233BD95C00125140 /* WidgetConvertibleTests.swift in Sources */,
@@ -1369,6 +1392,7 @@
 				E5A6F4BE2358ECA1008906F8 /* FlexViewConfiguratorTests.swift in Sources */,
 				E5CE42112334007D00295277 /* TextEntityTests.swift in Sources */,
 				985EBA7B2354D1320042C19A /* WidgetViewRenderingErrorTests.swift in Sources */,
+				C65F25352375DAE9007670EC /* ScrollViewEntityTests.swift in Sources */,
 				9841FD0123454B7B0069D7D2 /* FlexWidgetEntityTests.swift in Sources */,
 				E70B4EB0236B6B5700BBC921 /* ImageWidgetViewRendererTests.swift in Sources */,
 				E5CE4222233404C700295277 /* VerticalEntityTests.swift in Sources */,

@@ -41,11 +41,12 @@ final class FlexViewConfiguratorSpy: FlexViewConfiguratorProtocol {
     private(set) var setupFlexCalled = false
     private(set) var flexPassed: Flex?
     private(set) var viewPassedToSetupFlex: UIView?
+    private(set) var timesPassed: Int = 0
     func setupFlex(_ flex: Flex, for view: UIView) {
         setupFlexCalled = true
         flexPassed = flex
         viewPassedToSetupFlex = view
-        
+        timesPassed += 1
     }
     
     private(set) var applyYogaLayoutCalled = false
