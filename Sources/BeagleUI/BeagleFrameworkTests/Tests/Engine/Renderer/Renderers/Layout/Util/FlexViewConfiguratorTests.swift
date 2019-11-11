@@ -141,4 +141,32 @@ final class FlexViewConfiguratorTests: XCTestCase {
         XCTAssertTrue(view.yoga.isEnabled, "Yoga should be enabled.")
     }
     
+    func test_instrinsicSize_forViewWithYogaEnabled() {
+        // Given
+        let sut = FlexViewConfigurator()
+        let view = UIView(frame: .init(x: 0, y: 0, width: 100, height: 100))
+        view.yoga.isEnabled = true
+        let expectedIntrinsicSize = view.yoga.intrinsicSize
+        
+        // When
+        let intrinsicSize = sut.instrinsicSize(for: view)
+        
+        // Then
+        XCTAssertEqual(expectedIntrinsicSize.width, intrinsicSize.width, accuracy: 0.00001, "Expected \(expectedIntrinsicSize.width), but got \(intrinsicSize.width).")
+        XCTAssertEqual(expectedIntrinsicSize.height, intrinsicSize.height, accuracy: 0.00001, "Expected \(expectedIntrinsicSize.height), but got \(intrinsicSize.height).")
+    }
+    
+    func test_instrinsicSize_forViewWithYogaDisabled() {
+        // Given
+        let sut = FlexViewConfigurator()
+        let view = UIView(frame: .init(x: 0, y: 0, width: 100, height: 100))
+        let expectedIntrinsicSize = view.frame.size
+        
+        // When
+        let intrinsicSize = sut.instrinsicSize(for: view)
+        
+        // Then
+        XCTAssertEqual(expectedIntrinsicSize.width, intrinsicSize.width, accuracy: 0.00001, "Expected \(expectedIntrinsicSize.width), but got \(intrinsicSize.width).")
+        XCTAssertEqual(expectedIntrinsicSize.height, intrinsicSize.height, accuracy: 0.00001, "Expected \(expectedIntrinsicSize.height), but got \(intrinsicSize.height).")
+    }
 }

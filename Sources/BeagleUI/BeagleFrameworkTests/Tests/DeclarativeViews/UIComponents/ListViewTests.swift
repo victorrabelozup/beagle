@@ -113,5 +113,17 @@ final class ListViewTests: XCTestCase {
             XCTAssertTrue(widget is Text, "Expected to find `Text`.")
         }
     }
+    
+    func test_toUIKit_shouldConvertDirectionProperly() {
+        // Given
+        let expectedConversions: [UICollectionView.ScrollDirection] = [.horizontal, .vertical]
+        let directionsToConvert: [ListView.Direction] = [.horizontal, .vertical]
+        
+        // When
+        let converted = directionsToConvert.map { $0.toUIKit() }
+        
+        // Then
+        XCTAssertEqual(expectedConversions, converted, "Expected \(expectedConversions), but got \(converted).")
+    }
 
 }

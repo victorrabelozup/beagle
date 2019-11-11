@@ -58,12 +58,7 @@ final class WidgetDecoder: WidgetDecoding {
     private let dataPreprocessor: DataPreprocessor
     private static let beagleNamespace = "beagle"
     private static var customWidgetsNamespace: String = beagleNamespace
-    private static var namespaces: [String] {
-        if customWidgetsNamespace != beagleNamespace {
-            return [beagleNamespace, customWidgetsNamespace]
-        }
-        return [beagleNamespace]
-    }
+    private var namespaces: [String] = [WidgetDecoder.beagleNamespace]
     
     // MARK: - Initialization
     
@@ -74,7 +69,7 @@ final class WidgetDecoder: WidgetDecoding {
     ) {
         self.jsonDecoder = jsonDecoder
         self.dataPreprocessor = dataPreprocessor
-        WidgetDecoder.customWidgetsNamespace = namespace
+        setupCustomNamespace(namespace)
         WidgetDecoder.registerDefaultTypes()
     }
     
@@ -133,8 +128,15 @@ final class WidgetDecoder: WidgetDecoding {
     
     // MARK: - Private Functions
     
+    private func setupCustomNamespace(_ customNamespace: String) {
+        WidgetDecoder.customWidgetsNamespace = customNamespace
+        if WidgetDecoder.beagleNamespace != customNamespace {
+            namespaces = [WidgetDecoder.beagleNamespace, customNamespace]
+        }
+    }
+    
     private func decodeContainer(from data: Data) throws -> WidgetEntityContainer? {
-        let normalizedData = try dataPreprocessor.normalizeData(data, for: WidgetDecoder.namespaces)
+        let normalizedData = try dataPreprocessor.normalizeData(data, for: namespaces)
         return try jsonDecoder.decode(WidgetEntityContainer.self, from: normalizedData)
     }
 
@@ -142,8 +144,8 @@ final class WidgetDecoder: WidgetDecoding {
     
     private static func decodingKey(for typeName: String, isCustom: Bool = false) -> String {
         var prefix = beagleNamespace + ":widget:"
-        if isCustom {
-            prefix = customWidgetsNamespace.isEmpty ? "" : customWidgetsNamespace + ":widget:"
+        if isCustom && !customWidgetsNamespace.isEmpty {
+            prefix = customWidgetsNamespace + ":widget:"
         }
         return prefix.lowercased() + typeName.lowercased()
     }

@@ -54,6 +54,16 @@
 		E50B28432363839E005E2E6D /* ServerDrivenScreenLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B28422363839E005E2E6D /* ServerDrivenScreenLoaderTests.swift */; };
 		E50B284523639299005E2E6D /* BeagleScreenViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B284423639299005E2E6D /* BeagleScreenViewControllerTests.swift */; };
 		E516E61023705BED006620B1 /* BeagleViewBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516E60F23705BED006620B1 /* BeagleViewBuilderTests.swift */; };
+		E52236BF23744AB500E555BB /* ListViewWidgetRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52236BE23744AB500E555BB /* ListViewWidgetRenderer.swift */; };
+		E52236C223745A7F00E555BB /* ListItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52236C123745A7F00E555BB /* ListItemTableViewCell.swift */; };
+		E52236C423745CBB00E555BB /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52236C323745CBB00E555BB /* NSObjectExtension.swift */; };
+		E52236C623745CDC00E555BB /* NSObjectExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52236C523745CDC00E555BB /* NSObjectExtensionTests.swift */; };
+		E52236CB23745DED00E555BB /* HTTPRequestCanceling.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52236CA23745DED00E555BB /* HTTPRequestCanceling.swift */; };
+		E52236CD23745E8E00E555BB /* ListViewUIComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52236CC23745E8E00E555BB /* ListViewUIComponent.swift */; };
+		E52236CF2374885600E555BB /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52236CE2374885600E555BB /* CollectionExtension.swift */; };
+		E52236D2237499C300E555BB /* ListItemCollectionViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52236D1237499C300E555BB /* ListItemCollectionViewCellTests.swift */; };
+		E52236D423749FD300E555BB /* ListViewUIComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52236D323749FD300E555BB /* ListViewUIComponentTests.swift */; };
+		E52236DA23759E8C00E555BB /* ListViewWidgetRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52236D923759E8C00E555BB /* ListViewWidgetRendererTests.swift */; };
 		E531D6B12359FD18007EEBA7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531D6B02359FD18007EEBA7 /* LoadingView.swift */; };
 		E531D6B42359FE19007EEBA7 /* UIView+AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531D6B32359FE19007EEBA7 /* UIView+AutoLayout.swift */; };
 		E531D6BA2359FEE1007EEBA7 /* UIView+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531D6B92359FEE1007EEBA7 /* UIView+Loading.swift */; };
@@ -67,7 +77,6 @@
 		E56A02B723451D5C00C0F23D /* FlexSingleWidgetEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02B523451D4D00C0F23D /* FlexSingleWidgetEntity.swift */; };
 		E56A02B8234530C900C0F23D /* FlexWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02AF23451C0700C0F23D /* FlexWidget.swift */; };
 		E56A02BA2345367D00C0F23D /* ListViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02B92345367D00C0F23D /* ListViewTests.swift */; };
-		E56A02BC2345388100C0F23D /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02BB2345388100C0F23D /* CollectionExtension.swift */; };
 		E56A02C123453CA700C0F23D /* ContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02C023453CA700C0F23D /* ContainerTests.swift */; };
 		E56A02C3234542B600C0F23D /* HorizontalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02C2234542B600C0F23D /* HorizontalTests.swift */; };
 		E56A02CB23462AD100C0F23D /* VerticalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56A02CA23462AD100C0F23D /* VerticalTests.swift */; };
@@ -227,6 +236,16 @@
 		E50B28422363839E005E2E6D /* ServerDrivenScreenLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDrivenScreenLoaderTests.swift; sourceTree = "<group>"; };
 		E50B284423639299005E2E6D /* BeagleScreenViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleScreenViewControllerTests.swift; sourceTree = "<group>"; };
 		E516E60F23705BED006620B1 /* BeagleViewBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleViewBuilderTests.swift; sourceTree = "<group>"; };
+		E52236BE23744AB500E555BB /* ListViewWidgetRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewWidgetRenderer.swift; sourceTree = "<group>"; };
+		E52236C123745A7F00E555BB /* ListItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemTableViewCell.swift; sourceTree = "<group>"; };
+		E52236C323745CBB00E555BB /* NSObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
+		E52236C523745CDC00E555BB /* NSObjectExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectExtensionTests.swift; sourceTree = "<group>"; };
+		E52236CA23745DED00E555BB /* HTTPRequestCanceling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestCanceling.swift; sourceTree = "<group>"; };
+		E52236CC23745E8E00E555BB /* ListViewUIComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewUIComponent.swift; sourceTree = "<group>"; };
+		E52236CE2374885600E555BB /* CollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
+		E52236D1237499C300E555BB /* ListItemCollectionViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCollectionViewCellTests.swift; sourceTree = "<group>"; };
+		E52236D323749FD300E555BB /* ListViewUIComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewUIComponentTests.swift; sourceTree = "<group>"; };
+		E52236D923759E8C00E555BB /* ListViewWidgetRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewWidgetRendererTests.swift; sourceTree = "<group>"; };
 		E531D6B02359FD18007EEBA7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		E531D6B32359FE19007EEBA7 /* UIView+AutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AutoLayout.swift"; sourceTree = "<group>"; };
 		E531D6B92359FEE1007EEBA7 /* UIView+Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Loading.swift"; sourceTree = "<group>"; };
@@ -239,7 +258,6 @@
 		E56A02B223451CC300C0F23D /* FlexWidgetEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexWidgetEntity.swift; sourceTree = "<group>"; };
 		E56A02B523451D4D00C0F23D /* FlexSingleWidgetEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidgetEntity.swift; sourceTree = "<group>"; };
 		E56A02B92345367D00C0F23D /* ListViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewTests.swift; sourceTree = "<group>"; };
-		E56A02BB2345388100C0F23D /* CollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
 		E56A02C023453CA700C0F23D /* ContainerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerTests.swift; sourceTree = "<group>"; };
 		E56A02C2234542B600C0F23D /* HorizontalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTests.swift; sourceTree = "<group>"; };
 		E56A02CA23462AD100C0F23D /* VerticalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalTests.swift; sourceTree = "<group>"; };
@@ -459,10 +477,10 @@
 			children = (
 				E5A6F4BB2358EC8E008906F8 /* Util */,
 				E5A6F4B82358EC80008906F8 /* SpacerWidgetViewRendererTests.swift */,
-				985EBAA22358BC960042C19A /* ContainerWidgetViewRendererTests.swift */,
 				E759590B2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift */,
 				E759590D2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift */,
 				E7595911235E120600EB80C2 /* ViewRenderersTestingHelpers.swift */,
+				985EBAA22358BC960042C19A /* ContainerWidgetViewRendererTests.swift */,
 				C65F25382375E93C007670EC /* ScrollViewWidgetViewRendererTests.swift */,
 			);
 			path = Layout;
@@ -493,6 +511,34 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		E52236C02374544D00E555BB /* ListView */ = {
+			isa = PBXGroup;
+			children = (
+				E52236BE23744AB500E555BB /* ListViewWidgetRenderer.swift */,
+				E52236C123745A7F00E555BB /* ListItemTableViewCell.swift */,
+				E52236CC23745E8E00E555BB /* ListViewUIComponent.swift */,
+			);
+			path = ListView;
+			sourceTree = "<group>";
+		};
+		E52236C723745D5400E555BB /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				E52236CA23745DED00E555BB /* HTTPRequestCanceling.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		E52236D02374996800E555BB /* ListView */ = {
+			isa = PBXGroup;
+			children = (
+				E52236D1237499C300E555BB /* ListItemCollectionViewCellTests.swift */,
+				E52236D323749FD300E555BB /* ListViewUIComponentTests.swift */,
+				E52236D923759E8C00E555BB /* ListViewWidgetRendererTests.swift */,
+			);
+			path = ListView;
+			sourceTree = "<group>";
+		};
 		E531D6AF2359FD0E007EEBA7 /* Loading */ = {
 			isa = PBXGroup;
 			children = (
@@ -507,6 +553,8 @@
 				E531D6B32359FE19007EEBA7 /* UIView+AutoLayout.swift */,
 				E531D6B92359FEE1007EEBA7 /* UIView+Loading.swift */,
 				E531D6BF235A30DB007EEBA7 /* NSErrorExtension.swift */,
+				E52236C323745CBB00E555BB /* NSObjectExtension.swift */,
+				E52236CE2374885600E555BB /* CollectionExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -525,6 +573,7 @@
 			isa = PBXGroup;
 			children = (
 				E531D6BB235A007C007EEBA7 /* UIView+LoadingTests.swift */,
+				E52236C523745CDC00E555BB /* NSObjectExtensionTests.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -645,6 +694,7 @@
 			children = (
 				E5CB5DC723566781009783A7 /* Util */,
 				E5A6F4C32358ED41008906F8 /* SpacerWidgetViewRenderer.swift */,
+				9303B08B2357B49A008BAA6D /* ContainerWidgetViewRenderer.swift */,
 				930A2B5923574B55003A945C /* FlexSingleWidgetViewRenderer.swift */,
 				930A2B5723574B23003A945C /* FlexWidgetViewRenderer.swift */,
 				9303B08B2357B49A008BAA6D /* ContainerWidgetViewRenderer.swift */,
@@ -680,6 +730,7 @@
 				E5CB5D782354ADF9009783A7 /* ButtonWidgetViewRenderer.swift */,
 				E5CB5D712354ADC7009783A7 /* TextWidgetViewRenderer.swift */,
 				E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */,
+				E52236C02374544D00E555BB /* ListView */,
 				E70B4EAD236B586700BBC921 /* ImageWidgetViewRenderer.swift */,
 			);
 			path = UI;
@@ -688,6 +739,7 @@
 		E5A6F4A62358A530008906F8 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				E52236C723745D5400E555BB /* Protocols */,
 				E531D6B22359FE09007EEBA7 /* Extensions */,
 				E531D6AF2359FD0E007EEBA7 /* Loading */,
 				E5A6F4A72358A53B008906F8 /* Util */,
@@ -706,7 +758,6 @@
 		E5A6F4AA2358A759008906F8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				E56A02BB2345388100C0F23D /* CollectionExtension.swift */,
 				E5CB5D852354C830009783A7 /* MirrorExtension.swift */,
 				E5A6F4AC2358A76F008906F8 /* XCTestCase+FatalError.swift */,
 			);
@@ -762,6 +813,7 @@
 				E5CB5D7A2354AE13009783A7 /* ButtonWidgetViewRendererTests.swift */,
 				E5CB5D802354C08E009783A7 /* UnknownWidgetViewRendererTests.swift */,
 				E70B4EAF236B6B5600BBC921 /* ImageWidgetViewRendererTests.swift */,
+				E52236D02374996800E555BB /* ListView */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1275,7 +1327,9 @@
 				E5CE41FB2333F7FB00295277 /* ChildrenWidgetMapping.swift in Sources */,
 				E5CB5DB023550877009783A7 /* ImageEntityContentMode.swift in Sources */,
 				E5A6F4CB2358F621008906F8 /* ServerDrivenWidgetFetcher.swift in Sources */,
+				E52236C423745CBB00E555BB /* NSObjectExtension.swift in Sources */,
 				E5CB5DB22355088F009783A7 /* NetworkImageEntity.swift in Sources */,
+				E52236CF2374885600E555BB /* CollectionExtension.swift in Sources */,
 				E70B4EAE236B586700BBC921 /* ImageWidgetViewRenderer.swift in Sources */,
 				9368181D232A8DE100E6E724 /* Text.swift in Sources */,
 				E5CE41A92331D95300295277 /* VerticalEntity.swift in Sources */,
@@ -1284,6 +1338,7 @@
 				E56A02B8234530C900C0F23D /* FlexWidget.swift in Sources */,
 				93681811232A8D0F00E6E724 /* Button.swift in Sources */,
 				93681809232A888300E6E724 /* Padding.swift in Sources */,
+				E52236BF23744AB500E555BB /* ListViewWidgetRenderer.swift in Sources */,
 				E5CB5D792354ADF9009783A7 /* ButtonWidgetViewRenderer.swift in Sources */,
 				E57FBB82233A795A00165D8D /* DataPreprocessor.swift in Sources */,
 				9303B08C2357B49A008BAA6D /* ContainerWidgetViewRenderer.swift in Sources */,
@@ -1295,6 +1350,7 @@
 				E531D6C1235A3230007EEBA7 /* NSErrorExtension.swift in Sources */,
 				E5CB5DB7235508CE009783A7 /* ImageContentMode.swift in Sources */,
 				9368180F232A88B300E6E724 /* Vertical.swift in Sources */,
+				E52236C223745A7F00E555BB /* ListItemTableViewCell.swift in Sources */,
 				E5A6F4A92358A547008906F8 /* FatalErrorUtil.swift in Sources */,
 				E5CB5DB5235508B9009783A7 /* NetworkImage.swift in Sources */,
 				C62E8EAE2373588900FF1497 /* ScrollView.swift in Sources */,
@@ -1315,6 +1371,7 @@
 				936817FF232A883E00E6E724 /* Flex.swift in Sources */,
 				93681805232A886C00E6E724 /* Container.swift in Sources */,
 				E5CB5D65234E7CF6009783A7 /* BeagleScreenViewController.swift in Sources */,
+				E52236CB23745DED00E555BB /* HTTPRequestCanceling.swift in Sources */,
 				E5CE41AE2331D9A700295277 /* TextEntity.swift in Sources */,
 				93681817232A8D6E00E6E724 /* ListView.swift in Sources */,
 				E5CB5DCE23578837009783A7 /* LayoutViewRendererProvider.swift in Sources */,
@@ -1324,6 +1381,7 @@
 				E56A02B123451C6500C0F23D /* FlexSingleWidget.swift in Sources */,
 				E5CE41CE233274CA00295277 /* StackEntity.swift in Sources */,
 				E531D6B12359FD18007EEBA7 /* LoadingView.swift in Sources */,
+				E52236CD23745E8E00E555BB /* ListViewUIComponent.swift in Sources */,
 				E56A02B423451CE900C0F23D /* FlexWidgetEntity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1349,11 +1407,13 @@
 				980262AE2345431B0025A9C3 /* FlexWidgetTests.swift in Sources */,
 				E5835B33233BD84600125140 /* WidgetEntityContainerTests.swift in Sources */,
 				E56A02CD23462B0000C0F23D /* StackTests.swift in Sources */,
+				E52236D2237499C300E555BB /* ListItemCollectionViewCellTests.swift in Sources */,
 				985EBAA32358BC960042C19A /* ContainerWidgetViewRendererTests.swift in Sources */,
 				E56A02CB23462AD100C0F23D /* VerticalTests.swift in Sources */,
 				E5A6F4BF2358ECA1008906F8 /* YogaTranslatorTests.swift in Sources */,
-				E56A02BC2345388100C0F23D /* CollectionExtension.swift in Sources */,
+				E52236D423749FD300E555BB /* ListViewUIComponentTests.swift in Sources */,
 				E5CE4218233403E000295277 /* ContainerEntityTests.swift in Sources */,
+				E52236C623745CDC00E555BB /* NSObjectExtensionTests.swift in Sources */,
 				989F7AA523638C5700E4E0E8 /* WidgetTests.swift in Sources */,
 				E759590C2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift in Sources */,
 				E5A6F4AD2358A76F008906F8 /* XCTestCase+FatalError.swift in Sources */,
@@ -1384,6 +1444,7 @@
 				E5A6F4AF2358AA85008906F8 /* BeagleEnvironmentTests.swift in Sources */,
 				E5CE41F62332B9DD00295277 /* WidgetDecoderTests.swift in Sources */,
 				985EBA9123565F180042C19A /* ImageEntityTests.swift in Sources */,
+				E52236DA23759E8C00E555BB /* ListViewWidgetRendererTests.swift in Sources */,
 				E56A02BA2345367D00C0F23D /* ListViewTests.swift in Sources */,
 				985EBA8D2356467B0042C19A /* ListViewEntityTests.swift in Sources */,
 				9841FD0323454F080069D7D2 /* FlexSingleWidgetEntityTests.swift in Sources */,

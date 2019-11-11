@@ -77,7 +77,7 @@ extension Flex {
         public let minHeight: UnitValue?
         public let aspectRatio: Double?
         
-        init(
+        public init(
             width: UnitValue? = nil,
             height: UnitValue? = nil,
             maxWidth: UnitValue? = nil,

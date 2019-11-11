@@ -17,6 +17,18 @@ final class WidgetDecoderTests: XCTestCase {
     
     // MARK: - Tests
     
+    func test_initWithCustomNamespace_shouldSetupNamespacesCorrectly() {
+        // Given
+        let customNamespace = "custom"
+        
+        // When
+        let sut = WidgetDecoder(namespace: customNamespace)
+        let namespaces = Mirror(reflecting: sut).children.first(where: { $0.label == "namespaces" } )?.value as? [Any]
+        
+        // Then
+        XCTAssertEqual(2, namespaces?.count, "`namespace` should have 2 elements.")
+    }
+    
     func test_whenANewTypeIsRegistered_thenItShouldBeAbleToDecodeIt() {
         // Given
         guard let jsonData = """

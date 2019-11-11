@@ -32,6 +32,19 @@ final class ContainerWidgetViewRendererTests: XCTestCase {
         XCTAssertTrue(resultingView.subviews.count == 3, "Expected view to have 3 subviews, a header, a content and a footer, but has \(resultingView.subviews)")
     }
     
+    func test_whenLayoutSubViewsIsCalledOnBagleContainerScrollView_itShouldSetupTheContentSizeCorrectly() {
+        // Given
+        let subview = UIView(frame: .init(x: 0, y: 0, width: 100, height: 100))
+        let sut = BeagleContainerScrollView()
+        sut.addSubview(subview)
+        
+        // When
+        sut.layoutSubviews()
+        
+        // Then
+        XCTAssertEqual(subview.frame.size, sut.contentSize, "Expected \(subview.frame.size), but got \(sut.contentSize).")
+    }
+    
 }
 
 // MARK: - Testing Helpers
@@ -65,6 +78,12 @@ final class FlexViewConfiguratorSpy: FlexViewConfiguratorProtocol {
         enableYogaCalled = true
         enablePassed = enable
         viewPassedToEnableYoga = view
+    }
+    
+    private(set) var viewPassedToInstrinsicSize: UIView?
+    func instrinsicSize(for view: UIView) -> CGSize {
+        viewPassedToInstrinsicSize = view
+        return view.frame.size
     }
     
 }

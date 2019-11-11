@@ -315,12 +315,12 @@ final class YogaTranslatorTests: XCTestCase {
     
     func test_translateAbsolutePositionType_shouldReturnAbsoluteYGPositionType() {
         // Given
-        let expectedYGValue = YGValue(value: 1.0, unit: .point)
-        let unitValue = UnitValue(value: 1.0, type: .real)
+        let expectedYGPositionType: YGPositionType = .absolute
+        let positionType: Flex.PositionType = .absolute
         // When
-        let translated = yogaTranslator.translate(unitValue)
+        let translated = yogaTranslator.translate(positionType)
         // Then
-        XCTAssertEqual(expectedYGValue, translated, "Expected \(expectedYGValue), but got \(String(describing: translated))")
+        XCTAssertEqual(expectedYGPositionType, translated, "Expected \(expectedYGPositionType), but got \(String(describing: translated))")
     }
     
     func test_translateRelativePositionType_shouldReturnRelativeYGPositionType() {

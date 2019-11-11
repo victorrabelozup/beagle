@@ -13,6 +13,7 @@ protocol FlexViewConfiguratorProtocol {
     func setupFlex(_ flex: Flex, for view: UIView)
     func applyYogaLayout(to view: UIView, preservingOrigin: Bool)
     func enableYoga(_ enable: Bool, for view: UIView)
+    func instrinsicSize(for view: UIView) -> CGSize
 }
 
 final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
@@ -41,6 +42,10 @@ final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
     
     func enableYoga(_ enable: Bool, for view: UIView) {
         view.yoga.isEnabled = enable
+    }
+    
+    func instrinsicSize(for view: UIView) -> CGSize {
+        return view.yoga.isEnabled ? view.yoga.intrinsicSize : view.frame.size
     }
     
     // MARK: - Private Methods

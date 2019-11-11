@@ -53,7 +53,17 @@ final class LayoutViewRendererProviderTests: XCTestCase {
         XCTAssert(spacerWidgetViewRenderer is SpacerWidgetViewRenderer, "Expected to build a spacer widget view renderer, but has built \(String(describing: type(of: spacerWidgetViewRenderer))).")
     }
     
-    func test_whenScrollView_shouldReturnScrollViewWidgetViewRenderer() {
+func test_whenListView_shouldReturnSpacerWidgetViewRenderer() {
+        // Given
+        let widget = ListView()
+        let renderer = WidgetRendererProviding()
+        // When
+        let spacerWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        // Then
+        XCTAssert(spacerWidgetViewRenderer is ListViewWidgetRenderer, "Expected to build a listview widget view renderer, but has built \(String(describing: type(of: spacerWidgetViewRenderer))).")
+    }
+
+func test_whenScrollView_shouldReturnScrollViewWidgetViewRenderer() {
         // Given
         let widget = ScrollView {
             FlexWidget {

@@ -6,6 +6,8 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
+import UIKit
+
 public struct ListView: NativeWidget {
     
     // MARK: - Public Properties
@@ -103,8 +105,21 @@ public struct ListView: NativeWidget {
     
 }
 extension ListView {
+    
     public enum Direction {
+        
         case vertical
         case horizontal
+        
+        func toUIKit() -> UICollectionView.ScrollDirection {
+            switch self {
+            case .horizontal:
+                return .horizontal
+            case .vertical:
+                return .vertical
+            }
+        }
+        
     }
+    
 }
