@@ -2,6 +2,7 @@ package br.com.zup.beagleui.framework.data.deserializer
 
 import br.com.zup.beagleui.framework.action.Action
 import br.com.zup.beagleui.framework.action.Navigate
+import br.com.zup.beagleui.framework.action.NavigationType
 import br.com.zup.beagleui.framework.testutil.RandomData
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.layout.Container
@@ -87,7 +88,7 @@ class BeagleUiDeserializationTest {
     fun deserializeAction_should_return_a_Action_when_pass_a_valid_json_representation() {
         // Given
         val json = "{}"
-        val navigate = Navigate()
+        val navigate = Navigate(NavigationType.ADD_VIEW)
         every { actionJsonAdapter.fromJson(json) } returns navigate
 
         // When

@@ -2,7 +2,6 @@ package br.com.zup.beagleui.framework.engine.renderer.layout
 
 import android.content.Context
 import android.view.View
-import br.com.zup.beagleui.framework.action.Navigate
 import br.com.zup.beagleui.framework.action.NavigationActionHandler
 import br.com.zup.beagleui.framework.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
@@ -18,9 +17,7 @@ internal class NavigatorViewRenderer(
 
     override fun build(context: Context): View {
         return viewRendererFactory.make(widget.child).build(context).apply {
-            val navigate = Navigate(widget.type, widget.value)
-
-            setOnClickListener { navigationActionHandler.handle(context, navigate) }
+            setOnClickListener { navigationActionHandler.handle(context, widget.action) }
         }
     }
 }

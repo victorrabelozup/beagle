@@ -8,7 +8,6 @@ import br.com.zup.beagleui.framework.mockdata.CustomWidgetFactory
 import br.com.zup.beagleui.framework.navigation.BeagleDeepLinkHandler
 import br.com.zup.beagleui.framework.networking.HttpClient
 import br.com.zup.beagleui.framework.widget.core.NativeWidget
-import br.com.zup.beagleui.framework.widget.navigation.NavigatorData
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
@@ -43,7 +42,7 @@ class BeagleInitializerTest {
     private lateinit var theme: Theme
 
     private var beagleDeepLinkHandler: BeagleDeepLinkHandler = object : BeagleDeepLinkHandler {
-        override fun getDeepLinkIntent(data: NavigatorData): Intent = intent
+        override fun getDeepLinkIntent(path: String, data: Map<String, String>?): Intent = intent
     }
 
     @Before

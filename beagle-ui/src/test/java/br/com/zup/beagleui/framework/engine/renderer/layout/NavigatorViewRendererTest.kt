@@ -4,13 +4,11 @@ import android.content.Context
 import android.view.View
 import br.com.zup.beagleui.framework.action.Navigate
 import br.com.zup.beagleui.framework.action.NavigationActionHandler
+import br.com.zup.beagleui.framework.action.NavigationType
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
-import br.com.zup.beagleui.framework.testutil.RandomData
 import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.widget.navigation.Navigator
-import br.com.zup.beagleui.framework.widget.navigation.NavigatorData
-import br.com.zup.beagleui.framework.widget.navigation.NavigatorEventType
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
@@ -25,8 +23,7 @@ import kotlin.test.assertEquals
 class NavigatorViewRendererTest {
 
     private val navigator = Navigator(
-        type = NavigatorEventType.ADD_VIEW,
-        value = NavigatorData(path = RandomData.httpUrl()),
+        action = Navigate(NavigationType.ADD_VIEW),
         child = mockk()
     )
 
@@ -80,9 +77,7 @@ class NavigatorViewRendererTest {
         callBuildAndClick()
 
         // Then
-        val navigate = navigateSlot.captured
-        assertEquals(navigator.type, navigate.type)
-        assertEquals(navigator.value, navigate.value)
+        assertEquals(navigator.action, navigateSlot.captured)
     }
 
     private fun callBuildAndClick() {
