@@ -4,7 +4,7 @@
 
     <groupId>br.com.zup</groupId>
     <artifactId>beagle-ui-sdk</artifactId>
-    <version>0.0.7-SNAPSHOT</version>
+    <version>0.0.8-SNAPSHOT</version>
 
     <name>beagle-ui-sdk</name>
     <description>Beagle UI SDK Project</description>
