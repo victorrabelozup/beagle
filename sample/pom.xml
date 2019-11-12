@@ -53,9 +53,16 @@
         <dependency>
             <groupId>br.com.zup</groupId>
             <artifactId>beagle-ui-sdk</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.7</version>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>darwin-jars-releases</id>
+            <url>http://23.97.100.209:8081/repository/darwin-jars-releases/</url>
+        </repository>
+    </repositories>
 
     <build>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
