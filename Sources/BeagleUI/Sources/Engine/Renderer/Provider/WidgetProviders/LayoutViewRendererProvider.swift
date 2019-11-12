@@ -26,6 +26,8 @@ final class LayoutViewRendererProviding: LayoutViewRendererProvider {
             return try ScrollViewWidgetViewRenderer(widget)
         case is ListView:
             return try ListViewWidgetRenderer(widget)
+        case is Navigator:
+            return try NavigatorWidgetViewRenderer(widget)
         default:
             throw FailableWidgetRendererProviderError.couldNotFindRenrererForWidget(widget)
         }
