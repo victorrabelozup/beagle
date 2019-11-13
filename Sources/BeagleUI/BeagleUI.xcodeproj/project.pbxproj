@@ -10,7 +10,10 @@
 		9303B08C2357B49A008BAA6D /* ContainerWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9303B08B2357B49A008BAA6D /* ContainerWidgetViewRenderer.swift */; };
 		930A2B5823574B23003A945C /* FlexWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930A2B5723574B23003A945C /* FlexWidgetViewRenderer.swift */; };
 		930A2B5A23574B55003A945C /* FlexSingleWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930A2B5923574B55003A945C /* FlexSingleWidgetViewRenderer.swift */; };
+		931B6E302375BA7400DE73FD /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931B6E2F2375BA7400DE73FD /* Theme.swift */; };
+		931B6E32237610B300DE73FD /* FunctiontalUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931B6E31237610B300DE73FD /* FunctiontalUtils.swift */; };
 		932925E02327E11000A61F01 /* BeagleUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 932925D22327E11000A61F01 /* BeagleUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9367F9AF237C415800231A9C /* ThemeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9367F9AE237C415800231A9C /* ThemeTests.swift */; };
 		936817FD232A882D00E6E724 /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936817FC232A882D00E6E724 /* Widget.swift */; };
 		936817FF232A883E00E6E724 /* Flex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936817FE232A883E00E6E724 /* Flex.swift */; };
 		93681801232A884600E6E724 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93681800232A884600E6E724 /* Screen.swift */; };
@@ -203,9 +206,12 @@
 		9303B08B2357B49A008BAA6D /* ContainerWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerWidgetViewRenderer.swift; sourceTree = "<group>"; };
 		930A2B5723574B23003A945C /* FlexWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexWidgetViewRenderer.swift; sourceTree = "<group>"; };
 		930A2B5923574B55003A945C /* FlexSingleWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidgetViewRenderer.swift; sourceTree = "<group>"; };
+		931B6E2F2375BA7400DE73FD /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		931B6E31237610B300DE73FD /* FunctiontalUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctiontalUtils.swift; sourceTree = "<group>"; };
 		932925CF2327E11000A61F01 /* BeagleUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BeagleUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		932925D22327E11000A61F01 /* BeagleUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BeagleUI.h; sourceTree = "<group>"; };
 		932925D32327E11000A61F01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9367F9AE237C415800231A9C /* ThemeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTests.swift; sourceTree = "<group>"; };
 		936817FC232A882D00E6E724 /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
 		936817FE232A883E00E6E724 /* Flex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flex.swift; sourceTree = "<group>"; };
 		93681800232A884600E6E724 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
@@ -393,6 +399,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		931B6E0C2374A9BB00DE73FD /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				931B6E2F2375BA7400DE73FD /* Theme.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
 		932925C52327E11000A61F01 = {
 			isa = PBXGroup;
 			children = (
@@ -421,6 +435,14 @@
 				932925D32327E11000A61F01 /* Info.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		9367F9AD237C414300231A9C /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				9367F9AE237C415800231A9C /* ThemeTests.swift */,
+			);
+			path = Theme;
 			sourceTree = "<group>";
 		};
 		936817F9232A880700E6E724 /* Core */ = {
@@ -463,6 +485,7 @@
 		939CE4C4232996FD00EEEDFC /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				931B6E0C2374A9BB00DE73FD /* Theme */,
 				E5A6F4A62358A530008906F8 /* Common */,
 				E5CB5D892354E481009783A7 /* Setup */,
 				E5CE41A02331D41500295277 /* Decoding */,
@@ -794,6 +817,7 @@
 			isa = PBXGroup;
 			children = (
 				E5A6F4A82358A547008906F8 /* FatalErrorUtil.swift */,
+				931B6E31237610B300DE73FD /* FunctiontalUtils.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1035,6 +1059,7 @@
 		E5CE41F22332B9C000295277 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				9367F9AD237C414300231A9C /* Theme */,
 				E531D6B52359FE95007EEBA7 /* Common */,
 				E5CB5DC42356542E009783A7 /* Setup */,
 				E5CE41F42332B9D200295277 /* Decoding */,
@@ -1377,6 +1402,7 @@
 				E5CE41FB2333F7FB00295277 /* ChildrenWidgetMapping.swift in Sources */,
 				A0F4548A23798E7200B146A1 /* NavigatorEntity.swift in Sources */,
 				E5CB5DB023550877009783A7 /* ImageEntityContentMode.swift in Sources */,
+				931B6E32237610B300DE73FD /* FunctiontalUtils.swift in Sources */,
 				E5A6F4CB2358F621008906F8 /* ServerDrivenWidgetFetcher.swift in Sources */,
 				E52236C423745CBB00E555BB /* NSObjectExtension.swift in Sources */,
 				A0F4547C23796E2D00B146A1 /* Navigator.swift in Sources */,
@@ -1392,6 +1418,7 @@
 				A0F4548023796EE400B146A1 /* Navigate.swift in Sources */,
 				93681809232A888300E6E724 /* Padding.swift in Sources */,
 				E52236BF23744AB500E555BB /* ListViewWidgetRenderer.swift in Sources */,
+				931B6E302375BA7400DE73FD /* Theme.swift in Sources */,
 				E5CB5D792354ADF9009783A7 /* ButtonWidgetViewRenderer.swift in Sources */,
 				E57FBB82233A795A00165D8D /* DataPreprocessor.swift in Sources */,
 				A0F4548B23798E7C00B146A1 /* NavigateEntity.swift in Sources */,
@@ -1479,6 +1506,7 @@
 				E5A6F4AD2358A76F008906F8 /* XCTestCase+FatalError.swift in Sources */,
 				E5CB5D7B2354AE13009783A7 /* ButtonWidgetViewRendererTests.swift in Sources */,
 				E5B052BE23706395008EB9BE /* LoadingViewTests.swift in Sources */,
+				9367F9AF237C415800231A9C /* ThemeTests.swift in Sources */,
 				989F7AA32363842E00E4E0E8 /* UIComponentViewRendererProvidingTests.swift in Sources */,
 				E7595912235E120600EB80C2 /* ViewRenderersTestingHelpers.swift in Sources */,
 				E5A6F4B92358EC80008906F8 /* SpacerWidgetViewRendererTests.swift in Sources */,

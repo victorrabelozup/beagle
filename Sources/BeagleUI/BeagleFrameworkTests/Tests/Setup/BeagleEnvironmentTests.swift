@@ -65,7 +65,8 @@ final class BeagleEnvironmentTests: XCTestCase {
             decoder: decoderSpy,
             networkingDispatcher: URLRequestDispatchingDummy(),
             customWidgetsRendererProviderRegister: widgetRegisterSpy,
-            appBundle: Bundle.main
+            appBundle: Bundle.main,
+            applicationTheme: AppThemeDummy()
         )
         let sut: BeagleEnvironmentProtocol = BeagleEnvironment.shared
         

@@ -13,6 +13,7 @@ disabled_rules:
   - force_try
   - type_body_length
   - function_body_length
+  - static_operator
 
 opt_in_rules:
   - force_unwrapping
@@ -51,7 +52,6 @@ opt_in_rules:
   - return_arrow_whitespace
   - single_test_class
   - sorted_first_last
-  - static_operator
   - switch_case_on_newline
   - trailing_closure
   - unneeded_parentheses_in_closure_argument

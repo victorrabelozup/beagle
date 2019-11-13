@@ -13,11 +13,14 @@ public struct Text: NativeWidget {
     // MARK: - Public Properties
     
     public let text: String
+    public let style: String?
     
-    // MARK: - Initialization
-    
-    public init(_ text: String) {
+    public init(
+        _ text: String,
+        style: String? = nil
+    ) {
         self.text = text
+        self.style = style
     }
     
 }

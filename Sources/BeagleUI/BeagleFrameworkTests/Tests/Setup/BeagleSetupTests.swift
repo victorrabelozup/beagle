@@ -83,6 +83,42 @@ final class BeagleSetupTests: XCTestCase {
         XCTAssertNotNil(sharedInstance.itemPassed, "An item should have been passed.")
     }
     
+    func test_start_shouldStartTheEnviromentWithAppThemeConfigured() {
+        // Given
+        let environmentSpy = BeagleEnvironmentSpy.self
+        Beagle.didCallStart = false
+        Beagle.environment = environmentSpy
+        let theme = AppThemeDummy()
+        
+        // When
+        Beagle.start(applicationTheme: theme)
+        
+        // Then
+        XCTAssertTrue(environmentSpy.initializeCalled)
+        XCTAssertNotNil(environmentSpy.applicationThemePassed)
+        XCTAssertTrue(theme === environmentSpy.applicationThemePassed as? AppThemeDummy)
+    }
+    
+    func test_configureTheme_shouldCallConfigureTheme_passingTheme() {
+        // Given
+        let environmentSpy = BeagleEnvironmentSpy.self
+        Beagle.didCallStart = false
+        Beagle.environment = environmentSpy
+        let theme = AppThemeDummy()
+        
+        // When
+        Beagle.start()
+        Beagle.configureTheme(theme)
+        
+        // Then
+        guard let sharedInstance = environmentSpy._shared else {
+            XCTFail("Could not find sharedInstance.")
+            return
+        }
+        XCTAssertTrue(sharedInstance.configureThemeCalled)
+        XCTAssertNotNil(sharedInstance.themePassed)
+        XCTAssertTrue(theme === sharedInstance.themePassed as? AppThemeDummy)
+    }
 }
 
 // MARK: - Testing Helpers
@@ -108,6 +144,12 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
     
     var customWidgetsProvider: CustomWidgetsRendererProviderDequeuing { CustomWidgetsRendererProviderDequeuingDummy() }
     
+    private(set) var applicationThemeCalled = false
+    var applicationTheme: Theme {
+        applicationThemeCalled = true
+        return AppThemeDummy()
+    }
+    
     private(set) static var _shared: BeagleEnvironmentSpy?
     static var shared: BeagleEnvironmentProtocol {
         return _shared!
@@ -117,24 +159,28 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
     
     static private(set) var initializeCalled = false
     static private(set) var bundlePassed: Bundle?
+    static private(set) var applicationThemePassed: Theme?
     static func initialize(appName: String,
                            decoder: WidgetDecoding,
                            networkingDispatcher: URLRequestDispatching,
                            customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderDequeuing & CustomWidgetsRendererProviderRegistering,
-                           appBundle: Bundle
+                           appBundle: Bundle,
+                           applicationTheme: Theme
     ) {
         _shared = BeagleEnvironmentSpy()
         initializeCalled = true
         bundlePassed = appBundle
+        applicationThemePassed = applicationTheme
     }
     
-    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching?, appBundle: Bundle?) {
+    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching?, appBundle: Bundle?, applicationTheme: Theme?) {
         initialize(
             appName: appName,
             decoder: WidgetDecodingDummy(),
             networkingDispatcher: networkingDispatcher ?? URLRequestDispatchingDummy(),
             customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderDummy(),
-            appBundle: appBundle ?? Bundle.main
+            appBundle: appBundle ?? Bundle.main,
+            applicationTheme: applicationTheme ?? AppThemeDummy()
         )
     }
     
@@ -145,6 +191,12 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
         itemPassed = item
     }
     
+    private(set) var configureThemeCalled = false
+    private(set) var themePassed: Theme?
+    func configureTheme(_ theme: Theme) {
+        configureThemeCalled = true
+        themePassed = theme
+    }
 }
 
 final class WidgetDecodingDummy: WidgetDecoding {
@@ -180,5 +232,11 @@ struct WidgetDummyEntity: WidgetConvertibleEntity {
 class URLRequestDispatchingDummy: URLRequestDispatching {
     func execute(on queue: DispatchQueue, request: URLRequestProtocol, completion: @escaping (Result<Data?, URLRequestError>) -> Void) -> URLRequestToken? {
         return nil
+    }
+}
+
+final class AppThemeDummy: Theme {
+    func applyStyle<T>(for view: T, withId id: String) where T : UIView {
+        
     }
 }

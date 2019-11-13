@@ -30,6 +30,7 @@ public class WidgetViewRenderer<W: Widget>: WidgetViewRendererProtocol {
     
     let flexViewConfigurator: FlexViewConfiguratorProtocol
     let rendererProvider: WidgetRendererProvider
+    let applicationTheme: Theme
     private(set) var widget: W
     
     required public convenience init(_ widget: Widget) throws {
@@ -39,11 +40,13 @@ public class WidgetViewRenderer<W: Widget>: WidgetViewRendererProtocol {
     init(
         widget: Widget,
         rendererProvider: WidgetRendererProvider = WidgetRendererProviding(),
-        flexViewConfigurator: FlexViewConfiguratorProtocol = FlexViewConfigurator()
+        flexViewConfigurator: FlexViewConfiguratorProtocol = FlexViewConfigurator(),
+        applicationTheme: Theme = BeagleEnvironment.shared.applicationTheme
     ) throws {
         self.widget = try .newByCasting(widget: widget, to: W.self)
         self.rendererProvider = rendererProvider
         self.flexViewConfigurator = flexViewConfigurator
+        self.applicationTheme = applicationTheme
     }
     
     open func buildView(context: BeagleContext) -> UIView {

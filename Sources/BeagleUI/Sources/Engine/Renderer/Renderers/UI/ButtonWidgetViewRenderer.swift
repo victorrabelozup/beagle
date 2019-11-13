@@ -16,6 +16,11 @@ final class ButtonWidgetViewRenderer: WidgetViewRenderer<Button> {
         
         let button = UIButton(frame: .init(x: 0, y: 0, width: 100, height: 44))
         button.setTitle(widget.text, for: .normal)
+        
+        if let style = widget.style {
+            applicationTheme.applyStyle(for: button, withId: style)
+        }
+        
         flexViewConfigurator.enableYoga(true, for: button)
         button.sizeToFit()
         

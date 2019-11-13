@@ -15,6 +15,7 @@ protocol BeagleEnvironmentProtocol {
     var networkingDispatcher: URLRequestDispatching { get }
     var customWidgetsProvider: CustomWidgetsRendererProviderDequeuing { get }
     var appBundle: Bundle { get }
+    var applicationTheme: Theme { get }
     // MARK: - Singleton
     static var shared: BeagleEnvironmentProtocol { get }
     // MARK: - Initialization
@@ -23,21 +24,24 @@ protocol BeagleEnvironmentProtocol {
         decoder: WidgetDecoding,
         networkingDispatcher: URLRequestDispatching,
         customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing,
-        appBundle: Bundle
+        appBundle: Bundle,
+        applicationTheme: Theme
     )
-    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching?, appBundle: Bundle?)
+    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching?, appBundle: Bundle?, applicationTheme: Theme?)
     // MARK: - Public Functions
     func registerCustomWidget<E: WidgetConvertibleEntity, W: Widget>(_ item: WidgetRegisterItem<E, W>)
+    
+    func configureTheme(_ theme: Theme)
 }
 
 final class BeagleEnvironment: BeagleEnvironmentProtocol {
-    
     // MARK: - Dependencies
     
     private let _decoder: WidgetDecoding
     private let _networkingDispatcher: URLRequestDispatching
     private let customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing
     private let _appBundle: Bundle
+    private var _applicationTheme: Theme
     
     // MARK: - Public Properties
     
@@ -45,6 +49,7 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
     var networkingDispatcher: URLRequestDispatching { _networkingDispatcher }
     var customWidgetsProvider: CustomWidgetsRendererProviderDequeuing { customWidgetsRendererProviderRegister }
     var appBundle: Bundle { _appBundle }
+    var applicationTheme: Theme { _applicationTheme }
     
     // MARK: - Singleton
     
@@ -62,12 +67,14 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
         decoder: WidgetDecoding,
         networkingDispatcher: URLRequestDispatching,
         customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing,
-        appBundle: Bundle
+        appBundle: Bundle,
+        applicationTheme: Theme
     ) {
         self._decoder = decoder
         self._networkingDispatcher = networkingDispatcher
         self.customWidgetsRendererProviderRegister = customWidgetsRendererProviderRegister
         self._appBundle = appBundle
+        self._applicationTheme = applicationTheme
     }
     
     // MARK: - Public Functions
@@ -77,21 +84,23 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
         decoder: WidgetDecoding,
         networkingDispatcher: URLRequestDispatching,
         customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing = CustomWidgetsRendererProviderRegister(),
-        appBundle: Bundle
+        appBundle: Bundle,
+        applicationTheme: Theme
     ) {
         let decoderInstance = decoder
         _shared = BeagleEnvironment(
             decoder: decoderInstance,
             networkingDispatcher: networkingDispatcher,
             customWidgetsRendererProviderRegister: customWidgetsRendererProviderRegister,
-            appBundle: appBundle
+            appBundle: appBundle,
+            applicationTheme: applicationTheme
         )
     }
     
-    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching? = nil, appBundle: Bundle? = nil) {
+    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching? = nil, appBundle: Bundle? = nil, applicationTheme: Theme? = nil) {
         let decoder = WidgetDecoder(namespace: appName)
         let dispatcher = networkingDispatcher ?? URLSessionDispatcher()
-        initialize(appName: appName, decoder: decoder, networkingDispatcher: dispatcher, appBundle: appBundle ?? Bundle.main)
+        initialize(appName: appName, decoder: decoder, networkingDispatcher: dispatcher, appBundle: appBundle ?? Bundle.main, applicationTheme: applicationTheme ?? AppTheme(styles: [:]))
     }
     
     func registerCustomWidget<E: WidgetConvertibleEntity, W: Widget>(_ item: WidgetRegisterItem<E, W>) {
@@ -99,4 +108,7 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
         customWidgetsRendererProviderRegister.registerRenderer(item.view.viewRenderer, for: item.view.widgetType)
     }
     
+    func configureTheme(_ theme: Theme) {
+        _applicationTheme = theme
+    }
 }
