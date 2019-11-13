@@ -10,10 +10,11 @@ internal class BeagleDeserializationException(
     override val message: String
 ) : Exception()
 
-internal class BeagleUiDeserialization(
+internal class BeagleDeserializer(
     private val beagleMoshiFactory: BeagleMoshiFactory = BeagleMoshiFactory()
 ) {
 
+    @Throws(BeagleDeserializationException::class)
     fun deserializeWidget(json: String): Widget {
         try {
             return beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json) ?:
@@ -23,6 +24,7 @@ internal class BeagleUiDeserialization(
         }
     }
 
+    @Throws(BeagleDeserializationException::class)
     fun deserializeAction(json: String): Action {
         try {
             return beagleMoshiFactory.make().adapter(Action::class.java).fromJson(json) ?:

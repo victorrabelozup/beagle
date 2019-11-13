@@ -20,7 +20,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFails
 import kotlin.test.assertTrue
 
-class BeagleUiDeserializationTest {
+class BeagleDeserializerTest {
 
     @MockK
     private lateinit var beagleMoshiFactory: BeagleMoshiFactory
@@ -31,13 +31,13 @@ class BeagleUiDeserializationTest {
     @MockK
     private lateinit var actionJsonAdapter: JsonAdapter<Action>
 
-    private lateinit var beagleUiDeserialization: BeagleUiDeserialization
+    private lateinit var beagleDeserializer: BeagleDeserializer
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
 
-        beagleUiDeserialization = BeagleUiDeserialization(beagleMoshiFactory)
+        beagleDeserializer = BeagleDeserializer(beagleMoshiFactory)
 
         every { beagleMoshiFactory.make() } returns moshi
         every { moshi.adapter(Widget::class.java) } returns widgetJsonAdapter
@@ -52,7 +52,7 @@ class BeagleUiDeserializationTest {
         every { widgetJsonAdapter.fromJson(json) } returns container
 
         // When
-        val actual = beagleUiDeserialization.deserializeWidget(json)
+        val actual = beagleDeserializer.deserializeWidget(json)
 
         // Then
         assertEquals(container, actual)
@@ -65,7 +65,7 @@ class BeagleUiDeserializationTest {
         every { widgetJsonAdapter.fromJson(json) } returns null
 
         // When
-        val actual = assertFails{ beagleUiDeserialization.deserializeWidget(json) }
+        val actual = assertFails{ beagleDeserializer.deserializeWidget(json) }
 
         // Then
         assertTrue(actual is BeagleDeserializationException)
@@ -78,7 +78,7 @@ class BeagleUiDeserializationTest {
         every { widgetJsonAdapter.fromJson(any<String>()) } throws exception
 
         // When
-        val actual = assertFails() { beagleUiDeserialization.deserializeWidget(RandomData.string()) }
+        val actual = assertFails { beagleDeserializer.deserializeWidget(RandomData.string()) }
 
         // Then
         assertTrue(actual is BeagleDeserializationException)
@@ -92,7 +92,7 @@ class BeagleUiDeserializationTest {
         every { actionJsonAdapter.fromJson(json) } returns navigate
 
         // When
-        val actual = beagleUiDeserialization.deserializeAction(json)
+        val actual = beagleDeserializer.deserializeAction(json)
 
         // Then
         assertEquals(navigate, actual)
@@ -105,7 +105,7 @@ class BeagleUiDeserializationTest {
         every { actionJsonAdapter.fromJson(json) } returns null
 
         // When
-        val actual = assertFails{ beagleUiDeserialization.deserializeAction(json) }
+        val actual = assertFails{ beagleDeserializer.deserializeAction(json) }
 
         // Then
         assertTrue(actual is BeagleDeserializationException)
@@ -118,7 +118,7 @@ class BeagleUiDeserializationTest {
         every { actionJsonAdapter.fromJson(any<String>()) } throws exception
 
         // When
-        val actual = assertFails { beagleUiDeserialization.deserializeAction(RandomData.string()) }
+        val actual = assertFails { beagleDeserializer.deserializeAction(RandomData.string()) }
 
         // Then
         assertTrue(actual is BeagleDeserializationException)

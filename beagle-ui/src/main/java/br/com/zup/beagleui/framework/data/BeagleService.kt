@@ -2,7 +2,7 @@ package br.com.zup.beagleui.framework.data
 
 import br.com.zup.beagleui.framework.action.Action
 import br.com.zup.beagleui.framework.data.deserializer.BeagleDeserializationException
-import br.com.zup.beagleui.framework.data.deserializer.BeagleUiDeserialization
+import br.com.zup.beagleui.framework.data.deserializer.BeagleDeserializer
 import br.com.zup.beagleui.framework.exception.BeagleException
 import br.com.zup.beagleui.framework.networking.HttpClient
 import br.com.zup.beagleui.framework.networking.HttpClientFactory
@@ -13,14 +13,16 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
 internal class BeagleService(
-    private val deserialization: BeagleUiDeserialization = BeagleUiDeserialization(),
+    private val deserializer: BeagleDeserializer = BeagleDeserializer(),
     private val httpClient: HttpClient = HttpClientFactory().make()
 ) {
 
+    @Throws(BeagleException::class)
     suspend fun fetchWidget(url: String): Widget {
         return deserializeWidget(fetchData(url))
     }
 
+    @Throws(BeagleException::class)
     suspend fun fetchAction(url: String): Action {
         return deserializeAction(fetchData(url))
     }
@@ -45,7 +47,7 @@ internal class BeagleService(
 
     private fun deserializeAction(response: String): Action {
         try {
-            return deserialization.deserializeAction(response)
+            return deserializer.deserializeAction(response)
         } catch (exception: BeagleDeserializationException) {
             throw BeagleException("Action deserialization error with respective json: $response")
         }
@@ -53,7 +55,7 @@ internal class BeagleService(
 
     private fun deserializeWidget(response: String): Widget {
         try {
-            return deserialization.deserializeWidget(response)
+            return deserializer.deserializeWidget(response)
         } catch (exception: BeagleDeserializationException) {
             throw BeagleException("Widget deserialization error with respective json: $response")
         }

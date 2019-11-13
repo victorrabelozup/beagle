@@ -5,6 +5,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import java.io.IOException
 import java.net.HttpURLConnection
 
 typealias OnSuccess = (responseData: ResponseData) -> Unit
@@ -25,7 +26,12 @@ internal class HttpClientDefault(
         require(!getOrDeleteOrHeadHasData(request)) { "${request.method} does not support request body" }
 
         launch {
-            doHttpRequest(request, onSuccess, onError)
+            try {
+                val responseData = doHttpRequest(request)
+                onSuccess(responseData)
+            } catch (ex: IOException) {
+                onError(ex)
+            }
         }
 
         return object: RequestCall {
@@ -43,12 +49,11 @@ internal class HttpClientDefault(
     }
 
     private fun doHttpRequest(
-        request: RequestData,
-        onSuccess: OnSuccess,
-        onError: OnError
-    ) {
+        request: RequestData
+    ): ResponseData {
         val urlConnection = urlFactory.make(request.url).openConnection() as HttpURLConnection
 
+        urlConnection.setRequestProperty("Content-Type", "application/json")
         request.headers.forEach {
             urlConnection.setRequestProperty(it.key, it.value)
         }
@@ -60,9 +65,9 @@ internal class HttpClientDefault(
         }
 
         try {
-            onSuccess(createResponseData(urlConnection))
+            return createResponseData(urlConnection)
         } catch (e: Throwable) {
-            onError(e)
+            throw IOException(e)
         } finally {
             urlConnection.disconnect()
         }
@@ -80,8 +85,8 @@ internal class HttpClientDefault(
     }
 
     private fun setRequestBody(urlConnection: HttpURLConnection, data: String) {
-        urlConnection.outputStream.write(data.toByteArray())
         urlConnection.setRequestProperty("Content-Length", data.length.toString())
+        urlConnection.outputStream.write(data.toByteArray())
     }
 
     private fun createResponseData(urlConnection: HttpURLConnection): ResponseData {
@@ -90,7 +95,10 @@ internal class HttpClientDefault(
         return ResponseData(
             statusCode = urlConnection.responseCode,
             headers = urlConnection.headerFields.map {
-                Pair(it.key, it.value.toString())
+                val headerValue = it.value.toString()
+                    .replace("[", "")
+                    .replace("]", "")
+                it.key to headerValue
             }.toMap(),
             data = byteArray
         )

@@ -15,6 +15,7 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.net.HttpURLConnection
@@ -26,6 +27,7 @@ import kotlin.test.fail
 
 private val REQUEST_DATA = RequestData(url = RandomData.httpUrl())
 private val BYTE_ARRAY_DATA = byteArrayOf()
+private const val STATUS_CODE = 200
 
 @ExperimentalCoroutinesApi
 class HttpClientDefaultTest {
@@ -58,21 +60,30 @@ class HttpClientDefaultTest {
         every { httpURLConnection.setRequestProperty(any(), any()) } just Runs
         every { httpURLConnection.disconnect() } just Runs
         every { httpURLConnection.headerFields } returns mapOf()
-        every { httpURLConnection.responseCode } returns 200
+        every { httpURLConnection.responseCode } returns STATUS_CODE
         every { httpURLConnection.inputStream } returns inputStream
         every { inputStream.readBytes() } returns BYTE_ARRAY_DATA
     }
 
     @Test
     fun execute_should_be_executed_successfully() = runBlockingTest {
-        var resultData: ResponseData? = null
+        // Given
+        val headerName = RandomData.string()
+        val headerValue = RandomData.string()
+        val headers = mapOf(headerName to listOf(headerValue))
+        every { httpURLConnection.headerFields } returns headers
+        
+        lateinit var resultData: ResponseData
         urlRequestDispatchingDefault.execute(REQUEST_DATA, onSuccess = {
             resultData = it
         }, onError = {
             fail("Test failed, should execute successfully")
         })
 
-        assertEquals(BYTE_ARRAY_DATA, resultData?.data)
+        assertEquals(STATUS_CODE, resultData.statusCode)
+        assertEquals(BYTE_ARRAY_DATA, resultData.data)
+        assertEquals(headerName, resultData.headers.keys.elementAt(0))
+        assertEquals(headerValue, resultData.headers[headerName])
     }
 
     @Test
@@ -202,7 +213,7 @@ class HttpClientDefaultTest {
         urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
 
         // Then
-        verify(exactly = 0) { httpURLConnection.setRequestProperty(any(), any()) }
+        verify(exactly = 0) { httpURLConnection.setRequestProperty("X-HTTP-Method-Override", "GET") }
         verify(exactly = 1) { httpURLConnection.requestMethod = "GET" }
     }
 
@@ -215,7 +226,7 @@ class HttpClientDefaultTest {
         urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
 
         // Then
-        verify(exactly = 0) { httpURLConnection.setRequestProperty(any(), any()) }
+        verify(exactly = 0) { httpURLConnection.setRequestProperty("X-HTTP-Method-Override", "POST") }
         verify(exactly = 1) { httpURLConnection.requestMethod = "POST" }
     }
 
@@ -228,7 +239,7 @@ class HttpClientDefaultTest {
         urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
 
         // Then
-        verify(exactly = 0) { httpURLConnection.setRequestProperty(any(), any()) }
+        verify(exactly = 0) { httpURLConnection.setRequestProperty("X-HTTP-Method-Override", "PUT") }
         verify(exactly = 1) { httpURLConnection.requestMethod = "PUT" }
     }
 
@@ -241,7 +252,7 @@ class HttpClientDefaultTest {
         urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
 
         // Then
-        verify(exactly = 0) { httpURLConnection.setRequestProperty(any(), any()) }
+        verify(exactly = 0) { httpURLConnection.setRequestProperty("X-HTTP-Method-Override", "DELETE") }
         verify(exactly = 1) { httpURLConnection.requestMethod = "DELETE" }
     }
 
@@ -286,6 +297,6 @@ class HttpClientDefaultTest {
         })
 
         // Then
-        assertEquals(runtimeException, errorResult)
+        assertTrue { errorResult is IOException }
     }
 }
