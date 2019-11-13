@@ -18,7 +18,7 @@ final class UnknownWidgetViewRenderer: WidgetViewRendererProtocol {
     
     // MARK: - Public Functions
     
-    func buildView() -> UIView {
+    func buildView(context: BeagleContext) -> UIView {
         
         let label = UILabel(frame: .zero)
         label.numberOfLines = 2

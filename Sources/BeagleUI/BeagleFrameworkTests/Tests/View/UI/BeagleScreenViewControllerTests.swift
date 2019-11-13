@@ -47,6 +47,24 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.view.backgroundColor, .white, "Expected `white`, but got \(String(describing: sut.view.backgroundColor)).")
     }
     
+    func test_onViewWillAppear_navigationBarShouldBeHidden() {
+        // Given
+        let screenMock = ServerDrivenScreenMock()
+        let sut = BeagleScreenViewController(
+            screenType: .declarative(screenMock),
+            flexConfigurator: FlexViewConfiguratorDummy(),
+            viewBuilder: BeagleViewBuilderDummy(),
+            serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy()
+        )
+        let navigation = UINavigationController(rootViewController: sut)
+        
+        // When
+        sut.viewWillAppear(false)
+        
+        // Then
+        XCTAssertTrue(navigation.isNavigationBarHidden, "Expected navigation bar to be hidden")
+    }
+    
     func test_whenLoadingADeclativeView_itShouldSetupTheWidgetViewProperly() {
         // Given
         let screenMock = ServerDrivenScreenMock()
@@ -146,7 +164,7 @@ struct ServerDrivenScreenMock: Screen {
 }
 
 final class ServerDrivenScreenLoaderDummy: ServerDrivenScreenLoader {
-    func loadScreen(from url: URL, completion: @escaping (Result<UIView, ServerDrivenScreenLoaderError>) -> Void) {}
+    func loadScreen(from url: URL, context: BeagleContext, completion: @escaping (Result<UIView, ServerDrivenScreenLoaderError>) -> Void) {}
 }
 
 final class FlexViewConfiguratorDummy: FlexViewConfiguratorProtocol {
@@ -163,7 +181,7 @@ final class ServerDrivenScreenLoaderStub: ServerDrivenScreenLoader {
         self.resultToReturn = resultToReturn
     }
     
-    func loadScreen(from url: URL, completion: @escaping (Result<UIView, ServerDrivenScreenLoaderError>) -> Void) {
+    func loadScreen(from url: URL, context: BeagleContext, completion: @escaping (Result<UIView, ServerDrivenScreenLoaderError>) -> Void) {
         completion(resultToReturn)
     }
     

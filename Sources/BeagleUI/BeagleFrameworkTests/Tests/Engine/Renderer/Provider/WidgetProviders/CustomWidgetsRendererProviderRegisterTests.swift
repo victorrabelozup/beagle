@@ -72,7 +72,7 @@ final class CustomWidgetsRendererProviderRegisterTests: XCTestCase {
 // MARK: - Testing Helpers
 private class DummyRenderer: WidgetViewRenderer<WidgetDummy> {
     
-    override func buildView() -> UIView {
+    override func buildView(context: BeagleContext) -> UIView {
         return DummyView()
     }
     

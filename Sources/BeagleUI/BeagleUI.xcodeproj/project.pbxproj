@@ -52,6 +52,10 @@
 		A0F4548D23798EA200B146A1 /* NavigatorEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F4548C23798EA200B146A1 /* NavigatorEntityTests.swift */; };
 		A0F454902379A48100B146A1 /* NavigatorWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F4548F2379A48100B146A1 /* NavigatorWidgetViewRenderer.swift */; };
 		A0F454922379D6BA00B146A1 /* NavigatorWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F454912379D6BA00B146A1 /* NavigatorWidgetViewRendererTests.swift */; };
+		A0F45496237AF16800B146A1 /* BeagleContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F45495237AF16800B146A1 /* BeagleContext.swift */; };
+		A0F45498237B87E900B146A1 /* BeagleNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F45497237B87E800B146A1 /* BeagleNavigator.swift */; };
+		A0F4549A237C1B0F00B146A1 /* BeagleNavigatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F45499237C1B0F00B146A1 /* BeagleNavigatorTests.swift */; };
+		A0F4549C237C474C00B146A1 /* BeagleContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F4549B237C474C00B146A1 /* BeagleContextTests.swift */; };
 		C62E8EAC2373581200FF1497 /* ScrollViewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62E8EAB2373581200FF1497 /* ScrollViewEntity.swift */; };
 		C62E8EAE2373588900FF1497 /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62E8EAD2373588900FF1497 /* ScrollView.swift */; };
 		C62E8EB023735DB300FF1497 /* ScrollViewWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62E8EAF23735DB300FF1497 /* ScrollViewWidgetViewRenderer.swift */; };
@@ -244,6 +248,10 @@
 		A0F4548C23798EA200B146A1 /* NavigatorEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorEntityTests.swift; sourceTree = "<group>"; };
 		A0F4548F2379A48100B146A1 /* NavigatorWidgetViewRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigatorWidgetViewRenderer.swift; sourceTree = "<group>"; };
 		A0F454912379D6BA00B146A1 /* NavigatorWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorWidgetViewRendererTests.swift; sourceTree = "<group>"; };
+		A0F45495237AF16800B146A1 /* BeagleContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeagleContext.swift; sourceTree = "<group>"; };
+		A0F45497237B87E800B146A1 /* BeagleNavigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeagleNavigator.swift; sourceTree = "<group>"; };
+		A0F45499237C1B0F00B146A1 /* BeagleNavigatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleNavigatorTests.swift; sourceTree = "<group>"; };
+		A0F4549B237C474C00B146A1 /* BeagleContextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleContextTests.swift; sourceTree = "<group>"; };
 		C62E8EAB2373581200FF1497 /* ScrollViewEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewEntity.swift; sourceTree = "<group>"; };
 		C62E8EAD2373588900FF1497 /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 		C62E8EAF23735DB300FF1497 /* ScrollViewWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewWidgetViewRenderer.swift; sourceTree = "<group>"; };
@@ -638,6 +646,8 @@
 			isa = PBXGroup;
 			children = (
 				E50B284423639299005E2E6D /* BeagleScreenViewControllerTests.swift */,
+				A0F45499237C1B0F00B146A1 /* BeagleNavigatorTests.swift */,
+				A0F4549B237C474C00B146A1 /* BeagleContextTests.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -727,7 +737,6 @@
 			children = (
 				E5CB5DC723566781009783A7 /* Util */,
 				E5A6F4C32358ED41008906F8 /* SpacerWidgetViewRenderer.swift */,
-				9303B08B2357B49A008BAA6D /* ContainerWidgetViewRenderer.swift */,
 				930A2B5923574B55003A945C /* FlexSingleWidgetViewRenderer.swift */,
 				930A2B5723574B23003A945C /* FlexWidgetViewRenderer.swift */,
 				9303B08B2357B49A008BAA6D /* ContainerWidgetViewRenderer.swift */,
@@ -818,6 +827,8 @@
 		E5A6F4CC2359050E008906F8 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				A0F45495237AF16800B146A1 /* BeagleContext.swift */,
+				A0F45497237B87E800B146A1 /* BeagleNavigator.swift */,
 				E5CB5D64234E7CF6009783A7 /* BeagleScreenViewController.swift */,
 			);
 			path = UI;
@@ -1396,6 +1407,7 @@
 				9368180F232A88B300E6E724 /* Vertical.swift in Sources */,
 				E52236C223745A7F00E555BB /* ListItemTableViewCell.swift in Sources */,
 				E5A6F4A92358A547008906F8 /* FatalErrorUtil.swift in Sources */,
+				A0F45498237B87E900B146A1 /* BeagleNavigator.swift in Sources */,
 				E5CB5DB5235508B9009783A7 /* NetworkImage.swift in Sources */,
 				C62E8EAE2373588900FF1497 /* ScrollView.swift in Sources */,
 				E5CB5DD023578967009783A7 /* UIComponentViewRendererProvider.swift in Sources */,
@@ -1405,6 +1417,7 @@
 				E5CE41CC233274BB00295277 /* SpacerEntity.swift in Sources */,
 				930A2B5823574B23003A945C /* FlexWidgetViewRenderer.swift in Sources */,
 				9397F5D12357615F00054D42 /* YogaTranslator.swift in Sources */,
+				A0F45496237AF16800B146A1 /* BeagleContext.swift in Sources */,
 				E5DD468B234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift in Sources */,
 				C62E8EB023735DB300FF1497 /* ScrollViewWidgetViewRenderer.swift in Sources */,
 				E5CE41D62332768700295277 /* ImageEntity.swift in Sources */,
@@ -1460,6 +1473,7 @@
 				E52236D423749FD300E555BB /* ListViewUIComponentTests.swift in Sources */,
 				E5CE4218233403E000295277 /* ContainerEntityTests.swift in Sources */,
 				E52236C623745CDC00E555BB /* NSObjectExtensionTests.swift in Sources */,
+				A0F4549A237C1B0F00B146A1 /* BeagleNavigatorTests.swift in Sources */,
 				989F7AA523638C5700E4E0E8 /* WidgetTests.swift in Sources */,
 				E759590C2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift in Sources */,
 				E5A6F4AD2358A76F008906F8 /* XCTestCase+FatalError.swift in Sources */,
@@ -1476,6 +1490,7 @@
 				E50B2841236350B9005E2E6D /* ServerDrivenWidgetFetcherTests.swift in Sources */,
 				E5CE421C2334049200295277 /* PaddingEntityTests.swift in Sources */,
 				980262B02345432B0025A9C3 /* FlexSingleWidgetTests.swift in Sources */,
+				A0F4549C237C474C00B146A1 /* BeagleContextTests.swift in Sources */,
 				E5CB5DC623565440009783A7 /* BeagleSetupTests.swift in Sources */,
 				E5CE421E233404A200295277 /* SpacerEntityTests.swift in Sources */,
 				E5CE4220233404B800295277 /* StackEntityTests.swift in Sources */,

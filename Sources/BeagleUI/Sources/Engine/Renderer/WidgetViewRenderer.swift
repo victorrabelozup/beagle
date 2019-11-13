@@ -23,7 +23,7 @@ public enum WidgetViewRenderingError: Error {
 
 public protocol WidgetViewRendererProtocol {
     init(_ widget: Widget) throws
-    func buildView() -> UIView
+    func buildView(context: BeagleContext) -> UIView
 }
 
 public class WidgetViewRenderer<W: Widget>: WidgetViewRendererProtocol {
@@ -46,7 +46,7 @@ public class WidgetViewRenderer<W: Widget>: WidgetViewRendererProtocol {
         self.flexViewConfigurator = flexViewConfigurator
     }
     
-    open func buildView() -> UIView {
+    open func buildView(context: BeagleContext) -> UIView {
         fatalError("This needs to be overriden.")
     }
     

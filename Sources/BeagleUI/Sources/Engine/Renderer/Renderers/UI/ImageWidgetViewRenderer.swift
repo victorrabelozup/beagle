@@ -10,7 +10,7 @@ import UIKit
 
 final class ImageWidgetViewRenderer: WidgetViewRenderer<Image> {
     
-    override func buildView() -> UIView {
+    override func buildView(context: BeagleContext) -> UIView {
         let image = UIImageView(frame: .zero)
         image.contentMode = widget.contentMode.toUIKit()
         image.setImageFromAsset(named: widget.name)

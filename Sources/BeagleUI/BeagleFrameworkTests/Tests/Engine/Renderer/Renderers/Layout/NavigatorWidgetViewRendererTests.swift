@@ -24,9 +24,10 @@ final class NavigatorWidgetViewRendererTests: XCTestCase {
             XCTFail("Could not create renderer.")
             return
         }
+        let context = BeagleContextDummy()
                 
         // When
-        let _ = renderer.buildView()
+        let _ = renderer.buildView(context: context)
         
         // Then
         XCTAssertEqual(widgetRendererProvider.buildRendererCount, 1, "Expected to call `buildRenderer` once.")

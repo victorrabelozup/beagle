@@ -22,8 +22,9 @@ final class ListViewUIComponentTests: XCTestCase {
             ],
             direction: direction
         )
+        let context = BeagleContextDummy()
         guard let widgetViews = widget.rows?.compactMap({
-            try? TextWidgetViewRenderer(widget: $0).buildView()
+            try? TextWidgetViewRenderer(widget: $0).buildView(context: context)
         }) else {
             XCTFail("Could not create widget row views.")
             return
@@ -59,8 +60,9 @@ final class ListViewUIComponentTests: XCTestCase {
             ],
             direction: .vertical
         )
+        let context = BeagleContextDummy()
         guard let widgetViews = widget.rows?.compactMap({
-            try? TextWidgetViewRenderer(widget: $0).buildView()
+            try? TextWidgetViewRenderer(widget: $0).buildView(context: context)
         }) else {
             XCTFail("Could not create widget row views.")
             return
@@ -88,8 +90,9 @@ final class ListViewUIComponentTests: XCTestCase {
             rows: [Text("Item 1")],
             direction: .vertical
         )
+        let context = BeagleContextDummy()
         guard let widgetViews = widget.rows?.compactMap({
-            try? TextWidgetViewRenderer(widget: $0).buildView()
+            try? TextWidgetViewRenderer(widget: $0).buildView(context: context)
         }) else {
             XCTFail("Could not create widget row views.")
             return
@@ -122,8 +125,9 @@ final class ListViewUIComponentTests: XCTestCase {
             rows: [Text("Item 1")],
             direction: .vertical
         )
+        let context = BeagleContextDummy()
         guard let widgetViews = widget.rows?.compactMap({
-            try? TextWidgetViewRenderer(widget: $0).buildView()
+            try? TextWidgetViewRenderer(widget: $0).buildView(context: context)
         }) else {
             XCTFail("Could not create widget row views.")
             return

@@ -29,9 +29,10 @@ final class BeagleViewBuilderTests: XCTestCase {
         // Given
         let sut = BeagleViewBuilding()
         let widget = Text("Text")
+        let context = BeagleContextDummy()
         
         // When
-        let rootView = sut.buildFromRootWidget(widget)
+        let rootView = sut.buildFromRootWidget(widget, context: context)
         
         // Then
         XCTAssertTrue(rootView is UILabel, "Expected a `UITextField`, but got \(String(describing: rootView)).")

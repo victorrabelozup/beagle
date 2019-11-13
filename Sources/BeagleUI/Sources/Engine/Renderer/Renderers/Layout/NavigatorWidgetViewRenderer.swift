@@ -10,13 +10,16 @@ import UIKit
 
 final class NavigatorWidgetViewRenderer: WidgetViewRenderer<Navigator> {
     
+    private var context: BeagleContext?
+    
     // MARK: - Public Functions
     
-    override func buildView() -> UIView {
+    override func buildView(context: BeagleContext) -> UIView {
         let child = widget.child
         let childRenderer = rendererProvider.buildRenderer(for: child)
-        let childView = childRenderer.buildView()
+        let childView = childRenderer.buildView(context: context)
+        context.register(action: widget.action, inView: childView)
         return childView
     }
-        
+    
 }

@@ -12,13 +12,13 @@ final class ListViewWidgetRenderer: WidgetViewRenderer<ListView> {
     
     // MARK: - Public Functions
     
-    override func buildView() -> UIView {
+    override func buildView(context: BeagleContext) -> UIView {
         
         let widgetViews = widget.rows?
             .compactMap {
                 rendererProvider
                     .buildRenderer(for: $0)
-                    .buildView()
+                    .buildView(context: context)
             } ?? []
     
         let model = ListViewUIComponent.Model(

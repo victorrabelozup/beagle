@@ -36,11 +36,12 @@ final class ServerDrivenScreenLoaderTests: XCTestCase {
             XCTFail("Could not create URL.")
             return
         }
+        let context = BeagleContextDummy()
         
         // When
         let loadScreenExpectation = expectation(description: "loadScreenExpectation")
         var errorThrown: ServerDrivenScreenLoaderError?
-        sut.loadScreen(from: url) { result in
+        sut.loadScreen(from: url, context: context) { result in
             if case let .failure(error) = result {
                 errorThrown = error
             }
@@ -70,11 +71,12 @@ final class ServerDrivenScreenLoaderTests: XCTestCase {
             XCTFail("Could not create URL.")
             return
         }
+        let context = BeagleContextDummy()
         
         // When
         let loadScreenExpectation = expectation(description: "loadScreenExpectation")
         var viewReturned: UIView?
-        sut.loadScreen(from: url) { result in
+        sut.loadScreen(from: url, context: context) { result in
             if case let .success(view) = result {
                 viewReturned = view
             }
@@ -106,7 +108,7 @@ final class ServerDrivenWidgetFetcherStub: ServerDrivenWidgetFetcher {
 }
 
 final class BeagleViewBuilderDummy: BeagleViewBuilder {
-    func buildFromRootWidget(_ widget: Widget) -> UIView {
+    func buildFromRootWidget(_ widget: Widget, context: BeagleContext) -> UIView {
         return UIView()
     }
 }
@@ -116,7 +118,7 @@ final class BeagleViewBuilderSpy: BeagleViewBuilder {
     private(set) var buildFromRootWidgetCalled = false
     private(set) var widgetPassed: Widget?
     var viewToReturn: UIView?
-    func buildFromRootWidget(_ widget: Widget) -> UIView {
+    func buildFromRootWidget(_ widget: Widget, context: BeagleContext) -> UIView {
         buildFromRootWidgetCalled = true
         widgetPassed = widget
         return viewToReturn ?? UIView()

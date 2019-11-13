@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let rootViewController = BeagleScreenViewController(screenType: .declarative(screen))
         
         window = UIWindow()
-        window?.rootViewController = rootViewController
+        window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         window?.makeKeyAndVisible()
         
         return true
@@ -45,6 +45,11 @@ private class ListViewScreen: Screen {
                 Text("Item 3")
                 Text("Item 4")
                 Text("Item 5")
+                Navigator(action: Navigate(
+                    type: .addView,
+                    path: "https://t001-2751a.firebaseapp.com/flow/step1.json")) {
+                        Text("Navigator")
+                }
                 Text("Item 6")
                 Text("Item 7")
                 Text("Item 8")

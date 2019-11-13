@@ -12,7 +12,7 @@ final class ButtonWidgetViewRenderer: WidgetViewRenderer<Button> {
     
     // MARK: - Public Functions
     
-    override func buildView() -> UIView {
+    override func buildView(context: BeagleContext) -> UIView {
         
         let button = UIButton(frame: .init(x: 0, y: 0, width: 100, height: 44))
         button.setTitle(widget.text, for: .normal)

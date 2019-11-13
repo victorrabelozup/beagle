@@ -161,7 +161,7 @@ final class CustomWidgetsRendererProviderDequeuingDummy: CustomWidgetsRendererPr
 }
 
 final class WidgetViewRendererDummy: WidgetViewRenderer<WidgetDummy> {
-    override func buildView() -> UIView { return UIView() }
+    override func buildView(context: BeagleContext) -> UIView { return UIView() }
 }
 
 final class CustomWidgetsRendererProviderDummy: CustomWidgetsRendererProviderDequeuing, CustomWidgetsRendererProviderRegistering {

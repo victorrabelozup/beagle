@@ -14,9 +14,9 @@ final class ScrollViewWidgetViewRenderer: WidgetViewRenderer<ScrollView> {
     
     // MARK: - Public Functions
     
-    override func buildView() -> UIScrollView {
+    override func buildView(context: BeagleContext) -> UIScrollView {
 
-        let scrollView = buildContentScrollView()
+        let scrollView = buildContentScrollView(context: context)
         scrollView.backgroundColor = .green
         
         flexViewConfigurator.setupFlex(Flex(), for: scrollView)
@@ -26,14 +26,14 @@ final class ScrollViewWidgetViewRenderer: WidgetViewRenderer<ScrollView> {
     
     // MARK: - Private Functions
     
-    private func buildContentScrollView() -> UIScrollView {
+    private func buildContentScrollView(context: BeagleContext) -> UIScrollView {
         
         let scrollView = BeagleContainerScrollView()
         let flex = Flex(grow: 1)
         let contentView = UIView()
         
         widget.children.forEach {
-            let childView = rendererProvider.buildRenderer(for: $0).buildView()
+            let childView = rendererProvider.buildRenderer(for: $0).buildView(context: context)
             contentView.addSubview(childView)
         }
         

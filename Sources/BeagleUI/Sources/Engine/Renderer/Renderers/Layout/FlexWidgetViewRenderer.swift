@@ -13,12 +13,12 @@ final class FlexWidgetViewRenderer: WidgetViewRenderer<FlexWidget> {
     
     // MARK: - Public Functions
     
-    override func buildView() -> UIView {
+    override func buildView(context: BeagleContext) -> UIView {
         
         let containerView = UIView()
         
         widget.children.forEach {
-            let childView = rendererProvider.buildRenderer(for: $0).buildView()
+            let childView = rendererProvider.buildRenderer(for: $0).buildView(context: context)
             containerView.addSubview(childView)
         }
         

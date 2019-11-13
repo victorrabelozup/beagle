@@ -26,6 +26,7 @@ final class ImageWidgetViewRendererTests: XCTestCase {
         let imageName = "teste"
         let expectedContentMode: UIImageView.ContentMode = .scaleToFill
         let widget = Image(name: imageName, contentMode: .fitXY)
+        let context = BeagleContextDummy()
         
         //When
         guard let imageWidgetRenderer = try? ImageWidgetViewRenderer(widget) else {
@@ -33,7 +34,7 @@ final class ImageWidgetViewRendererTests: XCTestCase {
             return
         }
         
-        guard let imageView = imageWidgetRenderer.buildView() as? UIImageView else {
+        guard let imageView = imageWidgetRenderer.buildView(context: context) as? UIImageView else {
             XCTFail("Build View not returning UIImageView")
             return
         }

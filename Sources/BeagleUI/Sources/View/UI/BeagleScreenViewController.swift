@@ -23,7 +23,7 @@ public class BeagleScreenViewController: UIViewController {
     
     // MARK: - Dependencies
     
-    private let screenType: ScreenType
+    let screenType: ScreenType
     private let flexConfigurator: FlexViewConfiguratorProtocol
     private let viewBuilder: BeagleViewBuilder
     private let serverDrivenScreenLoader: ServerDrivenScreenLoader
@@ -73,6 +73,11 @@ public class BeagleScreenViewController: UIViewController {
         loadScreen()
     }
     
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     // MARK: - Private Functions
     
     private func setupView() {
@@ -82,7 +87,7 @@ public class BeagleScreenViewController: UIViewController {
     private func loadScreen() {
         switch screenType {
         case let .declarative(screen):
-            loadDeclarativeScreenWithRootWidget(screen.content)
+            loadDeclarativeScreenWithRootWidget(screen.content, context: self)
         case let .remote(url):
             loadScreenFromURL(url)
         }
@@ -90,8 +95,8 @@ public class BeagleScreenViewController: UIViewController {
     
     // MARK: - Declarative Screen Loading
     
-    private func loadDeclarativeScreenWithRootWidget(_ widget: Widget) {
-        let declarativeView = viewBuilder.buildFromRootWidget(widget)
+    private func loadDeclarativeScreenWithRootWidget(_ widget: Widget, context: BeagleContext) {
+        let declarativeView = viewBuilder.buildFromRootWidget(widget, context: context)
         setupWidgetView(declarativeView)
     }
     
@@ -99,7 +104,7 @@ public class BeagleScreenViewController: UIViewController {
     
     private func loadScreenFromURL(_ url: URL) {
         view.showLoading(.whiteLarge)
-        serverDrivenScreenLoader.loadScreen(from: url) { [weak self] result in
+        serverDrivenScreenLoader.loadScreen(from: url, context: self) { [weak self] result in
             self?.view.hideLoading()
             switch result {
             case let .success(view):

@@ -24,6 +24,7 @@ final class TextWidgetViewRendererTests: XCTestCase {
     func test_onInitWithTextWidget_shouldReturnUILabelInstanceWithIntegratedValues() {
         // Given
         let widget = Text("Test")
+        let context = BeagleContextDummy()
         
         // When
         guard let textViewRenderer = try? TextWidgetViewRenderer(widget) else {
@@ -31,7 +32,7 @@ final class TextWidgetViewRendererTests: XCTestCase {
             return
         }
         
-        guard let label = textViewRenderer.buildView() as? UILabel else {
+        guard let label = textViewRenderer.buildView(context: context) as? UILabel else {
             XCTFail("Unable to type cast to UILabel.")
             return
         }

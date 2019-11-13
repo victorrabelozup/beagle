@@ -17,9 +17,10 @@ final class UnknownWidgetViewRendererTests: XCTestCase {
         let unknownWidgetViewRenderer = UnknownWidgetViewRenderer(unknownWidget)
         let anyWidget = AnyWidget(value: unknownWidget as Any)
         let expectedText = "Unknown Widget of type:\n \(String(describing: anyWidget))"
+        let context = BeagleContextDummy()
         
         // When
-        let builtView = unknownWidgetViewRenderer.buildView()
+        let builtView = unknownWidgetViewRenderer.buildView(context: context)
         guard let widgetView = builtView as? UILabel else {
             XCTFail("Expected a UILabel, but got \(String(describing: type(of: builtView))).")
             return

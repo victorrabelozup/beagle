@@ -9,7 +9,7 @@
 import UIKit
 
 public protocol BeagleViewBuilder {
-    func buildFromRootWidget(_ widget: Widget) -> UIView
+    func buildFromRootWidget(_ widget: Widget, context: BeagleContext) -> UIView
 }
 
 public final class BeagleViewBuilding: BeagleViewBuilder {
@@ -35,9 +35,9 @@ public final class BeagleViewBuilding: BeagleViewBuilder {
     
     // MARK: - Public Functions
     
-    public func buildFromRootWidget(_ widget: Widget) -> UIView {
+    public func buildFromRootWidget(_ widget: Widget, context: BeagleContext) -> UIView {
         let renderer = rendererProvider.buildRenderer(for: widget)
-        let view = renderer.buildView()
+        let view = renderer.buildView(context: context)
         return view
     }
     

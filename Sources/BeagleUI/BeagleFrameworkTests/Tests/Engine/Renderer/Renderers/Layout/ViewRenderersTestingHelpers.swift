@@ -14,11 +14,15 @@ import XCTest
 final class WidgetViewRendererProtocolDummy: WidgetViewRendererProtocol {
     init() { }
     init(_ widget: Widget) throws {}
-    func buildView() -> UIView { return UIView() }
+    func buildView(context: BeagleContext) -> UIView { return UIView() }
 }
 
 class WidgetRendererProviderDummy: WidgetRendererProvider {
     func buildRenderer(for widget: Widget) -> WidgetViewRendererProtocol {
         return WidgetViewRendererProtocolDummy()
     }
+}
+
+class BeagleContextDummy: BeagleContext {
+    func register(action: Action, inView view: UIView) {}
 }

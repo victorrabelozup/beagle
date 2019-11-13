@@ -29,9 +29,10 @@ final class ListViewWidgetRendererTests: XCTestCase {
                 XCTFail("Could not create renderer.")
                 return
         }
+        let context = BeagleContextDummy()
         
         // When
-        let resultingView = sut.buildView()
+        let resultingView = sut.buildView(context: context)
         guard let listUIComponent = resultingView as? ListViewUIComponent else {
             XCTFail("Expected `ListViewUIComponent`, but got \(String(describing: resultingView)).")
             return
@@ -58,9 +59,10 @@ final class ListViewWidgetRendererTests: XCTestCase {
                 XCTFail("Could not create renderer.")
                 return
         }
+        let context = BeagleContextDummy()
         
         // When
-        let resultingView = sut.buildView()
+        let resultingView = sut.buildView(context: context)
         guard let listUIComponent = resultingView as? ListViewUIComponent else {
             XCTFail("Expected `ListViewUIComponent`, but got \(String(describing: resultingView)).")
             return

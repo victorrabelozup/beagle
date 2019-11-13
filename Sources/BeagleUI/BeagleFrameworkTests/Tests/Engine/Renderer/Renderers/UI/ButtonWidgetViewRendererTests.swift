@@ -27,6 +27,7 @@ final class ButtonWidgetViewRendererTests: XCTestCase {
         //Given
         let buttonTitle = "title"
         let widget = Button(text: buttonTitle)
+        let context = BeagleContextDummy()
         
         //When
         guard let buttonWidgetRenderer = try? ButtonWidgetViewRenderer(widget) else {
@@ -34,7 +35,7 @@ final class ButtonWidgetViewRendererTests: XCTestCase {
             return
         }
         
-        guard let button: UIButton = buttonWidgetRenderer.buildView() as? UIButton else {
+        guard let button: UIButton = buttonWidgetRenderer.buildView(context: context) as? UIButton else {
             XCTFail("Build View not returning UIButton")
             return
         }

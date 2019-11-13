@@ -10,7 +10,7 @@ import UIKit
 
 final class TextWidgetViewRenderer: WidgetViewRenderer<Text> {
     
-    override func buildView() -> UIView {
+    override func buildView(context: BeagleContext) -> UIView {
         
         let label = UILabel(frame: .zero)
         label.text = widget.text

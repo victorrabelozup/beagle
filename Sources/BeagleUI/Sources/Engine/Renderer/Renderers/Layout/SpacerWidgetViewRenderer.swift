@@ -10,7 +10,7 @@ import UIKit
 
 final class SpacerWidgetViewRenderer: WidgetViewRenderer<Spacer> {
     
-    override func buildView() -> UIView {
+    override func buildView(context: BeagleContext) -> UIView {
         
         let flex = Flex(
             size: Flex.Size(

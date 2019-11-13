@@ -13,23 +13,23 @@ final class ContainerWidgetViewRenderer: WidgetViewRenderer<Container> {
     
     // MARK: - Public Functions
     
-    override func buildView() -> UIView {
+    override func buildView(context: BeagleContext) -> UIView {
 
         let view = UIView()
         if let header = widget.header {
             let renderer = rendererProvider.buildRenderer(for: header)
-            let headerView = renderer.buildView()
+            let headerView = renderer.buildView(context: context)
             headerView.backgroundColor = .red
             view.addSubview(headerView)
         }
         
-        let scrollView = buildContentScrollView()
+        let scrollView = buildContentScrollView(context: context)
         scrollView.backgroundColor = .green
         view.addSubview(scrollView)
         
         if let footer = widget.footer {
             let renderer = rendererProvider.buildRenderer(for: footer)
-            let footerView = renderer.buildView()
+            let footerView = renderer.buildView(context: context)
             footerView.backgroundColor = .gray
             view.addSubview(footerView)
         }
@@ -40,11 +40,11 @@ final class ContainerWidgetViewRenderer: WidgetViewRenderer<Container> {
     
     // MARK: - Private Functions
     
-    private func buildContentScrollView() -> UIScrollView {
+    private func buildContentScrollView(context: BeagleContext) -> UIScrollView {
         
         let scrollView = BeagleContainerScrollView()
         let flex = Flex(grow: 1)
-        let contentView = rendererProvider.buildRenderer(for: widget.content).buildView()
+        let contentView = rendererProvider.buildRenderer(for: widget.content).buildView(context: context)
         scrollView.addSubview(contentView)
         
         flexViewConfigurator.setupFlex(flex, for: scrollView)

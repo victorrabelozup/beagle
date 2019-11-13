@@ -25,9 +25,10 @@ final class ScrollViewWidgetViewRendererTests: XCTestCase {
                 XCTFail("Could not create renderer.")
                 return
         }
+        let context = BeagleContextDummy()
         
         // When
-        let resultingView = renderer.buildView()
+        let resultingView = renderer.buildView(context: context)
         
         // Then
         XCTAssertTrue(flexConfiguratorSpy.setupFlexCalled, "Expected to call `applyFlex`.")

@@ -21,7 +21,7 @@ final class WidgetViewRendererTests: XCTestCase {
         
         // When / Then
         expectFatalError(expectedMessage: "This needs to be overriden.") {
-            _ = sut.buildView()
+            _ = sut.buildView(context: BeagleContextDummy())
         }
     }
     
