@@ -21,7 +21,6 @@ final class FlexSingleWidgetTests: XCTestCase {
         // Then
         XCTAssertNotNil(flex, "Expected a valid instance of type `Flex`, but got nil.")
         XCTAssertNotNil(widget, "Expected a valid instance of type `Widget`, but got nil.")
-        
     }
     
     func test_applyFlex_shouldReturnFlexWidget() {

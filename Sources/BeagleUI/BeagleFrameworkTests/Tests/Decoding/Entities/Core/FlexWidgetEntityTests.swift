@@ -14,7 +14,7 @@ final class FlexWidgetEntityTests: XCTestCase {
     func test_whenMapToWidgetIsCalled_thenItShouldReturnAFlexWidget() {
         // Given
         let content = TextEntity(text: "text")
-        let children = [WidgetEntityContainer(type: "beagle:Text", content: content)]
+        let children = [WidgetEntityContainer(type: "beagle:widget:text", content: content)]
         let flex = FlexEntity()
         let sut = FlexWidgetEntity(childrenContainer: children, flex: flex)
         
@@ -54,4 +54,5 @@ final class FlexWidgetEntityTests: XCTestCase {
         XCTAssertNotNil(object, "Expected a valid object, but found nil.")
         XCTAssertTrue(childrenCount > 0, "Expected object to have children.")
     }
+    
 }

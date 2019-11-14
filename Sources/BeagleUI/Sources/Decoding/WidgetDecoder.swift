@@ -154,8 +154,15 @@ final class WidgetDecoder: WidgetDecoding {
     
     private static func registerDefaultTypes() {
         registerCoreTypes()
+        registerFormModels()
         registerLayoutTypes()
         registerUITypes()
+    }
+    
+    private static func registerFormModels() {
+        WidgetEntityContainer.register(FormEntity.self, for: decodingKey(for: "Form"))
+        WidgetEntityContainer.register(FormSubmitEntity.self, for: decodingKey(for: "FormSubmit"))
+        WidgetEntityContainer.register(FormInputEntity.self, for: decodingKey(for: "FormInput"))
     }
     
     private static func registerCoreTypes() {
