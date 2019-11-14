@@ -34,6 +34,13 @@
 		980262B02345432B0025A9C3 /* FlexSingleWidgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980262AF2345432B0025A9C3 /* FlexSingleWidgetTests.swift */; };
 		9802EF3C234CFBAB00A7EE89 /* FlexEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9802EF3B234CFBAB00A7EE89 /* FlexEntityTests.swift */; };
 		9802EF46234D207E00A7EE89 /* WidgetRendererProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9802EF45234D207E00A7EE89 /* WidgetRendererProviderTests.swift */; };
+		981DB2E823748AF1001CE5E0 /* NetworkImageWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981DB2E723748AF1001CE5E0 /* NetworkImageWidgetViewRenderer.swift */; };
+		981DB2EB23748B2A001CE5E0 /* ImageDataProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981DB2EA23748B2A001CE5E0 /* ImageDataProviding.swift */; };
+		981DB2ED23748B68001CE5E0 /* NetworkImageWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981DB2EC23748B68001CE5E0 /* NetworkImageWidgetViewRendererTests.swift */; };
+		981DB2EF23748BAB001CE5E0 /* UnitValueExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981DB2EE23748BAB001CE5E0 /* UnitValueExtension.swift */; };
+		981DB2F22374C4B3001CE5E0 /* ImageDataProvidingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981DB2F12374C4B3001CE5E0 /* ImageDataProvidingTests.swift */; };
+		981DB2F52379D5D6001CE5E0 /* NetworkUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981DB2F32379D3DF001CE5E0 /* NetworkUIImageView.swift */; };
+		981DB2F7237A0FB1001CE5E0 /* NetworkUIImageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981DB2F6237A0FB1001CE5E0 /* NetworkUIImageViewTests.swift */; };
 		9841FD0123454B7B0069D7D2 /* FlexWidgetEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9841FD0023454B7B0069D7D2 /* FlexWidgetEntityTests.swift */; };
 		9841FD0323454F080069D7D2 /* FlexSingleWidgetEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9841FD0223454F080069D7D2 /* FlexSingleWidgetEntityTests.swift */; };
 		985EBA7B2354D1320042C19A /* WidgetViewRenderingErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985EBA7A2354D1320042C19A /* WidgetViewRenderingErrorTests.swift */; };
@@ -233,6 +240,13 @@
 		980262AF2345432B0025A9C3 /* FlexSingleWidgetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidgetTests.swift; sourceTree = "<group>"; };
 		9802EF3B234CFBAB00A7EE89 /* FlexEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexEntityTests.swift; sourceTree = "<group>"; };
 		9802EF45234D207E00A7EE89 /* WidgetRendererProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetRendererProviderTests.swift; sourceTree = "<group>"; };
+		981DB2E723748AF1001CE5E0 /* NetworkImageWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageWidgetViewRenderer.swift; sourceTree = "<group>"; };
+		981DB2EA23748B2A001CE5E0 /* ImageDataProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDataProviding.swift; sourceTree = "<group>"; };
+		981DB2EC23748B68001CE5E0 /* NetworkImageWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageWidgetViewRendererTests.swift; sourceTree = "<group>"; };
+		981DB2EE23748BAB001CE5E0 /* UnitValueExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitValueExtension.swift; sourceTree = "<group>"; };
+		981DB2F12374C4B3001CE5E0 /* ImageDataProvidingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDataProvidingTests.swift; sourceTree = "<group>"; };
+		981DB2F32379D3DF001CE5E0 /* NetworkUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUIImageView.swift; sourceTree = "<group>"; };
+		981DB2F6237A0FB1001CE5E0 /* NetworkUIImageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUIImageViewTests.swift; sourceTree = "<group>"; };
 		9841FD0023454B7B0069D7D2 /* FlexWidgetEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexWidgetEntityTests.swift; sourceTree = "<group>"; };
 		9841FD0223454F080069D7D2 /* FlexSingleWidgetEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidgetEntityTests.swift; sourceTree = "<group>"; };
 		985EBA7A2354D1320042C19A /* WidgetViewRenderingErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewRenderingErrorTests.swift; sourceTree = "<group>"; };
@@ -540,6 +554,26 @@
 			path = Layout;
 			sourceTree = "<group>";
 		};
+		981DB2E923748B12001CE5E0 /* NetworkImage */ = {
+			isa = PBXGroup;
+			children = (
+				981DB2EA23748B2A001CE5E0 /* ImageDataProviding.swift */,
+				981DB2E723748AF1001CE5E0 /* NetworkImageWidgetViewRenderer.swift */,
+				981DB2F32379D3DF001CE5E0 /* NetworkUIImageView.swift */,
+			);
+			path = NetworkImage;
+			sourceTree = "<group>";
+		};
+		981DB2F02374C4A0001CE5E0 /* NetworkImage */ = {
+			isa = PBXGroup;
+			children = (
+				981DB2EC23748B68001CE5E0 /* NetworkImageWidgetViewRendererTests.swift */,
+				981DB2F6237A0FB1001CE5E0 /* NetworkUIImageViewTests.swift */,
+				981DB2F12374C4B3001CE5E0 /* ImageDataProvidingTests.swift */,
+			);
+			path = NetworkImage;
+			sourceTree = "<group>";
+		};
 		A0F4547D23796EB100B146A1 /* Action */ = {
 			isa = PBXGroup;
 			children = (
@@ -616,6 +650,7 @@
 				E531D6B32359FE19007EEBA7 /* UIView+AutoLayout.swift */,
 				E531D6B92359FEE1007EEBA7 /* UIView+Loading.swift */,
 				E531D6BF235A30DB007EEBA7 /* NSErrorExtension.swift */,
+				981DB2EE23748BAB001CE5E0 /* UnitValueExtension.swift */,
 				E52236C323745CBB00E555BB /* NSObjectExtension.swift */,
 				E52236CE2374885600E555BB /* CollectionExtension.swift */,
 			);
@@ -793,10 +828,11 @@
 		E5A33FE5234BAD3400AB8EB0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E52236C02374544D00E555BB /* ListView */,
+				981DB2E923748B12001CE5E0 /* NetworkImage */,
 				E5CB5D782354ADF9009783A7 /* ButtonWidgetViewRenderer.swift */,
 				E5CB5D712354ADC7009783A7 /* TextWidgetViewRenderer.swift */,
 				E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */,
-				E52236C02374544D00E555BB /* ListView */,
 				E70B4EAD236B586700BBC921 /* ImageWidgetViewRenderer.swift */,
 			);
 			path = UI;
@@ -878,6 +914,7 @@
 		E5CB5D6B2354AC7C009783A7 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				981DB2F02374C4A0001CE5E0 /* NetworkImage */,
 				E5CB5D7C2354AE62009783A7 /* TextWidgetViewRendererTests.swift */,
 				E5CB5D7A2354AE13009783A7 /* ButtonWidgetViewRendererTests.swift */,
 				E5CB5D802354C08E009783A7 /* UnknownWidgetViewRendererTests.swift */,
@@ -1428,7 +1465,9 @@
 				A0F4548123796EE400B146A1 /* Action.swift in Sources */,
 				E5CB5D8F2354E4CD009783A7 /* BeagleEnvironment.swift in Sources */,
 				93681803232A884F00E6E724 /* UnitValue.swift in Sources */,
+				981DB2EF23748BAB001CE5E0 /* UnitValueExtension.swift in Sources */,
 				E50B0902234CCAB90091AF0A /* WidgetRendererProvider.swift in Sources */,
+				981DB2E823748AF1001CE5E0 /* NetworkImageWidgetViewRenderer.swift in Sources */,
 				E531D6C1235A3230007EEBA7 /* NSErrorExtension.swift in Sources */,
 				E5CB5DB7235508CE009783A7 /* ImageContentMode.swift in Sources */,
 				9368180F232A88B300E6E724 /* Vertical.swift in Sources */,
@@ -1455,6 +1494,7 @@
 				936817FF232A883E00E6E724 /* Flex.swift in Sources */,
 				93681805232A886C00E6E724 /* Container.swift in Sources */,
 				E5CB5D65234E7CF6009783A7 /* BeagleScreenViewController.swift in Sources */,
+				981DB2F52379D5D6001CE5E0 /* NetworkUIImageView.swift in Sources */,
 				E52236CB23745DED00E555BB /* HTTPRequestCanceling.swift in Sources */,
 				E5CE41AE2331D9A700295277 /* TextEntity.swift in Sources */,
 				93681817232A8D6E00E6E724 /* ListView.swift in Sources */,
@@ -1466,6 +1506,7 @@
 				E5CE41CE233274CA00295277 /* StackEntity.swift in Sources */,
 				E531D6B12359FD18007EEBA7 /* LoadingView.swift in Sources */,
 				E52236CD23745E8E00E555BB /* ListViewUIComponent.swift in Sources */,
+				981DB2EB23748B2A001CE5E0 /* ImageDataProviding.swift in Sources */,
 				E56A02B423451CE900C0F23D /* FlexWidgetEntity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1482,6 +1523,7 @@
 				E50B28432363839E005E2E6D /* ServerDrivenScreenLoaderTests.swift in Sources */,
 				E5CB5DC32356375E009783A7 /* CustomWidgetsRendererProviderRegisterTests.swift in Sources */,
 				E57FBB86233ABF3F00165D8D /* DataPreprocessorTests.swift in Sources */,
+				981DB2F7237A0FB1001CE5E0 /* NetworkUIImageViewTests.swift in Sources */,
 				985EBA93235661F60042C19A /* NetworkImageEntityTests.swift in Sources */,
 				9802EF3C234CFBAB00A7EE89 /* FlexEntityTests.swift in Sources */,
 				E5CE43182335052100295277 /* UIEnumModelConvertibleTests.swift in Sources */,
@@ -1504,6 +1546,7 @@
 				989F7AA523638C5700E4E0E8 /* WidgetTests.swift in Sources */,
 				E759590C2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift in Sources */,
 				E5A6F4AD2358A76F008906F8 /* XCTestCase+FatalError.swift in Sources */,
+				981DB2ED23748B68001CE5E0 /* NetworkImageWidgetViewRendererTests.swift in Sources */,
 				E5CB5D7B2354AE13009783A7 /* ButtonWidgetViewRendererTests.swift in Sources */,
 				E5B052BE23706395008EB9BE /* LoadingViewTests.swift in Sources */,
 				9367F9AF237C415800231A9C /* ThemeTests.swift in Sources */,
@@ -1541,6 +1584,7 @@
 				E516E61023705BED006620B1 /* BeagleViewBuilderTests.swift in Sources */,
 				E56A02D223462C0900C0F23D /* WidgetBuildersTests.swift in Sources */,
 				E5A6F4BE2358ECA1008906F8 /* FlexViewConfiguratorTests.swift in Sources */,
+				981DB2F22374C4B3001CE5E0 /* ImageDataProvidingTests.swift in Sources */,
 				E5CE42112334007D00295277 /* TextEntityTests.swift in Sources */,
 				985EBA7B2354D1320042C19A /* WidgetViewRenderingErrorTests.swift in Sources */,
 				C65F25352375DAE9007670EC /* ScrollViewEntityTests.swift in Sources */,

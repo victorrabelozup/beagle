@@ -41,4 +41,24 @@ final class UIComponentViewRendererProvidingTests: XCTestCase {
         XCTAssert(textWidgetViewRenderer is TextWidgetViewRenderer, "Expected to build a text widget view renderer, but has built \(String(describing: type(of: textWidgetViewRenderer))).")
     }
 
+    func test_whenImage_shouldReturnImageWigetViewRenderer() {
+        // Given
+        let widget = Image(name: "teste")
+        let renderer = WidgetRendererProviding()
+        // When
+        let imageWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        // Then
+        XCTAssert(imageWidgetViewRenderer is ImageWidgetViewRenderer, "Expected to build a image widget view renderer, but has built \(String(describing: type(of: imageWidgetViewRenderer))).")
+    }
+    
+    func test_whenNetworkImage_shouldReturnImageWigetViewRenderer() {
+        // Given
+        let widget = NetworkImage(url: "www.some.com")
+        let renderer = WidgetRendererProviding()
+        // When
+        let networkImageWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        // Then
+        XCTAssert(networkImageWidgetViewRenderer is NetworkImageWidgetViewRenderer, "Expected to build a network image widget view renderer, but has built \(String(describing: type(of: networkImageWidgetViewRenderer))).")
+    }
+
 }

@@ -38,8 +38,13 @@ struct ListViewEntity: WidgetEntity {
         remoteDataSource: String?,
         loadingStateContainer: WidgetEntityContainer?
     ) {
+        
         self.rowsContainer = rowsContainer
-        rows = rowsContainer?.compactMap { $0.content } ?? []
+        var rows = [WidgetConvertibleEntity]()
+        if let rowsContainer = rowsContainer {
+            rows = rowsContainer.compactMap { $0.content }
+        }
+        self.rows = rows
         
         self.remoteDataSource = remoteDataSource
         

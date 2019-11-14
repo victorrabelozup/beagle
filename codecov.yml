@@ -5,11 +5,14 @@ codecov:
 coverage:
   precision: 2
   round: down
-  range: "60...100"
-
+  range: "70...100"
   status:
-    project: yes
-    patch: yes
+    project:
+      default:
+        target: auto
+        threshold: 4%
+        base: auto 
+    patch: no
     changes: no
 
 parsers:
@@ -21,9 +24,9 @@ parsers:
       macro: no
 
 comment:
-  layout: "header, diff"
+  layout: "reach, diff, flags"
   behavior: default
-  require_changes: no
+  require_changes: false
 
 ignore:
  - "Sources/BeagleUI/BeagleFrameworkTests/.*"
