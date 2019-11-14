@@ -16,14 +16,14 @@ extension BeagleScreenViewController: BeagleContext {
         view.isUserInteractionEnabled = true
     }
     
-    @objc private func handleActionGesture(_ sender: ActionGestureRecognizer) {
+    @objc func handleActionGesture(_ sender: ActionGestureRecognizer) {
         if let action = sender.action as? Navigate {
             BeagleNavigator.navigate(action: action, source: self, animated: true)
         }
     }
 }
 
-private class ActionGestureRecognizer: UITapGestureRecognizer {
+final class ActionGestureRecognizer: UITapGestureRecognizer {
     
     let action: Action
     
