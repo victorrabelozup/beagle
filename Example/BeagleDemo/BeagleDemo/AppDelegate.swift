@@ -1,3 +1,14 @@
+//
+//  AppDelegate.swift
+//  BeagleDemo
+//
+//  Created by Daniel Tes on 10/09/19.
+//  Copyright © 2019 Daniel Tes. All rights reserved.
+//
+import UIKit
+import BeagleUI
+
+@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
