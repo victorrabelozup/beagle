@@ -22,6 +22,8 @@ final class UIComponentViewRendererProviding: UIComponentViewRendererProvider {
             return try NetworkImageWidgetViewRenderer(widget)
         case is Text:
             return try TextWidgetViewRenderer(widget)
+        case is NavigationBar:
+            return try NavigationBarWidgetViewRenderer(widget)
         default:
             throw FailableWidgetRendererProviderError.couldNotFindRenrererForWidget(widget)
         }

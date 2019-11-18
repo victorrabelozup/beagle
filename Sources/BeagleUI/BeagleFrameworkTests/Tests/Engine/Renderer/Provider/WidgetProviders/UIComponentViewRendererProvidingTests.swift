@@ -60,5 +60,16 @@ final class UIComponentViewRendererProvidingTests: XCTestCase {
         // Then
         XCTAssert(networkImageWidgetViewRenderer is NetworkImageWidgetViewRenderer, "Expected to build a network image widget view renderer, but has built \(String(describing: type(of: networkImageWidgetViewRenderer))).")
     }
+    
+    func test_whenNavigationBar_shouldReturnNavigationBarWigetViewRenderer() {
+        // Given
+        let widget = NavigationBar(title: "Iti")
+        let renderer = WidgetRendererProviding()
+        // When
+        let navigationWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        // Then
+        XCTAssert(navigationWidgetViewRenderer is NavigationBarWidgetViewRenderer, "Expected to build a navigationBar widget view renderer, but has built \(String(describing: type(of: navigationWidgetViewRenderer))).")
+    }
+
 
 }

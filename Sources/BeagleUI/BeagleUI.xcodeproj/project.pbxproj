@@ -33,6 +33,11 @@
 		981DB2F22374C4B3001CE5E0 /* ImageDataProvidingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981DB2F12374C4B3001CE5E0 /* ImageDataProvidingTests.swift */; };
 		981DB2F52379D5D6001CE5E0 /* NetworkUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981DB2F32379D3DF001CE5E0 /* NetworkUIImageView.swift */; };
 		981DB2F7237A0FB1001CE5E0 /* NetworkUIImageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981DB2F6237A0FB1001CE5E0 /* NetworkUIImageViewTests.swift */; };
+		9835E200238304B600F7CBFA /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9835E1FF238304B600F7CBFA /* NavigationBar.swift */; };
+		9835E2022383054D00F7CBFA /* NavigationBarEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9835E2012383054D00F7CBFA /* NavigationBarEntity.swift */; };
+		9835E204238306A400F7CBFA /* NavigationBarWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9835E203238306A400F7CBFA /* NavigationBarWidgetViewRenderer.swift */; };
+		9835E20623830A5F00F7CBFA /* NavigationBarEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9835E20523830A5F00F7CBFA /* NavigationBarEntityTests.swift */; };
+		9835E20823830E1B00F7CBFA /* NavigationBarWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9835E20723830E1B00F7CBFA /* NavigationBarWidgetViewRendererTests.swift */; };
 		9841FD0123454B7B0069D7D2 /* FlexWidgetEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9841FD0023454B7B0069D7D2 /* FlexWidgetEntityTests.swift */; };
 		9841FD0323454F080069D7D2 /* FlexSingleWidgetEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9841FD0223454F080069D7D2 /* FlexSingleWidgetEntityTests.swift */; };
 		985EBA7B2354D1320042C19A /* WidgetViewRenderingErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985EBA7A2354D1320042C19A /* WidgetViewRenderingErrorTests.swift */; };
@@ -251,6 +256,11 @@
 		981DB2F12374C4B3001CE5E0 /* ImageDataProvidingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDataProvidingTests.swift; sourceTree = "<group>"; };
 		981DB2F32379D3DF001CE5E0 /* NetworkUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUIImageView.swift; sourceTree = "<group>"; };
 		981DB2F6237A0FB1001CE5E0 /* NetworkUIImageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUIImageViewTests.swift; sourceTree = "<group>"; };
+		9835E1FF238304B600F7CBFA /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NavigationBar.swift; path = Sources/DeclarativeViews/Models/UIComponents/NavigationBar.swift; sourceTree = SOURCE_ROOT; };
+		9835E2012383054D00F7CBFA /* NavigationBarEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarEntity.swift; sourceTree = "<group>"; };
+		9835E203238306A400F7CBFA /* NavigationBarWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarWidgetViewRenderer.swift; sourceTree = "<group>"; };
+		9835E20523830A5F00F7CBFA /* NavigationBarEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarEntityTests.swift; sourceTree = "<group>"; };
+		9835E20723830E1B00F7CBFA /* NavigationBarWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		9841FD0023454B7B0069D7D2 /* FlexWidgetEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexWidgetEntityTests.swift; sourceTree = "<group>"; };
 		9841FD0223454F080069D7D2 /* FlexSingleWidgetEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidgetEntityTests.swift; sourceTree = "<group>"; };
 		985EBA7A2354D1320042C19A /* WidgetViewRenderingErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewRenderingErrorTests.swift; sourceTree = "<group>"; };
@@ -517,6 +527,7 @@
 				E5223769237C3C1300E555BB /* Button.swift */,
 				E5223768237C3C1300E555BB /* ListView.swift */,
 				E5223767237C3C1300E555BB /* Text.swift */,
+				9835E1FF238304B600F7CBFA /* NavigationBar.swift */,
 			);
 			name = UIComponents;
 			path = ../UIComponents;
@@ -897,6 +908,7 @@
 				E5CB5D712354ADC7009783A7 /* TextWidgetViewRenderer.swift */,
 				E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */,
 				E70B4EAD236B586700BBC921 /* ImageWidgetViewRenderer.swift */,
+				9835E203238306A400F7CBFA /* NavigationBarWidgetViewRenderer.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -998,12 +1010,13 @@
 		E5CB5D6B2354AC7C009783A7 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E52236D02374996800E555BB /* ListView */,
 				981DB2F02374C4A0001CE5E0 /* NetworkImage */,
 				E5CB5D7C2354AE62009783A7 /* TextWidgetViewRendererTests.swift */,
 				E5CB5D7A2354AE13009783A7 /* ButtonWidgetViewRendererTests.swift */,
 				E5CB5D802354C08E009783A7 /* UnknownWidgetViewRendererTests.swift */,
 				E70B4EAF236B6B5600BBC921 /* ImageWidgetViewRendererTests.swift */,
-				E52236D02374996800E555BB /* ListView */,
+				9835E20723830E1B00F7CBFA /* NavigationBarWidgetViewRendererTests.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1154,6 +1167,7 @@
 				E5CE41D12332766900295277 /* ButtonEntity.swift */,
 				E5CE41D72332769500295277 /* ListViewEntity.swift */,
 				E5CE41AD2331D9A700295277 /* TextEntity.swift */,
+				9835E2012383054D00F7CBFA /* NavigationBarEntity.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1222,6 +1236,7 @@
 				985EBA8C2356467B0042C19A /* ListViewEntityTests.swift */,
 				985EBA9023565F180042C19A /* ImageEntityTests.swift */,
 				985EBA92235661F60042C19A /* NetworkImageEntityTests.swift */,
+				9835E20523830A5F00F7CBFA /* NavigationBarEntityTests.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1507,6 +1522,7 @@
 				E5CE41CA233274AE00295277 /* PaddingEntity.swift in Sources */,
 				E5223775237C3C4800E555BB /* Screen.swift in Sources */,
 				E5CE41D22332766900295277 /* ButtonEntity.swift in Sources */,
+				9835E200238304B600F7CBFA /* NavigationBar.swift in Sources */,
 				E522376C237C3C1300E555BB /* Button.swift in Sources */,
 				E531D6BA2359FEE1007EEBA7 /* UIView+Loading.swift in Sources */,
 				E5CB5DB923550CEF009783A7 /* WidgetRegisterItem.swift in Sources */,
@@ -1555,8 +1571,8 @@
 				E5CB5D732354ADC7009783A7 /* TextWidgetViewRenderer.swift in Sources */,
 				E5CB5D8F2354E4CD009783A7 /* BeagleEnvironment.swift in Sources */,
 				E522376B237C3C1300E555BB /* ListView.swift in Sources */,
+				9835E204238306A400F7CBFA /* NavigationBarWidgetViewRenderer.swift in Sources */,
 				E5223785237C3CC500E555BB /* FormSubmit.swift in Sources */,
-				93681803232A884F00E6E724 /* UnitValue.swift in Sources */,
 				981DB2EF23748BAB001CE5E0 /* UnitValueExtension.swift in Sources */,
 				E50B0902234CCAB90091AF0A /* WidgetRendererProvider.swift in Sources */,
 				981DB2E823748AF1001CE5E0 /* NetworkImageWidgetViewRenderer.swift in Sources */,
@@ -1588,6 +1604,7 @@
 				981DB2F52379D5D6001CE5E0 /* NetworkUIImageView.swift in Sources */,
 				E52236CB23745DED00E555BB /* HTTPRequestCanceling.swift in Sources */,
 				E5CE41AE2331D9A700295277 /* TextEntity.swift in Sources */,
+				9835E2022383054D00F7CBFA /* NavigationBarEntity.swift in Sources */,
 				E5CB5DCE23578837009783A7 /* LayoutViewRendererProvider.swift in Sources */,
 				E5CB5DBD2355FD0B009783A7 /* CustomWidgetsRendererProviderRegister.swift in Sources */,
 				93681807232A887A00E6E724 /* Horizontal.swift in Sources */,
@@ -1652,6 +1669,8 @@
 				E56A02C3234542B600C0F23D /* HorizontalTests.swift in Sources */,
 				E5CB5D812354C08E009783A7 /* UnknownWidgetViewRendererTests.swift in Sources */,
 				985EBA9D235667E00042C19A /* ImageContentModeTests.swift in Sources */,
+				9835E20623830A5F00F7CBFA /* NavigationBarEntityTests.swift in Sources */,
+				9835E20823830E1B00F7CBFA /* NavigationBarWidgetViewRendererTests.swift in Sources */,
 				E5A7763F237DA1F3002F5515 /* FormTests.swift in Sources */,
 				989F7AA123637F2800E4E0E8 /* LayoutViewRendererProviderTests.swift in Sources */,
 				E5CE431E2335402B00295277 /* ChildrenWidgetMappingTests.swift in Sources */,

@@ -31,7 +31,7 @@ final class ButtonWidgetViewRendererTests: XCTestCase {
         
         //When
         guard let buttonWidgetRenderer = try? ButtonWidgetViewRenderer(widget) else {
-            XCTFail("Could not render TextField.")
+            XCTFail("Could not render Button.")
             return
         }
         

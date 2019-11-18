@@ -111,7 +111,7 @@ extension Flex {
         public let vertical: UnitValue?
         public let all: UnitValue?
         
-        init(
+        public init(
             left: UnitValue? = nil,
             top: UnitValue? = nil,
             right: UnitValue? = nil,
