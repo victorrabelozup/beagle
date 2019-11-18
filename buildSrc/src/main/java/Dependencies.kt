@@ -33,7 +33,7 @@ object Versions {
 
     const val fresco = "2.0.0"
 
-    const val moshi = "1.8.0"
+    const val moshi = "1.9.1"
 
     const val soLoader = "0.5.1"
 

@@ -1,6 +1,7 @@
 package br.com.zup.beagleui.framework.data.deserializer.adapter
 
 import br.com.zup.beagleui.framework.setup.BeagleEnvironment
+import br.com.zup.beagleui.framework.widget.UndefinedWidget
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.layout.Container
 import br.com.zup.beagleui.framework.widget.layout.FlexSingleWidget
@@ -30,6 +31,7 @@ class WidgetJsonAdapterFactory {
         factory = registerLayoutClass(factory)
         factory = registerUIClass(factory)
         factory = registerCustomWidget(factory)
+        factory = registerUndefinedWidget(factory)
 
         return factory
     }
@@ -72,6 +74,12 @@ class WidgetJsonAdapterFactory {
         }
 
         return newFactory
+    }
+
+    private fun registerUndefinedWidget(
+        factory: PolymorphicJsonAdapterFactory<Widget>
+    ): PolymorphicJsonAdapterFactory<Widget> {
+        return factory.withDefaultValue(UndefinedWidget())
     }
 
     private inline fun <reified T : Widget> createNamespaceFor(): String {
