@@ -7,7 +7,7 @@ class NavigationBarTest {
 
     @Test
     fun build_navigationBar() {
-        val navigationBar = NavigationBar("test")
+        val navigationBar = NavigationBar("test", Button(""), Button(""))
 
         assertEquals("test", navigationBar.title)
     }
