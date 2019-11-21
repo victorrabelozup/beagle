@@ -13,7 +13,9 @@ struct BeagleNavigator {
     static func navigate(action: Navigate, source: UIViewController, animated: Bool = false) {
         switch action.type {
         case .openDeepLink:
-            openDeepLink()
+            if let path = action.path {
+                openDeepLink(path: path, source: source, animated: animated)
+            }
         case .swapView:
             if let url = urlFor(action: action) {
                 swapView(url: url, source: source, animated: animated)
@@ -44,7 +46,15 @@ struct BeagleNavigator {
         return URL(string: path)
     }
     
-    private static func openDeepLink() {
+    private static func openDeepLink(path: String, source: UIViewController, animated: Bool) {
+        do {
+            if let deepLinkHandler = BeagleEnvironment.shared.deepLinkHandler {
+                let viewController = try deepLinkHandler.getNaviteScreen(with: path, data: nil)
+                source.navigationController?.pushViewController(viewController, animated: animated)
+            }
+        } catch {
+            return
+        }
     }
     
     private static func swapView(url: URL, source: UIViewController, animated: Bool) {

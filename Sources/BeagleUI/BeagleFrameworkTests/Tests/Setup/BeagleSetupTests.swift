@@ -79,8 +79,24 @@ final class BeagleSetupTests: XCTestCase {
             return
         }
         
-        XCTAssertTrue(sharedInstance.registerCustomWidgetsCalled, "`registerCustomWidgets` should have been called on the invironment.")
+        XCTAssertTrue(sharedInstance.registerCustomWidgetsCalled, "`registerCustomWidgets` should have been called on the environment.")
         XCTAssertNotNil(sharedInstance.itemPassed, "An item should have been passed.")
+    }
+    
+    func test_start_shouldStartTheEnviromentWithDeepLinkHandlerConfigured() {
+        // Given
+        let environmentSpy = BeagleEnvironmentSpy.self
+        Beagle.didCallStart = false
+        Beagle.environment = environmentSpy
+        let deepLinkHandler = DeepLinkHandlerDummy()
+        
+        // When
+        Beagle.start(deepLinkHandler: deepLinkHandler)
+        
+        //Then
+        XCTAssertTrue(environmentSpy.initializeCalled)
+        XCTAssertNotNil(environmentSpy.deepLinkHandlerPassed)
+        XCTAssertTrue(deepLinkHandler === environmentSpy.deepLinkHandlerPassed as? DeepLinkHandlerDummy)
     }
     
     func test_start_shouldStartTheEnviromentWithAppThemeConfigured() {
@@ -124,6 +140,12 @@ final class BeagleSetupTests: XCTestCase {
 // MARK: - Testing Helpers
 
 final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
+    private(set) var deepLinkHandlerCalled = false
+    var deepLinkHandler: BeagleDeepLinkScreenManaging? {
+        deepLinkHandlerCalled = true
+        return DeepLinkHandlerDummy()
+    }
+    
     private(set) var appBundleCalled = false
     var appBundle: Bundle {
         appBundleCalled = true
@@ -160,26 +182,30 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
     static private(set) var initializeCalled = false
     static private(set) var bundlePassed: Bundle?
     static private(set) var applicationThemePassed: Theme?
+    static private(set) var deepLinkHandlerPassed: BeagleDeepLinkScreenManaging?
     static func initialize(appName: String,
                            decoder: WidgetDecoding,
                            networkingDispatcher: URLRequestDispatching,
                            customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderDequeuing & CustomWidgetsRendererProviderRegistering,
                            appBundle: Bundle,
+                           deepLinkHandler: BeagleDeepLinkScreenManaging?,
                            applicationTheme: Theme
     ) {
         _shared = BeagleEnvironmentSpy()
         initializeCalled = true
         bundlePassed = appBundle
         applicationThemePassed = applicationTheme
+        deepLinkHandlerPassed = deepLinkHandler
     }
     
-    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching?, appBundle: Bundle?, applicationTheme: Theme?) {
+    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching?, appBundle: Bundle?, deepLinkHandler: BeagleDeepLinkScreenManaging?, applicationTheme: Theme?) {
         initialize(
             appName: appName,
             decoder: WidgetDecodingDummy(),
             networkingDispatcher: networkingDispatcher ?? URLRequestDispatchingDummy(),
             customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderDummy(),
             appBundle: appBundle ?? Bundle.main,
+            deepLinkHandler: deepLinkHandler,
             applicationTheme: applicationTheme ?? AppThemeDummy()
         )
     }
@@ -196,6 +222,12 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
     func configureTheme(_ theme: Theme) {
         configureThemeCalled = true
         themePassed = theme
+    }
+}
+
+final class DeepLinkHandlerDummy: BeagleDeepLinkScreenManaging {
+    func getNaviteScreen(with path: String, data: [String : String]?) throws -> UIViewController {
+        return UIViewController()
     }
 }
 

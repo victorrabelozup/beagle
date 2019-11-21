@@ -26,6 +26,22 @@ final class BeagleNavigatorTests: XCTestCase {
         XCTAssertEqual(navigation.viewControllers, [firstViewController, secondViewController])
     }
     
+    func test_openDeepLink_shouldNotPushANativeScreenToNavigationWhenDeepLinkHandlerItsNotSet() {
+        // Given
+        if !Beagle.didCallStart {
+            Beagle.start()
+        }
+        let action = Navigate(type: .openDeepLink, path: "https://example.com/screen.json")
+        let firstViewController = UIViewController()
+        let navigation = UINavigationController(rootViewController: firstViewController)
+        
+        // When
+        BeagleNavigator.navigate(action: action, source: firstViewController)
+        
+        //Then
+        XCTAssertEqual(1, navigation.viewControllers.count)
+    }
+    
     func test_swapView_shouldReplaceNavigationStack() {
         // Given
         let action = Navigate(type: .swapView, path: "https://example.com/screen.json")

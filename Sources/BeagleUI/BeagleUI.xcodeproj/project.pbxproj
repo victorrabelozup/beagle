@@ -200,6 +200,7 @@
 		E759590C2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E759590B2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift */; };
 		E759590E2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E759590D2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift */; };
 		E7595912235E120600EB80C2 /* ViewRenderersTestingHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7595911235E120600EB80C2 /* ViewRenderersTestingHelpers.swift */; };
+		E7716B9D2375E9FF006E26F2 /* BeagleDeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7716B9C2375E9FF006E26F2 /* BeagleDeepLinkHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -427,6 +428,7 @@
 		E759590B2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		E759590D2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		E7595911235E120600EB80C2 /* ViewRenderersTestingHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRenderersTestingHelpers.swift; sourceTree = "<group>"; };
+		E7716B9C2375E9FF006E26F2 /* BeagleDeepLinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleDeepLinkHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -541,6 +543,7 @@
 				931B6E0C2374A9BB00DE73FD /* Theme */,
 				E5A6F4A62358A530008906F8 /* Common */,
 				E5CB5D892354E481009783A7 /* Setup */,
+				E723A6B7237DCC7700FFFFB0 /* DeepLink */,
 				E5CE41A02331D41500295277 /* Decoding */,
 				E5835BB9233D4F0900125140 /* DeclarativeViews */,
 				E56A02DC2347B69C00C0F23D /* Engine */,
@@ -1345,6 +1348,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		E723A6B7237DCC7700FFFFB0 /* DeepLink */ = {
+			isa = PBXGroup;
+			children = (
+				E7716B9C2375E9FF006E26F2 /* BeagleDeepLinkHandler.swift */,
+			);
+			path = DeepLink;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1580,6 +1591,8 @@
 				E50B0902234CCAB90091AF0A /* WidgetRendererProvider.swift in Sources */,
 				981DB2E823748AF1001CE5E0 /* NetworkImageWidgetViewRenderer.swift in Sources */,
 				E531D6C1235A3230007EEBA7 /* NSErrorExtension.swift in Sources */,
+				E5CB5DB7235508CE009783A7 /* ImageContentMode.swift in Sources */,
+				E7716B9D2375E9FF006E26F2 /* BeagleDeepLinkHandler.swift in Sources */,
 				9368180F232A88B300E6E724 /* Vertical.swift in Sources */,
 				E52236C223745A7F00E555BB /* ListItemTableViewCell.swift in Sources */,
 				E5A6F4A92358A547008906F8 /* FatalErrorUtil.swift in Sources */,

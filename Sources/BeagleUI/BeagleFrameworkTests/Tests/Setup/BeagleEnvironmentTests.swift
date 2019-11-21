@@ -23,9 +23,10 @@ final class BeagleEnvironmentTests: XCTestCase {
         // Given
         let appName = "AppName"
         let bundle = Bundle()
+        let deepLinkHandler = DeepLinkHandlerDummy()
         
         // When
-        BeagleEnvironment.initialize(appName: appName, appBundle: bundle)
+        BeagleEnvironment.initialize(appName: appName, appBundle: bundle, deepLinkHandler: deepLinkHandler)
         let environment = BeagleEnvironment.shared
         
         let mirror = Mirror(reflecting: environment)
@@ -41,6 +42,7 @@ final class BeagleEnvironmentTests: XCTestCase {
         XCTAssertNotNil(customWidgetsRendererProviderRegister, "Expected a `customWidgetsRendererProviderRegister` to be set.")
         XCTAssertTrue(environment.customWidgetsProvider is CustomWidgetsRendererProviderRegister)
         XCTAssertEqual(bundle, environment.appBundle, "Expected a `appBundle` to be set.")
+        XCTAssertNotNil(deepLinkHandler, "Expected a `deepLinkHandler` to be set.")
     }
     
     func test_initialize_whenAppBundleItsNotPassed_shouldSetMainBundle() {
@@ -49,7 +51,7 @@ final class BeagleEnvironmentTests: XCTestCase {
         let expectedBundle = Bundle.main
         
         // When
-        BeagleEnvironment.initialize(appName: appName)
+        BeagleEnvironment.initialize(appName: appName, deepLinkHandler: DeepLinkHandlerDummy())
         let environment = BeagleEnvironment.shared
         
         // Then
@@ -66,6 +68,7 @@ final class BeagleEnvironmentTests: XCTestCase {
             networkingDispatcher: URLRequestDispatchingDummy(),
             customWidgetsRendererProviderRegister: widgetRegisterSpy,
             appBundle: Bundle.main,
+            deepLinkHandler: DeepLinkHandlerDummy(),
             applicationTheme: AppThemeDummy()
         )
         let sut: BeagleEnvironmentProtocol = BeagleEnvironment.shared

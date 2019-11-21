@@ -16,6 +16,7 @@ protocol BeagleEnvironmentProtocol {
     var customWidgetsProvider: CustomWidgetsRendererProviderDequeuing { get }
     var appBundle: Bundle { get }
     var applicationTheme: Theme { get }
+    var deepLinkHandler: BeagleDeepLinkScreenManaging? { get }
     // MARK: - Singleton
     static var shared: BeagleEnvironmentProtocol { get }
     // MARK: - Initialization
@@ -25,12 +26,12 @@ protocol BeagleEnvironmentProtocol {
         networkingDispatcher: URLRequestDispatching,
         customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing,
         appBundle: Bundle,
+        deepLinkHandler: BeagleDeepLinkScreenManaging?,
         applicationTheme: Theme
     )
-    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching?, appBundle: Bundle?, applicationTheme: Theme?)
+    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching?, appBundle: Bundle?, deepLinkHandler: BeagleDeepLinkScreenManaging?, applicationTheme: Theme?)
     // MARK: - Public Functions
     func registerCustomWidget<E: WidgetConvertibleEntity, W: Widget>(_ item: WidgetRegisterItem<E, W>)
-    
     func configureTheme(_ theme: Theme)
 }
 
@@ -41,6 +42,7 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
     private let _networkingDispatcher: URLRequestDispatching
     private let customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing
     private let _appBundle: Bundle
+    private let _deepLinkHandler: BeagleDeepLinkScreenManaging?
     private var _applicationTheme: Theme
     
     // MARK: - Public Properties
@@ -49,6 +51,7 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
     var networkingDispatcher: URLRequestDispatching { _networkingDispatcher }
     var customWidgetsProvider: CustomWidgetsRendererProviderDequeuing { customWidgetsRendererProviderRegister }
     var appBundle: Bundle { _appBundle }
+    var deepLinkHandler: BeagleDeepLinkScreenManaging? { _deepLinkHandler }
     var applicationTheme: Theme { _applicationTheme }
     
     // MARK: - Singleton
@@ -68,12 +71,14 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
         networkingDispatcher: URLRequestDispatching,
         customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing,
         appBundle: Bundle,
+        deepLinkHandler: BeagleDeepLinkScreenManaging?,
         applicationTheme: Theme
     ) {
         self._decoder = decoder
         self._networkingDispatcher = networkingDispatcher
         self.customWidgetsRendererProviderRegister = customWidgetsRendererProviderRegister
         self._appBundle = appBundle
+        self._deepLinkHandler = deepLinkHandler
         self._applicationTheme = applicationTheme
     }
     
@@ -85,6 +90,7 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
         networkingDispatcher: URLRequestDispatching,
         customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing = CustomWidgetsRendererProviderRegister(),
         appBundle: Bundle,
+        deepLinkHandler: BeagleDeepLinkScreenManaging?,
         applicationTheme: Theme
     ) {
         let decoderInstance = decoder
@@ -93,14 +99,15 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
             networkingDispatcher: networkingDispatcher,
             customWidgetsRendererProviderRegister: customWidgetsRendererProviderRegister,
             appBundle: appBundle,
+            deepLinkHandler: deepLinkHandler,
             applicationTheme: applicationTheme
         )
     }
     
-    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching? = nil, appBundle: Bundle? = nil, applicationTheme: Theme? = nil) {
+    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching? = nil, appBundle: Bundle? = nil, deepLinkHandler: BeagleDeepLinkScreenManaging? = nil, applicationTheme: Theme? = nil) {
         let decoder = WidgetDecoder(namespace: appName)
         let dispatcher = networkingDispatcher ?? URLSessionDispatcher()
-        initialize(appName: appName, decoder: decoder, networkingDispatcher: dispatcher, appBundle: appBundle ?? Bundle.main, applicationTheme: applicationTheme ?? AppTheme(styles: [:]))
+        initialize(appName: appName, decoder: decoder, networkingDispatcher: dispatcher, appBundle: appBundle ?? Bundle.main, deepLinkHandler: deepLinkHandler, applicationTheme: applicationTheme ?? AppTheme(styles: [:]))
     }
     
     func registerCustomWidget<E: WidgetConvertibleEntity, W: Widget>(_ item: WidgetRegisterItem<E, W>) {
