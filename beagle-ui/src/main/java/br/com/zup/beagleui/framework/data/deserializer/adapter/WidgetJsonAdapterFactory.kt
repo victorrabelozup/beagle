@@ -9,6 +9,8 @@ import br.com.zup.beagleui.framework.widget.layout.FlexWidget
 import br.com.zup.beagleui.framework.widget.layout.Horizontal
 import br.com.zup.beagleui.framework.widget.layout.Spacer
 import br.com.zup.beagleui.framework.widget.layout.Stack
+import br.com.zup.beagleui.framework.widget.layout.StatefulWidget
+import br.com.zup.beagleui.framework.widget.layout.UpdatableWidget
 import br.com.zup.beagleui.framework.widget.layout.Vertical
 import br.com.zup.beagleui.framework.widget.navigation.Navigator
 import br.com.zup.beagleui.framework.widget.ui.Button
@@ -46,6 +48,8 @@ class WidgetJsonAdapterFactory {
             .withSubtype(Horizontal::class.java, createNamespaceFor<Horizontal>())
             .withSubtype(Stack::class.java, createNamespaceFor<Stack>())
             .withSubtype(Spacer::class.java, createNamespaceFor<Spacer>())
+            .withSubtype(StatefulWidget::class.java, createNamespaceFor<StatefulWidget>())
+            .withSubtype(UpdatableWidget::class.java, createNamespaceFor<UpdatableWidget>())
     }
 
     private fun registerUIClass(

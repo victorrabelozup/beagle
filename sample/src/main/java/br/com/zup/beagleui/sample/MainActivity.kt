@@ -1,8 +1,11 @@
 package br.com.zup.beagleui.sample
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import br.com.zup.beagleui.framework.view.BeagleUIActivity
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import br.com.zup.beagleui.sample.fragment.StatefulFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -10,24 +13,37 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        // Get the support action bar
+        val actionBar = supportActionBar
 
-        /*
-        * Container com scroll na tela inteira
-        * http://www.mocky.io/v2/5d854ba2320000690707b219
-        */
+        // Set the action bar title, subtitle and elevation
+        actionBar!!.title = "Beagle Sample"
+        actionBar.elevation = 4.0F
+    }
 
-        /*
-        * Container com elementos que não dão scroll
-        * http://www.mocky.io/v2/5d855b4b320000b90607b244
-        */
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_navigation_drawer, menu)
+        return true
+    }
 
-        /*
-        * Container com elementos que não dão scroll e sem footer
-        * http://www.mocky.io/v2/5d88da4e33000020e6d7dc27
-        */
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        menuSelected(itemSelected = item.itemId)
+        return super.onOptionsItemSelected(item)
+    }
 
-        btFetchWidgets.setOnClickListener {
-            startActivity(BeagleUIActivity.newIntent(this, "http://www.mocky.io/v2/5dc99f492f0000560073ee42"))
+    private fun menuSelected(itemSelected: Int) {
+        when (itemSelected) {
+            R.id.stateful -> goToFragment(StatefulFragment.newInstance())
+
+            else -> {
+            }
         }
     }
+
+    private fun goToFragment(fragment: Fragment) {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragment_content, fragment)
+        fragmentTransaction.commit()
+    }
+
 }

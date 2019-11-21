@@ -21,7 +21,6 @@ object Versions {
     const val minSdk = 19
     const val targetSdk = 29
     const val buildTools = "29.0.2"
-
     const val kotlin = "1.3.41"
     const val kotlinCoroutines = "1.3.1"
 
@@ -37,7 +36,7 @@ object Versions {
 
     const val findsBug = "3.0.1"
 
-    const val beagleDeclarative = "0.0.8-20191113.211527-1"
+    const val beagleDeclarative = "0.0.8"
 
     const val glide = "4.9.0"
 

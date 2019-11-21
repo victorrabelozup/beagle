@@ -41,10 +41,12 @@ task jacocoTestReport(type: JacocoReport, overwrite: true) {
         html.enabled = true
     }
 
-    sourceDirectories = files([javaSrc, kotlinSrc])
-    classDirectories = files([javaClasses, kotlinClasses])
-    executionData = fileTree(dir: project.buildDir, includes: [
+    getSourceDirectories().setFrom([javaSrc, kotlinSrc])
+    getClassDirectories().setFrom([javaClasses, kotlinClasses])
+    getExecutionData().setFrom([fileTree(dir: project.buildDir, includes: [
             'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/**/*.ec'
-    ])
+    ])], [fileTree(dir: "${System.env.VDTESTING_DOWNLOADED_FILES_DIR}", includes: [
+            '*sdcard_coverage.ec'
+    ])])
 
 }

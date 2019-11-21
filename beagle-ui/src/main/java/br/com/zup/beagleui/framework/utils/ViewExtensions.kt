@@ -1,5 +1,6 @@
 package br.com.zup.beagleui.framework.utils
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
@@ -9,7 +10,6 @@ import br.com.zup.beagleui.framework.view.BeagleView
 import br.com.zup.beagleui.framework.view.StateChangedListener
 import br.com.zup.beagleui.framework.view.ViewFactory
 import android.app.Activity
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 
 internal var viewExtensionsViewFactory = ViewFactory()
@@ -47,4 +47,27 @@ internal fun View.hideKeyboard() {
     val view = activity.currentFocus ?: viewExtensionsViewFactory.makeView(activity)
     val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(view.windowToken, 0)
+}
+
+private fun <T> findChildViewForType(
+    viewGroup: ViewGroup,
+    elementList: MutableList<View>,
+    type: Class<T>
+) {
+    viewGroup.children.forEach { childView ->
+        when {
+            childView is ViewGroup -> findChildViewForType(childView, elementList, type)
+            childView.tag.javaClass.isAssignableFrom(type) -> {
+                elementList.add(childView)
+            }
+        }
+    }
+}
+
+internal inline fun <reified T> ViewGroup.findChildViewForType(type: Class<T>): MutableList<View> {
+    val elementList = mutableListOf<View>()
+
+    findChildViewForType(this, elementList, type)
+
+    return elementList
 }
