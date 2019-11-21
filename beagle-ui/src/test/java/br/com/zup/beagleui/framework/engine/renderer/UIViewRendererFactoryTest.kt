@@ -1,6 +1,8 @@
 package br.com.zup.beagleui.framework.engine.renderer
 
 import br.com.zup.beagleui.framework.engine.renderer.layout.BuildableWidgetViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.layout.FormInputViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.layout.FormSubmitViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.ButtonViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.ImageViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.ListViewRenderer
@@ -10,6 +12,8 @@ import br.com.zup.beagleui.framework.engine.renderer.ui.TextViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.UndefinedViewRenderer
 import br.com.zup.beagleui.framework.widget.core.NativeWidget
 import br.com.zup.beagleui.framework.widget.core.Widget
+import br.com.zup.beagleui.framework.widget.form.FormInput
+import br.com.zup.beagleui.framework.widget.form.FormSubmit
 import br.com.zup.beagleui.framework.widget.ui.Button
 import br.com.zup.beagleui.framework.widget.ui.Image
 import br.com.zup.beagleui.framework.widget.ui.ListView
@@ -112,4 +116,29 @@ class UIViewRendererFactoryTest {
         // Then
         assertTrue(actual is BuildableWidgetViewRenderer)
     }
+
+    @Test
+    fun make_should_return_FormInputViewRenderer_when_widget_is_a_FormInput() {
+        // Given
+        val widget = mockk<FormInput>()
+
+        // When
+        val actual = viewRendererFactory.make(widget)
+
+        // Then
+        assertTrue(actual is FormInputViewRenderer)
+    }
+
+    @Test
+    fun make_should_return_FormSubmitViewRenderer_when_widget_is_a_FormSubmit() {
+        // Given
+        val widget = mockk<FormSubmit>()
+
+        // When
+        val actual = viewRendererFactory.make(widget)
+
+        // Then
+        assertTrue(actual is FormSubmitViewRenderer)
+    }
+
 }

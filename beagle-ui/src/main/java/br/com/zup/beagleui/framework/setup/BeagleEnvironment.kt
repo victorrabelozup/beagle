@@ -1,6 +1,7 @@
 package br.com.zup.beagleui.framework.setup
 
 import android.app.Application
+import br.com.zup.beagleui.framework.form.ValidatorHandler
 import br.com.zup.beagleui.framework.action.CustomActionHandler
 import br.com.zup.beagleui.framework.navigation.BeagleDeepLinkHandler
 import br.com.zup.beagleui.framework.networking.HttpClient
@@ -14,9 +15,12 @@ internal object BeagleEnvironment {
         private set
     lateinit var application: Application
         private set
-
+    lateinit var environment: Environment
+        private set
     private var internalWidgets = mutableMapOf<Class<NativeWidget>, WidgetViewFactory<NativeWidget>>()
 
+    // SDK Configurations
+    var validatorHandler: ValidatorHandler? = null
     var httpClient: HttpClient? = null
     var beagleDeepLinkHandler: BeagleDeepLinkHandler? = null
     var customActionHandler: CustomActionHandler? = null
@@ -26,13 +30,15 @@ internal object BeagleEnvironment {
 
     fun setup(
         applicationName: String,
-        application: Application
+        application: Application,
+        environment: Environment
     ) {
         require(!::appName.isInitialized) { "You should not call setup() twice" }
         require(applicationName.isNotEmpty()) { "appName should be initialized with a non empty value" }
 
         this.appName = applicationName
         this.application = application
+        this.environment = environment
 
         initialize()
     }
@@ -41,6 +47,7 @@ internal object BeagleEnvironment {
         SoLoader.init(application, false)
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun <T : NativeWidget> registerWidget(clazz: Class<T>, factory: WidgetViewFactory<T>) {
         internalWidgets[clazz as Class<NativeWidget>] = factory as WidgetViewFactory<NativeWidget>
     }

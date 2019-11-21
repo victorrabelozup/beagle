@@ -1,11 +1,17 @@
 package br.com.zup.beagleui.framework.setup
 
 import android.app.Application
+import br.com.zup.beagleui.framework.form.ValidatorHandler
 import br.com.zup.beagleui.framework.action.CustomActionHandler
 import br.com.zup.beagleui.framework.navigation.BeagleDeepLinkHandler
 import br.com.zup.beagleui.framework.networking.HttpClient
 import br.com.zup.beagleui.framework.view.WidgetViewFactory
 import br.com.zup.beagleui.framework.widget.core.NativeWidget
+
+enum class Environment {
+    DEBUG,
+    PRODUCTION
+}
 
 class BeagleInitializer private constructor() {
 
@@ -14,9 +20,10 @@ class BeagleInitializer private constructor() {
         @JvmStatic
         fun setup(
             appName: String,
-            application: Application
+            application: Application,
+            environment: Environment
         ): Companion {
-            BeagleEnvironment.setup(appName, application)
+            BeagleEnvironment.setup(appName, application, environment)
             return this
         }
 
@@ -44,6 +51,12 @@ class BeagleInitializer private constructor() {
         @JvmStatic
         fun registerBeagleDeepLinkHandler(beagleDeepLinkHandler: BeagleDeepLinkHandler): Companion {
             BeagleEnvironment.beagleDeepLinkHandler = beagleDeepLinkHandler
+            return this
+        }
+
+        @JvmStatic
+        fun registerValidatorHandler(validatorHandler: ValidatorHandler): Companion {
+            BeagleEnvironment.validatorHandler = validatorHandler
             return this
         }
 

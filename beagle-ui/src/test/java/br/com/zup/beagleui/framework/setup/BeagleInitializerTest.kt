@@ -51,7 +51,7 @@ class BeagleInitializerTest {
 
         mockkObject(BeagleEnvironment)
 
-        every { BeagleEnvironment.setup(any(), any()) } just Runs
+        every { BeagleEnvironment.setup(any(), any(), any()) } just Runs
         every {
             BeagleEnvironment.registerWidget(
                 any<Class<NativeWidget>>(),
@@ -69,9 +69,9 @@ class BeagleInitializerTest {
 
     @Test
     fun setup_should_call_BeagleEnvironment_setup() {
-        BeagleInitializer.setup(APP_NAME, application)
+        BeagleInitializer.setup(APP_NAME, application, Environment.DEBUG)
 
-        verify(exactly = 1) { BeagleEnvironment.setup(APP_NAME, application) }
+        verify(exactly = 1) { BeagleEnvironment.setup(APP_NAME, application, Environment.DEBUG) }
     }
 
     @Test

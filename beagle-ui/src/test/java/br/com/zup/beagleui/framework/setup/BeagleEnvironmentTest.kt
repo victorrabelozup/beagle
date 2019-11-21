@@ -39,31 +39,32 @@ class BeagleEnvironmentTest {
 
     @Test
     fun setup_should_save_application_and_appName() {
-        BeagleEnvironment.setup(APP_NAME, application)
+        BeagleEnvironment.setup(APP_NAME, application, Environment.DEBUG)
 
         assertEquals(APP_NAME, BeagleEnvironment.appName)
         assertEquals(application, BeagleEnvironment.application)
+        assertEquals(Environment.DEBUG, BeagleEnvironment.environment)
     }
 
     @Test
     fun setup_should_start_soLoader() {
-        BeagleEnvironment.setup(APP_NAME, application)
+        BeagleEnvironment.setup(APP_NAME, application, Environment.DEBUG)
 
         verify(exactly = 1) { SoLoader.init(application, false) }
     }
 
     @Test
     fun setup_should_throw_exception_when_start_is_called_twice() {
-        BeagleEnvironment.setup(APP_NAME, application)
+        BeagleEnvironment.setup(APP_NAME, application, Environment.DEBUG)
 
         val message = "You should not call setup() twice"
-        assertFails(message = message) { BeagleEnvironment.setup(APP_NAME, application) }
+        assertFails(message = message) { BeagleEnvironment.setup(APP_NAME, application, Environment.DEBUG) }
     }
 
     @Test
     fun setup_should_throw_exception_when_applicationName_is_empty() {
         val message = "appName should be initialized with a non empty value"
-        assertFails(message = message) { BeagleEnvironment.setup("", application) }
+        assertFails(message = message) { BeagleEnvironment.setup("", application, Environment.DEBUG) }
     }
 
     @Test

@@ -24,6 +24,7 @@ allprojects {
         jcenter()
         mavenLocal()
         maven { url 'http://23.97.100.209:8081/repository/darwin-jars-releases/' }
+        maven { url 'http://23.97.100.209:8081/repository/darwin-jars-snapshots/' }
     }
 }
 

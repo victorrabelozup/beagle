@@ -29,8 +29,6 @@ object Versions {
     const val viewModel = "2.1.0"
     const val recyclerView = "1.0.0"
 
-    const val litho = "0.31.0"
-
     const val fresco = "2.0.0"
 
     const val moshi = "1.9.1"
@@ -39,7 +37,7 @@ object Versions {
 
     const val findsBug = "3.0.1"
 
-    const val beagleDeclarative = "0.0.7"
+    const val beagleDeclarative = "0.0.8-20191113.211527-1"
 
     const val glide = "4.9.0"
 

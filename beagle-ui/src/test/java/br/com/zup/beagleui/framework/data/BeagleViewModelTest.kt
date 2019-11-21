@@ -1,4 +1,4 @@
-package br.com.zup.beagleui.framework.view
+package br.com.zup.beagleui.framework.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import br.com.zup.beagleui.framework.action.Action

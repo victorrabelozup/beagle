@@ -3,12 +3,14 @@ package br.com.zup.beagleui.framework.engine.renderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.ContainerViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.FlexSingleWidgetViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.FlexWidgetViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.layout.FormViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.HorizontalViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.NavigatorViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.SpacerViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.StackViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.VerticalViewRender
 import br.com.zup.beagleui.framework.widget.core.Widget
+import br.com.zup.beagleui.framework.widget.form.Form
 import br.com.zup.beagleui.framework.widget.layout.Container
 import br.com.zup.beagleui.framework.widget.layout.FlexSingleWidget
 import br.com.zup.beagleui.framework.widget.layout.FlexWidget
@@ -130,6 +132,17 @@ class LayoutViewRendererFactoryTest {
 
         // Then
         assertTrue(actual is NavigatorViewRenderer)
+    }
+
+    @Test
+    fun make_should_return_a_FormViewRenderer_when_widget_is_a_layout_Form() {
+        // Given
+        val widget = mockk<Form>()
+
+        // When
+        val actual = viewRendererFactory.make(widget)
+
+        assertTrue(actual is FormViewRenderer)
     }
 
     @Test

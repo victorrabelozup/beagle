@@ -1,8 +1,11 @@
 package br.com.zup.beagleui.framework.utils
 
+import android.app.Activity
 import android.content.Context
+import android.os.IBinder
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
@@ -36,13 +39,15 @@ class ViewExtensionsKtTest {
     @MockK
     private lateinit var activity: AppCompatActivity
     @MockK
-    private lateinit var context: Context
-    @MockK
     private lateinit var viewFactory: ViewFactory
     @MockK
     private lateinit var beagleView: BeagleView
     @MockK
     private lateinit var stateChangedListener: StateChangedListener
+    @MockK(relaxed = true)
+    private lateinit var inputMethodManager: InputMethodManager
+    @MockK
+    private lateinit var iBinder: IBinder
 
     private val viewSlot = slot<View>()
 
@@ -54,9 +59,11 @@ class ViewExtensionsKtTest {
 
         every { viewFactory.makeBeagleView(any()) } returns beagleView
         every { viewGroup.addView(capture(viewSlot)) } just Runs
-        every { viewGroup.context } returns context
+        every { viewGroup.context } returns activity
         every { beagleView.loadView(any<Fragment>(), any()) } just Runs
         every { beagleView.loadView(any<AppCompatActivity>(), any()) } just Runs
+        every { beagleView.windowToken } returns iBinder
+        every { activity.getSystemService(Activity.INPUT_METHOD_SERVICE) } returns inputMethodManager
     }
 
     @Test
@@ -64,7 +71,7 @@ class ViewExtensionsKtTest {
         viewGroup.loadView(fragment, URL)
 
         assertEquals(beagleView, viewSlot.captured)
-        verify { viewExtensionsViewFactory.makeBeagleView(context) }
+        verify { viewExtensionsViewFactory.makeBeagleView(activity) }
         verify { beagleView.loadView(fragment, URL) }
     }
 
@@ -73,7 +80,7 @@ class ViewExtensionsKtTest {
         viewGroup.loadView(activity, URL)
 
         assertEquals(beagleView, viewSlot.captured)
-        verify { viewExtensionsViewFactory.makeBeagleView(context) }
+        verify { viewExtensionsViewFactory.makeBeagleView(activity) }
         verify { beagleView.loadView(activity, URL) }
     }
 
@@ -104,5 +111,30 @@ class ViewExtensionsKtTest {
 
         // When Then
         assertFails(ERROR_MESSAGE) { viewGroup.setBeagleStateChangedListener(stateChangedListener) }
+    }
+
+    @Test
+    fun hideKeyboard_should_call_hideSoftInputFromWindow_with_currentFocus() {
+        // Given
+        every { activity.currentFocus } returns beagleView
+
+        // When
+        viewGroup.hideKeyboard()
+
+        // Then
+        verify(exactly = 1) { inputMethodManager.hideSoftInputFromWindow(iBinder, 0) }
+    }
+
+    @Test
+    fun hideKeyboard_should_call_hideSoftInputFromWindow_with_created_view() {
+        // Given
+        every { activity.currentFocus } returns null
+        every { viewExtensionsViewFactory.makeView(activity) } returns beagleView
+
+        // When
+        viewGroup.hideKeyboard()
+
+        // Then
+        verify(exactly = 1) { inputMethodManager.hideSoftInputFromWindow(iBinder, 0) }
     }
 }

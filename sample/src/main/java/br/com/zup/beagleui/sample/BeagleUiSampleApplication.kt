@@ -7,6 +7,7 @@ import br.com.zup.beagleui.framework.action.CustomAction
 import br.com.zup.beagleui.framework.action.CustomActionHandler
 import br.com.zup.beagleui.framework.setup.BeagleInitializer
 import br.com.zup.beagleui.framework.setup.ButtonTheme
+import br.com.zup.beagleui.framework.setup.Environment
 import br.com.zup.beagleui.framework.setup.TextAppearanceTheme
 import br.com.zup.beagleui.framework.setup.Theme
 
@@ -18,7 +19,7 @@ class BeagleUiSampleApplication : Application() {
         BeagleInitializer
             .registerTheme(Theme(AppButtonTheme(this), AppTextAppearanceTheme()))
             .registerCustomActionHandler(AppCustomActionHandler())
-            .setup("sample", this)
+            .setup("sample", this, Environment.DEBUG)
     }
 }
 

@@ -1,6 +1,7 @@
 package br.com.zup.beagleui.framework.view
 
 import android.content.Context
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ScrollView
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.zup.beagleui.framework.widget.core.Flex
 
 internal class ViewFactory {
+
+    fun makeView(context: Context) = View(context)
 
     fun makeBeagleView(context: Context) =
         BeagleView(context = context)
