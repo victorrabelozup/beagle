@@ -63,7 +63,7 @@ final class UIComponentViewRendererProvidingTests: XCTestCase {
     
     func test_whenNavigationBar_shouldReturnNavigationBarWigetViewRenderer() {
         // Given
-        let widget = NavigationBar(title: "Iti")
+        let widget = NavigationBar(title: "Teste", leading: nil, trailing: nil)
         let renderer = WidgetRendererProviding()
         // When
         let navigationWidgetViewRenderer = renderer.buildRenderer(for: widget)

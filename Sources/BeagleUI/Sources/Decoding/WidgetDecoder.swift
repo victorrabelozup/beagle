@@ -186,7 +186,7 @@ final class WidgetDecoder: WidgetDecoding {
         WidgetEntityContainer.register(ImageEntity.self, for: decodingKey(for: "Image"))
         WidgetEntityContainer.register(ListViewEntity.self, for: decodingKey(for: "ListView"))
         WidgetEntityContainer.register(TextEntity.self, for: decodingKey(for: "Text"))
-        WidgetEntityContainer.register(NavigationBarEntity.self, for: "NavigationBar")
+        WidgetEntityContainer.register(NavigationBarEntity.self, for: decodingKey(for: "NavigationBar"))
     }
     
 }

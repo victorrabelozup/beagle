@@ -14,11 +14,24 @@ final class NavigationBarWidgetViewRenderer: WidgetViewRenderer<NavigationBar> {
     
     override func buildView(context: BeagleContext) -> UIView {
         let navigationBar = UINavigationBar(frame: .zero)
-        let navigationBarItemTitle = UINavigationItem(title: widget.title)
-        navigationBar.items = [navigationBarItemTitle]
+        let navigationItems = UINavigationItem(title: widget.title)
+        
+        if let leading = widget.leading {
+            let renderer = rendererProvider.buildRenderer(for: leading)
+            let leadingView = renderer.buildView(context: context)
+            leadingView.sizeToFit()
+            navigationItems.leftBarButtonItem = UIBarButtonItem(customView: leadingView)
+        }
+        
+        if let trailing = widget.trailing {
+            let renderer = rendererProvider.buildRenderer(for: trailing)
+            let trailingView = renderer.buildView(context: context)
+            trailingView.sizeToFit()
+            navigationItems.rightBarButtonItem = UIBarButtonItem(customView: trailingView)
+        }
+        navigationBar.items = [navigationItems]
         navigationBar.sizeToFit()
         flexViewConfigurator.enableYoga(true, for: navigationBar)
         return navigationBar
     }
-    
 }
