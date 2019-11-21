@@ -15,8 +15,7 @@ final class ScrollViewEntityTests: XCTestCase {
         // Given
         let content = TextEntity(text: "text")
         let children = [WidgetEntityContainer(type: "beagle:widget:flexWidget", content: content)]
-        let flex = FlexEntity()
-        let sut = ScrollViewEntity(childrenContainer: children, flex: flex, reversed: false)
+        let sut = ScrollViewEntity(childrenContainer: children, reversed: false)
 
         // When
         let scrollView = try? sut.mapToWidget()
