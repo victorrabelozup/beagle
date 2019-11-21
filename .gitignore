@@ -4,6 +4,8 @@ target/
 build/
 ../out/
 .gradle/
+.idea/
+out/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
