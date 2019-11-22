@@ -3,6 +3,7 @@ package br.com.zup.beagleui.framework.engine.renderer.layout
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import br.com.zup.beagleui.framework.action.ActionExecutor
 import br.com.zup.beagleui.framework.action.FormValidationActionHandler
@@ -83,7 +84,11 @@ internal class FormViewRenderer(
 
         if (formsValue.size == formInputViews.size) {
             formInputViews.first().hideKeyboard()
-            formSubmitter.submitForm(widget, formsValue) { handleFormResult(context, it) }
+            formSubmitter.submitForm(widget, formsValue) {
+                (context as AppCompatActivity).runOnUiThread {
+                    handleFormResult(context, it)
+                }
+            }
         }
     }
 

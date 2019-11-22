@@ -84,6 +84,7 @@ class FormViewRendererTest {
 
     private val onClickListenerSlot = slot<View.OnClickListener>()
     private val formResultCallbackSlot = slot<(formResult: FormResult) -> Unit>()
+    private val runnableSlot = slot<Runnable>()
 
     private lateinit var formViewRenderer: FormViewRenderer
 
@@ -123,6 +124,7 @@ class FormViewRendererTest {
         every { viewGroup.getChildAt(1) } returns formSubmitView
         every { formValidationActionHandler.formInputViews = any() } just Runs
         every { appCompatActivity.getSystemService(any()) } returns inputMethodManager
+        every { appCompatActivity.runOnUiThread(capture(runnableSlot)) } just Runs
         every { formSubmitter.submitForm(any(), any(), capture(formResultCallbackSlot)) } just Runs
         every { validatorHandler.getValidator(any()) } returns validator
     }
@@ -252,6 +254,7 @@ class FormViewRendererTest {
         // When
         executeFormSubmitOnClickListener()
         formResultCallbackSlot.captured(formResult)
+        runnableSlot.captured.run()
 
         // Then
         verify(exactly = 1) { actionExecutor.doAction(appCompatActivity, formResult.action) }
@@ -272,6 +275,7 @@ class FormViewRendererTest {
         // When
         executeFormSubmitOnClickListener()
         formResultCallbackSlot.captured(formResult)
+        runnableSlot.captured.run()
 
         // Then
         verify(exactly = 1) { alertDialogBuilder.setTitle("Error!") }
