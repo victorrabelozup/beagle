@@ -8,19 +8,26 @@ class UpdatableWidgetTest {
 
     @Test
     fun build_widget() {
-        val list = listOf("test")
-        val widget = Text("DUMMY")
         val event = UpdatableEvent.ON_CLICK
+        val list = listOf(
+            UpdatableState(
+                stateType = UpdatableStateType.STATIC,
+                targetId = "test",
+                targetState = Text("UPDATED"),
+                updatableEvent = event
+            )
+        )
+        val widget = Text("DUMMY")
+
         val id = "text1"
 
         val subject = UpdatableWidget(
-            updateIds = list,
-            child = widget, updatableEvent = event, id = id
+            updateStates = list,
+            child = widget, id = id
         )
 
-        Assert.assertEquals(list, subject.updateIds)
+        Assert.assertEquals(list, subject.updateStates)
         Assert.assertEquals(widget, subject.child)
-        Assert.assertEquals(event, subject.updatableEvent)
         Assert.assertEquals(id, subject.id)
     }
 }
