@@ -6,7 +6,6 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import br.com.zup.beagleui.sample.fragment.StatefulFragment
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         // Get the support action bar
         val actionBar = supportActionBar
 
-        // Set the action bar title, subtitle and elevation
+        // Set the action bar title and elevation
         actionBar!!.title = "Beagle Sample"
         actionBar.elevation = 4.0F
     }

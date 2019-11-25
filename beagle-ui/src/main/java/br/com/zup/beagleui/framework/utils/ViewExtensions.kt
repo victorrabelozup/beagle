@@ -1,16 +1,22 @@
 package br.com.zup.beagleui.framework.utils
 
+import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import androidx.core.view.size
+import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
+import br.com.zup.beagleui.framework.setup.BeagleEnvironment
+import br.com.zup.beagleui.framework.view.BeagleButtonView
+import br.com.zup.beagleui.framework.view.BeagleTextView
 import br.com.zup.beagleui.framework.view.BeagleView
 import br.com.zup.beagleui.framework.view.StateChangedListener
 import br.com.zup.beagleui.framework.view.ViewFactory
-import android.app.Activity
-import android.view.inputmethod.InputMethodManager
+import br.com.zup.beagleui.framework.widget.ui.Button
+import br.com.zup.beagleui.framework.widget.ui.Text
 
 internal var viewExtensionsViewFactory = ViewFactory()
 
@@ -49,6 +55,25 @@ internal fun View.hideKeyboard() {
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
+internal fun BeagleTextView.setData(widget: Text) {
+    this.text = widget.text
+    BeagleEnvironment.theme?.let {
+        val styleRes = it.textAppearanceTheme.textAppearance(widget.style)
+        TextViewCompat.setTextAppearance(this, styleRes)
+    }
+}
+
+internal fun BeagleButtonView.setData(widget: Button) {
+    text = widget.text
+    BeagleEnvironment.theme?.let {
+        val buttonAppearance = it.buttonTheme.buttonTextAppearance(widget.style)
+        val buttonBackground = it.buttonTheme.buttonBackground(widget.style)
+
+        setBackgroundResource(buttonBackground)
+        TextViewCompat.setTextAppearance(this, buttonAppearance)
+    }
+}
+
 private fun <T> findChildViewForType(
     viewGroup: ViewGroup,
     elementList: MutableList<View>,
@@ -57,7 +82,7 @@ private fun <T> findChildViewForType(
     viewGroup.children.forEach { childView ->
         when {
             childView is ViewGroup -> findChildViewForType(childView, elementList, type)
-            childView.tag.javaClass.isAssignableFrom(type) -> {
+            childView.tag != null && type.isAssignableFrom(childView.tag.javaClass) -> {
                 elementList.add(childView)
             }
         }

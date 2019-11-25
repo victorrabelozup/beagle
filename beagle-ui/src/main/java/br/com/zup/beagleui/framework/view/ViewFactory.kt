@@ -2,10 +2,8 @@ package br.com.zup.beagleui.framework.view
 
 import android.content.Context
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.ScrollView
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import br.com.zup.beagleui.framework.widget.core.Flex
@@ -27,9 +25,9 @@ internal class ViewFactory {
         isFillViewport = true
     }
 
-    fun makeButton(context: Context) = Button(context)
+    fun makeButton(context: Context) = BeagleButtonView(context)
 
-    fun makeTextView(context: Context) = TextView(context)
+    fun makeTextView(context: Context) = BeagleTextView(context)
 
     fun makeImageView(context: Context) = ImageView(context)
 

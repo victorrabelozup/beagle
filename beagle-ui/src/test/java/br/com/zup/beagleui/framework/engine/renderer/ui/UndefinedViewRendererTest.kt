@@ -3,6 +3,7 @@ package br.com.zup.beagleui.framework.engine.renderer.ui
 import android.content.Context
 import android.graphics.Color
 import android.widget.TextView
+import br.com.zup.beagleui.framework.view.BeagleTextView
 import br.com.zup.beagleui.framework.view.ViewFactory
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
@@ -11,10 +12,10 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
 import io.mockk.slot
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.*
 
 class UndefinedViewRendererTest {
 
@@ -23,7 +24,7 @@ class UndefinedViewRendererTest {
     @MockK
     private lateinit var context: Context
     @MockK
-    private lateinit var textView: TextView
+    private lateinit var textView: BeagleTextView
 
     private val textSlot = slot<String>()
     private val textColorSlot = slot<Int>()

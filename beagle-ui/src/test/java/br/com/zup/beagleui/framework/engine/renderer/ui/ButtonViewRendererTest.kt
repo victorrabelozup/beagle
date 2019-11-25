@@ -6,6 +6,7 @@ import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.setup.ButtonTheme
 import br.com.zup.beagleui.framework.setup.Theme
+import br.com.zup.beagleui.framework.view.BeagleButtonView
 import br.com.zup.beagleui.framework.widget.ui.Button
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
@@ -36,7 +37,7 @@ class ButtonViewRendererTest {
     private lateinit var context: Context
 
     @MockK
-    private lateinit var buttonView: android.widget.Button
+    private lateinit var buttonView: BeagleButtonView
 
     @MockK
     private lateinit var button: Button

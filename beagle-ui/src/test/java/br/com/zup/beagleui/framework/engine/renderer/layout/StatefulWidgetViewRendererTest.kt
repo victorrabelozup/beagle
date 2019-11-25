@@ -11,6 +11,8 @@ import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.layout.StatefulWidget
 import br.com.zup.beagleui.framework.widget.layout.UpdatableEvent
+import br.com.zup.beagleui.framework.widget.layout.UpdatableState
+import br.com.zup.beagleui.framework.widget.layout.UpdatableStateType
 import br.com.zup.beagleui.framework.widget.layout.UpdatableWidget
 import br.com.zup.beagleui.framework.widget.ui.Button
 import br.com.zup.beagleui.framework.widget.ui.Text
@@ -37,16 +39,29 @@ class StatefulWidgetViewRendererTest {
     private lateinit var statefulWidget: StatefulWidget
 
     private var updatableWidgetButton: UpdatableWidget = UpdatableWidget(
-        updateIds = listOf("id1"),
-        child = Button("Click"),
-        updatableEvent = UpdatableEvent.ON_CLICK
+        child = Button("Click to update"),
+        id = "btn1",
+        updateStates = listOf(
+            UpdatableState(
+                updatableEvent = UpdatableEvent.ON_CLICK,
+                targetId = "id1",
+                stateType = UpdatableStateType.STATIC,
+                targetState = Text("Draw a racket")
+            )
+        )
     )
 
     private var updatableWidgetText: UpdatableWidget = UpdatableWidget(
-        updateIds = listOf("id1"),
-        id = "id1",
-        child = Text("Text1"),
-        updatableEvent = UpdatableEvent.ON_TEXT_CHANGE
+        child = Text("Default Text1", style = "DesignSystem.Text.H2"),
+        id = "txt1",
+        updateStates = listOf(
+            UpdatableState(
+                updatableEvent = UpdatableEvent.ON_TEXT_CHANGE,
+                targetId = "btn1",
+                stateType = UpdatableStateType.STATIC,
+                targetState = Button("Draw a racket")
+            )
+        )
     )
 
     @MockK

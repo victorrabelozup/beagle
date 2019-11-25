@@ -7,11 +7,16 @@ import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import br.com.zup.beagleui.framework.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
+import br.com.zup.beagleui.framework.interfaces.OnStateUpdatable
 import br.com.zup.beagleui.framework.utils.findChildViewForType
 import br.com.zup.beagleui.framework.view.ViewFactory
+import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.layout.StatefulWidget
 import br.com.zup.beagleui.framework.widget.layout.UpdatableEvent
+import br.com.zup.beagleui.framework.widget.layout.UpdatableState
+import br.com.zup.beagleui.framework.widget.layout.UpdatableStateType
 import br.com.zup.beagleui.framework.widget.layout.UpdatableWidget
+import java.util.Observable
 
 internal class StatefulWidgetViewRenderer(
     private val statefulWidget: StatefulWidget,
@@ -28,12 +33,12 @@ internal class StatefulWidgetViewRenderer(
             elementList = view.findChildViewForType(UpdatableWidget::class.java)
         }
 
-        addChildrenViews(elementList)
+        addEventHandler(elementList)
 
         return view
     }
 
-    private fun addChildrenViews(elementList: List<View>) {
+    private fun addEventHandler(elementList: List<View>) {
         elementList.forEach { element ->
             addEventHandler(element, elementList)
         }
@@ -44,44 +49,82 @@ internal class StatefulWidgetViewRenderer(
         children: List<View>
     ) {
         val updatableWidget = view.tag as UpdatableWidget
-        updatableWidget.updatableEvent?.let {
-            when {
-                updatableWidget.updatableEvent == UpdatableEvent.ON_TEXT_CHANGE -> if (view is TextView) {
-                    view.addTextChangedListener { charSequence ->
-                        notifyIds(updatableWidget, children, charSequence.toString())
-                    }
-                }
-                updatableWidget.updatableEvent == UpdatableEvent.ON_CLICK ->
-                    view.setOnClickListener {
-                        notifyIds(updatableWidget, children)
-                    }
+        var onClickObservable: Observable? = updatableWidget.updateStates?.hasOnClick {
+            onClickObservable(view)
+        }
+
+        updatableWidget.updateStates?.forEach { updatableState ->
+            when (updatableState.stateType) {
+                UpdatableStateType.STATIC -> setupStaticHandler(
+                    updatableState,
+                    view,
+                    children,
+                    onClickObservable
+                )
+                UpdatableStateType.DYNAMIC -> setupDynamicHandler(updatableState, view, children)
             }
         }
     }
 
-    private fun notifyIds(
-        updatableWidget: UpdatableWidget,
-        children: List<View>,
-        charSequence: String = ""
+    private fun onClickObservable(view: View): Observable {
+        return object : Observable() {
+            init {
+                view.setOnClickListener {
+                    setChanged()
+                    notifyObservers()
+                }
+            }
+        }
+    }
+
+    private fun setupDynamicHandler(
+        updatableState: UpdatableState,
+        view: View,
+        children: List<View>
     ) {
-        updatableWidget.updateIds?.let {
-            it.forEach { updateId ->
-                children.find { child ->
-                    (child.tag as UpdatableWidget).id == updateId
-                }.apply {
-                    updateWidget(this?.tag as UpdatableWidget, charSequence)
+        //TODO implement the dynamic handler that should call the url and update the state based on response
+    }
+
+    private fun setupStaticHandler(
+        updatableState: UpdatableState,
+        view: View,
+        children: List<View>,
+        onClickObservable: Observable?
+    ) {
+        when (updatableState.updatableEvent) {
+            UpdatableEvent.ON_TEXT_CHANGE -> if (view is TextView) {
+                view.addTextChangedListener {
+                    notifyUpdate(updatableState, children)
+                }
+            }
+            UpdatableEvent.ON_CLICK -> {
+                onClickObservable?.addObserver { _, _ ->
+                    notifyUpdate(
+                        updatableState,
+                        children
+                    )
                 }
             }
         }
-
     }
 
-    private fun updateWidget(updatableWidget: UpdatableWidget?, charSequence: String) {
-        elementList.find { (it.tag as UpdatableWidget).id == updatableWidget?.id }
-            .apply {
-                when (val view = this) {
-                    is TextView -> view.text = "UPDATED"
-                }
-            }
+    @Suppress("UNCHECKED_CAST")
+    private fun notifyUpdate(
+        updatableState: UpdatableState,
+        children: List<View>
+    ) {
+        children.find { child ->
+            (child.tag as UpdatableWidget).id == updatableState.targetId
+        }.apply {
+            (this as? OnStateUpdatable<Widget>)?.onUpdateState(updatableState.targetState)
+        }
     }
+
+
+    private inline fun <T> List<UpdatableState>.hasOnClick(action: () -> T): T? =
+        when {
+            this.filter { it.updatableEvent == UpdatableEvent.ON_CLICK }.any() -> action()
+            else -> null
+        }
+
 }

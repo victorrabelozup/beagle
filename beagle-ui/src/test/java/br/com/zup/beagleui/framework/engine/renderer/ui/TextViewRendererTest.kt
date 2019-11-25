@@ -3,10 +3,11 @@ package br.com.zup.beagleui.framework.engine.renderer.ui
 import android.content.Context
 import android.widget.TextView
 import androidx.core.widget.TextViewCompat
-import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.setup.TextAppearanceTheme
 import br.com.zup.beagleui.framework.setup.Theme
+import br.com.zup.beagleui.framework.view.BeagleTextView
+import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.widget.ui.Text
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
@@ -36,7 +37,7 @@ class TextViewRendererTest {
     @MockK
     private lateinit var context: Context
     @MockK
-    private lateinit var textView: TextView
+    private lateinit var textView: BeagleTextView
 
     @MockK
     private lateinit var theme: Theme
