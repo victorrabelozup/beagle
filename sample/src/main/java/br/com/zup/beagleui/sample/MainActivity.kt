@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import br.com.zup.beagleui.sample.fragment.StatefulFragment
+import br.com.zup.beagleui.sample.fragment.TextFieldFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     private fun menuSelected(itemSelected: Int) {
         when (itemSelected) {
             R.id.stateful -> goToFragment(StatefulFragment.newInstance())
+            R.id.textField -> goToFragment(TextFieldFragment.newInstance())
 
             else -> {
             }

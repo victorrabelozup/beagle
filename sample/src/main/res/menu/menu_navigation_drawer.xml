@@ -9,5 +9,11 @@
             android:title="Stateful Widget"
             tools:ignore="HardcodedText" />
 
+        <item
+            android:id="@+id/textField"
+            android:icon="@mipmap/ic_launcher"
+            android:title="TextField Widget"
+            tools:ignore="HardcodedText" />
+
     </group>
 </menu>

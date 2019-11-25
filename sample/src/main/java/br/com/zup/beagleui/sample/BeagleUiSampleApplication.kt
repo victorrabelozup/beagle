@@ -10,6 +10,8 @@ import br.com.zup.beagleui.framework.setup.ButtonTheme
 import br.com.zup.beagleui.framework.setup.Environment
 import br.com.zup.beagleui.framework.setup.TextAppearanceTheme
 import br.com.zup.beagleui.framework.setup.Theme
+import br.com.zup.beagleui.sample.widgets.TextField
+import br.com.zup.beagleui.sample.widgets.TextFieldViewFactory
 
 class BeagleUiSampleApplication : Application() {
 
@@ -20,6 +22,7 @@ class BeagleUiSampleApplication : Application() {
             .registerTheme(Theme(AppButtonTheme(this), AppTextAppearanceTheme()))
             .registerCustomActionHandler(AppCustomActionHandler())
             .setup("sample", this, Environment.DEBUG)
+            .registerWidget(TextField::class.java, TextFieldViewFactory())
     }
 }
 
