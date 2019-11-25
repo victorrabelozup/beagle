@@ -6,8 +6,6 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-import UIKit
-
 enum ImageEntityContentMode: String, Codable, UIEnumModelConvertible {
     case fitXY = "FIT_XY" // scaleToFill
     case fitCenter = "FIT_CENTER" // scaleAspectFit

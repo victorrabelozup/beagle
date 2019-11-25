@@ -6,167 +6,69 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-import Foundation
-
-/// Defines an API representation for `Flex`
 struct FlexEntity: Decodable {
-    let flexDirection: FlexDirection?
-    let direction: Direction?
-    let flexWrap: FlexWrap?
-    let justifyContent: JustifyContent?
-    let alignItems: Alignment?
-    let alignSelf: Alignment?
-    let alignContent: Alignment?
-    let positionType: PositionType?
-    let basis: UnitValueEntity?
-    let flex: Double?
-    let grow: Double?
-    let shrink: Double?
-    let display: Display?
-    let size: Size?
-    let margin: EdgeValue?
-    let padding: EdgeValue?
-    let position: EdgeValue?
+    var flexDirection: FlexDirection?
+    var direction: Direction?
+    var flexWrap: FlexWrap?
+    var justifyContent: JustifyContent?
+    var alignItems: Alignment?
+    var alignSelf: Alignment?
+    var alignContent: Alignment?
+    var positionType: PositionType?
+    var basis: UnitValueEntity?
+    var flex: Double?
+    var grow: Double?
+    var shrink: Double?
+    var display: Display?
+    var size: Size?
+    var margin: EdgeValue?
+    var padding: EdgeValue?
+    var position: EdgeValue?
+}
+
+extension FlexEntity {
     
-    init(
-        flexDirection: FlexEntity.FlexDirection? = nil,
-        direction: FlexEntity.Direction? = nil,
-        flexWrap: FlexEntity.FlexWrap? = nil,
-        justifyContent: FlexEntity.JustifyContent? = nil,
-        alignItems: FlexEntity.Alignment? = nil,
-        alignSelf: FlexEntity.Alignment? = nil,
-        alignContent: FlexEntity.Alignment? = nil,
-        positionType: FlexEntity.PositionType? = nil,
-        basis: UnitValueEntity? = nil,
-        flex: Double? = nil,
-        grow: Double? = nil,
-        shrink: Double? = nil,
-        display: FlexEntity.Display? = nil,
-        size: FlexEntity.Size? = nil,
-        margin: FlexEntity.EdgeValue? = nil,
-        padding: FlexEntity.EdgeValue? = nil,
-        position: FlexEntity.EdgeValue? = nil
-    ) {
-        self.flexDirection = flexDirection
-        self.direction = direction
-        self.flexWrap = flexWrap
-        self.justifyContent = justifyContent
-        self.alignItems = alignItems
-        self.alignSelf = alignSelf
-        self.alignContent = alignContent
-        self.positionType = positionType
-        self.basis = basis
-        self.flex = flex
-        self.grow = grow
-        self.shrink = shrink
-        self.display = display
-        self.size = size
-        self.margin = margin
-        self.padding = padding
-        self.position = position
-    }
-}
-
-// MARK: - Flex Size
-extension FlexEntity {
-    /// Defines an API representation for `Size`
     struct Size: Decodable {
-        let width: UnitValueEntity?
-        let height: UnitValueEntity?
-        let maxWidth: UnitValueEntity?
-        let maxHeight: UnitValueEntity?
-        let minWidth: UnitValueEntity?
-        let minHeight: UnitValueEntity?
-        let aspectRatio: Double?
-        
-        init(
-            width: UnitValueEntity? = nil,
-            height: UnitValueEntity? = nil,
-            maxWidth: UnitValueEntity? = nil,
-            maxHeight: UnitValueEntity? = nil,
-            minWidth: UnitValueEntity? = nil,
-            minHeight: UnitValueEntity? = nil,
-            aspectRatio: Double? = nil
-        ) {
-            self.width = width
-            self.height = height
-            self.maxWidth = maxWidth
-            self.maxHeight = maxHeight
-            self.minWidth = minWidth
-            self.minHeight = minHeight
-            self.aspectRatio = aspectRatio
-        }
+        var width: UnitValueEntity?
+        var height: UnitValueEntity?
+        var maxWidth: UnitValueEntity?
+        var maxHeight: UnitValueEntity?
+        var minWidth: UnitValueEntity?
+        var minHeight: UnitValueEntity?
+        var aspectRatio: Double?
     }
-}
-
-// MARK: - EdgeValue
-extension FlexEntity {
-    /// Defines an API representation for `EdgeValue`
+    
     struct EdgeValue: Decodable {
-        let left: UnitValueEntity?
-        let top: UnitValueEntity?
-        let right: UnitValueEntity?
-        let bottom: UnitValueEntity?
-        let start: UnitValueEntity?
-        let end: UnitValueEntity?
-        let horizontal: UnitValueEntity?
-        let vertical: UnitValueEntity?
-        let all: UnitValueEntity?
-        
-        init(
-            left: UnitValueEntity? = nil,
-            top: UnitValueEntity? = nil,
-            right: UnitValueEntity? = nil,
-            bottom: UnitValueEntity? = nil,
-            start: UnitValueEntity? = nil,
-            end: UnitValueEntity? = nil,
-            horizontal: UnitValueEntity? = nil,
-            vertical: UnitValueEntity? = nil,
-            all: UnitValueEntity? = nil
-        ) {
-            self.left = left
-            self.top = top
-            self.right = right
-            self.bottom = bottom
-            self.start = start
-            self.end = end
-            self.horizontal = horizontal
-            self.vertical = vertical
-            self.all = all
-        }
+        var left: UnitValueEntity?
+        var top: UnitValueEntity?
+        var right: UnitValueEntity?
+        var bottom: UnitValueEntity?
+        var start: UnitValueEntity?
+        var end: UnitValueEntity?
+        var horizontal: UnitValueEntity?
+        var vertical: UnitValueEntity?
+        var all: UnitValueEntity?
     }
-}
-
-extension FlexEntity {
-    /// Defines an API representation for `FlexDirection`
+    
     enum FlexDirection: String, Decodable, UIEnumModelConvertible {
         case row = "ROW"
         case rowReverse = "ROW_REVERSE"
         case column = "COLUMN"
         case columnReverse = "COLUMN_REVERSE"
     }
-}
-
-extension FlexEntity {
-    /// Defines an API representation for `FlexDirection`
+    
     enum Direction: String, Decodable, UIEnumModelConvertible {
         case inherit = "INHERIT"
         case ltr = "LTR"
         case rtl = "RTL"
     }
-}
-
-extension FlexEntity {
-    /// Defines an API representation for `FlexWrap`
+    
     enum FlexWrap: String, Decodable, UIEnumModelConvertible {
         case noWrap = "NO_WRAP"
         case wrap = "WRAP"
         case wrapReverse = "WRAP_REVERSE"
     }
-}
-
-extension FlexEntity {
-    /// Defines an API representation for `JustifyContent`
+    
     enum JustifyContent: String, Decodable, UIEnumModelConvertible {
         case flexStart = "FLEX_START"
         case center = "CENTER"
@@ -175,10 +77,7 @@ extension FlexEntity {
         case spaceAround = "SPACE_AROUND"
         case spaceEvenly = "SPACE_EVENLY"
     }
-}
-
-extension FlexEntity {
-    /// Defines an API representation for `Alignment`
+    
     enum Alignment: String, Decodable, UIEnumModelConvertible {
         case flexStart = "FLEX_START"
         case center = "CENTER"
@@ -189,18 +88,12 @@ extension FlexEntity {
         case auto = "AUTO"
         case stretch = "STRETCH"
     }
-}
-
-extension FlexEntity {
-    /// Defines an API representation for `Alignment`
+    
     enum PositionType: String, Decodable, UIEnumModelConvertible {
         case relative = "RELATIVE"
         case absolute = "ABSOLUTE"
     }
-}
-
-extension FlexEntity {
-    /// Defines an API representation for `Alignment`
+    
     enum Display: String, Decodable, UIEnumModelConvertible {
         case flex = "FLEX"
         case none = "NONE"
@@ -242,7 +135,6 @@ extension FlexEntity.EdgeValue: UIModelConvertible {
 }
 
 extension FlexEntity: UIModelConvertible {
-    
     typealias UIModelType = Flex
 
     func mapToUIModel() throws -> Flex {
@@ -266,5 +158,4 @@ extension FlexEntity: UIModelConvertible {
             position: try self.position?.mapToUIModel()
         )
     }
-
 }

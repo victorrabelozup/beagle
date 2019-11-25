@@ -6,23 +6,11 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-import Foundation
-
-/// Defines an API representation for `Button`
-struct ButtonEntity: WidgetEntity {
-    let text: String
-    let style: String?
+struct ButtonEntity: WidgetConvertibleEntity {
     
-    init(
-        text: String,
-        style: String? = nil
-    ) {
-        self.text = text
-        self.style = style
-    }
-}
-
-extension ButtonEntity: WidgetConvertible {
+    let text: String
+    var style: String?
+    
     func mapToWidget() throws -> Widget {
         return Button(text: text, style: style)
     }

@@ -6,53 +6,15 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-import Foundation
-
-/// Defines an API representation for `Form`
-struct FormEntity: WidgetEntity {
+struct FormEntity: WidgetConvertibleEntity {
     
     let action: String
     let method: MethodType
-    let child: WidgetConvertibleEntity
-    
-    private let childContainer: WidgetEntityContainer
-    
-    private enum CodingKeys: String, CodingKey {
-        case action
-        case method
-        case childContainer = "child"
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        try self.init(
-            action: container.decode(String.self, forKey: .action),
-            method: container.decode(MethodType.self, forKey: .method),
-            childContainer: container.decode(WidgetEntityContainer.self, forKey: .childContainer)
-        )
-    }
-    
-    init(
-        action: String,
-        method: MethodType,
-        childContainer: WidgetEntityContainer
-    ) throws {
-        self.action = action
-        self.method = method
-        self.childContainer = childContainer
-        guard let childContainerValue = childContainer.content else {
-            let entityType = String(describing: FlexSingleWidgetEntity.self)
-            let key = CodingKeys.childContainer.rawValue
-            throw WidgetDecodingError.couldNotDecodeContentForEntityOnKey(entityType, key)
-        }
-        child = childContainerValue
-    }
-    
-}
-extension FormEntity: WidgetConvertible {
+    let child: AnyDecodableContainer
     
     func mapToWidget() throws -> Widget {
-        let child = try self.child.mapToWidget()
+        let widgetEntity = self.child.content as? WidgetConvertibleEntity
+        let child = try widgetEntity?.mapToWidget() ?? AnyWidget(value: self.child.content)
         let method = try self.method.mapToUIModel(ofType: Form.MethodType.self)
         return Form(
             action: action,
@@ -60,7 +22,6 @@ extension FormEntity: WidgetConvertible {
             child: child
         )
     }
-    
 }
 
 extension FormEntity {

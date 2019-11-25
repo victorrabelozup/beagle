@@ -111,32 +111,13 @@ private final class WidgetDecodingSpy: WidgetDecoding {
         typeNamePassedToRegister = typeName
     }
     
-    private(set) var decodeFromDataCalled = false
-    private(set) var dataPassedToDecodeFromData: Data?
-    func decode(from data: Data) throws -> WidgetEntity? {
-        decodeFromDataCalled = true
-        dataPassedToDecodeFromData = data
-        return nil
-    }
-    
     private(set) var decodeToWidgetCalled = false
-    private(set) var typePassedToDecodeToWidget: Widget.Type?
     private(set) var dataPassedToDecodeToWidget: Data?
-    func decodeToWidget<T>(ofType type: T.Type, from data: Data) throws -> T where T : Widget {
+    func decode(from data: Data) throws -> Widget {
         decodeToWidgetCalled = true
-        typePassedToDecodeToWidget = type
         dataPassedToDecodeToWidget = data
-        return WidgetDummy() as! T
+        return WidgetDummy()
     }
-    
-    private(set) var decodeFromDataWithTransformeCalled = false
-    private(set) var dataPassedToDecodeFromDataWithTransformeCalled: Data?
-    func decode<T>(from data: Data, transformer: (Widget) throws -> T?) throws -> T? {
-        decodeFromDataCalled = true
-        dataPassedToDecodeFromDataWithTransformeCalled = data
-        return nil
-    }
-    
 }
 
 private final class CustomWidgetsRendererProviderRegisterSpy: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing {

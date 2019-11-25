@@ -12,7 +12,6 @@ import Networking
 @testable import BeagleUI
 
 final class NetworkUIImageViewTests: XCTestCase {
-    
     func test_onCancellingRequestOnNetworkUIImage_shouldCancel() {
         // Given
         let urlRequestDispatchingStub = URLRequestDispatchingStub(resultToReturn:
@@ -22,11 +21,11 @@ final class NetworkUIImageViewTests: XCTestCase {
         // When
         let sut = NetworkUIImageView(imageDataProvider: imageDataProviderStub, url: "www.forCancel.com")
         sut.cancelHTTPRequest()
-        
+
         // Then
         XCTAssertTrue(imageDataProviderStub.urlRequestToken.cancelFunctionCalled, "Expected cancelFunction to be called, but it was not.")
     }
-    
+
     func test_onCallingNetworkUIImageViewInitializer_shouldReturnNetworkUIImageView() {
         // Given
         let data = Data()
@@ -36,7 +35,7 @@ final class NetworkUIImageViewTests: XCTestCase {
 
         // When
         let networkUIImageView = NetworkUIImageView(imageDataProvider: imageDataProvider, url: "www.some.com")
-        
+
         // Then
         XCTAssertNotNil(networkUIImageView, "Expected to have created a networkUIImageView, but it has not.")
     }

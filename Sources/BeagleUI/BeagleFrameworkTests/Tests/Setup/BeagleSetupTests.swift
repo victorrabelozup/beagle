@@ -11,48 +11,48 @@ import XCTest
 import Networking
 
 final class BeagleSetupTests: XCTestCase {
-    
+
     func test_start_shouldStartTheEnvironment() {
         // Given
         let environmentSpy = BeagleEnvironmentSpy.self
         Beagle.didCallStart = false
         Beagle.environment = environmentSpy
-        
+
         // When
         Beagle.start()
-        
+
         // Then
         XCTAssertTrue(environmentSpy.initializeCalled)
     }
-    
+
     func test_start_shouldThrowFatalErrorIfCalledTwice() {
         // Given
         let environmentSpy = BeagleEnvironmentSpy.self
         Beagle.didCallStart = false
         Beagle.environment = environmentSpy
         Beagle.start()
-        
+
         // When / Then
         expectFatalError(expectedMessage: "Beagle.start should be called only one time!") {
             Beagle.start()
         }
     }
-    
+
     func test_start_shouldStartTheEnviromentWithRightBundle() {
         // Given
         let environmentSpy = BeagleEnvironmentSpy.self
         Beagle.didCallStart = false
         Beagle.environment = environmentSpy
         let bundle = Bundle()
-        
+
         // When
         Beagle.start(appName: "appName", appBundle: bundle)
-        
+
         // Then
         XCTAssertNotNil(environmentSpy.bundlePassed, "Expected a bundle to be passed.")
         XCTAssertEqual(bundle, environmentSpy.bundlePassed)
     }
-    
+
     func test_registerCustomWidgets_shouldCallRegisterWidgetsOnEnvironment_passingOnlyOneWidget() {
         // Given
         let environmentSpy = BeagleEnvironmentSpy.self
@@ -69,63 +69,63 @@ final class BeagleSetupTests: XCTestCase {
                 viewRenderer: WidgetViewRendererDummy.self
             )
         )
-        
+
         // When
         Beagle.registerCustomWidget(customWidgetToRegister)
-        
+
         // Then
         guard let sharedInstance = environmentSpy._shared else {
             XCTFail("Could not find sharedInstance.")
             return
         }
-        
+
         XCTAssertTrue(sharedInstance.registerCustomWidgetsCalled, "`registerCustomWidgets` should have been called on the environment.")
         XCTAssertNotNil(sharedInstance.itemPassed, "An item should have been passed.")
     }
-    
+
     func test_start_shouldStartTheEnviromentWithDeepLinkHandlerConfigured() {
         // Given
         let environmentSpy = BeagleEnvironmentSpy.self
         Beagle.didCallStart = false
         Beagle.environment = environmentSpy
         let deepLinkHandler = DeepLinkHandlerDummy()
-        
+
         // When
         Beagle.start(deepLinkHandler: deepLinkHandler)
-        
+
         //Then
         XCTAssertTrue(environmentSpy.initializeCalled)
         XCTAssertNotNil(environmentSpy.deepLinkHandlerPassed)
         XCTAssertTrue(deepLinkHandler === environmentSpy.deepLinkHandlerPassed as? DeepLinkHandlerDummy)
     }
-    
+
     func test_start_shouldStartTheEnviromentWithAppThemeConfigured() {
         // Given
         let environmentSpy = BeagleEnvironmentSpy.self
         Beagle.didCallStart = false
         Beagle.environment = environmentSpy
         let theme = AppThemeDummy()
-        
+
         // When
         Beagle.start(applicationTheme: theme)
-        
+
         // Then
         XCTAssertTrue(environmentSpy.initializeCalled)
         XCTAssertNotNil(environmentSpy.applicationThemePassed)
         XCTAssertTrue(theme === environmentSpy.applicationThemePassed as? AppThemeDummy)
     }
-    
+
     func test_configureTheme_shouldCallConfigureTheme_passingTheme() {
         // Given
         let environmentSpy = BeagleEnvironmentSpy.self
         Beagle.didCallStart = false
         Beagle.environment = environmentSpy
         let theme = AppThemeDummy()
-        
+
         // When
         Beagle.start()
         Beagle.configureTheme(theme)
-        
+
         // Then
         guard let sharedInstance = environmentSpy._shared else {
             XCTFail("Could not find sharedInstance.")
@@ -145,40 +145,40 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
         deepLinkHandlerCalled = true
         return DeepLinkHandlerDummy()
     }
-    
+
     private(set) var appBundleCalled = false
     var appBundle: Bundle {
         appBundleCalled = true
         return Bundle()
     }
-    
+
     private(set) var decoderCalled = false
     var decoder: WidgetDecoding {
         decoderCalled = true
         return WidgetDecodingDummy()
     }
-    
+
     private(set) var networkingDispatcherCalled = false
     var networkingDispatcher: URLRequestDispatching {
         networkingDispatcherCalled = true
         return URLRequestDispatchingDummy()
     }
-    
+
     var customWidgetsProvider: CustomWidgetsRendererProviderDequeuing { CustomWidgetsRendererProviderDequeuingDummy() }
-    
+
     private(set) var applicationThemeCalled = false
     var applicationTheme: Theme {
         applicationThemeCalled = true
         return AppThemeDummy()
     }
-    
+
     private(set) static var _shared: BeagleEnvironmentSpy?
     static var shared: BeagleEnvironmentProtocol {
         return _shared!
     }
-    
+
     init() {}
-    
+
     static private(set) var initializeCalled = false
     static private(set) var bundlePassed: Bundle?
     static private(set) var applicationThemePassed: Theme?
@@ -197,7 +197,7 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
         applicationThemePassed = applicationTheme
         deepLinkHandlerPassed = deepLinkHandler
     }
-    
+
     static func initialize(appName: String, networkingDispatcher: URLRequestDispatching?, appBundle: Bundle?, deepLinkHandler: BeagleDeepLinkScreenManaging?, applicationTheme: Theme?) {
         initialize(
             appName: appName,
@@ -209,14 +209,14 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
             applicationTheme: applicationTheme ?? AppThemeDummy()
         )
     }
-    
+
     private(set) var registerCustomWidgetsCalled = false
     private(set) var itemPassed: Any?
     func registerCustomWidget<E, W>(_ item: WidgetRegisterItem<E, W>) where E : WidgetConvertible, E : WidgetEntity, W : Widget {
         registerCustomWidgetsCalled = true
         itemPassed = item
     }
-    
+
     private(set) var configureThemeCalled = false
     private(set) var themePassed: Theme?
     func configureTheme(_ theme: Theme) {
@@ -233,9 +233,7 @@ final class DeepLinkHandlerDummy: BeagleDeepLinkScreenManaging {
 
 final class WidgetDecodingDummy: WidgetDecoding {
     func register<T>(_ type: T.Type, for typeName: String) where T : WidgetEntity {}
-    func decode(from data: Data) throws -> WidgetEntity? { return nil }
-    func decodeToWidget<T>(ofType type: T.Type, from data: Data) throws -> T where T : Widget { return WidgetDummy() as! T }
-    func decode<T>(from data: Data, transformer: (Widget) throws -> T?) throws -> T? { return nil }
+    func decode(from data: Data) throws -> Widget { return WidgetDummy() }
 }
 
 final class CustomWidgetsRendererProviderDequeuingDummy: CustomWidgetsRendererProviderDequeuing {
@@ -269,6 +267,6 @@ class URLRequestDispatchingDummy: URLRequestDispatching {
 
 final class AppThemeDummy: Theme {
     func applyStyle<T>(for view: T, withId id: String) where T : UIView {
-        
+
     }
 }

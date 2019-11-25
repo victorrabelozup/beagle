@@ -84,36 +84,11 @@ public final class ServerDrivenWidgetFetching: ServerDrivenWidgetFetcher {
         completion: @escaping (Result<Widget, ServerDrivenWidgetFetcherError>) -> Void
     ) {
         do {
-            
-            guard let entity = try decoder.decode(from: data) else {
-                completion(.failure(.invalidEntity))
-                return
-            }
-            
-            mapEntityToWidget(entity, completion: completion)
+            let widget: Widget = try decoder.decode(from: data)
+            completion(.success(widget))
             
         } catch {
             completion(.failure(.decoding(error)))
         }
     }
-    
-    private func mapEntityToWidget(
-        _ entity: WidgetEntity,
-        completion: @escaping (Result<Widget, ServerDrivenWidgetFetcherError>) -> Void
-    ) {
-        
-        guard let convertibleEntity = entity as? WidgetConvertible else {
-            completion(.failure(.unconvertibleEntity(entity)))
-            return
-        }
-        
-        do {
-            let widget = try convertibleEntity.mapToWidget()
-            completion(.success(widget))
-        } catch {
-            completion(.failure(.mapping(error)))
-        }
-        
-    }
-    
 }

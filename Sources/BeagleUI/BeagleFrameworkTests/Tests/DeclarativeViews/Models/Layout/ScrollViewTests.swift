@@ -35,19 +35,6 @@ final class ScrollViewTests: XCTestCase {
         XCTAssertTrue(widget.children[safe: 1] is Button, "Expected to find `Button`.")
     }
     
-    func test_callingReversed_shouldChangeItsValue() {
-        // Given
-        let widget = ScrollView {
-            Text("text")
-        }
-
-        // When
-        let updatedWidget = widget.reversed()
-
-        // Then
-        XCTAssertNotEqual(widget.reversed, updatedWidget.reversed, "Expected `reversed` to be diferent from initial value.")
-    }
-    
     func test_whenNewClosureWithSingleChildWidget_shouldInitializeChild() {
         // Given
         let widget = ScrollView.new { () -> Widget in

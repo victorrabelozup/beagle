@@ -18,10 +18,10 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
         Beagle.environment = environmentSpy
         Beagle.didCallStart = false
         Beagle.start()
-        
+
         // When
         _ = ServerDrivenWidgetFetching()
-        
+
         // Then
         XCTAssertEqual(environmentSpy._shared?.networkingDispatcherCalled, true, "Init should call environment's `networkingDispatcher`.")
         XCTAssertEqual(environmentSpy._shared?.decoderCalled, true, "Init should call environment's `decoder`.")
@@ -47,7 +47,7 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
             XCTFail("Could not create URL.")
             return
         }
-        
+
         // When
         var widgetReturned: Widget?
         let fetchWidgetExpectation = expectation(description: "fetchWidgetExpectation")
@@ -58,12 +58,12 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
             fetchWidgetExpectation.fulfill()
         }
         wait(for: [fetchWidgetExpectation], timeout: 1.0)
-        
+
         // Then
         XCTAssertNotNil(widgetReturned, "Expected a widget, but got nil.")
         XCTAssertTrue(widgetReturned is Text, "Expected a `Text`, but got something else.")
     }
-    
+
     func test_whenRequestFails_itShouldThrowRequestError() {
         // Given
         let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .failure(.unknown))
@@ -75,7 +75,7 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
             XCTFail("Could not create URL.")
             return
         }
-        
+
         // When
         var errorThrown: ServerDrivenWidgetFetcherError?
         let fetchWidgetExpectation = expectation(description: "fetchWidgetExpectation")
@@ -86,16 +86,16 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
             fetchWidgetExpectation.fulfill()
         }
         wait(for: [fetchWidgetExpectation], timeout: 1.0)
-        
+
         // Then
         XCTAssertNotNil(errorThrown, "Expected an error, but got nil.")
         guard case .request = errorThrown else {
             XCTFail("Expected a `.request` error, but got \(String(describing: errorThrown)).")
             return
         }
-        
+
     }
-    
+
     func test_whenRequestSucceeds_withNilData_itShouldThrowEmptyDataError() {
         // Given
         let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .success(nil))
@@ -107,7 +107,7 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
             XCTFail("Could not create URL.")
             return
         }
-        
+
         // When
         var errorThrown: ServerDrivenWidgetFetcherError?
         let fetchWidgetExpectation = expectation(description: "fetchWidgetExpectation")
@@ -118,57 +118,16 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
             fetchWidgetExpectation.fulfill()
         }
         wait(for: [fetchWidgetExpectation], timeout: 1.0)
-        
+
         // Then
         XCTAssertNotNil(errorThrown, "Expected an error, but got nil.")
         guard case .emptyData = errorThrown else {
             XCTFail("Expected a `.emptyData` error, but got \(String(describing: errorThrown)).")
             return
         }
-        
+
     }
-    
-    func test_whenRequestSucceeds_butDecodingFails_itShouldThrowDecodingError() {
-        // Given
-        guard let jsonData = """
-        {
-            "_beagleType_": "beagle:widget:unconvertiblewidget",
-            "text": "some text"
-        }
-        """.data(using: .utf8) else {
-            XCTFail("Could not create test data.")
-            return
-        }
-        let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .success(jsonData))
-        let sut = ServerDrivenWidgetFetching(
-            networkingDispatcher: dispatcherStub,
-            decoder: WidgetDecodingDummy()
-        )
-        guard let url = URL(string: "www.something.com") else {
-            XCTFail("Could not create URL.")
-            return
-        }
-        
-        // When
-        var errorThrown: ServerDrivenWidgetFetcherError?
-        let fetchWidgetExpectation = expectation(description: "fetchWidgetExpectation")
-        sut.fetchWidget(from: url) { result in
-            if case let .failure(error) = result {
-                errorThrown = error
-            }
-            fetchWidgetExpectation.fulfill()
-        }
-        wait(for: [fetchWidgetExpectation], timeout: 1.0)
-        
-        // Then
-        XCTAssertNotNil(errorThrown, "Expected an error, but got nil.")
-        guard case .invalidEntity = errorThrown else {
-            XCTFail("Expected a `.invalidEntity` error, but got \(String(describing: errorThrown)).")
-            return
-        }
-        
-    }
-    
+
     func test_whenRequestSucceeds_butTheDecodingFailsWithAnError_itShouldThrowDecodingError() {
         // Given
         let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .success(Data()))
@@ -182,7 +141,7 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
             XCTFail("Could not create URL.")
             return
         }
-        
+
         // When
         var errorThrown: ServerDrivenWidgetFetcherError?
         let fetchWidgetExpectation = expectation(description: "fetchWidgetExpectation")
@@ -193,84 +152,15 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
             fetchWidgetExpectation.fulfill()
         }
         wait(for: [fetchWidgetExpectation], timeout: 1.0)
-        
+
         // Then
         XCTAssertNotNil(errorThrown, "Expected an error, but got nil.")
         guard case .decoding = errorThrown else {
             XCTFail("Expected a `.decoding` error, but got \(String(describing: errorThrown)).")
             return
         }
-        
+
     }
-    
-    func test_whenRequestSucceeds_butTheEntitityIsNotWidgetConvertible_itShouldThrowUnconvertibleEntityError() {
-        // Given
-        let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .success(Data()))
-        let decoderStub = WidgetDecodingStub()
-        decoderStub.widgetToReturnOnDecode = UnconvertibleWidget(text: "coisa")
-        let sut = ServerDrivenWidgetFetching(
-            networkingDispatcher: dispatcherStub,
-            decoder: decoderStub
-        )
-        guard let url = URL(string: "www.something.com") else {
-            XCTFail("Could not create URL.")
-            return
-        }
-        
-        // When
-        var errorThrown: ServerDrivenWidgetFetcherError?
-        let fetchWidgetExpectation = expectation(description: "fetchWidgetExpectation")
-        sut.fetchWidget(from: url) { result in
-            if case let .failure(error) = result {
-                errorThrown = error
-            }
-            fetchWidgetExpectation.fulfill()
-        }
-        wait(for: [fetchWidgetExpectation], timeout: 1.0)
-        
-        // Then
-        XCTAssertNotNil(errorThrown, "Expected an error, but got nil.")
-        guard case .unconvertibleEntity = errorThrown else {
-            XCTFail("Expected a `.unconvertibleEntity` error, but got \(String(describing: errorThrown)).")
-            return
-        }
-        
-    }
-    
-    func test_whenRequestSucceeds_butTheEntitityIsNotMapable_itShouldThrowMappingError() {
-        // Given
-        let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .success(Data()))
-        let decoderStub = WidgetDecodingStub()
-        decoderStub.widgetToReturnOnDecode = MappingFailureWidget()
-        let sut = ServerDrivenWidgetFetching(
-            networkingDispatcher: dispatcherStub,
-            decoder: decoderStub
-        )
-        guard let url = URL(string: "www.something.com") else {
-            XCTFail("Could not create URL.")
-            return
-        }
-        
-        // When
-        var errorThrown: ServerDrivenWidgetFetcherError?
-        let fetchWidgetExpectation = expectation(description: "fetchWidgetExpectation")
-        sut.fetchWidget(from: url) { result in
-            if case let .failure(error) = result {
-                errorThrown = error
-            }
-            fetchWidgetExpectation.fulfill()
-        }
-        wait(for: [fetchWidgetExpectation], timeout: 1.0)
-        
-        // Then
-        XCTAssertNotNil(errorThrown, "Expected an error, but got nil.")
-        guard case .mapping = errorThrown else {
-            XCTFail("Expected a `.mapping` error, but got \(String(describing: errorThrown)).")
-            return
-        }
-        
-    }
-    
 }
 
 // MARK: - Testing Helpers
@@ -278,39 +168,32 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
 final class URLRequestDispatchingStub: URLRequestDispatching {
 
     private let resultToReturn: Result<Data?, URLRequestError>
-    
+
     init(resultToReturn: Result<Data?, URLRequestError>) {
         self.resultToReturn = resultToReturn
     }
-    
+
     func execute(on queue: DispatchQueue, request: URLRequestProtocol, completion: @escaping (Result<Data?, URLRequestError>) -> Void) -> URLRequestToken? {
            completion(resultToReturn)
            return nil
     }
-    
+
 }
 
 final class WidgetDecodingStub: WidgetDecoding {
     
     func register<T>(_ type: T.Type, for typeName: String) where T : WidgetEntity {}
-    
+
     var widgetToReturnOnDecode: WidgetEntity?
     var errorToThrowOnDecode: Error?
-    func decode(from data: Data) throws -> WidgetEntity? {
-        if let errorToThrowOnDecode = errorToThrowOnDecode {
-            throw errorToThrowOnDecode
+    
+    func decode(from data: Data) throws -> Widget {
+        if let error = errorToThrowOnDecode {
+            throw error
         }
-        return widgetToReturnOnDecode
+        return WidgetDummy()
     }
-    
-    func decodeToWidget<T>(ofType type: T.Type, from data: Data) throws -> T where T : Widget {
-        return WidgetDummy() as! T
-    }
-    
-    func decode<T>(from data: Data, transformer: (Widget) throws -> T?) throws -> T? {
-        return nil
-    }
-    
+
 }
 
 private struct MappingFailureWidget: WidgetEntity, WidgetConvertible {

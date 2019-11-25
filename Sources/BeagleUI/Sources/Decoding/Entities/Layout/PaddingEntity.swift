@@ -6,55 +6,16 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-import Foundation
-
-/// Defines an API representation for `Padding`
 struct PaddingEntity: WidgetEntity {
     
-    let value: PaddingValueEntity
-    let child: WidgetConvertibleEntity
-    
-    private let childContainer: WidgetEntityContainer
-    
-    private enum CodingKeys: String, CodingKey {
-        case value
-        case childContainer = "child"
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        try self.init(
-            value: container.decodeIfPresent(PaddingValueEntity.self, forKey: .value),
-            childContainer: container.decode(WidgetEntityContainer.self, forKey: .childContainer)
-        )
-    }
-    
-    init(
-        value: PaddingValueEntity?,
-        childContainer: WidgetEntityContainer
-    ) throws {
-        self.value = value ?? PaddingValueEntity(
-            top: .zero,
-            left: .zero,
-            right: .zero,
-            bottom: .zero
-        )
-        self.childContainer = childContainer
-        guard let childContainerValue = childContainer.content else {
-            let entityType = String(describing: PaddingEntity.self)
-            let key = CodingKeys.childContainer.rawValue
-            throw WidgetDecodingError.couldNotDecodeContentForEntityOnKey(entityType, key)
-        }
-        child = childContainerValue
-    }
-    
-}
-extension PaddingEntity: WidgetConvertible {
+    var value: PaddingValueEntity = PaddingValueEntity(top: .zero, left: .zero, right: .zero, bottom: .zero)
+    let child: AnyDecodableContainer
     
     func mapToWidget() throws -> Widget {
         
         let value = try mapPaddingValue()
-        let child = try self.child.mapToWidget()
+        let widgetEntity = self.child.content as? WidgetConvertibleEntity
+        let child = try widgetEntity?.mapToWidget() ?? AnyWidget(value: self.child.content)
         
         return Padding(value: value, child: child)
     }
@@ -73,10 +34,8 @@ extension PaddingEntity: WidgetConvertible {
             bottom: bottom ?? .zero
         )
     }
-    
 }
 
-/// Defines an API representation for `PaddingValue`
 struct PaddingValueEntity: WidgetEntity {
     let top: UnitValueEntity?
     let left: UnitValueEntity?

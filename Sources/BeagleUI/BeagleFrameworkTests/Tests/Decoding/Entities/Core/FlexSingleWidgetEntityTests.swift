@@ -11,50 +11,13 @@ import XCTest
 
 final class FlexSingleWidgetEntityTests: XCTestCase {
     
-    func test_whenDecodingAValidJson_itShouldReturnAValidObject() {
-        let json = """
-            {
-                "_beagleType_": "beagle:widget:flexsinglewidget",
-                "child": {
-                        "_beagleType_": "beagle:widget:text",
-                        "text": "Some Text"
-                    },
-                "justifyContent": "CENTER"
-            }
-        """
-        guard let jsonData = json.data(using: .utf8) else {
-            XCTFail("Could not create JSON data.")
-            return
-        }
-
-        // When
-        let object = try? WidgetDecoder().decodeToWidget(ofType: FlexSingleWidget.self, from: jsonData)
-        
-        // Then
-        XCTAssertNotNil(object, "Expected a valid object, but found nil.")
-        XCTAssertNotNil(object?.child, "Expected object to have a single child, but found nil.")
-    }
-    
-    func test_whenDecodingAInvalidJson_itShouldThrowDecodingError() {
-        // Given
-        let child = WidgetEntityContainer(type: "beagle:Text", content: nil)
-
-        // When /Then
-        XCTAssertThrowsError(_ = try FlexSingleWidgetEntity(childContainer: child, flex: nil), "Expected to throw an error, but got none.") { error in
-                XCTAssertTrue(error is WidgetDecodingError, "Expected a `WidgetDecodingError`, but got \(error.localizedDescription).")
-        }
-    }
-    
     func test_whenMapToWidgetIsCalled_thenItShouldReturnAFlexSingleWidget() {
         // Given
         let content = TextEntity(text: "Some text")
-        let child = WidgetEntityContainer(type: "beagle:Text", content: content)
+        let child = AnyDecodableContainer(content: content)
         let flex = FlexEntity()
-        guard let sut = try? FlexSingleWidgetEntity(childContainer: child, flex: flex) else {
-            XCTFail("Could not create Flex single widget.")
-            return
-        }
-        
+        let sut = FlexSingleWidgetEntity(child: child, flex: flex)
+            
         // When
         let flexSingleWidget = try? sut.mapToWidget()
         

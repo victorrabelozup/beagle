@@ -17,7 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let theme = AppTheme(styles: ["h1": BeagleStyle.h1Style, "grayButton": BeagleStyle.grayButton])
         Beagle.start(appName: "BeagleDemo", deepLinkHandler: DeepLinkHandler(), applicationTheme: theme)
-        let rootViewController = UINavigationController(rootViewController: BeagleScreenViewController(screenType: .declarative(TextScreen())))
+        
+        guard let url = URL(string: "http://localhost:8000/home.json") else {
+            fatalError()
+        }
+        
+        let rootViewController = BeagleScreenViewController(screenType: .remote(url))
         
         window = UIWindow()
         window?.rootViewController = rootViewController
@@ -30,13 +35,57 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 struct TextScreen: Screen {
     var content: Widget {
-        ListView {
-            Navigator(action: Navigate(type: .openDeepLink, path: "ViewController1", data: ["title":"screen 1"])) {
-                 Button(text: "OPEN NATIVE SCREEN 1", style: "grayButton")
-            }
-            Navigator(action: Navigate(type: .openDeepLink, path: "ViewController2", data: ["title":"screen 2"])) {
-                 Button(text: "OPEN NATIVE SCREEN 2", style: "grayButton")
-            }
+        ScrollView {
+            Text("teste")
+            
+            Text("teste")
+            Text("teste")
+            Text("teste")
+            Text("teste")
+            
+            Text("teste")
+            Text("teste")
+            Text("teste")
+            Text("teste")
+            
+            Text("teste")
+            Text("teste")
+            Text("teste")
+            Text("teste")
+            
+            Text("teste")
+            Text("teste")
+            Text("teste")
+            Text("teste")
+            
+            Text("teste")
+            Text("teste")
+            Text("teste")
+            Text("teste")
+            
+            Text("teste")
+            Text("teste")
+            Text("teste")
+            Text("teste")
+            
+            Text("teste")
+            Text("teste")
+            Text("teste")
+            Text("teste")
+            
+            Text("teste")
+            Text("teste")
+            Text("teste")
+            Text("teste")
+            
+            Text("teste")
+            Text("teste")
+            Text("teste")
+            Text("teste")
+            
+            Text("teste")
+            Text("teste")
+            Text("teste")
         }
     }
 }

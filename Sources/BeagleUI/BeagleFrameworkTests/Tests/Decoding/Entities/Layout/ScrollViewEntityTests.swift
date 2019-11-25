@@ -14,8 +14,8 @@ final class ScrollViewEntityTests: XCTestCase {
     func test_whenMapToWidgetIsCalled_thenItShouldReturnAScrollViewWidget() {
         // Given
         let content = TextEntity(text: "text")
-        let children = [WidgetEntityContainer(type: "beagle:widget:flexWidget", content: content)]
-        let sut = ScrollViewEntity(childrenContainer: children, reversed: false)
+        let children = [AnyDecodableContainer(content: content)]
+        let sut = ScrollViewEntity(children: children)
 
         // When
         let scrollView = try? sut.mapToWidget()
@@ -24,39 +24,4 @@ final class ScrollViewEntityTests: XCTestCase {
         XCTAssertNotNil(scrollView, "The ScrollView widget should not be nil.")
         XCTAssertTrue(scrollView is ScrollView)
     }
-
-    func test_whenDecodingAValidJSON_itShouldReturnAValidObject() {
-        // Given
-        let json = """
-            {
-                "_beagleType_": "beagle:widget:scrollview",
-                "children": [
-                  {
-                      "_beagleType_": "beagle:widget:flexWidget",
-                      "flex": {
-                          "alignItems": "CENTER"
-                      },
-                      "children": [
-                          {
-                              "_beagleType_": "beagle:widget:text",
-                              "text": "TESTE"
-                          }
-                      ]
-                  }
-                ]
-            }
-        """
-        guard let jsonData = json.data(using: .utf8) else {
-            XCTFail("Could not create JSON data.")
-            return
-        }
-
-        // When
-        let object = try? WidgetDecoder().decodeToWidget(ofType: ScrollView.self, from: jsonData)
-
-        // Then
-        XCTAssertNotNil(object, "Expected a valid object, but found nil.")
-        XCTAssertTrue(object?.children.first is FlexWidget)
-    }
-    
 }
