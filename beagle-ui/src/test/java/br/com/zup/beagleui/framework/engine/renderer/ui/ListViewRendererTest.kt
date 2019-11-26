@@ -3,6 +3,7 @@ package br.com.zup.beagleui.framework.engine.renderer.ui
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.widget.ui.ListDirection
 import br.com.zup.beagleui.framework.widget.ui.ListView
@@ -21,6 +22,8 @@ class ListViewRendererTest {
 
     @MockK
     private lateinit var context: Context
+    @MockK
+    private lateinit var rootView: RootView
     @MockK
     private lateinit var viewFactory: ViewFactory
     @MockK
@@ -43,11 +46,13 @@ class ListViewRendererTest {
         every { recyclerView.adapter = any() } just Runs
         every { widget.direction } returns ListDirection.VERTICAL
         every { widget.rows } returns listOf()
+        every { rootView.getContext() } returns context
+        every { recyclerView.context } returns context
     }
 
     @Test
     fun build_should_return_a_RecyclerView_instance() {
-        val view = listViewRenderer.build(context)
+        val view = listViewRenderer.build(rootView)
 
         assertTrue(view is RecyclerView)
     }
@@ -58,7 +63,7 @@ class ListViewRendererTest {
         every { widget.direction } returns ListDirection.VERTICAL
 
         // When
-        listViewRenderer.build(context)
+        listViewRenderer.build(rootView)
 
         // Then
         assertEquals(RecyclerView.VERTICAL, layoutManagerSlot.captured.orientation)
@@ -70,7 +75,7 @@ class ListViewRendererTest {
         every { widget.direction } returns ListDirection.HORIZONTAL
 
         // When
-        listViewRenderer.build(context)
+        listViewRenderer.build(rootView)
 
         // Then
         assertEquals(RecyclerView.HORIZONTAL, layoutManagerSlot.captured.orientation)

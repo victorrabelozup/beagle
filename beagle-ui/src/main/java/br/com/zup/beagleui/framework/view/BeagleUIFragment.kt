@@ -9,6 +9,7 @@ import android.widget.FrameLayout
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import br.com.zup.beagleui.framework.engine.renderer.FragmentRootView
 import br.com.zup.beagleui.framework.utils.dp
 
 private const val SCREEN_URL_KEY = "SCREEN_URL_KEY"
@@ -39,7 +40,7 @@ class BeagleUIFragment : Fragment(), StateChangedListener {
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT
                 )
-                loadView(this@BeagleUIFragment, screenUrl)
+                loadView(FragmentRootView(this@BeagleUIFragment), screenUrl)
                 createProgressBar(this)
                 stateChangedListener = this@BeagleUIFragment
             }

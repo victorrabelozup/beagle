@@ -1,13 +1,12 @@
 package br.com.zup.beagleui.framework.engine.renderer
 
-import android.content.Context
 import android.view.View
 import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.engine.renderer.ui.UndefinedViewRenderer
 import br.com.zup.beagleui.framework.widget.core.Widget
 
 internal interface ViewRenderer {
-    fun build(context: Context): View
+    fun build(rootView: RootView): View
 }
 
 internal abstract class LayoutViewRenderer(

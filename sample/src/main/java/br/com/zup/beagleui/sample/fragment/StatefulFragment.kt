@@ -70,7 +70,7 @@ class StatefulFragment : Fragment() {
             )
         )
 
-        return context?.let { declarative.toView(it) }
+        return context?.let { declarative.toView(this) }
     }
 
     companion object {

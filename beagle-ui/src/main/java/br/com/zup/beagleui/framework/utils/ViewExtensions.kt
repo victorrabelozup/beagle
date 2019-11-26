@@ -1,9 +1,6 @@
 package br.com.zup.beagleui.framework.utils
 
-import android.app.Activity
-import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import androidx.core.view.size
@@ -17,13 +14,18 @@ import br.com.zup.beagleui.framework.view.StateChangedListener
 import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.widget.ui.Button
 import br.com.zup.beagleui.framework.widget.ui.Text
+import android.app.Activity
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import br.com.zup.beagleui.framework.engine.renderer.ActivityRootView
+import br.com.zup.beagleui.framework.engine.renderer.FragmentRootView
 
 internal var viewExtensionsViewFactory = ViewFactory()
 
 fun ViewGroup.loadView(activity: AppCompatActivity, url: String) {
     this.addView(
         viewExtensionsViewFactory.makeBeagleView(this.context).apply {
-            this.loadView(activity, url)
+            this.loadView(ActivityRootView(activity), url)
         }
     )
 }
@@ -31,7 +33,7 @@ fun ViewGroup.loadView(activity: AppCompatActivity, url: String) {
 fun ViewGroup.loadView(fragment: Fragment, url: String) {
     this.addView(
         viewExtensionsViewFactory.makeBeagleView(this.context).apply {
-            this.loadView(fragment, url)
+            this.loadView(FragmentRootView(fragment), url)
         }
     )
 }

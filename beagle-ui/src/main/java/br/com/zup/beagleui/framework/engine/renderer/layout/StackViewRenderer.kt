@@ -1,8 +1,8 @@
 package br.com.zup.beagleui.framework.engine.renderer.layout
 
-import android.content.Context
 import android.view.View
 import br.com.zup.beagleui.framework.engine.renderer.LayoutViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.view.BeagleFlexView
@@ -18,19 +18,23 @@ internal class StackViewRenderer(
     viewFactory: ViewFactory = ViewFactory()
 ) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
 
-    override fun build(context: Context): View {
+    override fun build(rootView: RootView): View {
         val flex = Flex(
             flexDirection = FlexDirection.COLUMN,
             positionType = FlexPositionType.ABSOLUTE
         )
-        return viewFactory.makeBeagleFlexView(context, flex).apply {
-            addChildrenViews(stack.children, this)
+        return viewFactory.makeBeagleFlexView(rootView.getContext(), flex).apply {
+            addChildrenViews(stack.children, this, rootView)
         }
     }
 
-    private fun addChildrenViews(children: List<Widget>, beagleFlexView: BeagleFlexView) {
+    private fun addChildrenViews(
+        children: List<Widget>,
+        beagleFlexView: BeagleFlexView,
+        rootView: RootView
+    ) {
         children.forEach { widget ->
-            beagleFlexView.addView(viewRendererFactory.make(widget).build(beagleFlexView.context))
+            beagleFlexView.addView(viewRendererFactory.make(widget).build(rootView))
         }
     }
 }

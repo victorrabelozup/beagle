@@ -1,8 +1,8 @@
 package br.com.zup.beagleui.framework.engine.renderer.layout
 
-import android.content.Context
 import android.view.View
 import br.com.zup.beagleui.framework.engine.renderer.LayoutViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.widget.layout.Spacer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.view.ViewFactory
@@ -17,7 +17,7 @@ internal class SpacerViewRenderer(
     viewFactory: ViewFactory = ViewFactory()
 ) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
 
-    override fun build(context: Context): View {
+    override fun build(rootView: RootView): View {
         val flex = Flex(
             size = Size(
                 width = UnitValue(spacer.size, UnitType.REAL),
@@ -25,6 +25,6 @@ internal class SpacerViewRenderer(
             )
         )
 
-        return viewFactory.makeBeagleFlexView(context, flex)
+        return viewFactory.makeBeagleFlexView(rootView.getContext(), flex)
     }
 }

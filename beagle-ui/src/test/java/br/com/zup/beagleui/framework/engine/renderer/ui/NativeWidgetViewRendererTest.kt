@@ -2,6 +2,7 @@ package br.com.zup.beagleui.framework.engine.renderer.ui
 
 import android.content.Context
 import android.view.View
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.view.WidgetViewFactory
@@ -31,12 +32,16 @@ class NativeWidgetViewRendererTest {
     private lateinit var viewRendererFactory: ViewRendererFactory
     @MockK
     private lateinit var widgetViewFactory: WidgetViewFactory<NativeWidget>
+    @MockK
+    private lateinit var rootView: RootView
 
     private lateinit var nativeWidgetViewRenderer: NativeWidgetViewRenderer
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
+
+        every { rootView.getContext() } returns context
 
         nativeWidgetViewRenderer = NativeWidgetViewRenderer(widget, viewRendererFactory)
 
@@ -58,7 +63,7 @@ class NativeWidgetViewRendererTest {
         ))
 
         // When
-        val actual = nativeWidgetViewRenderer.build(context)
+        val actual = nativeWidgetViewRenderer.build(rootView)
 
         // Then
         assertEquals(view, actual)
@@ -73,11 +78,11 @@ class NativeWidgetViewRendererTest {
         every { undefinedViewRenderer.build(any()) } returns view
 
         // When
-        val actual = nativeWidgetViewRenderer.build(context)
+        val actual = nativeWidgetViewRenderer.build(rootView)
 
         // Then
         assertEquals(view, actual)
         verify(exactly = 1) { viewRendererFactory.makeUndefinedViewRenderer() }
-        verify(exactly = 1) { undefinedViewRenderer.build(context) }
+        verify(exactly = 1) { undefinedViewRenderer.build(rootView) }
     }
 }

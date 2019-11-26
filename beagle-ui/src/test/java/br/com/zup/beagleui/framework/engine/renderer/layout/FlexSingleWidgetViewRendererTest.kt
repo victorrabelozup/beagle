@@ -1,6 +1,7 @@
 package br.com.zup.beagleui.framework.engine.renderer.layout
 
 import android.content.Context
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.engine.renderer.ui.ButtonViewRenderer
@@ -31,6 +32,8 @@ class FlexSingleWidgetViewRendererTest {
     @MockK
     private lateinit var context: Context
     @MockK
+    private lateinit var rootView: RootView
+    @MockK
     private lateinit var childWidget: Widget
     @MockK
     private lateinit var beagleFlexView: BeagleFlexView
@@ -51,26 +54,27 @@ class FlexSingleWidgetViewRendererTest {
         every { viewRendererFactory.make(childWidget) } returns buttonViewRenderer
         every { buttonViewRenderer.build(any()) } returns beagleFlexView
         every { beagleFlexView.addView(any()) } just Runs
+        every { rootView.getContext() } returns context
     }
 
     @Test
     fun build_should_makeBeagleFlexView() {
-        flexSingleWidgetViewRenderer.build(context)
+        flexSingleWidgetViewRenderer.build(rootView)
 
         verify(exactly = 1) { viewFactory.makeBeagleFlexView(context, flex) }
     }
 
     @Test
     fun build_should_make_a_view_from_a_child_widget() {
-        flexSingleWidgetViewRenderer.build(context)
+        flexSingleWidgetViewRenderer.build(rootView)
 
         verify(exactly = 1) { viewRendererFactory.make(childWidget) }
-        verify(exactly = 1) { buttonViewRenderer.build(context) }
+        verify(exactly = 1) { buttonViewRenderer.build(rootView) }
     }
 
     @Test
     fun build_should_addView_to_BeagleFlexView() {
-        flexSingleWidgetViewRenderer.build(context)
+        flexSingleWidgetViewRenderer.build(rootView)
 
         verify(exactly = 1) { beagleFlexView.addView(beagleFlexView) }
     }

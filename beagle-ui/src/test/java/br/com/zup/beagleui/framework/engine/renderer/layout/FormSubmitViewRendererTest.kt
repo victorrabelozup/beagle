@@ -2,6 +2,7 @@ package br.com.zup.beagleui.framework.engine.renderer.layout
 
 import android.content.Context
 import android.view.View
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.view.ViewFactory
@@ -26,7 +27,7 @@ class FormSubmitViewRendererTest {
     @MockK
     private lateinit var viewRendererFactory: ViewRendererFactory
     @MockK
-    private lateinit var context: Context
+    private lateinit var rootView: RootView
     @MockK
     private lateinit var viewRenderer: ViewRenderer
     @MockK
@@ -52,7 +53,7 @@ class FormSubmitViewRendererTest {
 
     @Test
     fun build_should_make_child() {
-        val actual = formSubmitViewRenderer.build(context)
+        val actual = formSubmitViewRenderer.build(rootView)
 
         assertEquals(view, actual)
     }
@@ -61,7 +62,7 @@ class FormSubmitViewRendererTest {
     fun build_should_set_widget_on_tag() {
         every { view.tag = any() } just Runs
 
-        formSubmitViewRenderer.build(context)
+        formSubmitViewRenderer.build(rootView)
 
         verify(exactly = 1) { view.tag = formSubmit }
     }

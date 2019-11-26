@@ -3,6 +3,7 @@ package br.com.zup.beagleui.framework.engine.renderer.layout
 import android.content.Context
 import android.view.View
 import br.com.zup.beagleui.framework.engine.renderer.LayoutViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.widget.layout.Container
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.view.ViewFactory
@@ -16,27 +17,23 @@ internal class ContainerViewRenderer(
     viewFactory: ViewFactory = ViewFactory()
 ) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
 
-    override fun build(context: Context): View {
+    override fun build(rootView: RootView): View {
         val flex = Flex(
             flexDirection = FlexDirection.COLUMN,
             justifyContent = JustifyContent.SPACE_BETWEEN
         )
-        val container = viewFactory.makeBeagleFlexView(context, flex)
-
-        /*this.container.backgroundColor?.let {
-            container.setBackgroundColor(Color.parseColor(it))
-        }*/
+        val container = viewFactory.makeBeagleFlexView(rootView.getContext(), flex)
 
         this.container.header?.let {
-            container.addView(viewRendererFactory.make(it).build(context))
+            container.addView(viewRendererFactory.make(it).build(rootView))
         }
 
-        val contentView = viewRendererFactory.make(this.container.content).build(context)
-        val scrollView = createScrollViewForView(context, contentView)
+        val contentView = viewRendererFactory.make(this.container.content).build(rootView)
+        val scrollView = createScrollViewForView(rootView.getContext(), contentView)
         container.addView(scrollView)
 
         this.container.footer?.let {
-            container.addView(viewRendererFactory.make(it).build(context))
+            container.addView(viewRendererFactory.make(it).build(rootView))
         }
 
         return container

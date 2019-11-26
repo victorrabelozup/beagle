@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.testutil.RandomData
 import br.com.zup.beagleui.framework.view.BeagleView
 import br.com.zup.beagleui.framework.view.StateChangedListener
@@ -60,8 +61,7 @@ class ViewExtensionsKtTest {
         every { viewFactory.makeBeagleView(any()) } returns beagleView
         every { viewGroup.addView(capture(viewSlot)) } just Runs
         every { viewGroup.context } returns activity
-        every { beagleView.loadView(any<Fragment>(), any()) } just Runs
-        every { beagleView.loadView(any<AppCompatActivity>(), any()) } just Runs
+        every { beagleView.loadView(any(), any()) } just Runs
         every { beagleView.windowToken } returns iBinder
         every { activity.getSystemService(Activity.INPUT_METHOD_SERVICE) } returns inputMethodManager
     }
@@ -72,7 +72,7 @@ class ViewExtensionsKtTest {
 
         assertEquals(beagleView, viewSlot.captured)
         verify { viewExtensionsViewFactory.makeBeagleView(activity) }
-        verify { beagleView.loadView(fragment, URL) }
+        verify { beagleView.loadView(any(), URL) }
     }
 
     @Test
@@ -81,7 +81,7 @@ class ViewExtensionsKtTest {
 
         assertEquals(beagleView, viewSlot.captured)
         verify { viewExtensionsViewFactory.makeBeagleView(activity) }
-        verify { beagleView.loadView(activity, URL) }
+        verify { beagleView.loadView(any(), URL) }
     }
 
     @Test

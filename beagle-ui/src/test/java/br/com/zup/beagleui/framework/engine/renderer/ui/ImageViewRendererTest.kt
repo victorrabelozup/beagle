@@ -3,6 +3,7 @@ package br.com.zup.beagleui.framework.engine.renderer.ui
 import android.content.Context
 import android.widget.ImageView
 import br.com.zup.beagleui.framework.engine.mapper.ViewMapper
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.widget.ui.Image
 import io.mockk.MockKAnnotations
@@ -28,6 +29,8 @@ class ImageViewRendererTest {
     private lateinit var imageView: ImageView
     @MockK
     private lateinit var context: Context
+    @MockK
+    private lateinit var rootView: RootView
 
     private val image = Image(DEFAULT_TEXT)
 
@@ -38,6 +41,8 @@ class ImageViewRendererTest {
         MockKAnnotations.init(this)
 
         imageViewRenderer = ImageViewRenderer(image, viewFactory, viewMapper)
+
+        every { rootView.getContext() } returns context
     }
 
     @Test
@@ -50,7 +55,7 @@ class ImageViewRendererTest {
         every { imageView.scaleType = capture(scaleTypeSlot) } just Runs
 
         // When
-        val view = imageViewRenderer.build(context)
+        val view = imageViewRenderer.build(rootView)
 
         // Then
         assertTrue(view is ImageView)

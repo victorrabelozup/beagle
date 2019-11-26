@@ -2,6 +2,7 @@ package br.com.zup.beagleui.framework.engine.renderer.ui
 
 import android.content.Context
 import androidx.core.widget.TextViewCompat
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.setup.ButtonTheme
@@ -34,6 +35,8 @@ class ButtonViewRendererTest {
     @MockK
     private lateinit var viewFactory: ViewFactory
     @MockK
+    private lateinit var rootView: RootView
+    @MockK
     private lateinit var context: Context
 
     @MockK
@@ -64,6 +67,7 @@ class ButtonViewRendererTest {
         every { buttonTheme.buttonBackground(any()) } returns 0
         every { buttonTheme.buttonTextAppearance(any()) } returns 0
         every { buttonView.setBackgroundResource(any()) } just Runs
+        every { rootView.getContext() } returns context
         every { TextViewCompat.setTextAppearance(any(), any()) } just Runs
 
     }
@@ -85,7 +89,7 @@ class ButtonViewRendererTest {
         every { buttonView.text = capture(textCapture) } just Runs
 
         // When
-        val view = buttonViewRenderer.build(context)
+        val view = buttonViewRenderer.build(rootView)
 
         // Then
         assertTrue(view is android.widget.Button)
@@ -101,7 +105,7 @@ class ButtonViewRendererTest {
         every { buttonView.text = capture(textCapture) } just Runs
 
         // When
-        val view = buttonViewRenderer.build(context)
+        val view = buttonViewRenderer.build(rootView)
 
         // Then
         assertTrue(view is android.widget.Button)

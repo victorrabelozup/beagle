@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import br.com.zup.beagleui.framework.engine.mapper.ViewMapper
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.widget.ui.NetworkImage
 import com.bumptech.glide.Glide
@@ -40,6 +41,8 @@ class NetworkImageViewRendererTest {
     private lateinit var requestManager: RequestManager
     @MockK
     private lateinit var requestBuilder: RequestBuilder<Drawable>
+    @MockK
+    private lateinit var rootView: RootView
 
     private val scaleType = ImageView.ScaleType.FIT_CENTER
     private val networkImage = NetworkImage(DEFAULT_URL)
@@ -58,6 +61,7 @@ class NetworkImageViewRendererTest {
         every { viewFactory.makeImageView(context) } returns imageView
         every { viewMapper.toScaleType(any()) } returns scaleType
         every { imageView.scaleType = any() } just Runs
+        every { rootView.getContext() } returns context
 
         networkImageViewRenderer = NetworkImageViewRenderer(networkImage, viewFactory, viewMapper)
     }
@@ -69,7 +73,7 @@ class NetworkImageViewRendererTest {
         every { imageView.scaleType = capture(scaleTypeSlot) } just Runs
 
         // When
-        val view = networkImageViewRenderer.build(context)
+        val view = networkImageViewRenderer.build(rootView)
 
         // Then
         assertTrue(view is ImageView)
@@ -78,7 +82,7 @@ class NetworkImageViewRendererTest {
 
     @Test
     fun build_should_set_url_to_Glide() {
-        networkImageViewRenderer.build(context)
+        networkImageViewRenderer.build(rootView)
 
         verify(exactly = 1) { Glide.with(imageView) }
         verify(exactly = 1) { requestManager.load(DEFAULT_URL) }

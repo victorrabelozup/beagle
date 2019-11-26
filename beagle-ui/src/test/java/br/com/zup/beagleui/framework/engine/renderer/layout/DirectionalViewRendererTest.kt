@@ -2,6 +2,7 @@ package br.com.zup.beagleui.framework.engine.renderer.layout
 
 import android.content.Context
 import android.view.View
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.view.BeagleFlexView
@@ -62,17 +63,19 @@ class DirectionalViewRendererTest {
         // Given
         val beagleFlexView = mockk<BeagleFlexView>()
         val context = mockk<Context>()
+        val rootView = mockk<RootView>()
         val containerViewRenderer = mockk<ContainerViewRenderer>()
         val view = mockk<View>()
         val flexSlot = slot<Flex>()
+        every { rootView.getContext() } returns context
         every { beagleFlexView.context } returns context
         every { beagleFlexView.addView(any()) } just Runs
         every { viewFactory.makeBeagleFlexView(any(), capture(flexSlot)) } returns beagleFlexView
         every { viewRendererFactory.make(any()) } returns containerViewRenderer
-        every { containerViewRenderer.build(context) } returns view
+        every { containerViewRenderer.build(rootView) } returns view
 
         // When
-        directionalViewRenderer.build(context)
+        directionalViewRenderer.build(rootView)
 
         // Then
         assertEquals(FlexDirection.COLUMN, flexSlot.captured.flexDirection)

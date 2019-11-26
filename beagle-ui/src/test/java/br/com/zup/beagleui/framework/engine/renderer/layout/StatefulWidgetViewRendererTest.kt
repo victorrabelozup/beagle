@@ -5,6 +5,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.view.ViewFactory
@@ -76,6 +77,7 @@ class StatefulWidgetViewRendererTest {
     @InjectMockKs
     private lateinit var subject: StatefulWidgetViewRenderer
 
+    private val rootView = mockk<RootView>()
     private val context = mockk<Context>()
     private val viewRenderer = mockk<ViewRenderer>()
     private val viewGroup = mockk<ViewGroup>()
@@ -90,17 +92,14 @@ class StatefulWidgetViewRendererTest {
     @Test
     fun test_build() {
         // Given
-        val context = mockStatefulRenderer()
+        mockStatefulRenderer()
 
         // When
-        val actual = subject.build(context)
+        subject.build(rootView)
 
-        // Then
-        Assert.assertTrue(actual is View)
     }
 
-    private fun mockStatefulRenderer(): Context {
-
+    private fun mockStatefulRenderer() {
         every { viewRendererFactory.make(any()) } returns viewRenderer
         every { viewRenderer.build(any()) } returns viewGroup
         every { viewGroup.childCount } returns 2
@@ -109,18 +108,17 @@ class StatefulWidgetViewRendererTest {
         every { statefulWidget.child } returns childWidgetButton
         every { childViewButton.tag } returns updatableWidgetButton
         every { childViewText.tag } returns updatableWidgetText
-        return context
     }
 
     @Test
     fun test_notify() {
         //Given
-        val context = mockStatefulRenderer()
+        mockStatefulRenderer()
         every { childViewButton.setOnClickListener(capture(buttonListenerSlot)) } just Runs
         every { childViewText.addTextChangedListener(capture(textWatcherSlot)) } just Runs
 
         // When
-        val actual = subject.build(context)
+        subject.build(rootView)
 
         buttonListenerSlot.captured.onClick(childViewButton)
         textWatcherSlot.captured.onTextChanged("DUMMY", 0, 0, 0)

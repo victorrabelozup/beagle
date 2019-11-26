@@ -1,11 +1,9 @@
 package br.com.zup.beagleui.framework.utils
 
-import android.content.Context
 import android.view.View
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
-import br.com.zup.beagleui.framework.utils.toView
-import br.com.zup.beagleui.framework.utils.viewRenderer
 import br.com.zup.beagleui.framework.widget.core.Widget
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -31,14 +29,14 @@ class WidgetExtensionsKtTest {
     fun toView() {
         // Given
         val widget = mockk<Widget>()
-        val context = mockk<Context>()
+        val rootView = mockk<RootView>()
         val viewRenderer = mockk< ViewRenderer>()
         val view = mockk<View>()
         every { viewRendererMock.make(widget) } returns viewRenderer
-        every { viewRenderer.build(context) } returns view
+        every { viewRenderer.build(rootView) } returns view
 
         // When
-        val actual = widget.toView(context)
+        val actual = widget.toView(rootView)
 
         // Then
         assertEquals(view, actual)

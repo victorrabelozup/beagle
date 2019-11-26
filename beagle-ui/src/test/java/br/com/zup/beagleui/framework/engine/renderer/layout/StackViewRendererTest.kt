@@ -2,6 +2,7 @@ package br.com.zup.beagleui.framework.engine.renderer.layout
 
 import android.content.Context
 import android.view.View
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.view.ViewFactory
@@ -27,6 +28,8 @@ class StackViewRendererTest {
     private lateinit var viewRendererFactory: ViewRendererFactory
     @MockK
     private lateinit var viewFactory: ViewFactory
+    @MockK
+    private lateinit var rootView: RootView
 
     private lateinit var stackViewRenderer: StackViewRenderer
 
@@ -57,9 +60,10 @@ class StackViewRendererTest {
         every { viewFactory.makeBeagleFlexView(any(), any()) } returns beagleFlexView
         every { viewRendererFactory.make(any()) } returns viewRenderer
         every { viewRenderer.build(any()) } returns view
+        every { rootView.getContext() } returns context
 
         // When
-        val actual = stackViewRenderer.build(context)
+        val actual = stackViewRenderer.build(rootView)
 
         // Then
         verify(exactly = 2) { beagleFlexView.addView(view) }

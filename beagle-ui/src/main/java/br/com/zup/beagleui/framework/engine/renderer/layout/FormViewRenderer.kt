@@ -8,6 +8,7 @@ import androidx.core.view.children
 import br.com.zup.beagleui.framework.action.ActionExecutor
 import br.com.zup.beagleui.framework.action.FormValidationActionHandler
 import br.com.zup.beagleui.framework.engine.renderer.LayoutViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.form.FormResult
 import br.com.zup.beagleui.framework.form.FormSubmitter
@@ -37,8 +38,8 @@ internal class FormViewRenderer(
     private val formInputViews = mutableListOf<View>()
     private var formSubmitView: View? = null
 
-    override fun build(context: Context): View {
-        val view = viewRendererFactory.make(widget.child).build(context)
+    override fun build(rootView: RootView): View {
+        val view = viewRendererFactory.make(widget.child).build(rootView)
 
         if (view is ViewGroup) {
             fetchFormViews(view)

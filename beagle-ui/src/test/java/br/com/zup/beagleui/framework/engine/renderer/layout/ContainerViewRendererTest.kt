@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.view.View
 import android.widget.ScrollView
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.view.ViewFactory
@@ -35,7 +36,8 @@ class ContainerViewRendererTest {
     private lateinit var viewRendererFactory: ViewRendererFactory
     @MockK
     private lateinit var viewFactory: ViewFactory
-
+    @MockK
+    private lateinit var rootView: RootView
     @MockK
     private lateinit var context: Context
     @MockK
@@ -66,10 +68,10 @@ class ContainerViewRendererTest {
         every { container.header } returns null
         every { container.content } returns widget
         every { container.footer } returns null
-//        every { container.backgroundColor } returns null
         every { viewRendererFactory.make(any()) } returns viewRenderer
         every { viewRenderer.build(any()) } returns view
         every { Color.parseColor(any()) } returns DEFAULT_COLOR
+        every { rootView.getContext() } returns context
 
         containerViewRenderer = ContainerViewRenderer(
             container,
@@ -85,7 +87,7 @@ class ContainerViewRendererTest {
         every { viewFactory.makeBeagleFlexView(any(), capture(flexValues)) } returns beagleFlexView
 
         // When
-        containerViewRenderer.build(context)
+        containerViewRenderer.build(rootView)
 
 
         // Then
@@ -99,11 +101,11 @@ class ContainerViewRendererTest {
         every { container.header } returns widget
 
         // When
-        containerViewRenderer.build(context)
+        containerViewRenderer.build(rootView)
 
         // Then
         verify(atLeast = 1) { viewRendererFactory.make(widget) }
-        verify(atLeast = 1) { viewRenderer.build(context) }
+        verify(atLeast = 1) { viewRenderer.build(rootView) }
         verify(atLeast = 1) { beagleFlexView.addView(view) }
     }
 
@@ -114,14 +116,14 @@ class ContainerViewRendererTest {
         val containerViewRendererMock = mockk<ContainerViewRenderer>()
         every { container.content } returns content
         every { viewRendererFactory.make(content) } returns containerViewRendererMock
-        every { containerViewRendererMock.build(context) } returns view
+        every { containerViewRendererMock.build(rootView) } returns view
 
         // When
-        containerViewRenderer.build(context)
+        containerViewRenderer.build(rootView)
 
         // Then
         verify(exactly = 1) { viewRendererFactory.make(content) }
-        verify(exactly = 1) { containerViewRendererMock.build(context) }
+        verify(exactly = 1) { containerViewRendererMock.build(rootView) }
     }
 
     @Test
@@ -131,7 +133,7 @@ class ContainerViewRendererTest {
         every { viewFactory.makeBeagleFlexView(any(), capture(flexValues)) } returns beagleFlexView
 
         // When
-        containerViewRenderer.build(context)
+        containerViewRenderer.build(rootView)
 
         // Then
         verify(exactly = 1) { viewFactory.makeScrollView(context) }
@@ -147,25 +149,11 @@ class ContainerViewRendererTest {
         every { container.footer } returns widget
 
         // When
-        containerViewRenderer.build(context)
+        containerViewRenderer.build(rootView)
 
         // Then
         verify(atLeast = 1) { viewRendererFactory.make(widget) }
-        verify(atLeast = 1) { viewRenderer.build(context) }
+        verify(atLeast = 1) { viewRenderer.build(rootView) }
         verify(atLeast = 1) { beagleFlexView.addView(view) }
     }
-
-    /*@Test
-    fun build_should_add_backgroundColor_to_container_view() {
-        // Given
-        val backgroundColor = "#FFFFFF"
-        every { container.backgroundColor } returns backgroundColor
-        every { beagleFlexView.setBackgroundColor(DEFAULT_COLOR) } just Runs
-
-        // When
-        containerViewRenderer.build(context)
-
-        // Then
-        verify(exactly = 1) { beagleFlexView.setBackgroundColor(DEFAULT_COLOR) }
-    }*/
 }

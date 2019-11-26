@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import br.com.zup.beagleui.framework.action.ActionExecutor
 import br.com.zup.beagleui.framework.action.FormValidationActionHandler
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.form.FormResult
@@ -81,6 +82,8 @@ class FormViewRendererTest {
     private lateinit var formSubmitView: View
     @MockK
     private lateinit var viewGroup: ViewGroup
+    @MockK
+    private lateinit var rootView: RootView
 
     private val onClickListenerSlot = slot<View.OnClickListener>()
     private val formResultCallbackSlot = slot<(formResult: FormResult) -> Unit>()
@@ -106,7 +109,7 @@ class FormViewRendererTest {
         mockkObject(BeagleLogger)
 
         every { viewRendererFactory.make(form) } returns viewRenderer
-        every { viewRenderer.build(appCompatActivity) } returns viewGroup
+        every { viewRenderer.build(rootView) } returns viewGroup
         every { form.child } returns form
         every { formInput.required } returns false
         every { formInputViewWithoutValidation.hideKeyboard() } just Runs
@@ -139,10 +142,10 @@ class FormViewRendererTest {
     fun build_should_not_try_to_iterate_over_children_if_is_not_a_ViewGroup() {
         // Given
         every { viewGroup.childCount } returns 0
-        every { viewRenderer.build(appCompatActivity) } returns formInputView
+        every { viewRenderer.build(rootView) } returns formInputView
 
         // When
-        val actual = formViewRenderer.build(appCompatActivity)
+        val actual = formViewRenderer.build(rootView)
 
         // Then
         assertEquals(formInputView, actual)
@@ -158,7 +161,7 @@ class FormViewRendererTest {
         every { viewGroup.getChildAt(any()) } returns childViewGroup
 
         // When
-        formViewRenderer.build(appCompatActivity)
+        formViewRenderer.build(rootView)
 
         // Then
         verify { childViewGroup.childCount }
@@ -166,7 +169,7 @@ class FormViewRendererTest {
 
     @Test
     fun build_should_group_formInput_views() {
-        formViewRenderer.build(appCompatActivity)
+        formViewRenderer.build(rootView)
 
         val views = formViewRenderer.getPrivateField<List<View>>(FORM_INPUT_VIEWS_FIELD_NAME)
         assertEquals(1, views.size)
@@ -175,7 +178,7 @@ class FormViewRendererTest {
 
     @Test
     fun build_should_find_formSubmitView() {
-        formViewRenderer.build(appCompatActivity)
+        formViewRenderer.build(rootView)
 
         val actual = formViewRenderer.getPrivateField<View>(FORM_SUBMIT_VIEW_FIELD_NAME)
         assertEquals(formSubmitView, actual)
@@ -284,7 +287,7 @@ class FormViewRendererTest {
     }
 
     private fun executeFormSubmitOnClickListener() {
-        formViewRenderer.build(appCompatActivity)
+        formViewRenderer.build(rootView)
         onClickListenerSlot.captured.onClick(formSubmitView)
     }
 }

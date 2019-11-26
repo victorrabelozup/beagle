@@ -1,8 +1,8 @@
 package br.com.zup.beagleui.framework.engine.renderer.ui
 
-import android.content.Context
 import android.view.View
 import androidx.core.widget.TextViewCompat
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.UIViewRenderer
 import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.setup.BeagleEnvironment
@@ -13,8 +13,8 @@ internal class ButtonViewRenderer(
     private val viewFactory: ViewFactory = ViewFactory()
 ) : UIViewRenderer {
 
-    override fun build(context: Context): View {
-        return viewFactory.makeButton(context).apply {
+    override fun build(rootView: RootView): View {
+        return viewFactory.makeButton(rootView.getContext()).apply {
             text = button.text
             BeagleEnvironment.theme?.let {
                 val buttonAppearance = it.buttonTheme.buttonTextAppearance(button.style)

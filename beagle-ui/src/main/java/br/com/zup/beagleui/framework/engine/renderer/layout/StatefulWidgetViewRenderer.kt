@@ -1,11 +1,11 @@
 package br.com.zup.beagleui.framework.engine.renderer.layout
 
-import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import br.com.zup.beagleui.framework.engine.renderer.LayoutViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.interfaces.OnStateUpdatable
 import br.com.zup.beagleui.framework.utils.findChildViewForType
@@ -26,8 +26,8 @@ internal class StatefulWidgetViewRenderer(
 
     private var elementList = mutableListOf<View>()
 
-    override fun build(context: Context): View {
-        val view = viewRendererFactory.make(statefulWidget.child).build(context)
+    override fun build(rootView: RootView): View {
+        val view = viewRendererFactory.make(statefulWidget.child).build(rootView)
 
         if (view is ViewGroup) {
             elementList = view.findChildViewForType(UpdatableWidget::class.java)

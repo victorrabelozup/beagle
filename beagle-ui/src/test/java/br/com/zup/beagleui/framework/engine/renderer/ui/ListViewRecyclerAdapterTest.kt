@@ -3,6 +3,7 @@ package br.com.zup.beagleui.framework.engine.renderer.ui
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.widget.core.Widget
@@ -26,6 +27,8 @@ class ListViewRecyclerAdapterTest {
     @MockK
     private lateinit var viewRendererMock: ViewRenderer
     @MockK
+    private lateinit var rootView: RootView
+    @MockK
     private lateinit var context: Context
     @MockK
     private lateinit var view: View
@@ -36,10 +39,10 @@ class ListViewRecyclerAdapterTest {
     fun setUp() {
         MockKAnnotations.init(this)
 
-        listViewRecyclerAdapter = ListViewRecyclerAdapter(ROWS, viewRendererFactory)
+        listViewRecyclerAdapter = ListViewRecyclerAdapter(rootView, ROWS, viewRendererFactory)
 
         every { viewRendererFactory.make(any()) } returns viewRendererMock
-        every { viewRendererMock.build(context) } returns view
+        every { viewRendererMock.build(rootView) } returns view
     }
 
     @Test

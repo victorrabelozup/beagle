@@ -2,6 +2,7 @@ package br.com.zup.beagleui.framework.engine.renderer.layout
 
 import android.content.Context
 import android.view.View
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.widget.layout.UpdatableWidget
@@ -39,7 +40,7 @@ class UpdatableWidgetViewRendererTest {
     @Test
     fun build_widget() {
         // Given
-        val context = mockk<Context>()
+        val rootView = mockk<RootView>()
         val view = mockk<View>()
 
         every { updatableWidget.child } returns text
@@ -48,10 +49,8 @@ class UpdatableWidgetViewRendererTest {
         every { view.tag } returns updatableWidget
 
         // When
-        val actual = viewRenderer.build(context)
+        viewRenderer.build(rootView)
 
         verify(exactly = 1) { viewRendererFactory.make(updatableWidget.child) }
-
-        Assert.assertTrue(actual is View)
     }
 }

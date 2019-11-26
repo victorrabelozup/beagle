@@ -1,7 +1,7 @@
 package br.com.zup.beagleui.framework.engine.renderer.layout
 
-import android.content.Context
 import android.view.View
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.view.ViewFactory
@@ -23,7 +23,7 @@ class BuildableWidgetViewRendererTest {
     @MockK
     private lateinit var widget: Widget
     @MockK
-    private lateinit var context: Context
+    private lateinit var rootView: RootView
     @MockK
     private lateinit var viewRendererMock: ViewRenderer
     @MockK
@@ -38,12 +38,12 @@ class BuildableWidgetViewRendererTest {
 
         every { widget.build() } returns widget
         every { viewRendererFactory.make(widget) } returns viewRendererMock
-        every { viewRendererMock.build(context) } returns view
+        every { viewRendererMock.build(rootView) } returns view
     }
 
     @Test
     fun build() {
-        val actual = viewRenderer.build(context)
+        val actual = viewRenderer.build(rootView)
 
         assertEquals(this.view, actual)
     }

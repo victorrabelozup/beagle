@@ -1,6 +1,7 @@
 package br.com.zup.beagleui.framework.engine.renderer.layout
 
 import android.content.Context
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.view.BeagleFlexView
@@ -22,6 +23,10 @@ class SpacerViewRendererTest {
     private lateinit var viewRendererFactory: ViewRendererFactory
     @MockK
     private lateinit var viewFactory: ViewFactory
+    @MockK
+    private lateinit var rootView: RootView
+    @MockK
+    private lateinit var context: Context
 
     private lateinit var spacerViewRenderer: SpacerViewRenderer
 
@@ -34,18 +39,19 @@ class SpacerViewRendererTest {
             viewRendererFactory,
             viewFactory
         )
+
+        every { rootView.getContext() } returns context
     }
 
     @Test
     fun build() {
         // Given
         val beagleFlexView = mockk<BeagleFlexView>()
-        val context = mockk<Context>()
         val flexSlot = slot<Flex>()
         every { viewFactory.makeBeagleFlexView(context, capture(flexSlot)) } returns beagleFlexView
 
         // When
-        val actual = spacerViewRenderer.build(context)
+        val actual = spacerViewRenderer.build(rootView)
 
         // Then
         assertNotNull(actual)

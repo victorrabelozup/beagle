@@ -3,11 +3,12 @@ package br.com.zup.beagleui.framework.engine.renderer.ui
 import android.content.Context
 import android.widget.TextView
 import androidx.core.widget.TextViewCompat
+import br.com.zup.beagleui.framework.engine.renderer.RootView
+import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.setup.TextAppearanceTheme
 import br.com.zup.beagleui.framework.setup.Theme
 import br.com.zup.beagleui.framework.view.BeagleTextView
-import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.widget.ui.Text
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
@@ -41,12 +42,12 @@ class TextViewRendererTest {
 
     @MockK
     private lateinit var theme: Theme
-
     @MockK
     private lateinit var text: Text
-
     @MockK
     private lateinit var textAppearanceTheme: TextAppearanceTheme
+    @MockK
+    private lateinit var rootView: RootView
 
     @InjectMockKs
     private lateinit var textViewRenderer: TextViewRenderer
@@ -63,6 +64,7 @@ class TextViewRendererTest {
         every { theme.textAppearanceTheme } returns textAppearanceTheme
         every { textAppearanceTheme.textAppearance(any()) } returns 0
         every { TextViewCompat.setTextAppearance(any(), any()) } just Runs
+        every { rootView.getContext() } returns context
     }
 
     @After
@@ -82,7 +84,7 @@ class TextViewRendererTest {
         every { textView.text = capture(textCapture) } just Runs
 
         // When
-        val view = textViewRenderer.build(context)
+        val view = textViewRenderer.build(rootView)
 
         // Then
         assertTrue(view is TextView)
@@ -98,7 +100,7 @@ class TextViewRendererTest {
         every { textView.text = capture(textCapture) } just Runs
 
         // When
-        val view = textViewRenderer.build(context)
+        val view = textViewRenderer.build(rootView)
 
         // Then
         assertTrue(view is TextView)

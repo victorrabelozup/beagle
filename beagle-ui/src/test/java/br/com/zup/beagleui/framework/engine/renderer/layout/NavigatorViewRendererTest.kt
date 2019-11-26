@@ -5,6 +5,7 @@ import android.view.View
 import br.com.zup.beagleui.framework.action.Navigate
 import br.com.zup.beagleui.framework.action.NavigationActionHandler
 import br.com.zup.beagleui.framework.action.NavigationType
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.view.ViewFactory
@@ -36,6 +37,8 @@ class NavigatorViewRendererTest {
     @MockK
     private lateinit var view: View
     @MockK
+    private lateinit var rootView: RootView
+    @MockK
     private lateinit var navigationActionHandler: NavigationActionHandler
 
     private val onClickListenerSlot = slot<View.OnClickListener>()
@@ -58,11 +61,12 @@ class NavigatorViewRendererTest {
         every { view.setOnClickListener(capture(onClickListenerSlot)) } just Runs
         every { viewRendererFactory.make(any()) } returns viewRenderer
         every { context.startActivity(any()) } just Runs
+        every { view.context } returns context
     }
 
     @Test
     fun build_should_make_child_view() {
-        val actual = navigatorViewRenderer.build(context)
+        val actual = navigatorViewRenderer.build(rootView)
 
         assertEquals(view, actual)
     }
@@ -81,7 +85,7 @@ class NavigatorViewRendererTest {
     }
 
     private fun callBuildAndClick() {
-        navigatorViewRenderer.build(context)
+        navigatorViewRenderer.build(rootView)
         onClickListenerSlot.captured.onClick(view)
     }
 }

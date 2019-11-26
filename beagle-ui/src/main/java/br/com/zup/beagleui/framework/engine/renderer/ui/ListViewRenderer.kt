@@ -1,10 +1,10 @@
 package br.com.zup.beagleui.framework.engine.renderer.ui
 
-import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.UIViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.view.ViewFactory
@@ -17,11 +17,11 @@ internal class ListViewRenderer(
     private val viewFactory: ViewFactory = ViewFactory()
 ) : UIViewRenderer {
 
-    override fun build(context: Context): View {
-        return viewFactory.makeRecyclerView(context).apply {
+    override fun build(rootView: RootView): View {
+        return viewFactory.makeRecyclerView(rootView.getContext()).apply {
             val direction = toRecyclerViewOrientation()
             layoutManager = LinearLayoutManager(context, direction, false)
-            adapter = ListViewRecyclerAdapter(widget.rows)
+            adapter = ListViewRecyclerAdapter(rootView, widget.rows)
         }
     }
 
@@ -35,6 +35,7 @@ internal class ListViewRenderer(
 }
 
 internal class ListViewRecyclerAdapter(
+    private val rootView: RootView,
     private val rows: List<Widget>,
     private val viewRendererFactory: ViewRendererFactory = ViewRendererFactory()
 ) : RecyclerView.Adapter<ViewHolder>() {
@@ -42,7 +43,7 @@ internal class ListViewRecyclerAdapter(
     override fun getItemViewType(position: Int): Int = position
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ViewHolder {
-        val view = viewRendererFactory.make(rows[position]).build(parent.context)
+        val view = viewRendererFactory.make(rows[position]).build(rootView)
         return ViewHolder(view)
     }
 
