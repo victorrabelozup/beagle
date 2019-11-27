@@ -33,7 +33,7 @@ extension AnyDecodableContainer: Decodable {
         let type = try container.decode(String.self, forKey: .type)
         
         let singleValueContainer = try decoder.singleValueContainer()
-        if let decoder = AnyDecodableContainer.decoders[type] {
+        if let decoder = AnyDecodableContainer.decoders[type.lowercased()] {
             content = try decoder(singleValueContainer)
         } else {
             content = Unknown(type: type)

@@ -15,13 +15,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        let theme = AppTheme(styles: ["h1": BeagleStyle.h1Style, "grayButton": BeagleStyle.grayButton])
-        Beagle.start(appName: "BeagleDemo", deepLinkHandler: DeepLinkHandler(), applicationTheme: theme)
+        Beagle.start(appName: "BeagleDemo")
         
         guard let url = URL(string: "http://localhost:8000/home.json") else {
             fatalError()
         }
         
+        Beagle.registerCustomWidget(.init(entity: .init(typeName: "switch", type: SwitchEntity.self), view: .init(widgetType: Switch.self, viewRenderer: SwitchRenderer.self)))
         let rootViewController = BeagleScreenViewController(screenType: .remote(url))
         
         window = UIWindow()
@@ -33,120 +33,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
-struct TextScreen: Screen {
-    var content: Widget {
-        ScrollView {
-            Text("teste")
-            
-            Text("teste")
-            Text("teste")
-            Text("teste")
-            Text("teste")
-            
-            Text("teste")
-            Text("teste")
-            Text("teste")
-            Text("teste")
-            
-            Text("teste")
-            Text("teste")
-            Text("teste")
-            Text("teste")
-            
-            Text("teste")
-            Text("teste")
-            Text("teste")
-            Text("teste")
-            
-            Text("teste")
-            Text("teste")
-            Text("teste")
-            Text("teste")
-            
-            Text("teste")
-            Text("teste")
-            Text("teste")
-            Text("teste")
-            
-            Text("teste")
-            Text("teste")
-            Text("teste")
-            Text("teste")
-            
-            Text("teste")
-            Text("teste")
-            Text("teste")
-            Text("teste")
-            
-            Text("teste")
-            Text("teste")
-            Text("teste")
-            Text("teste")
-            
-            Text("teste")
-            Text("teste")
-            Text("teste")
-        }
-    }
+//struct TextScreen: Screen {
+//    var content: Widget {
+//        ScrollView {
+//            Switch(isOn: false)
+//        }
+//    }
+//}
+
+struct Switch: NativeWidget {
+    let isOn: Bool
 }
 
-class DeepLinkHandler: BeagleDeepLinkScreenManaging {
-    func getNaviteScreen(with path: String, data: [String : String]?) throws -> UIViewController {
-        if path == "ViewController1" {
-            return ViewController1()
-        } else {
-            return ViewController2()
-        }
+struct SwitchEntity: WidgetConvertibleEntity {
+    func mapToWidget() throws -> Widget {
+        return Switch(isOn: isOn)
     }
+    
+    let isOn: Bool
 }
 
-class ViewController1: UIViewController {
-    
-    override func viewDidLoad() {
-        let view = UIButton(frame: self.view.frame)
-        view.setTitle("POP", for: .normal)
-        view.addTarget(self, action: #selector(popView), for: .touchDown)
-        view.backgroundColor = .red
-        self.view.addSubview(view)
-    }
-    
-    @objc func popView() {
-        self.navigationController?.popViewController(animated: true)
-    }
-}
-
-class ViewController2: UIViewController {
-    
-    override func viewDidLoad() {
-        let view = UIButton(frame: self.view.frame)
-        view.setTitle("POP", for: .normal)
-        view.addTarget(self, action: #selector(popView), for: .touchDown)
-        view.backgroundColor = .green
-        self.view.addSubview(view)
-    }
-    
-    @objc func popView() {
-        self.navigationController?.popViewController(animated: true)
-    }
-}
-
-extension BeagleStyle {
-    static func h1Style() -> (UILabel?) -> Void {
-        label(font: .systemFont(ofSize: 10), color: .black)
-    }
-
-    static func h2Style() -> (UILabel?) -> Void {
-        label(font: .systemFont(ofSize: 14), color: .black)
-    }
-
-    static func h3Style() -> (UILabel?) -> Void {
-        label(font: .systemFont(ofSize: 16), color: .black)
-    }
-
-    static func grayButton() -> (UIButton?) -> Void {
-        backgroundColor(withColor: .gray)
-            <> {
-                $0?.titleLabel |> h1Style()
-        }
+class SwitchRenderer: WidgetViewRenderer<Switch> {
+    override func buildView(context: BeagleContext) -> UIView {
+        let view = UISwitch()
+        view.isOn = widget.isOn
+        
+        return view
     }
 }

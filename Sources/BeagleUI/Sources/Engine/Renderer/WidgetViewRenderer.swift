@@ -26,15 +26,18 @@ public protocol WidgetViewRendererProtocol {
     func buildView(context: BeagleContext) -> UIView
 }
 
-public class WidgetViewRenderer<W: Widget>: WidgetViewRendererProtocol {
+open class WidgetViewRenderer<W: Widget>: WidgetViewRendererProtocol {
     
     let flexViewConfigurator: FlexViewConfiguratorProtocol
     let rendererProvider: WidgetRendererProvider
     let applicationTheme: Theme
-    private(set) var widget: W
+    private(set) public var widget: W
     
-    required public convenience init(_ widget: Widget) throws {
-        try self.init(widget: widget)
+    required public init(_ widget: Widget) throws {
+        self.widget = try .newByCasting(widget: widget, to: W.self)
+        self.rendererProvider = WidgetRendererProviding()
+        self.flexViewConfigurator = FlexViewConfigurator()
+        self.applicationTheme = BeagleEnvironment.shared.applicationTheme
     }
     
     init(
