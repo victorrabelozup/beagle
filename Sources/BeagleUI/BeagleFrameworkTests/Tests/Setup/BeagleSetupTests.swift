@@ -135,6 +135,48 @@ final class BeagleSetupTests: XCTestCase {
         XCTAssertNotNil(sharedInstance.themePassed)
         XCTAssertTrue(theme === sharedInstance.themePassed as? AppThemeDummy)
     }
+    
+    func test_configureValidatorHandler_shouldSetValidatorHandler() {
+        // Given
+        let environmentSpy = BeagleEnvironmentSpy.self
+        Beagle.didCallStart = false
+        Beagle.environment = environmentSpy
+        let validatorHandler = ValidatorHandling()
+        
+        // When
+        Beagle.start()
+        Beagle.configureValidatorHandler(validatorHandler)
+        
+        // Then
+        guard let sharedInstance = environmentSpy._shared else {
+            XCTFail("Could not find sharedInstance.")
+            return
+        }
+        XCTAssertTrue(sharedInstance.configureValidatorHandlerCalled)
+        XCTAssertNotNil(sharedInstance.validatorHandlerPassed)
+        XCTAssertTrue(validatorHandler === sharedInstance.validatorHandlerPassed as? ValidatorHandling)
+    }
+    
+    func test_configureCustomActionHandler_shouldSetCustomActionHandler() {
+        // Given
+        let environmentSpy = BeagleEnvironmentSpy.self
+        Beagle.didCallStart = false
+        Beagle.environment = environmentSpy
+        let customActionHandler = CustomActionHandlerDummy()
+        
+        // When
+        Beagle.start()
+        Beagle.configureCustomActionHandler(customActionHandler)
+        
+        // Then
+        guard let sharedInstance = environmentSpy._shared else {
+            XCTFail("Could not find sharedInstance.")
+            return
+        }
+        XCTAssertTrue(sharedInstance.configureCustomActionHandlerCalled)
+        XCTAssertNotNil(sharedInstance.customActionHandlerPassed)
+        XCTAssertTrue(customActionHandler === sharedInstance.customActionHandlerPassed as? CustomActionHandlerDummy)
+    }
 }
 
 // MARK: - Testing Helpers
@@ -171,6 +213,10 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
         applicationThemeCalled = true
         return AppThemeDummy()
     }
+    
+    var validatorHandler: ValidatorHandler?
+    
+    var customActionHandler: CustomActionHandler?
 
     private(set) static var _shared: BeagleEnvironmentSpy?
     static var shared: BeagleEnvironmentProtocol {
@@ -183,22 +229,28 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
     static private(set) var bundlePassed: Bundle?
     static private(set) var applicationThemePassed: Theme?
     static private(set) var deepLinkHandlerPassed: BeagleDeepLinkScreenManaging?
+    static private(set) var validatorHandlerPassed: ValidatorHandler?
+    static private(set) var customActionHandlerPassed: CustomActionHandler?
     static func initialize(appName: String,
                            decoder: WidgetDecoding,
                            networkingDispatcher: URLRequestDispatching,
                            customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderDequeuing & CustomWidgetsRendererProviderRegistering,
                            appBundle: Bundle,
                            deepLinkHandler: BeagleDeepLinkScreenManaging?,
-                           applicationTheme: Theme
+                           applicationTheme: Theme,
+                           validatorHandler: ValidatorHandler?,
+                           customActionHandler: CustomActionHandler?
     ) {
         _shared = BeagleEnvironmentSpy()
         initializeCalled = true
         bundlePassed = appBundle
         applicationThemePassed = applicationTheme
         deepLinkHandlerPassed = deepLinkHandler
+        validatorHandlerPassed = validatorHandler
+        customActionHandlerPassed = customActionHandler
     }
-
-    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching?, appBundle: Bundle?, deepLinkHandler: BeagleDeepLinkScreenManaging?, applicationTheme: Theme?) {
+    
+    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching?, appBundle: Bundle?, deepLinkHandler: BeagleDeepLinkScreenManaging?, applicationTheme: Theme?, validatorHandler: ValidatorHandler?, customActionHandler: CustomActionHandler?) {
         initialize(
             appName: appName,
             decoder: WidgetDecodingDummy(),
@@ -206,7 +258,9 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
             customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderDummy(),
             appBundle: appBundle ?? Bundle.main,
             deepLinkHandler: deepLinkHandler,
-            applicationTheme: applicationTheme ?? AppThemeDummy()
+            applicationTheme: applicationTheme ?? AppThemeDummy(),
+            validatorHandler: nil,
+            customActionHandler: nil
         )
     }
 
@@ -223,6 +277,20 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
         configureThemeCalled = true
         themePassed = theme
     }
+    
+    private(set) var configureValidatorHandlerCalled = false
+    private(set) var validatorHandlerPassed: ValidatorHandler?
+    func configureValidatorHandler(_ validatorHandler: ValidatorHandler?) {
+        configureValidatorHandlerCalled = true
+        validatorHandlerPassed = validatorHandler
+    }
+    
+    private(set) var configureCustomActionHandlerCalled = false
+    private(set) var customActionHandlerPassed: CustomActionHandler?
+    func configureCustomActionHandler(_ customActionHandler: CustomActionHandler?) {
+        configureCustomActionHandlerCalled = true
+        customActionHandlerPassed = customActionHandler
+    }
 }
 
 final class DeepLinkHandlerDummy: BeagleDeepLinkScreenManaging {
@@ -234,6 +302,7 @@ final class DeepLinkHandlerDummy: BeagleDeepLinkScreenManaging {
 final class WidgetDecodingDummy: WidgetDecoding {
     func register<T>(_ type: T.Type, for typeName: String) where T : WidgetEntity {}
     func decode(from data: Data) throws -> Widget { return WidgetDummy() }
+    func decode(from data: Data) throws -> Action { return ActionDummy() }
 }
 
 final class CustomWidgetsRendererProviderDequeuingDummy: CustomWidgetsRendererProviderDequeuing {

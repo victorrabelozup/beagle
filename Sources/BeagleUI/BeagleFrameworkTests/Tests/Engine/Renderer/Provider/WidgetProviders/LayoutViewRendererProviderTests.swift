@@ -53,17 +53,30 @@ final class LayoutViewRendererProviderTests: XCTestCase {
         XCTAssert(spacerWidgetViewRenderer is SpacerWidgetViewRenderer, "Expected to build a spacer widget view renderer, but has built \(String(describing: type(of: spacerWidgetViewRenderer))).")
     }
     
-func test_whenListView_shouldReturnSpacerWidgetViewRenderer() {
+    func test_whenListView_shouldReturnListViewWidgetViewRenderer() {
         // Given
         let widget = ListView()
         let renderer = WidgetRendererProviding()
         // When
-        let spacerWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        let listViewWidgetViewRenderer = renderer.buildRenderer(for: widget)
         // Then
-        XCTAssert(spacerWidgetViewRenderer is ListViewWidgetRenderer, "Expected to build a listview widget view renderer, but has built \(String(describing: type(of: spacerWidgetViewRenderer))).")
+        XCTAssert(listViewWidgetViewRenderer is ListViewWidgetRenderer, "Expected to build a listview widget view renderer, but has built \(String(describing: type(of: listViewWidgetViewRenderer))).")
+    }
+    
+    func test_whenNavigator_shouldReturnNavigatorWidgetViewRenderer() {
+        // Given
+        let widget = Navigator(
+            action: Navigate(type: .popView),
+            child: Text("Navigation")
+        )
+        let renderer = WidgetRendererProviding()
+        // When
+        let navigatorWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        // Then
+        XCTAssert(navigatorWidgetViewRenderer is NavigatorWidgetViewRenderer, "Expected to build a navigator widget view renderer, but has built \(String(describing: type(of: navigatorWidgetViewRenderer))).")
     }
 
-func test_whenScrollView_shouldReturnScrollViewWidgetViewRenderer() {
+    func test_whenScrollView_shouldReturnScrollViewWidgetViewRenderer() {
         // Given
         let widget = ScrollView {
             FlexWidget {

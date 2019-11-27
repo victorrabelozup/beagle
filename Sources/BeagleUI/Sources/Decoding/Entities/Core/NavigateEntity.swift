@@ -19,9 +19,9 @@ enum NavigationTypeEntity: String, Decodable, UIEnumModelConvertible {
 }
 
 struct NavigateEntity: Decodable {
-    public let type: NavigationTypeEntity
-    public let path: String?
-    public let data: [String: String]?
+    let type: NavigationTypeEntity
+    let path: String?
+    let data: [String: String]?
 }
 
 extension NavigateEntity: UIModelConvertible {
@@ -30,5 +30,11 @@ extension NavigateEntity: UIModelConvertible {
             type: try type.mapToUIModel(ofType: NavigationType.self),
             path: path,
             data: data)
+    }
+}
+
+extension NavigateEntity: ActionConvertibleEntity {
+    func mapToAction() throws -> Action {
+        return try mapToUIModel()
     }
 }

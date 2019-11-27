@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Networking
 
 public enum ServerDrivenScreenLoaderError: Error {
     case fetchError(ServerDrivenWidgetFetcherError)
@@ -15,6 +14,7 @@ public enum ServerDrivenScreenLoaderError: Error {
 
 public protocol ServerDrivenScreenLoader {
     func loadScreen(from url: URL, context: BeagleContext, completion: @escaping (Result<UIView, ServerDrivenScreenLoaderError>) -> Void)
+    func submitForm(action: URL, method: Form.MethodType, values: [String: String], completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void)
 }
 
 public final class ServerDrivenScreenLoading: ServerDrivenScreenLoader {
@@ -50,6 +50,10 @@ public final class ServerDrivenScreenLoading: ServerDrivenScreenLoader {
                 .mapError { .fetchError($0) }
             completion(mappedResult)
         }
+    }
+    
+    public func submitForm(action: URL, method: Form.MethodType, values: [String: String], completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void) {
+        widgetFetcher.submitForm(action: action, method: method, values: values, completion: completion)
     }
     
 }

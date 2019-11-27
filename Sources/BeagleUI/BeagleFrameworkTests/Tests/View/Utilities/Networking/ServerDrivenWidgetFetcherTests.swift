@@ -159,7 +159,150 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
             XCTFail("Expected a `.decoding` error, but got \(String(describing: errorThrown)).")
             return
         }
+    }
+    
+    func test_whenSubmitForm_itShoudConfigureTheParameters() {
+        // Given
+        let dispatcherSpy = URLRequestDispatchingSpy()
+        let sut = ServerDrivenWidgetFetching(
+            networkingDispatcher: dispatcherSpy,
+            decoder: WidgetDecodingDummy()
+        )
+        let urlParamMethods: [Form.MethodType] = [.get, .delete]
+        let bodyParamMethods: [Form.MethodType] = [.post, .put]
+        let values = ["p1": "1", "p2": "2"]
+        guard let url = URL(string: "https://form.com/submit") else {
+            XCTFail("Failed to create form URL")
+            return
+        }
+        
+        // Then/When
+        for method in urlParamMethods {
+            sut.submitForm(action: url, method: method, values: values) { _ in
+            }
+            guard let parameters = dispatcherSpy.executedRequest?.parameters else {
+                XCTFail("Parameters form method \(method) should not be nil")
+                return
+            }
+            if case let Networking.URLRequestParameters.url(urlParams) = parameters {
+                XCTAssertEqual(urlParams, values)
+            } else {
+                XCTFail("Method \(method) should have url parameters")
+            }
+        }
+        for method in bodyParamMethods {
+            sut.submitForm(action: url, method: method, values: values) { _ in
+            }
+            guard let parameters = dispatcherSpy.executedRequest?.parameters else {
+                XCTFail("Parameters form method \(method) should not be nil")
+                return
+            }
+            if case let Networking.URLRequestParameters.body(bodyParams) = parameters {
+                let stringParams = bodyParams?.reduce(into: [String: String]()) {
+                    if let value = $1.value as? String {
+                        $0[$1.key] = value
+                    }
+                }
+                XCTAssertEqual(stringParams, values)
+            } else {
+                XCTFail("Method \(method) should have url parameters")
+            }
+        }
+    }
+    
+    func test_whenFormSubmitRequestFails_itShouldThrowRequestError() {
+        // Given
+        let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .failure(.unknown))
+        let sut = ServerDrivenWidgetFetching(
+            networkingDispatcher: dispatcherStub,
+            decoder: WidgetDecodingDummy()
+        )
+        guard let url = URL(string: "www.something.com") else {
+            XCTFail("Could not create URL.")
+            return
+        }
 
+        // When
+        var errorThrown: ServerDrivenWidgetFetcherError?
+        let submitFormExpectation = expectation(description: "submitFormExpectation")
+        sut.submitForm(action: url, method: .post, values: [:]) { result in
+            if case let .failure(error) = result {
+                errorThrown = error
+            }
+            submitFormExpectation.fulfill()
+        }
+        wait(for: [submitFormExpectation], timeout: 1.0)
+
+        // Then
+        XCTAssertNotNil(errorThrown, "Expected an error, but got nil.")
+        guard case .request = errorThrown else {
+            XCTFail("Expected a `.request` error, but got \(String(describing: errorThrown)).")
+            return
+        }
+    }
+
+    func test_whenFormSubmitRequestSucceeds_withNilData_itShouldThrowEmptyDataError() {
+        // Given
+        let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .success(nil))
+        let sut = ServerDrivenWidgetFetching(
+            networkingDispatcher: dispatcherStub,
+            decoder: WidgetDecodingDummy()
+        )
+        guard let url = URL(string: "www.something.com") else {
+            XCTFail("Could not create URL.")
+            return
+        }
+
+        // When
+        var errorThrown: ServerDrivenWidgetFetcherError?
+        let submitFormExpectation = expectation(description: "submitFormExpectation")
+        sut.submitForm(action: url, method: .post, values: [:]) { result in
+            if case let .failure(error) = result {
+                errorThrown = error
+            }
+            submitFormExpectation.fulfill()
+        }
+        wait(for: [submitFormExpectation], timeout: 1.0)
+
+        // Then
+        XCTAssertNotNil(errorThrown, "Expected an error, but got nil.")
+        guard case .emptyData = errorThrown else {
+            XCTFail("Expected a `.emptyData` error, but got \(String(describing: errorThrown)).")
+            return
+        }
+    }
+
+    func test_whenFormSubmitRequestSucceeds_butTheDecodingFailsWithAnError_itShouldThrowDecodingError() {
+        // Given
+        let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .success(Data()))
+        let decoderStub = WidgetDecodingStub()
+        decoderStub.errorToThrowOnDecode = NSError(domain: "Mock", code: 1, description: "Mock")
+        let sut = ServerDrivenWidgetFetching(
+            networkingDispatcher: dispatcherStub,
+            decoder: decoderStub
+        )
+        guard let url = URL(string: "www.something.com") else {
+            XCTFail("Could not create URL.")
+            return
+        }
+
+        // When
+        var errorThrown: ServerDrivenWidgetFetcherError?
+        let submitFormExpectation = expectation(description: "submitFormExpectation")
+        sut.submitForm(action: url, method: .post, values: [:]) { result in
+            if case let .failure(error) = result {
+                errorThrown = error
+            }
+            submitFormExpectation.fulfill()
+        }
+        wait(for: [submitFormExpectation], timeout: 1.0)
+
+        // Then
+        XCTAssertNotNil(errorThrown, "Expected an error, but got nil.")
+        guard case .decoding = errorThrown else {
+            XCTFail("Expected a `.decoding` error, but got \(String(describing: errorThrown)).")
+            return
+        }
     }
 }
 
@@ -180,6 +323,14 @@ final class URLRequestDispatchingStub: URLRequestDispatching {
 
 }
 
+final class URLRequestDispatchingSpy: URLRequestDispatching {
+    private(set) var executedRequest: URLRequestProtocol?
+    func execute(on queue: DispatchQueue, request: URLRequestProtocol, completion: @escaping (Result<Data?, URLRequestError>) -> Void) -> URLRequestToken? {
+        executedRequest = request
+        return nil
+    }
+}
+
 final class WidgetDecodingStub: WidgetDecoding {
     
     func register<T>(_ type: T.Type, for typeName: String) where T : WidgetEntity {}
@@ -194,6 +345,12 @@ final class WidgetDecodingStub: WidgetDecoding {
         return WidgetDummy()
     }
 
+    func decode(from data: Data) throws -> Action {
+        if let error = errorToThrowOnDecode {
+            throw error
+        }
+        return ActionDummy()
+    }
 }
 
 private struct MappingFailureWidget: WidgetEntity, WidgetConvertible {

@@ -105,6 +105,8 @@ final class ServerDrivenWidgetFetcherStub: ServerDrivenWidgetFetcher {
         completion(resultToReturn)
     }
     
+    func submitForm(action: URL, method: Form.MethodType, values: [String : String], completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void) {
+    }
 }
 
 final class BeagleViewBuilderDummy: BeagleViewBuilder {

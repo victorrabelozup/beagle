@@ -24,9 +24,10 @@ public class BeagleScreenViewController: UIViewController {
     // MARK: - Dependencies
     
     let screenType: ScreenType
-    private let flexConfigurator: FlexViewConfiguratorProtocol
-    private let viewBuilder: BeagleViewBuilder
-    private let serverDrivenScreenLoader: ServerDrivenScreenLoader
+    let flexConfigurator: FlexViewConfiguratorProtocol
+    let viewBuilder: BeagleViewBuilder
+    let serverDrivenScreenLoader: ServerDrivenScreenLoader
+    let actionExecutor: ActionExecutor
     
     // MARK: - Properties
     
@@ -43,7 +44,8 @@ public class BeagleScreenViewController: UIViewController {
             screenType: screenType,
             flexConfigurator: FlexViewConfigurator(),
             viewBuilder: viewBuilder,
-            serverDrivenScreenLoader: serverDrivenScreenLoader
+            serverDrivenScreenLoader: serverDrivenScreenLoader,
+            actionExecutor: ActionExecuting()
         )
     }
     
@@ -51,12 +53,14 @@ public class BeagleScreenViewController: UIViewController {
         screenType: ScreenType,
         flexConfigurator: FlexViewConfiguratorProtocol,
         viewBuilder: BeagleViewBuilder,
-        serverDrivenScreenLoader: ServerDrivenScreenLoader
+        serverDrivenScreenLoader: ServerDrivenScreenLoader,
+        actionExecutor: ActionExecutor
     ) {
         self.screenType = screenType
         self.flexConfigurator = flexConfigurator
         self.viewBuilder = viewBuilder
         self.serverDrivenScreenLoader = serverDrivenScreenLoader
+        self.actionExecutor = actionExecutor
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -125,7 +129,7 @@ public class BeagleScreenViewController: UIViewController {
     
     // MARK: - Error Handling
     
-    private func handleError(_ error: Error) {
+    func handleError(_ error: Error) {
         delegate?.beagleScreenViewController(self, didFailToLoadWithError: error)
     }
     

@@ -25,4 +25,22 @@ final class NavigateEntityTests: XCTestCase {
         XCTAssertNotNil(navigate, "The Navigate should not be nil.")
     }
     
+    func test_whenMapToActionIsCalled_thenItShouldReturnANavigate() {
+        // Given
+        let sut = NavigateEntity(type: .presentView, path: "path", data: ["a": "b"])
+        
+        // When
+        guard let action = try? sut.mapToAction() else {
+            XCTFail("Could not create Navigate Model.")
+            return
+        }
+        let navigate = action as? Navigate
+
+        // Then
+        XCTAssertNotNil(navigate)
+        XCTAssertEqual(navigate?.type, .presentView)
+        XCTAssertEqual(navigate?.path, "path")
+        XCTAssertEqual(navigate?.data, ["a": "b"])
+    }
+    
 }

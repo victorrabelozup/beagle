@@ -37,7 +37,8 @@ final class BeagleScreenViewControllerTests: XCTestCase {
             screenType: .declarative(screenMock),
             flexConfigurator: FlexViewConfiguratorDummy(),
             viewBuilder: BeagleViewBuilderDummy(),
-            serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy()
+            serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
+            actionExecutor: ActionExecutorDummy()
         )
         
         // When
@@ -54,7 +55,8 @@ final class BeagleScreenViewControllerTests: XCTestCase {
             screenType: .declarative(screenMock),
             flexConfigurator: FlexViewConfiguratorDummy(),
             viewBuilder: BeagleViewBuilderDummy(),
-            serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy()
+            serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
+            actionExecutor: ActionExecutorDummy()
         )
         let navigation = UINavigationController(rootViewController: sut)
         
@@ -80,7 +82,8 @@ final class BeagleScreenViewControllerTests: XCTestCase {
             screenType: .declarative(screenMock),
             flexConfigurator: flexConfiguratorSpy,
             viewBuilder: viewBuilderSpy,
-            serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy()
+            serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
+            actionExecutor: ActionExecutorDummy()
         )
         
         // When
@@ -100,7 +103,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         }
         
         let serverDrivenScreenLoaderStub = ServerDrivenScreenLoaderStub(
-            resultToReturn: .failure(.fetchError(.emptyData))
+            loadScreenResult: .failure(.fetchError(.emptyData))
         )
         
         let delegateSpy = BeagleScreenViewControllerDelegateSpy()
@@ -109,7 +112,8 @@ final class BeagleScreenViewControllerTests: XCTestCase {
             screenType: .remote(url),
             flexConfigurator: FlexViewConfiguratorDummy(),
             viewBuilder: BeagleViewBuilderDummy(),
-            serverDrivenScreenLoader: serverDrivenScreenLoaderStub
+            serverDrivenScreenLoader: serverDrivenScreenLoaderStub,
+            actionExecutor: ActionExecutorDummy()
         )
         sut.delegate = delegateSpy
         
@@ -133,14 +137,15 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         viewToReturn.tag = 1234
         
         let serverDrivenScreenLoaderStub = ServerDrivenScreenLoaderStub(
-            resultToReturn: .success(viewToReturn)
+            loadScreenResult: .success(viewToReturn)
         )
         
         let sut = BeagleScreenViewController(
             screenType: .remote(url),
             flexConfigurator: flexConfiguratorSpy,
             viewBuilder: BeagleViewBuilderDummy(),
-            serverDrivenScreenLoader: serverDrivenScreenLoaderStub
+            serverDrivenScreenLoader: serverDrivenScreenLoaderStub,
+            actionExecutor: ActionExecutorDummy()
         )
         
         // When
@@ -165,6 +170,7 @@ struct ServerDrivenScreenMock: Screen {
 
 final class ServerDrivenScreenLoaderDummy: ServerDrivenScreenLoader {
     func loadScreen(from url: URL, context: BeagleContext, completion: @escaping (Result<UIView, ServerDrivenScreenLoaderError>) -> Void) {}
+    func submitForm(action: URL, method: Form.MethodType, values: [String : String], completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void) {}
 }
 
 final class FlexViewConfiguratorDummy: FlexViewConfiguratorProtocol {
@@ -176,13 +182,26 @@ final class FlexViewConfiguratorDummy: FlexViewConfiguratorProtocol {
 
 final class ServerDrivenScreenLoaderStub: ServerDrivenScreenLoader {
     
-    let resultToReturn: Result<UIView, ServerDrivenScreenLoaderError>
-    init(resultToReturn: Result<UIView, ServerDrivenScreenLoaderError>) {
-        self.resultToReturn = resultToReturn
+    let loadScreenResult: Result<UIView, ServerDrivenScreenLoaderError>?
+    let submitFormResult: Result<Action, ServerDrivenWidgetFetcherError>?
+    init(
+        loadScreenResult: Result<UIView, ServerDrivenScreenLoaderError>? = nil,
+        submitFormResult: Result<Action, ServerDrivenWidgetFetcherError>? = nil
+    ) {
+        self.loadScreenResult = loadScreenResult
+        self.submitFormResult = submitFormResult
     }
     
     func loadScreen(from url: URL, context: BeagleContext, completion: @escaping (Result<UIView, ServerDrivenScreenLoaderError>) -> Void) {
-        completion(resultToReturn)
+        if let result = loadScreenResult {
+            completion(result)
+        }
+    }
+    
+    func submitForm(action: URL, method: Form.MethodType, values: [String : String], completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void) {
+        if let result = submitFormResult {
+            completion(result)
+        }
     }
     
 }

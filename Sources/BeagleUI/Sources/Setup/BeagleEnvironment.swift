@@ -10,15 +10,20 @@ import Foundation
 import Networking
 
 protocol BeagleEnvironmentProtocol {
+    
     // MARK: - Properties
     var decoder: WidgetDecoding { get }
     var networkingDispatcher: URLRequestDispatching { get }
     var customWidgetsProvider: CustomWidgetsRendererProviderDequeuing { get }
     var appBundle: Bundle { get }
     var applicationTheme: Theme { get }
+    var validatorHandler: ValidatorHandler? { get }
     var deepLinkHandler: BeagleDeepLinkScreenManaging? { get }
+    var customActionHandler: CustomActionHandler? { get }
+    
     // MARK: - Singleton
     static var shared: BeagleEnvironmentProtocol { get }
+    
     // MARK: - Initialization
     static func initialize(
         appName: String,
@@ -27,15 +32,22 @@ protocol BeagleEnvironmentProtocol {
         customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing,
         appBundle: Bundle,
         deepLinkHandler: BeagleDeepLinkScreenManaging?,
-        applicationTheme: Theme
+        applicationTheme: Theme,
+        validatorHandler: ValidatorHandler?,
+        customActionHandler: CustomActionHandler?
     )
-    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching?, appBundle: Bundle?, deepLinkHandler: BeagleDeepLinkScreenManaging?, applicationTheme: Theme?)
+    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching?, appBundle: Bundle?, deepLinkHandler: BeagleDeepLinkScreenManaging?, applicationTheme: Theme?, validatorHandler: ValidatorHandler?, customActionHandler: CustomActionHandler?)
     // MARK: - Public Functions
     func registerCustomWidget<E: WidgetConvertibleEntity, W: Widget>(_ item: WidgetRegisterItem<E, W>)
     func configureTheme(_ theme: Theme)
+    
+    func configureValidatorHandler(_ validatorHandler: ValidatorHandler?)
+    
+    func configureCustomActionHandler(_ customActionHandler: CustomActionHandler?)
 }
 
 final class BeagleEnvironment: BeagleEnvironmentProtocol {
+    
     // MARK: - Dependencies
     
     private let _decoder: WidgetDecoding
@@ -44,6 +56,8 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
     private let _appBundle: Bundle
     private let _deepLinkHandler: BeagleDeepLinkScreenManaging?
     private var _applicationTheme: Theme
+    private var _validatorHandler: ValidatorHandler?
+    private var _customActionHandler: CustomActionHandler?
     
     // MARK: - Public Properties
     
@@ -53,6 +67,8 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
     var appBundle: Bundle { _appBundle }
     var deepLinkHandler: BeagleDeepLinkScreenManaging? { _deepLinkHandler }
     var applicationTheme: Theme { _applicationTheme }
+    var validatorHandler: ValidatorHandler? { _validatorHandler }
+    var customActionHandler: CustomActionHandler? { _customActionHandler }
     
     // MARK: - Singleton
     
@@ -72,7 +88,9 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
         customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing,
         appBundle: Bundle,
         deepLinkHandler: BeagleDeepLinkScreenManaging?,
-        applicationTheme: Theme
+        applicationTheme: Theme,
+        validatorHandler: ValidatorHandler?,
+        customActionHandler: CustomActionHandler?
     ) {
         self._decoder = decoder
         self._networkingDispatcher = networkingDispatcher
@@ -80,6 +98,8 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
         self._appBundle = appBundle
         self._deepLinkHandler = deepLinkHandler
         self._applicationTheme = applicationTheme
+        self._validatorHandler = validatorHandler
+        self._customActionHandler = customActionHandler
     }
     
     // MARK: - Public Functions
@@ -91,7 +111,9 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
         customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing = CustomWidgetsRendererProviderRegister(),
         appBundle: Bundle,
         deepLinkHandler: BeagleDeepLinkScreenManaging?,
-        applicationTheme: Theme
+        applicationTheme: Theme,
+        validatorHandler: ValidatorHandler?,
+        customActionHandler: CustomActionHandler?
     ) {
         let decoderInstance = decoder
         _shared = BeagleEnvironment(
@@ -100,14 +122,16 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
             customWidgetsRendererProviderRegister: customWidgetsRendererProviderRegister,
             appBundle: appBundle,
             deepLinkHandler: deepLinkHandler,
-            applicationTheme: applicationTheme
+            applicationTheme: applicationTheme,
+            validatorHandler: validatorHandler,
+            customActionHandler: customActionHandler
         )
     }
     
-    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching? = nil, appBundle: Bundle? = nil, deepLinkHandler: BeagleDeepLinkScreenManaging? = nil, applicationTheme: Theme? = nil) {
+    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching? = nil, appBundle: Bundle? = nil, deepLinkHandler: BeagleDeepLinkScreenManaging? = nil, applicationTheme: Theme? = nil, validatorHandler: ValidatorHandler? = nil, customActionHandler: CustomActionHandler? = nil) {
         let decoder = WidgetDecoder(namespace: appName)
         let dispatcher = networkingDispatcher ?? URLSessionDispatcher()
-        initialize(appName: appName, decoder: decoder, networkingDispatcher: dispatcher, appBundle: appBundle ?? Bundle.main, deepLinkHandler: deepLinkHandler, applicationTheme: applicationTheme ?? AppTheme(styles: [:]))
+        initialize(appName: appName, decoder: decoder, networkingDispatcher: dispatcher, appBundle: appBundle ?? Bundle.main, deepLinkHandler: deepLinkHandler, applicationTheme: applicationTheme ?? AppTheme(styles: [:]), validatorHandler: validatorHandler, customActionHandler: customActionHandler)
     }
     
     func registerCustomWidget<E: WidgetConvertibleEntity, W: Widget>(_ item: WidgetRegisterItem<E, W>) {
@@ -117,5 +141,13 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
     
     func configureTheme(_ theme: Theme) {
         _applicationTheme = theme
+    }
+    
+    func configureValidatorHandler(_ validatorHandler: ValidatorHandler?) {
+        _validatorHandler = validatorHandler
+    }
+    
+    func configureCustomActionHandler(_ customActionHandler: CustomActionHandler?) {
+        _customActionHandler = customActionHandler
     }
 }

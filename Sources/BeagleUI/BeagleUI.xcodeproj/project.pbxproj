@@ -51,6 +51,33 @@
 		989F7AA123637F2800E4E0E8 /* LayoutViewRendererProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F7AA023637F2800E4E0E8 /* LayoutViewRendererProviderTests.swift */; };
 		989F7AA32363842E00E4E0E8 /* UIComponentViewRendererProvidingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F7AA22363842E00E4E0E8 /* UIComponentViewRendererProvidingTests.swift */; };
 		989F7AA523638C5700E4E0E8 /* WidgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F7AA423638C5700E4E0E8 /* WidgetTests.swift */; };
+		A068234523831EE100CEE57A /* FormWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068234423831EE100CEE57A /* FormWidgetViewRenderer.swift */; };
+		A068234723833BE900CEE57A /* FormInputWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068234623833BE900CEE57A /* FormInputWidgetViewRenderer.swift */; };
+		A068234923833C0B00CEE57A /* FormSubmitWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068234823833C0B00CEE57A /* FormSubmitWidgetViewRenderer.swift */; };
+		A068234C238430C500CEE57A /* ValidatorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068234B238430C500CEE57A /* ValidatorHandler.swift */; };
+		A068234E2384320000CEE57A /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068234D2384320000CEE57A /* Validator.swift */; };
+		A06823502384328700CEE57A /* InputValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068234F2384328700CEE57A /* InputValue.swift */; };
+		A0EF0AA42386B7A20019BE83 /* ActionExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0AA32386B7A20019BE83 /* ActionExecutor.swift */; };
+		A0EF0AA62386BD960019BE83 /* FormValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0AA52386BD960019BE83 /* FormValidation.swift */; };
+		A0EF0AA82388030A0019BE83 /* ShowNativeDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0AA72388030A0019BE83 /* ShowNativeDialog.swift */; };
+		A0EF0AAA23880D5A0019BE83 /* CustomAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0AA923880D5A0019BE83 /* CustomAction.swift */; };
+		A0EF0AAC238811AA0019BE83 /* CustomActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0AAB238811AA0019BE83 /* CustomActionHandler.swift */; };
+		A0EF0AAE238853DD0019BE83 /* FormWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0AAD238853DD0019BE83 /* FormWidgetViewRendererTests.swift */; };
+		A0EF0AB02388679A0019BE83 /* FormInputWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0AAF2388679A0019BE83 /* FormInputWidgetViewRendererTests.swift */; };
+		A0EF0AB2238871B30019BE83 /* FormSubmitWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0AB1238871B30019BE83 /* FormSubmitWidgetViewRendererTests.swift */; };
+		A0EF0AB9238877460019BE83 /* CustomActionHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0AB8238877460019BE83 /* CustomActionHandlerTests.swift */; };
+		A0EF0ABB238877530019BE83 /* ActionExecutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0ABA238877530019BE83 /* ActionExecutorTests.swift */; };
+		A0EF0ABE238B05A10019BE83 /* ValidatorHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0ABD238B05A10019BE83 /* ValidatorHandlerTests.swift */; };
+		A0EF0AC0238B0CBE0019BE83 /* ActionGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0ABF238B0CBE0019BE83 /* ActionGestureRecognizer.swift */; };
+		A0EF0AC2238B0CEC0019BE83 /* SubmitFormGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0AC1238B0CEC0019BE83 /* SubmitFormGestureRecognizer.swift */; };
+		A0EF0AC9238D6E900019BE83 /* FormValidationEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0AC8238D6E900019BE83 /* FormValidationEntity.swift */; };
+		A0EF0ACB238D70430019BE83 /* ShowNativeDialogEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0ACA238D70430019BE83 /* ShowNativeDialogEntity.swift */; };
+		A0EF0ACD238D8B2F0019BE83 /* CustomActionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0ACC238D8B2F0019BE83 /* CustomActionEntity.swift */; };
+		A0EF0ACF238D925E0019BE83 /* FormValidationEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0ACE238D925E0019BE83 /* FormValidationEntityTests.swift */; };
+		A0EF0AD1238D94580019BE83 /* ShowNativeDialogEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0AD0238D94580019BE83 /* ShowNativeDialogEntityTests.swift */; };
+		A0EF0AD3238D94FB0019BE83 /* CustomActionEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0AD2238D94FB0019BE83 /* CustomActionEntityTests.swift */; };
+		A0EF0AD7238DA3760019BE83 /* ActionConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0AD6238DA3760019BE83 /* ActionConvertible.swift */; };
+		A0EF0AD8238DA38C0019BE83 /* ActionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0AD4238DA2F80019BE83 /* ActionEntity.swift */; };
 		A0F454832379701800B146A1 /* NavigatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F454822379701800B146A1 /* NavigatorTests.swift */; };
 		A0F454892379898E00B146A1 /* NavigateEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F454882379898E00B146A1 /* NavigateEntityTests.swift */; };
 		A0F4548A23798E7200B146A1 /* NavigatorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F454842379869A00B146A1 /* NavigatorEntity.swift */; };
@@ -271,6 +298,33 @@
 		989F7AA023637F2800E4E0E8 /* LayoutViewRendererProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutViewRendererProviderTests.swift; sourceTree = "<group>"; };
 		989F7AA22363842E00E4E0E8 /* UIComponentViewRendererProvidingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponentViewRendererProvidingTests.swift; sourceTree = "<group>"; };
 		989F7AA423638C5700E4E0E8 /* WidgetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTests.swift; sourceTree = "<group>"; };
+		A068234423831EE100CEE57A /* FormWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormWidgetViewRenderer.swift; sourceTree = "<group>"; };
+		A068234623833BE900CEE57A /* FormInputWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormInputWidgetViewRenderer.swift; sourceTree = "<group>"; };
+		A068234823833C0B00CEE57A /* FormSubmitWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSubmitWidgetViewRenderer.swift; sourceTree = "<group>"; };
+		A068234B238430C500CEE57A /* ValidatorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorHandler.swift; sourceTree = "<group>"; };
+		A068234D2384320000CEE57A /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		A068234F2384328700CEE57A /* InputValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValue.swift; sourceTree = "<group>"; };
+		A0EF0AA32386B7A20019BE83 /* ActionExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionExecutor.swift; sourceTree = "<group>"; };
+		A0EF0AA52386BD960019BE83 /* FormValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FormValidation.swift; path = Sources/Action/FormValidation.swift; sourceTree = SOURCE_ROOT; };
+		A0EF0AA72388030A0019BE83 /* ShowNativeDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ShowNativeDialog.swift; path = Sources/Action/ShowNativeDialog.swift; sourceTree = SOURCE_ROOT; };
+		A0EF0AA923880D5A0019BE83 /* CustomAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomAction.swift; path = Sources/Action/CustomAction.swift; sourceTree = SOURCE_ROOT; };
+		A0EF0AAB238811AA0019BE83 /* CustomActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActionHandler.swift; sourceTree = "<group>"; };
+		A0EF0AAD238853DD0019BE83 /* FormWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormWidgetViewRendererTests.swift; sourceTree = "<group>"; };
+		A0EF0AAF2388679A0019BE83 /* FormInputWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormInputWidgetViewRendererTests.swift; sourceTree = "<group>"; };
+		A0EF0AB1238871B30019BE83 /* FormSubmitWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSubmitWidgetViewRendererTests.swift; sourceTree = "<group>"; };
+		A0EF0AB8238877460019BE83 /* CustomActionHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActionHandlerTests.swift; sourceTree = "<group>"; };
+		A0EF0ABA238877530019BE83 /* ActionExecutorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionExecutorTests.swift; sourceTree = "<group>"; };
+		A0EF0ABD238B05A10019BE83 /* ValidatorHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorHandlerTests.swift; sourceTree = "<group>"; };
+		A0EF0ABF238B0CBE0019BE83 /* ActionGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionGestureRecognizer.swift; sourceTree = "<group>"; };
+		A0EF0AC1238B0CEC0019BE83 /* SubmitFormGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitFormGestureRecognizer.swift; sourceTree = "<group>"; };
+		A0EF0AC8238D6E900019BE83 /* FormValidationEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormValidationEntity.swift; sourceTree = "<group>"; };
+		A0EF0ACA238D70430019BE83 /* ShowNativeDialogEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowNativeDialogEntity.swift; sourceTree = "<group>"; };
+		A0EF0ACC238D8B2F0019BE83 /* CustomActionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActionEntity.swift; sourceTree = "<group>"; };
+		A0EF0ACE238D925E0019BE83 /* FormValidationEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormValidationEntityTests.swift; sourceTree = "<group>"; };
+		A0EF0AD0238D94580019BE83 /* ShowNativeDialogEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowNativeDialogEntityTests.swift; sourceTree = "<group>"; };
+		A0EF0AD2238D94FB0019BE83 /* CustomActionEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActionEntityTests.swift; sourceTree = "<group>"; };
+		A0EF0AD4238DA2F80019BE83 /* ActionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionEntity.swift; sourceTree = "<group>"; };
+		A0EF0AD6238DA3760019BE83 /* ActionConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionConvertible.swift; sourceTree = "<group>"; };
 		A0F454822379701800B146A1 /* NavigatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorTests.swift; sourceTree = "<group>"; };
 		A0F454842379869A00B146A1 /* NavigatorEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigatorEntity.swift; sourceTree = "<group>"; };
 		A0F454862379882D00B146A1 /* NavigateEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigateEntity.swift; sourceTree = "<group>"; };
@@ -532,6 +586,8 @@
 		939CE4C4232996FD00EEEDFC /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				A06823512384863400CEE57A /* Action */,
+				A068234A2384308A00CEE57A /* Form */,
 				931B6E0C2374A9BB00DE73FD /* Theme */,
 				E5A6F4A62358A530008906F8 /* Common */,
 				E5CB5D892354E481009783A7 /* Setup */,
@@ -584,6 +640,9 @@
 				985EBAA22358BC960042C19A /* ContainerWidgetViewRendererTests.swift */,
 				A0F454912379D6BA00B146A1 /* NavigatorWidgetViewRendererTests.swift */,
 				C65F25382375E93C007670EC /* ScrollViewWidgetViewRendererTests.swift */,
+				A0EF0AAD238853DD0019BE83 /* FormWidgetViewRendererTests.swift */,
+				A0EF0AAF2388679A0019BE83 /* FormInputWidgetViewRendererTests.swift */,
+				A0EF0AB1238871B30019BE83 /* FormSubmitWidgetViewRendererTests.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -608,11 +667,57 @@
 			path = NetworkImage;
 			sourceTree = "<group>";
 		};
+		A068234A2384308A00CEE57A /* Form */ = {
+			isa = PBXGroup;
+			children = (
+				A068234B238430C500CEE57A /* ValidatorHandler.swift */,
+				A068234D2384320000CEE57A /* Validator.swift */,
+				A068234F2384328700CEE57A /* InputValue.swift */,
+			);
+			path = Form;
+			sourceTree = "<group>";
+		};
+		A06823512384863400CEE57A /* Action */ = {
+			isa = PBXGroup;
+			children = (
+				A0EF0AA32386B7A20019BE83 /* ActionExecutor.swift */,
+				A0EF0AAB238811AA0019BE83 /* CustomActionHandler.swift */,
+			);
+			path = Action;
+			sourceTree = "<group>";
+		};
+		A0EF0AB6238877200019BE83 /* Action */ = {
+			isa = PBXGroup;
+			children = (
+				A0EF0ABA238877530019BE83 /* ActionExecutorTests.swift */,
+				A0EF0AB8238877460019BE83 /* CustomActionHandlerTests.swift */,
+			);
+			path = Action;
+			sourceTree = "<group>";
+		};
+		A0EF0ABC238B05660019BE83 /* Form */ = {
+			isa = PBXGroup;
+			children = (
+				A0EF0ABD238B05A10019BE83 /* ValidatorHandlerTests.swift */,
+			);
+			path = Form;
+			sourceTree = "<group>";
+		};
+		A0EF0AC3238C65F00019BE83 /* Action */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Action;
+			sourceTree = "<group>";
+		};
 		A0F4547D23796EB100B146A1 /* Action */ = {
 			isa = PBXGroup;
 			children = (
 				E522376D237C3C3B00E555BB /* Action.swift */,
 				E522376E237C3C3B00E555BB /* Navigate.swift */,
+				A0EF0AA52386BD960019BE83 /* FormValidation.swift */,
+				A0EF0AA72388030A0019BE83 /* ShowNativeDialog.swift */,
+				A0EF0AA923880D5A0019BE83 /* CustomAction.swift */,
 			);
 			path = Action;
 			sourceTree = "<group>";
@@ -874,6 +979,9 @@
 				9303B08B2357B49A008BAA6D /* ContainerWidgetViewRenderer.swift */,
 				A0F4548F2379A48100B146A1 /* NavigatorWidgetViewRenderer.swift */,
 				C62E8EAF23735DB300FF1497 /* ScrollViewWidgetViewRenderer.swift */,
+				A068234423831EE100CEE57A /* FormWidgetViewRenderer.swift */,
+				A068234623833BE900CEE57A /* FormInputWidgetViewRenderer.swift */,
+				A068234823833C0B00CEE57A /* FormSubmitWidgetViewRenderer.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -963,6 +1071,8 @@
 				A0F45495237AF16800B146A1 /* BeagleContext.swift */,
 				A0F45497237B87E800B146A1 /* BeagleNavigator.swift */,
 				E5CB5D64234E7CF6009783A7 /* BeagleScreenViewController.swift */,
+				A0EF0ABF238B0CBE0019BE83 /* ActionGestureRecognizer.swift */,
+				A0EF0AC1238B0CEC0019BE83 /* SubmitFormGestureRecognizer.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1122,6 +1232,7 @@
 		E5CE41A12331D42600295277 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				A0EF0AC3238C65F00019BE83 /* Action */,
 				E5CE41AA2331D95D00295277 /* Core */,
 				E5223759237C3B4400E555BB /* Form */,
 				E5CE41AB2331D96500295277 /* Layout */,
@@ -1133,6 +1244,7 @@
 		E5CE41AA2331D95D00295277 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				A0EF0AD4238DA2F80019BE83 /* ActionEntity.swift */,
 				9317CBB423872E170015B4CB /* WidgetEntity.swift */,
 				E5CE41C523325E4500295277 /* UnitValueEntity.swift */,
 				E5CE41C123325E2100295277 /* FlexEntity.swift */,
@@ -1140,6 +1252,9 @@
 				E56A02B523451D4D00C0F23D /* FlexSingleWidgetEntity.swift */,
 				A0F454842379869A00B146A1 /* NavigatorEntity.swift */,
 				A0F454862379882D00B146A1 /* NavigateEntity.swift */,
+				A0EF0AC8238D6E900019BE83 /* FormValidationEntity.swift */,
+				A0EF0ACA238D70430019BE83 /* ShowNativeDialogEntity.swift */,
+				A0EF0ACC238D8B2F0019BE83 /* CustomActionEntity.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -1175,6 +1290,7 @@
 			children = (
 				E5CE41BA2331DFF100295277 /* WidgetConvertible.swift */,
 				E5CE422D2334185300295277 /* UIModelConvertible.swift */,
+				A0EF0AD6238DA3760019BE83 /* ActionConvertible.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1192,6 +1308,8 @@
 		E5CE41F22332B9C000295277 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				A0EF0AB6238877200019BE83 /* Action */,
+				A0EF0ABC238B05660019BE83 /* Form */,
 				9367F9AD237C414300231A9C /* Theme */,
 				E531D6B52359FE95007EEBA7 /* Common */,
 				E5CB5DC42356542E009783A7 /* Setup */,
@@ -1260,6 +1378,9 @@
 				9802EF3B234CFBAB00A7EE89 /* FlexEntityTests.swift */,
 				A0F4548C23798EA200B146A1 /* NavigatorEntityTests.swift */,
 				A0F454882379898E00B146A1 /* NavigateEntityTests.swift */,
+				A0EF0ACE238D925E0019BE83 /* FormValidationEntityTests.swift */,
+				A0EF0AD0238D94580019BE83 /* ShowNativeDialogEntityTests.swift */,
+				A0EF0AD2238D94FB0019BE83 /* CustomActionEntityTests.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -1520,23 +1641,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0F454902379A48100B146A1 /* NavigatorWidgetViewRenderer.swift in Sources */,
+				A0EF0AAC238811AA0019BE83 /* CustomActionHandler.swift in Sources */,
 				C62E8EAC2373581200FF1497 /* ScrollViewEntity.swift in Sources */,
 				E5CE41CA233274AE00295277 /* PaddingEntity.swift in Sources */,
 				E5223775237C3C4800E555BB /* Screen.swift in Sources */,
 				E5CE41D22332766900295277 /* ButtonEntity.swift in Sources */,
 				9835E200238304B600F7CBFA /* NavigationBar.swift in Sources */,
 				E522376C237C3C1300E555BB /* Button.swift in Sources */,
+				A0EF0AA62386BD960019BE83 /* FormValidation.swift in Sources */,
 				E531D6BA2359FEE1007EEBA7 /* UIView+Loading.swift in Sources */,
 				E5CB5DB923550CEF009783A7 /* WidgetRegisterItem.swift in Sources */,
+				A0EF0AA82388030A0019BE83 /* ShowNativeDialog.swift in Sources */,
+				A068234E2384320000CEE57A /* Validator.swift in Sources */,
 				9368180B232A889100E6E724 /* Spacer.swift in Sources */,
 				E5CE41D82332769500295277 /* ListViewEntity.swift in Sources */,
 				E5A33FE7234BAF6E00AB8EB0 /* BeagleViewBuilder.swift in Sources */,
+				A0EF0ACB238D70430019BE83 /* ShowNativeDialogEntity.swift in Sources */,
 				E5CE422E2334185300295277 /* UIModelConvertible.swift in Sources */,
 				930A2B5A23574B55003A945C /* FlexSingleWidgetViewRenderer.swift in Sources */,
 				E522376A237C3C1300E555BB /* Text.swift in Sources */,
 				E5CE41BB2331DFF100295277 /* WidgetConvertible.swift in Sources */,
 				E5223783237C3CAF00E555BB /* FormInput.swift in Sources */,
 				9397F5D02357615F00054D42 /* FlexViewConfigurator.swift in Sources */,
+				A068234923833C0B00CEE57A /* FormSubmitWidgetViewRenderer.swift in Sources */,
 				9368180D232A889900E6E724 /* Stack.swift in Sources */,
 				9317CBB523872E170015B4CB /* WidgetEntity.swift in Sources */,
 				E5CE41A72331D93F00295277 /* ContainerEntity.swift in Sources */,
@@ -1552,10 +1679,13 @@
 				E52236C423745CBB00E555BB /* NSObjectExtension.swift in Sources */,
 				E522375B237C3B5F00E555BB /* FormEntity.swift in Sources */,
 				E5CB5DB22355088F009783A7 /* NetworkImageEntity.swift in Sources */,
+				A068234C238430C500CEE57A /* ValidatorHandler.swift in Sources */,
 				E52236CF2374885600E555BB /* CollectionExtension.swift in Sources */,
 				E70B4EAE236B586700BBC921 /* ImageWidgetViewRenderer.swift in Sources */,
+				A068234723833BE900CEE57A /* FormInputWidgetViewRenderer.swift in Sources */,
 				E5CE41A92331D95300295277 /* VerticalEntity.swift in Sources */,
 				E5223776237C3C4800E555BB /* UnitValue.swift in Sources */,
+				A0EF0AC2238B0CEC0019BE83 /* SubmitFormGestureRecognizer.swift in Sources */,
 				E50B0904234CCACB0091AF0A /* FailableWidgetRendererProvider.swift in Sources */,
 				E522377C237C3C5500E555BB /* FlexSingleWidget.swift in Sources */,
 				E5CE41C82332749800295277 /* HorizontalEntity.swift in Sources */,
@@ -1569,8 +1699,10 @@
 				9303B08C2357B49A008BAA6D /* ContainerWidgetViewRenderer.swift in Sources */,
 				E5223766237C3C0600E555BB /* ImageContentMode.swift in Sources */,
 				E531D6B42359FE19007EEBA7 /* UIView+AutoLayout.swift in Sources */,
+				A0EF0AD7238DA3760019BE83 /* ActionConvertible.swift in Sources */,
 				E5CB5D732354ADC7009783A7 /* TextWidgetViewRenderer.swift in Sources */,
 				E5CB5D8F2354E4CD009783A7 /* BeagleEnvironment.swift in Sources */,
+				A06823502384328700CEE57A /* InputValue.swift in Sources */,
 				E522376B237C3C1300E555BB /* ListView.swift in Sources */,
 				9835E204238306A400F7CBFA /* NavigationBarWidgetViewRenderer.swift in Sources */,
 				E5223785237C3CC500E555BB /* FormSubmit.swift in Sources */,
@@ -1583,11 +1715,16 @@
 				E52236C223745A7F00E555BB /* ListItemTableViewCell.swift in Sources */,
 				E5A6F4A92358A547008906F8 /* FatalErrorUtil.swift in Sources */,
 				A0F45498237B87E900B146A1 /* BeagleNavigator.swift in Sources */,
+				A0EF0AD8238DA38C0019BE83 /* ActionEntity.swift in Sources */,
 				E522375F237C3B8600E555BB /* FormInputEntity.swift in Sources */,
 				C62E8EAE2373588900FF1497 /* ScrollView.swift in Sources */,
 				E5CB5DD023578967009783A7 /* UIComponentViewRendererProvider.swift in Sources */,
+				A0EF0AAA23880D5A0019BE83 /* CustomAction.swift in Sources */,
+				A068234523831EE100CEE57A /* FormWidgetViewRenderer.swift in Sources */,
+				A0EF0AA42386B7A20019BE83 /* ActionExecutor.swift in Sources */,
 				E5A6F4C92358F373008906F8 /* ServerDrivenScreenLoader.swift in Sources */,
 				E5CB5DAB23550012009783A7 /* BeagleSetup.swift in Sources */,
+				A0EF0ACD238D8B2F0019BE83 /* CustomActionEntity.swift in Sources */,
 				E5CE41CC233274BB00295277 /* SpacerEntity.swift in Sources */,
 				930A2B5823574B23003A945C /* FlexWidgetViewRenderer.swift in Sources */,
 				9397F5D12357615F00054D42 /* YogaTranslator.swift in Sources */,
@@ -1604,7 +1741,9 @@
 				93681805232A886C00E6E724 /* Container.swift in Sources */,
 				E5CB5D65234E7CF6009783A7 /* BeagleScreenViewController.swift in Sources */,
 				981DB2F52379D5D6001CE5E0 /* NetworkUIImageView.swift in Sources */,
+				A0EF0AC9238D6E900019BE83 /* FormValidationEntity.swift in Sources */,
 				E52236CB23745DED00E555BB /* HTTPRequestCanceling.swift in Sources */,
+				A0EF0AC0238B0CBE0019BE83 /* ActionGestureRecognizer.swift in Sources */,
 				E5CE41AE2331D9A700295277 /* TextEntity.swift in Sources */,
 				9835E2022383054D00F7CBFA /* NavigationBarEntity.swift in Sources */,
 				E5CB5DCE23578837009783A7 /* LayoutViewRendererProvider.swift in Sources */,
@@ -1633,6 +1772,7 @@
 				A0F454892379898E00B146A1 /* NavigateEntityTests.swift in Sources */,
 				E5DD4691234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift in Sources */,
 				E50B28432363839E005E2E6D /* ServerDrivenScreenLoaderTests.swift in Sources */,
+				A0EF0AB2238871B30019BE83 /* FormSubmitWidgetViewRendererTests.swift in Sources */,
 				E5CB5DC32356375E009783A7 /* CustomWidgetsRendererProviderRegisterTests.swift in Sources */,
 				981DB2F7237A0FB1001CE5E0 /* NetworkUIImageViewTests.swift in Sources */,
 				985EBA93235661F60042C19A /* NetworkImageEntityTests.swift in Sources */,
@@ -1651,15 +1791,19 @@
 				E52236D2237499C300E555BB /* ListItemCollectionViewCellTests.swift in Sources */,
 				985EBAA32358BC960042C19A /* ContainerWidgetViewRendererTests.swift in Sources */,
 				E56A02CB23462AD100C0F23D /* VerticalTests.swift in Sources */,
+				A0EF0ABB238877530019BE83 /* ActionExecutorTests.swift in Sources */,
+				A0EF0AB9238877460019BE83 /* CustomActionHandlerTests.swift in Sources */,
 				E5A6F4BF2358ECA1008906F8 /* YogaTranslatorTests.swift in Sources */,
 				E52236D423749FD300E555BB /* ListViewUIComponentTests.swift in Sources */,
 				E5CE4218233403E000295277 /* ContainerEntityTests.swift in Sources */,
 				E52236C623745CDC00E555BB /* NSObjectExtensionTests.swift in Sources */,
 				A0F4549A237C1B0F00B146A1 /* BeagleNavigatorTests.swift in Sources */,
+				A0EF0AD1238D94580019BE83 /* ShowNativeDialogEntityTests.swift in Sources */,
 				989F7AA523638C5700E4E0E8 /* WidgetTests.swift in Sources */,
 				E759590C2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift in Sources */,
 				E5A6F4AD2358A76F008906F8 /* XCTestCase+FatalError.swift in Sources */,
 				981DB2ED23748B68001CE5E0 /* NetworkImageWidgetViewRendererTests.swift in Sources */,
+				A0EF0AAE238853DD0019BE83 /* FormWidgetViewRendererTests.swift in Sources */,
 				E5CB5D7B2354AE13009783A7 /* ButtonWidgetViewRendererTests.swift in Sources */,
 				E5B052BE23706395008EB9BE /* LoadingViewTests.swift in Sources */,
 				9367F9AF237C415800231A9C /* ThemeTests.swift in Sources */,
@@ -1669,6 +1813,7 @@
 				E56A02C3234542B600C0F23D /* HorizontalTests.swift in Sources */,
 				E5CB5D812354C08E009783A7 /* UnknownWidgetViewRendererTests.swift in Sources */,
 				985EBA9D235667E00042C19A /* ImageContentModeTests.swift in Sources */,
+				A0EF0ACF238D925E0019BE83 /* FormValidationEntityTests.swift in Sources */,
 				9835E20623830A5F00F7CBFA /* NavigationBarEntityTests.swift in Sources */,
 				9835E20823830E1B00F7CBFA /* NavigationBarWidgetViewRendererTests.swift in Sources */,
 				E5A7763F237DA1F3002F5515 /* FormTests.swift in Sources */,
@@ -1687,7 +1832,10 @@
 				A0F454922379D6BA00B146A1 /* NavigatorWidgetViewRendererTests.swift in Sources */,
 				E5835B35233BD95C00125140 /* WidgetConvertibleTests.swift in Sources */,
 				E5CE422823340EA100295277 /* UnitValueEntityTests.swift in Sources */,
+				A0EF0AB02388679A0019BE83 /* FormInputWidgetViewRendererTests.swift in Sources */,
 				E5A6F4C22358ED00008906F8 /* Flex+Fixture.swift in Sources */,
+				A0EF0AD3238D94FB0019BE83 /* CustomActionEntityTests.swift in Sources */,
+				A0EF0ABE238B05A10019BE83 /* ValidatorHandlerTests.swift in Sources */,
 				E5A6F4B12358DF06008906F8 /* WidgetViewRendererTests.swift in Sources */,
 				E5A6F4AF2358AA85008906F8 /* BeagleEnvironmentTests.swift in Sources */,
 				E5CE41F62332B9DD00295277 /* WidgetDecoderTests.swift in Sources */,

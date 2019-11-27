@@ -8,9 +8,13 @@
 
 import UIKit
 
-struct BeagleNavigator {
+protocol BeagleNavigation {
+    func navigate(action: Navigate, source: UIViewController, animated: Bool)
+}
+
+class BeagleNavigator: BeagleNavigation {
     
-    static func navigate(action: Navigate, source: UIViewController, animated: Bool = false) {
+    func navigate(action: Navigate, source: UIViewController, animated: Bool = false) {
         switch action.type {
         case .openDeepLink:
             if let path = action.path {
@@ -39,14 +43,14 @@ struct BeagleNavigator {
         }
     }
     
-    private static func urlFor(action: Navigate) -> URL? {
+    private func urlFor(action: Navigate) -> URL? {
         guard let path = action.path else {
             return nil
         }
         return URL(string: path)
     }
     
-    private static func openDeepLink(path: String, source: UIViewController, animated: Bool) {
+    private func openDeepLink(path: String, source: UIViewController, animated: Bool) {
         do {
             if let deepLinkHandler = BeagleEnvironment.shared.deepLinkHandler {
                 let viewController = try deepLinkHandler.getNaviteScreen(with: path, data: nil)
@@ -57,27 +61,28 @@ struct BeagleNavigator {
         }
     }
     
-    private static func swapView(url: URL, source: UIViewController, animated: Bool) {
+    private func swapView(url: URL, source: UIViewController, animated: Bool) {
         let viewController = BeagleScreenViewController(screenType: .remote(url))
         source.navigationController?.setViewControllers([viewController], animated: animated)
     }
     
-    private static func addView(url: URL, source: UIViewController, animated: Bool) {
+    private func addView(url: URL, source: UIViewController, animated: Bool) {
         let viewController = BeagleScreenViewController(screenType: .remote(url))
         source.navigationController?.pushViewController(viewController, animated: animated)
     }
     
-    private static func finishView(source: UIViewController, animated: Bool) {
+    private func finishView(source: UIViewController, animated: Bool) {
         source.navigationController?.dismiss(animated: animated)
     }
     
-    private static func popView(source: UIViewController, animated: Bool) {
+    private func popView(source: UIViewController, animated: Bool) {
         source.navigationController?.popViewController(animated: animated)
     }
     
-    private static func popToView(url: URL, source: UIViewController, animated: Bool) {
-        let viewControllers = source.navigationController?.viewControllers ?? []
-        let targetIndex = viewControllers.lastIndex {
+    private func popToView(url: URL, source: UIViewController, animated: Bool) {
+        let viewControllers = source.navigationController?.viewControllers
+        
+        let targetViewController = viewControllers?.last {
             guard let screenType = ($0 as? BeagleScreenViewController)?.screenType else {
                 return false
             }
@@ -86,16 +91,15 @@ struct BeagleNavigator {
             }
             return false
         }
-        if let targetIndex = targetIndex {
-            let newStack = Array(viewControllers[viewControllers.startIndex ... targetIndex])
-            source.navigationController?.setViewControllers(newStack, animated: animated)
+        if let targetViewController = targetViewController {
+            source.navigationController?.popToViewController(targetViewController, animated: animated)
         }
     }
     
-    private static func presentView(url: URL, source: UIViewController, animated: Bool) {
+    private func presentView(url: URL, source: UIViewController, animated: Bool) {
         let viewController = BeagleScreenViewController(screenType: .remote(url))
-        let navigation = UINavigationController(rootViewController: viewController)
-        source.navigationController?.present(navigation, animated: animated)
+        let navigationToPresent = UINavigationController(rootViewController: viewController)
+        source.navigationController?.present(navigationToPresent, animated: animated)
     }
     
 }

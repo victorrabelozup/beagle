@@ -28,6 +28,12 @@ final class LayoutViewRendererProviding: LayoutViewRendererProvider {
             return try ListViewWidgetRenderer(widget)
         case is Navigator:
             return try NavigatorWidgetViewRenderer(widget)
+        case is Form:
+            return try FormWidgetViewRenderer(widget)
+        case is FormInput:
+            return try FormInputWidgetViewRenderer(widget)
+        case is FormSubmit:
+            return try FormSubmitWidgetViewRenderer(widget)
         default:
             throw FailableWidgetRendererProviderError.couldNotFindRenrererForWidget(widget)
         }

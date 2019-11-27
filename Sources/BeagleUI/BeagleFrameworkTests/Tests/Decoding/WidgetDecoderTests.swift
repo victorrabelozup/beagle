@@ -45,7 +45,8 @@ final class WidgetDecoderTests: XCTestCase {
         sut.register(NewWidgetEntity.self, for: "NewWidget")
 
         // Then
-        let value = try? sut.decode(from: jsonData) as? Text
+        let widget: Widget? = try? sut.decode(from: jsonData)
+        let value = widget as? Text
         XCTAssertNotNil(value, "Expected a Text, but found nil.")
         XCTAssertEqual("something", value?.text)
     }
@@ -63,7 +64,8 @@ final class WidgetDecoderTests: XCTestCase {
         }
 
         // When
-        let value = try? sut.decode(from: jsonData) as? Text
+        let widget: Widget? = try? sut.decode(from: jsonData)
+        let value = widget as? Text
 
         // Then
         XCTAssertNotNil(value, "Expected a Text, but found nil.")
@@ -83,7 +85,8 @@ final class WidgetDecoderTests: XCTestCase {
         }
 
         // When
-        let anyWidget = try? sut.decode(from: jsonData) as? AnyWidget
+        let widget: Widget? = try? sut.decode(from: jsonData)
+        let anyWidget = widget as? AnyWidget
         let value = anyWidget?.value as? Unknown
 
         // Then

@@ -88,3 +88,15 @@ final class FlexViewConfiguratorSpy: FlexViewConfiguratorProtocol {
     }
     
 }
+
+final class ActionExecutorDummy: ActionExecutor {
+    func doAction(_ action: Action, sender: Any, context: BeagleContext) {
+    }
+}
+
+final class ActionExecutorSpy: ActionExecutor {
+    private(set) var didCallDoAction = false
+    func doAction(_ action: Action, sender: Any, context: BeagleContext) {
+        didCallDoAction = true
+    }
+}

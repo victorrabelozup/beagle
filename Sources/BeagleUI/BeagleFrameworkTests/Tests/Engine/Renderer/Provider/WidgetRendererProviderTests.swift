@@ -56,3 +56,5 @@ private class CustomWidgetsRendererProviderDequeuingStub: CustomWidgetsRendererP
     }
     
 }
+
+struct ActionDummy: Action {}

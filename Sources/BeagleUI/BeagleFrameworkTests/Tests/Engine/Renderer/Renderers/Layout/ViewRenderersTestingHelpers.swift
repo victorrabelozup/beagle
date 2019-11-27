@@ -24,5 +24,7 @@ class WidgetRendererProviderDummy: WidgetRendererProvider {
 }
 
 class BeagleContextDummy: BeagleContext {
+    var screenController: UIViewController = UIViewController()
     func register(action: Action, inView view: UIView) {}
+    func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorHandler?) {}
 }

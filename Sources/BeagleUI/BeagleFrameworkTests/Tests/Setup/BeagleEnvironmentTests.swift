@@ -69,7 +69,9 @@ final class BeagleEnvironmentTests: XCTestCase {
             customWidgetsRendererProviderRegister: widgetRegisterSpy,
             appBundle: Bundle.main,
             deepLinkHandler: DeepLinkHandlerDummy(),
-            applicationTheme: AppThemeDummy()
+            applicationTheme: AppThemeDummy(),
+            validatorHandler: nil,
+            customActionHandler: nil
         )
         let sut: BeagleEnvironmentProtocol = BeagleEnvironment.shared
         
@@ -117,6 +119,14 @@ private final class WidgetDecodingSpy: WidgetDecoding {
         decodeToWidgetCalled = true
         dataPassedToDecodeToWidget = data
         return WidgetDummy()
+    }
+    
+    private(set) var decodeToActionCalled = false
+    private(set) var dataPassedToDecodeToAction: Data?
+    func decode(from data: Data) throws -> Action {
+        decodeToActionCalled = true
+        dataPassedToDecodeToAction = data
+        return ActionDummy()
     }
 }
 

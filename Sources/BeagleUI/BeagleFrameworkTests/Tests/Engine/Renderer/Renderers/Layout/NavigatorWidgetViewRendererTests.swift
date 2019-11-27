@@ -16,11 +16,14 @@ final class NavigatorWidgetViewRendererTests: XCTestCase {
         // Given
         let widgetRendererProvider = WidgetRendererProviderSpy()
         let flexConfigurator = FlexViewConfiguratorDummy()
+        let applicationTheme = AppThemeDummy()
         let navigator = Navigator(action: Navigate(type: .popView), child: WidgetDummy())
         guard let renderer = try? NavigatorWidgetViewRenderer(
             widget: navigator,
             rendererProvider: widgetRendererProvider,
-            flexViewConfigurator: flexConfigurator) else {
+            flexViewConfigurator: flexConfigurator,
+            applicationTheme: applicationTheme
+        ) else {
             XCTFail("Could not create renderer.")
             return
         }

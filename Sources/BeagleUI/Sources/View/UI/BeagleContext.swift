@@ -2,10 +2,18 @@ import UIKit
 
 /// Interface to access application specific operations
 public protocol BeagleContext {
+    
+    var screenController: UIViewController { get }
+    
     func register(action: Action, inView view: UIView)
+    func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorHandler?)
 }
 
 extension BeagleScreenViewController: BeagleContext {
+    
+    public var screenController: UIViewController {
+        return self
+    }
     
     public func register(action: Action, inView view: UIView) {
         let gestureRecognizer = ActionGestureRecognizer(
@@ -16,19 +24,65 @@ extension BeagleScreenViewController: BeagleContext {
         view.isUserInteractionEnabled = true
     }
     
+    public func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorHandler?) {
+        let gestureRecognizer = SubmitFormGestureRecognizer(
+            form: form,
+            formView: formView,
+            validator: validator,
+            target: self,
+            action: #selector(handleSubmitFormGesture(_:)))
+        submitView.addGestureRecognizer(gestureRecognizer)
+        submitView.isUserInteractionEnabled = true
+    }
+    
     @objc func handleActionGesture(_ sender: ActionGestureRecognizer) {
-        if let action = sender.action as? Navigate {
-            BeagleNavigator.navigate(action: action, source: self, animated: true)
+        actionExecutor.doAction(sender.action, sender: sender, context: self)
+    }
+    
+    @objc func handleSubmitFormGesture(_ sender: SubmitFormGestureRecognizer) {
+        let inputViews = sender.formInputViews()
+        let values = inputViews.reduce(into: [:]) {
+            self.validate(formInput: $1, validatorHandler: sender.validator, result: &$0)
+        }
+        if let action = URL(string: sender.form.action), inputViews.count == values.count {
+            view.showLoading(.whiteLarge)
+            serverDrivenScreenLoader.submitForm(action: action, method: sender.form.method, values: values) { [weak self] result in
+                self?.view.hideLoading()
+                self?.handleFormResult(result, sender: sender)
+            }
         }
     }
-}
-
-final class ActionGestureRecognizer: UITapGestureRecognizer {
     
-    let action: Action
+    private func validate(formInput view: UIView, validatorHandler: ValidatorHandler?, result: inout [String: String]) {
+        guard
+            let formInput = view.beagleFormElement as? FormInput,
+            let inputValue = view as? InputValue else {
+                return
+        }
+        if formInput.required ?? false {
+            guard
+                let validatorName = formInput.validator,
+                let handler = validatorHandler,
+                let validator = handler.getValidator(name: validatorName) else {
+                    return
+            }
+            let value = inputValue.getValue()
+            if validator.isValid(input: value) {
+                result[formInput.name] = String(describing: value)
+            } else if let errorListener = inputValue as? ValidationErrorListener {
+                errorListener.onValidationError(message: formInput.errorMessage)
+            }
+        } else {
+            result[formInput.name] = String(describing: inputValue.getValue())
+        }
+    }
     
-    init(action: Action, target: Any?, selector: Selector?) {
-        self.action = action
-        super.init(target: target, action: selector)
+    private func handleFormResult(_ result: Result<Action, ServerDrivenWidgetFetcherError>, sender: Any) {
+        switch result {
+        case let .success(action):
+            actionExecutor.doAction(action, sender: sender, context: self)
+        case let .failure(error):
+            handleError(error)
+        }
     }
 }
