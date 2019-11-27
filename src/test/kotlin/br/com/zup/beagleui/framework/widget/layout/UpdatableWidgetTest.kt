@@ -8,13 +8,10 @@ class UpdatableWidgetTest {
 
     @Test
     fun build_widget() {
-        val event = UpdatableEvent.ON_CLICK
         val list = listOf(
             UpdatableState(
-                stateType = UpdatableStateType.STATIC,
                 targetId = "test",
-                targetState = Text("UPDATED"),
-                updatableEvent = event
+                staticState = Text("UPDATED")
             )
         )
         val widget = Text("DUMMY")

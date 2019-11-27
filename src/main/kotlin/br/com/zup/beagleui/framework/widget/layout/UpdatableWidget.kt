@@ -9,14 +9,8 @@ data class UpdatableWidget(
     val updateStates: List<UpdatableState>? = null
 ) : NativeWidget
 
-enum class UpdatableEvent {
-    ON_TEXT_CHANGE,
-    ON_CLICK
-}
+data class UpdatableState(val targetId: String,
+                          val staticState: Widget? = null,
+                          val dynamicState: DynamicState? = null)
 
-data class UpdatableState(val stateType: UpdatableStateType, val targetState: Widget, val targetId: String, val updatableEvent: UpdatableEvent)
-
-enum class UpdatableStateType {
-    STATIC,
-    DYNAMIC
-}
+data class DynamicState(val stateOriginField: String, val targetField: String, val originId: String)
