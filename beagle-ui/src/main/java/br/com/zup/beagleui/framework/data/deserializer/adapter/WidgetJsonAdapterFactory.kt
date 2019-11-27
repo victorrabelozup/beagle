@@ -12,6 +12,7 @@ import br.com.zup.beagleui.framework.widget.layout.Stack
 import br.com.zup.beagleui.framework.widget.layout.StatefulWidget
 import br.com.zup.beagleui.framework.widget.layout.UpdatableWidget
 import br.com.zup.beagleui.framework.widget.layout.Vertical
+import br.com.zup.beagleui.framework.widget.lazy.LazyWidget
 import br.com.zup.beagleui.framework.widget.navigation.Navigator
 import br.com.zup.beagleui.framework.widget.ui.Button
 import br.com.zup.beagleui.framework.widget.ui.Image
@@ -50,6 +51,7 @@ class WidgetJsonAdapterFactory {
             .withSubtype(Spacer::class.java, createNamespaceFor<Spacer>())
             .withSubtype(StatefulWidget::class.java, createNamespaceFor<StatefulWidget>())
             .withSubtype(UpdatableWidget::class.java, createNamespaceFor<UpdatableWidget>())
+            .withSubtype(LazyWidget::class.java, createNamespaceFor<LazyWidget>())
     }
 
     private fun registerUIClass(

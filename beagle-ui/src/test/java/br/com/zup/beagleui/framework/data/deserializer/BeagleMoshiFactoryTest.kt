@@ -18,6 +18,7 @@ import br.com.zup.beagleui.framework.widget.layout.Horizontal
 import br.com.zup.beagleui.framework.widget.layout.Spacer
 import br.com.zup.beagleui.framework.widget.layout.Stack
 import br.com.zup.beagleui.framework.widget.layout.Vertical
+import br.com.zup.beagleui.framework.widget.lazy.LazyWidget
 import br.com.zup.beagleui.framework.widget.ui.Button
 import br.com.zup.beagleui.framework.widget.ui.Image
 import br.com.zup.beagleui.framework.widget.ui.ListView
@@ -226,6 +227,19 @@ class BeagleMoshiFactoryTest {
         // Then
         assertNotNull(actual)
         assertTrue(actual is CustomWidget)
+    }
+
+    @Test
+    fun make_should_return_moshi_to_deserialize_a_LazyWidget() {
+        // Given
+        val json = makeLazyWidgetJson()
+
+        // When
+        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+
+        // Then
+        assertNotNull(actual)
+        assertTrue(actual is LazyWidget)
     }
 
     @Test

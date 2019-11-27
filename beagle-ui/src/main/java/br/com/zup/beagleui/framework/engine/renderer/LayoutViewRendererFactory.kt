@@ -5,6 +5,7 @@ import br.com.zup.beagleui.framework.engine.renderer.layout.FlexSingleWidgetView
 import br.com.zup.beagleui.framework.engine.renderer.layout.FlexWidgetViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.FormViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.HorizontalViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.layout.LazyWidgetViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.NavigatorViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.SpacerViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.StackViewRenderer
@@ -22,6 +23,7 @@ import br.com.zup.beagleui.framework.widget.layout.Stack
 import br.com.zup.beagleui.framework.widget.layout.StatefulWidget
 import br.com.zup.beagleui.framework.widget.layout.UpdatableWidget
 import br.com.zup.beagleui.framework.widget.layout.Vertical
+import br.com.zup.beagleui.framework.widget.lazy.LazyWidget
 import br.com.zup.beagleui.framework.widget.navigation.Navigator
 
 internal class LayoutViewRendererFactory : AbstractViewRendererFactory {
@@ -40,6 +42,7 @@ internal class LayoutViewRendererFactory : AbstractViewRendererFactory {
             is Spacer -> SpacerViewRenderer(widget)
             is Navigator -> NavigatorViewRenderer(widget)
             is Form -> FormViewRenderer(widget)
+            is LazyWidget -> LazyWidgetViewRenderer(widget)
             else -> throw IllegalArgumentException("$widget is not a Layout Widget.")
         }
     }

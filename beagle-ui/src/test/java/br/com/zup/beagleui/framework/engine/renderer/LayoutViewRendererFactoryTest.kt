@@ -5,6 +5,7 @@ import br.com.zup.beagleui.framework.engine.renderer.layout.FlexSingleWidgetView
 import br.com.zup.beagleui.framework.engine.renderer.layout.FlexWidgetViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.FormViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.HorizontalViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.layout.LazyWidgetViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.NavigatorViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.SpacerViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.StackViewRenderer
@@ -18,6 +19,7 @@ import br.com.zup.beagleui.framework.widget.layout.Horizontal
 import br.com.zup.beagleui.framework.widget.layout.Spacer
 import br.com.zup.beagleui.framework.widget.layout.Stack
 import br.com.zup.beagleui.framework.widget.layout.Vertical
+import br.com.zup.beagleui.framework.widget.lazy.LazyWidget
 import br.com.zup.beagleui.framework.widget.navigation.Navigator
 import io.mockk.every
 import io.mockk.mockk
@@ -143,6 +145,17 @@ class LayoutViewRendererFactoryTest {
         val actual = viewRendererFactory.make(widget)
 
         assertTrue(actual is FormViewRenderer)
+    }
+
+    @Test
+    fun make_should_return_a_LazyWidgetViewRenderer_when_widget_is_a_layout_LazyWidget() {
+        // Given
+        val widget = mockk<LazyWidget>()
+
+        // When
+        val actual = viewRendererFactory.make(widget)
+
+        assertTrue(actual is LazyWidgetViewRenderer)
     }
 
     @Test

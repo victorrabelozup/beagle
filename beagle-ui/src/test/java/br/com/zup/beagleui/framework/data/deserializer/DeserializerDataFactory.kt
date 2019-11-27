@@ -124,6 +124,14 @@ fun makeCustomWidgetJson() = """
     }
 """
 
+fun makeLazyWidgetJson() = """
+    {
+        "_beagleType_": "beagle:widget:lazywidget",
+        "url": "${RandomData.httpUrl()}",
+        "initialState": ${makeButtonJson()}
+    }
+"""
+
 fun makeNavigationActionJson() = """
     {
         "_beagleType_": "beagle:action:navigate",

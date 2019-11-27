@@ -1,21 +1,23 @@
 package br.com.zup.beagleui.framework.view
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import br.com.zup.beagleui.framework.engine.mapper.FlexMapper
 import br.com.zup.beagleui.framework.widget.core.Flex
 import com.facebook.yogalayout.YogaLayout
 
-internal class BeagleFlexView(
-    private val flexMapper: FlexMapper = FlexMapper(),
+@SuppressLint("ViewConstructor")
+internal open class BeagleFlexView(
     context: Context,
-    flex: Flex
+    flex: Flex,
+    private val flexMapper: FlexMapper = FlexMapper()
 ) : YogaLayout(context, flexMapper.makeYogaNode(flex)) {
 
     constructor(
-        flexMapper: FlexMapper = FlexMapper(),
-        context: Context
-    ) : this(flexMapper, context, Flex())
+        context: Context,
+        flexMapper: FlexMapper = FlexMapper()
+    ) : this(context, Flex(), flexMapper)
 
     override fun addView(child: View) {
         super.addView(child)
