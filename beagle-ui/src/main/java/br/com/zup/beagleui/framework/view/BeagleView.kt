@@ -35,14 +35,14 @@ internal class BeagleView(
     private val viewModel by lazy { generateViewModelInstance() }
 
     fun loadView(rootView: RootView, url: String) {
-        loadView(rootView, url)
+        loadView(rootView, url, null)
     }
 
     fun updateView(rootView: RootView, url: String, view: View) {
         loadView(rootView, url, view)
     }
 
-    private fun loadView(rootView: RootView, url: String, view: View? = null) {
+    private fun loadView(rootView: RootView, url: String, view: View?) {
         this.rootView = rootView
 
         viewModel.fetchWidget(url)
@@ -70,14 +70,17 @@ internal class BeagleView(
     }
 
     private fun renderWidget(widget: Widget, view: View? = null) {
-        view?.let {
-            if (it.implementsGenericTypeOf(OnStateUpdatable::class.java, widget::class.java)) {
+        if (view != null) {
+            if (view.implementsGenericTypeOf(OnStateUpdatable::class.java, widget::class.java)) {
                 (view as? OnStateUpdatable<Widget>)?.onUpdateState(widget)
             } else {
                 val widgetView = widget.toView(rootView)
                 removeView(view)
                 addView(widgetView)
             }
+        } else {
+            val widgetView = widget.toView(rootView)
+            addView(widgetView)
         }
     }
 
