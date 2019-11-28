@@ -21,5 +21,11 @@
             android:title="LazyWidget"
             tools:ignore="HardcodedText" />
 
+        <item
+            android:id="@+id/navigationBar"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Navigation Bar"
+            tools:ignore="HardcodedText" />
+
     </group>
 </menu>

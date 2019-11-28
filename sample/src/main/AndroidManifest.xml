@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name="br.com.zup.beagleui.framework.view.BeagleUIActivity" />
+        <activity android:name=".activities.NavigationBarActivity" android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
 </manifest>

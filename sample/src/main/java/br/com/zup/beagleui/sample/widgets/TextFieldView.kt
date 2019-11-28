@@ -90,7 +90,10 @@ class MaskApplier(
             beforeEdit = mascara
             editText.setText(mascara)
 
-            editText.setSelection(if (selection + selectionPlus > mascara.length) mascara.length else selection + selectionPlus)
+            editText.setSelection(
+                if (selection + selectionPlus > mascara.length)
+                    mascara.length
+                else selection + selectionPlus)
         }
     }
 

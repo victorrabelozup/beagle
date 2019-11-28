@@ -7,6 +7,7 @@ import br.com.zup.beagleui.framework.engine.renderer.ui.ButtonViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.ImageViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.ListViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.NativeWidgetViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.ui.NavigationBarViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.NetworkImageViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.TextViewRenderer
 import br.com.zup.beagleui.framework.widget.core.NativeWidget
@@ -16,6 +17,7 @@ import br.com.zup.beagleui.framework.widget.form.FormSubmit
 import br.com.zup.beagleui.framework.widget.ui.Button
 import br.com.zup.beagleui.framework.widget.ui.Image
 import br.com.zup.beagleui.framework.widget.ui.ListView
+import br.com.zup.beagleui.framework.widget.ui.NavigationBar
 import br.com.zup.beagleui.framework.widget.ui.NetworkImage
 import br.com.zup.beagleui.framework.widget.ui.Text
 
@@ -29,6 +31,7 @@ internal class UIViewRendererFactory : AbstractViewRendererFactory {
                 is Image -> ImageViewRenderer(widget)
                 is NetworkImage -> NetworkImageViewRenderer(widget)
                 is ListView -> ListViewRenderer(widget)
+                is NavigationBar -> NavigationBarViewRenderer(widget)
                 is FormInput -> FormInputViewRenderer(widget)
                 is FormSubmit -> FormSubmitViewRenderer(widget)
                 else -> NativeWidgetViewRenderer(widget)

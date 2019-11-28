@@ -17,6 +17,7 @@ import br.com.zup.beagleui.framework.widget.navigation.Navigator
 import br.com.zup.beagleui.framework.widget.ui.Button
 import br.com.zup.beagleui.framework.widget.ui.Image
 import br.com.zup.beagleui.framework.widget.ui.ListView
+import br.com.zup.beagleui.framework.widget.ui.NavigationBar
 import br.com.zup.beagleui.framework.widget.ui.NetworkImage
 import br.com.zup.beagleui.framework.widget.ui.Text
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
@@ -63,6 +64,7 @@ class WidgetJsonAdapterFactory {
             .withSubtype(Button::class.java, createNamespaceFor<Button>())
             .withSubtype(ListView::class.java, createNamespaceFor<ListView>())
             .withSubtype(Navigator::class.java, createNamespaceFor<Navigator>())
+            .withSubtype(NavigationBar::class.java, createNamespaceFor<NavigationBar>())
     }
 
     private fun registerCustomWidget(

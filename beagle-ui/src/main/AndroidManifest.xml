@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.zup.beagleui">
     <application>
-        <activity android:name=".framework.view.BeagleUIActivity" />
+        <activity android:name=".framework.view.BeagleUIActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>
 </manifest>

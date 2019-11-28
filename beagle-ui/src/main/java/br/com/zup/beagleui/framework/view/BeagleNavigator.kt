@@ -1,5 +1,6 @@
 package br.com.zup.beagleui.framework.view
 
+import android.app.Activity
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import br.com.zup.beagleui.R
@@ -7,13 +8,13 @@ import br.com.zup.beagleui.R
 internal object BeagleNavigator {
 
     fun finish(context: Context) {
-        if (context is BeagleUIActivity) {
+        if (context is Activity) {
             context.finish()
         }
     }
 
     fun pop(context: Context) {
-        if (context is BeagleUIActivity) {
+        if (context is Activity) {
             context.onBackPressed()
         }
     }
