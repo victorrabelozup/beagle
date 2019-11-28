@@ -1,30 +1,25 @@
 package br.com.zup.beagleui.framework.engine.renderer.layout
 
 import android.content.Context
-import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
+import br.com.zup.beagleui.framework.state.StatefulRendererHelper
 import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.layout.StatefulWidget
-import br.com.zup.beagleui.framework.widget.layout.UpdatableEvent
 import br.com.zup.beagleui.framework.widget.layout.UpdatableState
-import br.com.zup.beagleui.framework.widget.layout.UpdatableStateType
 import br.com.zup.beagleui.framework.widget.layout.UpdatableWidget
 import br.com.zup.beagleui.framework.widget.ui.Button
 import br.com.zup.beagleui.framework.widget.ui.Text
 import io.mockk.MockKAnnotations
-import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import io.mockk.just
 import io.mockk.mockk
-import io.mockk.slot
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -39,15 +34,19 @@ class StatefulWidgetViewRendererTest {
     @MockK
     private lateinit var statefulWidget: StatefulWidget
 
+    @MockK
+    private lateinit var rootView: RootView
+
+    @MockK
+    private lateinit var statefulRendererHelper: StatefulRendererHelper
+
     private var updatableWidgetButton: UpdatableWidget = UpdatableWidget(
         child = Button("Click to update"),
         id = "btn1",
         updateStates = listOf(
             UpdatableState(
-                updatableEvent = UpdatableEvent.ON_CLICK,
                 targetId = "id1",
-                stateType = UpdatableStateType.STATIC,
-                targetState = Text("Draw a racket")
+                staticState = Text("Draw a racket")
             )
         )
     )
@@ -57,10 +56,8 @@ class StatefulWidgetViewRendererTest {
         id = "txt1",
         updateStates = listOf(
             UpdatableState(
-                updatableEvent = UpdatableEvent.ON_TEXT_CHANGE,
                 targetId = "btn1",
-                stateType = UpdatableStateType.STATIC,
-                targetState = Button("Draw a racket")
+                staticState = Button("Draw a racket")
             )
         )
     )
@@ -68,16 +65,9 @@ class StatefulWidgetViewRendererTest {
     @MockK
     private lateinit var childWidgetButton: Widget
 
-    @MockK
-    private lateinit var childWidgetText: Widget
-
-    private val buttonListenerSlot = slot<View.OnClickListener>()
-    private val textWatcherSlot = slot<TextWatcher>()
-
     @InjectMockKs
     private lateinit var subject: StatefulWidgetViewRenderer
 
-    private val rootView = mockk<RootView>()
     private val context = mockk<Context>()
     private val viewRenderer = mockk<ViewRenderer>()
     private val viewGroup = mockk<ViewGroup>()
@@ -92,14 +82,17 @@ class StatefulWidgetViewRendererTest {
     @Test
     fun test_build() {
         // Given
-        mockStatefulRenderer()
+        val rootView = mockStatefulRenderer()
 
         // When
-        subject.build(rootView)
+        val actual = subject.build(rootView)
 
+        // Then
+        Assert.assertTrue(actual is View)
     }
 
-    private fun mockStatefulRenderer() {
+    private fun mockStatefulRenderer(): RootView {
+
         every { viewRendererFactory.make(any()) } returns viewRenderer
         every { viewRenderer.build(any()) } returns viewGroup
         every { viewGroup.childCount } returns 2
@@ -108,21 +101,7 @@ class StatefulWidgetViewRendererTest {
         every { statefulWidget.child } returns childWidgetButton
         every { childViewButton.tag } returns updatableWidgetButton
         every { childViewText.tag } returns updatableWidgetText
-    }
-
-    @Test
-    fun test_notify() {
-        //Given
-        mockStatefulRenderer()
-        every { childViewButton.setOnClickListener(capture(buttonListenerSlot)) } just Runs
-        every { childViewText.addTextChangedListener(capture(textWatcherSlot)) } just Runs
-
-        // When
-        subject.build(rootView)
-
-        buttonListenerSlot.captured.onClick(childViewButton)
-        textWatcherSlot.captured.onTextChanged("DUMMY", 0, 0, 0)
-
-        // Then
+        every { rootView.getContext() } returns context
+        return rootView
     }
 }

@@ -19,7 +19,7 @@ class LazyWidgetFragment : Fragment() {
             url = "http://www.mocky.io/v2/5dde6da5310000d2253ae1f1",
             initialState = Text("Loading..")
         )
-        return context?.let { declarative.toView(this) }
+        return declarative.toView(this)
     }
 
     companion object {

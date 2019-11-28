@@ -5,10 +5,11 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import br.com.zup.beagleui.sample.fragment.DynamicStatefulFragment
+import br.com.zup.beagleui.sample.fragment.StaticStatefulFragment
 import br.com.zup.beagleui.framework.utils.dp
 import br.com.zup.beagleui.sample.activities.NavigationBarActivity
 import br.com.zup.beagleui.sample.fragment.LazyWidgetFragment
-import br.com.zup.beagleui.sample.fragment.StatefulFragment
 import br.com.zup.beagleui.sample.fragment.TextFieldFragment
 
 class MainActivity : AppCompatActivity() {
@@ -35,11 +36,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun menuSelected(itemSelected: Int) {
         when (itemSelected) {
-            R.id.stateful -> goToFragment(StatefulFragment.newInstance())
+            R.id.stateful -> goToFragment(StaticStatefulFragment.newInstance())
             R.id.textField -> goToFragment(TextFieldFragment.newInstance())
             R.id.lazywidget -> goToFragment(LazyWidgetFragment.newInstance())
             // Navigation Bar requires an activity without toolbar
             R.id.navigationBar -> startActivity(NavigationBarActivity.newIntent(this))
+            R.id.stateful_dynamic -> goToFragment(DynamicStatefulFragment.newInstance())
             else -> {
             }
         }

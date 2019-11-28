@@ -21,7 +21,7 @@ class TextFieldFragment : Fragment() {
                 color = "#000000"
             )
         )
-        return context?.let { declarative.toView(this) }
+        return declarative.toView(this)
     }
 
     companion object {

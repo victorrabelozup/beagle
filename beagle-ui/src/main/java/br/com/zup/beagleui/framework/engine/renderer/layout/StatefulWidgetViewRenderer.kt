@@ -2,26 +2,25 @@ package br.com.zup.beagleui.framework.engine.renderer.layout
 
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.widget.addTextChangedListener
 import br.com.zup.beagleui.framework.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
-import br.com.zup.beagleui.framework.interfaces.OnStateUpdatable
+import br.com.zup.beagleui.framework.state.Observable
+import br.com.zup.beagleui.framework.interfaces.Observer
+import br.com.zup.beagleui.framework.interfaces.StateChangeable
+import br.com.zup.beagleui.framework.interfaces.WidgetState
+import br.com.zup.beagleui.framework.state.StatefulRendererHelper
 import br.com.zup.beagleui.framework.utils.findChildViewForType
 import br.com.zup.beagleui.framework.view.ViewFactory
-import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.layout.StatefulWidget
-import br.com.zup.beagleui.framework.widget.layout.UpdatableEvent
 import br.com.zup.beagleui.framework.widget.layout.UpdatableState
-import br.com.zup.beagleui.framework.widget.layout.UpdatableStateType
 import br.com.zup.beagleui.framework.widget.layout.UpdatableWidget
-import java.util.Observable
 
 internal class StatefulWidgetViewRenderer(
     private val statefulWidget: StatefulWidget,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
-    viewFactory: ViewFactory = ViewFactory()
+    viewFactory: ViewFactory = ViewFactory(),
+    private val statefulRendererHelper: StatefulRendererHelper = StatefulRendererHelper()
 ) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
 
     private var elementList = mutableListOf<View>()
@@ -49,82 +48,31 @@ internal class StatefulWidgetViewRenderer(
         children: List<View>
     ) {
         val updatableWidget = view.tag as UpdatableWidget
-        var onClickObservable: Observable? = updatableWidget.updateStates?.hasOnClick {
-            onClickObservable(view)
-        }
-
         updatableWidget.updateStates?.forEach { updatableState ->
-            when (updatableState.stateType) {
-                UpdatableStateType.STATIC -> setupStaticHandler(
-                    updatableState,
-                    view,
-                    children,
-                    onClickObservable
-                )
-                UpdatableStateType.DYNAMIC -> setupDynamicHandler(updatableState, view, children)
-            }
+            setupHandler(
+                updatableState,
+                view,
+                children
+            )
         }
     }
 
-    private fun onClickObservable(view: View): Observable {
-        return object : Observable() {
-            init {
-                view.setOnClickListener {
-                    setChanged()
-                    notifyObservers()
-                }
-            }
-        }
-    }
-
-    private fun setupDynamicHandler(
+    private fun setupHandler(
         updatableState: UpdatableState,
         view: View,
         children: List<View>
     ) {
-        //TODO implement the dynamic handler that should call the url and update the state based on response
-    }
 
-    private fun setupStaticHandler(
-        updatableState: UpdatableState,
-        view: View,
-        children: List<View>,
-        onClickObservable: Observable?
-    ) {
-        when (updatableState.updatableEvent) {
-            UpdatableEvent.ON_TEXT_CHANGE -> if (view is TextView) {
-                view.addTextChangedListener {
-                    notifyUpdate(updatableState, children)
+        if (view is StateChangeable) {
+            view.getState().addObserver(object : Observer<WidgetState> {
+                override fun update(
+                    o: Observable<WidgetState>,
+                    widgetState: WidgetState
+                ) {
+                    statefulRendererHelper.handleStateChange(updatableState, children, widgetState)
                 }
-            }
-            UpdatableEvent.ON_CLICK -> {
-                onClickObservable?.addObserver { _, _ ->
-                    notifyUpdate(
-                        updatableState,
-                        children
-                    )
-                }
-            }
+            })
         }
     }
-
-    @Suppress("UNCHECKED_CAST")
-    private fun notifyUpdate(
-        updatableState: UpdatableState,
-        children: List<View>
-    ) {
-        children.find { child ->
-            (child.tag as UpdatableWidget).id == updatableState.targetId
-        }.apply {
-            (this as? OnStateUpdatable<Widget>)?.onUpdateState(updatableState.targetState)
-        }
-    }
-
-
-    private inline fun <T> List<UpdatableState>.hasOnClick(action: () -> T): T? =
-        when {
-            this.filter { it.updatableEvent == UpdatableEvent.ON_CLICK }.any() -> action()
-            else -> null
-        }
 
 }

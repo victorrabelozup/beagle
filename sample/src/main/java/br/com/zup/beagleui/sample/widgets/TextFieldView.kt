@@ -7,16 +7,30 @@ import android.text.InputType
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
+import androidx.core.widget.addTextChangedListener
+import br.com.zup.beagleui.framework.state.Observable
+import br.com.zup.beagleui.framework.interfaces.Observer
+import br.com.zup.beagleui.framework.interfaces.OnStateUpdatable
+import br.com.zup.beagleui.framework.interfaces.StateChangeable
+import br.com.zup.beagleui.framework.interfaces.WidgetState
 import br.com.zup.beagleui.framework.view.WidgetViewFactory
 
-class TextFieldView(context: Context) : EditText(context) {
+class TextFieldView(context: Context) : EditText(context), StateChangeable,
+    OnStateUpdatable<TextField> {
+
+    override fun onUpdateState(widget: TextField) {
+        bind(widget)
+    }
+
+    private val stateObservable = Observable<WidgetState>()
+
+    override fun getState(): Observable<WidgetState> = stateObservable
 
     fun bind(data: TextField) {
 
         val color = Color.parseColor(data.color)
         setText(data.description)
         setTextColor(color)
-        tag = data.id
         hint = data.hint
         setTextColor(color)
         setHintTextColor(color)
@@ -24,16 +38,31 @@ class TextFieldView(context: Context) : EditText(context) {
         data.inputType?.let {
             if (it == TextFieldInputType.NUMBER) {
                 inputType = InputType.TYPE_CLASS_NUMBER or
-                        InputType.TYPE_NUMBER_FLAG_SIGNED
+                    InputType.TYPE_NUMBER_FLAG_SIGNED
             } else if (it == TextFieldInputType.PASSWORD) {
                 inputType = InputType.TYPE_CLASS_TEXT or
-                        InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    InputType.TYPE_TEXT_VARIATION_PASSWORD
             }
         }
+        notifyCurrentValue(text.toString())
+    }
 
+    internal fun addListeners(data: TextField) {
         data.mask?.let {
-            addTextChangedListener(MaskApplier(this, it))
+            stateObservable.addObserver(object : Observer<WidgetState> {
+                override fun update(o: Observable<WidgetState>, arg: WidgetState) {
+                    MaskApplier(this@TextFieldView, it)
+                }
+            })
         }
+
+        addTextChangedListener {
+            notifyCurrentValue(it.toString())
+        }
+    }
+
+    private fun notifyCurrentValue(value: String) {
+        stateObservable.notifyObservers(WidgetState(value = value))
     }
 }
 
@@ -41,6 +70,7 @@ class TextFieldViewFactory : WidgetViewFactory<TextField> {
     override fun make(context: Context, widget: TextField): View {
         return TextFieldView(context).apply {
             bind(widget)
+            addListeners(widget)
         }
     }
 }
@@ -92,8 +122,8 @@ class MaskApplier(
 
             editText.setSelection(
                 if (selection + selectionPlus > mascara.length)
-                    mascara.length
-                else selection + selectionPlus)
+                    mascara.length else selection + selectionPlus
+            )
         }
     }
 

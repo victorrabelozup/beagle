@@ -12,6 +12,7 @@ import br.com.zup.beagleui.framework.view.BeagleTextView
 import br.com.zup.beagleui.framework.view.BeagleView
 import br.com.zup.beagleui.framework.view.StateChangedListener
 import br.com.zup.beagleui.framework.view.ViewFactory
+import br.com.zup.beagleui.framework.widget.layout.UpdatableWidget
 import br.com.zup.beagleui.framework.widget.ui.Button
 import br.com.zup.beagleui.framework.widget.ui.Text
 import android.app.Activity
@@ -97,4 +98,12 @@ internal inline fun <reified T> ViewGroup.findChildViewForType(type: Class<T>): 
     findChildViewForType(this, elementList, type)
 
     return elementList
+}
+
+internal fun List<View>.findChildViewForUpdatableWidgetId(
+    widgetId: String
+): View? {
+    return this.find { child ->
+        (child.tag as UpdatableWidget).id == widgetId
+    }
 }

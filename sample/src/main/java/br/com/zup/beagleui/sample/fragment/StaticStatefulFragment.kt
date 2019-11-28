@@ -13,14 +13,12 @@ import br.com.zup.beagleui.framework.widget.core.JustifyContent
 import br.com.zup.beagleui.framework.widget.layout.Container
 import br.com.zup.beagleui.framework.widget.layout.FlexWidget
 import br.com.zup.beagleui.framework.widget.layout.StatefulWidget
-import br.com.zup.beagleui.framework.widget.layout.UpdatableEvent
 import br.com.zup.beagleui.framework.widget.layout.UpdatableState
-import br.com.zup.beagleui.framework.widget.layout.UpdatableStateType
 import br.com.zup.beagleui.framework.widget.layout.UpdatableWidget
 import br.com.zup.beagleui.framework.widget.ui.Button
 import br.com.zup.beagleui.framework.widget.ui.Text
 
-class StatefulFragment : Fragment() {
+class StaticStatefulFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,16 +41,12 @@ class StatefulFragment : Fragment() {
                             child = Button("Click to update"),
                             updateStates = listOf(
                                 UpdatableState(
-                                    updatableEvent = UpdatableEvent.ON_CLICK,
                                     targetId = "txt1",
-                                    stateType = UpdatableStateType.STATIC,
-                                    targetState = Text("Draw a racket 1")
+                                    staticState = Text("Draw a racket 1")
                                 ),
                                 UpdatableState(
-                                    updatableEvent = UpdatableEvent.ON_CLICK,
                                     targetId = "txt2",
-                                    stateType = UpdatableStateType.STATIC,
-                                    targetState = Text("Draw a racket 2")
+                                    staticState = Text("Draw a racket 2")
                                 )
                             )
                         ),
@@ -70,13 +64,13 @@ class StatefulFragment : Fragment() {
             )
         )
 
-        return context?.let { declarative.toView(this) }
+        return declarative.toView(this)
     }
 
     companion object {
 
-        fun newInstance(): StatefulFragment {
-            return StatefulFragment()
+        fun newInstance(): StaticStatefulFragment {
+            return StaticStatefulFragment()
         }
     }
 }

@@ -36,7 +36,7 @@ object Versions {
 
     const val findsBug = "3.0.1"
 
-    const val beagleDeclarative = "0.0.8-20191126.170233-7"
+    const val beagleDeclarative = "0.0.9"
 
     const val glide = "4.9.0"
 

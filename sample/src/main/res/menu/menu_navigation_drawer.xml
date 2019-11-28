@@ -6,7 +6,13 @@
         <item
             android:id="@+id/stateful"
             android:icon="@mipmap/ic_launcher"
-            android:title="Stateful Widget"
+            android:title="Stateful Static example"
+            tools:ignore="HardcodedText" />
+
+        <item
+            android:id="@+id/stateful_dynamic"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Stateful Dynamic example"
             tools:ignore="HardcodedText" />
 
         <item
