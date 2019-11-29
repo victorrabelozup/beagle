@@ -11,6 +11,7 @@ import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import br.com.zup.beagleui.framework.extensions.once
 import io.mockk.mockk
 import io.mockk.slot
 import io.mockk.verify
@@ -57,7 +58,7 @@ class FormSubmitterTest {
         formSubmitter.submitForm(form, formsValue) {}
 
         // Then
-        verify(exactly = 1) { httpClient.execute(any(), any(), any()) }
+        verify(exactly = once()) { httpClient.execute(any(), any(), any()) }
 
         val requestData = requestDataSlot.captured
         assertEquals(HttpMethod.POST, requestData.method)

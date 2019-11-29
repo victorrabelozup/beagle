@@ -5,6 +5,7 @@ import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.setup.Environment
 import br.com.zup.beagleui.framework.testutil.RandomData
 import io.mockk.every
+import br.com.zup.beagleui.framework.extensions.once
 import io.mockk.mockkObject
 import io.mockk.mockkStatic
 import io.mockk.unmockkObject
@@ -46,7 +47,7 @@ class BeagleLoggerTest {
         BeagleLogger.warning(LOG)
 
         // Then
-        verify(exactly = 1) { Log.w(BEAGLE_TAG, LOG) }
+        verify(exactly = once()) { Log.w(BEAGLE_TAG, LOG) }
     }
 
     @Test
@@ -70,7 +71,7 @@ class BeagleLoggerTest {
         BeagleLogger.error(LOG)
 
         // Then
-        verify(exactly = 1) { Log.e(BEAGLE_TAG, LOG) }
+        verify(exactly = once()) { Log.e(BEAGLE_TAG, LOG) }
     }
 
     @Test
@@ -94,7 +95,7 @@ class BeagleLoggerTest {
         BeagleLogger.info(LOG)
 
         // Then
-        verify(exactly = 1) { Log.i(BEAGLE_TAG, LOG) }
+        verify(exactly = once()) { Log.i(BEAGLE_TAG, LOG) }
     }
 
     @Test
@@ -118,7 +119,7 @@ class BeagleLoggerTest {
         BeagleLogger.debug(LOG)
 
         // Then
-        verify(exactly = 1) { Log.d(BEAGLE_TAG, LOG) }
+        verify(exactly = once()) { Log.d(BEAGLE_TAG, LOG) }
     }
 
     @Test
@@ -142,7 +143,7 @@ class BeagleLoggerTest {
         BeagleLogger.verbose(LOG)
 
         // Then
-        verify(exactly = 1) { Log.v(BEAGLE_TAG, LOG) }
+        verify(exactly = once()) { Log.v(BEAGLE_TAG, LOG) }
     }
 
     @Test

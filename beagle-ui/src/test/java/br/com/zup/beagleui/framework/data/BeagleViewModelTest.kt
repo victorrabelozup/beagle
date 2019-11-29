@@ -2,15 +2,13 @@ package br.com.zup.beagleui.framework.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import br.com.zup.beagleui.framework.action.Action
-import br.com.zup.beagleui.framework.data.BeagleService
-import br.com.zup.beagleui.framework.data.BeagleViewModel
-import br.com.zup.beagleui.framework.data.ViewState
 import br.com.zup.beagleui.framework.exception.BeagleException
 import br.com.zup.beagleui.framework.testutil.RandomData
 import br.com.zup.beagleui.framework.utils.CoroutineDispatchers
 import br.com.zup.beagleui.framework.widget.core.Widget
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
+import br.com.zup.beagleui.framework.extensions.once
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -137,7 +135,7 @@ class BeagleViewModelTest {
         viewModelSpy.onCleared()
 
         // Then
-        verify(exactly = 1) { viewModelSpy.cancel() }
+        verify(exactly = once()) { viewModelSpy.cancel() }
     }
 
     private fun assertLoading(viewState: ViewState, expected: Boolean) {

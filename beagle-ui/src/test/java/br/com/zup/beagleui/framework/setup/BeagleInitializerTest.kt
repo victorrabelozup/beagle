@@ -3,6 +3,7 @@ package br.com.zup.beagleui.framework.setup
 import android.app.Application
 import android.content.Intent
 import br.com.zup.beagleui.framework.action.CustomActionHandler
+import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.mockdata.CustomWidget
 import br.com.zup.beagleui.framework.mockdata.CustomWidgetFactory
 import br.com.zup.beagleui.framework.navigation.BeagleDeepLinkHandler
@@ -71,7 +72,7 @@ class BeagleInitializerTest {
     fun setup_should_call_BeagleEnvironment_setup() {
         BeagleInitializer.setup(APP_NAME, application, Environment.DEBUG)
 
-        verify(exactly = 1) { BeagleEnvironment.setup(APP_NAME, application, Environment.DEBUG) }
+        verify(exactly = once()) { BeagleEnvironment.setup(APP_NAME, application, Environment.DEBUG) }
     }
 
     @Test
@@ -84,7 +85,7 @@ class BeagleInitializerTest {
         BeagleInitializer.registerWidget(button, factory)
 
         // Then
-        verify(exactly = 1) { BeagleEnvironment.registerWidget(button, factory) }
+        verify(exactly = once()) { BeagleEnvironment.registerWidget(button, factory) }
     }
 
     @Test
@@ -123,7 +124,7 @@ class BeagleInitializerTest {
         BeagleInitializer.registerHttpClient(httpClient = httpClient)
 
         // Then
-        verify(exactly = 1) { BeagleEnvironment.httpClient = httpClient }
+        verify(exactly = once()) { BeagleEnvironment.httpClient = httpClient }
     }
 
     @Test
@@ -134,6 +135,6 @@ class BeagleInitializerTest {
         BeagleInitializer.registerCustomActionHandler(customActionHandler)
 
         // Then
-        verify(exactly = 1) { BeagleEnvironment.customActionHandler = customActionHandler }
+        verify(exactly = once()) { BeagleEnvironment.customActionHandler = customActionHandler }
     }
 }

@@ -1,6 +1,7 @@
 package br.com.zup.beagleui.framework.action
 
 import android.content.Context
+import br.com.zup.beagleui.framework.extensions.once
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
@@ -43,7 +44,7 @@ class ActionExecutorTest {
         actionExecutor.doAction(context, action)
 
         // Then
-        verify(exactly = 1) { navigationActionHandler.handle(context, action) }
+        verify(exactly = once()) { navigationActionHandler.handle(context, action) }
     }
 
     @Test
@@ -56,7 +57,7 @@ class ActionExecutorTest {
         actionExecutor.doAction(context, action)
 
         // Then
-        verify(exactly = 1) { showNativeDialogActionHandler.handle(context, action) }
+        verify(exactly = once()) { showNativeDialogActionHandler.handle(context, action) }
     }
 
     @Test
@@ -69,7 +70,7 @@ class ActionExecutorTest {
         actionExecutor.doAction(context, action)
 
         // Then
-        verify(exactly = 1) { formValidationActionHandler.handle(context, action) }
+        verify(exactly = once()) { formValidationActionHandler.handle(context, action) }
     }
 
     @Test
@@ -96,7 +97,7 @@ class ActionExecutorTest {
         actionExecutor.doAction(context, action)
 
         // Then
-        verify(exactly = 1) { customActionHandler.handle(context, action) }
+        verify(exactly = once()) { customActionHandler.handle(context, action) }
     }
 
     @Test

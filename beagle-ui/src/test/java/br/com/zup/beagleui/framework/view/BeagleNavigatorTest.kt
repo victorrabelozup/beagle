@@ -8,19 +8,17 @@ import br.com.zup.beagleui.R
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
-import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkObject
-import io.mockk.mockkStatic
 import io.mockk.unmockkObject
 import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import br.com.zup.beagleui.framework.extensions.once
 
-import org.junit.Assert.*
 
 private const val URL = "http://test.com/test"
 
@@ -69,7 +67,7 @@ class BeagleNavigatorTest {
         BeagleNavigator.finish(context)
 
         // Then
-        verify(exactly = 1) { context.finish() }
+        verify(exactly = once()) { context.finish() }
     }
 
     @Test
@@ -81,14 +79,14 @@ class BeagleNavigatorTest {
         BeagleNavigator.pop(context)
 
         // Then
-        verify(exactly = 1) { context.onBackPressed() }
+        verify(exactly = once()) { context.onBackPressed() }
     }
 
     @Test
     fun addScreen_should_set_customAnimations() {
         BeagleNavigator.addScreen(context, URL)
 
-        verify(exactly = 1) {
+        verify(exactly = once()) {
             fragmentTransaction.setCustomAnimations(
                 R.anim.slide_from_right, R.anim.slide_to_right,
                 R.anim.slide_from_right, R.anim.slide_to_right
@@ -106,38 +104,38 @@ class BeagleNavigatorTest {
         BeagleNavigator.addScreen(context, URL)
 
         // Then
-        verify(exactly = 1) { context.startActivity(intent) }
+        verify(exactly = once()) { context.startActivity(intent) }
     }
 
     @Test
     fun addScreen_should_replace_fragment_with_beagle_content() {
         BeagleNavigator.addScreen(context, URL)
 
-        verify(exactly = 1) {
+        verify(exactly = once()) {
             fragmentTransaction.replace(R.id.beagle_content, fragment)
         }
-        verify(exactly = 1) { BeagleUIFragment.newInstance(URL) }
+        verify(exactly = once()) { BeagleUIFragment.newInstance(URL) }
     }
 
     @Test
     fun addScreen_should_addToBackStack_with_given_url() {
         BeagleNavigator.addScreen(context, URL)
 
-        verify(exactly = 1) { fragmentTransaction.addToBackStack(URL) }
+        verify(exactly = once()) { fragmentTransaction.addToBackStack(URL) }
     }
 
     @Test
     fun addScreen_should_commit_transaction() {
         BeagleNavigator.addScreen(context, URL)
 
-        verify(exactly = 1) { fragmentTransaction.commit() }
+        verify(exactly = once()) { fragmentTransaction.commit() }
     }
 
     @Test
     fun openScreen_should_set_customAnimations() {
         BeagleNavigator.openScreen(context, URL)
 
-        verify(exactly = 1) {
+        verify(exactly = once()) {
             fragmentTransaction.setCustomAnimations(
                 R.anim.slide_from_right, R.anim.slide_to_right,
                 R.anim.slide_from_right, R.anim.slide_to_right
@@ -155,17 +153,17 @@ class BeagleNavigatorTest {
         BeagleNavigator.openScreen(context, URL)
 
         // Then
-        verify(exactly = 1) { context.startActivity(intent) }
+        verify(exactly = once()) { context.startActivity(intent) }
     }
 
     @Test
     fun openScreen_should_replace_fragment_with_beagle_content() {
         BeagleNavigator.openScreen(context, URL)
 
-        verify(exactly = 1) {
+        verify(exactly = once()) {
             fragmentTransaction.replace(R.id.beagle_content, fragment)
         }
-        verify(exactly = 1) { BeagleUIFragment.newInstance(URL) }
+        verify(exactly = once()) { BeagleUIFragment.newInstance(URL) }
     }
 
     @Test
@@ -179,6 +177,6 @@ class BeagleNavigatorTest {
     fun openScreen_should_commit_transaction() {
         BeagleNavigator.openScreen(context, URL)
 
-        verify(exactly = 1) { fragmentTransaction.commit() }
+        verify(exactly = once()) { fragmentTransaction.commit() }
     }
 }

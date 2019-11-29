@@ -12,6 +12,7 @@ import br.com.zup.beagleui.framework.testutil.RandomData
 import br.com.zup.beagleui.framework.widget.core.Widget
 import io.mockk.MockKAnnotations
 import io.mockk.every
+import br.com.zup.beagleui.framework.extensions.once
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.slot
@@ -77,7 +78,7 @@ class BeagleServiceTest {
     fun fetchWidget_should_deserialize_a_widget_response() = runBlockingTest {
         val widgetResult = beagleService.fetchWidget(URL)
 
-        verify(exactly = 1) { deserializer.deserializeWidget(JSON_SUCCESS) }
+        verify(exactly = once()) { deserializer.deserializeWidget(JSON_SUCCESS) }
         assertEquals(widget, widgetResult)
     }
 
@@ -131,7 +132,7 @@ class BeagleServiceTest {
     fun fetchAction_should_deserialize_a_action_response() = runBlockingTest {
         val actionResult = beagleService.fetchAction(URL)
 
-        verify(exactly = 1) { deserializer.deserializeAction(JSON_SUCCESS) }
+        verify(exactly = once()) { deserializer.deserializeAction(JSON_SUCCESS) }
         assertEquals(action, actionResult)
     }
 

@@ -1,6 +1,7 @@
 package br.com.zup.beagleui.framework.setup
 
 import android.app.Application
+import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.mockdata.CustomWidget
 import br.com.zup.beagleui.framework.mockdata.CustomWidgetFactory
 import br.com.zup.beagleui.framework.testutil.setPrivateField
@@ -50,7 +51,7 @@ class BeagleEnvironmentTest {
     fun setup_should_start_soLoader() {
         BeagleEnvironment.setup(APP_NAME, application, Environment.DEBUG)
 
-        verify(exactly = 1) { SoLoader.init(application, false) }
+        verify(exactly = once()) { SoLoader.init(application, false) }
     }
 
     @Test

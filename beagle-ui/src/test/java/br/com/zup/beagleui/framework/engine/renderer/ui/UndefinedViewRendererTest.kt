@@ -4,9 +4,10 @@ import android.content.Context
 import android.graphics.Color
 import android.widget.TextView
 import br.com.zup.beagleui.framework.engine.renderer.RootView
-import br.com.zup.beagleui.framework.view.BeagleTextView
+import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.setup.Environment
+import br.com.zup.beagleui.framework.view.BeagleTextView
 import br.com.zup.beagleui.framework.view.ViewFactory
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
@@ -16,11 +17,11 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.just
 import io.mockk.mockkObject
 import io.mockk.slot
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import io.mockk.unmockkObject
 import io.mockk.verify
 import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
@@ -93,6 +94,6 @@ class UndefinedViewRendererTest {
         undefinedViewRenderer.build(rootView)
 
         // Then
-        verify(exactly = 1) { viewFactory.makeView(context) }
+        verify(exactly = once()) { viewFactory.makeView(context) }
     }
 }

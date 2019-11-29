@@ -1,9 +1,9 @@
 package br.com.zup.beagleui.framework.engine.renderer.layout
 
-import android.content.Context
 import android.view.View
 import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
+import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.widget.layout.UpdatableWidget
 import br.com.zup.beagleui.framework.widget.ui.Text
@@ -13,7 +13,6 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import io.mockk.verify
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
@@ -51,6 +50,6 @@ class UpdatableWidgetViewRendererTest {
         // When
         viewRenderer.build(rootView)
 
-        verify(exactly = 1) { viewRendererFactory.make(updatableWidget.child) }
+        verify(exactly = once()) { viewRendererFactory.make(updatableWidget.child) }
     }
 }

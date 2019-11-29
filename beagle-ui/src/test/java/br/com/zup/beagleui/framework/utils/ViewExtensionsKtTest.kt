@@ -1,15 +1,13 @@
 package br.com.zup.beagleui.framework.utils
 
 import android.app.Activity
-import android.content.Context
 import android.os.IBinder
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.children
 import androidx.fragment.app.Fragment
-import br.com.zup.beagleui.framework.engine.renderer.RootView
+import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.testutil.RandomData
 import br.com.zup.beagleui.framework.view.BeagleView
 import br.com.zup.beagleui.framework.view.StateChangedListener
@@ -22,10 +20,9 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.slot
 import io.mockk.verify
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.*
 import kotlin.test.assertFails
 
 private val URL = RandomData.httpUrl()
@@ -122,7 +119,7 @@ class ViewExtensionsKtTest {
         viewGroup.hideKeyboard()
 
         // Then
-        verify(exactly = 1) { inputMethodManager.hideSoftInputFromWindow(iBinder, 0) }
+        verify(exactly = once()) { inputMethodManager.hideSoftInputFromWindow(iBinder, 0) }
     }
 
     @Test
@@ -135,6 +132,6 @@ class ViewExtensionsKtTest {
         viewGroup.hideKeyboard()
 
         // Then
-        verify(exactly = 1) { inputMethodManager.hideSoftInputFromWindow(iBinder, 0) }
+        verify(exactly = once()) { inputMethodManager.hideSoftInputFromWindow(iBinder, 0) }
     }
 }

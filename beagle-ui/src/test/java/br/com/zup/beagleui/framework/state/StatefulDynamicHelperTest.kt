@@ -1,6 +1,7 @@
 package br.com.zup.beagleui.framework.state
 
 import android.view.View
+import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.interfaces.OnStateUpdatable
 import br.com.zup.beagleui.framework.interfaces.StateChangeable
 import br.com.zup.beagleui.framework.interfaces.WidgetState
@@ -82,7 +83,7 @@ class StatefulDynamicHelperTest {
             widgetState = widgetState, children = viewList
         )
 
-        verify(exactly = 1) { (childViewText as? OnStateUpdatable<Widget>)?.onUpdateState(any()) }
+        verify(exactly = once()) { (childViewText as? OnStateUpdatable<Widget>)?.onUpdateState(any()) }
     }
 
 }

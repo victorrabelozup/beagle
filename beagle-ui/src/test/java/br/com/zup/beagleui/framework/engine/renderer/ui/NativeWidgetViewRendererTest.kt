@@ -4,12 +4,12 @@ import android.content.Context
 import android.view.View
 import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
+import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.view.WidgetViewFactory
 import br.com.zup.beagleui.framework.widget.core.NativeWidget
 import io.mockk.MockKAnnotations
 import io.mockk.every
-import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import io.mockk.mockkObject
@@ -82,7 +82,7 @@ class NativeWidgetViewRendererTest {
 
         // Then
         assertEquals(view, actual)
-        verify(exactly = 1) { viewRendererFactory.makeUndefinedViewRenderer() }
-        verify(exactly = 1) { undefinedViewRenderer.build(rootView) }
+        verify(exactly = once()) { viewRendererFactory.makeUndefinedViewRenderer() }
+        verify(exactly = once()) { undefinedViewRenderer.build(rootView) }
     }
 }

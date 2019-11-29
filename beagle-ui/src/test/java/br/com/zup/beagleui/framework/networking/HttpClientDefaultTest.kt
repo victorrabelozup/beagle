@@ -1,5 +1,6 @@
 package br.com.zup.beagleui.framework.networking
 
+import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.testutil.CoroutineTestRule
 import br.com.zup.beagleui.framework.testutil.RandomData
 import io.mockk.MockKAnnotations
@@ -90,7 +91,7 @@ class HttpClientDefaultTest {
     fun execute_should_disconnect_after_response() = runBlockingTest {
         urlRequestDispatchingDefault.execute(REQUEST_DATA, onSuccess = {}, onError = {})
 
-        verify(exactly = 1) { httpURLConnection.disconnect() }
+        verify(exactly = once()) { httpURLConnection.disconnect() }
     }
 
     @Test
@@ -107,7 +108,7 @@ class HttpClientDefaultTest {
 
         // Then
         headers.forEach {
-            verify(exactly = 1) { httpURLConnection.setRequestProperty(it.key, it.value) }
+            verify(exactly = once()) { httpURLConnection.setRequestProperty(it.key, it.value) }
         }
     }
 
@@ -124,8 +125,8 @@ class HttpClientDefaultTest {
         urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
 
         // Then
-        verify(exactly = 1) { outputStream.write(data.toByteArray()) }
-        verify(exactly = 1) { httpURLConnection.setRequestProperty("Content-Length", data.length.toString()) }
+        verify(exactly = once()) { outputStream.write(data.toByteArray()) }
+        verify(exactly = once()) { httpURLConnection.setRequestProperty("Content-Length", data.length.toString()) }
     }
 
     @Test
@@ -214,7 +215,7 @@ class HttpClientDefaultTest {
 
         // Then
         verify(exactly = 0) { httpURLConnection.setRequestProperty("X-HTTP-Method-Override", "GET") }
-        verify(exactly = 1) { httpURLConnection.requestMethod = "GET" }
+        verify(exactly = once()) { httpURLConnection.requestMethod = "GET" }
     }
 
     @Test
@@ -227,7 +228,7 @@ class HttpClientDefaultTest {
 
         // Then
         verify(exactly = 0) { httpURLConnection.setRequestProperty("X-HTTP-Method-Override", "POST") }
-        verify(exactly = 1) { httpURLConnection.requestMethod = "POST" }
+        verify(exactly = once()) { httpURLConnection.requestMethod = "POST" }
     }
 
     @Test
@@ -240,7 +241,7 @@ class HttpClientDefaultTest {
 
         // Then
         verify(exactly = 0) { httpURLConnection.setRequestProperty("X-HTTP-Method-Override", "PUT") }
-        verify(exactly = 1) { httpURLConnection.requestMethod = "PUT" }
+        verify(exactly = once()) { httpURLConnection.requestMethod = "PUT" }
     }
 
     @Test
@@ -253,7 +254,7 @@ class HttpClientDefaultTest {
 
         // Then
         verify(exactly = 0) { httpURLConnection.setRequestProperty("X-HTTP-Method-Override", "DELETE") }
-        verify(exactly = 1) { httpURLConnection.requestMethod = "DELETE" }
+        verify(exactly = once()) { httpURLConnection.requestMethod = "DELETE" }
     }
 
     @Test
@@ -265,8 +266,8 @@ class HttpClientDefaultTest {
         urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
 
         // Then
-        verify(exactly = 1) { httpURLConnection.setRequestProperty("X-HTTP-Method-Override", "HEAD") }
-        verify(exactly = 1) { httpURLConnection.requestMethod = "POST" }
+        verify(exactly = once()) { httpURLConnection.setRequestProperty("X-HTTP-Method-Override", "HEAD") }
+        verify(exactly = once()) { httpURLConnection.requestMethod = "POST" }
     }
 
     @Test
@@ -278,8 +279,8 @@ class HttpClientDefaultTest {
         urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
 
         // Then
-        verify(exactly = 1) { httpURLConnection.setRequestProperty("X-HTTP-Method-Override", "PATCH") }
-        verify(exactly = 1) { httpURLConnection.requestMethod = "POST" }
+        verify(exactly = once()) { httpURLConnection.setRequestProperty("X-HTTP-Method-Override", "PATCH") }
+        verify(exactly = once()) { httpURLConnection.requestMethod = "POST" }
     }
 
     @Test

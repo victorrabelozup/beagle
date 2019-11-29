@@ -2,6 +2,7 @@ package br.com.zup.beagleui.framework.action
 
 import android.content.Context
 import android.content.Intent
+import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.navigation.BeagleDeepLinkHandler
 import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.testutil.RandomData
@@ -16,8 +17,8 @@ import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
 import org.junit.After
-import org.junit.Test
 import org.junit.Before
+import org.junit.Test
 
 class NavigationActionHandlerTest {
 
@@ -76,7 +77,7 @@ class NavigationActionHandlerTest {
         navigationActionHandler.handle(context, navigate)
 
         // Then
-        verify(exactly = 1) { context.startActivity(intent) }
+        verify(exactly = once()) { context.startActivity(intent) }
     }
 
     @Test
@@ -107,7 +108,7 @@ class NavigationActionHandlerTest {
         navigationActionHandler.handle(context, navigate)
 
         // Then
-        verify(exactly = 1) { BeagleNavigator.openScreen(context, path) }
+        verify(exactly = once()) { BeagleNavigator.openScreen(context, path) }
     }
 
     @Test
@@ -138,7 +139,7 @@ class NavigationActionHandlerTest {
         navigationActionHandler.handle(context, navigate)
 
         // Then
-        verify(exactly = 1) { BeagleNavigator.addScreen(context, path) }
+        verify(exactly = once()) { BeagleNavigator.addScreen(context, path) }
     }
 
     @Test
@@ -167,7 +168,7 @@ class NavigationActionHandlerTest {
         navigationActionHandler.handle(context, navigate)
 
         // Then
-        verify(exactly = 1) { BeagleNavigator.finish(context) }
+        verify(exactly = once()) { BeagleNavigator.finish(context) }
     }
 
     @Test
@@ -182,6 +183,6 @@ class NavigationActionHandlerTest {
         navigationActionHandler.handle(context, navigate)
 
         // Then
-        verify(exactly = 1) { BeagleNavigator.pop(context) }
+        verify(exactly = once()) { BeagleNavigator.pop(context) }
     }
 }

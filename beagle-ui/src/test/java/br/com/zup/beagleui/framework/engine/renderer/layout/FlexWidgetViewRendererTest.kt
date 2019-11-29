@@ -9,6 +9,7 @@ import br.com.zup.beagleui.framework.widget.core.Flex
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.layout.FlexWidget
 import io.mockk.MockKAnnotations
+import br.com.zup.beagleui.framework.extensions.once
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -62,21 +63,21 @@ class FlexWidgetViewRendererTest {
     fun build_should_makeBeagleFlexView() {
         flexWidgetViewRenderer.build(rootView)
 
-        verify(exactly = 1) { viewFactory.makeBeagleFlexView(context, flex) }
+        verify(exactly = once()) { viewFactory.makeBeagleFlexView(context, flex) }
     }
 
     @Test
     fun build_should_create_a_view_from_FlexWidget_children() {
         flexWidgetViewRenderer.build(rootView)
 
-        verify(exactly = 1) { viewRendererFactory.make(flexWidgetChildren[0]) }
-        verify(exactly = 1) { buttonViewRenderer.build(rootView) }
+        verify(exactly = once()) { viewRendererFactory.make(flexWidgetChildren[0]) }
+        verify(exactly = once()) { buttonViewRenderer.build(rootView) }
     }
 
     @Test
     fun build_should_addView_to_BeagleFlexView() {
         flexWidgetViewRenderer.build(rootView)
 
-        verify(exactly = 1) { beagleFlexView.addView(beagleFlexView) }
+        verify(exactly = once()) { beagleFlexView.addView(beagleFlexView) }
     }
 }

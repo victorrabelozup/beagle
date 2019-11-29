@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import br.com.zup.beagleui.framework.engine.mapper.ViewMapper
 import br.com.zup.beagleui.framework.engine.renderer.RootView
+import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.widget.ui.NetworkImage
 import com.bumptech.glide.Glide
@@ -20,10 +21,10 @@ import io.mockk.mockk
 import io.mockk.mockkStatic
 import io.mockk.slot
 import io.mockk.verify
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.*
 
 private const val DEFAULT_URL = "http://teste.com/test.png"
 
@@ -84,8 +85,8 @@ class NetworkImageViewRendererTest {
     fun build_should_set_url_to_Glide() {
         networkImageViewRenderer.build(rootView)
 
-        verify(exactly = 1) { Glide.with(imageView) }
-        verify(exactly = 1) { requestManager.load(DEFAULT_URL) }
-        verify(exactly = 1) { requestBuilder.into(imageView) }
+        verify(exactly = once()) { Glide.with(imageView) }
+        verify(exactly = once()) { requestManager.load(DEFAULT_URL) }
+        verify(exactly = once()) { requestBuilder.into(imageView) }
     }
 }

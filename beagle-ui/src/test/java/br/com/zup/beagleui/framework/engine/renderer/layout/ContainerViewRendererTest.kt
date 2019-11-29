@@ -25,6 +25,7 @@ import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
+import br.com.zup.beagleui.framework.extensions.once
 
 private const val DEFAULT_COLOR = 0xFFFFFF
 
@@ -122,8 +123,8 @@ class ContainerViewRendererTest {
         containerViewRenderer.build(rootView)
 
         // Then
-        verify(exactly = 1) { viewRendererFactory.make(content) }
-        verify(exactly = 1) { containerViewRendererMock.build(rootView) }
+        verify(exactly = once()) { viewRendererFactory.make(content) }
+        verify(exactly = once()) { containerViewRendererMock.build(rootView) }
     }
 
     @Test
@@ -136,10 +137,10 @@ class ContainerViewRendererTest {
         containerViewRenderer.build(rootView)
 
         // Then
-        verify(exactly = 1) { viewFactory.makeScrollView(context) }
-        verify(exactly = 1) { scrollView.addView(beagleFlexView) }
-        verify(exactly = 1) { beagleFlexView.addView(view) }
-        verify(exactly = 1) { beagleFlexView.addView(scrollView, any<Flex>()) }
+        verify(exactly = once()) { viewFactory.makeScrollView(context) }
+        verify(exactly = once()) { scrollView.addView(beagleFlexView) }
+        verify(exactly = once()) { beagleFlexView.addView(view) }
+        verify(exactly = once()) { beagleFlexView.addView(scrollView, any<Flex>()) }
         assertEquals(1.0, flexValues[1].grow)
     }
 

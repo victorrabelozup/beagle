@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
+import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.testutil.RandomData
 import br.com.zup.beagleui.framework.utils.toView
 import br.com.zup.beagleui.framework.view.BeagleView
@@ -70,7 +71,7 @@ class LazyWidgetViewRendererTest {
     fun build_should_add_initialState_and_trigger_updateView() {
         lazyWidgetViewRenderer.build(rootView)
 
-        verify(exactly = 1) { beagleView.addView(initialStateView) }
-        verify(exactly = 1) { beagleView.updateView(rootView, URL, initialStateView) }
+        verify(exactly = once()) { beagleView.addView(initialStateView) }
+        verify(exactly = once()) { beagleView.updateView(rootView, URL, initialStateView) }
     }
 }

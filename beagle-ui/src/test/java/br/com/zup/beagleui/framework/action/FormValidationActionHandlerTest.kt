@@ -1,6 +1,7 @@
 package br.com.zup.beagleui.framework.action
 
 import android.content.Context
+import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.logger.BeagleLogger
 import br.com.zup.beagleui.framework.mockdata.FormInputView
 import br.com.zup.beagleui.framework.testutil.RandomData
@@ -59,7 +60,7 @@ class FormValidationActionHandlerTest {
         formValidationActionHandler.handle(context, formValidation)
 
         // Then
-        verify(exactly = 1) { view.onValidationError(validationMessage) }
+        verify(exactly = once()) { view.onValidationError(validationMessage) }
     }
 
     @Test
@@ -78,6 +79,6 @@ class FormValidationActionHandlerTest {
 
         // Then
         val logMessage = "Input name with name $inputName does not implement ValidationErrorListener"
-        verify(exactly = 1) { BeagleLogger.warning(logMessage) }
+        verify(exactly = once()) { BeagleLogger.warning(logMessage) }
     }
 }

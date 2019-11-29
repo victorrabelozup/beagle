@@ -10,6 +10,7 @@ import br.com.zup.beagleui.framework.action.FormValidationActionHandler
 import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
+import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.form.FormResult
 import br.com.zup.beagleui.framework.form.FormSubmitter
 import br.com.zup.beagleui.framework.form.Validator
@@ -37,10 +38,9 @@ import io.mockk.unmockkObject
 import io.mockk.unmockkStatic
 import io.mockk.verify
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.*
 
 private const val FORM_INPUT_VIEWS_FIELD_NAME = "formInputViews"
 private const val FORM_SUBMIT_VIEW_FIELD_NAME = "formSubmitView"
@@ -182,7 +182,7 @@ class FormViewRendererTest {
 
         val actual = formViewRenderer.getPrivateField<View>(FORM_SUBMIT_VIEW_FIELD_NAME)
         assertEquals(formSubmitView, actual)
-        verify(exactly = 1) { formSubmitView.setOnClickListener(any()) }
+        verify(exactly = once()) { formSubmitView.setOnClickListener(any()) }
     }
 
     @Test
@@ -192,7 +192,7 @@ class FormViewRendererTest {
 
         // Then
         val views = formViewRenderer.getPrivateField<List<View>>(FORM_INPUT_VIEWS_FIELD_NAME)
-        verify(exactly = 1) { formValidationActionHandler.formInputViews = views }
+        verify(exactly = once()) { formValidationActionHandler.formInputViews = views }
     }
 
     @Test
@@ -201,8 +201,8 @@ class FormViewRendererTest {
         executeFormSubmitOnClickListener()
 
         // Then
-        verify(exactly = 1) { formInputView.hideKeyboard() }
-        verify(exactly = 1) { formSubmitter.submitForm(any(), any(), any()) }
+        verify(exactly = once()) { formInputView.hideKeyboard() }
+        verify(exactly = once()) { formSubmitter.submitForm(any(), any(), any()) }
     }
 
     @Test
@@ -215,8 +215,8 @@ class FormViewRendererTest {
         executeFormSubmitOnClickListener()
 
         // Then
-        verify(exactly = 1) { validator.isValid(INPUT_VALUE) }
-        verify(exactly = 1) { formSubmitter.submitForm(any(), any(), any()) }
+        verify(exactly = once()) { validator.isValid(INPUT_VALUE) }
+        verify(exactly = once()) { formSubmitter.submitForm(any(), any(), any()) }
     }
 
     @Test
@@ -229,7 +229,7 @@ class FormViewRendererTest {
         executeFormSubmitOnClickListener()
 
         // Then
-        verify(exactly = 1) { formInputView.onValidationError(any()) }
+        verify(exactly = once()) { formInputView.onValidationError(any()) }
         verify(exactly = 0) { formSubmitter.submitForm(any(), any(), any()) }
     }
 
@@ -245,7 +245,7 @@ class FormViewRendererTest {
         executeFormSubmitOnClickListener()
 
         // Then
-        verify(exactly = 1) { BeagleLogger.warning("FormInput with name ${formInput.name} is not valid and does not implement a ValidationErrorListener") }
+        verify(exactly = once()) { BeagleLogger.warning("FormInput with name ${formInput.name} is not valid and does not implement a ValidationErrorListener") }
         verify(exactly = 0) { formSubmitter.submitForm(any(), any(), any()) }
     }
 
@@ -260,7 +260,7 @@ class FormViewRendererTest {
         runnableSlot.captured.run()
 
         // Then
-        verify(exactly = 1) { actionExecutor.doAction(appCompatActivity, formResult.action) }
+        verify(exactly = once()) { actionExecutor.doAction(appCompatActivity, formResult.action) }
     }
 
     @Test
@@ -281,9 +281,9 @@ class FormViewRendererTest {
         runnableSlot.captured.run()
 
         // Then
-        verify(exactly = 1) { alertDialogBuilder.setTitle("Error!") }
-        verify(exactly = 1) { alertDialogBuilder.setMessage("Something went wrong!") }
-        verify(exactly = 1) { alertDialogBuilder.show() }
+        verify(exactly = once()) { alertDialogBuilder.setTitle("Error!") }
+        verify(exactly = once()) { alertDialogBuilder.setMessage("Something went wrong!") }
+        verify(exactly = once()) { alertDialogBuilder.show() }
     }
 
     private fun executeFormSubmitOnClickListener() {

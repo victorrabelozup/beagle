@@ -3,6 +3,7 @@ package br.com.zup.beagleui.framework.action
 import android.content.Context
 import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
+import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.testutil.RandomData
 import br.com.zup.beagleui.framework.view.ViewFactory
 import io.mockk.MockKAnnotations
@@ -79,6 +80,6 @@ class ShowNativeDialogActionHandlerTest {
         listenerSlot.captured.onClick(dialog, 0)
 
         // Then
-        verify(exactly = 1) { dialog.dismiss() }
+        verify(exactly = once()) { dialog.dismiss() }
     }
 }

@@ -6,15 +6,24 @@ import androidx.appcompat.widget.Toolbar
 import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
+import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.utils.dp
 import br.com.zup.beagleui.framework.view.BeagleUIActivity
 import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.ui.NavigationBar
-import io.mockk.*
+import io.mockk.MockKAnnotations
+import io.mockk.Runs
+import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.mockkObject
+import io.mockk.slot
+import io.mockk.unmockkObject
+import io.mockk.verify
 import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -111,8 +120,8 @@ class NavigationBarViewRendererTest {
         navigationBarViewRenderer.build(rootView)
 
         // Then
-        verify(exactly = 1) { frameLayout.addView(toolbar) }
-        verify(exactly = 1) { context.setSupportActionBar(toolbar) }
+        verify(exactly = once()) { frameLayout.addView(toolbar) }
+        verify(exactly = once()) { context.setSupportActionBar(toolbar) }
     }
 
     @Test
