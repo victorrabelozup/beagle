@@ -1,46 +1,53 @@
 package br.com.zup.beagleui.framework.state
 
-import android.content.Context
 import android.view.View
 import br.com.zup.beagleui.framework.interfaces.OnStateUpdatable
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.layout.UpdatableState
 import br.com.zup.beagleui.framework.widget.ui.Text
 import io.mockk.MockKAnnotations
+import io.mockk.every
+import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
+import io.mockk.verify
+import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.spy
-import org.mockito.Mockito.times
-import org.mockito.Mockito.verify
 import kotlin.test.fail
 
 class StatefulStaticHelperTest {
 
     private var subject: StatefulStaticHelper = StatefulStaticHelper()
 
-    private val updatableStateStatic = UpdatableState(
-        targetId = "txt1",
-        staticState = Text("Any")
+    @MockK
+    private lateinit var updatableStateStatic: UpdatableState
+
+    @MockK
+    private lateinit var text: Text
+
+    private var view = mockk<View>(
+        relaxUnitFun = true, moreInterfaces = *arrayOf(
+            OnStateUpdatable::class
+        )
     )
 
-    private var context = mockk<Context>()
-    private var view = spy(MyView(context))
-
-    private open class MyView(context: Context): View(context), OnStateUpdatable<Widget>  {
-            override fun onUpdateState(widget: Widget) {
-            }
-        }
-
+    @Before
     fun setup() {
         MockKAnnotations.init(this, relaxUnitFun = true)
+        every { updatableStateStatic.staticState } returns text
     }
 
+    @Suppress("UNCHECKED_CAST")
     @Test
     fun test_notifyStaticState_success() {
         subject.notifyStaticState(updatableStateStatic, view)
         updatableStateStatic.staticState?.let {
-            verify(view as OnStateUpdatable<Widget>, times(1)).onUpdateState(it)
-        }?:run {
+            verify(exactly = 1) {
+                (view as? OnStateUpdatable<Widget>)?.onUpdateState(
+                    any()
+                )
+            }
+
+        } ?: run {
             fail("staticState should be set")
         }
     }
