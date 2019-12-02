@@ -1,6 +1,7 @@
 package br.com.zup.beagleui.framework.data
 
 import br.com.zup.beagleui.framework.action.Action
+import br.com.zup.beagleui.framework.data.cache.BeagleWidgetCacheHelper
 import br.com.zup.beagleui.framework.data.deserializer.BeagleDeserializationException
 import br.com.zup.beagleui.framework.data.deserializer.BeagleDeserializer
 import br.com.zup.beagleui.framework.exception.BeagleException
@@ -14,12 +15,15 @@ import kotlin.coroutines.resumeWithException
 
 internal class BeagleService(
     private val deserializer: BeagleDeserializer = BeagleDeserializer(),
-    private val httpClient: HttpClient = HttpClientFactory().make()
+    private val httpClient: HttpClient = HttpClientFactory().make(),
+    private val cacheHelper: BeagleWidgetCacheHelper = BeagleWidgetCacheHelper()
 ) {
-
     @Throws(BeagleException::class)
-    suspend fun fetchWidget(url: String): Widget {
-        return deserializeWidget(fetchData(url))
+    suspend fun fetchWidget(url: String): Widget = with(cacheHelper) {
+        getWidgetFromCache(url) ?: cacheWidget(
+            url,
+            deserializeWidget(fetchData(url))
+        )
     }
 
     @Throws(BeagleException::class)

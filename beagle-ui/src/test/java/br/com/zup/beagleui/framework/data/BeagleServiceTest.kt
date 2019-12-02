@@ -1,18 +1,19 @@
 package br.com.zup.beagleui.framework.data
 
 import br.com.zup.beagleui.framework.action.Action
+import br.com.zup.beagleui.framework.data.cache.BeagleWidgetCacheHelper
 import br.com.zup.beagleui.framework.data.deserializer.BeagleDeserializationException
 import br.com.zup.beagleui.framework.data.deserializer.BeagleDeserializer
 import br.com.zup.beagleui.framework.data.deserializer.makeContainerJson
 import br.com.zup.beagleui.framework.exception.BeagleException
+import br.com.zup.beagleui.framework.extensions.once
+import br.com.zup.beagleui.framework.networking.HttpClient
 import br.com.zup.beagleui.framework.networking.RequestCall
 import br.com.zup.beagleui.framework.networking.ResponseData
-import br.com.zup.beagleui.framework.networking.HttpClient
 import br.com.zup.beagleui.framework.testutil.RandomData
 import br.com.zup.beagleui.framework.widget.core.Widget
 import io.mockk.MockKAnnotations
 import io.mockk.every
-import br.com.zup.beagleui.framework.extensions.once
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.slot
@@ -24,6 +25,7 @@ import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
 import kotlin.test.assertTrue
+
 
 private val URL = RandomData.httpUrl()
 private val JSON_SUCCESS = makeContainerJson()
@@ -48,15 +50,20 @@ class BeagleServiceTest {
     @MockK
     private lateinit var responseData: ResponseData
 
+    @MockK
+    private lateinit var beagleWidgetCacheHelper: BeagleWidgetCacheHelper
+
     @InjectMockKs
     private lateinit var beagleService: BeagleService
 
     @Before
     fun setup() {
-        MockKAnnotations.init(this)
+        MockKAnnotations.init(this, relaxUnitFun = true)
 
         mockListenerExecution { onSuccessSlot.captured(responseData) }
         every { deserializer.deserializeWidget(any()) } returns widget
+        every { beagleWidgetCacheHelper.getWidgetFromCache(any()) } returns null
+        every { beagleWidgetCacheHelper.cacheWidget(any(), any()) } returns widget
         every { deserializer.deserializeAction(any()) } returns action
         every { responseData.data } returns JSON_SUCCESS.toByteArray()
     }
@@ -120,9 +127,10 @@ class BeagleServiceTest {
         every { deserializer.deserializeWidget(any()) } throws exception
 
         // When
-        val exceptionResponse = assertFails("Widget deserializer error with respective json: $JSON_ERROR") {
-            beagleService.fetchWidget(JSON_ERROR)
-        }
+        val exceptionResponse =
+            assertFails("Widget deserializer error with respective json: $JSON_ERROR") {
+                beagleService.fetchWidget(JSON_ERROR)
+            }
 
         // Then
         assertTrue(exceptionResponse is BeagleException)
@@ -143,9 +151,10 @@ class BeagleServiceTest {
         every { deserializer.deserializeAction(any()) } throws exception
 
         // When
-        val exceptionResponse = assertFails("Action deserializer error with respective json: $JSON_ERROR") {
-            beagleService.fetchAction(JSON_ERROR)
-        }
+        val exceptionResponse =
+            assertFails("Action deserializer error with respective json: $JSON_ERROR") {
+                beagleService.fetchAction(JSON_ERROR)
+            }
 
         // Then
         assertTrue(exceptionResponse is BeagleException)
