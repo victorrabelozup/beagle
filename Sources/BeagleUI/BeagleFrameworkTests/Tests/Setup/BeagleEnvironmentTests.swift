@@ -115,7 +115,7 @@ private final class WidgetDecodingSpy: WidgetDecoding {
     
     private(set) var decodeToWidgetCalled = false
     private(set) var dataPassedToDecodeToWidget: Data?
-    func decode(from data: Data) throws -> Widget {
+    func decodeWidget(from data: Data) throws -> Widget {
         decodeToWidgetCalled = true
         dataPassedToDecodeToWidget = data
         return WidgetDummy()
@@ -123,7 +123,7 @@ private final class WidgetDecodingSpy: WidgetDecoding {
     
     private(set) var decodeToActionCalled = false
     private(set) var dataPassedToDecodeToAction: Data?
-    func decode(from data: Data) throws -> Action {
+    func decodeAction(from data: Data) throws -> Action {
         decodeToActionCalled = true
         dataPassedToDecodeToAction = data
         return ActionDummy()

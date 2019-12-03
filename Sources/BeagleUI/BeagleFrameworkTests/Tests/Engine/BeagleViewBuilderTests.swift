@@ -18,11 +18,9 @@ final class BeagleViewBuilderTests: XCTestCase {
         // When
         let mirror = Mirror(reflecting: sut)
         let rendererProvider = mirror.firstChild(of: WidgetRendererProviding.self)
-        let flexConfigurator = mirror.firstChild(of: FlexViewConfigurator.self)
         
         // Then
         XCTAssertNotNil(rendererProvider, "Expected to find `WidgetRendererProviding`, but got nil.")
-        XCTAssertNotNil(flexConfigurator, "Expected to find `FlexViewConfigurator`, but got nil.")
     }
     
     func test_buildFromRootWidget_shouldReturnTheExpectedRootView() {

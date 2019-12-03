@@ -11,12 +11,16 @@ import UIKit
 extension BeagleScreenViewController {
     public enum ScreenType {
         case remote(URL)
-        case declarative(Screen)
+        case declarative(Widget)
     }
 }
 
 public protocol BeagleScreenViewControllerDelegate: AnyObject {
-    func beagleScreenViewController(_ controller: BeagleScreenViewController, didFailToLoadWithError error: Error)
+
+    func beagleScreenViewController(
+        _ controller: BeagleScreenViewController,
+        didFailToLoadWithError error: Error
+    )
 }
 
 public class BeagleScreenViewController: UIViewController {
@@ -90,8 +94,8 @@ public class BeagleScreenViewController: UIViewController {
     
     private func loadScreen() {
         switch screenType {
-        case let .declarative(screen):
-            loadDeclarativeScreenWithRootWidget(screen.content, context: self)
+        case let .declarative(widget):
+            loadDeclarativeScreenWithRootWidget(widget, context: self)
         case let .remote(url):
             loadScreenFromURL(url)
         }

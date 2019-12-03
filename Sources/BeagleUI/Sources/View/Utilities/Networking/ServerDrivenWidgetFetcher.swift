@@ -123,7 +123,7 @@ public final class ServerDrivenWidgetFetching: ServerDrivenWidgetFetcher {
             return
         }
         do {
-            let action: Action = try decoder.decode(from: data)
+            let action: Action = try decoder.decodeAction(from: data)
             completion(.success(action))
         } catch {
             completion(.failure(.decoding(error)))
@@ -135,7 +135,7 @@ public final class ServerDrivenWidgetFetching: ServerDrivenWidgetFetcher {
         completion: @escaping (Result<Widget, ServerDrivenWidgetFetcherError>) -> Void
     ) {
         do {
-            let widget: Widget = try decoder.decode(from: data)
+            let widget: Widget = try decoder.decodeWidget(from: data)
             completion(.success(widget))
             
         } catch {

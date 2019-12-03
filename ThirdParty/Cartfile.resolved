@@ -1,2 +1,3 @@
 github "bocato/Caching" "1.0"
 github "bocato/Networking" "1.0"
+github "pointfreeco/swift-snapshot-testing" "1.6.0"

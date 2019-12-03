@@ -10,8 +10,8 @@ import Foundation
 
 protocol WidgetDecoding {
     func register<T: WidgetEntity>(_ type: T.Type, for typeName: String)
-    func decode(from data: Data) throws -> Widget
-    func decode(from data: Data) throws -> Action
+    func decodeWidget(from data: Data) throws -> Widget
+    func decodeAction(from data: Data) throws -> Action
 }
 
 enum WidgetDecodingError: Error {
@@ -45,7 +45,7 @@ final class WidgetDecoder: WidgetDecoding {
         AnyDecodableContainer.register(type, for: decodingKey)
     }
     
-    func decode(from data: Data) throws -> Widget {
+    func decodeWidget(from data: Data) throws -> Widget {
         let entity: WidgetConvertibleEntity? = try decode(from: data)
         guard let widget = try entity?.mapToWidget() else {
             throw WidgetDecodingError.couldNotCastToType(String(describing: Widget.self))
@@ -53,7 +53,7 @@ final class WidgetDecoder: WidgetDecoding {
         return widget
     }
     
-    func decode(from data: Data) throws -> Action {
+    func decodeAction(from data: Data) throws -> Action {
         let entity: ActionConvertibleEntity? = try decode(from: data)
         guard let action = try entity?.mapToAction() else {
             throw WidgetDecodingError.couldNotCastToType(String(describing: Action.self))
@@ -134,5 +134,6 @@ final class WidgetDecoder: WidgetDecoding {
         AnyDecodableContainer.register(ListViewEntity.self, for: widgetDecodingKey(for: "ListView"))
         AnyDecodableContainer.register(TextEntity.self, for: widgetDecodingKey(for: "Text"))
         AnyDecodableContainer.register(NavigationBarEntity.self, for: widgetDecodingKey(for: "NavigationBar"))
+        AnyDecodableContainer.register(PageViewEntity.self, for: widgetDecodingKey(for: "PageView"))
     }
 }

@@ -29,7 +29,7 @@ final class FlexSingleWidgetTests: XCTestCase {
             Text("Some texts")
         }
         // When
-        let flexSingleWidget = widget.applyFlex(justifyContent: .center)
+        let flexSingleWidget = widget.apply(Flex(justifyContent: .center))
         // Then
         XCTAssertNotNil(flexSingleWidget.flex, "Expected to have a flex widget to have flex attribute, but got none.")
     }

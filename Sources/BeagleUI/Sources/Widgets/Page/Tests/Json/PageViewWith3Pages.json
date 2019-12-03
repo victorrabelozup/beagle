@@ -1,0 +1,76 @@
+
+{
+    "_beagleType_": "beagle:widget:pageView",
+
+    "shouldShowPageIndicator": true,
+
+    "pages": [
+        {
+            "_beagleType_": "beagle:widget:flexWidget",
+            "flex": {
+                "flexDirection": "COLUMN",
+                "flexWrap": "NO_WRAP",
+                "justifyContent": "SPACE_AROUND"
+            },
+            "children": [
+                {
+                    "_beagleType_": "beagle:widget:text",
+                    "text": "1 This is a text"
+                },
+                {
+                    "_beagleType_": "beagle:widget:text",
+                    "text": "This is a text"
+                },
+                {
+                    "_beagleType_": "beagle:widget:text",
+                    "text": "This is a text"
+                }
+            ]
+        },
+        {
+            "_beagleType_": "beagle:widget:flexWidget",
+            "flex": {
+                "flexDirection": "COLUMN",
+                "flexWrap": "NO_WRAP",
+                "justifyContent": "SPACE_AROUND"
+            },
+            "children": [
+                {
+                    "_beagleType_": "beagle:widget:text",
+                    "text": "2 This is a text"
+                },
+                {
+                    "_beagleType_": "beagle:widget:text",
+                    "text": "This is a text"
+                },
+                {
+                    "_beagleType_": "beagle:widget:text",
+                    "text": "This is a text"
+                }
+            ]
+        },
+        {
+            "_beagleType_": "beagle:widget:flexWidget",
+            "flex": {
+                "flexDirection": "COLUMN",
+                "flexWrap": "NO_WRAP",
+                "justifyContent": "SPACE_AROUND"
+            },
+            "children": [
+                {
+                    "_beagleType_": "beagle:widget:text",
+                    "text": "3 This is a text"
+                },
+                {
+                    "_beagleType_": "beagle:widget:text",
+                    "text": "This is a text"
+                },
+                {
+                    "_beagleType_": "beagle:widget:text",
+                    "text": "This is a text"
+                }
+            ]
+        }
+    ]
+
+}

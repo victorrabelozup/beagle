@@ -119,14 +119,15 @@ final class BeagleNavigatorTests: XCTestCase {
             let baseURL = URL(string: "https://example.com/"),
             let screenURL1 = URL(string: "screen1.json", relativeTo: baseURL),
             let screenURL2 = URL(string: "screen2.json", relativeTo: baseURL),
-            let screenURL3 = URL(string: "screen3.json", relativeTo: baseURL) else {
+            let screenURL3 = URL(string: "screen3.json", relativeTo: baseURL)
+        else {
                 XCTFail("Failed to create screens URL")
                 return
         }
         let sut = BeagleNavigator()
-        let screenMock = ServerDrivenScreenMock()
+        let widget = ServerDrivenWidgetMock()
         let action = Navigate(type: .popToView, path: screenURL1.absoluteString)
-        let vc1 = beagleViewController(screen: .declarative(screenMock))
+        let vc1 = beagleViewController(screen: .declarative(widget.content))
         let vc2 = beagleViewController(screen: .remote(screenURL2))
         let vc3 = beagleViewController(screen: .remote(screenURL3))
         let vc4 = UIViewController()

@@ -55,44 +55,7 @@ public struct FlexWidget: NativeWidget {
     
    // MARK: - Configuration
     
-    public func applyFlex(
-        direction: Flex.Direction? = nil,
-        flexDirection: Flex.FlexDirection? = nil,
-        flexWrap: Flex.Wrap? = nil,
-        justifyContent: Flex.JustifyContent? = nil,
-        alignItems: Flex.Alignment? = nil,
-        alignSelf: Flex.Alignment? = nil,
-        alignContent: Flex.Alignment? = nil,
-        positionType: Flex.PositionType? = nil,
-        basis: UnitValue? = nil,
-        flex: Double? = nil,
-        grow: Double? = nil,
-        shrink: Double? = nil,
-        display: Flex.Display? = nil,
-        size: Flex.Size? = nil,
-        margin: Flex.EdgeValue? = nil,
-        padding: Flex.EdgeValue? = nil,
-        position: Flex.EdgeValue? = nil
-    ) -> FlexWidget {
-        let flex = Flex(
-            direction: direction,
-            flexDirection: flexDirection,
-            flexWrap: flexWrap,
-            justifyContent: justifyContent,
-            alignItems: alignItems,
-            alignSelf: alignItems,
-            alignContent: alignContent,
-            positionType: positionType,
-            basis: basis,
-            flex: flex,
-            grow: grow,
-            shrink: shrink,
-            display: display,
-            size: size,
-            margin: margin,
-            padding: padding,
-            position: position
-        )
+    public func applyFlex(_ flex: Flex) -> FlexWidget {
         return FlexWidget(children: children, flex: flex)
     }
     

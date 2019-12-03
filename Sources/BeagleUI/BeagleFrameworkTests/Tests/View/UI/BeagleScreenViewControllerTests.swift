@@ -13,10 +13,10 @@ final class BeagleScreenViewControllerTests: XCTestCase {
 
     func test_publicInit_shouldSetupDependenciesProperly() {
         // Given
-        let screenMock = ServerDrivenScreenMock()
+        let widget = ServerDrivenWidgetMock()
         
         // When
-        let sut = BeagleScreenViewController(screenType: .declarative(screenMock))
+        let sut = BeagleScreenViewController(screenType: .declarative(widget.content))
         let mirror = Mirror(reflecting: sut)
         let screenType = mirror.firstChild(of: BeagleScreenViewController.ScreenType.self)
         let flexConfigurator = mirror.firstChild(of: FlexViewConfigurator.self)
@@ -32,9 +32,9 @@ final class BeagleScreenViewControllerTests: XCTestCase {
     
     func test_onViewDidLoad_backGroundColorShouldBeSetToWhite() {
         // Given
-        let screenMock = ServerDrivenScreenMock()
+        let widget = ServerDrivenWidgetMock()
         let sut = BeagleScreenViewController(
-            screenType: .declarative(screenMock),
+            screenType: .declarative(widget.content),
             flexConfigurator: FlexViewConfiguratorDummy(),
             viewBuilder: BeagleViewBuilderDummy(),
             serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
@@ -50,9 +50,9 @@ final class BeagleScreenViewControllerTests: XCTestCase {
     
     func test_onViewWillAppear_navigationBarShouldBeHidden() {
         // Given
-        let screenMock = ServerDrivenScreenMock()
+        let widget = ServerDrivenWidgetMock()
         let sut = BeagleScreenViewController(
-            screenType: .declarative(screenMock),
+            screenType: .declarative(widget.content),
             flexConfigurator: FlexViewConfiguratorDummy(),
             viewBuilder: BeagleViewBuilderDummy(),
             serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
@@ -69,7 +69,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
     
     func test_whenLoadingADeclativeView_itShouldSetupTheWidgetViewProperly() {
         // Given
-        let screenMock = ServerDrivenScreenMock()
+        let widget = ServerDrivenWidgetMock()
         
         let flexConfiguratorSpy = FlexViewConfiguratorSpy()
         
@@ -79,7 +79,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         viewBuilderSpy.viewToReturn = viewToReturn
         
         let sut = BeagleScreenViewController(
-            screenType: .declarative(screenMock),
+            screenType: .declarative(widget.content),
             flexConfigurator: flexConfiguratorSpy,
             viewBuilder: viewBuilderSpy,
             serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
@@ -160,11 +160,9 @@ final class BeagleScreenViewControllerTests: XCTestCase {
 
 // MARK: - Testing Helpers
 
-struct ServerDrivenScreenMock: Screen {
-    var content: Widget {
-        FlexSingleWidget {
-            Text("Mock")
-        }
+struct ServerDrivenWidgetMock {
+    var content = FlexSingleWidget {
+        Text("Mock")
     }
 }
 

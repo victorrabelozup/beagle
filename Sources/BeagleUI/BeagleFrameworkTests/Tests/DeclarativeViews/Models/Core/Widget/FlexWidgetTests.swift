@@ -60,7 +60,7 @@ final class FlexWidgetTests: XCTestCase {
             Text("Some texts")
         }
         // When
-        let flexWidget = widget.applyFlex(justifyContent: .center)
+        let flexWidget = widget.applyFlex(Flex(justifyContent: .center))
         // Then
         XCTAssertNotNil(flexWidget.flex, "Expected to have a flex type, but got none.")
     }

@@ -60,7 +60,6 @@ opt_in_rules:
   - yoda_condition
 
 excluded:
-  - Infofile.swift
   - BeagleFrameworkTests
 
 file_length:
@@ -80,6 +79,3 @@ line_length: 300
 type_body_length:
   - 300
   - 400
-file_length:
-  warning: 500
-  error: 1200

@@ -17,7 +17,6 @@ public final class BeagleViewBuilding: BeagleViewBuilder {
     // MARK: - Dependencies
     
     private let rendererProvider: WidgetRendererProvider
-    private let flexConfigurator: FlexViewConfiguratorProtocol
     
     // MARK: - Initialization
     
@@ -26,11 +25,9 @@ public final class BeagleViewBuilding: BeagleViewBuilder {
     }
     
     init(
-        rendererProvider: WidgetRendererProvider? = nil,
-        flexConfigurator: FlexViewConfiguratorProtocol? = nil
+        rendererProvider: WidgetRendererProvider? = nil
     ) {
         self.rendererProvider = rendererProvider ?? WidgetRendererProviding()
-        self.flexConfigurator = flexConfigurator ?? FlexViewConfigurator()
     }
     
     // MARK: - Public Functions

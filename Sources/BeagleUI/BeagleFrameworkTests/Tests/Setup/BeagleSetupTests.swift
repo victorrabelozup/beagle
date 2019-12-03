@@ -301,8 +301,8 @@ final class DeepLinkHandlerDummy: BeagleDeepLinkScreenManaging {
 
 final class WidgetDecodingDummy: WidgetDecoding {
     func register<T>(_ type: T.Type, for typeName: String) where T : WidgetEntity {}
-    func decode(from data: Data) throws -> Widget { return WidgetDummy() }
-    func decode(from data: Data) throws -> Action { return ActionDummy() }
+    func decodeWidget(from data: Data) throws -> Widget { return WidgetDummy() }
+    func decodeAction(from data: Data) throws -> Action { return ActionDummy() }
 }
 
 final class CustomWidgetsRendererProviderDequeuingDummy: CustomWidgetsRendererProviderDequeuing {

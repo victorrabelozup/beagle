@@ -95,6 +95,16 @@
 		C65F25352375DAE9007670EC /* ScrollViewEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F25342375DAE9007670EC /* ScrollViewEntityTests.swift */; };
 		C65F25372375E6C2007670EC /* ScrollViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F25362375E6C2007670EC /* ScrollViewTests.swift */; };
 		C65F25392375E93C007670EC /* ScrollViewWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F25382375E93C007670EC /* ScrollViewWidgetViewRendererTests.swift */; };
+		C831ADF82385A282009D72D9 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C831ADF72385A282009D72D9 /* PageView.swift */; };
+		C85D9B9F2387017C0075B6C0 /* PageViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85D9B9E2387017C0075B6C0 /* PageViewRenderer.swift */; };
+		C85D9BA1238701E60075B6C0 /* PageViewUIComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85D9BA0238701E60075B6C0 /* PageViewUIComponent.swift */; };
+		C85D9BA3238702800075B6C0 /* PageIndicatorUIComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85D9BA2238702800075B6C0 /* PageIndicatorUIComponent.swift */; };
+		C85D9BA8238858B40075B6C0 /* PageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85D9BA7238858B40075B6C0 /* PageViewTests.swift */; };
+		C85D9BAA2388596A0075B6C0 /* PageViewWith3Pages.json in Resources */ = {isa = PBXBuildFile; fileRef = C85D9BA92388596A0075B6C0 /* PageViewWith3Pages.json */; };
+		C86E7C1523954E2700D6FEDB /* PageViewInvalid.json in Resources */ = {isa = PBXBuildFile; fileRef = C86E7C1423954E2700D6FEDB /* PageViewInvalid.json */; };
+		C86E7C172395602400D6FEDB /* WidgetFromJsonFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86E7C162395602400D6FEDB /* WidgetFromJsonFile.swift */; };
+		C8973F9D238864BE00A78AE0 /* SnapshotTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8973F9C238864BE00A78AE0 /* SnapshotTesting.framework */; };
+		C8F953162395960200615CF0 /* PageViewUIComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F95314239595C500615CF0 /* PageViewUIComponentTests.swift */; };
 		E50B0902234CCAB90091AF0A /* WidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B08FF234CCAB90091AF0A /* WidgetRendererProvider.swift */; };
 		E50B0904234CCACB0091AF0A /* FailableWidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B0903234CCACB0091AF0A /* FailableWidgetRendererProvider.swift */; };
 		E50B2841236350B9005E2E6D /* ServerDrivenWidgetFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B2840236350B9005E2E6D /* ServerDrivenWidgetFetcherTests.swift */; };
@@ -123,7 +133,6 @@
 		E522376F237C3C3B00E555BB /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = E522376D237C3C3B00E555BB /* Action.swift */; };
 		E5223770237C3C3B00E555BB /* Navigate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E522376E237C3C3B00E555BB /* Navigate.swift */; };
 		E5223774237C3C4800E555BB /* Flex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5223771237C3C4800E555BB /* Flex.swift */; };
-		E5223775237C3C4800E555BB /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5223772237C3C4800E555BB /* Screen.swift */; };
 		E5223776237C3C4800E555BB /* UnitValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5223773237C3C4800E555BB /* UnitValue.swift */; };
 		E522377B237C3C5500E555BB /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5223777237C3C5500E555BB /* Widget.swift */; };
 		E522377C237C3C5500E555BB /* FlexSingleWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5223778237C3C5500E555BB /* FlexSingleWidget.swift */; };
@@ -224,6 +233,8 @@
 		E759590E2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E759590D2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift */; };
 		E7595912235E120600EB80C2 /* ViewRenderersTestingHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7595911235E120600EB80C2 /* ViewRenderersTestingHelpers.swift */; };
 		E7716B9D2375E9FF006E26F2 /* BeagleDeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7716B9C2375E9FF006E26F2 /* BeagleDeepLinkHandler.swift */; };
+		E7DA3EE023872426000F065E /* PageViewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DA3EDF23872426000F065E /* PageViewEntity.swift */; };
+		E7F8CF51239190F4004C6C19 /* CustomPageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F8CF50239190F4004C6C19 /* CustomPageIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -342,6 +353,17 @@
 		C65F25342375DAE9007670EC /* ScrollViewEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewEntityTests.swift; sourceTree = "<group>"; };
 		C65F25362375E6C2007670EC /* ScrollViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewTests.swift; sourceTree = "<group>"; };
 		C65F25382375E93C007670EC /* ScrollViewWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewWidgetViewRendererTests.swift; sourceTree = "<group>"; };
+		C831ADF72385A282009D72D9 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PageView.swift; path = Sources/Widgets/Page/PageView.swift; sourceTree = SOURCE_ROOT; };
+		C85D9B9E2387017C0075B6C0 /* PageViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewRenderer.swift; sourceTree = "<group>"; };
+		C85D9BA0238701E60075B6C0 /* PageViewUIComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewUIComponent.swift; sourceTree = "<group>"; };
+		C85D9BA2238702800075B6C0 /* PageIndicatorUIComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageIndicatorUIComponent.swift; sourceTree = "<group>"; };
+		C85D9BA7238858B40075B6C0 /* PageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewTests.swift; sourceTree = "<group>"; };
+		C85D9BA92388596A0075B6C0 /* PageViewWith3Pages.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PageViewWith3Pages.json; sourceTree = "<group>"; };
+		C86E7C1423954E2700D6FEDB /* PageViewInvalid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PageViewInvalid.json; sourceTree = "<group>"; };
+		C86E7C162395602400D6FEDB /* WidgetFromJsonFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WidgetFromJsonFile.swift; path = Sources/Widgets/Page/Tests/WidgetFromJsonFile.swift; sourceTree = SOURCE_ROOT; };
+		C8973F9C238864BE00A78AE0 /* SnapshotTesting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapshotTesting.framework; path = ../../ThirdParty/Carthage/Build/iOS/SnapshotTesting.framework; sourceTree = "<group>"; };
+		C897404E2388692900A78AE0 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
+		C8F95314239595C500615CF0 /* PageViewUIComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewUIComponentTests.swift; sourceTree = "<group>"; };
 		E50B08FF234CCAB90091AF0A /* WidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetRendererProvider.swift; sourceTree = "<group>"; };
 		E50B0903234CCACB0091AF0A /* FailableWidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailableWidgetRendererProvider.swift; sourceTree = "<group>"; };
 		E50B2840236350B9005E2E6D /* ServerDrivenWidgetFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDrivenWidgetFetcherTests.swift; sourceTree = "<group>"; };
@@ -370,7 +392,6 @@
 		E522376D237C3C3B00E555BB /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Action.swift; path = Sources/DeclarativeViews/Models/Core/Action/Action.swift; sourceTree = SOURCE_ROOT; };
 		E522376E237C3C3B00E555BB /* Navigate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Navigate.swift; path = Sources/DeclarativeViews/Models/Core/Action/Navigate.swift; sourceTree = SOURCE_ROOT; };
 		E5223771237C3C4800E555BB /* Flex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Flex.swift; path = Sources/DeclarativeViews/Models/Core/Flex.swift; sourceTree = SOURCE_ROOT; };
-		E5223772237C3C4800E555BB /* Screen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Screen.swift; path = Sources/DeclarativeViews/Models/Core/Screen.swift; sourceTree = SOURCE_ROOT; };
 		E5223773237C3C4800E555BB /* UnitValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnitValue.swift; path = Sources/DeclarativeViews/Models/Core/UnitValue.swift; sourceTree = SOURCE_ROOT; };
 		E5223777237C3C5500E555BB /* Widget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Widget.swift; path = Sources/DeclarativeViews/Models/Core/Widget/Widget.swift; sourceTree = SOURCE_ROOT; };
 		E5223778237C3C5500E555BB /* FlexSingleWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlexSingleWidget.swift; path = Sources/DeclarativeViews/Models/Core/Widget/FlexSingleWidget.swift; sourceTree = SOURCE_ROOT; };
@@ -431,7 +452,7 @@
 		E5CB5DB12355088F009783A7 /* NetworkImageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageEntity.swift; sourceTree = "<group>"; };
 		E5CB5DB823550CEF009783A7 /* WidgetRegisterItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetRegisterItem.swift; sourceTree = "<group>"; };
 		E5CB5DBA23550D32009783A7 /* CustomWidgetsRendererProviderRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWidgetsRendererProviderRegister.swift; sourceTree = "<group>"; };
-		E5CB5DBE2355FFFA009783A7 /* BeagleUIPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = BeagleUIPlayground.playground; path = Sources/BeagleUI/BeagleUIPlayground.playground; sourceTree = "<group>"; };
+		E5CB5DBE2355FFFA009783A7 /* BeagleUIPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = BeagleUIPlayground.playground; path = Sources/BeagleUI/BeagleUIPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E5CB5DBF2355FFFA009783A7 /* YogaKit.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = YogaKit.playground; path = Libraries/YogaKit/YogaKit.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E5CB5DC22356375E009783A7 /* CustomWidgetsRendererProviderRegisterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWidgetsRendererProviderRegisterTests.swift; sourceTree = "<group>"; };
 		E5CB5DC523565440009783A7 /* BeagleSetupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleSetupTests.swift; sourceTree = "<group>"; };
@@ -475,6 +496,8 @@
 		E759590D2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		E7595911235E120600EB80C2 /* ViewRenderersTestingHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRenderersTestingHelpers.swift; sourceTree = "<group>"; };
 		E7716B9C2375E9FF006E26F2 /* BeagleDeepLinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleDeepLinkHandler.swift; sourceTree = "<group>"; };
+		E7DA3EDF23872426000F065E /* PageViewEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewEntity.swift; sourceTree = "<group>"; };
+		E7F8CF50239190F4004C6C19 /* CustomPageIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -490,6 +513,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8973F9D238864BE00A78AE0 /* SnapshotTesting.framework in Frameworks */,
 				E5CE41EC2332B9B600295277 /* BeagleUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -549,7 +573,6 @@
 				A0F4547D23796EB100B146A1 /* Action */,
 				E56A02AC23451BDC00C0F23D /* Widget */,
 				E5223771237C3C4800E555BB /* Flex.swift */,
-				E5223772237C3C4800E555BB /* Screen.swift */,
 				E5223773237C3C4800E555BB /* UnitValue.swift */,
 			);
 			name = Core;
@@ -586,6 +609,7 @@
 		939CE4C4232996FD00EEEDFC /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				C87622D823903FD1006F1361 /* Widgets */,
 				A06823512384863400CEE57A /* Action */,
 				A068234A2384308A00CEE57A /* Form */,
 				931B6E0C2374A9BB00DE73FD /* Theme */,
@@ -720,6 +744,48 @@
 				A0EF0AA923880D5A0019BE83 /* CustomAction.swift */,
 			);
 			path = Action;
+			sourceTree = "<group>";
+		};
+		C85D9B9D238701450075B6C0 /* Page */ = {
+			isa = PBXGroup;
+			children = (
+				C85D9BA2238702800075B6C0 /* PageIndicatorUIComponent.swift */,
+				C831ADF72385A282009D72D9 /* PageView.swift */,
+				E7DA3EDF23872426000F065E /* PageViewEntity.swift */,
+				C85D9B9E2387017C0075B6C0 /* PageViewRenderer.swift */,
+				C85D9BA0238701E60075B6C0 /* PageViewUIComponent.swift */,
+				C85D9BA6238858940075B6C0 /* Tests */,
+			);
+			path = Page;
+			sourceTree = "<group>";
+		};
+		C85D9BA6238858940075B6C0 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C897404E2388692900A78AE0 /* __Snapshots__ */,
+				C85D9BA7238858B40075B6C0 /* PageViewTests.swift */,
+				C8F95314239595C500615CF0 /* PageViewUIComponentTests.swift */,
+				E7F8CF4F239190C5004C6C19 /* CustomPageIndicator */,
+				C8F953172395961700615CF0 /* Json */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		C87622D823903FD1006F1361 /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				C85D9B9D238701450075B6C0 /* Page */,
+			);
+			path = Widgets;
+			sourceTree = "<group>";
+		};
+		C8F953172395961700615CF0 /* Json */ = {
+			isa = PBXGroup;
+			children = (
+				C85D9BA92388596A0075B6C0 /* PageViewWith3Pages.json */,
+				C86E7C1423954E2700D6FEDB /* PageViewInvalid.json */,
+			);
+			path = Json;
 			sourceTree = "<group>";
 		};
 		E50B08FB234CCA640091AF0A /* Provider */ = {
@@ -867,6 +933,7 @@
 		E531D6B82359FEAF007EEBA7 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				C86E7C162395602400D6FEDB /* WidgetFromJsonFile.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -893,6 +960,7 @@
 		E53524A923310F5A00D1A0C9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C8973F9C238864BE00A78AE0 /* SnapshotTesting.framework */,
 				E53C7AB12371E56300F8FE28 /* YogaKit.framework */,
 				E5CB5DD2235796BE009783A7 /* Networking.framework */,
 				E5B052C22370AA83008EB9BE /* Networking.framework */,
@@ -1465,6 +1533,14 @@
 			path = DeepLink;
 			sourceTree = "<group>";
 		};
+		E7F8CF4F239190C5004C6C19 /* CustomPageIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				E7F8CF50239190F4004C6C19 /* CustomPageIndicator.swift */,
+			);
+			path = CustomPageIndicator;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1569,6 +1645,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C86E7C1523954E2700D6FEDB /* PageViewInvalid.json in Resources */,
+				C85D9BAA2388596A0075B6C0 /* PageViewWith3Pages.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1585,6 +1663,7 @@
 			inputPaths = (
 				"$(SRCROOT)/../../ThirdParty/Carthage/Build/iOS/Networking.framework",
 				"$(SRCROOT)/../../ThirdParty/Carthage/Build/iOS/Caching.framework",
+				"$(SRCROOT)/../../ThirdParty/Carthage/Build/iOS/SnapshotTesting.framework",
 			);
 			name = "Carthage Run Script";
 			outputFileListPaths = (
@@ -1644,7 +1723,7 @@
 				A0EF0AAC238811AA0019BE83 /* CustomActionHandler.swift in Sources */,
 				C62E8EAC2373581200FF1497 /* ScrollViewEntity.swift in Sources */,
 				E5CE41CA233274AE00295277 /* PaddingEntity.swift in Sources */,
-				E5223775237C3C4800E555BB /* Screen.swift in Sources */,
+				C85D9BA1238701E60075B6C0 /* PageViewUIComponent.swift in Sources */,
 				E5CE41D22332766900295277 /* ButtonEntity.swift in Sources */,
 				9835E200238304B600F7CBFA /* NavigationBar.swift in Sources */,
 				E522376C237C3C1300E555BB /* Button.swift in Sources */,
@@ -1671,6 +1750,7 @@
 				E5CE41C223325E2100295277 /* FlexEntity.swift in Sources */,
 				E56A02E22347B6ED00C0F23D /* WidgetViewRenderer.swift in Sources */,
 				E5CE41A52331D59E00295277 /* AnyDecodableContainer.swift in Sources */,
+				C85D9B9F2387017C0075B6C0 /* PageViewRenderer.swift in Sources */,
 				A0F4548A23798E7200B146A1 /* NavigatorEntity.swift in Sources */,
 				E5CB5DB023550877009783A7 /* ImageEntityContentMode.swift in Sources */,
 				931B6E32237610B300DE73FD /* FunctiontalUtils.swift in Sources */,
@@ -1692,11 +1772,14 @@
 				E5223765237C3C0600E555BB /* NetworkImage.swift in Sources */,
 				93681809232A888300E6E724 /* Padding.swift in Sources */,
 				E5223770237C3C3B00E555BB /* Navigate.swift in Sources */,
+				C85D9BA3238702800075B6C0 /* PageIndicatorUIComponent.swift in Sources */,
 				E52236BF23744AB500E555BB /* ListViewWidgetRenderer.swift in Sources */,
 				931B6E302375BA7400DE73FD /* Theme.swift in Sources */,
 				E5CB5D792354ADF9009783A7 /* ButtonWidgetViewRenderer.swift in Sources */,
 				A0F4548B23798E7C00B146A1 /* NavigateEntity.swift in Sources */,
+				E7DA3EE023872426000F065E /* PageViewEntity.swift in Sources */,
 				9303B08C2357B49A008BAA6D /* ContainerWidgetViewRenderer.swift in Sources */,
+				C831ADF82385A282009D72D9 /* PageView.swift in Sources */,
 				E5223766237C3C0600E555BB /* ImageContentMode.swift in Sources */,
 				E531D6B42359FE19007EEBA7 /* UIView+AutoLayout.swift in Sources */,
 				A0EF0AD7238DA3760019BE83 /* ActionConvertible.swift in Sources */,
@@ -1770,6 +1853,7 @@
 				E56A02C123453CA700C0F23D /* ContainerTests.swift in Sources */,
 				E50B284523639299005E2E6D /* BeagleScreenViewControllerTests.swift in Sources */,
 				A0F454892379898E00B146A1 /* NavigateEntityTests.swift in Sources */,
+				C85D9BA8238858B40075B6C0 /* PageViewTests.swift in Sources */,
 				E5DD4691234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift in Sources */,
 				E50B28432363839E005E2E6D /* ServerDrivenScreenLoaderTests.swift in Sources */,
 				A0EF0AB2238871B30019BE83 /* FormSubmitWidgetViewRendererTests.swift in Sources */,
@@ -1793,6 +1877,7 @@
 				E56A02CB23462AD100C0F23D /* VerticalTests.swift in Sources */,
 				A0EF0ABB238877530019BE83 /* ActionExecutorTests.swift in Sources */,
 				A0EF0AB9238877460019BE83 /* CustomActionHandlerTests.swift in Sources */,
+				C8F953162395960200615CF0 /* PageViewUIComponentTests.swift in Sources */,
 				E5A6F4BF2358ECA1008906F8 /* YogaTranslatorTests.swift in Sources */,
 				E52236D423749FD300E555BB /* ListViewUIComponentTests.swift in Sources */,
 				E5CE4218233403E000295277 /* ContainerEntityTests.swift in Sources */,
@@ -1802,6 +1887,7 @@
 				989F7AA523638C5700E4E0E8 /* WidgetTests.swift in Sources */,
 				E759590C2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift in Sources */,
 				E5A6F4AD2358A76F008906F8 /* XCTestCase+FatalError.swift in Sources */,
+				C86E7C172395602400D6FEDB /* WidgetFromJsonFile.swift in Sources */,
 				981DB2ED23748B68001CE5E0 /* NetworkImageWidgetViewRendererTests.swift in Sources */,
 				A0EF0AAE238853DD0019BE83 /* FormWidgetViewRendererTests.swift in Sources */,
 				E5CB5D7B2354AE13009783A7 /* ButtonWidgetViewRendererTests.swift in Sources */,
@@ -1819,6 +1905,7 @@
 				E5A7763F237DA1F3002F5515 /* FormTests.swift in Sources */,
 				989F7AA123637F2800E4E0E8 /* LayoutViewRendererProviderTests.swift in Sources */,
 				E50B2841236350B9005E2E6D /* ServerDrivenWidgetFetcherTests.swift in Sources */,
+				E7F8CF51239190F4004C6C19 /* CustomPageIndicator.swift in Sources */,
 				E5CE421C2334049200295277 /* PaddingEntityTests.swift in Sources */,
 				980262B02345432B0025A9C3 /* FlexSingleWidgetTests.swift in Sources */,
 				A0F4549C237C474C00B146A1 /* BeagleContextTests.swift in Sources */,

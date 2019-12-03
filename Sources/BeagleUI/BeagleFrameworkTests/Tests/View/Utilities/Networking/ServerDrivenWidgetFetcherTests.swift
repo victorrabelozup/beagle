@@ -338,14 +338,14 @@ final class WidgetDecodingStub: WidgetDecoding {
     var widgetToReturnOnDecode: WidgetEntity?
     var errorToThrowOnDecode: Error?
     
-    func decode(from data: Data) throws -> Widget {
+    func decodeWidget(from data: Data) throws -> Widget {
         if let error = errorToThrowOnDecode {
             throw error
         }
         return WidgetDummy()
     }
 
-    func decode(from data: Data) throws -> Action {
+    func decodeAction(from data: Data) throws -> Action {
         if let error = errorToThrowOnDecode {
             throw error
         }

@@ -24,8 +24,10 @@ final class LayoutViewRendererProviderTests: XCTestCase {
     
     func test_whenFlexSingleWidget_shouldReturnFlexSingleWidgetViewRenderer() {
         // Given
-        let widget = FlexSingleWidget(child: Text("Meu"),
-                                      flex: Flex(direction: .ltr, flexDirection: .column))
+        let widget = FlexSingleWidget(
+            child: Text("Meu"),
+            flex: Flex(direction: .ltr, flexDirection: .column)
+        )
         let renderer = WidgetRendererProviding()
         // When
         let flexSingleWidgetViewRenderer = renderer.buildRenderer(for: widget)

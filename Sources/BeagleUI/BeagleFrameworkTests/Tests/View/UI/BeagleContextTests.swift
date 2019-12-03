@@ -13,9 +13,9 @@ final class BeagleContextTests: XCTestCase {
     
     func test_screenController_shouldBeBeagleScreenViewController() {
         // Given
-        let screenMock = ServerDrivenScreenMock()
+        let widget = ServerDrivenWidgetMock()
         let sut: BeagleContext = BeagleScreenViewController(
-            screenType: .declarative(screenMock),
+            screenType: .declarative(widget.content),
             flexConfigurator: FlexViewConfiguratorDummy(),
             viewBuilder: BeagleViewBuilderDummy(),
             serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
@@ -28,9 +28,9 @@ final class BeagleContextTests: XCTestCase {
 
     func test_registerAction_shouldAddGestureRecognizer() {
         // Given
-        let screenMock = ServerDrivenScreenMock()
+        let widget = ServerDrivenWidgetMock()
         let sut = BeagleScreenViewController(
-            screenType: .declarative(screenMock),
+            screenType: .declarative(widget.content),
             flexConfigurator: FlexViewConfiguratorDummy(),
             viewBuilder: BeagleViewBuilderDummy(),
             serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
@@ -49,10 +49,10 @@ final class BeagleContextTests: XCTestCase {
     
     func test_action_shouldBeTriggered() {
         // Given
-        let screenMock = ServerDrivenScreenMock()
+        let widget = ServerDrivenWidgetMock()
         let actionExecutorSpy = ActionExecutorSpy()
         let controller = BeagleScreenViewController(
-            screenType: .declarative(screenMock),
+            screenType: .declarative(widget.content),
             flexConfigurator: FlexViewConfiguratorDummy(),
             viewBuilder: BeagleViewBuilderDummy(),
             serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
@@ -83,9 +83,9 @@ final class BeagleContextTests: XCTestCase {
     
     func test_registerForm_shouldAddGestureRecognizer() {
         // Given
-        let screenMock = ServerDrivenScreenMock()
+        let widget = ServerDrivenWidgetMock()
         let sut = BeagleScreenViewController(
-            screenType: .declarative(screenMock),
+            screenType: .declarative(widget.content),
             flexConfigurator: FlexViewConfiguratorDummy(),
             viewBuilder: BeagleViewBuilderDummy(),
             serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
@@ -105,10 +105,10 @@ final class BeagleContextTests: XCTestCase {
     
     func test_formSubmit_shouldValidateInputs() {
         // Given
-        let screenMock = ServerDrivenScreenMock()
+        let widget = ServerDrivenWidgetMock()
         let actionExecutorSpy = ActionExecutorSpy()
         let sut = BeagleScreenViewController(
-            screenType: .declarative(screenMock),
+            screenType: .declarative(widget.content),
             flexConfigurator: FlexViewConfiguratorDummy(),
             viewBuilder: BeagleViewBuilderDummy(),
             serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
@@ -158,13 +158,13 @@ final class BeagleContextTests: XCTestCase {
     
     func test_formSubmit_shouldExecuteResponseAction() {
         // Given
-        let screenMock = ServerDrivenScreenMock()
+        let widget = ServerDrivenWidgetMock()
         let actionExecutorSpy = ActionExecutorSpy()
         let serverDrivenStub = ServerDrivenScreenLoaderStub(
             submitFormResult: .success(CustomAction(name: "custom", data: [:]))
         )
         let sut = BeagleScreenViewController(
-            screenType: .declarative(screenMock),
+            screenType: .declarative(widget.content),
             flexConfigurator: FlexViewConfiguratorDummy(),
             viewBuilder: BeagleViewBuilderDummy(),
             serverDrivenScreenLoader: serverDrivenStub,
@@ -192,13 +192,13 @@ final class BeagleContextTests: XCTestCase {
     
     func test_formSubmitError_shouldNotExecuteAction() {
         // Given
-        let screenMock = ServerDrivenScreenMock()
+        let widget = ServerDrivenWidgetMock()
         let actionExecutorSpy = ActionExecutorSpy()
         let serverDrivenStub = ServerDrivenScreenLoaderStub(
             submitFormResult: .failure(.invalidEntity)
         )
         let sut = BeagleScreenViewController(
-            screenType: .declarative(screenMock),
+            screenType: .declarative(widget.content),
             flexConfigurator: FlexViewConfiguratorDummy(),
             viewBuilder: BeagleViewBuilderDummy(),
             serverDrivenScreenLoader: serverDrivenStub,

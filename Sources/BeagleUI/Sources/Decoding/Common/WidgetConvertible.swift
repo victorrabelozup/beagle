@@ -17,11 +17,15 @@ public protocol WidgetConvertible {
 public enum WidgetConvertibleError: Error {
     
     case entityTypeIsNotConvertible(String)
+    case invalidType
     
     var localizedDescription: String {
         switch self {
         case let .entityTypeIsNotConvertible(type):
             return "\(type) does not conform with `WidgetConvertible`. Check this."
+        case .invalidType:
+            return "invalid type"
         }
+        
     }
 }
