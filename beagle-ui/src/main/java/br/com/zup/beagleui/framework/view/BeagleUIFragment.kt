@@ -35,16 +35,22 @@ class BeagleUIFragment : Fragment(), StateChangedListener {
         savedInstanceState: Bundle?
     ): View? {
         return context?.let {
-            BeagleView(it).apply {
-                layoutParams = ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
-                )
-                loadView(FragmentRootView(this@BeagleUIFragment), screenUrl)
+            FrameLayout(it).apply {
+                createBeagleView(this)
                 createProgressBar(this)
-                stateChangedListener = this@BeagleUIFragment
             }
         }
+    }
+
+    private fun createBeagleView(view: ViewGroup) {
+        view.addView(BeagleView(view.context).apply {
+            layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+            loadView(FragmentRootView(this@BeagleUIFragment), screenUrl)
+            stateChangedListener = this@BeagleUIFragment
+        })
     }
 
     private fun createProgressBar(view: ViewGroup) {
