@@ -43,9 +43,8 @@ class BeagleInitializer private constructor() {
         }
 
         @JvmStatic
-        fun registerTheme(theme: Theme): Companion {
-            BeagleEnvironment.theme = theme
-            return this
+        fun registerDesignSystem(designSystem: DesignSystem) {
+            BeagleEnvironment.designSystem = designSystem
         }
 
         @JvmStatic

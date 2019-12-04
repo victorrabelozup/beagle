@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import br.com.zup.beagleui.R
+import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 
 private const val SCREEN_URL_KEY = "SCREEN_URL_KEY"
 
@@ -23,7 +24,13 @@ class BeagleUIActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        BeagleEnvironment.designSystem?.let {
+            setTheme(it.theme())
+        }
+
         super.onCreate(savedInstanceState)
+
+        supportActionBar?.hide()
 
         setContentView(buildContent())
 

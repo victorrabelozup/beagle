@@ -20,21 +20,22 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import br.com.zup.beagleui.framework.engine.renderer.ActivityRootView
 import br.com.zup.beagleui.framework.engine.renderer.FragmentRootView
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 
 internal var viewExtensionsViewFactory = ViewFactory()
 
 fun ViewGroup.loadView(activity: AppCompatActivity, url: String) {
-    this.addView(
-        viewExtensionsViewFactory.makeBeagleView(this.context).apply {
-            this.loadView(ActivityRootView(activity), url)
-        }
-    )
+    loadView(this, ActivityRootView(activity), url)
 }
 
 fun ViewGroup.loadView(fragment: Fragment, url: String) {
-    this.addView(
-        viewExtensionsViewFactory.makeBeagleView(this.context).apply {
-            this.loadView(FragmentRootView(fragment), url)
+    loadView(this, FragmentRootView(fragment), url)
+}
+
+private fun loadView(viewGroup: ViewGroup, rootView: RootView, url: String) {
+    viewGroup.addView(
+        viewExtensionsViewFactory.makeBeagleView(viewGroup.context).apply {
+            this.loadView(rootView, url)
         }
     )
 }
@@ -60,20 +61,22 @@ internal fun View.hideKeyboard() {
 
 internal fun BeagleTextView.setData(widget: Text) {
     this.text = widget.text
-    BeagleEnvironment.theme?.let {
-        val styleRes = it.textAppearanceTheme.textAppearance(widget.style)
+    val style = widget.style ?: ""
+    val designSystem = BeagleEnvironment.designSystem
+    if (designSystem != null) {
+        val styleRes = designSystem.textAppearance(style)
         TextViewCompat.setTextAppearance(this, styleRes)
     }
 }
 
 internal fun BeagleButtonView.setData(widget: Button) {
     text = widget.text
-    BeagleEnvironment.theme?.let {
-        val buttonAppearance = it.buttonTheme.buttonTextAppearance(widget.style)
-        val buttonBackground = it.buttonTheme.buttonBackground(widget.style)
-
-        setBackgroundResource(buttonBackground)
-        TextViewCompat.setTextAppearance(this, buttonAppearance)
+    val style = widget.style ?: ""
+    val designSystem = BeagleEnvironment.designSystem
+    if (designSystem != null) {
+        val buttonStyle = designSystem.buttonStyle(style)
+        setBackgroundResource(buttonStyle.background)
+        TextViewCompat.setTextAppearance(this, buttonStyle.textAppearance)
     }
 }
 

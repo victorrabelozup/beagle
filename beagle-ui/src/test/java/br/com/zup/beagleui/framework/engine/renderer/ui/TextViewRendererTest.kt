@@ -5,9 +5,7 @@ import android.widget.TextView
 import androidx.core.widget.TextViewCompat
 import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.view.ViewFactory
-import br.com.zup.beagleui.framework.setup.BeagleEnvironment
-import br.com.zup.beagleui.framework.setup.TextAppearanceTheme
-import br.com.zup.beagleui.framework.setup.Theme
+import br.com.zup.beagleui.framework.utils.setData
 import br.com.zup.beagleui.framework.view.BeagleTextView
 import br.com.zup.beagleui.framework.widget.ui.Text
 import io.mockk.MockKAnnotations
@@ -16,16 +14,13 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
-import io.mockk.mockkObject
 import io.mockk.mockkStatic
 import io.mockk.slot
-import io.mockk.unmockkObject
 import io.mockk.unmockkStatic
 import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 private const val DEFAULT_TEXT = "Hello"
@@ -39,13 +34,8 @@ class TextViewRendererTest {
     private lateinit var context: Context
     @MockK
     private lateinit var textView: BeagleTextView
-
-    @MockK
-    private lateinit var theme: Theme
     @MockK
     private lateinit var text: Text
-    @MockK
-    private lateinit var textAppearanceTheme: TextAppearanceTheme
     @MockK
     private lateinit var rootView: RootView
 
@@ -55,56 +45,31 @@ class TextViewRendererTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        mockkObject(BeagleEnvironment)
         mockkStatic(TextViewCompat::class)
+        mockkStatic("br.com.zup.beagleui.framework.utils.ViewExtensionsKt")
 
-        every { BeagleEnvironment.theme } returns theme
         every { text.style } returns DEFAULT_STYLE
         every { text.text } returns DEFAULT_TEXT
-        every { theme.textAppearanceTheme } returns textAppearanceTheme
-        every { textAppearanceTheme.textAppearance(any()) } returns 0
         every { TextViewCompat.setTextAppearance(any(), any()) } just Runs
         every { rootView.getContext() } returns context
     }
 
     @After
     fun after() {
-        unmockkObject(BeagleEnvironment)
         unmockkStatic(TextViewCompat::class)
-
-        BeagleEnvironment.theme = null
-        BeagleEnvironment.httpClient = null
     }
 
     @Test
-    fun build_should_return_a_TextView_instance_with_desired_text() {
+    fun build_should_return_a_TextView_instance_and_set_data() {
         // Given
-        val textCapture = slot<String>()
         every { viewFactory.makeTextView(context) } returns textView
-        every { textView.text = capture(textCapture) } just Runs
+        every { textView.setData(any()) } just Runs
 
         // When
         val view = textViewRenderer.build(rootView)
 
         // Then
         assertTrue(view is TextView)
-        assertEquals(DEFAULT_TEXT, textCapture.captured)
-    }
-
-    @Test
-    fun build_should_return_a_TextView_instance_with_desired_text_no_style() {
-        // Given
-        val textCapture = slot<String>()
-        every { BeagleEnvironment.theme } returns null
-        every { viewFactory.makeTextView(context) } returns textView
-        every { textView.text = capture(textCapture) } just Runs
-
-        // When
-        val view = textViewRenderer.build(rootView)
-
-        // Then
-        assertTrue(view is TextView)
-        verify(exactly = 0) { TextViewCompat.setTextAppearance(any(), any()) }
-        assertEquals(DEFAULT_TEXT, textCapture.captured)
+        verify(exactly = 1) { textView.setData(text) }
     }
 }

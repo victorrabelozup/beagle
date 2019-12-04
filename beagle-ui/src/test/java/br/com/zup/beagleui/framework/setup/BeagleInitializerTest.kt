@@ -30,17 +30,8 @@ class BeagleInitializerTest {
 
     @MockK
     private lateinit var application: Application
-
-    @MockK
-    private lateinit var buttonTheme: ButtonTheme
-
-    @MockK
-    private lateinit var textAppearanceTheme: TextAppearanceTheme
-
     @MockK
     private lateinit var intent: Intent
-
-    private lateinit var theme: Theme
 
     private var beagleDeepLinkHandler: BeagleDeepLinkHandler = object : BeagleDeepLinkHandler {
         override fun getDeepLinkIntent(path: String, data: Map<String, String>?): Intent = intent
@@ -64,7 +55,7 @@ class BeagleInitializerTest {
     @After
     fun after() {
         unmockkObject(BeagleEnvironment)
-        BeagleEnvironment.theme = null
+        BeagleEnvironment.designSystem = null
         BeagleEnvironment.httpClient = null
     }
 
@@ -100,19 +91,15 @@ class BeagleInitializerTest {
     }
 
     @Test
-    fun registerTheme_should_call_BeagleEnvironment_registerTheme() {
-        theme = Theme(
-            buttonTheme = buttonTheme,
-            textAppearanceTheme = textAppearanceTheme
-        )
+    fun registerDesignSystem_should_set_BeagleEnvironment_designSystem() {
+        // Given
+        val designSystem = mockk<DesignSystem>()
+
         // When
-        BeagleInitializer.registerTheme(theme = theme)
+        BeagleInitializer.registerDesignSystem(designSystem)
 
         // Then
-        assertNotNull(BeagleEnvironment.theme)
-        assertEquals(theme, BeagleEnvironment.theme)
-        assertEquals(theme.buttonTheme, BeagleEnvironment.theme?.buttonTheme)
-        assertEquals(theme.textAppearanceTheme, BeagleEnvironment.theme?.textAppearanceTheme)
+        assertNotNull(BeagleEnvironment.designSystem)
     }
 
     @Test

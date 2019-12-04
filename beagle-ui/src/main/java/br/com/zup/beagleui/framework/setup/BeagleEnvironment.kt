@@ -24,7 +24,7 @@ internal object BeagleEnvironment {
     var httpClient: HttpClient? = null
     var beagleDeepLinkHandler: BeagleDeepLinkHandler? = null
     var customActionHandler: CustomActionHandler? = null
-    var theme: Theme? = null
+    var designSystem: DesignSystem? = null
     val widgets: Map<Class<NativeWidget>, WidgetViewFactory<NativeWidget>>
         get() = internalWidgets
 
