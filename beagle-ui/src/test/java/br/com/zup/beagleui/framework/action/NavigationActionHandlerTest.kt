@@ -95,34 +95,34 @@ class NavigationActionHandlerTest {
     }
 
     @Test
-    fun handle_should_call_openView() {
+    fun handle_should_call_swapView() {
         // Given
         val path = RandomData.httpUrl()
         val navigate = Navigate(
-            type = NavigationType.OPEN_VIEW,
+            type = NavigationType.SWAP_VIEW,
             path = path
         )
-        every { BeagleNavigator.openScreen(any(), any()) } just Runs
+        every { BeagleNavigator.swapScreen(any(), any()) } just Runs
 
         // When
         navigationActionHandler.handle(context, navigate)
 
         // Then
-        verify(exactly = once()) { BeagleNavigator.openScreen(context, path) }
+        verify(exactly = once()) { BeagleNavigator.swapScreen(context, path) }
     }
 
     @Test
-    fun handle_should_call_openView_with_null_eventData() {
+    fun handle_should_call_swapView_with_null_eventData() {
         // Given
         val navigate = Navigate(
-            type = NavigationType.OPEN_VIEW
+            type = NavigationType.SWAP_VIEW
         )
 
         // When
         navigationActionHandler.handle(context, navigate)
 
         // Then
-        verify(exactly = 0) { BeagleNavigator.openScreen(any(), any()) }
+        verify(exactly = 0) { BeagleNavigator.swapScreen(any(), any()) }
     }
 
     @Test
@@ -184,5 +184,67 @@ class NavigationActionHandlerTest {
 
         // Then
         verify(exactly = once()) { BeagleNavigator.pop(context) }
+    }
+
+    @Test
+    fun handle_should_call_popToView() {
+        // Given
+        val path = RandomData.httpUrl()
+        val navigate = Navigate(
+            type = NavigationType.POP_TO_VIEW,
+            path = path
+        )
+        every { BeagleNavigator.popToScreen(any(), any()) } just Runs
+
+        // When
+        navigationActionHandler.handle(context, navigate)
+
+        // Then
+        verify(exactly = 1) { BeagleNavigator.popToScreen(context, path) }
+    }
+
+    @Test
+    fun handle_should_call_popToView_with_null_eventData() {
+        // Given
+        val navigate = Navigate(
+            type = NavigationType.POP_TO_VIEW
+        )
+
+        // When
+        navigationActionHandler.handle(context, navigate)
+
+        // Then
+        verify(exactly = 0) { BeagleNavigator.popToScreen(any(), any()) }
+    }
+
+    @Test
+    fun handle_should_call_presentView() {
+        // Given
+        val path = RandomData.httpUrl()
+        val navigate = Navigate(
+            type = NavigationType.PRESENT_VIEW,
+            path = path
+        )
+        every { BeagleNavigator.presentScreen(any(), any()) } just Runs
+
+        // When
+        navigationActionHandler.handle(context, navigate)
+
+        // Then
+        verify(exactly = 1) { BeagleNavigator.presentScreen(context, path) }
+    }
+
+    @Test
+    fun handle_should_call_presentView_with_null_eventData() {
+        // Given
+        val navigate = Navigate(
+            type = NavigationType.PRESENT_VIEW
+        )
+
+        // When
+        navigationActionHandler.handle(context, navigate)
+
+        // Then
+        verify(exactly = 0) { BeagleNavigator.presentScreen(any(), any()) }
     }
 }

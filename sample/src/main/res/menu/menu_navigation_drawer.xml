@@ -33,5 +33,13 @@
             android:title="Navigation Bar"
             tools:ignore="HardcodedText" />
 
+        <item
+            android:id="@+id/navigation"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Navigation"
+            tools:ignore="HardcodedText" />
+
+
+
     </group>
 </menu>

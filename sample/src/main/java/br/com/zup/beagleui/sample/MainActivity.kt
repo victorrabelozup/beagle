@@ -5,11 +5,12 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import br.com.zup.beagleui.sample.fragment.DynamicStatefulFragment
-import br.com.zup.beagleui.sample.fragment.StaticStatefulFragment
 import br.com.zup.beagleui.framework.utils.dp
+import br.com.zup.beagleui.framework.view.BeagleUIActivity
 import br.com.zup.beagleui.sample.activities.NavigationBarActivity
+import br.com.zup.beagleui.sample.fragment.DynamicStatefulFragment
 import br.com.zup.beagleui.sample.fragment.LazyWidgetFragment
+import br.com.zup.beagleui.sample.fragment.StaticStatefulFragment
 import br.com.zup.beagleui.sample.fragment.TextFieldFragment
 
 class MainActivity : AppCompatActivity() {
@@ -42,6 +43,12 @@ class MainActivity : AppCompatActivity() {
             // Navigation Bar requires an activity without toolbar
             R.id.navigationBar -> startActivity(NavigationBarActivity.newIntent(this))
             R.id.stateful_dynamic -> goToFragment(DynamicStatefulFragment.newInstance())
+            R.id.navigation -> startActivity(
+                BeagleUIActivity.newIntent(
+                    this,
+                    "https://t001-2751a.firebaseapp.com/flow/step1.json"
+                )
+            )
             else -> {
             }
         }

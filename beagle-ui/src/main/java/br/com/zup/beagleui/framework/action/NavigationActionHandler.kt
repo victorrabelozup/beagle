@@ -9,24 +9,27 @@ internal class NavigationActionHandler : ActionHandler<Navigate> {
     override fun handle(context: Context, action: Navigate) {
         when (action.type) {
             NavigationType.OPEN_DEEP_LINK -> openDeepLink(action, context)
-            NavigationType.OPEN_VIEW -> openView(action, context)
+            NavigationType.SWAP_VIEW -> swapView(action, context)
             NavigationType.ADD_VIEW -> addView(action, context)
             NavigationType.FINISH_VIEW -> finishView(context)
             NavigationType.POP_VIEW -> popView(context)
+            NavigationType.POP_TO_VIEW -> popToView(action, context)
+            NavigationType.PRESENT_VIEW -> presentView(action, context)
         }
     }
 
     private fun openDeepLink(action: Navigate, context: Context) {
         action.path?.let { path ->
-            BeagleEnvironment.beagleDeepLinkHandler?.getDeepLinkIntent(path, action.data)?.let { intent ->
-                context.startActivity(intent)
-            }
+            BeagleEnvironment.beagleDeepLinkHandler?.getDeepLinkIntent(path, action.data)
+                ?.let { intent ->
+                    context.startActivity(intent)
+                }
         }
     }
 
-    private fun openView(action: Navigate, context: Context) {
+    private fun swapView(action: Navigate, context: Context) {
         action.path?.let { path ->
-            BeagleNavigator.openScreen(context, path)
+            BeagleNavigator.swapScreen(context, path)
         }
     }
 
@@ -42,5 +45,17 @@ internal class NavigationActionHandler : ActionHandler<Navigate> {
 
     private fun popView(context: Context) {
         BeagleNavigator.pop(context)
+    }
+
+    private fun popToView(action: Navigate, context: Context) {
+        action.path?.let { path ->
+            BeagleNavigator.popToScreen(context, path)
+        }
+    }
+
+    private fun presentView(action: Navigate, context: Context) {
+        action.path?.let { path ->
+            BeagleNavigator.presentScreen(context, path)
+        }
     }
 }

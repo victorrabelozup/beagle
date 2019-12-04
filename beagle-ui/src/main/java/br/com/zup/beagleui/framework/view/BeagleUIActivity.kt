@@ -27,7 +27,7 @@ class BeagleUIActivity : AppCompatActivity() {
 
         setContentView(buildContent())
 
-        BeagleNavigator.openScreen(this, screenUrl)
+        BeagleNavigator.addScreen(this, screenUrl)
     }
 
     private fun buildContent() = FrameLayout(this).apply {
@@ -36,5 +36,13 @@ class BeagleUIActivity : AppCompatActivity() {
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
+    }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount == 1) {
+            finish()
+        } else {
+            super.onBackPressed()
+        }
     }
 }
