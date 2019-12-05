@@ -4,7 +4,7 @@ import br.com.zup.beagleui.framework.widget.core.NativeWidget
 import br.com.zup.beagleui.framework.widget.core.Widget
 
 data class ScrollView(
-    val child: Widget,
+    val children: List<Widget>,
     val scrollDirection: ScrollAxis? = null,
     val scrollBarEnabled: Boolean? = null
 ) : NativeWidget

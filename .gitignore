@@ -26,6 +26,7 @@ out/
 .idea/vcs.xml
 .idea/dynamic.xml
 .idea/uiDesigner.xml
+*.iml
 
 ### VS Code ###
 .vscode/

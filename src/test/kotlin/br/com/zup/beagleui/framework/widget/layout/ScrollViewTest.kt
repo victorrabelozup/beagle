@@ -8,21 +8,21 @@ class ScrollViewTest {
 
     @Test
     fun build_verticalScrollView() {
-        val widget = FlexWidget(children = listOf(Text("text")))
+        val widget = listOf(Text("text"))
 
-        val scrollView = ScrollView(child = widget, scrollDirection = ScrollAxis.VERTICAL)
+        val scrollView = ScrollView(children = widget, scrollDirection = ScrollAxis.VERTICAL)
 
-        assertEquals(widget, scrollView.child)
+        assertEquals(widget, scrollView.children)
         assertEquals(ScrollAxis.VERTICAL, scrollView.scrollDirection)
     }
 
     @Test
     fun build_horizontalScrollView() {
-        val widget = FlexWidget(children = listOf(Text("text")))
+        val widget = listOf(Text("text"))
 
-        val scrollView = ScrollView(child = widget, scrollDirection = ScrollAxis.HORIZONTAL)
+        val scrollView = ScrollView(children = widget, scrollDirection = ScrollAxis.HORIZONTAL)
 
-        assertEquals(widget, scrollView.child)
+        assertEquals(widget, scrollView.children)
         assertEquals(ScrollAxis.HORIZONTAL, scrollView.scrollDirection)
     }
 }

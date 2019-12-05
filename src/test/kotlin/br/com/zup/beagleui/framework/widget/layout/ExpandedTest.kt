@@ -8,7 +8,7 @@ class ExpandedTest {
 
     @Test
     fun build_expanded() {
-        val widget = ScrollView(Text("text"))
+        val widget = ScrollView(listOf(Text("text")))
 
         val expanded = Expanded(widget)
 
