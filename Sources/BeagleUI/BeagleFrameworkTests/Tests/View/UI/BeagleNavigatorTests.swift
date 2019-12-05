@@ -115,18 +115,12 @@ final class BeagleNavigatorTests: XCTestCase {
     
     func test_popToView_shouldNotNavigateWhenScreenIsNotFound() {
         // Given
-        guard
-            let baseURL = URL(string: "https://example.com/"),
-            let screenURL1 = URL(string: "screen1.json", relativeTo: baseURL),
-            let screenURL2 = URL(string: "screen2.json", relativeTo: baseURL),
-            let screenURL3 = URL(string: "screen3.json", relativeTo: baseURL)
-        else {
-                XCTFail("Failed to create screens URL")
-                return
-        }
+        let screenURL1 = "https://example.com/screen1.json"
+        let screenURL2 = "https://example.com/screen2.json"
+        let screenURL3 = "https://example.com/screen3.json"
         let sut = BeagleNavigator()
         let widget = ServerDrivenWidgetMock()
-        let action = Navigate(type: .popToView, path: screenURL1.absoluteString)
+        let action = Navigate(type: .popToView, path: screenURL1)
         let vc1 = beagleViewController(screen: .declarative(widget.content))
         let vc2 = beagleViewController(screen: .remote(screenURL2))
         let vc3 = beagleViewController(screen: .remote(screenURL3))
@@ -144,16 +138,11 @@ final class BeagleNavigatorTests: XCTestCase {
     
     func test_popToView_shouldRemoveFromStackScreensAfterTargetScreen() {
         // Given
-        guard
-            let baseURL = URL(string: "https://example.com/"),
-            let screenURL1 = URL(string: "screen1.json", relativeTo: baseURL),
-            let screenURL2 = URL(string: "screen2.json", relativeTo: baseURL),
-            let screenURL3 = URL(string: "screen3.json", relativeTo: baseURL) else {
-                XCTFail("Failed to create screens URL")
-                return
-        }
+        let screenURL1 = "https://example.com/screen1.json"
+        let screenURL2 = "https://example.com/screen2.json"
+        let screenURL3 = "https://example.com/screen3.json"
         let sut = BeagleNavigator()
-        let action = Navigate(type: .popToView, path: screenURL2.absoluteString)
+        let action = Navigate(type: .popToView, path: screenURL2)
         let vc1 = beagleViewController(screen: .remote(screenURL1))
         let vc2 = beagleViewController(screen: .remote(screenURL2))
         let vc3 = beagleViewController(screen: .remote(screenURL3))

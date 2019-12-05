@@ -115,6 +115,6 @@ class BeagleContextStub: BeagleContext {
     }
     func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorHandler?) {
     }
-    func lazyLoad(url: URL, initialState: UIView) {
+    func lazyLoad(url: String, initialState: UIView) {
     }
 }

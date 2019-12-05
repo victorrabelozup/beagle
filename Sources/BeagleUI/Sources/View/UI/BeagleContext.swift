@@ -7,7 +7,7 @@ public protocol BeagleContext {
     
     func register(action: Action, inView view: UIView)
     func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorHandler?)
-    func lazyLoad(url: URL, initialState: UIView)
+    func lazyLoad(url: String, initialState: UIView)
 }
 
 extension BeagleScreenViewController: BeagleContext {
@@ -36,7 +36,7 @@ extension BeagleScreenViewController: BeagleContext {
         submitView.isUserInteractionEnabled = true
     }
     
-    public func lazyLoad(url: URL, initialState: UIView) {
+    public func lazyLoad(url: String, initialState: UIView) {
         serverDrivenScreenLoader.loadWidget(from: url) { [weak self] result in
             switch result {
             case let .success(widget):
@@ -60,9 +60,9 @@ extension BeagleScreenViewController: BeagleContext {
         let values = inputViews.reduce(into: [:]) {
             self.validate(formInput: $1, validatorHandler: sender.validator, result: &$0)
         }
-        if let action = URL(string: sender.form.action), inputViews.count == values.count {
+        if inputViews.count == values.count {
             view.showLoading(.whiteLarge)
-            serverDrivenScreenLoader.submitForm(action: action, method: sender.form.method, values: values) { [weak self] result in
+            serverDrivenScreenLoader.submitForm(action: sender.form.action, method: sender.form.method, values: values) { [weak self] result in
                 self?.view.hideLoading()
                 self?.handleFormResult(result, sender: sender)
             }

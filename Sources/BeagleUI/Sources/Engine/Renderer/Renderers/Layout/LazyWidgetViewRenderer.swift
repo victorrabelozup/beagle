@@ -18,9 +18,7 @@ final class LazyWidgetViewRenderer: WidgetViewRenderer<LazyWidget> {
         let initialState = widget.initialState
         let renderer = rendererProvider.buildRenderer(for: initialState)
         let initialStateView = renderer.buildView(context: context)
-        if let url = URL(string: widget.url) {
-            context.lazyLoad(url: url, initialState: initialStateView)
-        }
+        context.lazyLoad(url: widget.url, initialState: initialStateView)
         return initialStateView
     }
     

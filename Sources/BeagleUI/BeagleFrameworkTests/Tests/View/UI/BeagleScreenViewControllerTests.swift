@@ -120,11 +120,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
     
     func test_whenLoadScreenFails_itShouldCall_didFailToLoadWithError_onDelegate() {
         // Given
-        guard let url = URL(string: "www.something.com") else {
-            XCTFail("Could not create URL.")
-            return
-        }
-        
+        let url = "www.something.com"
         let serverDrivenScreenLoaderStub = ServerDrivenScreenLoaderStub(
             loadScreenResult: .failure(.fetchError(.emptyData))
         )
@@ -149,11 +145,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
     
     func test_whenLoadScreenSucceeds_itShouldSetupTheViewWithTheResult() {
         // Given
-        guard let url = URL(string: "www.something.com") else {
-            XCTFail("Could not create URL.")
-            return
-        }
-        
+        let url = "www.something.com"
         let flexConfiguratorSpy = FlexViewConfiguratorSpy()
         
         let viewToReturn = UIView()
@@ -190,9 +182,9 @@ struct ServerDrivenWidgetMock {
 }
 
 final class ServerDrivenScreenLoaderDummy: ServerDrivenScreenLoader {
-    func loadScreen(from url: URL, context: BeagleContext, completion: @escaping (Result<UIView, ServerDrivenScreenLoaderError>) -> Void) {}
-    func submitForm(action: URL, method: Form.MethodType, values: [String : String], completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void) {}
-    func loadWidget(from url: URL, completion: @escaping (Result<Widget, ServerDrivenWidgetFetcherError>) -> Void) {}
+    func loadScreen(from url: String, context: BeagleContext, completion: @escaping (Result<UIView, ServerDrivenScreenLoaderError>) -> Void) {}
+    func submitForm(action: String, method: Form.MethodType, values: [String : String], completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void) {}
+    func loadWidget(from url: String, completion: @escaping (Result<Widget, ServerDrivenWidgetFetcherError>) -> Void) {}
 }
 
 final class FlexViewConfiguratorDummy: FlexViewConfiguratorProtocol {
@@ -217,19 +209,19 @@ final class ServerDrivenScreenLoaderStub: ServerDrivenScreenLoader {
         self.loadWidgetResult = loadWidgetResult
     }
     
-    func loadScreen(from url: URL, context: BeagleContext, completion: @escaping (Result<UIView, ServerDrivenScreenLoaderError>) -> Void) {
+    func loadScreen(from url: String, context: BeagleContext, completion: @escaping (Result<UIView, ServerDrivenScreenLoaderError>) -> Void) {
         if let result = loadScreenResult {
             completion(result)
         }
     }
     
-    func submitForm(action: URL, method: Form.MethodType, values: [String : String], completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void) {
+    func submitForm(action: String, method: Form.MethodType, values: [String : String], completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void) {
         if let result = submitFormResult {
             completion(result)
         }
     }
     
-    func loadWidget(from url: URL, completion: @escaping (Result<Widget, ServerDrivenWidgetFetcherError>) -> Void) {
+    func loadWidget(from url: String, completion: @escaping (Result<Widget, ServerDrivenWidgetFetcherError>) -> Void) {
         if let result = loadWidgetResult {
             completion(result)
         }

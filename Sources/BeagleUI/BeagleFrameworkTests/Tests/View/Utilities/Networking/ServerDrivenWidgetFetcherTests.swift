@@ -27,6 +27,70 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
         XCTAssertEqual(environmentSpy._shared?.decoderCalled, true, "Init should call environment's `decoder`.")
     }
     
+    func test_requestWithInvalidURL_itShouldFail() {
+        let sut = ServerDrivenWidgetFetching(
+            baseURL: nil,
+            networkingDispatcher: URLRequestDispatchingDummy(),
+            decoder: WidgetDecodingDummy()
+        )
+        let invalidURL = "🥶"
+        
+        // When
+        let fetchWidgetExpectation = expectation(description: "fetchWidget")
+        var fetchError: ServerDrivenWidgetFetcherError?
+        sut.fetchWidget(from: invalidURL) { result in
+            if case let .failure(error) = result {
+                fetchError = error
+            }
+            fetchWidgetExpectation.fulfill()
+        }
+        let submitFormExpectation = expectation(description: "submitForm")
+        var formError: ServerDrivenWidgetFetcherError?
+        sut.submitForm(action: invalidURL, method: .post, values: [:]) { result in
+            if case let .failure(error) = result {
+                formError = error
+            }
+            submitFormExpectation.fulfill()
+        }
+        wait(for: [fetchWidgetExpectation, submitFormExpectation], timeout: 1.0)
+
+        // Then
+        XCTAssertNotNil(fetchError)
+        XCTAssertNotNil(formError)
+        guard
+            case .invalidURL = fetchError,
+            case .invalidURL = formError else
+        {
+            let errorName = String(describing: fetchError ?? formError)
+            XCTFail("Expected a `.invalidURL` error, but got \(errorName).")
+            return
+        }
+    }
+    
+    func test_fetchWitdget_withBaseURL_buildTheProperURL() {
+        let baseURL = URL(string: "http://test.me/api/ignored")
+        let dispatchingSpy = URLRequestDispatchingSpy()
+        let sut = ServerDrivenWidgetFetching(
+            baseURL: baseURL,
+            networkingDispatcher: dispatchingSpy,
+            decoder: WidgetDecodingDummy()
+        )
+        let expectedURLs = [
+            "xyz": "http://test.me/api/xyz",
+            "/xyz" : "http://test.me/xyz",
+            "xyz?abc=123#anchor": "http://test.me/api/xyz?abc=123#anchor",
+            "https://absolute.url/api/v2/endpoint": "https://absolute.url/api/v2/endpoint",
+        ]
+        
+        // When/Then
+        expectedURLs.forEach {
+            sut.fetchWidget(from: $0.key) { _ in
+            }
+            let absoluteURL = dispatchingSpy.executedRequest?.baseURL.absoluteString
+            XCTAssertEqual(absoluteURL, $0.value)
+        }
+    }
+    
     func test_whenRequestSucceeds_withValidData_itShouldReturnSomeWidget() {
         // Given
         guard let jsonData = """
@@ -40,13 +104,11 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
         }
         let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .success(jsonData))
         let sut = ServerDrivenWidgetFetching(
+            baseURL: nil,
             networkingDispatcher: dispatcherStub,
             decoder: WidgetDecoder()
         )
-        guard let url = URL(string: "www.something.com") else {
-            XCTFail("Could not create URL.")
-            return
-        }
+        let url = "www.something.com"
 
         // When
         var widgetReturned: Widget?
@@ -68,13 +130,11 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
         // Given
         let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .failure(.unknown))
         let sut = ServerDrivenWidgetFetching(
+            baseURL: nil,
             networkingDispatcher: dispatcherStub,
             decoder: WidgetDecodingDummy()
         )
-        guard let url = URL(string: "www.something.com") else {
-            XCTFail("Could not create URL.")
-            return
-        }
+        let url = "www.something.com"
 
         // When
         var errorThrown: ServerDrivenWidgetFetcherError?
@@ -100,13 +160,11 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
         // Given
         let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .success(nil))
         let sut = ServerDrivenWidgetFetching(
+            baseURL: nil,
             networkingDispatcher: dispatcherStub,
             decoder: WidgetDecodingDummy()
         )
-        guard let url = URL(string: "www.something.com") else {
-            XCTFail("Could not create URL.")
-            return
-        }
+        let url = "www.something.com"
 
         // When
         var errorThrown: ServerDrivenWidgetFetcherError?
@@ -134,13 +192,11 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
         let decoderStub = WidgetDecodingStub()
         decoderStub.errorToThrowOnDecode = NSError(domain: "Mock", code: 1, description: "Mock")
         let sut = ServerDrivenWidgetFetching(
+            baseURL: nil,
             networkingDispatcher: dispatcherStub,
             decoder: decoderStub
         )
-        guard let url = URL(string: "www.something.com") else {
-            XCTFail("Could not create URL.")
-            return
-        }
+        let url = "www.something.com"
 
         // When
         var errorThrown: ServerDrivenWidgetFetcherError?
@@ -165,16 +221,14 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
         // Given
         let dispatcherSpy = URLRequestDispatchingSpy()
         let sut = ServerDrivenWidgetFetching(
+            baseURL: nil,
             networkingDispatcher: dispatcherSpy,
             decoder: WidgetDecodingDummy()
         )
         let urlParamMethods: [Form.MethodType] = [.get, .delete]
         let bodyParamMethods: [Form.MethodType] = [.post, .put]
         let values = ["p1": "1", "p2": "2"]
-        guard let url = URL(string: "https://form.com/submit") else {
-            XCTFail("Failed to create form URL")
-            return
-        }
+        let url = "https://form.com/submit"
         
         // Then/When
         for method in urlParamMethods {
@@ -214,13 +268,11 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
         // Given
         let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .failure(.unknown))
         let sut = ServerDrivenWidgetFetching(
+            baseURL: nil,
             networkingDispatcher: dispatcherStub,
             decoder: WidgetDecodingDummy()
         )
-        guard let url = URL(string: "www.something.com") else {
-            XCTFail("Could not create URL.")
-            return
-        }
+        let url = "www.something.com"
 
         // When
         var errorThrown: ServerDrivenWidgetFetcherError?
@@ -245,13 +297,11 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
         // Given
         let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .success(nil))
         let sut = ServerDrivenWidgetFetching(
+            baseURL: nil,
             networkingDispatcher: dispatcherStub,
             decoder: WidgetDecodingDummy()
         )
-        guard let url = URL(string: "www.something.com") else {
-            XCTFail("Could not create URL.")
-            return
-        }
+        let url = "www.something.com"
 
         // When
         var errorThrown: ServerDrivenWidgetFetcherError?
@@ -278,13 +328,11 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
         let decoderStub = WidgetDecodingStub()
         decoderStub.errorToThrowOnDecode = NSError(domain: "Mock", code: 1, description: "Mock")
         let sut = ServerDrivenWidgetFetching(
+            baseURL: nil,
             networkingDispatcher: dispatcherStub,
             decoder: decoderStub
         )
-        guard let url = URL(string: "www.something.com") else {
-            XCTFail("Could not create URL.")
-            return
-        }
+        let url = "www.something.com"
 
         // When
         var errorThrown: ServerDrivenWidgetFetcherError?

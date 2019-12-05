@@ -26,18 +26,28 @@ public struct Beagle {
     /// Starts the application, setting up it's environment based on the appName
     public static func start(
         appName: String = "Beagle",
+        baseURL: URL? = nil,
         networkingDispatcher: URLRequestDispatching? = nil,
         appBundle: Bundle? = nil,
         deepLinkHandler: BeagleDeepLinkScreenManaging? = nil,
         applicationTheme: Theme? = nil,
         validatorHandler: ValidatorHandler? = nil,
         customActionHandler: CustomActionHandler? = nil
-        ) {
+    ) {
         guard didCallStart == false else {
             fatalError("Beagle.start should be called only one time!")
         }
         didCallStart = true
-        environment.initialize(appName: appName, networkingDispatcher: networkingDispatcher, appBundle: appBundle, deepLinkHandler: deepLinkHandler, applicationTheme: applicationTheme, validatorHandler: validatorHandler, customActionHandler: customActionHandler)
+        environment.initialize(
+            appName: appName,
+            baseURL: baseURL,
+            networkingDispatcher: networkingDispatcher,
+            appBundle: appBundle,
+            deepLinkHandler: deepLinkHandler,
+            applicationTheme: applicationTheme,
+            validatorHandler: validatorHandler,
+            customActionHandler: customActionHandler
+        )
     }
     
     /// Register a single custom widget and entity

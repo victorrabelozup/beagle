@@ -64,6 +64,7 @@ final class BeagleEnvironmentTests: XCTestCase {
         let widgetRegisterSpy = CustomWidgetsRendererProviderRegisterSpy()
         BeagleEnvironment.initialize(
             appName: "EnvironmentTest",
+            baseURL: nil,
             decoder: decoderSpy,
             networkingDispatcher: URLRequestDispatchingDummy(),
             customWidgetsRendererProviderRegister: widgetRegisterSpy,

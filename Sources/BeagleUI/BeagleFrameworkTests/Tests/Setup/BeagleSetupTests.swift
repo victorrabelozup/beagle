@@ -182,6 +182,11 @@ final class BeagleSetupTests: XCTestCase {
 // MARK: - Testing Helpers
 
 final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
+    
+    var baseURL: URL? {
+        return nil
+    }
+    
     private(set) var deepLinkHandlerCalled = false
     var deepLinkHandler: BeagleDeepLinkScreenManaging? {
         deepLinkHandlerCalled = true
@@ -232,6 +237,7 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
     static private(set) var validatorHandlerPassed: ValidatorHandler?
     static private(set) var customActionHandlerPassed: CustomActionHandler?
     static func initialize(appName: String,
+                           baseURL: URL?,
                            decoder: WidgetDecoding,
                            networkingDispatcher: URLRequestDispatching,
                            customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderDequeuing & CustomWidgetsRendererProviderRegistering,
@@ -250,9 +256,10 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
         customActionHandlerPassed = customActionHandler
     }
     
-    static func initialize(appName: String, networkingDispatcher: URLRequestDispatching?, appBundle: Bundle?, deepLinkHandler: BeagleDeepLinkScreenManaging?, applicationTheme: Theme?, validatorHandler: ValidatorHandler?, customActionHandler: CustomActionHandler?) {
+    static func initialize(appName: String, baseURL: URL?, networkingDispatcher: URLRequestDispatching?, appBundle: Bundle?, deepLinkHandler: BeagleDeepLinkScreenManaging?, applicationTheme: Theme?, validatorHandler: ValidatorHandler?, customActionHandler: CustomActionHandler?) {
         initialize(
             appName: appName,
+            baseURL: baseURL,
             decoder: WidgetDecodingDummy(),
             networkingDispatcher: networkingDispatcher ?? URLRequestDispatchingDummy(),
             customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderDummy(),

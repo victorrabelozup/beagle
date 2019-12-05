@@ -21,11 +21,11 @@ class BeagleNavigator: BeagleNavigation {
                 openDeepLink(path: path, source: source, animated: animated)
             }
         case .swapView:
-            if let url = urlFor(action: action) {
+            if let url = action.path {
                 swapView(url: url, source: source, animated: animated)
             }
         case .addView:
-            if let url = urlFor(action: action) {
+            if let url = action.path {
                 addView(url: url, source: source, animated: animated)
             }
         case .finishView:
@@ -33,23 +33,16 @@ class BeagleNavigator: BeagleNavigation {
         case .popView:
             popView(source: source, animated: animated)
         case .popToView:
-            if let url = urlFor(action: action) {
+            if let url = action.path {
                 popToView(url: url, source: source, animated: animated)
             }
         case .presentView:
-            if let url = urlFor(action: action) {
+            if let url = action.path {
                 presentView(url: url, source: source, animated: animated)
             }
         }
     }
-    
-    private func urlFor(action: Navigate) -> URL? {
-        guard let path = action.path else {
-            return nil
-        }
-        return URL(string: path)
-    }
-    
+        
     private func openDeepLink(path: String, source: UIViewController, animated: Bool) {
         do {
             if let deepLinkHandler = BeagleEnvironment.shared.deepLinkHandler {
@@ -61,12 +54,12 @@ class BeagleNavigator: BeagleNavigation {
         }
     }
     
-    private func swapView(url: URL, source: UIViewController, animated: Bool) {
+    private func swapView(url: String, source: UIViewController, animated: Bool) {
         let viewController = BeagleScreenViewController(screenType: .remote(url))
         source.navigationController?.setViewControllers([viewController], animated: animated)
     }
     
-    private func addView(url: URL, source: UIViewController, animated: Bool) {
+    private func addView(url: String, source: UIViewController, animated: Bool) {
         let viewController = BeagleScreenViewController(screenType: .remote(url))
         source.navigationController?.pushViewController(viewController, animated: animated)
     }
@@ -79,7 +72,7 @@ class BeagleNavigator: BeagleNavigation {
         source.navigationController?.popViewController(animated: animated)
     }
     
-    private func popToView(url: URL, source: UIViewController, animated: Bool) {
+    private func popToView(url: String, source: UIViewController, animated: Bool) {
         let viewControllers = source.navigationController?.viewControllers
         
         let targetViewController = viewControllers?.last {
@@ -87,7 +80,7 @@ class BeagleNavigator: BeagleNavigation {
                 return false
             }
             if case let .remote(screenURL) = screenType {
-                return screenURL.absoluteURL == url.absoluteURL
+                return screenURL == url
             }
             return false
         }
@@ -96,7 +89,7 @@ class BeagleNavigator: BeagleNavigation {
         }
     }
     
-    private func presentView(url: URL, source: UIViewController, animated: Bool) {
+    private func presentView(url: String, source: UIViewController, animated: Bool) {
         let viewController = BeagleScreenViewController(screenType: .remote(url))
         let navigationToPresent = UINavigationController(rootViewController: viewController)
         source.navigationController?.present(navigationToPresent, animated: animated)

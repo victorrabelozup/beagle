@@ -10,7 +10,7 @@ import UIKit
 
 extension BeagleScreenViewController {
     public enum ScreenType {
-        case remote(URL)
+        case remote(String)
         case declarative(Widget)
     }
 }
@@ -149,7 +149,7 @@ public class BeagleScreenViewController: UIViewController {
     
     // MARK: - Remote Screen Loading
     
-    private func loadScreenFromURL(_ url: URL) {
+    private func loadScreenFromURL(_ url: String) {
         view.showLoading(.whiteLarge)
         serverDrivenScreenLoader.loadScreen(from: url, context: self) { [weak self] result in
             self?.view.hideLoading()

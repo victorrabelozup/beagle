@@ -10,6 +10,7 @@ import Foundation
 import Networking
 
 public enum ServerDrivenWidgetFetcherError: Error {
+    case invalidURL
     case request(URLRequestError)
     case emptyData
     case invalidEntity
@@ -19,14 +20,15 @@ public enum ServerDrivenWidgetFetcherError: Error {
 }
 
 public protocol ServerDrivenWidgetFetcher {
-    func fetchWidget(from url: URL, completion: @escaping (Result<Widget, ServerDrivenWidgetFetcherError>) -> Void)
-    func submitForm(action: URL, method: Form.MethodType, values: [String: String], completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void)
+    func fetchWidget(from url: String, completion: @escaping (Result<Widget, ServerDrivenWidgetFetcherError>) -> Void)
+    func submitForm(action: String, method: Form.MethodType, values: [String: String], completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void)
 }
 
 public final class ServerDrivenWidgetFetching: ServerDrivenWidgetFetcher {
     
     // MARK: - Dependencies
     
+    private let baseURL: URL?
     private let networkingDispatcher: URLRequestDispatching
     private let decoder: WidgetDecoding
     
@@ -34,15 +36,18 @@ public final class ServerDrivenWidgetFetching: ServerDrivenWidgetFetcher {
     
     public convenience init() {
         self.init(
+            baseURL: Beagle.environment.shared.baseURL,
             networkingDispatcher: Beagle.environment.shared.networkingDispatcher,
             decoder: Beagle.environment.shared.decoder
         )
     }
     
     init(
+        baseURL: URL?,
         networkingDispatcher: URLRequestDispatching,
         decoder: WidgetDecoding
     ) {
+        self.baseURL = baseURL
         self.networkingDispatcher = networkingDispatcher
         self.decoder = decoder
     }
@@ -50,10 +55,14 @@ public final class ServerDrivenWidgetFetching: ServerDrivenWidgetFetcher {
     // MARK: - Public Methods
     
     public func fetchWidget(
-        from url: URL,
+        from url: String,
         completion: @escaping (Result<Widget, ServerDrivenWidgetFetcherError>) -> Void
     ) {
-        let request = SimpleURLRequest(url: url)
+        guard let requestURL = fullRequestURL(url) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        let request = SimpleURLRequest(url: requestURL)
         networkingDispatcher.execute(request: request) { [weak self] networkResult in
             switch networkResult {
             case let .success(data):
@@ -65,7 +74,7 @@ public final class ServerDrivenWidgetFetching: ServerDrivenWidgetFetcher {
     }
     
     public func submitForm(
-        action: URL,
+        action: String,
         method: Form.MethodType,
         values: [String: String],
         completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void
@@ -81,7 +90,11 @@ public final class ServerDrivenWidgetFetching: ServerDrivenWidgetFetcher {
         case .delete:
             httpMethod = .delete
         }
-        var request = SimpleURLRequest(url: action, method: httpMethod)
+        guard let requestURL = fullRequestURL(action) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        var request = SimpleURLRequest(url: requestURL, method: httpMethod)
         switch httpMethod {
         case .get, .delete:
             request.parameters = .url(values)
@@ -96,6 +109,10 @@ public final class ServerDrivenWidgetFetching: ServerDrivenWidgetFetcher {
                 completion(.failure(.request(error)))
             }
         }
+    }
+    
+    private func fullRequestURL(_ url: String) -> URL? {
+        return URL(string: url, relativeTo: baseURL)
     }
     
     // MARK: - Network Result Handlers

@@ -32,10 +32,7 @@ final class ServerDrivenScreenLoaderTests: XCTestCase {
             widgetFetcher: fetcherStub,
             viewBuilder: BeagleViewBuilderDummy()
         )
-        guard let url = URL(string: "www.something.com") else {
-            XCTFail("Could not create URL.")
-            return
-        }
+        let url = "Could not create URL."
         let context = BeagleContextDummy()
         
         // When
@@ -67,10 +64,7 @@ final class ServerDrivenScreenLoaderTests: XCTestCase {
             widgetFetcher: fetcherStub,
             viewBuilder: viewBuilderSpy
         )
-        guard let url = URL(string: "www.something.com") else {
-            XCTFail("Could not create URL.")
-            return
-        }
+        let url = "ww.something.com"
         let context = BeagleContextDummy()
         
         // When
@@ -94,10 +88,7 @@ final class ServerDrivenScreenLoaderTests: XCTestCase {
         // Given
         let widgetFetcherSpy = ServerDrivenWidgetFetcherSpy()
         let sut = ServerDrivenScreenLoading(widgetFetcher: widgetFetcherSpy, viewBuilder: BeagleViewBuilderDummy())
-        guard let url = URL(string: "www.something.com") else {
-            XCTFail("Could not create URL.")
-            return
-        }
+        let url = "www.something.com"
         
         // When
         sut.submitForm(action: url, method: .post, values: [:]) { _ in
@@ -111,10 +102,7 @@ final class ServerDrivenScreenLoaderTests: XCTestCase {
         // Given
         let widgetFetcherSpy = ServerDrivenWidgetFetcherSpy()
         let sut = ServerDrivenScreenLoading(widgetFetcher: widgetFetcherSpy, viewBuilder: BeagleViewBuilderDummy())
-        guard let url = URL(string: "www.something.com") else {
-            XCTFail("Could not create URL.")
-            return
-        }
+        let url = "www.something.com"
         
         // When
         sut.loadWidget(from: url) { _ in
@@ -130,10 +118,10 @@ final class ServerDrivenScreenLoaderTests: XCTestCase {
 final class ServerDrivenWidgetFetcherSpy: ServerDrivenWidgetFetcher {
     private(set) var fetchWidgetCalled = false
     private(set) var submitFormCalled = false
-    func submitForm(action: URL, method: Form.MethodType, values: [String : String], completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void) {
+    func submitForm(action: String, method: Form.MethodType, values: [String : String], completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void) {
         submitFormCalled = true
     }
-    func fetchWidget(from url: URL, completion: @escaping (Result<Widget, ServerDrivenWidgetFetcherError>) -> Void) {
+    func fetchWidget(from url: String, completion: @escaping (Result<Widget, ServerDrivenWidgetFetcherError>) -> Void) {
         fetchWidgetCalled = true
     }
 }
@@ -145,11 +133,11 @@ final class ServerDrivenWidgetFetcherStub: ServerDrivenWidgetFetcher {
         self.resultToReturn = resultToReturn
     }
     
-    func fetchWidget(from url: URL, completion: @escaping (Result<Widget, ServerDrivenWidgetFetcherError>) -> Void) {
+    func fetchWidget(from url: String, completion: @escaping (Result<Widget, ServerDrivenWidgetFetcherError>) -> Void) {
         completion(resultToReturn)
     }
     
-    func submitForm(action: URL, method: Form.MethodType, values: [String : String], completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void) {
+    func submitForm(action: String, method: Form.MethodType, values: [String : String], completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void) {
     }
 }
 

@@ -95,7 +95,7 @@ class BeagleContextSpy: BeagleContext {
         didCallRegisterFormSubmit = true
     }
     
-    func lazyLoad(url: URL, initialState: UIView) {
+    func lazyLoad(url: String, initialState: UIView) {
         didCallLazyLoad = true
     }
 }

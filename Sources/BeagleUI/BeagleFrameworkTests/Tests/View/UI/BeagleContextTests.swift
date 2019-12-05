@@ -236,11 +236,7 @@ final class BeagleContextTests: XCTestCase {
             actionExecutor: ActionExecutorDummy()
         )
         sut.view.addSubview(initialView)
-        
-        guard let url = URL(string: "URL") else {
-            XCTFail("Could not create URL")
-            return
-        }
+        let url = "URL"
         
         // When
         sut.lazyLoad(url: url, initialState: initialView)
@@ -263,11 +259,7 @@ final class BeagleContextTests: XCTestCase {
             actionExecutor: ActionExecutorDummy()
         )
         sut.view.addSubview(initialView)
-        
-        guard let url = URL(string: "URL") else {
-            XCTFail("Could not create URL")
-            return
-        }
+        let url = "URL"
         
         // When
         sut.lazyLoad(url: url, initialState: initialView)
