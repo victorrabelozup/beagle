@@ -66,7 +66,9 @@ final class FlexViewConfiguratorSpy: FlexViewConfiguratorProtocol {
     private(set) var applyYogaLayoutCalled = false
     private(set) var viewPassedToApplyYogaLayout: UIView?
     private(set) var preservingOriginPassed: Bool?
+    private(set) var applyYogaLayoutCallCount = 0
     func applyYogaLayout(to view: UIView, preservingOrigin: Bool) {
+        applyYogaLayoutCallCount += 1
         applyYogaLayoutCalled = true
         viewPassedToApplyYogaLayout = view
         preservingOriginPassed = preservingOrigin

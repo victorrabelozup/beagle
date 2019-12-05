@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-struct ListViewEntity: WidgetEntity {
+struct ListViewEntity: WidgetConvertibleEntity {
     
     let rows: [AnyDecodableContainer]
     let remoteDataSource: String?

@@ -45,7 +45,30 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         sut.viewDidLoad()
         
         // Then
-        XCTAssertEqual(sut.view.backgroundColor, .white, "Expected `white`, but got \(String(describing: sut.view.backgroundColor)).")
+        if #available(iOS 13.0, *) {
+            XCTAssertEqual(sut.view.backgroundColor, .systemBackground)
+        } else {
+            XCTAssertEqual(sut.view.backgroundColor, .white)
+        }
+    }
+    
+    func test_onViewDidLayoutSubviews_shouldApplyYogaLayout() {
+        // Given
+        let flexConfigurator = FlexViewConfiguratorSpy()
+        let sut = BeagleScreenViewController(
+            screenType: .declarative(WidgetDummy()),
+            flexConfigurator: flexConfigurator,
+            viewBuilder: BeagleViewBuilderDummy(),
+            serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
+            actionExecutor: ActionExecutorDummy()
+        )
+        
+        // When
+        let _ = sut.view
+        sut.viewDidLayoutSubviews()
+        
+        // Then
+        XCTAssertEqual(flexConfigurator.applyYogaLayoutCallCount, 2)
     }
     
     func test_onViewWillAppear_navigationBarShouldBeHidden() {
@@ -169,6 +192,7 @@ struct ServerDrivenWidgetMock {
 final class ServerDrivenScreenLoaderDummy: ServerDrivenScreenLoader {
     func loadScreen(from url: URL, context: BeagleContext, completion: @escaping (Result<UIView, ServerDrivenScreenLoaderError>) -> Void) {}
     func submitForm(action: URL, method: Form.MethodType, values: [String : String], completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void) {}
+    func loadWidget(from url: URL, completion: @escaping (Result<Widget, ServerDrivenWidgetFetcherError>) -> Void) {}
 }
 
 final class FlexViewConfiguratorDummy: FlexViewConfiguratorProtocol {
@@ -182,12 +206,15 @@ final class ServerDrivenScreenLoaderStub: ServerDrivenScreenLoader {
     
     let loadScreenResult: Result<UIView, ServerDrivenScreenLoaderError>?
     let submitFormResult: Result<Action, ServerDrivenWidgetFetcherError>?
+    let loadWidgetResult: Result<Widget, ServerDrivenWidgetFetcherError>?
     init(
         loadScreenResult: Result<UIView, ServerDrivenScreenLoaderError>? = nil,
-        submitFormResult: Result<Action, ServerDrivenWidgetFetcherError>? = nil
+        submitFormResult: Result<Action, ServerDrivenWidgetFetcherError>? = nil,
+        loadWidgetResult: Result<Widget, ServerDrivenWidgetFetcherError>? = nil
     ) {
         self.loadScreenResult = loadScreenResult
         self.submitFormResult = submitFormResult
+        self.loadWidgetResult = loadWidgetResult
     }
     
     func loadScreen(from url: URL, context: BeagleContext, completion: @escaping (Result<UIView, ServerDrivenScreenLoaderError>) -> Void) {
@@ -198,6 +225,12 @@ final class ServerDrivenScreenLoaderStub: ServerDrivenScreenLoader {
     
     func submitForm(action: URL, method: Form.MethodType, values: [String : String], completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void) {
         if let result = submitFormResult {
+            completion(result)
+        }
+    }
+    
+    func loadWidget(from url: URL, completion: @escaping (Result<Widget, ServerDrivenWidgetFetcherError>) -> Void) {
+        if let result = loadWidgetResult {
             completion(result)
         }
     }

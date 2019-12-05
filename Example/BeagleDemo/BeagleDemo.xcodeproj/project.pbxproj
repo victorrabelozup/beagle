@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		932925B22327E0E400A61F01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932925B12327E0E400A61F01 /* AppDelegate.swift */; };
-		932925B62327E0E400A61F01 /* LayoutInclusionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932925B52327E0E400A61F01 /* LayoutInclusionViewController.swift */; };
 		932925B92327E0E400A61F01 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 932925B72327E0E400A61F01 /* Main.storyboard */; };
 		932925BB2327E0E500A61F01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 932925BA2327E0E500A61F01 /* Assets.xcassets */; };
 		932925BE2327E0E500A61F01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 932925BC2327E0E500A61F01 /* LaunchScreen.storyboard */; };
 		93365E4123624AD40017CB89 /* BeagleUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93365E4023624AD40017CB89 /* BeagleUI.framework */; };
 		93365E4223624AD40017CB89 /* BeagleUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 93365E4023624AD40017CB89 /* BeagleUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A0642DC82395A1840028AFF3 /* DeeplinkScreenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0642DC72395A1840028AFF3 /* DeeplinkScreenManager.swift */; };
+		A0642DCB23968A020028AFF3 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0642DCA23968A020028AFF3 /* MainScreen.swift */; };
+		A0642DCD23968B500028AFF3 /* LazyWidgetScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0642DCC23968B500028AFF3 /* LazyWidgetScreen.swift */; };
+		A0642DD12396EC670028AFF3 /* PageViewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0642DD02396EC670028AFF3 /* PageViewScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,12 +36,15 @@
 /* Begin PBXFileReference section */
 		932925AE2327E0E400A61F01 /* BeagleDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeagleDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		932925B12327E0E400A61F01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		932925B52327E0E400A61F01 /* LayoutInclusionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutInclusionViewController.swift; sourceTree = "<group>"; };
 		932925B82327E0E400A61F01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		932925BA2327E0E500A61F01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		932925BD2327E0E500A61F01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		932925BF2327E0E500A61F01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93365E4023624AD40017CB89 /* BeagleUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BeagleUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0642DC72395A1840028AFF3 /* DeeplinkScreenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkScreenManager.swift; sourceTree = "<group>"; };
+		A0642DCA23968A020028AFF3 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
+		A0642DCC23968B500028AFF3 /* LazyWidgetScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyWidgetScreen.swift; sourceTree = "<group>"; };
+		A0642DD02396EC670028AFF3 /* PageViewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,11 +79,12 @@
 		932925B02327E0E400A61F01 /* BeagleDemo */ = {
 			isa = PBXGroup;
 			children = (
+				A0642DC9239689E60028AFF3 /* Screens */,
 				932925B12327E0E400A61F01 /* AppDelegate.swift */,
-				932925B52327E0E400A61F01 /* LayoutInclusionViewController.swift */,
+				A0642DC72395A1840028AFF3 /* DeeplinkScreenManager.swift */,
 				932925B72327E0E400A61F01 /* Main.storyboard */,
-				932925BA2327E0E500A61F01 /* Assets.xcassets */,
 				932925BC2327E0E500A61F01 /* LaunchScreen.storyboard */,
+				932925BA2327E0E500A61F01 /* Assets.xcassets */,
 				932925BF2327E0E500A61F01 /* Info.plist */,
 			);
 			path = BeagleDemo;
@@ -89,6 +96,16 @@
 				93365E4023624AD40017CB89 /* BeagleUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A0642DC9239689E60028AFF3 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				A0642DCA23968A020028AFF3 /* MainScreen.swift */,
+				A0642DCC23968B500028AFF3 /* LazyWidgetScreen.swift */,
+				A0642DD02396EC670028AFF3 /* PageViewScreen.swift */,
+			);
+			path = Screens;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -120,7 +137,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1100;
-				ORGANIZATIONNAME = "Daniel Tes";
+				ORGANIZATIONNAME = "Zup IT";
 				TargetAttributes = {
 					932925AD2327E0E400A61F01 = {
 						CreatedOnToolsVersion = 11.0;
@@ -163,8 +180,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				932925B62327E0E400A61F01 /* LayoutInclusionViewController.swift in Sources */,
+				A0642DCB23968A020028AFF3 /* MainScreen.swift in Sources */,
 				932925B22327E0E400A61F01 /* AppDelegate.swift in Sources */,
+				A0642DC82395A1840028AFF3 /* DeeplinkScreenManager.swift in Sources */,
+				A0642DCD23968B500028AFF3 /* LazyWidgetScreen.swift in Sources */,
+				A0642DD12396EC670028AFF3 /* PageViewScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,7 +329,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = R87629W9A8;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BeagleDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -327,7 +347,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = R87629W9A8;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BeagleDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

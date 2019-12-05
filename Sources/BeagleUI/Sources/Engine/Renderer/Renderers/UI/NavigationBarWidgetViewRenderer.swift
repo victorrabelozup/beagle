@@ -30,6 +30,7 @@ final class NavigationBarWidgetViewRenderer: WidgetViewRenderer<NavigationBar> {
             navigationItems.rightBarButtonItem = UIBarButtonItem(customView: trailingView)
         }
         navigationBar.items = [navigationItems]
+        navigationBar.isTranslucent = false
         navigationBar.sizeToFit()
         flexViewConfigurator.enableYoga(true, for: navigationBar)
         return navigationBar

@@ -26,7 +26,7 @@ public struct Flex {
     public let padding: EdgeValue?
     public let position: EdgeValue?
     
-    init(
+    public init(
         direction: Flex.Direction? = nil,
         flexDirection: Flex.FlexDirection? = nil,
         flexWrap: Flex.Wrap? = nil,

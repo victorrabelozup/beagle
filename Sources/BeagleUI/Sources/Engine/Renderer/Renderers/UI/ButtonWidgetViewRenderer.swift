@@ -14,7 +14,7 @@ final class ButtonWidgetViewRenderer: WidgetViewRenderer<Button> {
     
     override func buildView(context: BeagleContext) -> UIView {
         
-        let button = UIButton(frame: .init(x: 0, y: 0, width: 100, height: 44))
+        let button = UIButton(type: .system)
         button.setTitle(widget.text, for: .normal)
         
         if let style = widget.style {

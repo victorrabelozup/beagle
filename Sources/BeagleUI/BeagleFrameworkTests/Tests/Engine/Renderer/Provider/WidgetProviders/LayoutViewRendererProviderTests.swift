@@ -91,6 +91,46 @@ final class LayoutViewRendererProviderTests: XCTestCase {
         // Then
         XCTAssert(containerWidgetViewRenderer is ScrollViewWidgetViewRenderer, "Expected to build a container widget view renderer, but has built \(String(describing: type(of: containerWidgetViewRenderer))).")
     }
+    
+    func test_whenForm_shouldReturnFormViewRenderer() {
+        // Given
+        let widget = Form(action: "", method: .get, child: WidgetDummy())
+        let renderer = WidgetRendererProviding()
+        // When
+        let flexWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        // Then
+        XCTAssert(flexWidgetViewRenderer is FormWidgetViewRenderer)
+    }
+    
+    func test_whenFormInput_shouldReturnFormInputViewRenderer() {
+        // Given
+        let widget = FormInput(name: "name", child: WidgetDummy())
+        let renderer = WidgetRendererProviding()
+        // When
+        let flexWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        // Then
+        XCTAssert(flexWidgetViewRenderer is FormInputWidgetViewRenderer)
+    }
+    
+    func test_whenFormSubmit_shouldReturnFormSubmitViewRenderer() {
+        // Given
+        let widget = FormSubmit(child: WidgetDummy())
+        let renderer = WidgetRendererProviding()
+        // When
+        let flexWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        // Then
+        XCTAssert(flexWidgetViewRenderer is FormSubmitWidgetViewRenderer)
+    }
+    
+    func test_whenLazyWidget_shouldReturnLazyWidgetViewRenderer() {
+        // Given
+        let widget = LazyWidget(url: "", initialState: WidgetDummy())
+        let renderer = WidgetRendererProviding()
+        // When
+        let flexWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        // Then
+        XCTAssert(flexWidgetViewRenderer is LazyWidgetViewRenderer)
+    }
 }
 
 

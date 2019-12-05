@@ -7,6 +7,7 @@ public protocol BeagleContext {
     
     func register(action: Action, inView view: UIView)
     func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorHandler?)
+    func lazyLoad(url: URL, initialState: UIView)
 }
 
 extension BeagleScreenViewController: BeagleContext {
@@ -35,9 +36,24 @@ extension BeagleScreenViewController: BeagleContext {
         submitView.isUserInteractionEnabled = true
     }
     
+    public func lazyLoad(url: URL, initialState: UIView) {
+        serverDrivenScreenLoader.loadWidget(from: url) { [weak self] result in
+            switch result {
+            case let .success(widget):
+                self?.update(initialView: initialState, lazyLoaded: widget)
+            case let .failure(error):
+                self?.handleError(error)
+            }
+        }
+    }
+        
+    // MARK: - Action
+    
     @objc func handleActionGesture(_ sender: ActionGestureRecognizer) {
         actionExecutor.doAction(sender.action, sender: sender, context: self)
     }
+    
+    // MARK: - Form
     
     @objc func handleSubmitFormGesture(_ sender: SubmitFormGestureRecognizer) {
         let inputViews = sender.formInputViews()
@@ -85,4 +101,31 @@ extension BeagleScreenViewController: BeagleContext {
             handleError(error)
         }
     }
+    
+    // MARK: - Lazy Load
+    
+    private func update(initialView: UIView, lazyLoaded: Widget) {
+        let updatable = initialView as? OnStateUpdatable
+        let updated = updatable?.onUpdateState(widget: lazyLoaded) ?? false
+        if updated && initialView.isYogaEnabled {
+            initialView.yoga.markDirty()
+        } else if !updated {
+            replaceView(initialView, with: lazyLoaded)
+        }
+        if let widgetView = self.rootWidgetView?.subviews.first {
+            widgetView.frame = (self.rootWidgetView ?? self.view).bounds
+            self.flexConfigurator.applyYogaLayout(to: widgetView, preservingOrigin: true)
+        }
+    }
+    
+    private func replaceView(_ view: UIView, with widget: Widget) {
+        guard let superview = view.superview else {
+            return
+        }
+        let updatedView = viewBuilder.buildFromRootWidget(widget, context: self)
+        updatedView.frame = view.frame
+        superview.insertSubview(updatedView, belowSubview: view)
+        view.removeFromSuperview()
+    }
+    
 }

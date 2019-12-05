@@ -37,6 +37,8 @@ public class BeagleScreenViewController: UIViewController {
     
     weak var delegate: BeagleScreenViewControllerDelegate?
     
+    weak var rootWidgetView: UIView?
+    
     // MARK: - Initialization
     
     public convenience init(
@@ -86,10 +88,47 @@ public class BeagleScreenViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
+    public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if let widgetView = rootWidgetView?.subviews.first {
+            widgetView.frame = (rootWidgetView ?? view).bounds
+            flexConfigurator.applyYogaLayout(to: widgetView, preservingOrigin: true)
+        }
+    }
+    
     // MARK: - Private Functions
     
     private func setupView() {
-        view.backgroundColor = .white
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = UIColor.systemBackground
+        } else {
+            view.backgroundColor = .white
+        }
+        let rootView = UIView()
+        rootView.backgroundColor = .clear
+        rootView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(rootView)
+        
+        let constraints: [NSLayoutConstraint]
+        if #available(iOS 11.0, *) {
+            let guide = view.safeAreaLayoutGuide
+            constraints = [
+                rootView.topAnchor.constraint(equalTo: guide.topAnchor),
+                rootView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
+                rootView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+                rootView.leadingAnchor.constraint(equalTo: guide.leadingAnchor)
+            ]
+        } else {
+            constraints = [
+                rootView.topAnchor.constraint(equalTo: view.topAnchor),
+                rootView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                rootView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                rootView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            ]
+        }
+        NSLayoutConstraint.activate(constraints)
+        
+        self.rootWidgetView = rootView
     }
     
     private func loadScreen() {
@@ -126,8 +165,8 @@ public class BeagleScreenViewController: UIViewController {
     // MARK: - View Setup
     
     private func setupWidgetView(_ widgetView: UIView) {
-        view.addSubview(widgetView)
-        widgetView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+        rootWidgetView?.addSubview(widgetView)
+        widgetView.frame = (rootWidgetView ?? view).bounds
         flexConfigurator.applyYogaLayout(to: widgetView, preservingOrigin: true)
     }
     

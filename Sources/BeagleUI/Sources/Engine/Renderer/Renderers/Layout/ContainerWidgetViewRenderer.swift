@@ -19,18 +19,15 @@ final class ContainerWidgetViewRenderer: WidgetViewRenderer<Container> {
         if let header = widget.header {
             let renderer = rendererProvider.buildRenderer(for: header)
             let headerView = renderer.buildView(context: context)
-            headerView.backgroundColor = .red
             view.addSubview(headerView)
         }
         
         let scrollView = buildContentScrollView(context: context)
-        scrollView.backgroundColor = .green
         view.addSubview(scrollView)
         
         if let footer = widget.footer {
             let renderer = rendererProvider.buildRenderer(for: footer)
             let footerView = renderer.buildView(context: context)
-            footerView.backgroundColor = .gray
             view.addSubview(footerView)
         }
         flexViewConfigurator.setupFlex(Flex(), for: view)

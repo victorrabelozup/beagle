@@ -27,4 +27,5 @@ class BeagleContextDummy: BeagleContext {
     var screenController: UIViewController = UIViewController()
     func register(action: Action, inView view: UIView) {}
     func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorHandler?) {}
+    func lazyLoad(url: URL, initialState: UIView) {}
 }

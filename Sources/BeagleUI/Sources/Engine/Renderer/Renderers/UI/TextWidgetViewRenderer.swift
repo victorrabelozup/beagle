@@ -21,7 +21,6 @@ final class TextWidgetViewRenderer: WidgetViewRenderer<Text> {
         }
         
         flexViewConfigurator.enableYoga(true, for: label)
-        label.sizeToFit()
         
         return label
     }

@@ -220,6 +220,62 @@ final class BeagleContextTests: XCTestCase {
         // Then
         XCTAssertFalse(actionExecutorSpy.didCallDoAction)
     }
+    
+    func test_lazyLoad_shouldReplaceTheInitialContent() {
+        // Given
+        let initialView = UIView()
+        let lazyContent = UILabel()
+        let viewBuilder = BeagleViewBuilderSpy()
+        viewBuilder.viewToReturn = lazyContent
+        let screenLoader = ServerDrivenScreenLoaderStub(loadWidgetResult: .success(WidgetDummy()))
+        let sut = BeagleScreenViewController(
+            screenType: .declarative(WidgetDummy()),
+            flexConfigurator: FlexViewConfiguratorDummy(),
+            viewBuilder: viewBuilder,
+            serverDrivenScreenLoader: screenLoader,
+            actionExecutor: ActionExecutorDummy()
+        )
+        sut.view.addSubview(initialView)
+        
+        guard let url = URL(string: "URL") else {
+            XCTFail("Could not create URL")
+            return
+        }
+        
+        // When
+        sut.lazyLoad(url: url, initialState: initialView)
+        
+        // Then
+        XCTAssertNil(initialView.superview, "`initialView` should be removed from view hierarchy")
+        XCTAssertTrue(lazyContent.superview === sut.view)
+    }
+    
+    func test_lazyLoad_withUpdatableView_shouldCallUpdate() {
+        // Given
+        let initialView = OnStateUpdatableViewSpy()
+        initialView.yoga.isEnabled = true
+        let screenLoader = ServerDrivenScreenLoaderStub(loadWidgetResult: .success(WidgetDummy()))
+        let sut = BeagleScreenViewController(
+            screenType: .declarative(WidgetDummy()),
+            flexConfigurator: FlexViewConfiguratorDummy(),
+            viewBuilder: BeagleViewBuilderDummy(),
+            serverDrivenScreenLoader: screenLoader,
+            actionExecutor: ActionExecutorDummy()
+        )
+        sut.view.addSubview(initialView)
+        
+        guard let url = URL(string: "URL") else {
+            XCTFail("Could not create URL")
+            return
+        }
+        
+        // When
+        sut.lazyLoad(url: url, initialState: initialView)
+        
+        // Then
+        XCTAssertNotNil(initialView.superview, "`initialView` should not be removed from view hierarchy")
+        XCTAssertTrue(initialView.didCallOnUpdateState)
+    }
 }
 
 // MARK: - Testing Helpers
@@ -257,5 +313,13 @@ class FormInputViewStub: UIView, InputValue, ValidationErrorListener {
         return value
     }
     func onValidationError(message: String?) {
+    }
+}
+
+class OnStateUpdatableViewSpy: UIView, OnStateUpdatable {
+    private(set) var didCallOnUpdateState = false
+    func onUpdateState(widget: Widget) -> Bool {
+        didCallOnUpdateState = true
+        return true
     }
 }

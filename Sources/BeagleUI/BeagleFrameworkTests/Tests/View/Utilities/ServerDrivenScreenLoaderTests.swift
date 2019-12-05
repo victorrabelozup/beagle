@@ -89,10 +89,54 @@ final class ServerDrivenScreenLoaderTests: XCTestCase {
         XCTAssertTrue(viewBuilderSpy.buildFromRootWidgetCalled, "`buildFromRootWidget` should have been called.")
         XCTAssertTrue(viewBuilderSpy.widgetPassed is Text, "Expected to pass a `Text`, but got something else.")
     }
+    
+    func test_submitForm_shouldDelegate() {
+        // Given
+        let widgetFetcherSpy = ServerDrivenWidgetFetcherSpy()
+        let sut = ServerDrivenScreenLoading(widgetFetcher: widgetFetcherSpy, viewBuilder: BeagleViewBuilderDummy())
+        guard let url = URL(string: "www.something.com") else {
+            XCTFail("Could not create URL.")
+            return
+        }
+        
+        // When
+        sut.submitForm(action: url, method: .post, values: [:]) { _ in
+        }
+        
+        // Then
+        XCTAssertTrue(widgetFetcherSpy.submitFormCalled)
+    }
 
+    func test_loadWidget_shouldDelegate() {
+        // Given
+        let widgetFetcherSpy = ServerDrivenWidgetFetcherSpy()
+        let sut = ServerDrivenScreenLoading(widgetFetcher: widgetFetcherSpy, viewBuilder: BeagleViewBuilderDummy())
+        guard let url = URL(string: "www.something.com") else {
+            XCTFail("Could not create URL.")
+            return
+        }
+        
+        // When
+        sut.loadWidget(from: url) { _ in
+        }
+        
+        // Then
+        XCTAssertTrue(widgetFetcherSpy.fetchWidgetCalled)
+    }
 }
 
 // MARK: - Testing Helpers
+
+final class ServerDrivenWidgetFetcherSpy: ServerDrivenWidgetFetcher {
+    private(set) var fetchWidgetCalled = false
+    private(set) var submitFormCalled = false
+    func submitForm(action: URL, method: Form.MethodType, values: [String : String], completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void) {
+        submitFormCalled = true
+    }
+    func fetchWidget(from url: URL, completion: @escaping (Result<Widget, ServerDrivenWidgetFetcherError>) -> Void) {
+        fetchWidgetCalled = true
+    }
+}
 
 final class ServerDrivenWidgetFetcherStub: ServerDrivenWidgetFetcher {
     

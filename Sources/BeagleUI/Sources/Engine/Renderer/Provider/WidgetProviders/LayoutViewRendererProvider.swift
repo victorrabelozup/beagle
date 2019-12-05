@@ -36,6 +36,8 @@ final class LayoutViewRendererProviding: LayoutViewRendererProvider {
             return try FormSubmitWidgetViewRenderer(widget)
         case is PageView:
             return try PageViewRender(widget)
+        case is LazyWidget:
+            return try LazyWidgetViewRenderer(widget)
         default:
             throw FailableWidgetRendererProviderError.couldNotFindRenrererForWidget(widget)
         }

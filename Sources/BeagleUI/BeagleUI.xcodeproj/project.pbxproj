@@ -51,6 +51,7 @@
 		989F7AA123637F2800E4E0E8 /* LayoutViewRendererProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F7AA023637F2800E4E0E8 /* LayoutViewRendererProviderTests.swift */; };
 		989F7AA32363842E00E4E0E8 /* UIComponentViewRendererProvidingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F7AA22363842E00E4E0E8 /* UIComponentViewRendererProvidingTests.swift */; };
 		989F7AA523638C5700E4E0E8 /* WidgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F7AA423638C5700E4E0E8 /* WidgetTests.swift */; };
+		A0642DCF23969BDE0028AFF3 /* OnStateUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0642DCE23969BDE0028AFF3 /* OnStateUpdatable.swift */; };
 		A068234523831EE100CEE57A /* FormWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068234423831EE100CEE57A /* FormWidgetViewRenderer.swift */; };
 		A068234723833BE900CEE57A /* FormInputWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068234623833BE900CEE57A /* FormInputWidgetViewRenderer.swift */; };
 		A068234923833C0B00CEE57A /* FormSubmitWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068234823833C0B00CEE57A /* FormSubmitWidgetViewRenderer.swift */; };
@@ -89,6 +90,12 @@
 		A0F45498237B87E900B146A1 /* BeagleNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F45497237B87E800B146A1 /* BeagleNavigator.swift */; };
 		A0F4549A237C1B0F00B146A1 /* BeagleNavigatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F45499237C1B0F00B146A1 /* BeagleNavigatorTests.swift */; };
 		A0F4549C237C474C00B146A1 /* BeagleContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F4549B237C474C00B146A1 /* BeagleContextTests.swift */; };
+		A0FBC1AE238F1C9A005C5E67 /* LazyWidgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FBC1AD238F1C9A005C5E67 /* LazyWidgetTests.swift */; };
+		A0FBC1B0238F1D09005C5E67 /* LazyWidgetEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FBC1AF238F1D09005C5E67 /* LazyWidgetEntityTests.swift */; };
+		A0FBC1B2238F1D8B005C5E67 /* LazyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FBC1B1238F1D8B005C5E67 /* LazyWidget.swift */; };
+		A0FBC1B4238F1DE3005C5E67 /* LazyWidgetEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FBC1B3238F1DE3005C5E67 /* LazyWidgetEntity.swift */; };
+		A0FBC1B623901528005C5E67 /* LazyWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FBC1B523901528005C5E67 /* LazyWidgetViewRenderer.swift */; };
+		A0FBC1B823901558005C5E67 /* LazyWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FBC1B723901558005C5E67 /* LazyWidgetViewRendererTests.swift */; };
 		C62E8EAC2373581200FF1497 /* ScrollViewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62E8EAB2373581200FF1497 /* ScrollViewEntity.swift */; };
 		C62E8EAE2373588900FF1497 /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62E8EAD2373588900FF1497 /* ScrollView.swift */; };
 		C62E8EB023735DB300FF1497 /* ScrollViewWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62E8EAF23735DB300FF1497 /* ScrollViewWidgetViewRenderer.swift */; };
@@ -309,6 +316,7 @@
 		989F7AA023637F2800E4E0E8 /* LayoutViewRendererProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutViewRendererProviderTests.swift; sourceTree = "<group>"; };
 		989F7AA22363842E00E4E0E8 /* UIComponentViewRendererProvidingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponentViewRendererProvidingTests.swift; sourceTree = "<group>"; };
 		989F7AA423638C5700E4E0E8 /* WidgetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTests.swift; sourceTree = "<group>"; };
+		A0642DCE23969BDE0028AFF3 /* OnStateUpdatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnStateUpdatable.swift; sourceTree = "<group>"; };
 		A068234423831EE100CEE57A /* FormWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormWidgetViewRenderer.swift; sourceTree = "<group>"; };
 		A068234623833BE900CEE57A /* FormInputWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormInputWidgetViewRenderer.swift; sourceTree = "<group>"; };
 		A068234823833C0B00CEE57A /* FormSubmitWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSubmitWidgetViewRenderer.swift; sourceTree = "<group>"; };
@@ -347,6 +355,12 @@
 		A0F45497237B87E800B146A1 /* BeagleNavigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeagleNavigator.swift; sourceTree = "<group>"; };
 		A0F45499237C1B0F00B146A1 /* BeagleNavigatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleNavigatorTests.swift; sourceTree = "<group>"; };
 		A0F4549B237C474C00B146A1 /* BeagleContextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleContextTests.swift; sourceTree = "<group>"; };
+		A0FBC1AD238F1C9A005C5E67 /* LazyWidgetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyWidgetTests.swift; sourceTree = "<group>"; };
+		A0FBC1AF238F1D09005C5E67 /* LazyWidgetEntityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyWidgetEntityTests.swift; sourceTree = "<group>"; };
+		A0FBC1B1238F1D8B005C5E67 /* LazyWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LazyWidget.swift; path = Sources/DeclarativeViews/Models/Core/Widget/LazyWidget.swift; sourceTree = SOURCE_ROOT; };
+		A0FBC1B3238F1DE3005C5E67 /* LazyWidgetEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyWidgetEntity.swift; sourceTree = "<group>"; };
+		A0FBC1B523901528005C5E67 /* LazyWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyWidgetViewRenderer.swift; sourceTree = "<group>"; };
+		A0FBC1B723901558005C5E67 /* LazyWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		C62E8EAB2373581200FF1497 /* ScrollViewEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewEntity.swift; sourceTree = "<group>"; };
 		C62E8EAD2373588900FF1497 /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 		C62E8EAF23735DB300FF1497 /* ScrollViewWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewWidgetViewRenderer.swift; sourceTree = "<group>"; };
@@ -639,6 +653,7 @@
 				980262AF2345432B0025A9C3 /* FlexSingleWidgetTests.swift */,
 				989F7AA423638C5700E4E0E8 /* WidgetTests.swift */,
 				A0F454822379701800B146A1 /* NavigatorTests.swift */,
+				A0FBC1AD238F1C9A005C5E67 /* LazyWidgetTests.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -667,6 +682,7 @@
 				A0EF0AAD238853DD0019BE83 /* FormWidgetViewRendererTests.swift */,
 				A0EF0AAF2388679A0019BE83 /* FormInputWidgetViewRendererTests.swift */,
 				A0EF0AB1238871B30019BE83 /* FormSubmitWidgetViewRendererTests.swift */,
+				A0FBC1B723901558005C5E67 /* LazyWidgetViewRendererTests.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -827,6 +843,7 @@
 			isa = PBXGroup;
 			children = (
 				E52236CA23745DED00E555BB /* HTTPRequestCanceling.swift */,
+				A0642DCE23969BDE0028AFF3 /* OnStateUpdatable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1003,6 +1020,7 @@
 				E522377A237C3C5500E555BB /* FlexWidget.swift */,
 				E5223779237C3C5500E555BB /* Navigator.swift */,
 				E5223777237C3C5500E555BB /* Widget.swift */,
+				A0FBC1B1238F1D8B005C5E67 /* LazyWidget.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -1050,6 +1068,7 @@
 				A068234423831EE100CEE57A /* FormWidgetViewRenderer.swift */,
 				A068234623833BE900CEE57A /* FormInputWidgetViewRenderer.swift */,
 				A068234823833C0B00CEE57A /* FormSubmitWidgetViewRenderer.swift */,
+				A0FBC1B523901528005C5E67 /* LazyWidgetViewRenderer.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -1323,6 +1342,7 @@
 				A0EF0AC8238D6E900019BE83 /* FormValidationEntity.swift */,
 				A0EF0ACA238D70430019BE83 /* ShowNativeDialogEntity.swift */,
 				A0EF0ACC238D8B2F0019BE83 /* CustomActionEntity.swift */,
+				A0FBC1B3238F1DE3005C5E67 /* LazyWidgetEntity.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -1449,6 +1469,7 @@
 				A0EF0ACE238D925E0019BE83 /* FormValidationEntityTests.swift */,
 				A0EF0AD0238D94580019BE83 /* ShowNativeDialogEntityTests.swift */,
 				A0EF0AD2238D94FB0019BE83 /* CustomActionEntityTests.swift */,
+				A0FBC1AF238F1D09005C5E67 /* LazyWidgetEntityTests.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -1720,6 +1741,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0F454902379A48100B146A1 /* NavigatorWidgetViewRenderer.swift in Sources */,
+				A0FBC1B4238F1DE3005C5E67 /* LazyWidgetEntity.swift in Sources */,
 				A0EF0AAC238811AA0019BE83 /* CustomActionHandler.swift in Sources */,
 				C62E8EAC2373581200FF1497 /* ScrollViewEntity.swift in Sources */,
 				E5CE41CA233274AE00295277 /* PaddingEntity.swift in Sources */,
@@ -1749,6 +1771,7 @@
 				E5A6F4C52358ED7D008906F8 /* SpacerWidgetViewRenderer.swift in Sources */,
 				E5CE41C223325E2100295277 /* FlexEntity.swift in Sources */,
 				E56A02E22347B6ED00C0F23D /* WidgetViewRenderer.swift in Sources */,
+				A0642DCF23969BDE0028AFF3 /* OnStateUpdatable.swift in Sources */,
 				E5CE41A52331D59E00295277 /* AnyDecodableContainer.swift in Sources */,
 				C85D9B9F2387017C0075B6C0 /* PageViewRenderer.swift in Sources */,
 				A0F4548A23798E7200B146A1 /* NavigatorEntity.swift in Sources */,
@@ -1776,6 +1799,7 @@
 				E52236BF23744AB500E555BB /* ListViewWidgetRenderer.swift in Sources */,
 				931B6E302375BA7400DE73FD /* Theme.swift in Sources */,
 				E5CB5D792354ADF9009783A7 /* ButtonWidgetViewRenderer.swift in Sources */,
+				A0FBC1B623901528005C5E67 /* LazyWidgetViewRenderer.swift in Sources */,
 				A0F4548B23798E7C00B146A1 /* NavigateEntity.swift in Sources */,
 				E7DA3EE023872426000F065E /* PageViewEntity.swift in Sources */,
 				9303B08C2357B49A008BAA6D /* ContainerWidgetViewRenderer.swift in Sources */,
@@ -1786,6 +1810,7 @@
 				E5CB5D732354ADC7009783A7 /* TextWidgetViewRenderer.swift in Sources */,
 				E5CB5D8F2354E4CD009783A7 /* BeagleEnvironment.swift in Sources */,
 				A06823502384328700CEE57A /* InputValue.swift in Sources */,
+				A0FBC1B2238F1D8B005C5E67 /* LazyWidget.swift in Sources */,
 				E522376B237C3C1300E555BB /* ListView.swift in Sources */,
 				9835E204238306A400F7CBFA /* NavigationBarWidgetViewRenderer.swift in Sources */,
 				E5223785237C3CC500E555BB /* FormSubmit.swift in Sources */,
@@ -1869,11 +1894,13 @@
 				E5CB5D7E2354AE62009783A7 /* TextWidgetViewRendererTests.swift in Sources */,
 				E531D6BC235A007C007EEBA7 /* UIView+LoadingTests.swift in Sources */,
 				E5223788237C464D00E555BB /* FormEntityTests.swift in Sources */,
+				A0FBC1AE238F1C9A005C5E67 /* LazyWidgetTests.swift in Sources */,
 				C65F25372375E6C2007670EC /* ScrollViewTests.swift in Sources */,
 				980262AE2345431B0025A9C3 /* FlexWidgetTests.swift in Sources */,
 				E56A02CD23462B0000C0F23D /* StackTests.swift in Sources */,
 				E52236D2237499C300E555BB /* ListItemCollectionViewCellTests.swift in Sources */,
 				985EBAA32358BC960042C19A /* ContainerWidgetViewRendererTests.swift in Sources */,
+				A0FBC1B0238F1D09005C5E67 /* LazyWidgetEntityTests.swift in Sources */,
 				E56A02CB23462AD100C0F23D /* VerticalTests.swift in Sources */,
 				A0EF0ABB238877530019BE83 /* ActionExecutorTests.swift in Sources */,
 				A0EF0AB9238877460019BE83 /* CustomActionHandlerTests.swift in Sources */,
@@ -1921,6 +1948,7 @@
 				E5CE422823340EA100295277 /* UnitValueEntityTests.swift in Sources */,
 				A0EF0AB02388679A0019BE83 /* FormInputWidgetViewRendererTests.swift in Sources */,
 				E5A6F4C22358ED00008906F8 /* Flex+Fixture.swift in Sources */,
+				A0FBC1B823901558005C5E67 /* LazyWidgetViewRendererTests.swift in Sources */,
 				A0EF0AD3238D94FB0019BE83 /* CustomActionEntityTests.swift in Sources */,
 				A0EF0ABE238B05A10019BE83 /* ValidatorHandlerTests.swift in Sources */,
 				E5A6F4B12358DF06008906F8 /* WidgetViewRendererTests.swift in Sources */,
