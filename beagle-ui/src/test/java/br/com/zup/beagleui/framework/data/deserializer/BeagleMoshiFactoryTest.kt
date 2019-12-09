@@ -15,6 +15,7 @@ import br.com.zup.beagleui.framework.widget.layout.Container
 import br.com.zup.beagleui.framework.widget.layout.FlexSingleWidget
 import br.com.zup.beagleui.framework.widget.layout.FlexWidget
 import br.com.zup.beagleui.framework.widget.layout.Horizontal
+import br.com.zup.beagleui.framework.widget.layout.ScrollView
 import br.com.zup.beagleui.framework.widget.layout.Spacer
 import br.com.zup.beagleui.framework.widget.layout.Stack
 import br.com.zup.beagleui.framework.widget.layout.Vertical
@@ -240,6 +241,19 @@ class BeagleMoshiFactoryTest {
         // Then
         assertNotNull(actual)
         assertTrue(actual is LazyWidget)
+    }
+
+    @Test
+    fun make_should_return_moshi_to_deserialize_a_ScrollView() {
+        // Given
+        val json = makeScrollViewJson()
+
+        // When
+        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+
+        // Then
+        assertNotNull(actual)
+        assertTrue(actual is ScrollView)
     }
 
     @Test

@@ -3,6 +3,7 @@ package br.com.zup.beagleui.framework.view
 import android.content.Context
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.HorizontalScrollView
 import android.widget.ImageView
 import android.widget.ScrollView
 import androidx.appcompat.app.AlertDialog
@@ -23,9 +24,15 @@ internal class ViewFactory {
     fun makeBeagleFlexView(context: Context, flex: Flex) =
         BeagleFlexView(context = context, flex = flex)
 
-    fun makeScrollView(context: Context) = ScrollView(context).apply {
-        isFillViewport = true
-    }
+    fun makeScrollView(context: Context) =
+        ScrollView(context).apply {
+            isFillViewport = true
+        }
+
+    fun makeHorizontalScrollView(context: Context) =
+        HorizontalScrollView(context).apply {
+            isFillViewport = true
+        }
 
     fun makeButton(context: Context) = BeagleButtonView(context)
 

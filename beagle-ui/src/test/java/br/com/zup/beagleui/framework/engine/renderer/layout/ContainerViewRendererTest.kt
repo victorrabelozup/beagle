@@ -3,17 +3,17 @@ package br.com.zup.beagleui.framework.engine.renderer.layout
 import android.content.Context
 import android.graphics.Color
 import android.view.View
-import android.widget.ScrollView
 import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
-import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.view.BeagleFlexView
+import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.widget.core.Flex
 import br.com.zup.beagleui.framework.widget.core.FlexDirection
 import br.com.zup.beagleui.framework.widget.core.JustifyContent
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.layout.Container
+import br.com.zup.beagleui.framework.widget.layout.Expanded
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
@@ -21,6 +21,7 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkStatic
+import io.mockk.slot
 import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
@@ -49,8 +50,6 @@ class ContainerViewRendererTest {
     private lateinit var viewRenderer: ViewRenderer
     @MockK
     private lateinit var view: View
-    @MockK
-    private lateinit var scrollView: ScrollView
 
     private lateinit var containerViewRenderer: ContainerViewRenderer
 
@@ -60,10 +59,8 @@ class ContainerViewRendererTest {
 
         mockkStatic(Color::class)
 
-        every { viewFactory.makeScrollView(any()) } returns scrollView
         every { viewFactory.makeBeagleFlexView(any()) } returns beagleFlexView
         every { viewFactory.makeBeagleFlexView(any(), any()) } returns beagleFlexView
-        every { scrollView.addView(any()) } just Runs
         every { beagleFlexView.addView(any()) } just Runs
         every { beagleFlexView.addView(any(), any<Flex>()) } just Runs
         every { container.header } returns null
@@ -105,43 +102,27 @@ class ContainerViewRendererTest {
         containerViewRenderer.build(rootView)
 
         // Then
-        verify(atLeast = 1) { viewRendererFactory.make(widget) }
-        verify(atLeast = 1) { viewRenderer.build(rootView) }
-        verify(atLeast = 1) { beagleFlexView.addView(view) }
+        verify(atLeast = once()) { viewRendererFactory.make(widget) }
+        verify(atLeast = once()) { viewRenderer.build(rootView) }
+        verify(atLeast = once()) { beagleFlexView.addView(view) }
     }
 
     @Test
     fun build_should_call_content_builder() {
         // Given
         val content = mockk<Widget>()
-        val containerViewRendererMock = mockk<ContainerViewRenderer>()
+        val expanded = slot<Expanded>()
         every { container.content } returns content
-        every { viewRendererFactory.make(content) } returns containerViewRendererMock
-        every { containerViewRendererMock.build(rootView) } returns view
+        every { viewRendererFactory.make(capture(expanded)) } returns viewRenderer
 
         // When
         containerViewRenderer.build(rootView)
 
         // Then
-        verify(exactly = once()) { viewRendererFactory.make(content) }
-        verify(exactly = once()) { containerViewRendererMock.build(rootView) }
-    }
-
-    @Test
-    fun build_should_create_a_scrollView() {
-        // Given
-        val flexValues = mutableListOf<Flex>()
-        every { viewFactory.makeBeagleFlexView(any(), capture(flexValues)) } returns beagleFlexView
-
-        // When
-        containerViewRenderer.build(rootView)
-
-        // Then
-        verify(exactly = once()) { viewFactory.makeScrollView(context) }
-        verify(exactly = once()) { scrollView.addView(beagleFlexView) }
-        verify(exactly = once()) { beagleFlexView.addView(view) }
-        verify(exactly = once()) { beagleFlexView.addView(scrollView, any<Flex>()) }
-        assertEquals(1.0, flexValues[1].grow)
+        verify(exactly = once()) { viewRendererFactory.make(expanded.captured) }
+        verify(atLeast = once()) { viewRenderer.build(rootView) }
+        verify(atLeast = once()) { beagleFlexView.addView(view) }
+        assertEquals(content, expanded.captured.child)
     }
 
     @Test
@@ -153,8 +134,8 @@ class ContainerViewRendererTest {
         containerViewRenderer.build(rootView)
 
         // Then
-        verify(atLeast = 1) { viewRendererFactory.make(widget) }
-        verify(atLeast = 1) { viewRenderer.build(rootView) }
-        verify(atLeast = 1) { beagleFlexView.addView(view) }
+        verify(atLeast = once()) { viewRendererFactory.make(widget) }
+        verify(atLeast = once()) { viewRenderer.build(rootView) }
+        verify(atLeast = once()) { beagleFlexView.addView(view) }
     }
 }

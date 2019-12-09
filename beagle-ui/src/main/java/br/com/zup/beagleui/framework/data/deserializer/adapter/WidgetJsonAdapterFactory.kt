@@ -4,9 +4,11 @@ import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.widget.UndefinedWidget
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.layout.Container
+import br.com.zup.beagleui.framework.widget.layout.Expanded
 import br.com.zup.beagleui.framework.widget.layout.FlexSingleWidget
 import br.com.zup.beagleui.framework.widget.layout.FlexWidget
 import br.com.zup.beagleui.framework.widget.layout.Horizontal
+import br.com.zup.beagleui.framework.widget.layout.ScrollView
 import br.com.zup.beagleui.framework.widget.layout.Spacer
 import br.com.zup.beagleui.framework.widget.layout.Stack
 import br.com.zup.beagleui.framework.widget.layout.StatefulWidget
@@ -52,6 +54,8 @@ class WidgetJsonAdapterFactory {
             .withSubtype(Spacer::class.java, createNamespaceFor<Spacer>())
             .withSubtype(StatefulWidget::class.java, createNamespaceFor<StatefulWidget>())
             .withSubtype(UpdatableWidget::class.java, createNamespaceFor<UpdatableWidget>())
+            .withSubtype(ScrollView::class.java, createNamespaceFor<ScrollView>())
+            .withSubtype(Expanded::class.java, createNamespaceFor<Expanded>())
             .withSubtype(LazyWidget::class.java, createNamespaceFor<LazyWidget>())
     }
 

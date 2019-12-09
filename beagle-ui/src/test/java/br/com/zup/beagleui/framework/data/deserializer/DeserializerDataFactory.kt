@@ -132,6 +132,29 @@ fun makeLazyWidgetJson() = """
     }
 """
 
+fun makeScrollViewJson() = """
+    {
+    "_beagleType_": "beagle:widget:scrollview",
+    "children": [
+        {
+            "_beagleType_": "beagle:widget:flexwidget",
+            "flex": {
+                "flexDirection": "ROW"
+            },
+            "children": [
+                ${makeTextJson()},
+                ${makeTextJson()},
+                ${makeTextJson()},
+                ${makeTextJson()},
+                ${makeTextJson()},
+                ${makeTextJson()}
+            ]
+        }
+    ],
+    "scrollDirection": "HORIZONTAL"
+}
+"""
+
 fun makeNavigationActionJson() = """
     {
         "_beagleType_": "beagle:action:navigate",

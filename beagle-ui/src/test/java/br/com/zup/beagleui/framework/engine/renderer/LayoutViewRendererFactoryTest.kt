@@ -10,12 +10,15 @@ import br.com.zup.beagleui.framework.engine.renderer.layout.NavigatorViewRendere
 import br.com.zup.beagleui.framework.engine.renderer.layout.SpacerViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.StackViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.VerticalViewRender
+import br.com.zup.beagleui.framework.engine.renderer.layout.*
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.form.Form
 import br.com.zup.beagleui.framework.widget.layout.Container
+import br.com.zup.beagleui.framework.widget.layout.Expanded
 import br.com.zup.beagleui.framework.widget.layout.FlexSingleWidget
 import br.com.zup.beagleui.framework.widget.layout.FlexWidget
 import br.com.zup.beagleui.framework.widget.layout.Horizontal
+import br.com.zup.beagleui.framework.widget.layout.ScrollView
 import br.com.zup.beagleui.framework.widget.layout.Spacer
 import br.com.zup.beagleui.framework.widget.layout.Stack
 import br.com.zup.beagleui.framework.widget.layout.Vertical
@@ -145,6 +148,30 @@ class LayoutViewRendererFactoryTest {
         val actual = viewRendererFactory.make(widget)
 
         assertTrue(actual is FormViewRenderer)
+    }
+
+    @Test
+    fun make_should_return_ScrollViewRenderer_when_widget_is_a_ScrollView() {
+        // Given
+        val widget = mockk<ScrollView>()
+
+        // When
+        val actual = viewRendererFactory.make(widget)
+
+        // Then
+        assertTrue(actual is ScrollViewRenderer)
+    }
+
+    @Test
+    fun make_should_return_ExpandedViewRenderer_when_widget_is_a_Expanded() {
+        // Given
+        val widget = mockk<Expanded>()
+
+        // When
+        val actual = viewRendererFactory.make(widget)
+
+        // Then
+        assertTrue(actual is ExpandedViewRenderer)
     }
 
     @Test
