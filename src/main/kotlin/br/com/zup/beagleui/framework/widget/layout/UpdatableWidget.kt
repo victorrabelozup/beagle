@@ -11,6 +11,8 @@ data class UpdatableWidget(
 
 data class UpdatableState(val targetId: String,
                           val staticState: Widget? = null,
-                          val dynamicState: DynamicState? = null)
+                          val dynamicState: DynamicState? = null,
+                          val remoteState: RemoteState? = null)
 
 data class DynamicState(val stateOriginField: String, val targetField: String, val originId: String)
+data class RemoteState(val originId: String)
