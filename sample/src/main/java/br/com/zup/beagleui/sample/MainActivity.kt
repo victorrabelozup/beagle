@@ -12,6 +12,7 @@ import br.com.zup.beagleui.sample.fragment.DynamicStatefulFragment
 import br.com.zup.beagleui.sample.fragment.LazyWidgetFragment
 import br.com.zup.beagleui.sample.fragment.ScrollViewFragment
 import br.com.zup.beagleui.sample.fragment.StaticStatefulFragment
+import br.com.zup.beagleui.sample.fragment.RemoteStatefulFragment
 import br.com.zup.beagleui.sample.fragment.TextFieldFragment
 
 class MainActivity : AppCompatActivity() {
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                     "https://t001-2751a.firebaseapp.com/flow/step1.json"
                 )
             )
+            R.id.remote_stateful -> goToFragment(RemoteStatefulFragment.newInstance())
         }
     }
 

@@ -11,7 +11,7 @@ import br.com.zup.beagleui.framework.widget.layout.DynamicState
 import br.com.zup.beagleui.framework.widget.layout.UpdatableState
 import br.com.zup.beagleui.framework.widget.layout.UpdatableWidget
 
-class StatefulDynamicHelper {
+internal class StatefulDynamicHelper {
 
     fun handleDynamicState(
         targetView: View,

@@ -7,7 +7,9 @@ import android.widget.TextView
 import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
+import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.state.StatefulRendererHelper
+import br.com.zup.beagleui.framework.utils.findChildViewForType
 import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.layout.StatefulWidget
@@ -20,6 +22,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
+import io.mockk.verify
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -70,7 +73,7 @@ class StatefulWidgetViewRendererTest {
 
     private val context = mockk<Context>()
     private val viewRenderer = mockk<ViewRenderer>()
-    private val viewGroup = mockk<ViewGroup>()
+    private val viewGroup = mockk<ViewGroup>(relaxUnitFun = true)
     private val childViewButton = mockk<View>(relaxUnitFun = true)
     private val childViewText = mockk<TextView>(relaxUnitFun = true)
 
@@ -86,6 +89,8 @@ class StatefulWidgetViewRendererTest {
 
         // When
         val actual = subject.build(rootView)
+        verify(exactly = once()) { viewRendererFactory.make(childWidgetButton) }
+        verify(exactly = once()) { viewRenderer.build(rootView) }
 
         // Then
         Assert.assertTrue(actual is View)
@@ -99,6 +104,7 @@ class StatefulWidgetViewRendererTest {
         every { viewGroup.getChildAt(0) } returns childViewButton
         every { viewGroup.getChildAt(1) } returns childViewText
         every { statefulWidget.child } returns childWidgetButton
+        every { viewGroup.tag } returns null
         every { childViewButton.tag } returns updatableWidgetButton
         every { childViewText.tag } returns updatableWidgetText
         every { rootView.getContext() } returns context

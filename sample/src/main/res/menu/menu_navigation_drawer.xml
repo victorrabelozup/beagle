@@ -10,6 +10,12 @@
             tools:ignore="HardcodedText" />
 
         <item
+            android:id="@+id/remote_stateful"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Remote Stateful example"
+            tools:ignore="HardcodedText" />
+
+        <item
             android:id="@+id/stateful_dynamic"
             android:icon="@mipmap/ic_launcher"
             android:title="Stateful Dynamic example"

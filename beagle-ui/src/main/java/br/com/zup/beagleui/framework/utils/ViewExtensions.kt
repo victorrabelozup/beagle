@@ -85,15 +85,24 @@ private fun <T> findChildViewForType(
     elementList: MutableList<View>,
     type: Class<T>
 ) {
+
+    if(isAssignableFrom(viewGroup, type))
+        elementList.add(viewGroup)
+
     viewGroup.children.forEach { childView ->
         when {
             childView is ViewGroup -> findChildViewForType(childView, elementList, type)
-            childView.tag != null && type.isAssignableFrom(childView.tag.javaClass) -> {
+            isAssignableFrom(childView, type) -> {
                 elementList.add(childView)
             }
         }
     }
 }
+
+private fun <T> isAssignableFrom(
+    viewGroup: View,
+    type: Class<T>
+) = viewGroup.tag != null && type.isAssignableFrom(viewGroup.tag.javaClass)
 
 internal inline fun <reified T> ViewGroup.findChildViewForType(type: Class<T>): MutableList<View> {
     val elementList = mutableListOf<View>()
@@ -109,4 +118,8 @@ internal fun List<View>.findChildViewForUpdatableWidgetId(
     return this.find { child ->
         (child.tag as UpdatableWidget).id == widgetId
     }
+}
+
+fun View.saveBeagleTag(tag: Any) {
+    this.tag = tag
 }

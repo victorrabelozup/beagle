@@ -29,13 +29,14 @@ class StatefulDynamicHelperTest {
     private val dinamicState = UpdatableState(
         targetId = "txt3",
         dynamicState = DynamicState(
-            originId = "txt3",
+            originId = "txt1",
             stateOriginField = "value",
             targetField = "text"
         )
     )
 
     private var updatableWidgetButton: UpdatableWidget = UpdatableWidget(
+        id = "txt1",
         child = Button("Click to update"),
         updateStates = listOf(
             dinamicState

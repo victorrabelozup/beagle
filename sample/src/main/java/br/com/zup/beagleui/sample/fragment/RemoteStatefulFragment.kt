@@ -15,16 +15,17 @@ import br.com.zup.beagleui.framework.widget.core.UnitType
 import br.com.zup.beagleui.framework.widget.core.UnitValue
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.layout.Container
-import br.com.zup.beagleui.framework.widget.layout.DynamicState
 import br.com.zup.beagleui.framework.widget.layout.FlexSingleWidget
 import br.com.zup.beagleui.framework.widget.layout.FlexWidget
+import br.com.zup.beagleui.framework.widget.layout.RemoteState
 import br.com.zup.beagleui.framework.widget.layout.StatefulWidget
 import br.com.zup.beagleui.framework.widget.layout.UpdatableState
 import br.com.zup.beagleui.framework.widget.layout.UpdatableWidget
+import br.com.zup.beagleui.framework.widget.lazy.LazyWidget
 import br.com.zup.beagleui.framework.widget.ui.Button
 import br.com.zup.beagleui.sample.widgets.TextField
 
-class DynamicStatefulFragment : Fragment() {
+class RemoteStatefulFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,10 +59,8 @@ class DynamicStatefulFragment : Fragment() {
                     updateStates = listOf(
                         UpdatableState(
                             targetId = "txt3",
-                            dynamicState = DynamicState(
-                                originId = "txt2",
-                                stateOriginField = "value",
-                                targetField = "description"
+                            remoteState = RemoteState(
+                                originId = "txt2"
                             )
                         )
                     )
@@ -69,30 +68,18 @@ class DynamicStatefulFragment : Fragment() {
             ),
             FlexSingleWidget(
                 child = UpdatableWidget(
-                    child = TextField(description = "Default Text2"),
-                    id = "txt2",
-                    updateStates = listOf(
-                        UpdatableState(
-                            targetId = "txt4",
-                            dynamicState = DynamicState(
-                                originId = "this",
-                                stateOriginField = "value",
-                                targetField = "description"
-                            )
-                        )
-                    )
+//                    child = TextField(description = "5dde6da5310000d2253ae1f1"),
+                    child = TextField(description = "5de80ce52f00008400c023ab"),
+                    id = "txt2"
                 ), flex = Flex(size = Size(width = UnitValue(80.0, UnitType.PERCENT)))
             ),
             FlexSingleWidget(
                 child = UpdatableWidget(
-                    child = TextField(description = "Default Text3"),
+                    child = LazyWidget(
+                        url = "http://www.mocky.io/v2/#{value}",
+                        initialState = TextField(description = "Select..")
+                    ),
                     id = "txt3"
-                ), flex = Flex(size = Size(width = UnitValue(80.0, UnitType.PERCENT)))
-            ),
-            FlexSingleWidget(
-                child = UpdatableWidget(
-                    child = TextField(description = "Default Text4"),
-                    id = "txt4"
                 ), flex = Flex(size = Size(width = UnitValue(80.0, UnitType.PERCENT)))
             )
         )
@@ -100,8 +87,8 @@ class DynamicStatefulFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(): DynamicStatefulFragment {
-            return DynamicStatefulFragment()
+        fun newInstance(): RemoteStatefulFragment {
+            return RemoteStatefulFragment()
         }
     }
 }

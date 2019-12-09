@@ -32,27 +32,29 @@ internal class StatefulWidgetViewRenderer(
             elementList = view.findChildViewForType(UpdatableWidget::class.java)
         }
 
-        addEventHandler(elementList)
+        addEventHandler(elementList, rootView)
 
         return view
     }
 
-    private fun addEventHandler(elementList: List<View>) {
+    private fun addEventHandler(elementList: List<View>, rootView: RootView) {
         elementList.forEach { element ->
-            addEventHandler(element, elementList)
+            addEventHandler(element, elementList, rootView)
         }
     }
 
     private fun addEventHandler(
         view: View,
-        children: List<View>
+        children: List<View>,
+        rootView: RootView
     ) {
         val updatableWidget = view.tag as UpdatableWidget
         updatableWidget.updateStates?.forEach { updatableState ->
             setupHandler(
                 updatableState,
                 view,
-                children
+                children,
+                rootView
             )
         }
     }
@@ -60,7 +62,8 @@ internal class StatefulWidgetViewRenderer(
     private fun setupHandler(
         updatableState: UpdatableState,
         view: View,
-        children: List<View>
+        children: List<View>,
+        rootView: RootView
     ) {
 
         if (view is StateChangeable) {
@@ -69,7 +72,7 @@ internal class StatefulWidgetViewRenderer(
                     o: Observable<WidgetState>,
                     widgetState: WidgetState
                 ) {
-                    statefulRendererHelper.handleStateChange(updatableState, children, widgetState)
+                    statefulRendererHelper.handleStateChange(updatableState, children, rootView, widgetState)
                 }
             })
         }

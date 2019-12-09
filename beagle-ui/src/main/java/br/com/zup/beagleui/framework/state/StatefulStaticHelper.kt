@@ -5,7 +5,7 @@ import br.com.zup.beagleui.framework.interfaces.OnStateUpdatable
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.layout.UpdatableState
 
-class StatefulStaticHelper {
+internal class StatefulStaticHelper {
 
     @Suppress("UNCHECKED_CAST")
     fun notifyStaticState(

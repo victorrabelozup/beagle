@@ -30,7 +30,12 @@ internal class BeagleView(
 
     var stateChangedListener: StateChangedListener? = null
 
+    val observer = Observer<ViewState> { state ->
+        handleResponse(state)
+    }
+
     private lateinit var rootView: RootView
+    private var view: View? = null
 
     private val viewModel by lazy { generateViewModelInstance() }
 
@@ -43,17 +48,22 @@ internal class BeagleView(
     }
 
     private fun loadView(rootView: RootView, url: String, view: View?) {
+        this.view = view
         this.rootView = rootView
+        viewModel.state.removeObserver { observer }
+        viewModel.state.observe(rootView.getLifecycleOwner(), observer)
 
         viewModel.fetchWidget(url)
 
-        viewModel.state.observe(rootView.getLifecycleOwner(), Observer { state ->
-            when (state) {
-                is ViewState.Loading -> handleLoading(state.value)
-                is ViewState.Error -> handleError(state.throwable)
-                is ViewState.Result<*> -> renderWidget(state.data as Widget, view)
-            }
-        })
+    }
+
+    private fun handleResponse(
+        state: ViewState?) {
+        when (state) {
+            is ViewState.Loading -> handleLoading(state.value)
+            is ViewState.Error -> handleError(state.throwable)
+            is ViewState.Result<*> -> renderWidget(state.data as Widget, view)
+        }
     }
 
     private fun handleLoading(isLoading: Boolean) {
@@ -80,6 +90,7 @@ internal class BeagleView(
             }
         } else {
             val widgetView = widget.toView(rootView)
+            removeAllViewsInLayout()
             addView(widgetView)
         }
     }

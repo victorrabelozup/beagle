@@ -1,7 +1,9 @@
 package br.com.zup.beagleui.framework.state
 
+import android.content.Context
 import android.view.View
 import android.widget.TextView
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.interfaces.WidgetState
 import br.com.zup.beagleui.framework.widget.layout.DynamicState
 import br.com.zup.beagleui.framework.widget.layout.UpdatableState
@@ -29,6 +31,18 @@ class StatefulRendererHelperTest {
 
     @MockK
     private lateinit var statefulStaticHelper: StatefulStaticHelper
+
+    @MockK
+    private lateinit var statefulRemoteHelper: StatefulRemoteHelper
+
+    @MockK
+    private lateinit var currentWidgetState: WidgetState
+
+    @MockK
+    private lateinit var context: Context
+
+    @MockK
+    private lateinit var rootView: RootView
 
     private val widgetState = WidgetState(value = HELLO_STRING)
 
@@ -67,6 +81,8 @@ class StatefulRendererHelperTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this, relaxUnitFun = true)
+        every { rootView.getContext() } returns context
+
     }
 
     @Test
@@ -74,7 +90,7 @@ class StatefulRendererHelperTest {
         every { childViewButton.tag } returns updatableWidgetButton
         every { childViewText.tag } returns updatableWidgetText
 
-        subject.handleStateChange(updatableStateDynamic, viewListDynamic, widgetState)
+        subject.handleStateChange(updatableStateDynamic, viewListDynamic, rootView, currentWidgetState)
 
         verifyHandleState(isDynamic = true)
     }
@@ -89,7 +105,7 @@ class StatefulRendererHelperTest {
         every { childViewButton.tag } returns updatableWidgetButton
         every { childViewText.tag } returns updatableWidgetText
 
-        subject.handleStateChange(updatableStateStatic, viewListStatic)
+        subject.handleStateChange(updatableStateStatic, viewListStatic, rootView, currentWidgetState)
 
         verifyHandleState(isDynamic = false)
     }
