@@ -8,6 +8,7 @@ import br.com.zup.beagleui.framework.mockdata.CustomWidget
 import br.com.zup.beagleui.framework.mockdata.CustomWidgetFactory
 import br.com.zup.beagleui.framework.navigation.BeagleDeepLinkHandler
 import br.com.zup.beagleui.framework.networking.HttpClient
+import br.com.zup.beagleui.framework.testutil.RandomData
 import br.com.zup.beagleui.framework.widget.core.NativeWidget
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
@@ -43,7 +44,7 @@ class BeagleInitializerTest {
 
         mockkObject(BeagleEnvironment)
 
-        every { BeagleEnvironment.setup(any(), any(), any()) } just Runs
+        every { BeagleEnvironment.setup(any(), any(), any(), any()) } just Runs
         every {
             BeagleEnvironment.registerWidget(
                 any<Class<NativeWidget>>(),
@@ -61,9 +62,17 @@ class BeagleInitializerTest {
 
     @Test
     fun setup_should_call_BeagleEnvironment_setup() {
-        BeagleInitializer.setup(APP_NAME, application, Environment.DEBUG)
+        val baseUrl = RandomData.httpUrl().toString()
+        BeagleInitializer.setup(APP_NAME, application, Environment.DEBUG, baseUrl)
 
-        verify(exactly = once()) { BeagleEnvironment.setup(APP_NAME, application, Environment.DEBUG) }
+        verify(exactly = once()) {
+            BeagleEnvironment.setup(
+                APP_NAME,
+                application,
+                Environment.DEBUG,
+                baseUrl
+            )
+        }
     }
 
     @Test

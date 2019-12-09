@@ -42,7 +42,7 @@ internal class FormSubmitter(
 
     private fun createRequestData(form: Form, formsValue: Map<String, String>): RequestData {
         return RequestData(
-            url = createUrl(form, formsValue),
+            endpoint = createUrl(form, formsValue),
             method = when (form.method) {
                 FormMethodType.POST -> HttpMethod.POST
                 FormMethodType.GET -> HttpMethod.GET

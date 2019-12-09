@@ -1,6 +1,7 @@
 package br.com.zup.beagleui.framework.networking
 
 import br.com.zup.beagleui.framework.extensions.once
+import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.testutil.CoroutineTestRule
 import br.com.zup.beagleui.framework.testutil.RandomData
 import io.mockk.MockKAnnotations
@@ -9,6 +10,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
 import io.mockk.mockk
+import io.mockk.mockkObject
 import io.mockk.mockkStatic
 import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,14 +28,15 @@ import kotlin.test.assertFails
 import kotlin.test.assertTrue
 import kotlin.test.fail
 
-private val REQUEST_DATA = RequestData(url = RandomData.httpUrl())
+private val REQUEST_DATA = RequestData(path = RandomData.httpUrl(), endpoint = RandomData.httpUrl())
 private val BYTE_ARRAY_DATA = byteArrayOf()
 private const val STATUS_CODE = 200
 
 @ExperimentalCoroutinesApi
 class HttpClientDefaultTest {
 
-    @get:Rule val scope = CoroutineTestRule()
+    @get:Rule
+    val scope = CoroutineTestRule()
 
     @MockK
     private lateinit var url: URL
@@ -50,6 +53,7 @@ class HttpClientDefaultTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
+        mockkObject(BeagleEnvironment)
 
         urlRequestDispatchingDefault = HttpClientDefault(urlFactory)
 
@@ -73,7 +77,7 @@ class HttpClientDefaultTest {
         val headerValue = RandomData.string()
         val headers = mapOf(headerName to listOf(headerValue))
         every { httpURLConnection.headerFields } returns headers
-        
+
         lateinit var resultData: ResponseData
         urlRequestDispatchingDefault.execute(REQUEST_DATA, onSuccess = {
             resultData = it
@@ -101,7 +105,11 @@ class HttpClientDefaultTest {
             Pair(RandomData.string(), RandomData.string()),
             Pair(RandomData.string(), RandomData.string())
         )
-        val requestData = RequestData(url = RandomData.httpUrl(), headers = headers)
+        val requestData = RequestData(
+            path = RandomData.httpUrl(),
+            endpoint = RandomData.httpUrl(),
+            headers = headers
+        )
 
         // When
         urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
@@ -117,7 +125,12 @@ class HttpClientDefaultTest {
         // Given
         val data = RandomData.string()
         val outputStream = mockk<OutputStream>()
-        val requestData = RequestData(url = RandomData.httpUrl(), body = data, method = HttpMethod.POST)
+        val requestData = RequestData(
+            path = RandomData.httpUrl(),
+            endpoint = RandomData.httpUrl(),
+            body = data,
+            method = HttpMethod.POST
+        )
         every { httpURLConnection.outputStream } returns outputStream
         every { outputStream.write(any<ByteArray>()) } just Runs
 
@@ -126,160 +139,227 @@ class HttpClientDefaultTest {
 
         // Then
         verify(exactly = once()) { outputStream.write(data.toByteArray()) }
-        verify(exactly = once()) { httpURLConnection.setRequestProperty("Content-Length", data.length.toString()) }
+        verify(exactly = once()) {
+            httpURLConnection.setRequestProperty(
+                "Content-Length",
+                data.length.toString()
+            )
+        }
     }
 
     @Test
-    fun execute_should_throw_IllegalArgumentException_when_data_is_set_for_HttpMethod_GET() = runBlockingTest {
-        // Given
-        val method = HttpMethod.GET
-        val requestData = RequestData(
-            url = RandomData.httpUrl(),
-            body = RandomData.string(),
-            method = method
-        )
+    fun execute_should_throw_IllegalArgumentException_when_data_is_set_for_HttpMethod_GET() =
+        runBlockingTest {
+            // Given
+            val method = HttpMethod.GET
+            val requestData = RequestData(
+                path = RandomData.httpUrl(),
+                endpoint = RandomData.httpUrl(),
+                body = RandomData.string(),
+                method = method
+            )
 
-        // When
-        val exception = assertFails("$method does not support request body") {
-            urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
+            // When
+            val exception = assertFails("$method does not support request body") {
+                urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
+            }
+
+            // Then
+            assertTrue(exception is IllegalArgumentException)
         }
-
-        // Then
-        assertTrue(exception is IllegalArgumentException)
-    }
 
     @Test
-    fun execute_should_throw_IllegalArgumentException_when_data_is_set_for_HttpMethod_DELETE() = runBlockingTest {
-        // Given
-        val method = HttpMethod.DELETE
-        val requestData = RequestData(
-            url = RandomData.httpUrl(),
-            body = RandomData.string(),
-            method = method
-        )
+    fun execute_should_throw_IllegalArgumentException_when_data_is_set_for_HttpMethod_DELETE() =
+        runBlockingTest {
+            // Given
+            val method = HttpMethod.DELETE
+            val requestData = RequestData(
+                path = RandomData.httpUrl(),
+                endpoint = RandomData.httpUrl(),
+                body = RandomData.string(),
+                method = method
+            )
 
-        // When
-        val exception = assertFails("$method does not support request body") {
-            urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
+            // When
+            val exception = assertFails("$method does not support request body") {
+                urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
+            }
+
+            // Then
+            assertTrue(exception is IllegalArgumentException)
         }
-
-        // Then
-        assertTrue(exception is IllegalArgumentException)
-    }
 
     @Test
-    fun execute_should_throw_IllegalArgumentException_when_data_is_set_for_HttpMethod_HEAD() = runBlockingTest {
-        // Given
-        val method = HttpMethod.HEAD
-        val requestData = RequestData(
-            url = RandomData.httpUrl(),
-            body = RandomData.string(),
-            method = method
-        )
+    fun execute_should_throw_IllegalArgumentException_when_data_is_set_for_HttpMethod_HEAD() =
+        runBlockingTest {
+            // Given
+            val method = HttpMethod.HEAD
+            val requestData = RequestData(
+                path = RandomData.httpUrl(),
+                endpoint = RandomData.httpUrl(),
+                body = RandomData.string(),
+                method = method
+            )
 
-        // When
-        val exception = assertFails("$method does not support request body") {
-            urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
+            // When
+            val exception = assertFails("$method does not support request body") {
+                urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
+            }
+
+            // Then
+            assertTrue(exception is IllegalArgumentException)
         }
-
-        // Then
-        assertTrue(exception is IllegalArgumentException)
-    }
 
     @Test
-    fun execute_should_throw_IllegalStateException_when_data_is_set_for_HttpMethod_DELETE() = runBlockingTest {
-        // Given
-        val method = HttpMethod.GET
-        val requestData = RequestData(
-            url = RandomData.httpUrl(),
-            body = RandomData.string(),
-            method = method
-        )
+    fun execute_should_throw_IllegalStateException_when_data_is_set_for_HttpMethod_DELETE() =
+        runBlockingTest {
+            // Given
+            val method = HttpMethod.GET
+            val requestData = RequestData(
+                path = RandomData.httpUrl(),
+                endpoint = RandomData.httpUrl(),
+                body = RandomData.string(),
+                method = method
+            )
 
-        // When
-        val exception = assertFails("$method does not support request body") {
-            urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
+            // When
+            val exception = assertFails("$method does not support request body") {
+                urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
+            }
+
+            // Then
+            assertTrue(exception is IllegalArgumentException)
         }
-
-        // Then
-        assertTrue(exception is IllegalArgumentException)
-    }
 
     @Test
     fun execute_should_set_HttpMethod_GET() = runBlockingTest {
         // Given
-        val requestData = RequestData(url = RandomData.httpUrl(), method = HttpMethod.GET)
+        val requestData = RequestData(
+            path = RandomData.httpUrl(),
+            endpoint = RandomData.httpUrl(),
+            method = HttpMethod.GET
+        )
 
         // When
         urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
 
         // Then
-        verify(exactly = 0) { httpURLConnection.setRequestProperty("X-HTTP-Method-Override", "GET") }
+        verify(exactly = 0) {
+            httpURLConnection.setRequestProperty(
+                "X-HTTP-Method-Override",
+                "GET"
+            )
+        }
         verify(exactly = once()) { httpURLConnection.requestMethod = "GET" }
     }
 
     @Test
     fun execute_should_set_HttpMethod_POST() = runBlockingTest {
         // Given
-        val requestData = RequestData(url = RandomData.httpUrl(), method = HttpMethod.POST)
+        val requestData = RequestData(
+            path = RandomData.httpUrl(),
+            endpoint = RandomData.httpUrl(),
+            method = HttpMethod.POST
+        )
 
         // When
         urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
 
         // Then
-        verify(exactly = 0) { httpURLConnection.setRequestProperty("X-HTTP-Method-Override", "POST") }
+        verify(exactly = 0) {
+            httpURLConnection.setRequestProperty(
+                "X-HTTP-Method-Override",
+                "POST"
+            )
+        }
         verify(exactly = once()) { httpURLConnection.requestMethod = "POST" }
     }
 
     @Test
     fun execute_should_set_HttpMethod_PUT() = runBlockingTest {
         // Given
-        val requestData = RequestData(url = RandomData.httpUrl(), method = HttpMethod.PUT)
+        val requestData = RequestData(
+            path = RandomData.httpUrl(),
+            endpoint = RandomData.httpUrl(),
+            method = HttpMethod.PUT
+        )
 
         // When
         urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
 
         // Then
-        verify(exactly = 0) { httpURLConnection.setRequestProperty("X-HTTP-Method-Override", "PUT") }
+        verify(exactly = 0) {
+            httpURLConnection.setRequestProperty(
+                "X-HTTP-Method-Override",
+                "PUT"
+            )
+        }
         verify(exactly = once()) { httpURLConnection.requestMethod = "PUT" }
     }
 
     @Test
     fun execute_should_set_HttpMethod_DELETE() = runBlockingTest {
         // Given
-        val requestData = RequestData(url = RandomData.httpUrl(), method = HttpMethod.DELETE)
+        val requestData = RequestData(
+            path = RandomData.httpUrl(),
+            endpoint = RandomData.httpUrl(),
+            method = HttpMethod.DELETE
+        )
 
         // When
         urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
 
         // Then
-        verify(exactly = 0) { httpURLConnection.setRequestProperty("X-HTTP-Method-Override", "DELETE") }
+        verify(exactly = 0) {
+            httpURLConnection.setRequestProperty(
+                "X-HTTP-Method-Override",
+                "DELETE"
+            )
+        }
         verify(exactly = once()) { httpURLConnection.requestMethod = "DELETE" }
     }
 
     @Test
     fun execute_should_set_HttpMethod_HEAD() = runBlockingTest {
         // Given
-        val requestData = RequestData(url = RandomData.httpUrl(), method = HttpMethod.HEAD)
+        val requestData = RequestData(
+            path = RandomData.httpUrl(),
+            endpoint = RandomData.httpUrl(),
+            method = HttpMethod.HEAD
+        )
 
         // When
         urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
 
         // Then
-        verify(exactly = once()) { httpURLConnection.setRequestProperty("X-HTTP-Method-Override", "HEAD") }
+        verify(exactly = once()) {
+            httpURLConnection.setRequestProperty(
+                "X-HTTP-Method-Override",
+                "HEAD"
+            )
+        }
         verify(exactly = once()) { httpURLConnection.requestMethod = "POST" }
     }
 
     @Test
     fun execute_should_set_HttpMethod_PATCH() = runBlockingTest {
         // Given
-        val requestData = RequestData(url = RandomData.httpUrl(), method = HttpMethod.PATCH)
+        val requestData = RequestData(
+            path = RandomData.httpUrl(),
+            endpoint = RandomData.httpUrl(),
+            method = HttpMethod.PATCH
+        )
 
         // When
         urlRequestDispatchingDefault.execute(requestData, onSuccess = {}, onError = {})
 
         // Then
-        verify(exactly = once()) { httpURLConnection.setRequestProperty("X-HTTP-Method-Override", "PATCH") }
+        verify(exactly = once()) {
+            httpURLConnection.setRequestProperty(
+                "X-HTTP-Method-Override",
+                "PATCH"
+            )
+        }
         verify(exactly = once()) { httpURLConnection.requestMethod = "POST" }
     }
 

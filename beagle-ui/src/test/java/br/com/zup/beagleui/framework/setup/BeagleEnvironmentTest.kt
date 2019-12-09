@@ -4,6 +4,7 @@ import android.app.Application
 import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.mockdata.CustomWidget
 import br.com.zup.beagleui.framework.mockdata.CustomWidgetFactory
+import br.com.zup.beagleui.framework.testutil.RandomData
 import br.com.zup.beagleui.framework.testutil.setPrivateField
 import com.facebook.soloader.SoLoader
 import io.mockk.MockKAnnotations
@@ -40,7 +41,7 @@ class BeagleEnvironmentTest {
 
     @Test
     fun setup_should_save_application_and_appName() {
-        BeagleEnvironment.setup(APP_NAME, application, Environment.DEBUG)
+        BeagleEnvironment.setup(APP_NAME, application, Environment.DEBUG, RandomData.string())
 
         assertEquals(APP_NAME, BeagleEnvironment.appName)
         assertEquals(application, BeagleEnvironment.application)
@@ -49,23 +50,37 @@ class BeagleEnvironmentTest {
 
     @Test
     fun setup_should_start_soLoader() {
-        BeagleEnvironment.setup(APP_NAME, application, Environment.DEBUG)
+        BeagleEnvironment.setup(APP_NAME, application, Environment.DEBUG, RandomData.string())
 
         verify(exactly = once()) { SoLoader.init(application, false) }
     }
 
     @Test
     fun setup_should_throw_exception_when_start_is_called_twice() {
-        BeagleEnvironment.setup(APP_NAME, application, Environment.DEBUG)
+        BeagleEnvironment.setup(APP_NAME, application, Environment.DEBUG, RandomData.string())
 
         val message = "You should not call setup() twice"
-        assertFails(message = message) { BeagleEnvironment.setup(APP_NAME, application, Environment.DEBUG) }
+        assertFails(message = message) {
+            BeagleEnvironment.setup(
+                APP_NAME,
+                application,
+                Environment.DEBUG,
+                RandomData.string()
+            )
+        }
     }
 
     @Test
     fun setup_should_throw_exception_when_applicationName_is_empty() {
         val message = "appName should be initialized with a non empty value"
-        assertFails(message = message) { BeagleEnvironment.setup("", application, Environment.DEBUG) }
+        assertFails(message = message) {
+            BeagleEnvironment.setup(
+                "",
+                application,
+                Environment.DEBUG,
+                RandomData.string()
+            )
+        }
     }
 
     @Test

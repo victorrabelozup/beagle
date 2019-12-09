@@ -13,7 +13,7 @@ class BeagleUiSampleApplication : Application() {
 
         BeagleInitializer
             .registerCustomActionHandler(AppCustomActionHandler())
-            .setup("sample", this, Environment.DEBUG)
+            .setup("sample", this, Environment.DEBUG, "https://t001-2751a.firebaseapp.com/")
             .registerWidget(TextField::class.java, TextFieldViewFactory())
             .registerDesignSystem(AppDesignSystem(this))
     }

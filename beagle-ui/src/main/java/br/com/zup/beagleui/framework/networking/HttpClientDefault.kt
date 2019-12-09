@@ -1,5 +1,6 @@
 package br.com.zup.beagleui.framework.networking
 
+import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.utils.CoroutineDispatchers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -17,6 +18,7 @@ internal class HttpClientDefault(
 
     private val job = Job()
     override val coroutineContext = job + CoroutineDispatchers.IO
+    private val urlFormatter = UrlFormatter()
 
     override fun execute(
         request: RequestData,
@@ -51,7 +53,12 @@ internal class HttpClientDefault(
     private fun doHttpRequest(
         request: RequestData
     ): ResponseData {
-        val urlConnection = urlFactory.make(request.url).openConnection() as HttpURLConnection
+        val urlConnection = urlFactory.make(
+            urlFormatter.format(
+                request.path?: BeagleEnvironment.baseUrl,
+                request.endpoint
+            )
+        ).openConnection() as HttpURLConnection
 
         urlConnection.setRequestProperty("Content-Type", "application/json")
         request.headers.forEach {

@@ -1,6 +1,7 @@
 package br.com.zup.beagleui.framework.form
 
 import br.com.zup.beagleui.framework.data.deserializer.BeagleDeserializer
+import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.networking.HttpClient
 import br.com.zup.beagleui.framework.networking.HttpMethod
 import br.com.zup.beagleui.framework.networking.RequestData
@@ -11,14 +12,12 @@ import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import br.com.zup.beagleui.framework.extensions.once
 import io.mockk.mockk
 import io.mockk.slot
 import io.mockk.verify
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.*
 
 private val FORMS_VALUE = mapOf<String, String>()
 
@@ -63,7 +62,7 @@ class FormSubmitterTest {
         val requestData = requestDataSlot.captured
         assertEquals(HttpMethod.POST, requestData.method)
         assertEquals("""{"$inputName":"$inputValue"}""", requestData.body)
-        assertEquals(action, requestData.url)
+        assertEquals(action, requestData.endpoint)
     }
 
     @Test
@@ -144,7 +143,7 @@ class FormSubmitterTest {
         formSubmitter.submitForm(form, FORMS_VALUE) {}
 
         // Then
-        assertEquals(action, requestDataSlot.captured.url)
+        assertEquals(action, requestDataSlot.captured.endpoint)
     }
 
     @Test
@@ -169,7 +168,7 @@ class FormSubmitterTest {
         val element0 = formElements.elementAt(0)
         val element1 = formElements.elementAt(1)
         val expected = "$action?${element0.key}=${element0.value}&${element1.key}=${element1.value}"
-        assertEquals(expected, requestDataSlot.captured.url)
+        assertEquals(expected, requestDataSlot.captured.endpoint)
     }
 
     @Test
@@ -194,7 +193,7 @@ class FormSubmitterTest {
         val element0 = formElements.elementAt(0)
         val element1 = formElements.elementAt(1)
         val expected = "$action?${element0.key}=${element0.value}&${element1.key}=${element1.value}"
-        assertEquals(expected, requestDataSlot.captured.url)
+        assertEquals(expected, requestDataSlot.captured.endpoint)
     }
 
     @Test
@@ -218,7 +217,8 @@ class FormSubmitterTest {
         val formElements = formsValue.entries
         val element0 = formElements.elementAt(0)
         val element1 = formElements.elementAt(1)
-        val expected = """{"${element0.key}":"${element0.value}", "${element1.key}":"${element1.value}"}"""
+        val expected =
+            """{"${element0.key}":"${element0.value}", "${element1.key}":"${element1.value}"}"""
         assertEquals(expected, requestDataSlot.captured.body)
     }
 
@@ -243,7 +243,8 @@ class FormSubmitterTest {
         val formElements = formsValue.entries
         val element0 = formElements.elementAt(0)
         val element1 = formElements.elementAt(1)
-        val expected = """{"${element0.key}":"${element0.value}", "${element1.key}":"${element1.value}"}"""
+        val expected =
+            """{"${element0.key}":"${element0.value}", "${element1.key}":"${element1.value}"}"""
         assertEquals(expected, requestDataSlot.captured.body)
     }
 }

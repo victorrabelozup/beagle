@@ -21,9 +21,10 @@ class BeagleInitializer private constructor() {
         fun setup(
             appName: String,
             application: Application,
-            environment: Environment
+            environment: Environment,
+            baseUrl: String
         ): Companion {
-            BeagleEnvironment.setup(appName, application, environment)
+            BeagleEnvironment.setup(appName, application, environment, baseUrl)
             return this
         }
 
