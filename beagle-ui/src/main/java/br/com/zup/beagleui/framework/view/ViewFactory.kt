@@ -49,4 +49,8 @@ internal class ViewFactory {
     fun makeFrameLayout(context: Context) = FrameLayout(context)
 
     fun makeFrameLayoutParams(width: Int, height: Int) = FrameLayout.LayoutParams(width, height)
+
+    fun makeViewPager(context: Context) = BeaglePageView(context)
+
+    fun makePageIndicator(context: Context) = BeaglePageIndicatorView(context)
 }

@@ -57,6 +57,7 @@ class WidgetJsonAdapterFactory {
             .withSubtype(ScrollView::class.java, createNamespaceFor<ScrollView>())
             .withSubtype(Expanded::class.java, createNamespaceFor<Expanded>())
             .withSubtype(LazyWidget::class.java, createNamespaceFor<LazyWidget>())
+//            .withSubtype(PageView::class.java, createNamespaceFor<PageView>())
     }
 
     private fun registerUIClass(
@@ -69,6 +70,7 @@ class WidgetJsonAdapterFactory {
             .withSubtype(ListView::class.java, createNamespaceFor<ListView>())
             .withSubtype(Navigator::class.java, createNamespaceFor<Navigator>())
             .withSubtype(NavigationBar::class.java, createNamespaceFor<NavigationBar>())
+//            .withSubtype(PageIndicator::class.java, createNamespaceFor<PageIndicator>())
     }
 
     private fun registerCustomWidget(

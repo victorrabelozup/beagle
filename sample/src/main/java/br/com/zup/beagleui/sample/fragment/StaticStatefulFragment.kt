@@ -63,7 +63,6 @@ class StaticStatefulFragment : Fragment() {
                 )
             )
         )
-
         return declarative.toView(this)
     }
 

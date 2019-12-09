@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import br.com.zup.beagleui.framework.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
-import br.com.zup.beagleui.framework.state.Observable
 import br.com.zup.beagleui.framework.interfaces.Observer
 import br.com.zup.beagleui.framework.interfaces.StateChangeable
 import br.com.zup.beagleui.framework.interfaces.WidgetState
+import br.com.zup.beagleui.framework.state.Observable
 import br.com.zup.beagleui.framework.state.StatefulRendererHelper
 import br.com.zup.beagleui.framework.utils.findChildViewForType
 import br.com.zup.beagleui.framework.view.ViewFactory
@@ -77,5 +77,4 @@ internal class StatefulWidgetViewRenderer(
             })
         }
     }
-
 }

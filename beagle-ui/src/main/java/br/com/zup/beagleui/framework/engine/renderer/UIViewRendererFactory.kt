@@ -9,6 +9,7 @@ import br.com.zup.beagleui.framework.engine.renderer.ui.ListViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.NativeWidgetViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.NavigationBarViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.NetworkImageViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.ui.PageIndicatorViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.TextViewRenderer
 import br.com.zup.beagleui.framework.widget.core.NativeWidget
 import br.com.zup.beagleui.framework.widget.core.Widget
@@ -19,6 +20,7 @@ import br.com.zup.beagleui.framework.widget.ui.Image
 import br.com.zup.beagleui.framework.widget.ui.ListView
 import br.com.zup.beagleui.framework.widget.ui.NavigationBar
 import br.com.zup.beagleui.framework.widget.ui.NetworkImage
+import br.com.zup.beagleui.framework.widget.ui.PageIndicator
 import br.com.zup.beagleui.framework.widget.ui.Text
 
 internal class UIViewRendererFactory : AbstractViewRendererFactory {
@@ -34,6 +36,7 @@ internal class UIViewRendererFactory : AbstractViewRendererFactory {
                 is NavigationBar -> NavigationBarViewRenderer(widget)
                 is FormInput -> FormInputViewRenderer(widget)
                 is FormSubmit -> FormSubmitViewRenderer(widget)
+                is PageIndicator -> PageIndicatorViewRenderer(widget)
                 else -> NativeWidgetViewRenderer(widget)
             }
         } else {

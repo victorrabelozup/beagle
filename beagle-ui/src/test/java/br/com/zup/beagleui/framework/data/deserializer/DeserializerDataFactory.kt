@@ -155,6 +155,31 @@ fun makeScrollViewJson() = """
 }
 """
 
+fun makePageViewWidgetJson() = """
+    "_beagleType_": "beagle:widget:pageview",
+    "pages": [
+        ${makeButtonJson()},
+        ${makeButtonJson()},
+        ${makeButtonJson()}
+    ]
+"""
+
+fun makePageIndicatorWidgetJson() = """
+    {
+    "_beagleType_": "beagle:widget:pageview",
+    "pages": [
+        ${makeButtonJson()},
+        ${makeButtonJson()},
+        ${makeButtonJson()}
+    ],
+    "pageIndicator": {
+        "_beagleType_": "beagle:widget:pageindicator",
+        "selectedColor": "#FFFFFF",
+        "unselectedColor": "#888888"
+    }
+}
+"""
+
 fun makeNavigationActionJson() = """
     {
         "_beagleType_": "beagle:action:navigate",

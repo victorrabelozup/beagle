@@ -15,6 +15,7 @@ import br.com.zup.beagleui.framework.widget.layout.Container
 import br.com.zup.beagleui.framework.widget.layout.FlexSingleWidget
 import br.com.zup.beagleui.framework.widget.layout.FlexWidget
 import br.com.zup.beagleui.framework.widget.layout.Horizontal
+import br.com.zup.beagleui.framework.widget.layout.PageView
 import br.com.zup.beagleui.framework.widget.layout.ScrollView
 import br.com.zup.beagleui.framework.widget.layout.Spacer
 import br.com.zup.beagleui.framework.widget.layout.Stack
@@ -24,6 +25,7 @@ import br.com.zup.beagleui.framework.widget.ui.Button
 import br.com.zup.beagleui.framework.widget.ui.Image
 import br.com.zup.beagleui.framework.widget.ui.ListView
 import br.com.zup.beagleui.framework.widget.ui.NetworkImage
+import br.com.zup.beagleui.framework.widget.ui.PageIndicator
 import br.com.zup.beagleui.framework.widget.ui.Text
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -31,6 +33,7 @@ import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import org.junit.After
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
@@ -254,6 +257,34 @@ class BeagleMoshiFactoryTest {
         // Then
         assertNotNull(actual)
         assertTrue(actual is ScrollView)
+    }
+
+    @Test
+    @Ignore("Remove ignore when moshi is fixed")
+    fun make_should_return_moshi_to_deserialize_a_PageView() {
+        // Given
+        val json = makePageViewWidgetJson()
+
+        // When
+        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+
+        // Then
+        assertNotNull(actual)
+        assertTrue(actual is PageView)
+    }
+
+    @Test
+    @Ignore("Remove ignore when moshi is fixed")
+    fun make_should_return_moshi_to_deserialize_a_PageIndicator() {
+        // Given
+        val json = makePageIndicatorWidgetJson()
+
+        // When
+        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+
+        // Then
+        assertNotNull(actual)
+        assertTrue(actual is PageIndicator)
     }
 
     @Test

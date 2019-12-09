@@ -1,4 +1,4 @@
-package br.com.zup.beagleui.sample.widgets
+package br.com.zup.beagleui.sample.components
 
 import android.content.Context
 import android.graphics.Color
@@ -14,6 +14,8 @@ import br.com.zup.beagleui.framework.interfaces.OnStateUpdatable
 import br.com.zup.beagleui.framework.interfaces.StateChangeable
 import br.com.zup.beagleui.framework.interfaces.WidgetState
 import br.com.zup.beagleui.framework.view.WidgetViewFactory
+import br.com.zup.beagleui.sample.widgets.TextField
+import br.com.zup.beagleui.sample.widgets.TextFieldInputType
 
 class TextFieldView(context: Context) : EditText(context), StateChangeable,
     OnStateUpdatable<TextField> {

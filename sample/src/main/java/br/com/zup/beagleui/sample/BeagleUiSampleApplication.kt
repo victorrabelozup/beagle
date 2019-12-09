@@ -4,7 +4,7 @@ import android.app.Application
 import br.com.zup.beagleui.framework.setup.BeagleInitializer
 import br.com.zup.beagleui.framework.setup.Environment
 import br.com.zup.beagleui.sample.widgets.TextField
-import br.com.zup.beagleui.sample.widgets.TextFieldViewFactory
+import br.com.zup.beagleui.sample.components.TextFieldViewFactory
 
 class BeagleUiSampleApplication : Application() {
 

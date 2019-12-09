@@ -1,11 +1,17 @@
 package br.com.zup.beagleui.framework.utils
 
+import android.app.Activity
+import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import androidx.core.view.size
 import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
+import br.com.zup.beagleui.framework.engine.renderer.ActivityRootView
+import br.com.zup.beagleui.framework.engine.renderer.FragmentRootView
+import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.view.BeagleButtonView
 import br.com.zup.beagleui.framework.view.BeagleTextView
@@ -15,12 +21,6 @@ import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.widget.layout.UpdatableWidget
 import br.com.zup.beagleui.framework.widget.ui.Button
 import br.com.zup.beagleui.framework.widget.ui.Text
-import android.app.Activity
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import br.com.zup.beagleui.framework.engine.renderer.ActivityRootView
-import br.com.zup.beagleui.framework.engine.renderer.FragmentRootView
-import br.com.zup.beagleui.framework.engine.renderer.RootView
 
 internal var viewExtensionsViewFactory = ViewFactory()
 
@@ -86,7 +86,7 @@ private fun <T> findChildViewForType(
     type: Class<T>
 ) {
 
-    if(isAssignableFrom(viewGroup, type))
+    if (isAssignableFrom(viewGroup, type))
         elementList.add(viewGroup)
 
     viewGroup.children.forEach { childView ->
