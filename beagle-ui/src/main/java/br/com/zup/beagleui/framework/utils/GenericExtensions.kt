@@ -1,5 +1,6 @@
 package br.com.zup.beagleui.framework.utils
 
+import androidx.core.util.PatternsCompat
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.WildcardType
 
@@ -23,3 +24,5 @@ fun <I, G> Any.implementsGenericTypeOf(
             genericType == typeClass
         }
 }
+
+fun String.isValidUrl(): Boolean = PatternsCompat.WEB_URL.matcher(this).matches()

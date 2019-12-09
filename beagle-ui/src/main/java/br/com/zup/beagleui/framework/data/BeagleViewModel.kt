@@ -25,6 +25,7 @@ internal class BeagleViewModel(
     val state = MutableLiveData<ViewState>()
 
     fun fetchWidget(url: String) = launch {
+
         state.value = ViewState.Loading(true)
 
         try {
@@ -35,6 +36,7 @@ internal class BeagleViewModel(
         }
 
         state.value = ViewState.Loading(false)
+
     }
 
     fun fetchAction(url: String) = launch {

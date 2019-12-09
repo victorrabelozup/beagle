@@ -1,17 +1,20 @@
 package br.com.zup.beagleui.framework.networking
 
-import androidx.core.util.PatternsCompat
+import br.com.zup.beagleui.framework.utils.isValidUrl
+import java.net.MalformedURLException
 import java.net.URL
 
 internal class UrlFormatter {
     fun format(path: String, endpoint: String): String {
-        // path should end with a '/' and ignore anything after it
-        val url = URL(path.substring(0, (path.lastIndexOf("/") + 1)))
-
         // if endpoint has a host, return it as url
-        if (PatternsCompat.WEB_URL.matcher(endpoint).matches()) {
+        if (endpoint.isValidUrl()) {
             return endpoint
         }
+
+        if (path.isEmpty()) throw MalformedURLException("Invalid base url")
+
+        // path should end with a '/' and ignore anything after it
+        val url = URL(path.substring(0, (path.lastIndexOf("/") + 1)))
 
         // if endpoint is an scheme, replace url's scheme
         if (endpoint.startsWith("//")) {

@@ -30,7 +30,7 @@ internal class BeagleView(
 
     var stateChangedListener: StateChangedListener? = null
 
-    val observer = Observer<ViewState> { state ->
+    private val observer = Observer<ViewState> { state ->
         handleResponse(state)
     }
 

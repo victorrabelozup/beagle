@@ -44,12 +44,12 @@ class BeagleUIFragment : Fragment(), StateChangedListener {
 
     private fun createBeagleView(view: ViewGroup) {
         view.addView(BeagleView(view.context).apply {
+            stateChangedListener = this@BeagleUIFragment
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
             loadView(FragmentRootView(this@BeagleUIFragment), screenUrl)
-            stateChangedListener = this@BeagleUIFragment
         })
     }
 

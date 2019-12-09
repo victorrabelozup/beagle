@@ -2,7 +2,7 @@ package br.com.zup.beagleui.framework.networking
 
 data class RequestData(
     val endpoint: String,
-    val path: String? = "",
+    val path: String? = null,
     val method: HttpMethod = HttpMethod.GET,
     val headers: Map<String, String> = mapOf(),
     val body: String? = null
