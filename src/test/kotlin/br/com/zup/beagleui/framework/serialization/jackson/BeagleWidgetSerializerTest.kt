@@ -1,7 +1,7 @@
 package br.com.zup.beagleui.framework.serialization.jackson
 
 import br.com.zup.beagleui.framework.config.BeagleEnvironment
-import br.com.zup.beagleui.framework.widget.core.NativeWidget
+import br.com.zup.beagleui.framework.widget.core.ComposeWidget
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.ui.Button
 import br.com.zup.beagleui.framework.widget.ui.Text
@@ -42,7 +42,7 @@ class BeagleWidgetSerializerTest {
     }
 
     @Test
-    fun serialize_should_serialize_a_NativeWidget() {
+    fun serialize_should_serialize_a_Widget() {
         // Given
         val textValue = "Hello"
         val widget = Text(textValue)
@@ -93,8 +93,8 @@ class BeagleWidgetSerializerTest {
 
 class CustomWidget(
     private val value: String
-) : Widget {
+) : ComposeWidget {
     override fun build(): Widget = Button(value)
 }
 
-class CustomNativeWidget : NativeWidget
+class CustomNativeWidget : Widget

@@ -1,6 +1,5 @@
 package br.com.zup.beagleui.framework.widget.ui
 
-import br.com.zup.beagleui.framework.widget.core.NativeWidget
 import br.com.zup.beagleui.framework.widget.core.Widget
 
 enum class ListDirection {
@@ -15,7 +14,7 @@ data class ListView(
     val remoteDataSource: String? = null,
     val loadingState: Widget? = null,
     val direction: ListDirection = ListDirection.VERTICAL
-) : NativeWidget {
+) : Widget {
 
     companion object {
         @JvmStatic

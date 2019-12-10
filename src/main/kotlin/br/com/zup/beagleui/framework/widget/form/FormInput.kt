@@ -1,8 +1,8 @@
 package br.com.zup.beagleui.framework.widget.form
 
-import br.com.zup.beagleui.framework.widget.core.NativeWidget
+import br.com.zup.beagleui.framework.widget.core.Widget
 
-interface InputWidget : NativeWidget
+interface InputWidget : Widget
 
 data class FormInput(
     val name: String,
@@ -10,4 +10,4 @@ data class FormInput(
     val validator: String? = null,
     val errorMessage: String? = null,
     val child: InputWidget
-) : NativeWidget
+) : Widget

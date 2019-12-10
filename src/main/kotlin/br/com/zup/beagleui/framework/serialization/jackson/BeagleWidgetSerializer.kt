@@ -1,12 +1,11 @@
 package br.com.zup.beagleui.framework.serialization.jackson
 
 import br.com.zup.beagleui.framework.config.BeagleEnvironment
-import br.com.zup.beagleui.framework.widget.core.NativeWidget
+import br.com.zup.beagleui.framework.widget.core.ComposeWidget
 import br.com.zup.beagleui.framework.widget.core.Widget
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.ser.std.StdSerializer
-import java.lang.reflect.Modifier
 
 private const val TYPE = "_beagleType_"
 private const val WIDGET_NAMESPACE = "widget"
@@ -18,10 +17,10 @@ class BeagleWidgetSerializer(
 
     override fun serialize(widget: Widget?, gen: JsonGenerator?, provider: SerializerProvider?) {
         if (widget != null && gen != null) {
-            if (widget is NativeWidget) {
-                serializeWidget(widget, gen)
-            } else {
+            if (widget is ComposeWidget) {
                 serializeWidget(widget.build(), gen)
+            } else {
+                serializeWidget(widget, gen)
             }
         }
     }

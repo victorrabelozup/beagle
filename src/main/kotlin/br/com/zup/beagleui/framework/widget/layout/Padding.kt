@@ -1,8 +1,7 @@
 package br.com.zup.beagleui.framework.widget.layout
 
-import br.com.zup.beagleui.framework.widget.core.NativeWidget
-import br.com.zup.beagleui.framework.widget.core.UnitValue
 import br.com.zup.beagleui.framework.widget.core.Widget
+import br.com.zup.beagleui.framework.widget.core.UnitValue
 
 data class PaddingValue(
     val top: UnitValue? = null,
@@ -14,4 +13,4 @@ data class PaddingValue(
 data class Padding(
     val value: PaddingValue,
     val child: Widget
-) : NativeWidget
+) : Widget
