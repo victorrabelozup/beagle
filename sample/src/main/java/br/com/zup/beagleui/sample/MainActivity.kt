@@ -15,6 +15,7 @@ import br.com.zup.beagleui.sample.fragment.StaticStatefulFragment
 import br.com.zup.beagleui.sample.fragment.RemoteStatefulFragment
 import br.com.zup.beagleui.sample.fragment.PageViewFragment
 import br.com.zup.beagleui.sample.fragment.TextFieldFragment
+import br.com.zup.beagleui.sample.fragment.ImageViewFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,6 +45,7 @@ class MainActivity : AppCompatActivity() {
             R.id.textField -> goToFragment(TextFieldFragment.newInstance())
             R.id.scroll -> goToFragment(ScrollViewFragment.newInstance())
             R.id.lazywidget -> goToFragment(LazyWidgetFragment.newInstance())
+            R.id.image -> goToFragment(ImageViewFragment.newInstance())
             R.id.pageView -> goToFragment(PageViewFragment.newInstance())
             R.id.pageView2 -> startActivity(BeagleUIActivity.newIntent(this, "http://10.0.2.2:8080/sample"))
             // Navigation Bar requires an activity without toolbar

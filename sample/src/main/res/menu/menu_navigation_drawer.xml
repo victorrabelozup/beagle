@@ -52,6 +52,12 @@
             tools:ignore="HardcodedText" />
 
         <item
+            android:id="@+id/image"
+            android:icon="@mipmap/ic_launcher"
+            android:title="ImageView"
+            tools:ignore="HardcodedText" />
+
+        <item
             android:id="@+id/pageView"
             android:icon="@mipmap/ic_launcher"
             android:title="PageView Declarative"
