@@ -1,5 +1,5 @@
 package br.com.zup.beagleui.framework.mockdata
 
-import br.com.zup.beagleui.framework.widget.core.NativeWidget
+import br.com.zup.beagleui.framework.widget.core.Widget
 
-class CustomWidget : NativeWidget
+class CustomWidget : Widget

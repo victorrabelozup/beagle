@@ -5,10 +5,10 @@ import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.UIViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.setup.BeagleEnvironment
-import br.com.zup.beagleui.framework.widget.core.NativeWidget
+import br.com.zup.beagleui.framework.widget.core.Widget
 
-internal class NativeWidgetViewRenderer(
-    private val widget: NativeWidget,
+internal class CustomWidgetViewRenderer(
+    private val widget: Widget,
     private val viewRendererFactory: ViewRendererFactory = ViewRendererFactory()
 ) : UIViewRenderer {
     override fun build(rootView: RootView): View {

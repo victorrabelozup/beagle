@@ -7,7 +7,7 @@ import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.view.WidgetViewFactory
-import br.com.zup.beagleui.framework.widget.core.NativeWidget
+import br.com.zup.beagleui.framework.widget.core.Widget
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -20,10 +20,10 @@ import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class NativeWidgetViewRendererTest {
+class CustomWidgetViewRendererTest {
 
     @MockK
-    private lateinit var widget: NativeWidget
+    private lateinit var widget: Widget
     @MockK
     private lateinit var context: Context
     @MockK
@@ -31,11 +31,11 @@ class NativeWidgetViewRendererTest {
     @MockK
     private lateinit var viewRendererFactory: ViewRendererFactory
     @MockK
-    private lateinit var widgetViewFactory: WidgetViewFactory<NativeWidget>
+    private lateinit var widgetViewFactory: WidgetViewFactory<Widget>
     @MockK
     private lateinit var rootView: RootView
 
-    private lateinit var nativeWidgetViewRenderer: NativeWidgetViewRenderer
+    private lateinit var customWidgetViewRenderer: CustomWidgetViewRenderer
 
     @Before
     fun setUp() {
@@ -43,7 +43,7 @@ class NativeWidgetViewRendererTest {
 
         every { rootView.getContext() } returns context
 
-        nativeWidgetViewRenderer = NativeWidgetViewRenderer(widget, viewRendererFactory)
+        customWidgetViewRenderer = CustomWidgetViewRenderer(widget, viewRendererFactory)
 
         mockkObject(BeagleEnvironment)
     }
@@ -53,17 +53,18 @@ class NativeWidgetViewRendererTest {
         unmockkObject(BeagleEnvironment)
     }
 
+    @Suppress("UNCHECKED_CAST")
     @Test
     fun build_should_make_a_native_view() {
         // Given
         every { widgetViewFactory.make(context, widget) } returns view
         every { BeagleEnvironment.widgets } returns mapOf(Pair(
-            widget::class.java as Class<NativeWidget>,
+            widget::class.java as Class<Widget>,
             widgetViewFactory
         ))
 
         // When
-        val actual = nativeWidgetViewRenderer.build(rootView)
+        val actual = customWidgetViewRenderer.build(rootView)
 
         // Then
         assertEquals(view, actual)
@@ -78,7 +79,7 @@ class NativeWidgetViewRendererTest {
         every { undefinedViewRenderer.build(any()) } returns view
 
         // When
-        val actual = nativeWidgetViewRenderer.build(rootView)
+        val actual = customWidgetViewRenderer.build(rootView)
 
         // Then
         assertEquals(view, actual)

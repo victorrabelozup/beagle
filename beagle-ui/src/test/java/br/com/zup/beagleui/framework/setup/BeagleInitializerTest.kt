@@ -9,7 +9,7 @@ import br.com.zup.beagleui.framework.mockdata.CustomWidgetFactory
 import br.com.zup.beagleui.framework.navigation.BeagleDeepLinkHandler
 import br.com.zup.beagleui.framework.networking.HttpClient
 import br.com.zup.beagleui.framework.testutil.RandomData
-import br.com.zup.beagleui.framework.widget.core.NativeWidget
+import br.com.zup.beagleui.framework.widget.core.Widget
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
@@ -47,7 +47,7 @@ class BeagleInitializerTest {
         every { BeagleEnvironment.setup(any(), any(), any(), any()) } just Runs
         every {
             BeagleEnvironment.registerWidget(
-                any<Class<NativeWidget>>(),
+                any<Class<Widget>>(),
                 any()
             )
         } just Runs

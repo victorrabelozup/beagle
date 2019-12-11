@@ -6,12 +6,12 @@ import br.com.zup.beagleui.framework.engine.renderer.layout.FormSubmitViewRender
 import br.com.zup.beagleui.framework.engine.renderer.ui.ButtonViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.ImageViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.ListViewRenderer
-import br.com.zup.beagleui.framework.engine.renderer.ui.NativeWidgetViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.ui.CustomWidgetViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.NavigationBarViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.NetworkImageViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.PageIndicatorViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.TextViewRenderer
-import br.com.zup.beagleui.framework.widget.core.NativeWidget
+import br.com.zup.beagleui.framework.widget.core.ComposeWidget
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.form.FormInput
 import br.com.zup.beagleui.framework.widget.form.FormSubmit
@@ -26,7 +26,9 @@ import br.com.zup.beagleui.framework.widget.ui.Text
 internal class UIViewRendererFactory : AbstractViewRendererFactory {
 
     override fun make(widget: Widget): ViewRenderer {
-        return if (widget is NativeWidget) {
+        return if (widget is ComposeWidget) {
+            BuildableWidgetViewRenderer(widget)
+        } else {
             when (widget) {
                 is Button -> ButtonViewRenderer(widget)
                 is Text -> TextViewRenderer(widget)
@@ -37,10 +39,8 @@ internal class UIViewRendererFactory : AbstractViewRendererFactory {
                 is FormInput -> FormInputViewRenderer(widget)
                 is FormSubmit -> FormSubmitViewRenderer(widget)
                 is PageIndicator -> PageIndicatorViewRenderer(widget)
-                else -> NativeWidgetViewRenderer(widget)
+                else -> CustomWidgetViewRenderer(widget)
             }
-        } else {
-            BuildableWidgetViewRenderer(widget)
         }
     }
 }

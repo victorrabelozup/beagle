@@ -1,6 +1,6 @@
 package br.com.zup.beagleui.sample.widgets
 
-import br.com.zup.beagleui.framework.widget.core.NativeWidget
+import br.com.zup.beagleui.framework.widget.core.Widget
 
 data class TextField(
     val id: String? = null,
@@ -9,7 +9,7 @@ data class TextField(
     val color: String = "#000000",
     val mask: String? = null,
     val inputType: TextFieldInputType? = null
-) : NativeWidget
+) : Widget
 
 enum class TextFieldInputType {
     NUMBER,

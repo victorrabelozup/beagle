@@ -6,11 +6,11 @@ import br.com.zup.beagleui.framework.engine.renderer.layout.FormSubmitViewRender
 import br.com.zup.beagleui.framework.engine.renderer.ui.ButtonViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.ImageViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.ListViewRenderer
-import br.com.zup.beagleui.framework.engine.renderer.ui.NativeWidgetViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.ui.CustomWidgetViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.NavigationBarViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.NetworkImageViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.ui.TextViewRenderer
-import br.com.zup.beagleui.framework.widget.core.NativeWidget
+import br.com.zup.beagleui.framework.widget.core.ComposeWidget
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.form.FormInput
 import br.com.zup.beagleui.framework.widget.form.FormSubmit
@@ -95,21 +95,21 @@ class UIViewRendererFactoryTest {
     }
 
     @Test
-    fun make_should_return_NativeWidgetViewRenderer_when_widget_is_a_NativeWidget() {
+    fun make_should_return_CustomWidgetViewRenderer_when_widget_is_a_NativeWidget() {
         // Given
-        val widget = mockk<NativeWidget>()
+        val widget = mockk<Widget>()
 
         // When
         val actual = viewRendererFactory.make(widget)
 
         // Then
-        assertTrue(actual is NativeWidgetViewRenderer)
+        assertTrue(actual is CustomWidgetViewRenderer)
     }
 
     @Test
-    fun make_should_return_BuildableWidgetViewRenderer_when_widget_is_not_a_NativeWidget() {
+    fun make_should_return_BuildableWidgetViewRenderer_when_widget_is_not_a_ComposeWidget() {
         // Given
-        val widget = mockk<Widget>()
+        val widget = mockk<ComposeWidget>()
 
         // When
         val actual = viewRendererFactory.make(widget)

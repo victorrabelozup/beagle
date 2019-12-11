@@ -6,7 +6,7 @@ import br.com.zup.beagleui.framework.action.CustomActionHandler
 import br.com.zup.beagleui.framework.navigation.BeagleDeepLinkHandler
 import br.com.zup.beagleui.framework.networking.HttpClient
 import br.com.zup.beagleui.framework.view.WidgetViewFactory
-import br.com.zup.beagleui.framework.widget.core.NativeWidget
+import br.com.zup.beagleui.framework.widget.core.Widget
 
 enum class Environment {
     DEBUG,
@@ -29,7 +29,7 @@ class BeagleInitializer private constructor() {
         }
 
         @JvmStatic
-        fun <T: NativeWidget> registerWidget(
+        fun <T: Widget> registerWidget(
             clazz: Class<T>,
             factory: WidgetViewFactory<T>
         ): Companion {

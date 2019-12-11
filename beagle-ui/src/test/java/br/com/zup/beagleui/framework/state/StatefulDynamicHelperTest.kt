@@ -78,6 +78,7 @@ class StatefulDynamicHelperTest {
     }
 
     @Test
+    @Suppress("UNCHECKED_CAST")
     fun test_handleDynamicState_success() {
         subject.handleDynamicState(
             targetView = childViewText, updatableState = dinamicState,

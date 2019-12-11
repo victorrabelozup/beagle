@@ -5,10 +5,10 @@ import br.com.zup.beagleui.framework.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.engine.renderer.ViewRendererFactory
 import br.com.zup.beagleui.framework.view.ViewFactory
-import br.com.zup.beagleui.framework.widget.core.Widget
+import br.com.zup.beagleui.framework.widget.core.ComposeWidget
 
 internal class BuildableWidgetViewRenderer(
-    val widget: Widget,
+    val widget: ComposeWidget,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory()
 ) : LayoutViewRenderer(viewRendererFactory, viewFactory) {

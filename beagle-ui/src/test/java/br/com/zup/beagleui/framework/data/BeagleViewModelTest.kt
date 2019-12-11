@@ -66,6 +66,7 @@ class BeagleViewModelTest {
     }
 
     @Test
+    @Suppress("UNCHECKED_CAST")
     fun fetchWidget_should_return_render_ViewState() {
         // Given
         val url = RandomData.httpUrl()
@@ -96,6 +97,7 @@ class BeagleViewModelTest {
     }
 
     @Test
+    @Suppress("UNCHECKED_CAST")
     fun fetchAction_should_return_render_ViewState() {
         // Given
         val url = RandomData.httpUrl()

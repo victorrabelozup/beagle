@@ -9,7 +9,6 @@ import br.com.zup.beagleui.framework.mockdata.CustomWidgetFactory
 import br.com.zup.beagleui.framework.mockdata.CustomWidget
 import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.view.WidgetViewFactory
-import br.com.zup.beagleui.framework.widget.core.NativeWidget
 import br.com.zup.beagleui.framework.widget.core.Widget
 import br.com.zup.beagleui.framework.widget.layout.Container
 import br.com.zup.beagleui.framework.widget.layout.FlexSingleWidget
@@ -39,8 +38,9 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 private const val APP_NAME = "sample"
+@Suppress("UNCHECKED_CAST")
 private val WIDGETS = mapOf(
-    CustomWidget::class.java as Class<NativeWidget> to CustomWidgetFactory() as WidgetViewFactory<NativeWidget>
+    CustomWidget::class.java as Class<Widget> to CustomWidgetFactory() as WidgetViewFactory<Widget>
 )
 
 class BeagleMoshiFactoryTest {
