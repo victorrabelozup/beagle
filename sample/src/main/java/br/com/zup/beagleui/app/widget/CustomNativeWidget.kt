@@ -1,5 +1,5 @@
 package br.com.zup.beagleui.app.widget
 
-import br.com.zup.beagleui.framework.widget.core.NativeWidget
+import br.com.zup.beagleui.framework.widget.core.Widget
 
-class CustomNativeWidget : NativeWidget
+class CustomNativeWidget : Widget
