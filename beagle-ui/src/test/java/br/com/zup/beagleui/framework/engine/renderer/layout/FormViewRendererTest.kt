@@ -157,6 +157,7 @@ class FormViewRendererTest {
         // Given
         val childViewGroup = mockk<ViewGroup>()
         every { childViewGroup.childCount } returns 0
+        every { childViewGroup.tag } returns null
         every { viewGroup.childCount } returns 1
         every { viewGroup.getChildAt(any()) } returns childViewGroup
 
@@ -164,7 +165,24 @@ class FormViewRendererTest {
         formViewRenderer.build(rootView)
 
         // Then
-        verify { childViewGroup.childCount }
+        verify(exactly = 1) { childViewGroup.childCount }
+    }
+
+    @Test
+    fun build_should_try_to_iterate_over_all_viewGroups_that_is_the_formInput() {
+        // Given
+        val childViewGroup = mockk<ViewGroup>()
+        every { childViewGroup.childCount } returns 0
+        every { childViewGroup.tag } returns mockk<FormInput>()
+        every { viewGroup.childCount } returns 1
+        every { viewGroup.getChildAt(any()) } returns childViewGroup
+
+        // When
+        formViewRenderer.build(rootView)
+
+        // Then
+        val views = formViewRenderer.getPrivateField<List<View>>(FORM_INPUT_VIEWS_FIELD_NAME)
+        assertEquals(1, views.size)
     }
 
     @Test

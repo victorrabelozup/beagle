@@ -50,15 +50,15 @@ internal class FormViewRenderer(
 
     private fun fetchFormViews(viewGroup: ViewGroup) {
         viewGroup.children.forEach { childView ->
-            if (childView is ViewGroup) {
-                fetchFormViews(childView)
-            } else if (childView.tag != null) {
+            if (childView.tag != null) {
                 if (childView.tag is FormInput) {
                     formInputViews.add(childView)
                 } else if (childView.tag is FormSubmit && formSubmitView == null) {
                     formSubmitView = childView
                     addClickToFormSubmit(childView)
                 }
+            } else if (childView is ViewGroup) {
+                fetchFormViews(childView)
             }
         }
     }
