@@ -1,4 +1,4 @@
-package br.com.zup.beagleui.framework.config
+package br.com.zup.beagle.starter.config
 
 import br.com.zup.beagleui.framework.widget.core.Widget
 

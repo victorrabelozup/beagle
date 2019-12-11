@@ -1,4 +1,4 @@
-package br.com.zup.beagleui.framework.serialization.jackson
+package br.com.zup.beagle.starter.serialization.jackson
 
 import com.fasterxml.jackson.core.JsonGenerator
 import io.mockk.MockKAnnotations

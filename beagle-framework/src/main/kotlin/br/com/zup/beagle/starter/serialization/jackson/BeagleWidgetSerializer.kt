@@ -1,6 +1,6 @@
-package br.com.zup.beagleui.framework.serialization.jackson
+package br.com.zup.beagle.starter.serialization.jackson
 
-import br.com.zup.beagleui.framework.config.BeagleEnvironment
+import br.com.zup.beagle.starter.config.BeagleEnvironment
 import br.com.zup.beagleui.framework.widget.core.ComposeWidget
 import br.com.zup.beagleui.framework.widget.core.Widget
 import com.fasterxml.jackson.core.JsonGenerator

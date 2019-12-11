@@ -1,4 +1,4 @@
-package br.com.zup.beagleui.framework.serialization.jackson
+package br.com.zup.beagle.starter.serialization.jackson
 
 import br.com.zup.beagleui.framework.action.Action
 import com.fasterxml.jackson.core.JsonGenerator
@@ -7,12 +7,9 @@ import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
-import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.*
 
 class BeagleActionSerializerTest {
 
