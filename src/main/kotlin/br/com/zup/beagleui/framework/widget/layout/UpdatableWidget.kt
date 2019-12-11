@@ -14,4 +14,5 @@ data class UpdatableState(val targetId: String,
                           val remoteState: RemoteState? = null)
 
 data class DynamicState(val stateOriginField: String, val targetField: String, val originId: String)
-data class RemoteState(val originId: String)
+
+class RemoteState
