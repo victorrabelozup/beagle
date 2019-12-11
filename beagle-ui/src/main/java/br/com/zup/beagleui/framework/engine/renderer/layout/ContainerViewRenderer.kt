@@ -19,6 +19,7 @@ internal class ContainerViewRenderer(
 
     override fun build(rootView: RootView): View {
         val flex = Flex(
+            grow = 1.0,
             flexDirection = FlexDirection.COLUMN,
             justifyContent = JustifyContent.SPACE_BETWEEN
         )
