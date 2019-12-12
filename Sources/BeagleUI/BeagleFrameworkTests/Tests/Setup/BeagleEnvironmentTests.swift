@@ -8,7 +8,6 @@
 
 import XCTest
 @testable import BeagleUI
-import Networking
 
 final class BeagleEnvironmentTests: XCTestCase {
     

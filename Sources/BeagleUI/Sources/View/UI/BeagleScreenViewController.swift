@@ -41,6 +41,10 @@ public class BeagleScreenViewController: UIViewController {
     
     // MARK: - Initialization
     
+    convenience public init(screen: ScreenType) {
+        self.init(screenType: screen)
+    }
+    
     init(
         screenType: ScreenType,
         flexConfigurator: FlexViewConfiguratorProtocol = FlexViewConfigurator(),

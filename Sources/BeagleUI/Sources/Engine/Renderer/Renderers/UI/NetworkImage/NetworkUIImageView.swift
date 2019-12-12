@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Networking
 
 final class NetworkUIImageView: UIImageView, HTTPRequestCanceling {
     

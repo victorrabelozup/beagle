@@ -6,9 +6,6 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-import Networking
-import Caching
-
 // MARK: - Fetching Image Helpers
 protocol ImageDataProvider: NetworkingService {
     func fetchImageData(from urlString: String, completion: @escaping (Result<Data, ImageDataProviderError>) -> Void) -> URLRequestToken?

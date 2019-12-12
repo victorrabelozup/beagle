@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Networking
 
 /// Defines the Beagle namespace
 public struct Beagle {

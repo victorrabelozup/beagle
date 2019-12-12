@@ -8,7 +8,6 @@
 
 import XCTest
 @testable import BeagleUI
-import Networking
 
 final class ServerDrivenWidgetFetcherTests: XCTestCase {
     
@@ -238,7 +237,7 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
                 XCTFail("Parameters form method \(method) should not be nil")
                 return
             }
-            if case let Networking.URLRequestParameters.url(urlParams) = parameters {
+            if case let URLRequestParameters.url(urlParams) = parameters {
                 XCTAssertEqual(urlParams, values)
             } else {
                 XCTFail("Method \(method) should have url parameters")
@@ -251,7 +250,7 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
                 XCTFail("Parameters form method \(method) should not be nil")
                 return
             }
-            if case let Networking.URLRequestParameters.body(bodyParams) = parameters {
+            if case let URLRequestParameters.body(bodyParams) = parameters {
                 let stringParams = bodyParams?.reduce(into: [String: String]()) {
                     if let value = $1.value as? String {
                         $0[$1.key] = value
@@ -355,21 +354,6 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
 }
 
 // MARK: - Testing Helpers
-
-final class URLRequestDispatchingStub: URLRequestDispatching {
-
-    private let resultToReturn: Result<Data?, URLRequestError>
-
-    init(resultToReturn: Result<Data?, URLRequestError>) {
-        self.resultToReturn = resultToReturn
-    }
-
-    func execute(on queue: DispatchQueue, request: URLRequestProtocol, completion: @escaping (Result<Data?, URLRequestError>) -> Void) -> URLRequestToken? {
-           completion(resultToReturn)
-           return nil
-    }
-
-}
 
 final class URLRequestDispatchingSpy: URLRequestDispatching {
     private(set) var executedRequest: URLRequestProtocol?

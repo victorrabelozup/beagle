@@ -7,8 +7,6 @@
 //
 
 import XCTest
-import Caching
-import Networking
 @testable import BeagleUI
 
 final class NetworkImageWidgetViewRendererTests: XCTestCase {

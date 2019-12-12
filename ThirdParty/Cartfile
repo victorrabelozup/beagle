@@ -1,3 +1,1 @@
-git "https://github.com/bocato/Networking.git" ~> 1.0 
-git "https://github.com/bocato/Caching.git" ~> 1.0
 github "pointfreeco/swift-snapshot-testing"

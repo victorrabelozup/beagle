@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Networking
 
 public enum ServerDrivenWidgetFetcherError: Error {
     case invalidURL

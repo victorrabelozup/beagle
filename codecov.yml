@@ -30,4 +30,4 @@ comment:
 
 ignore:
  - "Sources/BeagleUI/BeagleFrameworkTests/.*"
- - "Libraries/YogaKit/.*" 
+ - "Libraries/"

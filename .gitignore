@@ -48,8 +48,8 @@ DerivedData/
 # Carthage
 #
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
-ThirdParty/Carthage/Checkouts
-ThirdParty/Carthage/Build/
+ThirdParty/Carthage
+Example/Carthage
 
 # fastlane
 #
