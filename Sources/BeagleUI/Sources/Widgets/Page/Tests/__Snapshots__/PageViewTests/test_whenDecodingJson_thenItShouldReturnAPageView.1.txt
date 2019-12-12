@@ -4,12 +4,15 @@
     ▿ FlexWidget
       ▿ children: 3 elements
         ▿ Text
+          - alignment: Optional<Alignment>.none
           - style: Optional<String>.none
           - text: "1 This is a text"
         ▿ Text
+          - alignment: Optional<Alignment>.none
           - style: Optional<String>.none
           - text: "This is a text"
         ▿ Text
+          - alignment: Optional<Alignment>.none
           - style: Optional<String>.none
           - text: "This is a text"
       ▿ flex: Flex
@@ -36,12 +39,15 @@
     ▿ FlexWidget
       ▿ children: 3 elements
         ▿ Text
+          - alignment: Optional<Alignment>.none
           - style: Optional<String>.none
           - text: "2 This is a text"
         ▿ Text
+          - alignment: Optional<Alignment>.none
           - style: Optional<String>.none
           - text: "This is a text"
         ▿ Text
+          - alignment: Optional<Alignment>.none
           - style: Optional<String>.none
           - text: "This is a text"
       ▿ flex: Flex
@@ -68,12 +74,15 @@
     ▿ FlexWidget
       ▿ children: 3 elements
         ▿ Text
+          - alignment: Optional<Alignment>.none
           - style: Optional<String>.none
           - text: "3 This is a text"
         ▿ Text
+          - alignment: Optional<Alignment>.none
           - style: Optional<String>.none
           - text: "This is a text"
         ▿ Text
+          - alignment: Optional<Alignment>.none
           - style: Optional<String>.none
           - text: "This is a text"
       ▿ flex: Flex

@@ -60,6 +60,15 @@ public class BeagleScreenViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    public init(screenType: ScreenType) {
+        self.screenType = screenType
+        self.flexConfigurator = FlexViewConfigurator()
+        self.viewBuilder = BeagleViewBuilding()
+        self.serverDrivenScreenLoader = ServerDrivenScreenLoading()
+        self.actionExecutor = ActionExecuting()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
     @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
