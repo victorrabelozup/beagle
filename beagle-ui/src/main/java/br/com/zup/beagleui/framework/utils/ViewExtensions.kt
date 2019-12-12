@@ -1,6 +1,7 @@
 package br.com.zup.beagleui.framework.utils
 
 import android.app.Activity
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
@@ -21,6 +22,7 @@ import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.widget.layout.UpdatableWidget
 import br.com.zup.beagleui.framework.widget.ui.Button
 import br.com.zup.beagleui.framework.widget.ui.Text
+import br.com.zup.beagleui.framework.widget.ui.TextAlignment
 
 internal var viewExtensionsViewFactory = ViewFactory()
 
@@ -66,6 +68,11 @@ internal fun BeagleTextView.setData(widget: Text) {
     if (designSystem != null) {
         val styleRes = designSystem.textAppearance(style)
         TextViewCompat.setTextAppearance(this, styleRes)
+    }
+    when (widget.alignment) {
+        TextAlignment.CENTER -> this.gravity = Gravity.CENTER
+        TextAlignment.RIGHT -> this.gravity = Gravity.END
+        else -> this.gravity = Gravity.START
     }
 }
 

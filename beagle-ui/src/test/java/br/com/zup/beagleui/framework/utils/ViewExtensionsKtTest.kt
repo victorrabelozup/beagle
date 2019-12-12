@@ -2,6 +2,7 @@ package br.com.zup.beagleui.framework.utils
 
 import android.app.Activity
 import android.os.IBinder
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
@@ -10,10 +11,10 @@ import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
 import br.com.zup.beagleui.framework.engine.renderer.ActivityRootView
 import br.com.zup.beagleui.framework.engine.renderer.FragmentRootView
+import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.setup.BeagleEnvironment
 import br.com.zup.beagleui.framework.setup.ButtonStyle
 import br.com.zup.beagleui.framework.setup.DesignSystem
-import br.com.zup.beagleui.framework.extensions.once
 import br.com.zup.beagleui.framework.testutil.RandomData
 import br.com.zup.beagleui.framework.view.BeagleButtonView
 import br.com.zup.beagleui.framework.view.BeagleTextView
@@ -22,6 +23,7 @@ import br.com.zup.beagleui.framework.view.StateChangedListener
 import br.com.zup.beagleui.framework.view.ViewFactory
 import br.com.zup.beagleui.framework.widget.ui.Button
 import br.com.zup.beagleui.framework.widget.ui.Text
+import br.com.zup.beagleui.framework.widget.ui.TextAlignment
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
@@ -72,6 +74,7 @@ class ViewExtensionsKtTest {
 
     private val textValueSlot = slot<String>()
     private val viewSlot = slot<View>()
+    private val textAlignment = slot<Int>()
 
     @Before
     fun setUp() {
@@ -92,6 +95,7 @@ class ViewExtensionsKtTest {
         every { designSystem.textAppearance(any()) } returns STYLE_RES
         every { designSystem.buttonStyle(any()) } returns buttonStyle
         every { beagleTextView.text = capture(textValueSlot) } just Runs
+        every { beagleTextView.gravity = capture(textAlignment) } just Runs
         every { beagleButton.text = capture(textValueSlot) } just Runs
         every { beagleButton.setBackgroundResource(any()) } just Runs
         every { buttonStyle.background } returns STYLE_RES
@@ -184,6 +188,7 @@ class ViewExtensionsKtTest {
         val style = RandomData.string()
         every { text.text } returns textValue
         every { text.style } returns style
+        every { text.alignment } returns null
 
         // When
         beagleTextView.setData(text)
@@ -200,12 +205,61 @@ class ViewExtensionsKtTest {
         val textValue = RandomData.string()
         every { text.text } returns textValue
         every { text.style } returns null
+        every { text.alignment } returns null
 
         // When
         beagleTextView.setData(text)
 
         // Then
         verify(exactly = 1) { designSystem.textAppearance("") }
+    }
+
+    @Test
+    fun setData_with_text_should_set_alignment_when_is_center() {
+        // Given
+        val text = mockk<Text>()
+        val textValue = RandomData.string()
+        every { text.text } returns textValue
+        every { text.style } returns null
+        every { text.alignment } returns TextAlignment.CENTER
+
+        // When
+        beagleTextView.setData(text)
+
+        // Then
+        assertEquals(Gravity.CENTER, textAlignment.captured)
+    }
+
+    @Test
+    fun setData_with_text_should_set_alignment_when_is_right() {
+        // Given
+        val text = mockk<Text>()
+        val textValue = RandomData.string()
+        every { text.text } returns textValue
+        every { text.style } returns null
+        every { text.alignment } returns TextAlignment.RIGHT
+
+        // When
+        beagleTextView.setData(text)
+
+        // Then
+        assertEquals(Gravity.END, textAlignment.captured)
+    }
+
+    @Test
+    fun setData_with_text_should_set_alignment_when_is_left() {
+        // Given
+        val text = mockk<Text>()
+        val textValue = RandomData.string()
+        every { text.text } returns textValue
+        every { text.style } returns null
+        every { text.alignment } returns TextAlignment.LEFT
+
+        // When
+        beagleTextView.setData(text)
+
+        // Then
+        assertEquals(Gravity.START, textAlignment.captured)
     }
 
     @Test
@@ -216,6 +270,7 @@ class ViewExtensionsKtTest {
         every { text.text } returns textValue
         every { text.style } returns RandomData.string()
         every { BeagleEnvironment.designSystem } returns null
+        every { text.alignment } returns null
 
         // When
         beagleTextView.setData(text)
