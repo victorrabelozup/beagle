@@ -13,14 +13,16 @@ final class ContainerWidgetViewRendererTests: XCTestCase {
     
     func test_buildView_shouldReturnTheExpectedView() {
         // Given
-        let flexConfiguratorSpy = FlexViewConfiguratorSpy()
+        let flexSpy = FlexViewConfiguratorSpy()
+        let dependencies = RendererDependenciesContainer(flex: flexSpy)
+
         let container = Container(header: WidgetDummy(), content: WidgetDummy(), footer: WidgetDummy())
         guard let renderer = try? ContainerWidgetViewRenderer(
             widget: container,
-            rendererProvider: WidgetRendererProviderDummy(),
-            flexViewConfigurator: flexConfiguratorSpy) else {
-                XCTFail("Could not create renderer.")
-                return
+            dependencies: dependencies
+        ) else {
+            XCTFail("Could not create renderer.")
+            return
         }
         let context = BeagleContextDummy()
         
@@ -28,8 +30,8 @@ final class ContainerWidgetViewRendererTests: XCTestCase {
         let resultingView = renderer.buildView(context: context)
         
         // Then
-        XCTAssertTrue(flexConfiguratorSpy.setupFlexCalled, "Expected to call `applyFlex`.")
-        XCTAssertEqual(resultingView, flexConfiguratorSpy.viewPassedToSetupFlex, "Expected \(String(describing: resultingView)), but got \(String(describing: flexConfiguratorSpy.viewPassedToSetupFlex)).")
+        XCTAssertTrue(flexSpy.setupFlexCalled, "Expected to call `applyFlex`.")
+        XCTAssertEqual(resultingView, flexSpy.viewPassedToSetupFlex, "Expected \(String(describing: resultingView)), but got \(String(describing: flexSpy.viewPassedToSetupFlex)).")
         XCTAssertTrue(resultingView.subviews.count == 3, "Expected view to have 3 subviews, a header, a content and a footer, but has \(resultingView.subviews)")
     }
     

@@ -17,8 +17,8 @@ final class NetworkImageWidgetViewRenderer: WidgetViewRenderer<NetworkImage> {
         let imageView = NetworkUIImageView(imageDataProvider: imageDataProvider, url: widget.url)
         imageView.contentMode = widget.contentMode.toUIKit()
         let flex = Flex(size: .init(width: 100%, height: 100%))
-        flexViewConfigurator.setupFlex(flex, for: imageView)
-        flexViewConfigurator.enableYoga(true, for: imageView)
+        self.flex.setupFlex(flex, for: imageView)
+        self.flex.enableYoga(true, for: imageView)
         return imageView
     }
 }

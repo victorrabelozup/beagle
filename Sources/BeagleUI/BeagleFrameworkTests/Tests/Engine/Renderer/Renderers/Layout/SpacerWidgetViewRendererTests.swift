@@ -14,19 +14,21 @@ final class SpacerWidgetViewRendererTests: XCTestCase {
     func test_buildView_shouldReturnTheExpectedView() {
         // Given
         let flexConfiguratorSpy = FlexViewConfiguratorSpy()
+        let dependencies = RendererDependenciesContainer(
+            flex: flexConfiguratorSpy
+        )
+
         let spacer = Spacer(1.0)
         guard let renderer = try? SpacerWidgetViewRenderer(
             widget: spacer,
-            rendererProvider: WidgetRendererProviderDummy(),
-            flexViewConfigurator: flexConfiguratorSpy
+            dependencies: dependencies
         ) else {
             XCTFail("Could not create renderer.")
             return
         }
-        let context = BeagleContextDummy()
         
         // When
-        let resultingView = renderer.buildView(context: context)
+        let resultingView = renderer.buildView(context: BeagleContextDummy())
     
         // Then
         XCTAssertTrue(flexConfiguratorSpy.setupFlexCalled, "Expected to call `applyFlex`.")

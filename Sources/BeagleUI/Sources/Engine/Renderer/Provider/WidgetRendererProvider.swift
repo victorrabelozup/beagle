@@ -9,58 +9,50 @@
 import Foundation
 
 public protocol WidgetRendererProvider {
-    func buildRenderer(for widget: Widget) -> WidgetViewRendererProtocol
+
+    func buildRenderer(for widget: Widget, dependencies: RendererDependencies) -> WidgetViewRendererProtocol
+}
+
+public protocol WidgetRendererProviderThrowable {
+
+    func buildRenderer(for widget: Widget, dependencies: RendererDependencies) throws -> WidgetViewRendererProtocol
 }
 
 final class WidgetRendererProviding: WidgetRendererProvider {
-    
-    // MARK: - Dependencies
-    
-    private let layoutViewRendererProvider: LayoutViewRendererProvider
-    private let uiComponentViewRendererProvider: UIComponentViewRendererProvider
-    private let customWidgetsProvider: CustomWidgetsRendererProviderDequeuing
-    
-    // MARK: - Initialization
-    
-    init(
-        layoutViewRendererProvider: LayoutViewRendererProvider = LayoutViewRendererProviding(),
-        uiComponentViewRendererProvider: UIComponentViewRendererProvider = UIComponentViewRendererProviding(),
-        customWidgetsProvider: CustomWidgetsRendererProviderDequeuing = Beagle.environment.shared.customWidgetsProvider
-    ) {
-        self.layoutViewRendererProvider = layoutViewRendererProvider
-        self.uiComponentViewRendererProvider = uiComponentViewRendererProvider
-        self.customWidgetsProvider = customWidgetsProvider
+
+    public enum Error: Swift.Error {
+
+        case couldNotFindRendererForWidget(Widget)
+
+        var localizedDescription: String {
+            switch self {
+            case .couldNotFindRendererForWidget(let widget):
+                let name = String(describing: type(of: widget))
+                return "\(name) has no renderer's registered, please check this."
+            }
+        }
     }
+
+    // MARK: - Dependencies
+
+    public lazy var providers: [WidgetRendererProviderThrowable] = [
+        LayoutViewRendererProviding(),
+        UIComponentViewRendererProviding(),
+        Beagle.environment.shared.customWidgetsProvider
+    ]
     
     // MARK: - Public Methods
     
-    func buildRenderer(for widget: Widget) -> WidgetViewRendererProtocol {
-        do {
-            let layoutRenderer = try layoutViewRendererProvider.buildRenderer(for: widget)
-            return layoutRenderer
-        } catch { // Don't treat specific errors for now, just try to provide a UIComponent
-            return provideUIComponentRenderer(for: widget)
+    func buildRenderer(for widget: Widget, dependencies: RendererDependencies) -> WidgetViewRendererProtocol {
+        var result: WidgetViewRendererProtocol = UnknownWidgetViewRenderer(widget: widget)
+
+        for provider in providers {
+            if let render = try? provider.buildRenderer(for: widget, dependencies: dependencies) {
+                result = render
+                break
+            }
         }
+
+        return result
     }
-    
-    // MARK: - Private Methods
-    
-    private func provideUIComponentRenderer(for widget: Widget) -> WidgetViewRendererProtocol {
-        do {
-            let uiComponentRenderer = try uiComponentViewRendererProvider.buildRenderer(for: widget)
-            return uiComponentRenderer
-        } catch {
-            return provideCustomWidgetRendenrer(for: widget)
-        }
-    }
-    
-    private func provideCustomWidgetRendenrer(for widget: Widget) -> WidgetViewRendererProtocol {
-        do {
-            let customWidgetRenderer = try customWidgetsProvider.dequeueRenderer(for: widget)
-            return customWidgetRenderer
-        } catch { // Don't treat specific errors for now, just return a `UnknownWidgetRenderer`
-            return UnknownWidgetViewRenderer(widget)
-        }
-    }
-    
 }

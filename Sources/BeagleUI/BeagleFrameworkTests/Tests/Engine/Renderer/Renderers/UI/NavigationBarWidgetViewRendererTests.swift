@@ -18,7 +18,7 @@ final class NavigationBarWidgetViewRendererTests: XCTestCase {
         let widget = UnknownWidget()
         
         // When / Then
-        XCTAssertThrowsError(_ = try NavigationBarWidgetViewRenderer(widget), "Expected error, but got nil.") { error in
+        XCTAssertThrowsError(_ = try NavigationBarWidgetViewRenderer(widget: widget), "Expected error, but got nil.") { error in
             XCTAssertNotNil(error, "Expected error, but got \(error.localizedDescription)")
         }
     }
@@ -30,7 +30,7 @@ final class NavigationBarWidgetViewRendererTests: XCTestCase {
         let context = BeagleContextDummy()
         
         //When
-        guard let navigationBarWidgetViewRenderer = try? NavigationBarWidgetViewRenderer(widget) else {
+        guard let navigationBarWidgetViewRenderer = try? NavigationBarWidgetViewRenderer(widget: widget) else {
             XCTFail("Could not render NavigationBar.")
             return
         }
@@ -51,7 +51,7 @@ final class NavigationBarWidgetViewRendererTests: XCTestCase {
         let context = BeagleContextDummy()
         
         //When
-        guard let navigationBarWidgetViewRenderer = try? NavigationBarWidgetViewRenderer(widget) else {
+        guard let navigationBarWidgetViewRenderer = try? NavigationBarWidgetViewRenderer(widget: widget) else {
             XCTFail("Could not render NavigationBar.")
             return
         }

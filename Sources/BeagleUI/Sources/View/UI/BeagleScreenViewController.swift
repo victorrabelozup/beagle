@@ -41,26 +41,12 @@ public class BeagleScreenViewController: UIViewController {
     
     // MARK: - Initialization
     
-    public convenience init(
-        screenType: ScreenType,
-        viewBuilder: BeagleViewBuilder = BeagleViewBuilding(),
-        serverDrivenScreenLoader: ServerDrivenScreenLoader = ServerDrivenScreenLoading()
-    ) {
-        self.init(
-            screenType: screenType,
-            flexConfigurator: FlexViewConfigurator(),
-            viewBuilder: viewBuilder,
-            serverDrivenScreenLoader: serverDrivenScreenLoader,
-            actionExecutor: ActionExecuting()
-        )
-    }
-    
     init(
         screenType: ScreenType,
-        flexConfigurator: FlexViewConfiguratorProtocol,
-        viewBuilder: BeagleViewBuilder,
-        serverDrivenScreenLoader: ServerDrivenScreenLoader,
-        actionExecutor: ActionExecutor
+        flexConfigurator: FlexViewConfiguratorProtocol = FlexViewConfigurator(),
+        viewBuilder: BeagleViewBuilder = BeagleViewBuilding(),
+        serverDrivenScreenLoader: ServerDrivenScreenLoader = ServerDrivenScreenLoading(),
+        actionExecutor: ActionExecutor = ActionExecuting()
     ) {
         self.screenType = screenType
         self.flexConfigurator = flexConfigurator

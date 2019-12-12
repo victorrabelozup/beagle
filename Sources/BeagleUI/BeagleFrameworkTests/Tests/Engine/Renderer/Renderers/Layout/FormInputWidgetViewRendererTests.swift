@@ -13,26 +13,25 @@ final class FormInputWidgetViewRendererTests: XCTestCase {
     
     func test_buildView_shouldReturnTheExpectedView() {
         // Given
-        let widgetRendererProvider = WidgetRendererProviderSpy()
-        let flexConfigurator = FlexViewConfiguratorDummy()
-        let applicationTheme = AppThemeDummy()
+        let rendererProviderSpy = WidgetRendererProviderSpy()
+        let dependencies = RendererDependenciesContainer(
+            rendererProvider: rendererProviderSpy
+        )
+
         let formInput = FormInput(name: "username", child: WidgetDummy())
         guard let sut = try? FormInputWidgetViewRenderer(
             widget: formInput,
-            rendererProvider: widgetRendererProvider,
-            flexViewConfigurator: flexConfigurator,
-            applicationTheme: applicationTheme
+            dependencies: dependencies
         ) else {
             XCTFail("Could not create renderer.")
             return
         }
-        let context = BeagleContextDummy()
                 
         // When
-        let formInputView = sut.buildView(context: context)
+        let formInputView = sut.buildView(context: BeagleContextDummy())
         
         // Then
-        XCTAssertEqual(widgetRendererProvider.buildRendererCount, 1)
+        XCTAssertEqual(rendererProviderSpy.buildRendererCount, 1)
         XCTAssertTrue(formInputView.beagleFormElement is FormInput)
     }
 }

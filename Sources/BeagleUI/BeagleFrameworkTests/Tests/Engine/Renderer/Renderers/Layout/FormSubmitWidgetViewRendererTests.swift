@@ -13,26 +13,27 @@ final class FormSubmitWidgetViewRendererTests: XCTestCase {
     
     func test_buildView_shouldReturnTheExpectedView() {
         // Given
-        let widgetRendererProvider = WidgetRendererProviderSpy()
-        let flexConfigurator = FlexViewConfiguratorDummy()
-        let applicationTheme = AppThemeDummy()
+        let rendererSpy = WidgetRendererProviderSpy()
+
+        let dependencies = RendererDependenciesContainer(
+            rendererProvider: rendererSpy
+        )
+
         let formSubmit = FormSubmit(child: WidgetDummy())
+
         guard let sut = try? FormSubmitWidgetViewRenderer(
             widget: formSubmit,
-            rendererProvider: widgetRendererProvider,
-            flexViewConfigurator: flexConfigurator,
-            applicationTheme: applicationTheme
+            dependencies: dependencies
         ) else {
             XCTFail("Could not create renderer.")
             return
         }
-        let context = BeagleContextDummy()
                 
         // When
-        let formSubmitView = sut.buildView(context: context)
+        let formSubmitView = sut.buildView(context: BeagleContextDummy())
         
         // Then
-        XCTAssertEqual(widgetRendererProvider.buildRendererCount, 1)
+        XCTAssertEqual(rendererSpy.buildRendererCount, 1)
         XCTAssertTrue(formSubmitView.beagleFormElement is FormSubmit)
     }
 }

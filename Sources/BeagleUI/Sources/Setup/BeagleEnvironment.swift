@@ -9,13 +9,13 @@
 import Foundation
 import Networking
 
-protocol BeagleEnvironmentProtocol {
+protocol BeagleEnvironmentProtocol: RendererDependencies {
     
     // MARK: - Properties
     var baseURL: URL? { get }
     var decoder: WidgetDecoding { get }
     var networkingDispatcher: URLRequestDispatching { get }
-    var customWidgetsProvider: CustomWidgetsRendererProviderDequeuing { get }
+    var customWidgetsProvider: CustomWidgetsRendererProvider { get }
     var appBundle: Bundle { get }
     var applicationTheme: Theme { get }
     var validatorHandler: ValidatorHandler? { get }
@@ -31,7 +31,7 @@ protocol BeagleEnvironmentProtocol {
         baseURL: URL?,
         decoder: WidgetDecoding,
         networkingDispatcher: URLRequestDispatching,
-        customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing,
+        customWidgetsRendererProviderRegister: CustomWidgetsRendererProvider,
         appBundle: Bundle,
         deepLinkHandler: BeagleDeepLinkScreenManaging?,
         applicationTheme: Theme,
@@ -58,30 +58,34 @@ protocol BeagleEnvironmentProtocol {
     func configureCustomActionHandler(_ customActionHandler: CustomActionHandler?)
 }
 
-final class BeagleEnvironment: BeagleEnvironmentProtocol {
+public final class BeagleEnvironment: BeagleEnvironmentProtocol {
     
     // MARK: - Dependencies
     
     private let _baseURL: URL?
     private let _decoder: WidgetDecoding
     private let _networkingDispatcher: URLRequestDispatching
-    private let customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing
+    private let customWidgetsRendererProviderRegister: CustomWidgetsRendererProvider
     private let _appBundle: Bundle
     private let _deepLinkHandler: BeagleDeepLinkScreenManaging?
     private var _applicationTheme: Theme
     private var _validatorHandler: ValidatorHandler?
     private var _customActionHandler: CustomActionHandler?
+
+    public var flex: FlexViewConfiguratorProtocol = FlexViewConfigurator()
+    public var rendererProvider: WidgetRendererProvider = WidgetRendererProviding()
+    public lazy var theme: Theme = _applicationTheme
     
     // MARK: - Public Properties
     
     var baseURL: URL? { _baseURL }
     var decoder: WidgetDecoding { _decoder }
     var networkingDispatcher: URLRequestDispatching { _networkingDispatcher }
-    var customWidgetsProvider: CustomWidgetsRendererProviderDequeuing { customWidgetsRendererProviderRegister }
+    var customWidgetsProvider: CustomWidgetsRendererProvider { customWidgetsRendererProviderRegister }
     var appBundle: Bundle { _appBundle }
     var deepLinkHandler: BeagleDeepLinkScreenManaging? { _deepLinkHandler }
     var applicationTheme: Theme { _applicationTheme }
-    var validatorHandler: ValidatorHandler? { _validatorHandler }
+    public var validatorHandler: ValidatorHandler? { _validatorHandler }
     var customActionHandler: CustomActionHandler? { _customActionHandler }
     
     // MARK: - Singleton
@@ -100,7 +104,7 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
         baseURL: URL?,
         decoder: WidgetDecoding,
         networkingDispatcher: URLRequestDispatching,
-        customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing,
+        customWidgetsRendererProviderRegister: CustomWidgetsRendererProvider,
         appBundle: Bundle,
         deepLinkHandler: BeagleDeepLinkScreenManaging?,
         applicationTheme: Theme,
@@ -125,7 +129,7 @@ final class BeagleEnvironment: BeagleEnvironmentProtocol {
         baseURL: URL?,
         decoder: WidgetDecoding,
         networkingDispatcher: URLRequestDispatching,
-        customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing = CustomWidgetsRendererProviderRegister(),
+        customWidgetsRendererProviderRegister: CustomWidgetsRendererProvider = CustomWidgetsRendererProviding(),
         appBundle: Bundle,
         deepLinkHandler: BeagleDeepLinkScreenManaging?,
         applicationTheme: Theme,

@@ -8,18 +8,23 @@
 
 import UIKit
 
-final class UnknownWidgetViewRenderer: WidgetViewRendererProtocol {
-    
+public final class UnknownWidgetViewRenderer: WidgetViewRendererProtocol {
+
     let widget: AnyWidget
+    let dependencies: RendererDependencies
     
-    init(_ widget: Widget) {
+    public init(widget: Widget, dependencies: RendererDependencies?) throws {
         self.widget = AnyWidget(value: widget as Any)
+        self.dependencies = dependencies ?? BeagleEnvironment.shared
+    }
+
+    convenience init(widget: Widget) {
+        try! self.init(widget: widget, dependencies: nil)
     }
     
     // MARK: - Public Functions
     
-    func buildView(context: BeagleContext) -> UIView {
-        
+    public func buildView(context: BeagleContext) -> UIView {
         let label = UILabel(frame: .zero)
         label.numberOfLines = 2
         label.text = "Unknown Widget of type:\n \(String(describing: widget))"

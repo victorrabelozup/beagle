@@ -13,28 +13,29 @@ final class ScrollViewWidgetViewRendererTests: XCTestCase {
     
     func test_buildView_shouldReturnTheExpectedView() {
         // Given
-        let flexConfiguratorSpy = FlexViewConfiguratorSpy()
+        let flexSpy = FlexViewConfiguratorSpy()
+        let dependencies = RendererDependenciesContainer(flex: flexSpy)
         
         let container = ScrollView {
             WidgetDummy()
         }
+
         guard let renderer = try? ScrollViewWidgetViewRenderer(
             widget: container,
-            rendererProvider: WidgetRendererProviderDummy(),
-            flexViewConfigurator: flexConfiguratorSpy) else {
-                XCTFail("Could not create renderer.")
-                return
+            dependencies: dependencies
+        ) else {
+            XCTFail("Could not create renderer.")
+            return
         }
-        let context = BeagleContextDummy()
         
         // When
-        let resultingView = renderer.buildView(context: context)
+        let resultingView = renderer.buildView(context: BeagleContextDummy())
         
         // Then
-        XCTAssertTrue(flexConfiguratorSpy.setupFlexCalled, "Expected to call `applyFlex`.")
-        XCTAssertEqual(resultingView, flexConfiguratorSpy.viewPassedToSetupFlex, "Expected \(String(describing: resultingView)), but got \(String(describing: flexConfiguratorSpy.viewPassedToSetupFlex)).")
+        XCTAssertTrue(flexSpy.setupFlexCalled, "Expected to call `applyFlex`.")
+        XCTAssertEqual(resultingView, flexSpy.viewPassedToSetupFlex, "Expected \(String(describing: resultingView)), but got \(String(describing: flexSpy.viewPassedToSetupFlex)).")
         XCTAssertTrue(resultingView.subviews.count == 1, "Expected view to have 1 subviews, but has \(resultingView.subviews)")
-        XCTAssertEqual(flexConfiguratorSpy.timesPassed, 3, "Expected 3, but got \(String(describing: flexConfiguratorSpy.timesPassed)).")
+        XCTAssertEqual(flexSpy.timesPassed, 3, "Expected 3, but got \(String(describing: flexSpy.timesPassed)).")
     }
     
     func test_whenLayoutSubViewsIsCalledOnBagleContainerScrollView_itShouldSetupTheContentSizeCorrectly() {

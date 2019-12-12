@@ -211,7 +211,7 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
         return URLRequestDispatchingDummy()
     }
 
-    var customWidgetsProvider: CustomWidgetsRendererProviderDequeuing { CustomWidgetsRendererProviderDequeuingDummy() }
+    var customWidgetsProvider: CustomWidgetsRendererProvider { CustomWidgetsRendererProviderDummy() }
 
     private(set) var applicationThemeCalled = false
     var applicationTheme: Theme {
@@ -222,6 +222,10 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
     var validatorHandler: ValidatorHandler?
     
     var customActionHandler: CustomActionHandler?
+
+    var flex: FlexViewConfiguratorProtocol = FlexViewConfiguratorDummy()
+    var rendererProvider: WidgetRendererProvider = WidgetRendererProviding()
+    var theme: Theme = AppThemeDummy()
 
     private(set) static var _shared: BeagleEnvironmentSpy?
     static var shared: BeagleEnvironmentProtocol {
@@ -236,16 +240,17 @@ final class BeagleEnvironmentSpy: BeagleEnvironmentProtocol {
     static private(set) var deepLinkHandlerPassed: BeagleDeepLinkScreenManaging?
     static private(set) var validatorHandlerPassed: ValidatorHandler?
     static private(set) var customActionHandlerPassed: CustomActionHandler?
-    static func initialize(appName: String,
-                           baseURL: URL?,
-                           decoder: WidgetDecoding,
-                           networkingDispatcher: URLRequestDispatching,
-                           customWidgetsRendererProviderRegister: CustomWidgetsRendererProviderDequeuing & CustomWidgetsRendererProviderRegistering,
-                           appBundle: Bundle,
-                           deepLinkHandler: BeagleDeepLinkScreenManaging?,
-                           applicationTheme: Theme,
-                           validatorHandler: ValidatorHandler?,
-                           customActionHandler: CustomActionHandler?
+    static func initialize(
+        appName: String,
+        baseURL: URL?,
+        decoder: WidgetDecoding,
+        networkingDispatcher: URLRequestDispatching,
+        customWidgetsRendererProviderRegister: CustomWidgetsRendererProvider,
+        appBundle: Bundle,
+        deepLinkHandler: BeagleDeepLinkScreenManaging?,
+        applicationTheme: Theme,
+        validatorHandler: ValidatorHandler?,
+        customActionHandler: CustomActionHandler?
     ) {
         _shared = BeagleEnvironmentSpy()
         initializeCalled = true
@@ -312,20 +317,14 @@ final class WidgetDecodingDummy: WidgetDecoding {
     func decodeAction(from data: Data) throws -> Action { return ActionDummy() }
 }
 
-final class CustomWidgetsRendererProviderDequeuingDummy: CustomWidgetsRendererProviderDequeuing {
-    func dequeueRenderer(for widget: Widget) throws -> WidgetViewRendererProtocol {
-        return try WidgetViewRendererDummy(widget)
-    }
-}
-
 final class WidgetViewRendererDummy: WidgetViewRenderer<WidgetDummy> {
     override func buildView(context: BeagleContext) -> UIView { return UIView() }
 }
 
-final class CustomWidgetsRendererProviderDummy: CustomWidgetsRendererProviderDequeuing, CustomWidgetsRendererProviderRegistering {
+final class CustomWidgetsRendererProviderDummy: CustomWidgetsRendererProvider {
     func registerRenderer<W>(_ rendererType: WidgetViewRenderer<W>.Type, for widgetType: W.Type) where W : Widget {}
-    func dequeueRenderer(for widget: Widget) throws -> WidgetViewRendererProtocol {
-        return try WidgetViewRendererDummy(widget)
+    func buildRenderer(for widget: Widget, dependencies: RendererDependencies) throws -> WidgetViewRendererProtocol {
+        return try WidgetViewRendererDummy(widget: widget, dependencies: BeagleEnvironment.shared)
     }
 }
 

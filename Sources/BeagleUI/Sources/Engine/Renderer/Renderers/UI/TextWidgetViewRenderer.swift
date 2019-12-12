@@ -17,10 +17,10 @@ final class TextWidgetViewRenderer: WidgetViewRenderer<Text> {
         label.numberOfLines = 0
         
         if let style = widget.style {
-            applicationTheme.applyStyle(for: label, withId: style)
+            self.theme.applyStyle(for: label, withId: style)
         }
         
-        flexViewConfigurator.enableYoga(true, for: label)
+        self.flex.enableYoga(true, for: label)
         
         return label
     }

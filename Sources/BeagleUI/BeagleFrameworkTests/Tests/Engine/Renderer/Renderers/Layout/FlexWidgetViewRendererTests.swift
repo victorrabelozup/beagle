@@ -12,18 +12,20 @@ import XCTest
 final class FlexWidgetViewRendererTests: XCTestCase {
     
     func test_buildView_shouldReturnTheExpectedView() {
-        
         //Given
-        let flexConfiguratorSpy = FlexViewConfiguratorSpy()
+        let flexSpy = FlexViewConfiguratorSpy()
+        let dependencies = RendererDependenciesContainer(flex: flexSpy)
+
         let numberOfChilds = 3
         let flexWidgetChilds = Array(repeating: WidgetDummy(), count: numberOfChilds)
         let flexWidget = FlexWidget(children: flexWidgetChilds)
+
         guard let renderer = try? FlexWidgetViewRenderer(
             widget: flexWidget,
-            rendererProvider: WidgetRendererProviderDummy(),
-            flexViewConfigurator: flexConfiguratorSpy) else {
-                XCTFail()
-                return
+            dependencies: dependencies
+        ) else {
+            XCTFail()
+            return
         }
         let context = BeagleContextDummy()
         
@@ -31,10 +33,10 @@ final class FlexWidgetViewRendererTests: XCTestCase {
         let resultingView = renderer.buildView(context: context)
         
         //Then
-        XCTAssertTrue(flexConfiguratorSpy.setupFlexCalled, "Expected to call `applyFlex`.")
-        XCTAssertEqual(resultingView, flexConfiguratorSpy.viewPassedToSetupFlex, "Expected \(String(describing: resultingView)), but got \(String(describing: flexConfiguratorSpy.viewPassedToSetupFlex)).")
-        XCTAssertEqual(flexWidget.flex.size?.height, flexConfiguratorSpy.flexPassed?.size?.height,"Expected \(String(describing: flexWidget.flex.size?.height)), but got \(String(describing: flexConfiguratorSpy.flexPassed?.size?.height)).")
-        XCTAssertEqual(flexWidget.flex.size?.width, flexConfiguratorSpy.flexPassed?.size?.width,"Expected \(String(describing: flexWidget.flex.size?.width)), but got \(String(describing: flexConfiguratorSpy.flexPassed?.size?.width)).")
+        XCTAssertTrue(flexSpy.setupFlexCalled, "Expected to call `applyFlex`.")
+        XCTAssertEqual(resultingView, flexSpy.viewPassedToSetupFlex, "Expected \(String(describing: resultingView)), but got \(String(describing: flexSpy.viewPassedToSetupFlex)).")
+        XCTAssertEqual(flexWidget.flex.size?.height, flexSpy.flexPassed?.size?.height,"Expected \(String(describing: flexWidget.flex.size?.height)), but got \(String(describing: flexSpy.flexPassed?.size?.height)).")
+        XCTAssertEqual(flexWidget.flex.size?.width, flexSpy.flexPassed?.size?.width,"Expected \(String(describing: flexWidget.flex.size?.width)), but got \(String(describing: flexSpy.flexPassed?.size?.width)).")
         XCTAssertEqual(resultingView.subviews.count, numberOfChilds, "Expected \(numberOfChilds) subview, but got \(resultingView.subviews.count).")
         
     }

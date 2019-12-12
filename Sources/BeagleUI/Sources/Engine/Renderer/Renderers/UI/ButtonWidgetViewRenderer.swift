@@ -18,10 +18,10 @@ final class ButtonWidgetViewRenderer: WidgetViewRenderer<Button> {
         button.setTitle(widget.text, for: .normal)
         
         if let style = widget.style {
-            applicationTheme.applyStyle(for: button, withId: style)
+            self.theme.applyStyle(for: button, withId: style)
         }
         
-        flexViewConfigurator.enableYoga(true, for: button)
+        self.flex.enableYoga(true, for: button)
         button.sizeToFit()
         
         return button

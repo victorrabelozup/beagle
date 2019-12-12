@@ -10,16 +10,20 @@ import XCTest
 @testable import BeagleUI
 
 final class LayoutViewRendererProviderTests: XCTestCase {
-    
+
+    private let dependencies = RendererDependenciesContainer()
+
     func test_whenFlexWidget_shouldReturnFlexWidgetViewRenderer() {
         // Given
-        let widget = FlexWidget(children: [Text("Oloquinho")],
-                                flex: Flex(direction: .ltr, flexDirection: .column))
-        let renderer = WidgetRendererProviding()
+        let widget = FlexWidget(
+            children: [Text("Oloquinho")],
+            flex: Flex(direction: .ltr, flexDirection: .column)
+        )
+        let provider = WidgetRendererProviding()
         // When
-        let flexWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        let flexRenderer = provider.buildRenderer(for: widget, dependencies: dependencies)
         // Then
-        XCTAssert(flexWidgetViewRenderer is FlexWidgetViewRenderer, "Expected to build a flex widget view renderer, but has built \(String(describing: type(of: flexWidgetViewRenderer))).")
+        XCTAssert(flexRenderer is FlexWidgetViewRenderer, "Expected to build a flex widget view renderer, but has built \(String(describing: type(of: flexRenderer))).")
     }
     
     func test_whenFlexSingleWidget_shouldReturnFlexSingleWidgetViewRenderer() {
@@ -28,21 +32,21 @@ final class LayoutViewRendererProviderTests: XCTestCase {
             child: Text("Meu"),
             flex: Flex(direction: .ltr, flexDirection: .column)
         )
-        let renderer = WidgetRendererProviding()
+        let provider = WidgetRendererProviding()
         // When
-        let flexSingleWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        let flexRenderer = provider.buildRenderer(for: widget, dependencies: dependencies)
         // Then
-        XCTAssert(flexSingleWidgetViewRenderer is FlexSingleWidgetViewRenderer, "Expected to build a flex single widget view renderer, but has built \(String(describing: type(of: flexSingleWidgetViewRenderer))).")
+        XCTAssert(flexRenderer is FlexSingleWidgetViewRenderer, "Expected to build a flex single widget view renderer, but has built \(String(describing: type(of: flexRenderer))).")
     }
     
     func test_whenContainer_shouldReturnContainerWidgetViewRenderer() {
         // Given
         let widget = Container(header: Text("Tá pegando"), content: Text("Fogo"), footer: Text("Bixo"))
-        let renderer = WidgetRendererProviding()
+        let provider = WidgetRendererProviding()
         // When
-        let containerWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        let containerRenderer = provider.buildRenderer(for: widget, dependencies: dependencies)
         // Then
-        XCTAssert(containerWidgetViewRenderer is ContainerWidgetViewRenderer, "Expected to build a container widget view renderer, but has built \(String(describing: type(of: containerWidgetViewRenderer))).")
+        XCTAssert(containerRenderer is ContainerWidgetViewRenderer, "Expected to build a container widget view renderer, but has built \(String(describing: type(of: containerRenderer))).")
     }
     
     func test_whenSpacer_shouldReturnSpacerWidgetViewRenderer() {
@@ -50,19 +54,19 @@ final class LayoutViewRendererProviderTests: XCTestCase {
         let widget = Spacer(100)
         let renderer = WidgetRendererProviding()
         // When
-        let spacerWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        let spaceRenderer = renderer.buildRenderer(for: widget, dependencies: dependencies)
         // Then
-        XCTAssert(spacerWidgetViewRenderer is SpacerWidgetViewRenderer, "Expected to build a spacer widget view renderer, but has built \(String(describing: type(of: spacerWidgetViewRenderer))).")
+        XCTAssert(spaceRenderer is SpacerWidgetViewRenderer, "Expected to build a spacer widget view renderer, but has built \(String(describing: type(of: spaceRenderer))).")
     }
     
     func test_whenListView_shouldReturnListViewWidgetViewRenderer() {
         // Given
         let widget = ListView()
-        let renderer = WidgetRendererProviding()
+        let provider = WidgetRendererProviding()
         // When
-        let listViewWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        let listRenderer = provider.buildRenderer(for: widget, dependencies: dependencies)
         // Then
-        XCTAssert(listViewWidgetViewRenderer is ListViewWidgetRenderer, "Expected to build a listview widget view renderer, but has built \(String(describing: type(of: listViewWidgetViewRenderer))).")
+        XCTAssert(listRenderer is ListViewWidgetRenderer, "Expected to build a listview widget view renderer, but has built \(String(describing: type(of: listRenderer))).")
     }
     
     func test_whenNavigator_shouldReturnNavigatorWidgetViewRenderer() {
@@ -71,11 +75,11 @@ final class LayoutViewRendererProviderTests: XCTestCase {
             action: Navigate(type: .popView),
             child: Text("Navigation")
         )
-        let renderer = WidgetRendererProviding()
+        let provider = WidgetRendererProviding()
         // When
-        let navigatorWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        let navigationRenderer = provider.buildRenderer(for: widget, dependencies: dependencies)
         // Then
-        XCTAssert(navigatorWidgetViewRenderer is NavigatorWidgetViewRenderer, "Expected to build a navigator widget view renderer, but has built \(String(describing: type(of: navigatorWidgetViewRenderer))).")
+        XCTAssert(navigationRenderer is NavigatorWidgetViewRenderer, "Expected to build a navigator widget view renderer, but has built \(String(describing: type(of: navigationRenderer))).")
     }
 
     func test_whenScrollView_shouldReturnScrollViewWidgetViewRenderer() {
@@ -85,11 +89,11 @@ final class LayoutViewRendererProviderTests: XCTestCase {
                 Text("Text")
             }
         }
-        let renderer = WidgetRendererProviding()
+        let provider = WidgetRendererProviding()
         // When
-        let containerWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        let scrollRenderer = provider.buildRenderer(for: widget, dependencies: dependencies)
         // Then
-        XCTAssert(containerWidgetViewRenderer is ScrollViewWidgetViewRenderer, "Expected to build a container widget view renderer, but has built \(String(describing: type(of: containerWidgetViewRenderer))).")
+        XCTAssert(scrollRenderer is ScrollViewWidgetViewRenderer, "Expected to build a container widget view renderer, but has built \(String(describing: type(of: scrollRenderer))).")
     }
     
     func test_whenForm_shouldReturnFormViewRenderer() {
@@ -97,39 +101,39 @@ final class LayoutViewRendererProviderTests: XCTestCase {
         let widget = Form(action: "", method: .get, child: WidgetDummy())
         let renderer = WidgetRendererProviding()
         // When
-        let flexWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        let flexRenderer = renderer.buildRenderer(for: widget, dependencies: dependencies)
         // Then
-        XCTAssert(flexWidgetViewRenderer is FormWidgetViewRenderer)
+        XCTAssert(flexRenderer is FormWidgetViewRenderer)
     }
     
     func test_whenFormInput_shouldReturnFormInputViewRenderer() {
         // Given
         let widget = FormInput(name: "name", child: WidgetDummy())
-        let renderer = WidgetRendererProviding()
+        let provider = WidgetRendererProviding()
         // When
-        let flexWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        let formInputRenderer = provider.buildRenderer(for: widget, dependencies: dependencies)
         // Then
-        XCTAssert(flexWidgetViewRenderer is FormInputWidgetViewRenderer)
+        XCTAssert(formInputRenderer is FormInputWidgetViewRenderer)
     }
     
     func test_whenFormSubmit_shouldReturnFormSubmitViewRenderer() {
         // Given
         let widget = FormSubmit(child: WidgetDummy())
-        let renderer = WidgetRendererProviding()
+        let provider = WidgetRendererProviding()
         // When
-        let flexWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        let formSubmitRenderer = provider.buildRenderer(for: widget, dependencies: dependencies)
         // Then
-        XCTAssert(flexWidgetViewRenderer is FormSubmitWidgetViewRenderer)
+        XCTAssert(formSubmitRenderer is FormSubmitWidgetViewRenderer)
     }
     
     func test_whenLazyWidget_shouldReturnLazyWidgetViewRenderer() {
         // Given
         let widget = LazyWidget(url: "", initialState: WidgetDummy())
-        let renderer = WidgetRendererProviding()
+        let provider = WidgetRendererProviding()
         // When
-        let flexWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        let lazyRenderer = provider.buildRenderer(for: widget, dependencies: dependencies)
         // Then
-        XCTAssert(flexWidgetViewRenderer is LazyWidgetViewRenderer)
+        XCTAssert(lazyRenderer is LazyWidgetViewRenderer)
     }
 }
 

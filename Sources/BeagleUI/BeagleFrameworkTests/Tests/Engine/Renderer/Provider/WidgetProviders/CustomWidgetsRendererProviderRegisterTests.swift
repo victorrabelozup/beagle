@@ -11,11 +11,11 @@ import XCTest
 
 final class CustomWidgetsRendererProviderRegisterTests: XCTestCase {
 
-    // MARK: - CustomWidgetsRendererProviderRegister Tests
-    
+    private let dependencies = RendererDependenciesContainer()
+
     func test_register_shouldArchiveTheRegisteredType() {
         // Given
-        let sut = CustomWidgetsRendererProviderRegister()
+        let sut = CustomWidgetsRendererProviding()
         
         // When
         sut.registerRenderer(DummyRenderer.self, for: WidgetDummy.self)
@@ -30,11 +30,11 @@ final class CustomWidgetsRendererProviderRegisterTests: XCTestCase {
     func test_dequeue_shouldRecoverTheExpectedRenderer_whenPreviouslyRegistered() {
         // Given
         let dummyWidget = WidgetDummy()
-        let sut = CustomWidgetsRendererProviderRegister()
+        let sut = CustomWidgetsRendererProviding()
         sut.registerRenderer(DummyRenderer.self, for: WidgetDummy.self)
         
         // When
-        let renderer = try? sut.dequeueRenderer(for: dummyWidget)
+        let renderer = try? sut.buildRenderer(for: dummyWidget, dependencies: dependencies)
         
         // Then
         XCTAssertNotNil(renderer, "Expected a `renderer` instance, but got nil.")
@@ -44,27 +44,12 @@ final class CustomWidgetsRendererProviderRegisterTests: XCTestCase {
     func test_dequeue_shouldThrowError_whenTryingToGetAWidgetToUnknownWidget() {
         // Given
         let dummyWidget = WidgetDummy()
-        let sut = CustomWidgetsRendererProviderRegister()
+        let sut = CustomWidgetsRendererProviding()
         
         // When / Then
-        XCTAssertThrowsError(_ = try sut.dequeueRenderer(for: dummyWidget), "Expected an error, but got nothing.") { error in
-            XCTAssertTrue(error is CustomWidgetsRendererProviderRegisterError)
+        XCTAssertThrowsError(_ = try sut.buildRenderer(for: dummyWidget, dependencies: dependencies), "Expected an error, but got nothing.") { error in
+            XCTAssertTrue(error is WidgetRendererProviding.Error)
         }
-    }
-    
-    // MARK: - CustomWidgetsRendererProviderRegisterError Tests
-    
-    func test_CustomWidgetsRendererProviderRegisterError_localizedDescription_shouldReturnCorrectText() {
-        // Given
-        let typeName = "Something"
-        let expectedLocalizedDescription = "Could not find renderer for Widget of type \(typeName)."
-        
-        // When
-        let error: CustomWidgetsRendererProviderRegisterError = .couldNotFindRendererForWidgetOfType(typeName)
-        let localizedDescription = error.localizedDescription
-        
-        // Then
-        XCTAssertEqual(expectedLocalizedDescription, localizedDescription, "Expected \(expectedLocalizedDescription), but got \(localizedDescription).")
     }
     
 }

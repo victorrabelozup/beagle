@@ -14,7 +14,7 @@ final class FormInputWidgetViewRenderer: WidgetViewRenderer<FormInput> {
     
     override func buildView(context: BeagleContext) -> UIView {
         let child = widget.child
-        let childRenderer = rendererProvider.buildRenderer(for: child)
+        let childRenderer = self.rendererProvider.buildRenderer(for: child, dependencies: dependencies)
         let childView = childRenderer.buildView(context: context)
         childView.beagleFormElement = widget
         return childView

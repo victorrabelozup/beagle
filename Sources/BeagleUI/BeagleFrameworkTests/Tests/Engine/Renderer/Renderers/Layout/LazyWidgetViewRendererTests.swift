@@ -12,19 +12,16 @@ import XCTest
 final class LazyWidgetViewRendererTests: XCTestCase {
     
     func test_buildView_shouldReturnTheExpectedView() {
-        
         // Given
-        let widgetRendererProvider = WidgetRendererProviderSpy()
-        let flexConfigurator = FlexViewConfiguratorDummy()
-        let applicationTheme = AppThemeDummy()
-        let validatorHandler = ValidatorHandling()
+        let rendererProviderSpy = WidgetRendererProviderSpy()
+        let dependencies = RendererDependenciesContainer(
+            rendererProvider: rendererProviderSpy
+        )
+
         let lazyWidget = LazyWidget(url: "path", initialState: WidgetDummy())
         guard let sut = try? LazyWidgetViewRenderer(
             widget: lazyWidget,
-            rendererProvider: widgetRendererProvider,
-            flexViewConfigurator: flexConfigurator,
-            applicationTheme: applicationTheme,
-            validatorHandler: validatorHandler
+            dependencies: dependencies
         ) else {
             XCTFail("Could not create renderer.")
             return
@@ -35,7 +32,7 @@ final class LazyWidgetViewRendererTests: XCTestCase {
         let _ = sut.buildView(context: context)
         
         // Then
-        XCTAssertEqual(widgetRendererProvider.buildRendererCount, 1)
+        XCTAssertEqual(rendererProviderSpy.buildRendererCount, 1)
         XCTAssertTrue(context.didCallLazyLoad)
     }
 }

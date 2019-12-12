@@ -12,28 +12,27 @@ import XCTest
 final class NavigatorWidgetViewRendererTests: XCTestCase {
     
     func test_buildView_shouldReturnTheExpectedView() {
-        
         // Given
-        let widgetRendererProvider = WidgetRendererProviderSpy()
-        let flexConfigurator = FlexViewConfiguratorDummy()
-        let applicationTheme = AppThemeDummy()
+        let rendererProviderSpy = WidgetRendererProviderSpy()
+        let dependencies = RendererDependenciesContainer(
+            rendererProvider: rendererProviderSpy
+        )
+
         let navigator = Navigator(action: Navigate(type: .popView), child: WidgetDummy())
+
         guard let renderer = try? NavigatorWidgetViewRenderer(
             widget: navigator,
-            rendererProvider: widgetRendererProvider,
-            flexViewConfigurator: flexConfigurator,
-            applicationTheme: applicationTheme
+            dependencies: dependencies
         ) else {
             XCTFail("Could not create renderer.")
             return
         }
-        let context = BeagleContextDummy()
-                
+
         // When
-        let _ = renderer.buildView(context: context)
+        let _ = renderer.buildView(context: BeagleContextDummy())
         
         // Then
-        XCTAssertEqual(widgetRendererProvider.buildRendererCount, 1, "Expected to call `buildRenderer` once.")
+        XCTAssertEqual(rendererProviderSpy.buildRendererCount, 1, "Expected to call `buildRenderer` once.")
     }
 }
 
@@ -41,7 +40,7 @@ final class WidgetRendererProviderSpy: WidgetRendererProvider {
     
     private(set) var buildRendererCount = 0
     
-    func buildRenderer(for widget: Widget) -> WidgetViewRendererProtocol {
+    func buildRenderer(for widget: Widget, dependencies: RendererDependencies) -> WidgetViewRendererProtocol {
         buildRendererCount += 1
         return WidgetViewRendererProtocolDummy()
     }

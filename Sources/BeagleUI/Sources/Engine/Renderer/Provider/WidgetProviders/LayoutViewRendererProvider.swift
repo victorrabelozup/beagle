@@ -8,38 +8,36 @@
 
 import Foundation
 
-protocol LayoutViewRendererProvider: FailableWidgetRendererProvider {}
-
-final class LayoutViewRendererProviding: LayoutViewRendererProvider {
+final class LayoutViewRendererProviding: WidgetRendererProviderThrowable {
     
-    func buildRenderer(for widget: Widget) throws -> WidgetViewRendererProtocol {
+    func buildRenderer(for widget: Widget, dependencies: RendererDependencies) throws -> WidgetViewRendererProtocol {
         switch widget {
         case is FlexSingleWidget:
-            return try FlexSingleWidgetViewRenderer(widget)
+            return try FlexSingleWidgetViewRenderer(widget: widget, dependencies: dependencies)
         case is FlexWidget:
-            return try FlexWidgetViewRenderer(widget)
+            return try FlexWidgetViewRenderer(widget: widget, dependencies: dependencies)
         case is Container:
-            return try ContainerWidgetViewRenderer(widget)
+            return try ContainerWidgetViewRenderer(widget: widget, dependencies: dependencies)
         case is Spacer:
-            return try SpacerWidgetViewRenderer(widget)
+            return try SpacerWidgetViewRenderer(widget: widget, dependencies: dependencies)
         case is ScrollView:
-            return try ScrollViewWidgetViewRenderer(widget)
+            return try ScrollViewWidgetViewRenderer(widget: widget, dependencies: dependencies)
         case is ListView:
-            return try ListViewWidgetRenderer(widget)
+            return try ListViewWidgetRenderer(widget: widget, dependencies: dependencies)
         case is Navigator:
-            return try NavigatorWidgetViewRenderer(widget)
+            return try NavigatorWidgetViewRenderer(widget: widget, dependencies: dependencies)
         case is Form:
-            return try FormWidgetViewRenderer(widget)
+            return try FormWidgetViewRenderer(widget: widget, dependencies: dependencies)
         case is FormInput:
-            return try FormInputWidgetViewRenderer(widget)
+            return try FormInputWidgetViewRenderer(widget: widget, dependencies: dependencies)
         case is FormSubmit:
-            return try FormSubmitWidgetViewRenderer(widget)
+            return try FormSubmitWidgetViewRenderer(widget: widget, dependencies: dependencies)
         case is PageView:
-            return try PageViewRender(widget)
+            return try PageViewRender(widget: widget, dependencies: dependencies)
         case is LazyWidget:
-            return try LazyWidgetViewRenderer(widget)
+            return try LazyWidgetViewRenderer(widget: widget, dependencies: dependencies)
         default:
-            throw FailableWidgetRendererProviderError.couldNotFindRenrererForWidget(widget)
+            throw WidgetRendererProviding.Error.couldNotFindRendererForWidget(widget)
         }
     }
     

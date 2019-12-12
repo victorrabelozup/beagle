@@ -14,7 +14,7 @@ final class UnknownWidgetViewRendererTests: XCTestCase {
     func test_initUnknownWidgetView_shouldConfigureALabelWithTheRightParameters() {
         // Given
         let unknownWidget = WidgetDummy()
-        let unknownWidgetViewRenderer = UnknownWidgetViewRenderer(unknownWidget)
+        let unknownWidgetViewRenderer = UnknownWidgetViewRenderer(widget: unknownWidget)
         let anyWidget = AnyWidget(value: unknownWidget as Any)
         let expectedText = "Unknown Widget of type:\n \(String(describing: anyWidget))"
         let context = BeagleContextDummy()

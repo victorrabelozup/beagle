@@ -16,26 +16,28 @@ struct PageViewEntity: WidgetEntity {
 extension PageViewEntity: WidgetConvertible {
     
     func mapToWidget() throws -> Widget {
-        let widgets = try self.pages.map {
+        let widgets = try pages.map {
             try ($0.content as? WidgetConvertibleEntity)?.mapToWidget()
         }
         
-        guard let pages = widgets as? [FlexWidget] else {
+        guard let pages = widgets as? [Widget] else {
             throw WidgetConvertibleError.invalidType
-        }
-
-        var pageIndicator: PageIndicator?
-        if let indicator = self.pageIndicator {
-            if let typed = indicator as? PageIndicator {
-                pageIndicator = typed
-            } else {
-                throw WidgetConvertibleError.invalidType
-            }
         }
     
         return PageView(
             pages: pages,
-            pageIndicator: pageIndicator
+            pageIndicator: try getPageIndicatorWidget()
         )
+    }
+
+    private func getPageIndicatorWidget() throws -> PageIndicator? {
+        guard let indicator = pageIndicator else { return nil }
+
+        let widget = try (indicator.content as? WidgetConvertibleEntity)?.mapToWidget()
+        if let typed = widget as? PageIndicator {
+            return typed
+        } else {
+            throw WidgetConvertibleError.invalidType
+        }
     }
 }

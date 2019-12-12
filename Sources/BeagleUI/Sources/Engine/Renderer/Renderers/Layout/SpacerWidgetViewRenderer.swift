@@ -21,7 +21,7 @@ final class SpacerWidgetViewRenderer: WidgetViewRenderer<Spacer> {
         
         let view = UIView()
         
-        flexViewConfigurator.setupFlex(flex, for: view)
+        self.flex.setupFlex(flex, for: view)
         
         return view
     }

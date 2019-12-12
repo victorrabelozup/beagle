@@ -10,18 +10,7 @@ import XCTest
 @testable import BeagleUI
 
 final class BeagleViewBuilderTests: XCTestCase {
-    
-    func test_publicInit_shouldSetupDependenciesProperly() {
-        // Given
-        let sut = BeagleViewBuilding()
-        
-        // When
-        let mirror = Mirror(reflecting: sut)
-        let rendererProvider = mirror.firstChild(of: WidgetRendererProviding.self)
-        
-        // Then
-        XCTAssertNotNil(rendererProvider, "Expected to find `WidgetRendererProviding`, but got nil.")
-    }
+
     
     func test_buildFromRootWidget_shouldReturnTheExpectedRootView() {
         // Given

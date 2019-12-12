@@ -19,7 +19,7 @@ final class ScrollViewWidgetViewRenderer: WidgetViewRenderer<ScrollView> {
         let scrollView = buildContentScrollView(context: context)
         scrollView.backgroundColor = .green
         
-        flexViewConfigurator.setupFlex(Flex(), for: scrollView)
+        self.flex.setupFlex(Flex(), for: scrollView)
         
         return scrollView
     }
@@ -33,7 +33,9 @@ final class ScrollViewWidgetViewRenderer: WidgetViewRenderer<ScrollView> {
         let contentView = UIView()
         
         widget.children.forEach {
-            let childView = rendererProvider.buildRenderer(for: $0).buildView(context: context)
+            let childView = self.rendererProvider
+                .buildRenderer(for: $0, dependencies: dependencies)
+                .buildView(context: context)
             contentView.addSubview(childView)
         }
         
@@ -41,8 +43,8 @@ final class ScrollViewWidgetViewRenderer: WidgetViewRenderer<ScrollView> {
         
         let flexContent = Flex(grow: 1, shrink: 0)
         
-        flexViewConfigurator.setupFlex(flex, for: scrollView)
-        flexViewConfigurator.setupFlex(flexContent, for: contentView)
+        self.flex.setupFlex(flex, for: scrollView)
+        self.flex.setupFlex(flexContent, for: contentView)
         
         return scrollView
     }

@@ -18,7 +18,7 @@ final class ButtonWidgetViewRendererTests: XCTestCase {
         let widget = UnknownWidget()
         
         // When / Then
-        XCTAssertThrowsError(_ = try ButtonWidgetViewRenderer(widget), "Expected error, but got nil.") { error in
+        XCTAssertThrowsError(_ = try ButtonWidgetViewRenderer(widget: widget), "Expected error, but got nil.") { error in
             XCTAssertNotNil(error, "Expected error, but got \(error.localizedDescription)")
         }
     }
@@ -30,7 +30,7 @@ final class ButtonWidgetViewRendererTests: XCTestCase {
         let context = BeagleContextDummy()
         
         //When
-        guard let buttonWidgetRenderer = try? ButtonWidgetViewRenderer(widget) else {
+        guard let buttonWidgetRenderer = try? ButtonWidgetViewRenderer(widget: widget) else {
             XCTFail("Could not render Button.")
             return
         }

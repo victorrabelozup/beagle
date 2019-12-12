@@ -17,7 +17,7 @@ final class ContainerWidgetViewRenderer: WidgetViewRenderer<Container> {
 
         let view = UIView()
         if let header = widget.header {
-            let renderer = rendererProvider.buildRenderer(for: header)
+            let renderer = self.rendererProvider.buildRenderer(for: header, dependencies: dependencies)
             let headerView = renderer.buildView(context: context)
             view.addSubview(headerView)
         }
@@ -26,11 +26,11 @@ final class ContainerWidgetViewRenderer: WidgetViewRenderer<Container> {
         view.addSubview(scrollView)
         
         if let footer = widget.footer {
-            let renderer = rendererProvider.buildRenderer(for: footer)
+            let renderer = self.rendererProvider.buildRenderer(for: footer, dependencies: dependencies)
             let footerView = renderer.buildView(context: context)
             view.addSubview(footerView)
         }
-        flexViewConfigurator.setupFlex(Flex(), for: view)
+        self.flex.setupFlex(Flex(), for: view)
         
         return view
     }
@@ -41,14 +41,15 @@ final class ContainerWidgetViewRenderer: WidgetViewRenderer<Container> {
         
         let scrollView = BeagleContainerScrollView()
         let flex = Flex(grow: 1)
-        let contentView = rendererProvider.buildRenderer(for: widget.content).buildView(context: context)
+        let contentView = self.rendererProvider
+            .buildRenderer(for: widget.content, dependencies: dependencies)
+            .buildView(context: context)
         scrollView.addSubview(contentView)
         
-        flexViewConfigurator.setupFlex(flex, for: scrollView)
+        self.flex.setupFlex(flex, for: scrollView)
         
         return scrollView
     }
-    
 }
 
 final class BeagleContainerScrollView: UIScrollView {

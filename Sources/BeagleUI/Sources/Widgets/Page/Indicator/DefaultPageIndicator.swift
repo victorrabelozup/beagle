@@ -1,28 +1,34 @@
 //
-//  Copyright © 21/11/19 Zup IT. All rights reserved.
+//  Copyright © 04/12/19 Zup IT. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-public struct PageIndicatorUIViewModel {
-    public let numberOfPages: Int
-    public let currentPage: Int
+struct DefaultPageIndicatorEntity: WidgetEntity {
 }
 
-public protocol PageIndicatorUIView: UIView {
-    var outputReceiver: PageIndicatorOutput? { get set }
-    var model: PageIndicatorUIViewModel? { get set }
+extension DefaultPageIndicatorEntity: WidgetConvertible {
+
+    func mapToWidget() throws -> Widget {
+        return DefaultPageIndicator()
+    }
 }
 
-public protocol PageIndicatorOutput: AnyObject {
-    func swipeToPage(at index: Int)
+class DefaultPageIndicatorRenderer: WidgetViewRenderer<DefaultPageIndicator> {
+
+    override func buildView(context: BeagleContext) -> UIView {
+        return DefaultPageIndicatorUIComponent()
+    }
+}
+
+class DefaultPageIndicator: PageIndicator {
 }
 
 class DefaultPageIndicatorUIComponent: UIView, PageIndicatorUIView {
 
     weak var outputReceiver: PageIndicatorOutput?
-    
+
     typealias Model = PageIndicatorUIViewModel
 
     var model: Model? { didSet {

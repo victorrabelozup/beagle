@@ -13,12 +13,12 @@ import XCTest
 
 final class WidgetViewRendererProtocolDummy: WidgetViewRendererProtocol {
     init() { }
-    init(_ widget: Widget) throws {}
+    init(widget: Widget, dependencies: RendererDependencies?) throws {}
     func buildView(context: BeagleContext) -> UIView { return UIView() }
 }
 
 class WidgetRendererProviderDummy: WidgetRendererProvider {
-    func buildRenderer(for widget: Widget) -> WidgetViewRendererProtocol {
+    func buildRenderer(for widget: Widget, dependencies: RendererDependencies) -> WidgetViewRendererProtocol {
         return WidgetViewRendererProtocolDummy()
     }
 }

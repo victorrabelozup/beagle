@@ -32,7 +32,7 @@ final class BeagleEnvironmentTests: XCTestCase {
         let mirror = Mirror(reflecting: environment)
         let decoder = mirror.firstChild(of: WidgetDecoder.self, in: "_decoder")
         let networkingDispatcher = mirror.children.first(where: { $0.label == "_networkingDispatcher" } )
-        let customWidgetsRendererProviderRegister = mirror.firstChild(of: CustomWidgetsRendererProviderRegister.self, in: "customWidgetsRendererProviderRegister")
+        let customWidgetsRendererProviderRegister = mirror.firstChild(of: CustomWidgetsRendererProviding.self, in: "customWidgetsRendererProviderRegister")
         
         // Then
         XCTAssertNotNil(decoder, "Expected a `decoder` to be set.")
@@ -40,7 +40,7 @@ final class BeagleEnvironmentTests: XCTestCase {
         XCTAssertNotNil(networkingDispatcher, "Expected a `networkingDispatcher` to be set.")
         XCTAssertTrue(environment.networkingDispatcher is URLSessionDispatcher)
         XCTAssertNotNil(customWidgetsRendererProviderRegister, "Expected a `customWidgetsRendererProviderRegister` to be set.")
-        XCTAssertTrue(environment.customWidgetsProvider is CustomWidgetsRendererProviderRegister)
+        XCTAssertTrue(environment.customWidgetsProvider is CustomWidgetsRendererProviding)
         XCTAssertEqual(bundle, environment.appBundle, "Expected a `appBundle` to be set.")
         XCTAssertNotNil(deepLinkHandler, "Expected a `deepLinkHandler` to be set.")
     }
@@ -61,7 +61,7 @@ final class BeagleEnvironmentTests: XCTestCase {
     func test_registerCustomWidgets_shouldCallDecoderAndCustomWidgersRendererProviderRegister() {
         // Given
         let decoderSpy = WidgetDecodingSpy()
-        let widgetRegisterSpy = CustomWidgetsRendererProviderRegisterSpy()
+        let widgetRegisterSpy = CustomWidgetsRendererProviderSpy()
         BeagleEnvironment.initialize(
             appName: "EnvironmentTest",
             baseURL: nil,
@@ -131,7 +131,7 @@ private final class WidgetDecodingSpy: WidgetDecoding {
     }
 }
 
-private final class CustomWidgetsRendererProviderRegisterSpy: CustomWidgetsRendererProviderRegistering & CustomWidgetsRendererProviderDequeuing {
+private final class CustomWidgetsRendererProviderSpy: CustomWidgetsRendererProvider {
     
     private(set) var registerRendererCalled = false
     private(set) var rendererTypePassed: WidgetViewRendererProtocol.Type?
@@ -144,10 +144,10 @@ private final class CustomWidgetsRendererProviderRegisterSpy: CustomWidgetsRende
     
     private(set) var dequeueRendererCalled = false
     private(set) var widgetPassed: Widget?
-    func dequeueRenderer(for widget: Widget) throws -> WidgetViewRendererProtocol {
+    func buildRenderer(for widget: Widget, dependencies: RendererDependencies) throws -> WidgetViewRendererProtocol {
         dequeueRendererCalled = true
         widgetPassed = widget
-        return try WidgetViewRendererDummy(widget)
+        return try WidgetViewRendererDummy(widget: widget, dependencies: dependencies)
     }
     
 }

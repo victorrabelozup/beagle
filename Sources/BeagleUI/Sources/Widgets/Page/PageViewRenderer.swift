@@ -7,35 +7,39 @@ import UIKit
 
 class PageViewRender: WidgetViewRenderer<PageView> {
 
-    override func buildView(context: BeagleContext) -> UIView {
+    override func buildView(
+        context: BeagleContext
+    ) -> UIView {
         let pages = widget.pages.map {
             BeagleScreenViewController(screenType: .declarative($0))
         }
 
-        let indicator = pageIndicatorView(widget.pageIndicator, context: context)
+        var indicatorView: PageIndicatorUIView?
+        if let indicator = widget.pageIndicator {
+            indicatorView = try? buildPageIndicatorView(for: indicator, context: context)
+        }
 
         let view = PageViewUIComponent(
             model: .init(pages: pages),
-            indicatorView: indicator
+            indicatorView: indicatorView
         )
 
-        flexViewConfigurator.applyYogaLayout(to: view, preservingOrigin: true)
-        flexViewConfigurator.setupFlex(Flex(), for: view)
+        self.flex.applyYogaLayout(to: view, preservingOrigin: true)
+        self.flex.setupFlex(Flex(), for: view)
         return view
     }
 
-    private func pageIndicatorView(
-        _ customIndicator: PageIndicator?,
+    private func buildPageIndicatorView(
+        for indicator: PageIndicator,
         context: BeagleContext
-    ) -> PageIndicatorUIView {
-        let defaultView = DefaultPageIndicatorUIComponent.self
-        guard let indicator = customIndicator else {
-            return defaultView.init()
+    ) throws -> PageIndicatorUIView {
+        let render = self.rendererProvider.buildRenderer(for: indicator, dependencies: dependencies)
+        let view = render.buildView(context: context)
+
+        guard let indicatorView = view as? PageIndicatorUIView else {
+            throw WidgetViewRenderingError.couldNotCastWidgetToType(String(describing: PageIndicatorUIView.self))
         }
 
-        let render = rendererProvider.buildRenderer(for: indicator)
-        let view = render.buildView(context: context) as? PageIndicatorUIView
-            ?? defaultView.init()
-        return view
+        return indicatorView
     }
 }

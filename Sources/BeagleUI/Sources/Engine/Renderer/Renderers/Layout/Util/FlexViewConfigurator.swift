@@ -9,7 +9,7 @@
 import Foundation
 import YogaKit
 
-protocol FlexViewConfiguratorProtocol {
+public protocol FlexViewConfiguratorProtocol {
     func setupFlex(_ flex: Flex, for view: UIView)
     func applyYogaLayout(to view: UIView, preservingOrigin: Bool)
     func enableYoga(_ enable: Bool, for view: UIView)

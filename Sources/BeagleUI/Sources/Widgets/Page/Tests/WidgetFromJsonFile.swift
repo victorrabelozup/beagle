@@ -11,7 +11,8 @@ enum WidgetFromJsonError: Error {
 }
 
 func widgetFromJsonFile<W: Widget>(
-    fileName: String
+    fileName: String,
+    decoder: WidgetDecoding = WidgetDecoder()
 ) throws -> W {
     guard let url = Bundle(for: WidgetDecoderTests.self).url(
         forResource: fileName,
@@ -30,9 +31,12 @@ func widgetFromJsonFile<W: Widget>(
     return typed
 }
 
+/// This method was only created due to some problems with Swift Type Inference.
+/// So when you pass the type as a parameter, swift can infer the correct type.
 func widgetFromJsonFile<W: Widget>(
     widgetType: W.Type,
-    fileName: String
+    fileName: String,
+    decoder: WidgetDecoding = WidgetDecoder()
 ) throws -> W {
-    return try widgetFromJsonFile(fileName: fileName)
+    return try widgetFromJsonFile(fileName: fileName, decoder: decoder)
 }

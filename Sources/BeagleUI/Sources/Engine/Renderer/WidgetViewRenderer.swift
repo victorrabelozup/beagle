@@ -18,48 +18,46 @@ public enum WidgetViewRenderingError: Error {
             return "Could not cast widget to `\(type)`."
         }
     }
-    
+}
+
+public protocol RendererDependencies {
+    var flex: FlexViewConfiguratorProtocol { get }
+    var rendererProvider: WidgetRendererProvider { get }
+    var theme: Theme { get }
+    var validatorHandler: ValidatorHandler? { get }
 }
 
 public protocol WidgetViewRendererProtocol {
-    init(_ widget: Widget) throws
+    init(
+        widget: Widget,
+        dependencies: RendererDependencies?
+    ) throws
+
     func buildView(context: BeagleContext) -> UIView
 }
 
+@dynamicMemberLookup
 open class WidgetViewRenderer<W: Widget>: WidgetViewRendererProtocol {
-    
-    let flexViewConfigurator: FlexViewConfiguratorProtocol
-    let rendererProvider: WidgetRendererProvider
-    let applicationTheme: Theme
-    let validatorHandler: ValidatorHandler?
+
+    var dependencies: RendererDependencies
+
     private(set) public var widget: W
     
-    required public init(_ widget: Widget) throws {
-        self.widget = try .newByCasting(widget: widget, to: W.self)
-        self.rendererProvider = WidgetRendererProviding()
-        self.flexViewConfigurator = FlexViewConfigurator()
-        self.applicationTheme = BeagleEnvironment.shared.applicationTheme
-        self.validatorHandler = BeagleEnvironment.shared.validatorHandler
-    }
-    
-    init(
+    required public init(
         widget: Widget,
-        rendererProvider: WidgetRendererProvider = WidgetRendererProviding(),
-        flexViewConfigurator: FlexViewConfiguratorProtocol = FlexViewConfigurator(),
-        applicationTheme: Theme = BeagleEnvironment.shared.applicationTheme,
-        validatorHandler: ValidatorHandler? = BeagleEnvironment.shared.validatorHandler
+        dependencies: RendererDependencies? = nil
     ) throws {
         self.widget = try .newByCasting(widget: widget, to: W.self)
-        self.rendererProvider = rendererProvider
-        self.flexViewConfigurator = flexViewConfigurator
-        self.applicationTheme = applicationTheme
-        self.validatorHandler = validatorHandler
+        self.dependencies = dependencies ?? BeagleEnvironment.shared
     }
     
     open func buildView(context: BeagleContext) -> UIView {
         fatalError("This needs to be overriden.")
     }
-    
+
+    subscript<T>(dynamicMember keyPath: KeyPath<RendererDependencies, T>) -> T {
+        return dependencies[keyPath: keyPath]
+    }
 }
 
 extension Widget {

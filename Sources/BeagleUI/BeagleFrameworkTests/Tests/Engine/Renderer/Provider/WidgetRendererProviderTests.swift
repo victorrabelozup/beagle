@@ -10,32 +10,30 @@ import XCTest
 @testable import BeagleUI
 
 final class WidgetRendererProviderTests: XCTestCase {
-
-    func test_whenInitializing_shouldReturnInstanceOfWidgetRendererProvider() {
-        // Given
-        let environmentSpy = BeagleEnvironmentSpy.self
-        Beagle.environment = environmentSpy
-        Beagle.didCallStart = false
-        Beagle.start()
-        let sut = WidgetRendererProviding()
-
-        // When
-        let mirror = Mirror(reflecting: sut)
-        let customWidgetsProvider = mirror.children.first(where: { $0.label == "customWidgetsProvider" } )
-
-        // Then
-        XCTAssertNotNil(customWidgetsProvider, "Expected a `CustomWidgetsRendererProviderRegister` instance, but got nil.")
-    }
     
     func test_buildRendererWithUnkownWidget_shouldReturnAnWidgetViewRenderer() {
         // Given
-        let rendererProvider = WidgetRendererProviding(customWidgetsProvider: CustomWidgetsRendererProviderDequeuingStub())
-        let unkownWidget = WidgetDummy()
+        let provider = WidgetRendererProviding()
+        provider.providers = [CustomRendererProviderStub()]
+
         // When
-        let widgetViewRenderer = rendererProvider.buildRenderer(for: unkownWidget)
+        let renderer = provider.buildRenderer(for: WidgetDummy(), dependencies: RendererDependenciesContainer())
+
         // Then
-        XCTAssertNotNil(widgetViewRenderer, "Expected a unknown Widget View renderer, but got nil.")
-        XCTAssertTrue(widgetViewRenderer is UnknownWidgetViewRenderer, "Expected a type to be Unknown Widget, but it is not.")
+        XCTAssertNotNil(renderer, "Expected a unknown Widget View renderer, but got nil.")
+        XCTAssertTrue(renderer is UnknownWidgetViewRenderer, "Expected a type to be Unknown Widget, but it is not.")
+    }
+
+    func test_widgetsRendererProviderError_localizedDescription_shouldReturnCorrectText() {
+        // Given
+        let widget = WidgetDummy()
+        let expectedError = "WidgetDummy has no renderer's registered, please check this."
+
+        // When
+        let error = WidgetRendererProviding.Error.couldNotFindRendererForWidget(widget)
+
+        // Then
+        XCTAssertEqual(expectedError, error.localizedDescription)
     }
     
 }
@@ -44,17 +42,19 @@ final class WidgetRendererProviderTests: XCTestCase {
 
 struct WidgetDummy: NativeWidget {}
 
-private class CustomWidgetsRendererProviderDequeuingStub: CustomWidgetsRendererProviderDequeuing {
-    
+private class CustomRendererProviderStub: CustomWidgetsRendererProvider {
+
     var rendererToReturn: WidgetViewRendererProtocol?
     var errorToThrow: Error = NSError(domain: "CustomWidgetsRendererProviderDequeuingStub", code: 1, userInfo: nil)
-    func dequeueRenderer(for widget: Widget) throws -> WidgetViewRendererProtocol {
+
+    func registerRenderer<W>(_ rendererType: WidgetViewRenderer<W>.Type, for widgetType: W.Type) where W : Widget {}
+
+    func buildRenderer(for widget: Widget, dependencies: RendererDependencies) throws -> WidgetViewRendererProtocol {
         if let rendererToReturn = rendererToReturn {
             return rendererToReturn
         }
         throw errorToThrow
     }
-    
 }
 
 struct ActionDummy: Action {}

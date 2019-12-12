@@ -105,15 +105,19 @@
 		C831ADF82385A282009D72D9 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C831ADF72385A282009D72D9 /* PageView.swift */; };
 		C85D9B9F2387017C0075B6C0 /* PageViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85D9B9E2387017C0075B6C0 /* PageViewRenderer.swift */; };
 		C85D9BA1238701E60075B6C0 /* PageViewUIComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85D9BA0238701E60075B6C0 /* PageViewUIComponent.swift */; };
-		C85D9BA3238702800075B6C0 /* PageIndicatorUIComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85D9BA2238702800075B6C0 /* PageIndicatorUIComponent.swift */; };
 		C85D9BA8238858B40075B6C0 /* PageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85D9BA7238858B40075B6C0 /* PageViewTests.swift */; };
 		C85D9BAA2388596A0075B6C0 /* PageViewWith3Pages.json in Resources */ = {isa = PBXBuildFile; fileRef = C85D9BA92388596A0075B6C0 /* PageViewWith3Pages.json */; };
 		C86E7C1523954E2700D6FEDB /* PageViewInvalid.json in Resources */ = {isa = PBXBuildFile; fileRef = C86E7C1423954E2700D6FEDB /* PageViewInvalid.json */; };
 		C86E7C172395602400D6FEDB /* WidgetFromJsonFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86E7C162395602400D6FEDB /* WidgetFromJsonFile.swift */; };
 		C8973F9D238864BE00A78AE0 /* SnapshotTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8973F9C238864BE00A78AE0 /* SnapshotTesting.framework */; };
+		C8983D9C23984C820080D439 /* PageViewWithCustomIndicator.json in Resources */ = {isa = PBXBuildFile; fileRef = C8983D9B23984C820080D439 /* PageViewWithCustomIndicator.json */; };
+		C89E80A52397FFD500C2D0ED /* PageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89E80A42397FFD500C2D0ED /* PageIndicator.swift */; };
+		C89E80A72397FFFD00C2D0ED /* DefaultPageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89E80A62397FFFD00C2D0ED /* DefaultPageIndicator.swift */; };
+		C89E816D239827D500C2D0ED /* CustomPageIndicatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89E816C239827D500C2D0ED /* CustomPageIndicatorTest.swift */; };
+		C89E816F23982B4700C2D0ED /* CustomPageIndicator.json in Resources */ = {isa = PBXBuildFile; fileRef = C89E816E23982B4700C2D0ED /* CustomPageIndicator.json */; };
 		C8F953162395960200615CF0 /* PageViewUIComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F95314239595C500615CF0 /* PageViewUIComponentTests.swift */; };
+		C8FD20B323959AED003E6F5B /* PageViewWith3PagesAndIndicator.json in Resources */ = {isa = PBXBuildFile; fileRef = C8FD20B223959AED003E6F5B /* PageViewWith3PagesAndIndicator.json */; };
 		E50B0902234CCAB90091AF0A /* WidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B08FF234CCAB90091AF0A /* WidgetRendererProvider.swift */; };
-		E50B0904234CCACB0091AF0A /* FailableWidgetRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B0903234CCACB0091AF0A /* FailableWidgetRendererProvider.swift */; };
 		E50B2841236350B9005E2E6D /* ServerDrivenWidgetFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B2840236350B9005E2E6D /* ServerDrivenWidgetFetcherTests.swift */; };
 		E50B28432363839E005E2E6D /* ServerDrivenScreenLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B28422363839E005E2E6D /* ServerDrivenScreenLoaderTests.swift */; };
 		E50B284523639299005E2E6D /* BeagleScreenViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B284423639299005E2E6D /* BeagleScreenViewControllerTests.swift */; };
@@ -199,7 +203,7 @@
 		E5CB5DB023550877009783A7 /* ImageEntityContentMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DAF23550877009783A7 /* ImageEntityContentMode.swift */; };
 		E5CB5DB22355088F009783A7 /* NetworkImageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DB12355088F009783A7 /* NetworkImageEntity.swift */; };
 		E5CB5DB923550CEF009783A7 /* WidgetRegisterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DB823550CEF009783A7 /* WidgetRegisterItem.swift */; };
-		E5CB5DBD2355FD0B009783A7 /* CustomWidgetsRendererProviderRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DBA23550D32009783A7 /* CustomWidgetsRendererProviderRegister.swift */; };
+		E5CB5DBD2355FD0B009783A7 /* CustomWidgetsRendererProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DBA23550D32009783A7 /* CustomWidgetsRendererProviding.swift */; };
 		E5CB5DC32356375E009783A7 /* CustomWidgetsRendererProviderRegisterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DC22356375E009783A7 /* CustomWidgetsRendererProviderRegisterTests.swift */; };
 		E5CB5DC623565440009783A7 /* BeagleSetupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DC523565440009783A7 /* BeagleSetupTests.swift */; };
 		E5CB5DCE23578837009783A7 /* LayoutViewRendererProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB5DCD23578837009783A7 /* LayoutViewRendererProvider.swift */; };
@@ -233,7 +237,6 @@
 		E5CE422E2334185300295277 /* UIModelConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE422D2334185300295277 /* UIModelConvertible.swift */; };
 		E5CE43182335052100295277 /* UIEnumModelConvertibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE43172335052100295277 /* UIEnumModelConvertibleTests.swift */; };
 		E5DD468B234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */; };
-		E5DD4691234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD4690234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift */; };
 		E70B4EAE236B586700BBC921 /* ImageWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B4EAD236B586700BBC921 /* ImageWidgetViewRenderer.swift */; };
 		E70B4EB0236B6B5700BBC921 /* ImageWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B4EAF236B6B5600BBC921 /* ImageWidgetViewRendererTests.swift */; };
 		E759590C2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E759590B2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift */; };
@@ -370,16 +373,21 @@
 		C831ADF72385A282009D72D9 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PageView.swift; path = Sources/Widgets/Page/PageView.swift; sourceTree = SOURCE_ROOT; };
 		C85D9B9E2387017C0075B6C0 /* PageViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewRenderer.swift; sourceTree = "<group>"; };
 		C85D9BA0238701E60075B6C0 /* PageViewUIComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewUIComponent.swift; sourceTree = "<group>"; };
-		C85D9BA2238702800075B6C0 /* PageIndicatorUIComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageIndicatorUIComponent.swift; sourceTree = "<group>"; };
 		C85D9BA7238858B40075B6C0 /* PageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewTests.swift; sourceTree = "<group>"; };
 		C85D9BA92388596A0075B6C0 /* PageViewWith3Pages.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PageViewWith3Pages.json; sourceTree = "<group>"; };
 		C86E7C1423954E2700D6FEDB /* PageViewInvalid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PageViewInvalid.json; sourceTree = "<group>"; };
 		C86E7C162395602400D6FEDB /* WidgetFromJsonFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WidgetFromJsonFile.swift; path = Sources/Widgets/Page/Tests/WidgetFromJsonFile.swift; sourceTree = SOURCE_ROOT; };
 		C8973F9C238864BE00A78AE0 /* SnapshotTesting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapshotTesting.framework; path = ../../ThirdParty/Carthage/Build/iOS/SnapshotTesting.framework; sourceTree = "<group>"; };
 		C897404E2388692900A78AE0 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
+		C8983D9A23984A4E0080D439 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
+		C8983D9B23984C820080D439 /* PageViewWithCustomIndicator.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PageViewWithCustomIndicator.json; sourceTree = "<group>"; };
+		C89E80A42397FFD500C2D0ED /* PageIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageIndicator.swift; sourceTree = "<group>"; };
+		C89E80A62397FFFD00C2D0ED /* DefaultPageIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPageIndicator.swift; sourceTree = "<group>"; };
+		C89E816C239827D500C2D0ED /* CustomPageIndicatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageIndicatorTest.swift; sourceTree = "<group>"; };
+		C89E816E23982B4700C2D0ED /* CustomPageIndicator.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CustomPageIndicator.json; sourceTree = "<group>"; };
 		C8F95314239595C500615CF0 /* PageViewUIComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewUIComponentTests.swift; sourceTree = "<group>"; };
+		C8FD20B223959AED003E6F5B /* PageViewWith3PagesAndIndicator.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PageViewWith3PagesAndIndicator.json; sourceTree = "<group>"; };
 		E50B08FF234CCAB90091AF0A /* WidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetRendererProvider.swift; sourceTree = "<group>"; };
-		E50B0903234CCACB0091AF0A /* FailableWidgetRendererProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FailableWidgetRendererProvider.swift; sourceTree = "<group>"; };
 		E50B2840236350B9005E2E6D /* ServerDrivenWidgetFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDrivenWidgetFetcherTests.swift; sourceTree = "<group>"; };
 		E50B28422363839E005E2E6D /* ServerDrivenScreenLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDrivenScreenLoaderTests.swift; sourceTree = "<group>"; };
 		E50B284423639299005E2E6D /* BeagleScreenViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleScreenViewControllerTests.swift; sourceTree = "<group>"; };
@@ -465,7 +473,7 @@
 		E5CB5DAF23550877009783A7 /* ImageEntityContentMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEntityContentMode.swift; sourceTree = "<group>"; };
 		E5CB5DB12355088F009783A7 /* NetworkImageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageEntity.swift; sourceTree = "<group>"; };
 		E5CB5DB823550CEF009783A7 /* WidgetRegisterItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetRegisterItem.swift; sourceTree = "<group>"; };
-		E5CB5DBA23550D32009783A7 /* CustomWidgetsRendererProviderRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWidgetsRendererProviderRegister.swift; sourceTree = "<group>"; };
+		E5CB5DBA23550D32009783A7 /* CustomWidgetsRendererProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWidgetsRendererProviding.swift; sourceTree = "<group>"; };
 		E5CB5DBE2355FFFA009783A7 /* BeagleUIPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = BeagleUIPlayground.playground; path = Sources/BeagleUI/BeagleUIPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E5CB5DBF2355FFFA009783A7 /* YogaKit.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = YogaKit.playground; path = Libraries/YogaKit/YogaKit.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E5CB5DC22356375E009783A7 /* CustomWidgetsRendererProviderRegisterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWidgetsRendererProviderRegisterTests.swift; sourceTree = "<group>"; };
@@ -503,7 +511,6 @@
 		E5CE422D2334185300295277 /* UIModelConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIModelConvertible.swift; sourceTree = "<group>"; };
 		E5CE43172335052100295277 /* UIEnumModelConvertibleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEnumModelConvertibleTests.swift; sourceTree = "<group>"; };
 		E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownWidgetViewRenderer.swift; sourceTree = "<group>"; };
-		E5DD4690234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailableWidgetRendererProviderErrorTests.swift; sourceTree = "<group>"; };
 		E70B4EAD236B586700BBC921 /* ImageWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWidgetViewRenderer.swift; sourceTree = "<group>"; };
 		E70B4EAF236B6B5600BBC921 /* ImageWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		E759590B2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidgetViewRendererTests.swift; sourceTree = "<group>"; };
@@ -765,11 +772,11 @@
 		C85D9B9D238701450075B6C0 /* Page */ = {
 			isa = PBXGroup;
 			children = (
-				C85D9BA2238702800075B6C0 /* PageIndicatorUIComponent.swift */,
 				C831ADF72385A282009D72D9 /* PageView.swift */,
 				E7DA3EDF23872426000F065E /* PageViewEntity.swift */,
 				C85D9B9E2387017C0075B6C0 /* PageViewRenderer.swift */,
 				C85D9BA0238701E60075B6C0 /* PageViewUIComponent.swift */,
+				C89E80A32397FFB900C2D0ED /* Indicator */,
 				C85D9BA6238858940075B6C0 /* Tests */,
 			);
 			path = Page;
@@ -795,11 +802,23 @@
 			path = Widgets;
 			sourceTree = "<group>";
 		};
+		C89E80A32397FFB900C2D0ED /* Indicator */ = {
+			isa = PBXGroup;
+			children = (
+				C89E80A42397FFD500C2D0ED /* PageIndicator.swift */,
+				C89E80A62397FFFD00C2D0ED /* DefaultPageIndicator.swift */,
+			);
+			path = Indicator;
+			sourceTree = "<group>";
+		};
 		C8F953172395961700615CF0 /* Json */ = {
 			isa = PBXGroup;
 			children = (
-				C85D9BA92388596A0075B6C0 /* PageViewWith3Pages.json */,
+				C89E816E23982B4700C2D0ED /* CustomPageIndicator.json */,
 				C86E7C1423954E2700D6FEDB /* PageViewInvalid.json */,
+				C85D9BA92388596A0075B6C0 /* PageViewWith3Pages.json */,
+				C8FD20B223959AED003E6F5B /* PageViewWith3PagesAndIndicator.json */,
+				C8983D9B23984C820080D439 /* PageViewWithCustomIndicator.json */,
 			);
 			path = Json;
 			sourceTree = "<group>";
@@ -811,14 +830,6 @@
 				E50B08FF234CCAB90091AF0A /* WidgetRendererProvider.swift */,
 			);
 			path = Provider;
-			sourceTree = "<group>";
-		};
-		E50B08FC234CCAA40091AF0A /* Abstractions */ = {
-			isa = PBXGroup;
-			children = (
-				E50B0903234CCACB0091AF0A /* FailableWidgetRendererProvider.swift */,
-			);
-			path = Abstractions;
 			sourceTree = "<group>";
 		};
 		E50B283F236350A6005E2E6D /* Networking */ = {
@@ -1258,9 +1269,8 @@
 		E5CB5DBC2355FBD4009783A7 /* WidgetProviders */ = {
 			isa = PBXGroup;
 			children = (
-				E50B08FC234CCAA40091AF0A /* Abstractions */,
 				E5CB5DCD23578837009783A7 /* LayoutViewRendererProvider.swift */,
-				E5CB5DBA23550D32009783A7 /* CustomWidgetsRendererProviderRegister.swift */,
+				E5CB5DBA23550D32009783A7 /* CustomWidgetsRendererProviding.swift */,
 				E5CB5DCF23578967009783A7 /* UIComponentViewRendererProvider.swift */,
 			);
 			path = WidgetProviders;
@@ -1279,7 +1289,6 @@
 		E5CB5DC12356373D009783A7 /* WidgetProviders */ = {
 			isa = PBXGroup;
 			children = (
-				E5DD468F234CF1F1004B7289 /* Abstractions */,
 				E5CB5DC22356375E009783A7 /* CustomWidgetsRendererProviderRegisterTests.swift */,
 				989F7AA023637F2800E4E0E8 /* LayoutViewRendererProviderTests.swift */,
 				989F7AA22363842E00E4E0E8 /* UIComponentViewRendererProvidingTests.swift */,
@@ -1529,14 +1538,6 @@
 			path = Provider;
 			sourceTree = "<group>";
 		};
-		E5DD468F234CF1F1004B7289 /* Abstractions */ = {
-			isa = PBXGroup;
-			children = (
-				E5DD4690234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift */,
-			);
-			path = Abstractions;
-			sourceTree = "<group>";
-		};
 		E5DD4692234CF444004B7289 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1557,7 +1558,9 @@
 		E7F8CF4F239190C5004C6C19 /* CustomPageIndicator */ = {
 			isa = PBXGroup;
 			children = (
+				C8983D9A23984A4E0080D439 /* __Snapshots__ */,
 				E7F8CF50239190F4004C6C19 /* CustomPageIndicator.swift */,
+				C89E816C239827D500C2D0ED /* CustomPageIndicatorTest.swift */,
 			);
 			path = CustomPageIndicator;
 			sourceTree = "<group>";
@@ -1667,6 +1670,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C86E7C1523954E2700D6FEDB /* PageViewInvalid.json in Resources */,
+				C89E816F23982B4700C2D0ED /* CustomPageIndicator.json in Resources */,
+				C8FD20B323959AED003E6F5B /* PageViewWith3PagesAndIndicator.json in Resources */,
+				C8983D9C23984C820080D439 /* PageViewWithCustomIndicator.json in Resources */,
 				C85D9BAA2388596A0075B6C0 /* PageViewWith3Pages.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1761,6 +1767,7 @@
 				E5CE422E2334185300295277 /* UIModelConvertible.swift in Sources */,
 				930A2B5A23574B55003A945C /* FlexSingleWidgetViewRenderer.swift in Sources */,
 				E522376A237C3C1300E555BB /* Text.swift in Sources */,
+				C89E80A52397FFD500C2D0ED /* PageIndicator.swift in Sources */,
 				E5CE41BB2331DFF100295277 /* WidgetConvertible.swift in Sources */,
 				E5223783237C3CAF00E555BB /* FormInput.swift in Sources */,
 				9397F5D02357615F00054D42 /* FlexViewConfigurator.swift in Sources */,
@@ -1789,13 +1796,11 @@
 				E5CE41A92331D95300295277 /* VerticalEntity.swift in Sources */,
 				E5223776237C3C4800E555BB /* UnitValue.swift in Sources */,
 				A0EF0AC2238B0CEC0019BE83 /* SubmitFormGestureRecognizer.swift in Sources */,
-				E50B0904234CCACB0091AF0A /* FailableWidgetRendererProvider.swift in Sources */,
 				E522377C237C3C5500E555BB /* FlexSingleWidget.swift in Sources */,
 				E5CE41C82332749800295277 /* HorizontalEntity.swift in Sources */,
 				E5223765237C3C0600E555BB /* NetworkImage.swift in Sources */,
 				93681809232A888300E6E724 /* Padding.swift in Sources */,
 				E5223770237C3C3B00E555BB /* Navigate.swift in Sources */,
-				C85D9BA3238702800075B6C0 /* PageIndicatorUIComponent.swift in Sources */,
 				E52236BF23744AB500E555BB /* ListViewWidgetRenderer.swift in Sources */,
 				931B6E302375BA7400DE73FD /* Theme.swift in Sources */,
 				E5CB5D792354ADF9009783A7 /* ButtonWidgetViewRenderer.swift in Sources */,
@@ -1826,6 +1831,7 @@
 				A0EF0AD8238DA38C0019BE83 /* ActionEntity.swift in Sources */,
 				E522375F237C3B8600E555BB /* FormInputEntity.swift in Sources */,
 				C62E8EAE2373588900FF1497 /* ScrollView.swift in Sources */,
+				C89E80A72397FFFD00C2D0ED /* DefaultPageIndicator.swift in Sources */,
 				E5CB5DD023578967009783A7 /* UIComponentViewRendererProvider.swift in Sources */,
 				A0EF0AAA23880D5A0019BE83 /* CustomAction.swift in Sources */,
 				A068234523831EE100CEE57A /* FormWidgetViewRenderer.swift in Sources */,
@@ -1855,7 +1861,7 @@
 				E5CE41AE2331D9A700295277 /* TextEntity.swift in Sources */,
 				9835E2022383054D00F7CBFA /* NavigationBarEntity.swift in Sources */,
 				E5CB5DCE23578837009783A7 /* LayoutViewRendererProvider.swift in Sources */,
-				E5CB5DBD2355FD0B009783A7 /* CustomWidgetsRendererProviderRegister.swift in Sources */,
+				E5CB5DBD2355FD0B009783A7 /* CustomWidgetsRendererProviding.swift in Sources */,
 				93681807232A887A00E6E724 /* Horizontal.swift in Sources */,
 				E56A029D2344172400C0F23D /* WidgetBuilders.swift in Sources */,
 				E5223764237C3C0600E555BB /* Image.swift in Sources */,
@@ -1879,7 +1885,6 @@
 				E50B284523639299005E2E6D /* BeagleScreenViewControllerTests.swift in Sources */,
 				A0F454892379898E00B146A1 /* NavigateEntityTests.swift in Sources */,
 				C85D9BA8238858B40075B6C0 /* PageViewTests.swift in Sources */,
-				E5DD4691234CF1FF004B7289 /* FailableWidgetRendererProviderErrorTests.swift in Sources */,
 				E50B28432363839E005E2E6D /* ServerDrivenScreenLoaderTests.swift in Sources */,
 				A0EF0AB2238871B30019BE83 /* FormSubmitWidgetViewRendererTests.swift in Sources */,
 				E5CB5DC32356375E009783A7 /* CustomWidgetsRendererProviderRegisterTests.swift in Sources */,
@@ -1962,6 +1967,7 @@
 				9841FD0323454F080069D7D2 /* FlexSingleWidgetEntityTests.swift in Sources */,
 				E516E61023705BED006620B1 /* BeagleViewBuilderTests.swift in Sources */,
 				E56A02D223462C0900C0F23D /* WidgetBuildersTests.swift in Sources */,
+				C89E816D239827D500C2D0ED /* CustomPageIndicatorTest.swift in Sources */,
 				9835E2482385D53700F7CBFA /* NavigationBarTests.swift in Sources */,
 				E5A77641237DC140002F5515 /* FormInputTests.swift in Sources */,
 				E5A6F4BE2358ECA1008906F8 /* FlexViewConfiguratorTests.swift in Sources */,

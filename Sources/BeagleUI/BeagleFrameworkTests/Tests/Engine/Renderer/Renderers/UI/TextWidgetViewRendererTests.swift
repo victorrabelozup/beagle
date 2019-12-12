@@ -16,7 +16,7 @@ final class TextWidgetViewRendererTests: XCTestCase {
         let unkownWidget = WidgetDummy()
         
         // When / Then
-        XCTAssertThrowsError(_ = try TextWidgetViewRenderer(unkownWidget), "Expected error, but got nil.") { error in
+        XCTAssertThrowsError(_ = try TextWidgetViewRenderer(widget: unkownWidget), "Expected error, but got nil.") { error in
             XCTAssertTrue(error is WidgetViewRenderingError, "Expected to have a WidgetViewRenderingError, but got \(error)")
         }
     }
@@ -27,7 +27,7 @@ final class TextWidgetViewRendererTests: XCTestCase {
         let context = BeagleContextDummy()
         
         // When
-        guard let textViewRenderer = try? TextWidgetViewRenderer(widget) else {
+        guard let textViewRenderer = try? TextWidgetViewRenderer(widget: widget) else {
             XCTFail("Could not render Text.")
             return
         }

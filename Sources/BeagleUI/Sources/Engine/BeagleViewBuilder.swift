@@ -13,29 +13,29 @@ public protocol BeagleViewBuilder {
 }
 
 public final class BeagleViewBuilding: BeagleViewBuilder {
-    
+
     // MARK: - Dependencies
     
-    private let rendererProvider: WidgetRendererProvider
+    private let dependencies: RendererDependencies
     
     // MARK: - Initialization
     
     public convenience init() {
-        self.init(rendererProvider: nil)
+        self.init(dependencies: nil)
     }
     
     init(
-        rendererProvider: WidgetRendererProvider? = nil
+        dependencies: RendererDependencies? = nil
     ) {
-        self.rendererProvider = rendererProvider ?? WidgetRendererProviding()
+        self.dependencies = dependencies ?? BeagleEnvironment.shared
     }
     
     // MARK: - Public Functions
     
     public func buildFromRootWidget(_ widget: Widget, context: BeagleContext) -> UIView {
-        let renderer = rendererProvider.buildRenderer(for: widget)
-        let view = renderer.buildView(context: context)
-        return view
+        return dependencies.rendererProvider
+            .buildRenderer(for: widget, dependencies: dependencies)
+            .buildView(context: context)
     }
     
 }

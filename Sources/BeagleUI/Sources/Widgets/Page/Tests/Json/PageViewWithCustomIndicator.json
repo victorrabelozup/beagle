@@ -69,6 +69,11 @@
                 }
             ]
         }
-    ]
+    ],
 
+    "pageIndicator": {
+        "_beagleType_": "beagle:widget:CustomPageIndicator",
+        "selectedColor": "selectedColor",
+        "defaultColor": "defaultColor"
+    }
 }

@@ -18,11 +18,13 @@ final class FlexWidgetViewRenderer: WidgetViewRenderer<FlexWidget> {
         let containerView = UIView()
         
         widget.children.forEach {
-            let childView = rendererProvider.buildRenderer(for: $0).buildView(context: context)
+            let childView = self.rendererProvider
+                .buildRenderer(for: $0, dependencies: dependencies)
+                .buildView(context: context)
             containerView.addSubview(childView)
         }
         
-        flexViewConfigurator.setupFlex(widget.flex, for: containerView)
+        self.flex.setupFlex(widget.flex, for: containerView)
         
         return containerView
     }

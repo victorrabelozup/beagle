@@ -7,7 +7,7 @@
 //
 
 //import XCTest
-//@testable import BeagleUI
+@testable import BeagleUI
 //
 //final class WidgetViewRendererTests: XCTestCase {
 //    
@@ -27,3 +27,9 @@
 //    
 //}
 
+struct RendererDependenciesContainer: RendererDependencies {
+    var flex: FlexViewConfiguratorProtocol = FlexViewConfiguratorDummy()
+    var rendererProvider: WidgetRendererProvider = WidgetRendererProviderDummy()
+    var theme: Theme = AppThemeDummy()
+    var validatorHandler: ValidatorHandler? = ValidatorHandling()
+}

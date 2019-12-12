@@ -15,13 +15,13 @@ final class FlexSingleWidgetViewRenderer: WidgetViewRenderer<FlexSingleWidget> {
     override func buildView(context: BeagleContext) -> UIView {
         
         let child = widget.child
-        let childRenderer = rendererProvider.buildRenderer(for: child)
+        let childRenderer = self.rendererProvider.buildRenderer(for: child, dependencies: dependencies)
         let childView = childRenderer.buildView(context: context)
         
         let view = UIView()
         view.addSubview(childView)
         
-        flexViewConfigurator.setupFlex(widget.flex, for: view)
+        self.flex.setupFlex(widget.flex, for: view)
         
         return view
     }

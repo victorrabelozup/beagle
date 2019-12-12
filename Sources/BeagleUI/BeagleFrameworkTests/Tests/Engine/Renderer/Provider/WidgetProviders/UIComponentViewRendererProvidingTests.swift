@@ -10,13 +10,15 @@ import XCTest
 @testable import BeagleUI
 
 final class UIComponentViewRendererProvidingTests: XCTestCase {
+
+    private let dependencies = RendererDependenciesContainer()
     
     func test_whenButton_shouldReturnButtonWigetViewRenderer() {
         // Given
         let widget = Button(text: "Aoba")
         let renderer = WidgetRendererProviding()
         // When
-        let buttonWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        let buttonWidgetViewRenderer = renderer.buildRenderer(for: widget, dependencies: dependencies)
         // Then
         XCTAssert(buttonWidgetViewRenderer is ButtonWidgetViewRenderer, "Expected to build a button widget view renderer, but has built \(String(describing: type(of: buttonWidgetViewRenderer))).")
     }
@@ -26,7 +28,7 @@ final class UIComponentViewRendererProvidingTests: XCTestCase {
         let widget = Image(name: "image")
         let renderer = WidgetRendererProviding()
         // When
-        let imageWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        let imageWidgetViewRenderer = renderer.buildRenderer(for: widget, dependencies: dependencies)
         // Then
         XCTAssert(imageWidgetViewRenderer is ImageWidgetViewRenderer, "Expected to build an image widget view renderer, but has built \(String(describing: type(of: imageWidgetViewRenderer))).")
     }
@@ -36,7 +38,7 @@ final class UIComponentViewRendererProvidingTests: XCTestCase {
         let widget = Text("aoba")
         let renderer = WidgetRendererProviding()
         // When
-        let textWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        let textWidgetViewRenderer = renderer.buildRenderer(for: widget, dependencies: dependencies)
         // Then
         XCTAssert(textWidgetViewRenderer is TextWidgetViewRenderer, "Expected to build a text widget view renderer, but has built \(String(describing: type(of: textWidgetViewRenderer))).")
     }
@@ -46,7 +48,7 @@ final class UIComponentViewRendererProvidingTests: XCTestCase {
         let widget = Image(name: "teste")
         let renderer = WidgetRendererProviding()
         // When
-        let imageWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        let imageWidgetViewRenderer = renderer.buildRenderer(for: widget, dependencies: dependencies)
         // Then
         XCTAssert(imageWidgetViewRenderer is ImageWidgetViewRenderer, "Expected to build a image widget view renderer, but has built \(String(describing: type(of: imageWidgetViewRenderer))).")
     }
@@ -56,7 +58,7 @@ final class UIComponentViewRendererProvidingTests: XCTestCase {
         let widget = NetworkImage(url: "www.some.com")
         let renderer = WidgetRendererProviding()
         // When
-        let networkImageWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        let networkImageWidgetViewRenderer = renderer.buildRenderer(for: widget, dependencies: dependencies)
         // Then
         XCTAssert(networkImageWidgetViewRenderer is NetworkImageWidgetViewRenderer, "Expected to build a network image widget view renderer, but has built \(String(describing: type(of: networkImageWidgetViewRenderer))).")
     }
@@ -66,7 +68,7 @@ final class UIComponentViewRendererProvidingTests: XCTestCase {
         let widget = NavigationBar(title: "Teste", leading: nil, trailing: nil)
         let renderer = WidgetRendererProviding()
         // When
-        let navigationWidgetViewRenderer = renderer.buildRenderer(for: widget)
+        let navigationWidgetViewRenderer = renderer.buildRenderer(for: widget, dependencies: dependencies)
         // Then
         XCTAssert(navigationWidgetViewRenderer is NavigationBarWidgetViewRenderer, "Expected to build a navigationBar widget view renderer, but has built \(String(describing: type(of: navigationWidgetViewRenderer))).")
     }

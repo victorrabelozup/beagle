@@ -135,5 +135,6 @@ final class WidgetDecoder: WidgetDecoding {
         AnyDecodableContainer.register(TextEntity.self, for: widgetDecodingKey(for: "Text"))
         AnyDecodableContainer.register(NavigationBarEntity.self, for: widgetDecodingKey(for: "NavigationBar"))
         AnyDecodableContainer.register(PageViewEntity.self, for: widgetDecodingKey(for: "PageView"))
+        AnyDecodableContainer.register(DefaultPageIndicatorEntity.self, for: widgetDecodingKey(for: "DefaultPageIndicator"))
     }
 }

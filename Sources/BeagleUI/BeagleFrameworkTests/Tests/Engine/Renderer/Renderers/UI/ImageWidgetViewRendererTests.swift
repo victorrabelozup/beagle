@@ -18,7 +18,7 @@ final class ImageWidgetViewRendererTests: XCTestCase {
         let widget = UnknownWidget()
         
         // When / Then
-        XCTAssertThrowsError(_ = try ImageWidgetViewRenderer(widget), "Expected error, but got nil.")
+        XCTAssertThrowsError(_ = try ImageWidgetViewRenderer(widget: widget), "Expected error, but got nil.")
     }
     
     func test_onInitWithImageWidget_shouldSetRightContentMode() {
@@ -29,7 +29,7 @@ final class ImageWidgetViewRendererTests: XCTestCase {
         let context = BeagleContextDummy()
         
         //When
-        guard let imageWidgetRenderer = try? ImageWidgetViewRenderer(widget) else {
+        guard let imageWidgetRenderer = try? ImageWidgetViewRenderer(widget: widget) else {
             XCTFail("Could not create ImageWidgetViewRenderer.")
             return
         }

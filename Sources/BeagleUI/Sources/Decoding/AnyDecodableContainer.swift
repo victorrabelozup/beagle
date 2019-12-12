@@ -13,17 +13,16 @@ struct AnyDecodableContainer {
 
 // MARK: - Registration
 extension AnyDecodableContainer {
-    static var decoders: [String: (SingleValueDecodingContainer) throws -> Decodable] = [:]
+    static var decoders: [String: Decodable.Type] = [:]
     
     static func register<T: Decodable>(_ type: T.Type, for typeName: String) {
-        decoders[typeName.lowercased()] = { container in
-            try container.decode(T.self)
-        }
+        decoders[typeName.lowercased()] = type
     }
 }
 
 // MARK: - Decodable
 extension AnyDecodableContainer: Decodable {
+
     enum CodingKeys: String, CodingKey {
         case type = "_beagleType_"
     }
@@ -31,10 +30,9 @@ extension AnyDecodableContainer: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let type = try container.decode(String.self, forKey: .type)
-        
-        let singleValueContainer = try decoder.singleValueContainer()
-        if let decoder = AnyDecodableContainer.decoders[type.lowercased()] {
-            content = try decoder(singleValueContainer)
+
+        if let decodable = AnyDecodableContainer.decoders[type.lowercased()] {
+            content = try decodable.init(from: decoder)
         } else {
             content = Unknown(type: type)
         }

@@ -18,7 +18,7 @@ final class NetworkImageWidgetViewRendererTests: XCTestCase {
         let widget = NetworkImage(url: "https://cdn1-www.dogtime.com/assets/uploads/2011/01/file_23012_beagle-460x290.jpg")
 
         // When
-        guard let networkImageWidgetRenderer = try? NetworkImageWidgetViewRenderer(widget) else {
+        guard let networkImageWidgetRenderer = try? NetworkImageWidgetViewRenderer(widget: widget) else {
             XCTFail("Could not create NetworkImageWidgetViewRenderer.")
             return
         }
@@ -34,7 +34,7 @@ final class NetworkImageWidgetViewRendererTests: XCTestCase {
         let widget = NetworkImage(url: "www.com")
         
         // When
-        guard let networkImageWidgetRenderer = try? NetworkImageWidgetViewRenderer(widget) else {
+        guard let networkImageWidgetRenderer = try? NetworkImageWidgetViewRenderer(widget: widget) else {
             XCTFail("Could not create NetworkImageWidgetViewRenderer.")
             return
         }

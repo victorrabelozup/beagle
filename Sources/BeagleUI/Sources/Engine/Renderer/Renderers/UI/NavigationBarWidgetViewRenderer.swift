@@ -17,14 +17,14 @@ final class NavigationBarWidgetViewRenderer: WidgetViewRenderer<NavigationBar> {
         let navigationItems = UINavigationItem(title: widget.title)
         
         if let leading = widget.leading {
-            let renderer = rendererProvider.buildRenderer(for: leading)
+            let renderer = self.rendererProvider.buildRenderer(for: leading, dependencies: dependencies)
             let leadingView = renderer.buildView(context: context)
             leadingView.sizeToFit()
             navigationItems.leftBarButtonItem = UIBarButtonItem(customView: leadingView)
         }
         
         if let trailing = widget.trailing {
-            let renderer = rendererProvider.buildRenderer(for: trailing)
+            let renderer = self.rendererProvider.buildRenderer(for: trailing, dependencies: dependencies)
             let trailingView = renderer.buildView(context: context)
             trailingView.sizeToFit()
             navigationItems.rightBarButtonItem = UIBarButtonItem(customView: trailingView)
@@ -32,7 +32,7 @@ final class NavigationBarWidgetViewRenderer: WidgetViewRenderer<NavigationBar> {
         navigationBar.items = [navigationItems]
         navigationBar.isTranslucent = false
         navigationBar.sizeToFit()
-        flexViewConfigurator.enableYoga(true, for: navigationBar)
+        self.flex.enableYoga(true, for: navigationBar)
         return navigationBar
     }
 }
