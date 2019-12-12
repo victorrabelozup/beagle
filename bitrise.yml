@@ -59,7 +59,7 @@ workflows:
             - gradlew_path: "$PROJECT_LOCATION/gradlew"
       - gradle-runner@1.8.4:
           inputs:
-            - gradle_task: :beagle-ui:build :beagle-ui:publish
+            - gradle_task: :beagle-android:build :beagle-android:publish
             - gradlew_path: "$PROJECT_LOCATION/gradlew"
       - script@1.1.5:
           title: Do anything with Script step
@@ -137,7 +137,7 @@ app:
     PROJECT_LOCATION: "."
   - opts:
       is_expand: false
-    MODULE: beagle-ui
+    MODULE: beagle-android
   - opts:
       is_expand: false
     VARIANT: debug

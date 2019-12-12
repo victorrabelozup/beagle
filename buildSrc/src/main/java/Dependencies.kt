@@ -1,10 +1,10 @@
 object ApplicationId {
-    const val id = "br.com.zup.beagleui.sample"
+    const val id = "br.com.zup.beagle.sample"
 }
 
 object Modules {
     const val sample = ":sample"
-    const val beagleUi = ":beagle-ui"
+    const val beagle = ":beagle-android"
     const val libfb = ":libfb"
     const val yoga = ":yoga"
 }
@@ -12,7 +12,7 @@ object Modules {
 object Releases {
     const val versionCode = 1
     const val versionName = "1.0"
-    const val beagleUiVersionName = "0.0.5-alpha"
+    const val beagleVersionName = "0.0.5-alpha"
     const val yogaVersionName = "0.0.1-alpha1"
 }
 

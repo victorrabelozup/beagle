@@ -34,7 +34,7 @@ dependencies {
     implementation AndroidxLibraries.coreKtx
 
 
-    implementation project (Modules.beagleUi)
+    implementation project(Modules.beagle)
 
     // Unit Testing
     testImplementation TestLibraries.junit

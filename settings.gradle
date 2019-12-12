@@ -1,5 +1,5 @@
-include Modules.sample, Modules.beagleUi, Modules.libfb, Modules.yoga
+include Modules.sample, Modules.beagle, Modules.libfb, Modules.yoga
 
 project(Modules.yoga).projectDir = file('libs/yoga')
 project(Modules.libfb).projectDir = file('libs/fb')
-//include Modules.sample, Modules.beagleUi
+//include Modules.sample, Modules.beagle

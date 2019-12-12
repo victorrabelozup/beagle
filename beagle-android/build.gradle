@@ -14,7 +14,7 @@ android {
         targetSdkVersion Versions.targetSdk
 
         versionCode Releases.versionCode
-        versionName "${Releases.beagleUiVersionName}"
+        versionName "${Releases.beagleVersionName}"
         //Needed for maven-publish
         project.setVersion(versionName)
 
