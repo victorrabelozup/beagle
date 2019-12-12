@@ -18,10 +18,10 @@ import br.com.zup.beagleui.framework.widget.layout.Container
 import br.com.zup.beagleui.framework.widget.layout.FlexSingleWidget
 import br.com.zup.beagleui.framework.widget.layout.FlexWidget
 import br.com.zup.beagleui.framework.widget.layout.RemoteState
+import br.com.zup.beagleui.framework.widget.layout.RemoteUpdatableWidget
 import br.com.zup.beagleui.framework.widget.layout.StatefulWidget
 import br.com.zup.beagleui.framework.widget.layout.UpdatableState
 import br.com.zup.beagleui.framework.widget.layout.UpdatableWidget
-import br.com.zup.beagleui.framework.widget.lazy.LazyWidget
 import br.com.zup.beagleui.framework.widget.ui.Button
 import br.com.zup.beagleui.sample.widgets.TextField
 
@@ -59,24 +59,21 @@ class RemoteStatefulFragment : Fragment() {
                     updateStates = listOf(
                         UpdatableState(
                             targetId = "txt3",
-                            remoteState = RemoteState(
-                                originId = "txt2"
-                            )
+                            remoteState = RemoteState()
                         )
                     )
                 ), flex = Flex(size = Size(width = UnitValue(80.0, UnitType.PERCENT)))
             ),
             FlexSingleWidget(
                 child = UpdatableWidget(
-//                    child = TextField(description = "5dde6da5310000d2253ae1f1"),
                     child = TextField(description = "5de80ce52f00008400c023ab"),
                     id = "txt2"
                 ), flex = Flex(size = Size(width = UnitValue(80.0, UnitType.PERCENT)))
             ),
             FlexSingleWidget(
                 child = UpdatableWidget(
-                    child = LazyWidget(
-                        url = "http://www.mocky.io/v2/#{value}",
+                    child = RemoteUpdatableWidget(
+                        url = "http://www.mocky.io/v2/#{txt2.value}",
                         initialState = TextField(description = "Select..")
                     ),
                     id = "txt3"

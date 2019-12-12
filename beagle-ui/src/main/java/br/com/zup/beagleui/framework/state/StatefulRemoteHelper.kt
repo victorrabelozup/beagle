@@ -5,71 +5,75 @@ import br.com.zup.beagleui.framework.engine.renderer.RootView
 import br.com.zup.beagleui.framework.interfaces.StateChangeable
 import br.com.zup.beagleui.framework.interfaces.WidgetState
 import br.com.zup.beagleui.framework.utils.findChildViewForUpdatableWidgetId
+import br.com.zup.beagleui.framework.utils.findUrlExpressions
 import br.com.zup.beagleui.framework.utils.setNotFinalAndAccessible
 import br.com.zup.beagleui.framework.view.BeagleView
+import br.com.zup.beagleui.framework.widget.layout.RemoteUpdatableWidget
 import br.com.zup.beagleui.framework.widget.layout.UpdatableState
 import br.com.zup.beagleui.framework.widget.layout.UpdatableWidget
-import br.com.zup.beagleui.framework.widget.lazy.LazyWidget
-
-private const val REGEX_EXPRESSION = "#\\{.*\\}"
+import java.net.MalformedURLException
 
 internal class StatefulRemoteHelper {
 
     fun handleRemoteState(
         targetView: View,
         updatableState: UpdatableState,
-        currentWidgetState: WidgetState,
         children: List<View>,
         rootView: RootView
     ) {
         val targetViewWidget = (targetView.tag as UpdatableWidget)
-        updatableState.remoteState?.let { targetState ->
-            val originId = targetState.originId
+        updatableState.remoteState?.let {
 
-            if (originId == THIS_ID) {
-                notifyState(currentWidgetState, targetViewWidget, targetView, rootView)
-            } else {
-                val originView = children.findChildViewForUpdatableWidgetId(originId)
+            var stringUrl = (targetViewWidget.child as? RemoteUpdatableWidget)?.url
+
+            val urlExpressions = stringUrl?.findUrlExpressions()
+            urlExpressions?.forEach { expression ->
+                val originView = children.findChildViewForUpdatableWidgetId(expression.expressionId)
 
                 getCurrentState(originView)
                     ?.let { originViewWidgetState ->
-                        notifyState(
+                        stringUrl = replaceUrlExpression(
                             originViewWidgetState,
-                            targetViewWidget,
-                            targetView,
-                            rootView
+                            expression,
+                            stringUrl
                         )
                     }
-
+            }
+            stringUrl?.apply {
+                notifyState(targetView, rootView, this)
             }
         }
     }
 
     @Suppress("UNCHECKED_CAST")
     private fun notifyState(
-        originViewWidgetState: WidgetState,
-        targetViewWidget: UpdatableWidget,
         targetView: View,
-        rootView: RootView
+        rootView: RootView,
+        stringUrl: String
     ) {
-        val stringUrl = (targetViewWidget.child as? LazyWidget)?.url
+        (targetView as? BeagleView)?.loadView(
+            rootView,
+            stringUrl
+        )
+    }
 
+    @Suppress("UNCHECKED_CAST")
+    private fun replaceUrlExpression(
+        originViewWidgetState: WidgetState,
+        expression: UrlExpression,
+        stringUrl: String?
+    ): String? {
         stringUrl?.let {
-            val regex = REGEX_EXPRESSION.toRegex()
-            val expressionFound = regex.find(stringUrl)?.value
-            expressionFound?.let {
-                val stateValueField =
-                    originViewWidgetState.javaClass.getDeclaredField(
-                        removeExpressionCharacters(it)
-                    )
-                stateValueField.setNotFinalAndAccessible()
-                val stateValue = stateValueField.get(originViewWidgetState)
-                (targetView as? BeagleView)?.loadView(
-                    rootView,
-                    setExpressionValue(stringUrl, expressionFound, stateValue)
+            val stateValueField =
+                originViewWidgetState.javaClass.getDeclaredField(
+                    removeExpressionCharacters(expression.expressionProperty)
                 )
-            }
+            stateValueField.setNotFinalAndAccessible()
+            val stateValue = stateValueField.get(originViewWidgetState)
+            return setExpressionValue(stringUrl, expression.originalExpression, stateValue)
         }
+
+        throw MalformedURLException("Error replacing url expression for url: $stringUrl")
     }
 
     private fun setExpressionValue(

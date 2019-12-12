@@ -28,7 +28,6 @@ internal class StatefulRendererHelper(
                 statefulRemoteHelper.handleRemoteState(
                     targetView,
                     updatableState,
-                    currentWidgetState,
                     children,
                     rootView
                 )

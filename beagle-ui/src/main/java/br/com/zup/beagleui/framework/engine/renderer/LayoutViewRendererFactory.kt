@@ -9,6 +9,7 @@ import br.com.zup.beagleui.framework.engine.renderer.layout.HorizontalViewRender
 import br.com.zup.beagleui.framework.engine.renderer.layout.LazyWidgetViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.NavigatorViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.PageViewRenderer
+import br.com.zup.beagleui.framework.engine.renderer.layout.RemoteUpdatableWidgetViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.ScrollViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.SpacerViewRenderer
 import br.com.zup.beagleui.framework.engine.renderer.layout.StackViewRenderer
@@ -23,6 +24,7 @@ import br.com.zup.beagleui.framework.widget.layout.FlexSingleWidget
 import br.com.zup.beagleui.framework.widget.layout.FlexWidget
 import br.com.zup.beagleui.framework.widget.layout.Horizontal
 import br.com.zup.beagleui.framework.widget.layout.PageView
+import br.com.zup.beagleui.framework.widget.layout.RemoteUpdatableWidget
 import br.com.zup.beagleui.framework.widget.layout.ScrollView
 import br.com.zup.beagleui.framework.widget.layout.Spacer
 import br.com.zup.beagleui.framework.widget.layout.Stack
@@ -52,6 +54,7 @@ internal class LayoutViewRendererFactory : AbstractViewRendererFactory {
             is Expanded -> ExpandedViewRenderer(widget)
             is PageView -> PageViewRenderer(widget)
             is LazyWidget -> LazyWidgetViewRenderer(widget)
+            is RemoteUpdatableWidget -> RemoteUpdatableWidgetViewRenderer(widget)
             else -> throw IllegalArgumentException("$widget is not a Layout Widget.")
         }
     }

@@ -10,9 +10,9 @@ import br.com.zup.beagleui.framework.interfaces.WidgetState
 import br.com.zup.beagleui.framework.testutil.RandomData
 import br.com.zup.beagleui.framework.view.BeagleView
 import br.com.zup.beagleui.framework.widget.layout.RemoteState
+import br.com.zup.beagleui.framework.widget.layout.RemoteUpdatableWidget
 import br.com.zup.beagleui.framework.widget.layout.UpdatableState
 import br.com.zup.beagleui.framework.widget.layout.UpdatableWidget
-import br.com.zup.beagleui.framework.widget.lazy.LazyWidget
 import br.com.zup.beagleui.framework.widget.ui.Button
 import br.com.zup.beagleui.framework.widget.ui.Text
 import io.mockk.MockKAnnotations
@@ -25,7 +25,7 @@ import org.junit.Test
 
 class StatefulRemoteHelperTest {
     private val strValue = RandomData.string()
-    private val widgetUrl = "http://www.mocky.io/v2/#{value}"
+    private val widgetUrl = "http://www.mocky.io/v2/#{btn1.value}"
     private val widgetUrlWithValue = "http://www.mocky.io/v2/$strValue"
 
     private val subject: StatefulRemoteHelper = StatefulRemoteHelper()
@@ -53,9 +53,7 @@ class StatefulRemoteHelperTest {
 
     private val remoteState = UpdatableState(
         targetId = "txt3",
-        remoteState = RemoteState(
-            originId = "btn1"
-        )
+        remoteState = RemoteState()
     )
 
     private var updatableWidgetButton: UpdatableWidget = UpdatableWidget(
@@ -67,7 +65,7 @@ class StatefulRemoteHelperTest {
     )
 
     private var updatableWidgetText: UpdatableWidget = UpdatableWidget(
-        child = LazyWidget(
+        child = RemoteUpdatableWidget(
             url = widgetUrl,
             initialState = Text(text = "Select..")
         ),
@@ -89,16 +87,18 @@ class StatefulRemoteHelperTest {
     }
 
     @Test
-    fun test_handleDynamicState_success() {
+    fun test_handleRemoteState_success() {
         subject.handleRemoteState(
             targetView = targetView, updatableState = remoteState,
-            currentWidgetState = widgetState, children = viewList, rootView = rootView
+            children = viewList, rootView = rootView
         )
 
-        verify(exactly = once()) { (targetView as? BeagleView)?.loadView(
-            rootView,
-            widgetUrlWithValue
-        ) }
+        verify(exactly = once()) {
+            (targetView as? BeagleView)?.loadView(
+                rootView,
+                widgetUrlWithValue
+            )
+        }
     }
 
 }
