@@ -3,19 +3,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>br.com.zup</groupId>
+        <groupId>br.com.zup.beagle</groupId>
         <artifactId>beagle</artifactId>
         <version>0.0.17-SNAPSHOT</version>
     </parent>
 
-    <artifactId>beagle-framework</artifactId>
-    <name>beagle-framework</name>
+    <artifactId>framework</artifactId>
+    <name>framework</name>
     <description>Beagle Framework provides a declarative way to describe views and serialize JSON</description>
 
     <dependencies>
         <dependency>
-            <groupId>br.com.zup</groupId>
-            <artifactId>beagle-declarative</artifactId>
+            <groupId>br.com.zup.beagle</groupId>
+            <artifactId>declarative</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

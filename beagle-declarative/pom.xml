@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>br.com.zup</groupId>
+        <groupId>br.com.zup.beagle</groupId>
         <artifactId>beagle</artifactId>
         <version>0.0.17-SNAPSHOT</version>
     </parent>
 
-    <artifactId>beagle-declarative</artifactId>
-    <name>beagle-declarative</name>
+    <artifactId>declarative</artifactId>
+    <name>declarative</name>
     <description>Beagle Declarative is responsible to export all our declarative models</description>
 
     <dependencies>
