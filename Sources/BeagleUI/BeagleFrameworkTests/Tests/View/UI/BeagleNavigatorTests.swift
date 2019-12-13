@@ -29,9 +29,6 @@ final class BeagleNavigatorTests: XCTestCase {
     
     func test_openDeepLink_shouldNotPushANativeScreenToNavigationWhenDeepLinkHandlerItsNotSet() {
         // Given
-        if !Beagle.didCallStart {
-            Beagle.start()
-        }
         let sut = BeagleNavigator()
         let action = Navigate(type: .openDeepLink, path: "https://example.com/screen.json")
         let firstViewController = UIViewController()
@@ -52,9 +49,6 @@ final class BeagleNavigatorTests: XCTestCase {
         let secondViewController = UIViewController()
         let navigation = UINavigationController()
         navigation.viewControllers = [firstViewController, secondViewController]
-        if !Beagle.didCallStart {
-            Beagle.start()
-        }
         
         // When
         sut.navigate(action: action, source: secondViewController)
@@ -70,9 +64,6 @@ final class BeagleNavigatorTests: XCTestCase {
         let action = Navigate(type: .addView, path: "https://example.com/screen.json")
         let firstViewController = UIViewController()
         let navigation = UINavigationController(rootViewController: firstViewController)
-        if !Beagle.didCallStart {
-            Beagle.start()
-        }
                 
         // When
         sut.navigate(action: action, source: firstViewController)
@@ -164,9 +155,6 @@ final class BeagleNavigatorTests: XCTestCase {
         let action = Navigate(type: .presentView, path: "https://example.com/screen.json")
         let firstViewController = UIViewController()
         let navigationSpy = UINavigationControllerSpy(rootViewController: firstViewController)
-        if !Beagle.didCallStart {
-            Beagle.start()
-        }
         
         // When
         sut.navigate(action: action, source: firstViewController)

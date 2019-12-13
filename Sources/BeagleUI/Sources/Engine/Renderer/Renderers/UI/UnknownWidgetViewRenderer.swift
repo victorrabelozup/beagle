@@ -15,7 +15,7 @@ public final class UnknownWidgetViewRenderer: WidgetViewRendererProtocol {
     
     public init(widget: Widget, dependencies: RendererDependencies?) throws {
         self.widget = AnyWidget(value: widget as Any)
-        self.dependencies = dependencies ?? BeagleEnvironment.shared
+        self.dependencies = dependencies ?? Beagle.dependencies
     }
 
     convenience init(widget: Widget) {

@@ -29,11 +29,11 @@ public final class MemoryCacheService: CacheServiceProvider {
     
     // MARK: - Saving
     
-    public func save(data: Data,
-                     key: String,
-                     completion: ((_ result: Result<Void, CacheServiceError>) -> Void)? = nil
+    public func save(
+        data: Data,
+        key: String,
+        completion: ((_ result: Result<Void, CacheServiceError>) -> Void)? = nil
     ) {
-        
         serialQueue.async { [memory] in
             memory.setObject(data as NSData, forKey: key as NSString)
             completion?(.success(()))

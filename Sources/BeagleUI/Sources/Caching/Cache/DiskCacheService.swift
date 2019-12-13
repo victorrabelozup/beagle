@@ -47,9 +47,10 @@ public final class DiskCacheService: CacheServiceProvider {
     
     // MARK: - Saving
     
-    public func save(data: Data,
-                     key: String,
-                     completion: ((_ result: Result<Void, CacheServiceError>) -> Void)? = nil
+    public func save(
+        data: Data,
+        key: String,
+        completion: ((_ result: Result<Void, CacheServiceError>) -> Void)? = nil
     ) {
         
         serialQueue.async { [weak self] in

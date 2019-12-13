@@ -8,8 +8,6 @@
 
 import Foundation
 
-import Foundation
-
 private let domain = "NetworkingError"
 
 // MARK: - Networking Errors

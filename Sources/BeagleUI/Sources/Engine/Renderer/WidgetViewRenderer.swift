@@ -48,7 +48,7 @@ open class WidgetViewRenderer<W: Widget>: WidgetViewRendererProtocol {
         dependencies: RendererDependencies? = nil
     ) throws {
         self.widget = try .newByCasting(widget: widget, to: W.self)
-        self.dependencies = dependencies ?? BeagleEnvironment.shared
+        self.dependencies = dependencies ?? Beagle.dependencies
     }
     
     open func buildView(context: BeagleContext) -> UIView {

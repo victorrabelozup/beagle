@@ -27,7 +27,7 @@ public final class BeagleViewBuilding: BeagleViewBuilder {
     init(
         dependencies: RendererDependencies? = nil
     ) {
-        self.dependencies = dependencies ?? BeagleEnvironment.shared
+        self.dependencies = dependencies ?? Beagle.dependencies
     }
     
     // MARK: - Public Functions

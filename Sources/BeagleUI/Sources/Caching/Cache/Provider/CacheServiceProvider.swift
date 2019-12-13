@@ -46,4 +46,3 @@ public protocol CacheServiceProvider {
     func clear(_ completion: ((Result<Void, CacheServiceError>) -> Void)?)
     
 }
-

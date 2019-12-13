@@ -11,21 +11,6 @@ import XCTest
 
 final class ServerDrivenWidgetFetcherTests: XCTestCase {
     
-    func test_publicInit_shouldConfigureDependenciesFromEnvironment() {
-        // Given
-        let environmentSpy = BeagleEnvironmentSpy.self
-        Beagle.environment = environmentSpy
-        Beagle.didCallStart = false
-        Beagle.start()
-
-        // When
-        _ = ServerDrivenWidgetFetching()
-
-        // Then
-        XCTAssertEqual(environmentSpy._shared?.networkingDispatcherCalled, true, "Init should call environment's `networkingDispatcher`.")
-        XCTAssertEqual(environmentSpy._shared?.decoderCalled, true, "Init should call environment's `decoder`.")
-    }
-    
     func test_requestWithInvalidURL_itShouldFail() {
         let sut = ServerDrivenWidgetFetching(
             baseURL: nil,

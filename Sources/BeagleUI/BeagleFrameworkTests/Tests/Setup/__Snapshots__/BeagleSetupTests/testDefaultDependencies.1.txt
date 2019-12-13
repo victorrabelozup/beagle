@@ -1,0 +1,24 @@
+▿ BeagleDependencies
+  - appBundle: NSBundle </Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Xcode/Agents> (loaded)
+  ▿ applicationTheme: AppTheme
+    - styles: 0 key/value pairs
+  - baseURL: Optional<URL>.none
+  - customActionHandler: Optional<CustomActionHandler>.none
+  ▿ customWidgetsProvider: CustomWidgetsRendererProviding
+    - renderers: 0 key/value pairs
+  ▿ decoder: WidgetDecoder
+    ▿ jsonDecoder: JSONDecoder
+      - dataDecodingStrategy: DataDecodingStrategy.base64
+      - dateDecodingStrategy: DateDecodingStrategy.deferredToDate
+      - keyDecodingStrategy: KeyDecodingStrategy.useDefaultKeys
+      - nonConformingFloatDecodingStrategy: NonConformingFloatDecodingStrategy.throw
+      - userInfo: 0 key/value pairs
+  - deepLinkHandler: Optional<BeagleDeepLinkScreenManaging>.none
+  ▿ flex: FlexViewConfigurator
+    - yogaTranslator: YogaTranslating
+  ▿ networkingDispatcher: URLSessionDispatcher
+    - requestBuilderType: DefaultURLRequestBuilder
+    - session: <__NSURLSessionLocal>
+  ▿ rendererProvider: WidgetRendererProviding
+    - $__lazy_storage_$_providers: Optional<Array<WidgetRendererProviderThrowable>>.none
+  - validatorHandler: Optional<ValidatorHandler>.none

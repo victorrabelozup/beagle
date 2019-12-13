@@ -19,7 +19,7 @@ final class ActionExecuting: ActionExecutor {
     
     init(
         navigator: BeagleNavigation = BeagleNavigator(),
-        customActionHandler: CustomActionHandler? = BeagleEnvironment.shared.customActionHandler
+        customActionHandler: CustomActionHandler? = Beagle.customActionHandler
     ) {
         self.navigator = navigator
         self.customActionHandler = customActionHandler

@@ -18,8 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let deepLinkHandler = DeeplinkScreenManager.shared
         deepLinkHandler["lazywidget"] = LazyWidgetScreen.self
         deepLinkHandler["pageview"] = PageViewScreen.self
-        
-        Beagle.start(appName: "BeagleDemo", deepLinkHandler: deepLinkHandler)
+
+        let dependencies = BeagleDependencies(appName: "BeagleDemo")
+            .deepLinkHandler(deepLinkHandler)
+
+        Beagle.dependencies = dependencies
         
         let rootViewController = BeagleScreenViewController(screen: .declarative(MainScreen().widget))
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)

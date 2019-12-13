@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol WidgetDecoding {
+public protocol WidgetDecoding {
     func register<T: WidgetEntity>(_ type: T.Type, for typeName: String)
     func decodeWidget(from data: Data) throws -> Widget
     func decodeAction(from data: Data) throws -> Action

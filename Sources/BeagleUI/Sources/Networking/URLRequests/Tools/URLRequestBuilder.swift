@@ -95,8 +95,10 @@ public final class DefaultURLRequestBuilder: URLRequestBuilder {
     /// - Parameters:
     ///   - baseURL: A base URL.
     ///   - path: A path for the request.
-    public init(with baseURL: URL,
-                path: String? = nil) {
+    public init(
+        with baseURL: URL,
+        path: String? = nil
+    ) {
         self.baseURL = baseURL
         self.path = path
     }

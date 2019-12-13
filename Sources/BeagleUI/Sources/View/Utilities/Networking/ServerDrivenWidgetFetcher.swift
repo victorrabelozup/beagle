@@ -35,9 +35,9 @@ public final class ServerDrivenWidgetFetching: ServerDrivenWidgetFetcher {
     
     public convenience init() {
         self.init(
-            baseURL: Beagle.environment.shared.baseURL,
-            networkingDispatcher: Beagle.environment.shared.networkingDispatcher,
-            decoder: Beagle.environment.shared.decoder
+            baseURL: Beagle.baseURL,
+            networkingDispatcher: Beagle.networkingDispatcher,
+            decoder: Beagle.decoder
         )
     }
     

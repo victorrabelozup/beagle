@@ -75,26 +75,26 @@ public final class URLSessionDispatcher: URLRequestDispatching {
     private func dispatch(
         request: NSURLRequest,
         urlRequestToken: inout URLRequestToken?,
-        completion: @escaping (Result<Data?, URLRequestError>
-    ) -> Void) {
+        completion: @escaping (Result<Data?, URLRequestError>) -> Void
+    ) {
         
-        let dataTask = session.dataTask(with: request) { [weak self] (data, urlResponse, error) in
+        let dataTask = session.dataTask(with: request) { [weak self] in
             
-            guard let httpResponse = urlResponse as? HTTPURLResponse else {
+            guard let httpResponse = $1 as? HTTPURLResponse else {
                 completion(.failure(.invalidHTTPURLResponse))
                 return
             }
             
             let dataTaskResponse = DataTaskResponse(
-                data: data,
-                error: error,
+                data: $0,
+                error: $2,
                 httpResponse: httpResponse
             )
             
             if let urlRequestError = self?.parseErrors(in: dataTaskResponse) {
                 completion(.failure(urlRequestError))
             } else {
-                guard let data = data else {
+                guard let data = $0 else {
                     completion(.success(nil))
                     return
                 }
@@ -105,7 +105,6 @@ public final class URLSessionDispatcher: URLRequestDispatching {
         urlRequestToken = URLRequestTokenHolder(task: dataTask)
         
         dataTask.resume()
-        
     }
     
     private func parseErrors(in dataTaskResponse: DataTaskResponse) -> URLRequestError? {
@@ -124,12 +123,9 @@ public final class URLSessionDispatcher: URLRequestDispatching {
             
             debugPrint(jsonString)
             return .withData(data, dataTaskResponse.error)
-            
         }
         
         return nil
-        
     }
     
 }
-

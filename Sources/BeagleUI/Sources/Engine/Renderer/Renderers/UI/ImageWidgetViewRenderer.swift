@@ -21,6 +21,6 @@ final class ImageWidgetViewRenderer: WidgetViewRenderer<Image> {
 
 private extension UIImageView {
     func setImageFromAsset(named: String) {
-        self.image = UIImage(named: named, in: BeagleEnvironment.shared.appBundle, compatibleWith: nil)
+        self.image = UIImage(named: named, in: Beagle.appBundle, compatibleWith: nil)
     }
 }

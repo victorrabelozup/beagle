@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol CustomWidgetsRendererProvider: WidgetRendererProviderThrowable {
+public protocol CustomWidgetsRendererProvider: WidgetRendererProviderThrowable {
 
     func registerRenderer<W: Widget>(
         _ rendererType: WidgetViewRenderer<W>.Type,

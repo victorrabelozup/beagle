@@ -38,7 +38,7 @@ final class WidgetRendererProviding: WidgetRendererProvider {
     public lazy var providers: [WidgetRendererProviderThrowable] = [
         LayoutViewRendererProviding(),
         UIComponentViewRendererProviding(),
-        Beagle.environment.shared.customWidgetsProvider
+        Beagle.customWidgetsProvider
     ]
     
     // MARK: - Public Methods

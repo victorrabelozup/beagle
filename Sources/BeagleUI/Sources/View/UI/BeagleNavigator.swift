@@ -45,7 +45,7 @@ class BeagleNavigator: BeagleNavigation {
         
     private func openDeepLink(path: String, source: UIViewController, animated: Bool) {
         do {
-            if let deepLinkHandler = BeagleEnvironment.shared.deepLinkHandler {
+            if let deepLinkHandler = Beagle.deepLinkHandler {
                 let viewController = try deepLinkHandler.getNaviteScreen(with: path, data: nil)
                 source.navigationController?.pushViewController(viewController, animated: animated)
             }

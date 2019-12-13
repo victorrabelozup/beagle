@@ -19,7 +19,8 @@ public protocol CodableSerializing {
     func serializeCodable<ResponseType: Codable>(
         _ result: Result<Data?, URLRequestError>,
         responseType: ResponseType.Type,
-        completion: @escaping (Result<ResponseType, NetworkingError>) -> Void)
+        completion: @escaping (Result<ResponseType, NetworkingError>) -> Void
+    )
 }
 extension CodableSerializing {
     
@@ -61,4 +62,3 @@ extension CodableSerializing {
     }
     
 }
-
