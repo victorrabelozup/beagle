@@ -1,0 +1,40 @@
+package br.com.zup.beagle.data.deserializer
+
+import br.com.zup.beagle.action.Action
+import br.com.zup.beagle.widget.core.Widget
+import java.io.IOException
+
+private const val EXCEPTION_MESSAGE = "Unexpected error when trying to serialize json:"
+
+internal class BeagleDeserializationException(
+    override val message: String
+) : Exception()
+
+internal class BeagleDeserializer(
+    private val beagleMoshiFactory: BeagleMoshiFactory = BeagleMoshiFactory()
+) {
+
+    @Throws(BeagleDeserializationException::class)
+    fun deserializeWidget(json: String): Widget {
+        try {
+            return beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json) ?:
+                throw makeBeagleDeserializationException(json)
+        } catch (ex: Exception) {
+            throw makeBeagleDeserializationException(json)
+        }
+    }
+
+    @Throws(BeagleDeserializationException::class)
+    fun deserializeAction(json: String): Action {
+        try {
+            return beagleMoshiFactory.make().adapter(Action::class.java).fromJson(json) ?:
+                throw makeBeagleDeserializationException(json)
+        } catch (ex: IOException) {
+            throw makeBeagleDeserializationException(json)
+        }
+    }
+
+    private fun makeBeagleDeserializationException(json: String): BeagleDeserializationException {
+        return BeagleDeserializationException("$EXCEPTION_MESSAGE $json")
+    }
+}

@@ -4,7 +4,7 @@ object ApplicationId {
 
 object Modules {
     const val sample = ":sample"
-    const val beagle = ":beagle-android"
+    const val beagle = ":beagle"
     const val libfb = ":libfb"
     const val yoga = ":yoga"
 }
@@ -36,7 +36,7 @@ object Versions {
 
     const val findsBug = "3.0.1"
 
-    const val beagleDeclarative = "0.0.15"
+    const val beagleDeclarative = "0.0.17"
 
     const val glide = "4.9.0"
 

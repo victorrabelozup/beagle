@@ -14,7 +14,7 @@ def fileFilter = ['**/R.class',
                   '**/*Function*',
                   '**/*_impl*',
                   '**/*.DefaultImpls.*',
-                  '**/beagleui/framework/view/*.class']
+                  '**/beagle/view/*.class']
 
 task jacocoTestReport(type: JacocoReport, overwrite: true) {
 

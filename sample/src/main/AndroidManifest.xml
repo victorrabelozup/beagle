@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.zup.beagleui.sample">
+    package="br.com.zup.beagle.sample">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="br.com.zup.beagleui.framework.view.BeagleUIActivity" />
+        <activity android:name="br.com.zup.beagle.view.BeagleUIActivity" />
         <activity android:name=".activities.NavigationBarActivity" android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
