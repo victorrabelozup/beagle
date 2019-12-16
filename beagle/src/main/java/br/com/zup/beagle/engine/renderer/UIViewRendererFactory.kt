@@ -10,6 +10,7 @@ import br.com.zup.beagle.engine.renderer.ui.CustomWidgetViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.NavigationBarViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.NetworkImageViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.PageIndicatorViewRenderer
+import br.com.zup.beagle.engine.renderer.ui.TabViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.TextViewRenderer
 import br.com.zup.beagle.widget.core.ComposeWidget
 import br.com.zup.beagle.widget.core.Widget
@@ -21,6 +22,7 @@ import br.com.zup.beagle.widget.ui.ListView
 import br.com.zup.beagle.widget.ui.NavigationBar
 import br.com.zup.beagle.widget.ui.NetworkImage
 import br.com.zup.beagle.widget.ui.PageIndicator
+import br.com.zup.beagle.widget.ui.TabView
 import br.com.zup.beagle.widget.ui.Text
 
 internal class UIViewRendererFactory : AbstractViewRendererFactory {
@@ -39,6 +41,7 @@ internal class UIViewRendererFactory : AbstractViewRendererFactory {
                 is FormInput -> FormInputViewRenderer(widget)
                 is FormSubmit -> FormSubmitViewRenderer(widget)
                 is PageIndicator -> PageIndicatorViewRenderer(widget)
+                is TabView -> TabViewRenderer(widget)
                 else -> CustomWidgetViewRenderer(widget)
             }
         }

@@ -53,6 +53,8 @@ dependencies {
 
     implementation GeneralLibraries.soLoader
 
+    implementation GeneralLibraries.materialDesign
+
     implementation MoshiLibraries.moshi
     implementation MoshiLibraries.kotlin
     implementation MoshiLibraries.adapters

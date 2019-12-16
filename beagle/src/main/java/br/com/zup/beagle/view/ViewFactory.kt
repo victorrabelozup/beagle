@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.RecyclerView
 import br.com.zup.beagle.widget.core.Flex
+import com.google.android.material.tabs.TabLayout
 
 internal class ViewFactory {
 
@@ -53,4 +54,6 @@ internal class ViewFactory {
     fun makeViewPager(context: Context) = BeaglePageView(context)
 
     fun makePageIndicator(context: Context) = BeaglePageIndicatorView(context)
+
+    fun makeTabView(context: Context) = TabLayout(context)
 }

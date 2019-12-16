@@ -23,6 +23,7 @@ import br.com.zup.beagle.widget.ui.NavigationBar
 import br.com.zup.beagle.widget.ui.NetworkImage
 import br.com.zup.beagle.widget.ui.Text
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
+import br.com.zup.beagle.widget.ui.TabView
 
 private const val BEAGLE_WIDGET_TYPE = "_beagleType_"
 private const val BEAGLE_NAMESPACE = "beagle"
@@ -71,6 +72,7 @@ class WidgetJsonAdapterFactory {
             .withSubtype(Navigator::class.java, createNamespaceFor<Navigator>())
             .withSubtype(NavigationBar::class.java, createNamespaceFor<NavigationBar>())
 //            .withSubtype(PageIndicator::class.java, createNamespaceFor<PageIndicator>())
+            .withSubtype(TabView::class.java, createNamespaceFor<TabView>())
     }
 
     private fun registerCustomWidget(

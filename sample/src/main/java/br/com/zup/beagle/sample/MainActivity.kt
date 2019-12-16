@@ -16,6 +16,7 @@ import br.com.zup.beagle.sample.fragment.RemoteStatefulFragment
 import br.com.zup.beagle.sample.fragment.PageViewFragment
 import br.com.zup.beagle.sample.fragment.TextFieldFragment
 import br.com.zup.beagle.sample.fragment.ImageViewFragment
+import br.com.zup.beagle.sample.fragment.TabViewFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -58,6 +59,7 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             R.id.remote_stateful -> goToFragment(RemoteStatefulFragment.newInstance())
+            R.id.tabBar -> goToFragment(TabViewFragment.newInstance())
         }
     }
 

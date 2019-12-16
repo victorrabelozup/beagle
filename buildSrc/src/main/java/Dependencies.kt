@@ -51,6 +51,8 @@ object Versions {
     const val testExt = "1.1.1"
     const val archCoreTesting = "2.0.1"
     const val espressoCore = "3.2.0"
+
+    const val materialDesign = "1.0.0"
 }
 
 object GeneralNames {
@@ -75,6 +77,8 @@ object GeneralLibraries {
 
     const val beagleDeclarative = "br.com.zup:beagle-declarative:${Versions.beagleDeclarative}"
     const val yoga = "br.com.zup.beagleui:yoga:${Releases.yogaVersionName}"
+
+    const val materialDesign = "com.google.android.material:material:${Versions.materialDesign}"
 }
 
 object AndroidxLibraries {
