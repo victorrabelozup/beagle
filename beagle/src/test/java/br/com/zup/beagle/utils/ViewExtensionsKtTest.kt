@@ -6,9 +6,11 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
+import br.com.zup.beagle.engine.mapper.ViewMapper
 import br.com.zup.beagle.engine.renderer.ActivityRootView
 import br.com.zup.beagle.engine.renderer.FragmentRootView
 import br.com.zup.beagle.extensions.once
@@ -21,7 +23,9 @@ import br.com.zup.beagle.view.BeagleTextView
 import br.com.zup.beagle.view.BeagleView
 import br.com.zup.beagle.view.StateChangedListener
 import br.com.zup.beagle.view.ViewFactory
+import br.com.zup.beagle.widget.core.ImageContentMode
 import br.com.zup.beagle.widget.ui.Button
+import br.com.zup.beagle.widget.ui.Image
 import br.com.zup.beagle.widget.ui.Text
 import br.com.zup.beagle.widget.ui.TextAlignment
 import io.mockk.MockKAnnotations
@@ -43,6 +47,7 @@ import kotlin.test.assertFails
 
 private val URL = RandomData.httpUrl()
 private val STYLE_RES = RandomData.int()
+private val IMAGE_RES = RandomData.int()
 private const val ERROR_MESSAGE = "Did you miss to call loadView()?"
 
 class ViewExtensionsKtTest {
@@ -71,6 +76,10 @@ class ViewExtensionsKtTest {
     private lateinit var beagleButton: BeagleButtonView
     @MockK
     private lateinit var buttonStyle: ButtonStyle
+    @MockK
+    private lateinit var imageView: ImageView
+    @MockK
+    private lateinit var viewMapper: ViewMapper
 
     private val textValueSlot = slot<String>()
     private val viewSlot = slot<View>()
@@ -94,6 +103,7 @@ class ViewExtensionsKtTest {
         every { BeagleEnvironment.designSystem } returns designSystem
         every { designSystem.textAppearance(any()) } returns STYLE_RES
         every { designSystem.buttonStyle(any()) } returns buttonStyle
+        every { designSystem.image(any()) } returns IMAGE_RES
         every { beagleTextView.text = capture(textValueSlot) } just Runs
         every { beagleTextView.gravity = capture(textAlignment) } just Runs
         every { beagleButton.text = capture(textValueSlot) } just Runs
@@ -101,6 +111,8 @@ class ViewExtensionsKtTest {
         every { buttonStyle.background } returns STYLE_RES
         every { buttonStyle.textAppearance } returns STYLE_RES
         every { TextViewCompat.setTextAppearance(any(), any()) } just Runs
+        every { imageView.scaleType = any() } just Runs
+        every { imageView.setImageResource(any()) } just Runs
     }
 
     @After
@@ -326,5 +338,43 @@ class ViewExtensionsKtTest {
 
         // Then
         verify(exactly = 0) { TextViewCompat.setTextAppearance(beagleButton, STYLE_RES) }
+    }
+
+    @Test
+    fun setData_with_image_should_set_fit_center_when_content_mode_is_null_and_design_system_is_not_null() {
+        // Given
+        val image = mockk<Image>()
+        val scaleTypeSlot = slot<ImageView.ScaleType>()
+        val scaleType = ImageView.ScaleType.FIT_CENTER
+        every { image.contentMode } returns null
+        every { image.name } returns "imageName"
+        every { viewMapper.toScaleType(any()) } returns scaleType
+        every { imageView.scaleType = capture(scaleTypeSlot) } just Runs
+
+        // When
+        imageView.setData(image, viewMapper)
+
+        // Then
+        assertEquals(scaleType, scaleTypeSlot.captured)
+        verify(exactly = 1) { imageView.setImageResource(IMAGE_RES) }
+    }
+
+    @Test
+    fun setData_with_image_should_set_desired_scaleType_and_design_system_is_null() {
+        // Given
+        val image = mockk<Image>()
+        val scaleTypeSlot = slot<ImageView.ScaleType>()
+        val scaleType = ImageView.ScaleType.CENTER_CROP
+        every { image.contentMode } returns ImageContentMode.CENTER_CROP
+        every { viewMapper.toScaleType(any()) } returns scaleType
+        every { BeagleEnvironment.designSystem } returns null
+        every { imageView.scaleType = capture(scaleTypeSlot) } just Runs
+
+        // When
+        imageView.setData(image, viewMapper)
+
+        // Then
+        assertEquals(scaleType, scaleTypeSlot.captured)
+        verify(exactly = 0) { imageView.setImageResource(IMAGE_RES) }
     }
 }

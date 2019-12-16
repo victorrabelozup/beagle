@@ -5,11 +5,13 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import androidx.core.view.size
 import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
+import br.com.zup.beagle.engine.mapper.ViewMapper
 import br.com.zup.beagle.engine.renderer.ActivityRootView
 import br.com.zup.beagle.engine.renderer.FragmentRootView
 import br.com.zup.beagle.engine.renderer.RootView
@@ -19,8 +21,10 @@ import br.com.zup.beagle.view.BeagleTextView
 import br.com.zup.beagle.view.BeagleView
 import br.com.zup.beagle.view.StateChangedListener
 import br.com.zup.beagle.view.ViewFactory
+import br.com.zup.beagle.widget.core.ImageContentMode
 import br.com.zup.beagle.widget.layout.UpdatableWidget
 import br.com.zup.beagle.widget.ui.Button
+import br.com.zup.beagle.widget.ui.Image
 import br.com.zup.beagle.widget.ui.Text
 import br.com.zup.beagle.widget.ui.TextAlignment
 
@@ -84,6 +88,16 @@ internal fun BeagleButtonView.setData(widget: Button) {
         val buttonStyle = designSystem.buttonStyle(style)
         setBackgroundResource(buttonStyle.background)
         TextViewCompat.setTextAppearance(this, buttonStyle.textAppearance)
+    }
+}
+
+internal fun ImageView.setData(widget: Image, viewMapper: ViewMapper) {
+    val contentMode = widget.contentMode ?: ImageContentMode.FIT_CENTER
+    scaleType = viewMapper.toScaleType(contentMode)
+    val designSystem = BeagleEnvironment.designSystem
+    if (designSystem != null) {
+        val image = designSystem.image(widget.name)
+        this.setImageResource(image)
     }
 }
 
