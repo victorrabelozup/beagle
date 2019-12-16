@@ -14,7 +14,7 @@ internal class BuildableWidgetViewRenderer(
 ) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
 
     override fun build(rootView: RootView): View {
-        val buildResult = widget.build()
+        val buildResult = widget
         return viewRendererFactory.make(buildResult).build(rootView)
     }
 

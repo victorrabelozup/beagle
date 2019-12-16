@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import androidx.core.widget.addTextChangedListener
+import br.com.zup.beagle.form.InputValue
 import br.com.zup.beagle.state.Observable
 import br.com.zup.beagle.interfaces.Observer
 import br.com.zup.beagle.interfaces.OnStateUpdatable
@@ -18,7 +19,10 @@ import br.com.zup.beagle.sample.widgets.TextField
 import br.com.zup.beagle.sample.widgets.TextFieldInputType
 
 class TextFieldView(context: Context) : EditText(context), StateChangeable,
-    OnStateUpdatable<TextField> {
+    OnStateUpdatable<TextField>, InputValue {
+    override fun getValue(): Any {
+        return text.toString()
+    }
 
     override fun onUpdateState(widget: TextField) {
         bind(widget)

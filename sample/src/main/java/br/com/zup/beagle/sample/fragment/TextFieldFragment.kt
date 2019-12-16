@@ -9,6 +9,7 @@ import br.com.zup.beagle.utils.toView
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.sample.widgets.TextField
 
+
 class TextFieldFragment : Fragment() {
 
     override fun onCreateView(
