@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -139,7 +139,6 @@
 		C85D9BAA2388596A0075B6C0 /* PageViewWith3Pages.json in Resources */ = {isa = PBXBuildFile; fileRef = C85D9BA92388596A0075B6C0 /* PageViewWith3Pages.json */; };
 		C86E7C1523954E2700D6FEDB /* PageViewInvalid.json in Resources */ = {isa = PBXBuildFile; fileRef = C86E7C1423954E2700D6FEDB /* PageViewInvalid.json */; };
 		C86E7C172395602400D6FEDB /* WidgetFromJsonFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86E7C162395602400D6FEDB /* WidgetFromJsonFile.swift */; };
-		C8973F9D238864BE00A78AE0 /* SnapshotTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8973F9C238864BE00A78AE0 /* SnapshotTesting.framework */; };
 		C8983D9C23984C820080D439 /* PageViewWithCustomIndicator.json in Resources */ = {isa = PBXBuildFile; fileRef = C8983D9B23984C820080D439 /* PageViewWithCustomIndicator.json */; };
 		C89E80A52397FFD500C2D0ED /* PageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89E80A42397FFD500C2D0ED /* PageIndicator.swift */; };
 		C89E80A72397FFFD00C2D0ED /* DefaultPageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89E80A62397FFFD00C2D0ED /* DefaultPageIndicator.swift */; };
@@ -264,6 +263,7 @@
 		E5DD468B234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */; };
 		E70B4EAE236B586700BBC921 /* ImageWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B4EAD236B586700BBC921 /* ImageWidgetViewRenderer.swift */; };
 		E70B4EB0236B6B5700BBC921 /* ImageWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B4EAF236B6B5600BBC921 /* ImageWidgetViewRendererTests.swift */; };
+		E72D79CE23A3FEB2006AA39E /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = E72D79CD23A3FEB2006AA39E /* SnapshotTesting */; };
 		E7523AF8239E8F2100F93385 /* BeagleDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7523AF7239E8F2100F93385 /* BeagleDependencies.swift */; };
 		E759590C2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E759590B2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift */; };
 		E759590E2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E759590D2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift */; };
@@ -432,7 +432,6 @@
 		C85EDE1423A2C1F2002F190F /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		C86E7C1423954E2700D6FEDB /* PageViewInvalid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PageViewInvalid.json; sourceTree = "<group>"; };
 		C86E7C162395602400D6FEDB /* WidgetFromJsonFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WidgetFromJsonFile.swift; path = Sources/Widgets/Page/Tests/WidgetFromJsonFile.swift; sourceTree = SOURCE_ROOT; };
-		C8973F9C238864BE00A78AE0 /* SnapshotTesting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapshotTesting.framework; path = ../../ThirdParty/Carthage/Build/iOS/SnapshotTesting.framework; sourceTree = "<group>"; };
 		C897404E2388692900A78AE0 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		C8983D9A23984A4E0080D439 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		C8983D9B23984C820080D439 /* PageViewWithCustomIndicator.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PageViewWithCustomIndicator.json; sourceTree = "<group>"; };
@@ -584,7 +583,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C8973F9D238864BE00A78AE0 /* SnapshotTesting.framework in Frameworks */,
+				E72D79CE23A3FEB2006AA39E /* SnapshotTesting in Frameworks */,
 				E5CE41EC2332B9B600295277 /* BeagleUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1265,7 +1264,6 @@
 			isa = PBXGroup;
 			children = (
 				93D7C68C23A1268800154CFB /* YogaKit.framework */,
-				C8973F9C238864BE00A78AE0 /* SnapshotTesting.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1881,7 +1879,6 @@
 				E5CE41E32332B9B600295277 /* Sources */,
 				E5CE41E42332B9B600295277 /* Frameworks */,
 				E5CE41E52332B9B600295277 /* Resources */,
-				E53C7AB42371E90E00F8FE28 /* Carthage Run Script */,
 			);
 			buildRules = (
 			);
@@ -1889,6 +1886,9 @@
 				E5CE41EE2332B9B600295277 /* PBXTargetDependency */,
 			);
 			name = BeagleFrameworkTests;
+			packageProductDependencies = (
+				E72D79CD23A3FEB2006AA39E /* SnapshotTesting */,
+			);
 			productName = BeagleFrameworkTests;
 			productReference = E5CE41E72332B9B600295277 /* BeagleFrameworkTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -1921,6 +1921,9 @@
 				Base,
 			);
 			mainGroup = 932925C52327E11000A61F01;
+			packageReferences = (
+				E72D79CC23A3FEB2006AA39E /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+			);
 			productRefGroup = 932925D02327E11000A61F01 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1954,25 +1957,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		E53C7AB42371E90E00F8FE28 /* Carthage Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/../../ThirdParty/Carthage/Build/iOS/SnapshotTesting.framework",
-			);
-			name = "Carthage Run Script";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
-		};
 		E5EB34B52330358000AC246B /* SwiftLint Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2407,7 +2391,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../../ThirdParty/Carthage/Build/iOS/";
 				INFOPLIST_FILE = Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -2437,7 +2420,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../../ThirdParty/Carthage/Build/iOS/";
 				INFOPLIST_FILE = Resources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -2462,7 +2444,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YKYJK8YBGT;
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../../ThirdParty/Carthage/Build/iOS/";
 				INFOPLIST_FILE = BeagleFrameworkTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2483,7 +2464,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YKYJK8YBGT;
-				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../../ThirdParty/Carthage/Build/iOS/";
 				INFOPLIST_FILE = BeagleFrameworkTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2529,6 +2509,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E72D79CC23A3FEB2006AA39E /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E72D79CD23A3FEB2006AA39E /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E72D79CC23A3FEB2006AA39E /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 932925C62327E11000A61F01 /* Project object */;
 }
