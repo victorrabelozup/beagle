@@ -75,6 +75,11 @@
             android:title="Tab Bar"
             tools:ignore="HardcodedText" />
 
+        <item
+            android:id="@+id/navigationFragment"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Navigation"
+            tools:ignore="HardcodedText" />
 
         <item
             android:id="@+id/form"

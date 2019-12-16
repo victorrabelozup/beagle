@@ -5,17 +5,18 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import br.com.zup.beagle.utils.dp
-import br.com.zup.beagle.view.BeagleUIActivity
 import br.com.zup.beagle.sample.activities.NavigationBarActivity
 import br.com.zup.beagle.sample.fragment.DynamicStatefulFragment
+import br.com.zup.beagle.sample.fragment.ImageViewFragment
 import br.com.zup.beagle.sample.fragment.LazyWidgetFragment
+import br.com.zup.beagle.sample.fragment.NavigationFragment
+import br.com.zup.beagle.sample.fragment.PageViewFragment
+import br.com.zup.beagle.sample.fragment.RemoteStatefulFragment
 import br.com.zup.beagle.sample.fragment.ScrollViewFragment
 import br.com.zup.beagle.sample.fragment.StaticStatefulFragment
-import br.com.zup.beagle.sample.fragment.RemoteStatefulFragment
-import br.com.zup.beagle.sample.fragment.PageViewFragment
 import br.com.zup.beagle.sample.fragment.TextFieldFragment
-import br.com.zup.beagle.sample.fragment.ImageViewFragment
+import br.com.zup.beagle.utils.dp
+import br.com.zup.beagle.view.BeagleUIActivity
 import br.com.zup.beagle.sample.fragment.TabViewFragment
 
 class MainActivity : AppCompatActivity() {
@@ -52,6 +53,7 @@ class MainActivity : AppCompatActivity() {
             // Navigation Bar requires an activity without toolbar
             R.id.navigationBar -> startActivity(NavigationBarActivity.newIntent(this))
             R.id.stateful_dynamic -> goToFragment(DynamicStatefulFragment.newInstance())
+            R.id.navigationFragment -> goToFragment(NavigationFragment.newInstance())
             R.id.navigation -> startActivity(
                 BeagleUIActivity.newIntent(
                     this,

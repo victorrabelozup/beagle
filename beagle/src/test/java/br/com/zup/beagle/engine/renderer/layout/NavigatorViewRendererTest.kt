@@ -5,6 +5,7 @@ import android.view.View
 import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.NavigationActionHandler
 import br.com.zup.beagle.action.NavigationType
+import br.com.zup.beagle.data.PreFetchHelper
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
@@ -13,6 +14,7 @@ import br.com.zup.beagle.widget.navigation.Navigator
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
+import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
 import io.mockk.mockk
@@ -41,20 +43,17 @@ class NavigatorViewRendererTest {
     @MockK
     private lateinit var navigationActionHandler: NavigationActionHandler
 
+    @MockK
+    private lateinit var preFetchHelper: PreFetchHelper
+
     private val onClickListenerSlot = slot<View.OnClickListener>()
 
+    @InjectMockKs
     private lateinit var navigatorViewRenderer: NavigatorViewRenderer
 
     @Before
     fun setUp() {
-        MockKAnnotations.init(this)
-
-        navigatorViewRenderer = NavigatorViewRenderer(
-            navigator,
-            navigationActionHandler,
-            viewRendererFactory,
-            viewFactory
-        )
+        MockKAnnotations.init(this, relaxUnitFun = true)
 
         val viewRenderer = mockk<ViewRenderer>()
         every { viewRenderer.build(any()) } returns view

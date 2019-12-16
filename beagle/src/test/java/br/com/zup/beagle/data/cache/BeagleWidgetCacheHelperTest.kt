@@ -9,7 +9,7 @@ import kotlin.test.assertNull
 
 class BeagleWidgetCacheHelperTest {
 
-    private val subject = BeagleWidgetCacheHelper()
+    private val subject = BeagleWidgetCacheHelper
 
     private val url = RandomData.httpUrl()
 

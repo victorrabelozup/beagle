@@ -2,7 +2,7 @@ package br.com.zup.beagle.data.cache
 
 import br.com.zup.beagle.widget.core.Widget
 
-internal class BeagleWidgetCacheHelper {
+internal object BeagleWidgetCacheHelper {
     private val widgetCacheMap = mutableMapOf<String, Widget>()
     fun cacheWidget(
         url: String,

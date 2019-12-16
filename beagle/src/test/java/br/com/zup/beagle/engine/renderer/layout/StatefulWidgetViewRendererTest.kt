@@ -22,9 +22,9 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import io.mockk.verify
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import kotlin.test.assertTrue
 
 class StatefulWidgetViewRendererTest {
     @MockK
@@ -92,7 +92,7 @@ class StatefulWidgetViewRendererTest {
         verify(exactly = once()) { viewRenderer.build(rootView) }
 
         // Then
-        Assert.assertTrue(actual is View)
+        assertTrue(actual is View)
     }
 
     private fun mockStatefulRenderer(): RootView {

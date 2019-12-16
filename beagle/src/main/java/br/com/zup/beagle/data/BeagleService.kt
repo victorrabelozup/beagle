@@ -15,11 +15,10 @@ import kotlin.coroutines.resumeWithException
 
 internal class BeagleService(
     private val deserializer: BeagleDeserializer = BeagleDeserializer(),
-    private val httpClient: HttpClient = HttpClientFactory().make(),
-    private val cacheHelper: BeagleWidgetCacheHelper = BeagleWidgetCacheHelper()
+    private val httpClient: HttpClient = HttpClientFactory().make()
 ) {
     @Throws(BeagleException::class)
-    suspend fun fetchWidget(url: String): Widget = with(cacheHelper) {
+    suspend fun fetchWidget(url: String): Widget = with(BeagleWidgetCacheHelper) {
         getWidgetFromCache(url) ?: cacheWidget(
             url,
             deserializeWidget(fetchData(url))
@@ -32,12 +31,13 @@ internal class BeagleService(
     }
 
     private suspend fun fetchData(url: String): String = suspendCancellableCoroutine { cont ->
+
         try {
             val call = httpClient.execute(request = RequestData(url),
                 onSuccess = { response ->
                     cont.resume(String(response.data))
                 }, onError = { error ->
-                    cont.resumeWithException(BeagleException(error.message, error))
+                    cont.resumeWithException(BeagleException(error.message ?: genericErrorMessage(url), error))
                 }
             )
 
@@ -45,7 +45,7 @@ internal class BeagleService(
                 call.cancel()
             }
         } catch (ex: Exception) {
-            cont.resumeWithException(BeagleException(ex.message, ex))
+            cont.resumeWithException(BeagleException(ex.message ?: genericErrorMessage(url), ex))
         }
     }
 
@@ -64,4 +64,6 @@ internal class BeagleService(
             throw BeagleException("Widget deserialization error with respective json: $response")
         }
     }
+
+    private fun genericErrorMessage(url: String)  = "fetchData error for url $url"
 }

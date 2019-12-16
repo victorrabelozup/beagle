@@ -11,6 +11,8 @@ import androidx.core.view.children
 import androidx.core.view.size
 import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
+import br.com.zup.beagle.data.BeagleViewModel
 import br.com.zup.beagle.engine.mapper.ViewMapper
 import br.com.zup.beagle.engine.renderer.ActivityRootView
 import br.com.zup.beagle.engine.renderer.FragmentRootView
@@ -143,4 +145,17 @@ internal fun List<View>.findChildViewForUpdatableWidgetId(
 
 fun View.saveBeagleTag(tag: Any) {
     this.tag = tag
+}
+
+internal fun RootView.generateViewModelInstance(): BeagleViewModel {
+    return when (this) {
+        is ActivityRootView -> {
+            val activity = this.activity
+            ViewModelProviders.of(activity)[BeagleViewModel::class.java]
+        }
+        else -> {
+            val fragment = (this as FragmentRootView).fragment
+            ViewModelProviders.of(fragment)[BeagleViewModel::class.java]
+        }
+    }
 }
