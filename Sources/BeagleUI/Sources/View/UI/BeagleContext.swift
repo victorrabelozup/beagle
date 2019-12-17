@@ -6,7 +6,7 @@ public protocol BeagleContext {
     var screenController: UIViewController { get }
     
     func register(action: Action, inView view: UIView)
-    func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorHandler?)
+    func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorProvider?)
     func lazyLoad(url: String, initialState: UIView)
 }
 
@@ -25,19 +25,20 @@ extension BeagleScreenViewController: BeagleContext {
         view.isUserInteractionEnabled = true
     }
     
-    public func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorHandler?) {
+    public func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorProvider?) {
         let gestureRecognizer = SubmitFormGestureRecognizer(
             form: form,
             formView: formView,
             validator: validator,
             target: self,
-            action: #selector(handleSubmitFormGesture(_:)))
+            action: #selector(handleSubmitFormGesture(_:))
+        )
         submitView.addGestureRecognizer(gestureRecognizer)
         submitView.isUserInteractionEnabled = true
     }
     
     public func lazyLoad(url: String, initialState: UIView) {
-        serverDrivenScreenLoader.loadWidget(from: url) { [weak self] result in
+        dependencies.remoteConnector.fetchWidget(from: url) { [weak self] result in
             switch result {
             case let .success(widget):
                 self?.update(initialView: initialState, lazyLoaded: widget)
@@ -50,7 +51,7 @@ extension BeagleScreenViewController: BeagleContext {
     // MARK: - Action
     
     @objc func handleActionGesture(_ sender: ActionGestureRecognizer) {
-        actionExecutor.doAction(sender.action, sender: sender, context: self)
+        dependencies.actionExecutor.doAction(sender.action, sender: sender, context: self)
     }
     
     // MARK: - Form
@@ -60,16 +61,20 @@ extension BeagleScreenViewController: BeagleContext {
         let values = inputViews.reduce(into: [:]) {
             self.validate(formInput: $1, validatorHandler: sender.validator, result: &$0)
         }
-        if inputViews.count == values.count {
-            view.showLoading(.whiteLarge)
-            serverDrivenScreenLoader.submitForm(action: sender.form.action, method: sender.form.method, values: values) { [weak self] result in
-                self?.view.hideLoading()
-                self?.handleFormResult(result, sender: sender)
-            }
+        guard inputViews.count == values.count else { return }
+
+        view.showLoading(.whiteLarge)
+        dependencies.remoteConnector.submitForm(
+            action: sender.form.action,
+            method: sender.form.method,
+            values: values
+        ) { [weak self] result in
+            self?.view.hideLoading()
+            self?.handleFormResult(result, sender: sender)
         }
     }
     
-    private func validate(formInput view: UIView, validatorHandler: ValidatorHandler?, result: inout [String: String]) {
+    private func validate(formInput view: UIView, validatorHandler: ValidatorProvider?, result: inout [String: String]) {
         guard
             let formInput = view.beagleFormElement as? FormInput,
             let inputValue = view as? InputValue else {
@@ -93,10 +98,10 @@ extension BeagleScreenViewController: BeagleContext {
         }
     }
     
-    private func handleFormResult(_ result: Result<Action, ServerDrivenWidgetFetcherError>, sender: Any) {
+    private func handleFormResult(_ result: Result<Action, RemoteConnectorError>, sender: Any) {
         switch result {
         case let .success(action):
-            actionExecutor.doAction(action, sender: sender, context: self)
+            dependencies.actionExecutor.doAction(action, sender: sender, context: self)
         case let .failure(error):
             handleError(error)
         }
@@ -114,15 +119,14 @@ extension BeagleScreenViewController: BeagleContext {
         }
         if let widgetView = self.rootWidgetView?.subviews.first {
             widgetView.frame = (self.rootWidgetView ?? self.view).bounds
-            self.flexConfigurator.applyYogaLayout(to: widgetView, preservingOrigin: true)
+            dependencies.flex.applyYogaLayout(to: widgetView, preservingOrigin: true)
         }
     }
     
     private func replaceView(_ view: UIView, with widget: Widget) {
-        guard let superview = view.superview else {
-            return
-        }
-        let updatedView = viewBuilder.buildFromRootWidget(widget, context: self)
+        guard let superview = view.superview else { return }
+
+        let updatedView = widget.toView(context: self, dependencies: dependencies)
         updatedView.frame = view.frame
         superview.insertSubview(updatedView, belowSubview: view)
         view.removeFromSuperview()

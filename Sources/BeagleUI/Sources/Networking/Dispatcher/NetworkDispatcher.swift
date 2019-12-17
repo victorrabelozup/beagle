@@ -1,5 +1,5 @@
 //
-//  URLRequestDispatching.swift
+//  NetworkDispatcher.swift
 //  Networking
 //
 //  Created by Eduardo Sanches Bocato on 27/09/19.
@@ -7,7 +7,7 @@
 //
 
 /// This guy is responsible for executing the requests by calling whoever we want to use as a client to deal with networking.
-public protocol URLRequestDispatching {
+public protocol NetworkDispatcher {
     
     /// Executes the request and provides a completion with the response.
     ///
@@ -28,11 +28,15 @@ public protocol URLRequestDispatching {
     @discardableResult
     func execute(request: URLRequestProtocol, completion: @escaping (_ response: Result<Data?, URLRequestError>) -> Void) -> URLRequestToken?
 }
-extension URLRequestDispatching {
+extension NetworkDispatcher {
     
     @discardableResult
     public func execute(request: URLRequestProtocol, completion: @escaping (_ response: Result<Data?, URLRequestError>) -> Void) -> URLRequestToken? {
         return execute(on: .main, request: request, completion: completion)
     }
     
+}
+
+public protocol DependencyNetworkDispatcher {
+    var networkDispatcher: NetworkDispatcher { get }
 }

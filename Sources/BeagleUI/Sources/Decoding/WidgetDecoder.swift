@@ -14,6 +14,10 @@ public protocol WidgetDecoding {
     func decodeAction(from data: Data) throws -> Action
 }
 
+public protocol DependencyWidgetDecoding {
+    var decoder: WidgetDecoding { get }
+}
+
 enum WidgetDecodingError: Error {
     case couldNotCastToType(String)
 }

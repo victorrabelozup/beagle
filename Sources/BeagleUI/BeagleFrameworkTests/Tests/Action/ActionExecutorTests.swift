@@ -10,13 +10,18 @@ import XCTest
 @testable import BeagleUI
 
 final class ActionExecutorTests: XCTestCase {
-    
+
+    private struct Dependencies: ActionExecuting.Dependencies {
+        var customActionHandler: CustomActionHandler? = CustomActionHandlerDummy()
+        var navigation: BeagleNavigation = BeagleNavigator()
+    }
+
     func test_whenExecuteNavigateAction_shouldUseTheNavigator() {
         // Given
         let navigationSpy = BeagleNavigationSpy()
-        let sut = ActionExecuting(
-            navigator: navigationSpy,
-            customActionHandler: CustomActionHandlerDummy())
+        let sut = ActionExecuting(dependencies: Dependencies(
+            navigation: navigationSpy
+        ))
         let action = Navigate(type: .addView)
         
         // When
@@ -28,7 +33,7 @@ final class ActionExecutorTests: XCTestCase {
     
     func test_whenExecuteFormValidation_shouldCallErrorListener() {
         // Given
-        let sut = ActionExecuting(customActionHandler: CustomActionHandlerDummy())
+        let sut = ActionExecuting(dependencies: Dependencies())
         let inputName = "inputName"
         let errorMessage = "Error Message"
         let fieldError = FieldError(inputName: inputName, message: errorMessage)
@@ -51,7 +56,7 @@ final class ActionExecutorTests: XCTestCase {
     
     func test_whenShowNativeDialog_shouldPresentAlertController() {
         // Given
-        let sut = ActionExecuting(customActionHandler: CustomActionHandlerDummy())
+        let sut = ActionExecuting(dependencies: Dependencies())
         let action = ShowNativeDialog(
             title: "Title",
             message: "Message",
@@ -69,15 +74,17 @@ final class ActionExecutorTests: XCTestCase {
     
     func test_whenExecuteCustomAction_shouldUseActionHandler() {
         // Given
-        let customActionHandlerSpy = CustomActionHandlerSpy()
-        let sut = ActionExecuting(customActionHandler: customActionHandlerSpy)
+        let actionSpy = CustomActionHandlerSpy()
+        let sut = ActionExecuting(dependencies: Dependencies(
+            customActionHandler: actionSpy
+        ))
         let action = CustomAction(name: "custom-action", data: [:])
         
         // When
         sut.doAction(action, sender: self, context: BeagleContextDummy())
         
         // Then
-        XCTAssertEqual(customActionHandlerSpy.actionsHandledCount, 1)
+        XCTAssertEqual(actionSpy.actionsHandledCount, 1)
     }
 }
 
@@ -113,7 +120,7 @@ class BeagleContextStub: BeagleContext {
     var screenController: UIViewController = UIViewController()
     func register(action: Action, inView view: UIView) {
     }
-    func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorHandler?) {
+    func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorProvider?) {
     }
     func lazyLoad(url: String, initialState: UIView) {
     }

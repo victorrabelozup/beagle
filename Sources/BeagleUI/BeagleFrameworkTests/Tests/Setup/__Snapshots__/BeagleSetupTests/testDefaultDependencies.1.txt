@@ -1,9 +1,12 @@
 ▿ BeagleDependencies
+  ▿ actionExecutor: ActionExecuting
+    ▿ dependencies: InnerDependenciesResolver
+      - container: (Function)
   - appBundle: NSBundle </Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Xcode/Agents> (loaded)
-  ▿ applicationTheme: AppTheme
-    - styles: 0 key/value pairs
   - baseURL: Optional<URL>.none
-  - customActionHandler: Optional<CustomActionHandler>.none
+  ▿ customActionHandler: Optional<CustomActionHandler>
+    ▿ some: CustomActionHandling
+      - handlers: 0 key/value pairs
   ▿ customWidgetsProvider: CustomWidgetsRendererProviding
     - renderers: 0 key/value pairs
   ▿ decoder: WidgetDecoder
@@ -16,9 +19,17 @@
   - deepLinkHandler: Optional<BeagleDeepLinkScreenManaging>.none
   ▿ flex: FlexViewConfigurator
     - yogaTranslator: YogaTranslating
-  ▿ networkingDispatcher: URLSessionDispatcher
+  - navigation: BeagleNavigator
+  ▿ networkDispatcher: URLSessionDispatcher
     - requestBuilderType: DefaultURLRequestBuilder
     - session: <__NSURLSessionLocal>
+  ▿ remoteConnector: RemoteConnecting
+    ▿ dependencies: InnerDependenciesResolver
+      - container: (Function)
   ▿ rendererProvider: WidgetRendererProviding
     - $__lazy_storage_$_providers: Optional<Array<WidgetRendererProviderThrowable>>.none
-  - validatorHandler: Optional<ValidatorHandler>.none
+  ▿ resolver: InnerDependenciesResolver
+    - container: (Function)
+  ▿ theme: AppTheme
+    - styles: 0 key/value pairs
+  - validatorProvider: Optional<ValidatorProvider>.none

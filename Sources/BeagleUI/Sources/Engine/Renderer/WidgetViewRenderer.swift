@@ -20,12 +20,11 @@ public enum WidgetViewRenderingError: Error {
     }
 }
 
-public protocol RendererDependencies {
-    var flex: FlexViewConfiguratorProtocol { get }
-    var rendererProvider: WidgetRendererProvider { get }
-    var theme: Theme { get }
-    var validatorHandler: ValidatorHandler? { get }
-}
+public typealias RendererDependencies =
+    DependencyFlexViewConfigurator
+    & DependencyRendererProvider
+    & DependencyTheme
+    & DependencyValidatorProvider
 
 public protocol WidgetViewRendererProtocol {
     init(

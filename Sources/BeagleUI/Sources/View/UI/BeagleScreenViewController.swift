@@ -28,10 +28,13 @@ public class BeagleScreenViewController: UIViewController {
     // MARK: - Dependencies
     
     let screenType: ScreenType
-    let flexConfigurator: FlexViewConfiguratorProtocol
-    let viewBuilder: BeagleViewBuilder
-    let serverDrivenScreenLoader: ServerDrivenScreenLoader
-    let actionExecutor: ActionExecutor
+
+    var dependencies: Dependencies
+
+    public typealias Dependencies =
+        DependencyActionExecutor
+        & DependencyRemoteConnector
+        & RendererDependencies
     
     // MARK: - Properties
     
@@ -40,32 +43,13 @@ public class BeagleScreenViewController: UIViewController {
     weak var rootWidgetView: UIView?
     
     // MARK: - Initialization
-    
-    convenience public init(screen: ScreenType) {
-        self.init(screenType: screen)
-    }
-    
-    init(
+
+    public init(
         screenType: ScreenType,
-        flexConfigurator: FlexViewConfiguratorProtocol = FlexViewConfigurator(),
-        viewBuilder: BeagleViewBuilder = BeagleViewBuilding(),
-        serverDrivenScreenLoader: ServerDrivenScreenLoader = ServerDrivenScreenLoading(),
-        actionExecutor: ActionExecutor = ActionExecuting()
+        dependencies: Dependencies? = nil
     ) {
         self.screenType = screenType
-        self.flexConfigurator = flexConfigurator
-        self.viewBuilder = viewBuilder
-        self.serverDrivenScreenLoader = serverDrivenScreenLoader
-        self.actionExecutor = actionExecutor
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    public init(screenType: ScreenType) {
-        self.screenType = screenType
-        self.flexConfigurator = FlexViewConfigurator()
-        self.viewBuilder = BeagleViewBuilding()
-        self.serverDrivenScreenLoader = ServerDrivenScreenLoading()
-        self.actionExecutor = ActionExecuting()
+        self.dependencies = dependencies ?? Beagle.dependencies
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -91,7 +75,7 @@ public class BeagleScreenViewController: UIViewController {
         super.viewDidLayoutSubviews()
         if let widgetView = rootWidgetView?.subviews.first {
             widgetView.frame = (rootWidgetView ?? view).bounds
-            flexConfigurator.applyYogaLayout(to: widgetView, preservingOrigin: true)
+            dependencies.flex.applyYogaLayout(to: widgetView, preservingOrigin: true)
         }
     }
     
@@ -142,19 +126,19 @@ public class BeagleScreenViewController: UIViewController {
     // MARK: - Declarative Screen Loading
     
     private func loadDeclarativeScreenWithRootWidget(_ widget: Widget, context: BeagleContext) {
-        let declarativeView = viewBuilder.buildFromRootWidget(widget, context: context)
-        setupWidgetView(declarativeView)
+        let view = widget.toView(context: context, dependencies: dependencies)
+        setupWidgetView(view)
     }
     
     // MARK: - Remote Screen Loading
     
     private func loadScreenFromURL(_ url: String) {
         view.showLoading(.whiteLarge)
-        serverDrivenScreenLoader.loadScreen(from: url, context: self) { [weak self] result in
+        dependencies.remoteConnector.fetchWidget(from: url) { [weak self] result in
             self?.view.hideLoading()
             switch result {
-            case let .success(view):
-                self?.setupWidgetView(view)
+            case let .success(widget):
+                self?.buildViewFromWidget(widget)
             case let .failure(error):
                 self?.handleError(error)
             }
@@ -162,11 +146,16 @@ public class BeagleScreenViewController: UIViewController {
     }
     
     // MARK: - View Setup
+
+    private func buildViewFromWidget(_ widget: Widget) {
+        let view = widget.toView(context: self, dependencies: dependencies)
+        setupWidgetView(view)
+    }
     
     private func setupWidgetView(_ widgetView: UIView) {
         rootWidgetView?.addSubview(widgetView)
         widgetView.frame = (rootWidgetView ?? view).bounds
-        flexConfigurator.applyYogaLayout(to: widgetView, preservingOrigin: true)
+        dependencies.flex.applyYogaLayout(to: widgetView, preservingOrigin: true)
     }
     
     // MARK: - Error Handling

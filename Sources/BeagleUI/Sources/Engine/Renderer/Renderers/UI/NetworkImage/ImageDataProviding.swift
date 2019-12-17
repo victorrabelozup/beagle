@@ -20,11 +20,11 @@ enum ImageDataProviderError: Error {
 final class ImageDataProviding: ImageDataProvider {
     
     // MARK: - Dependencies
-    public var dispatcher: URLRequestDispatching
+    public var dispatcher: NetworkDispatcher
     private let cacheService: CacheServiceProvider
     
     init(
-        dispatcher: URLRequestDispatching = Beagle.networkingDispatcher,
+        dispatcher: NetworkDispatcher = Beagle.networkDispatcher,
         cacheService: CacheServiceProvider = MemoryCacheService()
     ) {
         self.dispatcher = dispatcher

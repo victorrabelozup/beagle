@@ -13,6 +13,10 @@ public protocol WidgetRendererProvider {
     func buildRenderer(for widget: Widget, dependencies: RendererDependencies) -> WidgetViewRendererProtocol
 }
 
+public protocol DependencyRendererProvider {
+    var rendererProvider: WidgetRendererProvider { get }
+}
+
 public protocol WidgetRendererProviderThrowable {
 
     func buildRenderer(for widget: Widget, dependencies: RendererDependencies) throws -> WidgetViewRendererProtocol

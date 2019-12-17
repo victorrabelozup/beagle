@@ -110,7 +110,7 @@ final class BeagleNavigatorTests: XCTestCase {
         let screenURL2 = "https://example.com/screen2.json"
         let screenURL3 = "https://example.com/screen3.json"
         let sut = BeagleNavigator()
-        let widget = ServerDrivenWidgetMock()
+        let widget = SimpleWidget()
         let action = Navigate(type: .popToView, path: screenURL1)
         let vc1 = beagleViewController(screen: .declarative(widget.content))
         let vc2 = beagleViewController(screen: .remote(screenURL2))
@@ -166,10 +166,7 @@ final class BeagleNavigatorTests: XCTestCase {
     private func beagleViewController(screen: BeagleScreenViewController.ScreenType) -> BeagleScreenViewController {
         return BeagleScreenViewController(
             screenType: screen,
-            flexConfigurator: FlexViewConfiguratorDummy(),
-            viewBuilder: BeagleViewBuilderDummy(),
-            serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
-            actionExecutor: ActionExecutorDummy()
+            dependencies: ScreenViewControllerDependencies()
         )
     }
 }

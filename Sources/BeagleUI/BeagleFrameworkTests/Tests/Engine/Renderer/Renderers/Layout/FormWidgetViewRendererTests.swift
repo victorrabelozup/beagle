@@ -65,7 +65,7 @@ class BeagleContextSpy: BeagleContext {
         didCallRegisterAction = true
     }
     
-    func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorHandler?) {
+    func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorProvider?) {
         didCallRegisterFormSubmit = true
     }
     

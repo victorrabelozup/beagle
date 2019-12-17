@@ -8,18 +8,16 @@
 
 import XCTest
 @testable import BeagleUI
+import SnapshotTesting
 
 final class BeagleContextTests: XCTestCase {
     
     func test_screenController_shouldBeBeagleScreenViewController() {
         // Given
-        let widget = ServerDrivenWidgetMock()
+        let widget = SimpleWidget()
         let sut: BeagleContext = BeagleScreenViewController(
             screenType: .declarative(widget.content),
-            flexConfigurator: FlexViewConfiguratorDummy(),
-            viewBuilder: BeagleViewBuilderDummy(),
-            serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
-            actionExecutor: ActionExecutorDummy()
+            dependencies: ScreenViewControllerDependencies()
         )
         
         // Then
@@ -28,13 +26,10 @@ final class BeagleContextTests: XCTestCase {
 
     func test_registerAction_shouldAddGestureRecognizer() {
         // Given
-        let widget = ServerDrivenWidgetMock()
+        let widget = SimpleWidget()
         let sut = BeagleScreenViewController(
             screenType: .declarative(widget.content),
-            flexConfigurator: FlexViewConfiguratorDummy(),
-            viewBuilder: BeagleViewBuilderDummy(),
-            serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
-            actionExecutor: ActionExecutorDummy()
+            dependencies: ScreenViewControllerDependencies()
         )
         let view = UILabel()
         let action = Navigate(type: .popView)
@@ -49,14 +44,14 @@ final class BeagleContextTests: XCTestCase {
     
     func test_action_shouldBeTriggered() {
         // Given
-        let widget = ServerDrivenWidgetMock()
+        let widget = SimpleWidget()
         let actionExecutorSpy = ActionExecutorSpy()
+
         let controller = BeagleScreenViewController(
             screenType: .declarative(widget.content),
-            flexConfigurator: FlexViewConfiguratorDummy(),
-            viewBuilder: BeagleViewBuilderDummy(),
-            serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
-            actionExecutor: actionExecutorSpy
+            dependencies: ScreenViewControllerDependencies(
+                actionExecutor: actionExecutorSpy
+            )
         )
         
         let navigationController = UINavigationController(rootViewController: controller)
@@ -83,13 +78,10 @@ final class BeagleContextTests: XCTestCase {
     
     func test_registerForm_shouldAddGestureRecognizer() {
         // Given
-        let widget = ServerDrivenWidgetMock()
+        let widget = SimpleWidget()
         let sut = BeagleScreenViewController(
             screenType: .declarative(widget.content),
-            flexConfigurator: FlexViewConfiguratorDummy(),
-            viewBuilder: BeagleViewBuilderDummy(),
-            serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
-            actionExecutor: ActionExecutorDummy()
+            dependencies: ScreenViewControllerDependencies()
         )
         let form = Form(action: "action", method: .put, child: WidgetDummy())
         let formView = UIView()
@@ -105,34 +97,40 @@ final class BeagleContextTests: XCTestCase {
     
     func test_formSubmit_shouldValidateInputs() {
         // Given
-        let widget = ServerDrivenWidgetMock()
-        let actionExecutorSpy = ActionExecutorSpy()
+        let widget = SimpleWidget()
         let sut = BeagleScreenViewController(
             screenType: .declarative(widget.content),
-            flexConfigurator: FlexViewConfiguratorDummy(),
-            viewBuilder: BeagleViewBuilderDummy(),
-            serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
-            actionExecutor: actionExecutorSpy
+            dependencies: ScreenViewControllerDependencies()
         )
         
         let form = Form(action: "submit", method: .post, child: WidgetDummy())
-        let validInput = FormInput(name: "name", required: true, validator: "valid", child: WidgetDummy())
-        let invalidInput = FormInput(name: "document", required: true, validator: "invalid", child: WidgetDummy())
-        let optionalInput = FormInput(name: "birthdate", child: WidgetDummy())
-        let invalidValidatorInput = FormInput(name: "country", required: true, validator: "XYZ", child: WidgetDummy())
-        let validInputView = FormInputViewStub(validInput)
-        let invalidInputView = FormInputViewStub(invalidInput)
-        let optionalInputView = FormInputViewStub(optionalInput)
-        let invalidValidatorInputView = FormInputViewStub(invalidValidatorInput)
+
         let otherView = UIView()
-        otherView.beagleFormElement = FormInput(name: "other", child: WidgetDummy())
+        otherView.beagleFormElement = FormInput(
+            name: "other", child: WidgetDummy()
+        )
+
+        let valid = FormInputViewStub(FormInput(
+            name: "name", required: true, validator: "valid", child: WidgetDummy()
+        ))
+        let invalid = FormInputViewStub(FormInput(
+            name: "document", required: true, validator: "invalid", child: WidgetDummy()
+        ))
+        let optional = FormInputViewStub(FormInput(
+            name: "birthdate", child: WidgetDummy()
+        ))
+        let invalidValidator = FormInputViewStub(FormInput(
+            name: "country", required: true, validator: "XYZ", child: WidgetDummy()
+        ))
+
         let formView = UIView()
-        formView.addSubview(validInputView)
-        formView.addSubview(invalidInputView)
-        formView.addSubview(optionalInputView)
-        formView.addSubview(invalidValidatorInputView)
+        formView.addSubview(valid)
+        formView.addSubview(invalid)
+        formView.addSubview(optional)
+        formView.addSubview(invalidValidator)
         formView.addSubview(otherView)
-        let validator = ValidatorHandling()
+
+        let validator = ValidatorProviding()
         var validationCount = 0
         validator["valid"] = { _ in
             validationCount += 1
@@ -158,17 +156,18 @@ final class BeagleContextTests: XCTestCase {
     
     func test_formSubmit_shouldExecuteResponseAction() {
         // Given
-        let widget = ServerDrivenWidgetMock()
+        let widget = SimpleWidget()
         let actionExecutorSpy = ActionExecutorSpy()
-        let serverDrivenStub = ServerDrivenScreenLoaderStub(
+        let screenLoaderStub = RemoteConnectorStub(
             submitFormResult: .success(CustomAction(name: "custom", data: [:]))
         )
+
         let sut = BeagleScreenViewController(
             screenType: .declarative(widget.content),
-            flexConfigurator: FlexViewConfiguratorDummy(),
-            viewBuilder: BeagleViewBuilderDummy(),
-            serverDrivenScreenLoader: serverDrivenStub,
-            actionExecutor: actionExecutorSpy
+            dependencies: ScreenViewControllerDependencies(
+                actionExecutor: actionExecutorSpy,
+                remoteConnector: screenLoaderStub
+            )
         )
         
         let form = Form(action: "submit", method: .post, child: WidgetDummy())
@@ -192,17 +191,17 @@ final class BeagleContextTests: XCTestCase {
     
     func test_formSubmitError_shouldNotExecuteAction() {
         // Given
-        let widget = ServerDrivenWidgetMock()
+        let widget = SimpleWidget()
         let actionExecutorSpy = ActionExecutorSpy()
-        let serverDrivenStub = ServerDrivenScreenLoaderStub(
+        let screenLoaderStub = RemoteConnectorStub(
             submitFormResult: .failure(.invalidEntity)
         )
         let sut = BeagleScreenViewController(
             screenType: .declarative(widget.content),
-            flexConfigurator: FlexViewConfiguratorDummy(),
-            viewBuilder: BeagleViewBuilderDummy(),
-            serverDrivenScreenLoader: serverDrivenStub,
-            actionExecutor: actionExecutorSpy
+            dependencies: ScreenViewControllerDependencies(
+                actionExecutor: actionExecutorSpy,
+                remoteConnector: screenLoaderStub
+            )
         )
         
         let form = Form(action: "delete", method: .delete, child: WidgetDummy())
@@ -222,47 +221,34 @@ final class BeagleContextTests: XCTestCase {
     }
     
     func test_lazyLoad_shouldReplaceTheInitialContent() {
-        // Given
-        let initialView = UIView()
-        let lazyContent = UILabel()
-        let viewBuilder = BeagleViewBuilderSpy()
-        viewBuilder.viewToReturn = lazyContent
-        let screenLoader = ServerDrivenScreenLoaderStub(loadWidgetResult: .success(WidgetDummy()))
-        let sut = BeagleScreenViewController(
-            screenType: .declarative(WidgetDummy()),
-            flexConfigurator: FlexViewConfiguratorDummy(),
-            viewBuilder: viewBuilder,
-            serverDrivenScreenLoader: screenLoader,
-            actionExecutor: ActionExecutorDummy()
+        let dependencies = BeagleDependencies(appName: "TEST")
+        dependencies.remoteConnector = RemoteConnectorStub(
+            loadWidgetResult: .success(SimpleWidget().content)
         )
-        sut.view.addSubview(initialView)
-        let url = "URL"
-        
-        // When
-        sut.lazyLoad(url: url, initialState: initialView)
-        
-        // Then
-        XCTAssertNil(initialView.superview, "`initialView` should be removed from view hierarchy")
-        XCTAssertTrue(lazyContent.superview === sut.view)
+
+        let sut = BeagleScreenViewController(
+            screenType: .remote(""),
+            dependencies: dependencies
+        )
+
+        assertSnapshot(matching: sut, as: .image)
     }
     
     func test_lazyLoad_withUpdatableView_shouldCallUpdate() {
         // Given
         let initialView = OnStateUpdatableViewSpy()
         initialView.yoga.isEnabled = true
-        let screenLoader = ServerDrivenScreenLoaderStub(loadWidgetResult: .success(WidgetDummy()))
+        let screenLoader = RemoteConnectorStub(loadWidgetResult: .success(WidgetDummy()))
         let sut = BeagleScreenViewController(
             screenType: .declarative(WidgetDummy()),
-            flexConfigurator: FlexViewConfiguratorDummy(),
-            viewBuilder: BeagleViewBuilderDummy(),
-            serverDrivenScreenLoader: screenLoader,
-            actionExecutor: ActionExecutorDummy()
+            dependencies: ScreenViewControllerDependencies(
+                remoteConnector: screenLoader
+            )
         )
         sut.view.addSubview(initialView)
-        let url = "URL"
         
         // When
-        sut.lazyLoad(url: url, initialState: initialView)
+        sut.lazyLoad(url: "URL", initialState: initialView)
         
         // Then
         XCTAssertNotNil(initialView.superview, "`initialView` should not be removed from view hierarchy")

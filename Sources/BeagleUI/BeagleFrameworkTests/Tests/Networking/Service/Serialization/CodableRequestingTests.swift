@@ -53,15 +53,15 @@ final class CodableRequestingTests: XCTestCase {
 // MARK: - Testing Helpers
 private class CodableRequestingService: CodableRequesting {
     
-    var dispatcher: URLRequestDispatching
+    var dispatcher: NetworkDispatcher
     
-    init(dispatcher: URLRequestDispatching) {
+    init(dispatcher: NetworkDispatcher) {
         self.dispatcher = dispatcher
     }
     
 }
 
-final class URLRequestDispatchingStub: URLRequestDispatching {
+final class URLRequestDispatchingStub: NetworkDispatcher {
 
     private let resultToReturn: Result<Data?, URLRequestError>
     

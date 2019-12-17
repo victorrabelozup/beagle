@@ -12,6 +12,10 @@ public protocol CustomActionHandler {
     func handle(context: BeagleContext, action: CustomAction)
 }
 
+public protocol DependencyCustomActionHandler {
+    var customActionHandler: CustomActionHandler? { get }
+}
+
 public final class CustomActionHandling: CustomActionHandler {
     
     public typealias CustomActionClosure = (BeagleContext, CustomAction) -> Void

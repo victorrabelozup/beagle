@@ -8,8 +8,12 @@
 
 import UIKit
 
-protocol BeagleNavigation {
+public protocol BeagleNavigation {
     func navigate(action: Navigate, source: UIViewController, animated: Bool)
+}
+
+public protocol DependencyNavigation {
+    var navigation: BeagleNavigation { get }
 }
 
 class BeagleNavigator: BeagleNavigation {

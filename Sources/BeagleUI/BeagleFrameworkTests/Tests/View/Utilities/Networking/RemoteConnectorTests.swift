@@ -1,27 +1,25 @@
 //
-//  ServerDrivenWidgetFetcherTests.swift
-//  BeagleFrameworkTests
-//
-//  Created by Eduardo Sanches Bocato on 25/10/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 25/10/19 Zup IT. All rights reserved.
 //
 
 import XCTest
 @testable import BeagleUI
 
-final class ServerDrivenWidgetFetcherTests: XCTestCase {
-    
+final class RemoteConnectorTests: XCTestCase {
+
+    private struct Dependencies: RemoteConnecting.Dependencies {
+        var baseURL: URL? = nil
+        var networkDispatcher: NetworkDispatcher = URLRequestDispatchingDummy()
+        var decoder: WidgetDecoding = WidgetDecodingDummy()
+    }
+
     func test_requestWithInvalidURL_itShouldFail() {
-        let sut = ServerDrivenWidgetFetching(
-            baseURL: nil,
-            networkingDispatcher: URLRequestDispatchingDummy(),
-            decoder: WidgetDecodingDummy()
-        )
+        let sut = RemoteConnecting(dependencies: Dependencies())
         let invalidURL = "🥶"
         
         // When
         let fetchWidgetExpectation = expectation(description: "fetchWidget")
-        var fetchError: ServerDrivenWidgetFetcherError?
+        var fetchError: RemoteConnectorError?
         sut.fetchWidget(from: invalidURL) { result in
             if case let .failure(error) = result {
                 fetchError = error
@@ -29,7 +27,7 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
             fetchWidgetExpectation.fulfill()
         }
         let submitFormExpectation = expectation(description: "submitForm")
-        var formError: ServerDrivenWidgetFetcherError?
+        var formError: RemoteConnectorError?
         sut.submitForm(action: invalidURL, method: .post, values: [:]) { result in
             if case let .failure(error) = result {
                 formError = error
@@ -52,13 +50,12 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
     }
     
     func test_fetchWitdget_withBaseURL_buildTheProperURL() {
-        let baseURL = URL(string: "http://test.me/api/ignored")
-        let dispatchingSpy = URLRequestDispatchingSpy()
-        let sut = ServerDrivenWidgetFetching(
-            baseURL: baseURL,
-            networkingDispatcher: dispatchingSpy,
-            decoder: WidgetDecodingDummy()
-        )
+        let dispatchingSpy = NetworkDispatcherSpy()
+        let sut = RemoteConnecting(dependencies: Dependencies(
+            baseURL: URL(string: "http://test.me/api/ignored"),
+            networkDispatcher: dispatchingSpy
+        ))
+
         let expectedURLs = [
             "xyz": "http://test.me/api/xyz",
             "/xyz" : "http://test.me/xyz",
@@ -87,11 +84,10 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
             return
         }
         let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .success(jsonData))
-        let sut = ServerDrivenWidgetFetching(
-            baseURL: nil,
-            networkingDispatcher: dispatcherStub,
+        let sut = RemoteConnecting(dependencies: Dependencies(
+            networkDispatcher: dispatcherStub,
             decoder: WidgetDecoder()
-        )
+        ))
         let url = "www.something.com"
 
         // When
@@ -113,15 +109,13 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
     func test_whenRequestFails_itShouldThrowRequestError() {
         // Given
         let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .failure(.unknown))
-        let sut = ServerDrivenWidgetFetching(
-            baseURL: nil,
-            networkingDispatcher: dispatcherStub,
-            decoder: WidgetDecodingDummy()
-        )
+        let sut = RemoteConnecting(dependencies: Dependencies(
+            networkDispatcher: dispatcherStub
+        ))
         let url = "www.something.com"
 
         // When
-        var errorThrown: ServerDrivenWidgetFetcherError?
+        var errorThrown: RemoteConnectorError?
         let fetchWidgetExpectation = expectation(description: "fetchWidgetExpectation")
         sut.fetchWidget(from: url) { result in
             if case let .failure(error) = result {
@@ -143,15 +137,14 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
     func test_whenRequestSucceeds_withNilData_itShouldThrowEmptyDataError() {
         // Given
         let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .success(nil))
-        let sut = ServerDrivenWidgetFetching(
-            baseURL: nil,
-            networkingDispatcher: dispatcherStub,
-            decoder: WidgetDecodingDummy()
-        )
+        let sut = RemoteConnecting(dependencies: Dependencies(
+            networkDispatcher: dispatcherStub
+        ))
+
         let url = "www.something.com"
 
         // When
-        var errorThrown: ServerDrivenWidgetFetcherError?
+        var errorThrown: RemoteConnectorError?
         let fetchWidgetExpectation = expectation(description: "fetchWidgetExpectation")
         sut.fetchWidget(from: url) { result in
             if case let .failure(error) = result {
@@ -175,15 +168,15 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
         let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .success(Data()))
         let decoderStub = WidgetDecodingStub()
         decoderStub.errorToThrowOnDecode = NSError(domain: "Mock", code: 1, description: "Mock")
-        let sut = ServerDrivenWidgetFetching(
-            baseURL: nil,
-            networkingDispatcher: dispatcherStub,
+        let sut = RemoteConnecting(dependencies: Dependencies(
+            networkDispatcher: dispatcherStub,
             decoder: decoderStub
-        )
+        ))
+
         let url = "www.something.com"
 
         // When
-        var errorThrown: ServerDrivenWidgetFetcherError?
+        var errorThrown: RemoteConnectorError?
         let fetchWidgetExpectation = expectation(description: "fetchWidgetExpectation")
         sut.fetchWidget(from: url) { result in
             if case let .failure(error) = result {
@@ -203,12 +196,11 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
     
     func test_whenSubmitForm_itShoudConfigureTheParameters() {
         // Given
-        let dispatcherSpy = URLRequestDispatchingSpy()
-        let sut = ServerDrivenWidgetFetching(
-            baseURL: nil,
-            networkingDispatcher: dispatcherSpy,
-            decoder: WidgetDecodingDummy()
-        )
+        let dispatcherSpy = NetworkDispatcherSpy()
+        let sut = RemoteConnecting(dependencies: Dependencies(
+            networkDispatcher: dispatcherSpy
+        ))
+
         let urlParamMethods: [Form.MethodType] = [.get, .delete]
         let bodyParamMethods: [Form.MethodType] = [.post, .put]
         let values = ["p1": "1", "p2": "2"]
@@ -251,15 +243,13 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
     func test_whenFormSubmitRequestFails_itShouldThrowRequestError() {
         // Given
         let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .failure(.unknown))
-        let sut = ServerDrivenWidgetFetching(
-            baseURL: nil,
-            networkingDispatcher: dispatcherStub,
-            decoder: WidgetDecodingDummy()
-        )
+        let sut = RemoteConnecting(dependencies: Dependencies(
+            networkDispatcher: dispatcherStub
+        ))
         let url = "www.something.com"
 
         // When
-        var errorThrown: ServerDrivenWidgetFetcherError?
+        var errorThrown: RemoteConnectorError?
         let submitFormExpectation = expectation(description: "submitFormExpectation")
         sut.submitForm(action: url, method: .post, values: [:]) { result in
             if case let .failure(error) = result {
@@ -280,15 +270,13 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
     func test_whenFormSubmitRequestSucceeds_withNilData_itShouldThrowEmptyDataError() {
         // Given
         let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .success(nil))
-        let sut = ServerDrivenWidgetFetching(
-            baseURL: nil,
-            networkingDispatcher: dispatcherStub,
-            decoder: WidgetDecodingDummy()
-        )
+        let sut = RemoteConnecting(dependencies: Dependencies(
+            networkDispatcher: dispatcherStub
+        ))
         let url = "www.something.com"
 
         // When
-        var errorThrown: ServerDrivenWidgetFetcherError?
+        var errorThrown: RemoteConnectorError?
         let submitFormExpectation = expectation(description: "submitFormExpectation")
         sut.submitForm(action: url, method: .post, values: [:]) { result in
             if case let .failure(error) = result {
@@ -311,15 +299,14 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
         let dispatcherStub = URLRequestDispatchingStub(resultToReturn: .success(Data()))
         let decoderStub = WidgetDecodingStub()
         decoderStub.errorToThrowOnDecode = NSError(domain: "Mock", code: 1, description: "Mock")
-        let sut = ServerDrivenWidgetFetching(
-            baseURL: nil,
-            networkingDispatcher: dispatcherStub,
+        let sut = RemoteConnecting(dependencies: Dependencies(
+            networkDispatcher: dispatcherStub,
             decoder: decoderStub
-        )
+        ))
         let url = "www.something.com"
 
         // When
-        var errorThrown: ServerDrivenWidgetFetcherError?
+        var errorThrown: RemoteConnectorError?
         let submitFormExpectation = expectation(description: "submitFormExpectation")
         sut.submitForm(action: url, method: .post, values: [:]) { result in
             if case let .failure(error) = result {
@@ -340,7 +327,7 @@ final class ServerDrivenWidgetFetcherTests: XCTestCase {
 
 // MARK: - Testing Helpers
 
-final class URLRequestDispatchingSpy: URLRequestDispatching {
+final class NetworkDispatcherSpy: NetworkDispatcher {
     private(set) var executedRequest: URLRequestProtocol?
     func execute(on queue: DispatchQueue, request: URLRequestProtocol, completion: @escaping (Result<Data?, URLRequestError>) -> Void) -> URLRequestToken? {
         executedRequest = request
@@ -373,5 +360,16 @@ final class WidgetDecodingStub: WidgetDecoding {
 private struct MappingFailureWidget: WidgetEntity, WidgetConvertible {
     func mapToWidget() throws -> Widget {
         throw NSError(domain: "Tests", code: -1, description: "MappingFailureWidget")
+    }
+}
+
+final class RemoteConnectorSpy: RemoteConnector {
+    private(set) var fetchWidgetCalled = false
+    private(set) var submitFormCalled = false
+    func submitForm(action: String, method: Form.MethodType, values: [String : String], completion: @escaping FormCompletion) {
+        submitFormCalled = true
+    }
+    func fetchWidget(from url: String, completion: @escaping WidgetCompletion) {
+        fetchWidgetCalled = true
     }
 }

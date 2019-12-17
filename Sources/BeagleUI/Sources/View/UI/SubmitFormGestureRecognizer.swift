@@ -12,9 +12,9 @@ final class SubmitFormGestureRecognizer: UITapGestureRecognizer {
     
     let form: Form
     weak var formView: UIView?
-    let validator: ValidatorHandler?
+    let validator: ValidatorProvider?
     
-    init(form: Form, formView: UIView, validator: ValidatorHandler?, target: Any? = nil, action: Selector? = nil) {
+    init(form: Form, formView: UIView, validator: ValidatorProvider?, target: Any? = nil, action: Selector? = nil) {
         self.form = form
         self.formView = formView
         self.validator = validator

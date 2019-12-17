@@ -20,7 +20,7 @@ final class BeagleSetupTests: XCTestCase {
             .appBundle(Bundle.main)
             .deepLinkHandler(DeepLinkHandlerDummy())
             .theme(AppThemeDummy())
-            .validatorHandler(ValidatorHandling())
+            .validatorProvider(ValidatorProviding())
             .actionHandler(CustomActionHandlerDummy())
             .baseURL(URL(string: "www.test.com")!)
             .networkingDispatcher(URLRequestDispatchingDummy())
@@ -64,7 +64,7 @@ struct WidgetDummyEntity: WidgetConvertibleEntity {
     }
 }
 
-class URLRequestDispatchingDummy: URLRequestDispatching {
+class URLRequestDispatchingDummy: NetworkDispatcher {
     func execute(on queue: DispatchQueue, request: URLRequestProtocol, completion: @escaping (Result<Data?, URLRequestError>) -> Void) -> URLRequestToken? {
         return nil
     }

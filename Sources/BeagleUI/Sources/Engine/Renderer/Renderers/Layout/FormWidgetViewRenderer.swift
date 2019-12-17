@@ -19,7 +19,7 @@ final class FormWidgetViewRenderer: WidgetViewRenderer<Form> {
         
         func registerFormSubmit(view: UIView) {
             if view.beagleFormElement is FormSubmit {
-                context.register(form: widget, formView: childView, submitView: view, validator: self.validatorHandler)
+                context.register(form: widget, formView: childView, submitView: view, validator: self.validatorProvider)
             }
             for subview in view.subviews {
                 registerFormSubmit(view: subview)

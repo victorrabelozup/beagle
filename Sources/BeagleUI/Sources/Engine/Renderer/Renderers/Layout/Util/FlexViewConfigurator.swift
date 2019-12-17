@@ -16,6 +16,10 @@ public protocol FlexViewConfiguratorProtocol {
     func instrinsicSize(for view: UIView) -> CGSize
 }
 
+public protocol DependencyFlexViewConfigurator {
+    var flex: FlexViewConfiguratorProtocol { get }
+}
+
 final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
     
     // MARK: - Dependencies

@@ -8,11 +8,15 @@
 
 import Foundation
 
-public protocol ValidatorHandler {
+public protocol ValidatorProvider {
     func getValidator(name: String) -> Validator?
 }
 
-public final class ValidatorHandling: ValidatorHandler {
+public protocol DependencyValidatorProvider {
+    var validatorProvider: ValidatorProvider? { get }
+}
+
+public final class ValidatorProviding: ValidatorProvider {
     
     private var handlers: [String: ClosureValidator] = [:]
     

@@ -12,6 +12,10 @@ public protocol Theme {
     func applyStyle<T: UIView>(for view: T, withId id: String)
 }
 
+public protocol DependencyTheme {
+    var theme: Theme { get }
+}
+
 public struct AppTheme: Theme {
     let styles: [String: Any]
     

@@ -31,5 +31,5 @@ struct RendererDependenciesContainer: RendererDependencies {
     var flex: FlexViewConfiguratorProtocol = FlexViewConfiguratorDummy()
     var rendererProvider: WidgetRendererProvider = WidgetRendererProviderDummy()
     var theme: Theme = AppThemeDummy()
-    var validatorHandler: ValidatorHandler? = ValidatorHandling()
+    var validatorProvider: ValidatorProvider? = ValidatorProviding()
 }

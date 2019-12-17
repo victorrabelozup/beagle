@@ -13,7 +13,7 @@ final class ValidatorHandlerTests: XCTestCase {
     
     func test_getValidator_shouldReturnTheValidator() {
         // Given
-        let sut = ValidatorHandling()
+        let sut = ValidatorProviding()
         let validatorName = "custom-validator"
         let validInput = "Valid Input"
         sut[validatorName] = {
@@ -32,7 +32,7 @@ final class ValidatorHandlerTests: XCTestCase {
     
     func test_removedValidator_shouldReturnNil() {
         // Given
-        let sut = ValidatorHandling()
+        let sut = ValidatorProviding()
         let validatorName = "custom-validator"
         sut[validatorName] = nil
                 

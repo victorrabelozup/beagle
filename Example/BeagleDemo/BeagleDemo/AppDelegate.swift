@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Beagle.dependencies = dependencies
         
-        let rootViewController = BeagleScreenViewController(screen: .declarative(MainScreen().widget))
+        let rootViewController = BeagleScreenViewController(screenType: .declarative(MainScreen().widget))
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         
         return true

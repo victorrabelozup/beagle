@@ -50,11 +50,11 @@ final class URLRequestTokenSpy: URLRequestToken {
 }
 
 private class ImageDataProvidingStub: ImageDataProvider {
-    var dispatcher: URLRequestDispatching
+    var dispatcher: NetworkDispatcher
     var urlRequestToken = URLRequestTokenSpy()
     let resultToReturn: Result<Data, ImageDataProviderError>
 
-    init(dispatcher: URLRequestDispatching, resultToReturn: Result<Data, ImageDataProviderError>) {
+    init(dispatcher: NetworkDispatcher, resultToReturn: Result<Data, ImageDataProviderError>) {
         self.dispatcher = dispatcher
         self.resultToReturn = resultToReturn
     }

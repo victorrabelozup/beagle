@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// Defines some component that can be rendered on a Screen
 public protocol Widget {
@@ -18,6 +19,18 @@ public protocol NativeWidget: Widget {}
 extension NativeWidget {
     public func build() throws -> Widget {
         throw unbuildableWidgetError
+    }
+}
+
+extension Widget {
+
+    func toView(
+        context: BeagleContext,
+        dependencies: RendererDependencies = Beagle.dependencies
+    ) -> UIView {
+        return dependencies.rendererProvider
+            .buildRenderer(for: self, dependencies: dependencies)
+            .buildView(context: context)
     }
 }
 

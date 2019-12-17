@@ -6,14 +6,6 @@
 //  Copyright © 2019 Bocato. All rights reserved.
 //
 
-//
-//  URLSessionDispatcher.swift
-//  Networking
-//
-//  Created by Eduardo Sanches Bocato on 27/09/19.
-//  Copyright © 2019 Bocato. All rights reserved.
-//
-
 import Foundation
 
 private struct DataTaskResponse {
@@ -22,7 +14,7 @@ private struct DataTaskResponse {
     let httpResponse: HTTPURLResponse
 }
 
-public final class URLSessionDispatcher: URLRequestDispatching {
+public final class URLSessionDispatcher: NetworkDispatcher {
     
     // MARK: - Properties
     

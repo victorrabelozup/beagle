@@ -8,21 +8,26 @@
 
 import UIKit
 
-protocol ActionExecutor {
+public protocol ActionExecutor {
     func doAction(_ action: Action, sender: Any, context: BeagleContext)
 }
 
+public protocol DependencyActionExecutor {
+    var actionExecutor: ActionExecutor { get }
+}
+
 final class ActionExecuting: ActionExecutor {
-    
-    private let navigator: BeagleNavigation
-    private let customActionHandler: CustomActionHandler?
+
+    public typealias Dependencies =
+        DependencyNavigation
+        & DependencyCustomActionHandler
+
+    var dependencies: Dependencies
     
     init(
-        navigator: BeagleNavigation = BeagleNavigator(),
-        customActionHandler: CustomActionHandler? = Beagle.customActionHandler
+        dependencies: Dependencies = Beagle.dependencies
     ) {
-        self.navigator = navigator
-        self.customActionHandler = customActionHandler
+        self.dependencies = dependencies
     }
     
     func doAction(_ action: Action, sender: Any, context: BeagleContext) {
@@ -38,7 +43,7 @@ final class ActionExecuting: ActionExecutor {
     }
     
     private func navigate(_ action: Navigate, context: BeagleContext) {
-        navigator.navigate(action: action, source: context.screenController, animated: true)
+        dependencies.navigation.navigate(action: action, source: context.screenController, animated: true)
     }
     
     private func validateForm(_ action: FormValidation, sender: Any, context: BeagleContext) {
@@ -58,6 +63,6 @@ final class ActionExecuting: ActionExecutor {
     }
     
     private func customAction(_ action: CustomAction, context: BeagleContext) {
-        customActionHandler?.handle(context: context, action: action)
+        dependencies.customActionHandler?.handle(context: context, action: action)
     }
 }

@@ -8,37 +8,15 @@
 
 import XCTest
 @testable import BeagleUI
+import SnapshotTesting
 
 final class BeagleScreenViewControllerTests: XCTestCase {
-
-    func test_publicInit_shouldSetupDependenciesProperly() {
-        // Given
-        let widget = ServerDrivenWidgetMock()
-        
-        // When
-        let sut = BeagleScreenViewController(screenType: .declarative(widget.content))
-        let mirror = Mirror(reflecting: sut)
-        let screenType = mirror.firstChild(of: BeagleScreenViewController.ScreenType.self)
-        let flexConfigurator = mirror.firstChild(of: FlexViewConfigurator.self)
-        let viewBuilder = mirror.firstChild(of: BeagleViewBuilding.self)
-        let serverDrivenScreenLoader = mirror.firstChild(of: ServerDrivenScreenLoading.self)
-        
-        // Then
-        XCTAssertNotNil(screenType)
-        XCTAssertNotNil(flexConfigurator)
-        XCTAssertNotNil(viewBuilder)
-        XCTAssertNotNil(serverDrivenScreenLoader)
-    }
     
     func test_onViewDidLoad_backGroundColorShouldBeSetToWhite() {
         // Given
-        let widget = ServerDrivenWidgetMock()
+        let widget = SimpleWidget()
         let sut = BeagleScreenViewController(
-            screenType: .declarative(widget.content),
-            flexConfigurator: FlexViewConfiguratorDummy(),
-            viewBuilder: BeagleViewBuilderDummy(),
-            serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
-            actionExecutor: ActionExecutorDummy()
+            screenType: .declarative(widget.content)
         )
         
         // When
@@ -54,13 +32,13 @@ final class BeagleScreenViewControllerTests: XCTestCase {
     
     func test_onViewDidLayoutSubviews_shouldApplyYogaLayout() {
         // Given
-        let flexConfigurator = FlexViewConfiguratorSpy()
+        let flexSpy = FlexViewConfiguratorSpy()
+
         let sut = BeagleScreenViewController(
             screenType: .declarative(WidgetDummy()),
-            flexConfigurator: flexConfigurator,
-            viewBuilder: BeagleViewBuilderDummy(),
-            serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
-            actionExecutor: ActionExecutorDummy()
+            dependencies: ScreenViewControllerDependencies(
+                flex: flexSpy
+            )
         )
         
         // When
@@ -68,18 +46,14 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         sut.viewDidLayoutSubviews()
         
         // Then
-        XCTAssertEqual(flexConfigurator.applyYogaLayoutCallCount, 2)
+        XCTAssertEqual(flexSpy.applyYogaLayoutCallCount, 2)
     }
     
     func test_onViewWillAppear_navigationBarShouldBeHidden() {
         // Given
-        let widget = ServerDrivenWidgetMock()
+        let widget = SimpleWidget()
         let sut = BeagleScreenViewController(
-            screenType: .declarative(widget.content),
-            flexConfigurator: FlexViewConfiguratorDummy(),
-            viewBuilder: BeagleViewBuilderDummy(),
-            serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
-            actionExecutor: ActionExecutorDummy()
+            screenType: .declarative(widget.content)
         )
         let navigation = UINavigationController(rootViewController: sut)
         
@@ -90,49 +64,20 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         XCTAssertTrue(navigation.isNavigationBarHidden, "Expected navigation bar to be hidden")
     }
     
-    func test_whenLoadingADeclativeView_itShouldSetupTheWidgetViewProperly() {
-        // Given
-        let widget = ServerDrivenWidgetMock()
-        
-        let flexConfiguratorSpy = FlexViewConfiguratorSpy()
-        
-        let viewBuilderSpy = BeagleViewBuilderSpy()
-        let viewToReturn = UIView()
-        viewToReturn.tag = 1234
-        viewBuilderSpy.viewToReturn = viewToReturn
-        
-        let sut = BeagleScreenViewController(
-            screenType: .declarative(widget.content),
-            flexConfigurator: flexConfiguratorSpy,
-            viewBuilder: viewBuilderSpy,
-            serverDrivenScreenLoader: ServerDrivenScreenLoaderDummy(),
-            actionExecutor: ActionExecutorDummy()
-        )
-        
-        // When
-        sut.viewDidLoad()
-        
-        // Then
-        XCTAssertTrue(viewBuilderSpy.buildFromRootWidgetCalled, "`buildFromRootWidget` should have been called.")
-        XCTAssertNotNil(sut.view.viewWithTag(viewToReturn.tag), "The widgetView should be present on the view hierarchy.")
-        XCTAssertTrue(flexConfiguratorSpy.applyYogaLayoutCalled, "`applyYogaLayout` should have been called.")
-    }
-    
     func test_whenLoadScreenFails_itShouldCall_didFailToLoadWithError_onDelegate() {
         // Given
         let url = "www.something.com"
-        let serverDrivenScreenLoaderStub = ServerDrivenScreenLoaderStub(
-            loadScreenResult: .failure(.fetchError(.emptyData))
+        let loaderStub = RemoteConnectorStub(
+            loadWidgetResult: .failure(.emptyData)
         )
         
         let delegateSpy = BeagleScreenViewControllerDelegateSpy()
         
         let sut = BeagleScreenViewController(
             screenType: .remote(url),
-            flexConfigurator: FlexViewConfiguratorDummy(),
-            viewBuilder: BeagleViewBuilderDummy(),
-            serverDrivenScreenLoader: serverDrivenScreenLoaderStub,
-            actionExecutor: ActionExecutorDummy()
+            dependencies: ScreenViewControllerDependencies(
+                remoteConnector: loaderStub
+            )
         )
         sut.delegate = delegateSpy
         
@@ -145,46 +90,46 @@ final class BeagleScreenViewControllerTests: XCTestCase {
     
     func test_whenLoadScreenSucceeds_itShouldSetupTheViewWithTheResult() {
         // Given
-        let url = "www.something.com"
-        let flexConfiguratorSpy = FlexViewConfiguratorSpy()
-        
         let viewToReturn = UIView()
         viewToReturn.tag = 1234
-        
-        let serverDrivenScreenLoaderStub = ServerDrivenScreenLoaderStub(
-            loadScreenResult: .success(viewToReturn)
+
+        let loaderStub = RemoteConnectorStub(
+            loadWidgetResult: .success(SimpleWidget().content)
         )
-        
+
+        let dependencies = BeagleDependencies(appName: "TEST")
+        dependencies.remoteConnector = loaderStub
+
         let sut = BeagleScreenViewController(
-            screenType: .remote(url),
-            flexConfigurator: flexConfiguratorSpy,
-            viewBuilder: BeagleViewBuilderDummy(),
-            serverDrivenScreenLoader: serverDrivenScreenLoaderStub,
-            actionExecutor: ActionExecutorDummy()
+            screenType: .remote("www.something.com"),
+            dependencies: dependencies
         )
-        
-        // When
-        sut.viewDidLoad()
-        
-        // Then
-        XCTAssertNotNil(sut.view.viewWithTag(viewToReturn.tag), "The widgetView should be present on the view hierarchy.")
-        XCTAssertTrue(flexConfiguratorSpy.applyYogaLayoutCalled, "`applyYogaLayout` should have been called.")
+
+        assertSnapshot(matching: sut, as: .image)
     }
     
 }
 
 // MARK: - Testing Helpers
 
-struct ServerDrivenWidgetMock {
+struct SimpleWidget {
     var content = FlexSingleWidget {
         Text("Mock")
     }
 }
 
-final class ServerDrivenScreenLoaderDummy: ServerDrivenScreenLoader {
-    func loadScreen(from url: String, context: BeagleContext, completion: @escaping (Result<UIView, ServerDrivenScreenLoaderError>) -> Void) {}
-    func submitForm(action: String, method: Form.MethodType, values: [String : String], completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void) {}
-    func loadWidget(from url: String, completion: @escaping (Result<Widget, ServerDrivenWidgetFetcherError>) -> Void) {}
+struct ScreenViewControllerDependencies: BeagleScreenViewController.Dependencies {
+    var actionExecutor: ActionExecutor = ActionExecutorDummy()
+    var flex: FlexViewConfiguratorProtocol = FlexViewConfiguratorDummy()
+    var rendererProvider: WidgetRendererProvider = WidgetRendererProviderDummy()
+    var remoteConnector: RemoteConnector = RemoteConnectorDummy()
+    var theme: Theme = AppThemeDummy()
+    var validatorProvider: ValidatorProvider? = ValidatorProviding()
+}
+
+final class RemoteConnectorDummy: RemoteConnector {
+    func fetchWidget(from url: String, completion: @escaping (Result<Widget, RemoteConnector.Error>) -> Void) {}
+    func submitForm(action: String, method: Form.MethodType, values: [String : String], completion: @escaping (Result<Action, RemoteConnector.Error>) -> Void) {}
 }
 
 final class FlexViewConfiguratorDummy: FlexViewConfiguratorProtocol {
@@ -194,34 +139,25 @@ final class FlexViewConfiguratorDummy: FlexViewConfiguratorProtocol {
     func instrinsicSize(for view: UIView) -> CGSize { return .zero }
 }
 
-final class ServerDrivenScreenLoaderStub: ServerDrivenScreenLoader {
-    
-    let loadScreenResult: Result<UIView, ServerDrivenScreenLoaderError>?
-    let submitFormResult: Result<Action, ServerDrivenWidgetFetcherError>?
-    let loadWidgetResult: Result<Widget, ServerDrivenWidgetFetcherError>?
+final class RemoteConnectorStub: RemoteConnector {
+
+    let submitFormResult: Result<Action, RemoteConnectorError>?
+    let loadWidgetResult: Result<Widget, RemoteConnectorError>?
     init(
-        loadScreenResult: Result<UIView, ServerDrivenScreenLoaderError>? = nil,
-        submitFormResult: Result<Action, ServerDrivenWidgetFetcherError>? = nil,
-        loadWidgetResult: Result<Widget, ServerDrivenWidgetFetcherError>? = nil
+        submitFormResult: Result<Action, RemoteConnectorError>? = nil,
+        loadWidgetResult: Result<Widget, RemoteConnectorError>? = nil
     ) {
-        self.loadScreenResult = loadScreenResult
         self.submitFormResult = submitFormResult
         self.loadWidgetResult = loadWidgetResult
     }
     
-    func loadScreen(from url: String, context: BeagleContext, completion: @escaping (Result<UIView, ServerDrivenScreenLoaderError>) -> Void) {
-        if let result = loadScreenResult {
-            completion(result)
-        }
-    }
-    
-    func submitForm(action: String, method: Form.MethodType, values: [String : String], completion: @escaping (Result<Action, ServerDrivenWidgetFetcherError>) -> Void) {
+    func submitForm(action: String, method: Form.MethodType, values: [String : String], completion: @escaping (Result<Action, RemoteConnectorError>) -> Void) {
         if let result = submitFormResult {
             completion(result)
         }
     }
     
-    func loadWidget(from url: String, completion: @escaping (Result<Widget, ServerDrivenWidgetFetcherError>) -> Void) {
+    func fetchWidget(from url: String, completion: @escaping (Result<Widget, RemoteConnector.Error>) -> Void) {
         if let result = loadWidgetResult {
             completion(result)
         }

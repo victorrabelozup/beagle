@@ -8,45 +8,59 @@
 
 import UIKit
 
-public protocol BeagleDependenciesProtocol: RendererDependencies {
+public protocol BeagleDependenciesProtocol: RendererDependencies,
+    DependencyActionExecutor,
+    DependencyRemoteConnector,
+    DependencyBaseURL,
+    DependencyWidgetDecoding,
+    DependencyNetworkDispatcher,
+    DependencyCustomActionHandler,
+    DependencyNavigation {
 
-    var baseURL: URL? { get }
-    var decoder: WidgetDecoding { get }
-    var networkingDispatcher: URLRequestDispatching { get }
     var customWidgetsProvider: CustomWidgetsRendererProvider { get }
     var appBundle: Bundle { get }
-    var applicationTheme: Theme { get }
-    var validatorHandler: ValidatorHandler? { get }
     var deepLinkHandler: BeagleDeepLinkScreenManaging? { get }
-    var customActionHandler: CustomActionHandler? { get }
 }
 
 open class BeagleDependencies: BeagleDependenciesProtocol {
 
-    public private(set) var baseURL: URL?
-    public private(set) var networkingDispatcher: URLRequestDispatching
-    public private(set) var decoder: WidgetDecoding
-    public private(set) var customWidgetsProvider: CustomWidgetsRendererProvider
-    public private(set) var appBundle: Bundle
-    public private(set) var applicationTheme: Theme
-    public private(set) var validatorHandler: ValidatorHandler?
-    public private(set) var deepLinkHandler: BeagleDeepLinkScreenManaging?
-    public private(set) var customActionHandler: CustomActionHandler?
-    public private(set) var flex: FlexViewConfiguratorProtocol
-    public private(set) var rendererProvider: WidgetRendererProvider
+    public var baseURL: URL?
+    public var networkDispatcher: NetworkDispatcher
+    public var decoder: WidgetDecoding
+    public var customWidgetsProvider: CustomWidgetsRendererProvider
+    public var appBundle: Bundle
+    public var theme: Theme
+    public var validatorProvider: ValidatorProvider?
+    public var deepLinkHandler: BeagleDeepLinkScreenManaging?
+    public var customActionHandler: CustomActionHandler?
+    public var flex: FlexViewConfiguratorProtocol
+    public var rendererProvider: WidgetRendererProvider
+    public var actionExecutor: ActionExecutor
+    public var remoteConnector: RemoteConnector
+    public var navigation: BeagleNavigation
 
-    public var theme: Theme { return applicationTheme }
+    private let resolver: InnerDependenciesResolver
     
     public init(appName: String) {
+        let resolver = InnerDependenciesResolver()
+        self.resolver = resolver
+
         self.decoder = WidgetDecoder(namespace: appName)
+        self.networkDispatcher = URLSessionDispatcher()
+        self.navigation = BeagleNavigator()
+        self.customActionHandler = CustomActionHandling()
+
         self.customWidgetsProvider = CustomWidgetsRendererProviding()
         self.appBundle = Bundle.main
-        self.applicationTheme = AppTheme(styles: [:])
-        self.networkingDispatcher = URLSessionDispatcher()
+        self.theme = AppTheme(styles: [:])
         self.flex = FlexViewConfigurator()
         self.rendererProvider = WidgetRendererProviding()
+        self.actionExecutor = ActionExecuting(dependencies: resolver)
+        self.remoteConnector = RemoteConnecting(dependencies: resolver)
+
+        self.resolver.container = { [unowned self] in self }
     }
-    
+
     // MARK: - Builders
     @discardableResult
     public func appBundle(_ bundle: Bundle) -> BeagleDependencies {
@@ -55,8 +69,8 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
     }
     
     @discardableResult
-    public func networkingDispatcher(_ dispatcher: URLRequestDispatching) -> BeagleDependencies {
-        self.networkingDispatcher = dispatcher
+    public func networkingDispatcher(_ dispatcher: NetworkDispatcher) -> BeagleDependencies {
+        self.networkDispatcher = dispatcher
         return self
     }
     
@@ -68,7 +82,7 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
     
     @discardableResult
     public func theme(_ theme: Theme) -> BeagleDependencies {
-        self.applicationTheme = theme
+        self.theme = theme
         return self
     }
     
@@ -79,8 +93,8 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
     }
     
     @discardableResult
-    public func validatorHandler(_ validatorHandler: ValidatorHandler) -> BeagleDependencies {
-        self.validatorHandler = validatorHandler
+    public func validatorProvider(_ validatorProvider: ValidatorProvider) -> BeagleDependencies {
+        self.validatorProvider = validatorProvider
         return self
     }
     
@@ -107,4 +121,28 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
         self.rendererProvider = rendererProvider
         return self
     }
+
+    @discardableResult
+    public func actionExecutor(_ actionExecutor: ActionExecutor) -> BeagleDependencies {
+        self.actionExecutor = actionExecutor
+        return self
+    }
+}
+
+/// This class helps solving the problem of using the same dependency container to resolve
+/// dependencies within dependencies.
+/// The problem happened because we needed to pass `self` as dependency before `init` has concluded.
+/// - Example: see where `resolver` is being used in the `BeagleDependencies` `init`.
+private class InnerDependenciesResolver: RemoteConnecting.Dependencies,
+    ActionExecuting.Dependencies {
+
+    var container: () -> BeagleDependenciesProtocol = {
+        fatalError("You should set this closure to get the dependencies container")
+    }
+
+    var baseURL: URL? { container().baseURL }
+    var decoder: WidgetDecoding { container().decoder }
+    var networkDispatcher: NetworkDispatcher { container().networkDispatcher }
+    var navigation: BeagleNavigation { container().navigation }
+    var customActionHandler: CustomActionHandler? { container().customActionHandler }
 }
