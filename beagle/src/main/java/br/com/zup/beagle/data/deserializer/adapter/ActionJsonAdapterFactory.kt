@@ -5,7 +5,7 @@ import br.com.zup.beagle.action.CustomAction
 import br.com.zup.beagle.action.FormValidation
 import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.ShowNativeDialog
-import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
+import br.com.zup.beagle.data.deserializer.PolymorphicJsonAdapterFactory
 
 private const val BEAGLE_WIDGET_TYPE = "_beagleType_"
 private const val BEAGLE_NAMESPACE = "beagle"

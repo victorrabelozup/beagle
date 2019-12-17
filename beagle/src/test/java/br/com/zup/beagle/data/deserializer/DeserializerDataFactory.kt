@@ -156,28 +156,22 @@ fun makeScrollViewJson() = """
 """
 
 fun makePageViewWidgetJson() = """
-    "_beagleType_": "beagle:widget:pageview",
-    "pages": [
-        ${makeButtonJson()},
-        ${makeButtonJson()},
-        ${makeButtonJson()}
-    ]
+    {
+        "_beagleType_": "beagle:widget:pageview",
+        "pages": [
+            ${makeButtonJson()},
+            ${makeButtonJson()},
+            ${makeButtonJson()}
+        ]
+    }
 """
 
 fun makePageIndicatorWidgetJson() = """
     {
-    "_beagleType_": "beagle:widget:pageview",
-    "pages": [
-        ${makeButtonJson()},
-        ${makeButtonJson()},
-        ${makeButtonJson()}
-    ],
-    "pageIndicator": {
         "_beagleType_": "beagle:widget:pageindicator",
         "selectedColor": "#FFFFFF",
         "unselectedColor": "#888888"
     }
-}
 """
 
 fun makeNavigationActionJson() = """
@@ -211,5 +205,35 @@ fun makeFormValidationJson() = """
     {
         "_beagleType_": "beagle:action:formvalidation",
         "errors": []
+    }
+"""
+
+fun makeCustomInputWidgetJson() = """
+    {
+        "_beagleType_": "sample:widget:custominputwidget"
+    }
+"""
+
+fun makeFormInputJson() = """
+    {
+        "_beagleType_": "beagle:widget:forminput",
+        "name": "${RandomData.string()}",
+        "child": ${makeCustomInputWidgetJson()}
+    }
+"""
+
+fun makeFormSubmitJson() = """
+    {
+        "_beagleType_": "beagle:widget:formsubmit",
+        "child": ${makeButtonJson()}
+    }
+"""
+
+fun makeFormJson() = """
+    {
+        "_beagleType_": "beagle:widget:form",
+        "action": "${RandomData.string()}",
+        "method": "POST",
+        "child": ${makeButtonJson()}
     }
 """

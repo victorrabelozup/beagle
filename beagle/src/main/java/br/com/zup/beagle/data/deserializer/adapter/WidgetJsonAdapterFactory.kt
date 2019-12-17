@@ -1,13 +1,20 @@
 package br.com.zup.beagle.data.deserializer.adapter
 
+import br.com.zup.beagle.data.deserializer.PolymorphicJsonAdapterFactory
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.widget.UndefinedWidget
 import br.com.zup.beagle.widget.core.Widget
+import br.com.zup.beagle.widget.form.Form
+import br.com.zup.beagle.widget.form.FormInput
+import br.com.zup.beagle.widget.form.FormSubmit
+import br.com.zup.beagle.widget.form.InputWidget
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.Expanded
 import br.com.zup.beagle.widget.layout.FlexSingleWidget
 import br.com.zup.beagle.widget.layout.FlexWidget
 import br.com.zup.beagle.widget.layout.Horizontal
+import br.com.zup.beagle.widget.layout.PageIndicatorWidget
+import br.com.zup.beagle.widget.layout.PageView
 import br.com.zup.beagle.widget.layout.ScrollView
 import br.com.zup.beagle.widget.layout.Spacer
 import br.com.zup.beagle.widget.layout.Stack
@@ -21,8 +28,8 @@ import br.com.zup.beagle.widget.ui.Image
 import br.com.zup.beagle.widget.ui.ListView
 import br.com.zup.beagle.widget.ui.NavigationBar
 import br.com.zup.beagle.widget.ui.NetworkImage
+import br.com.zup.beagle.widget.ui.PageIndicator
 import br.com.zup.beagle.widget.ui.Text
-import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory
 import br.com.zup.beagle.widget.ui.TabView
 
 private const val BEAGLE_WIDGET_TYPE = "_beagleType_"
@@ -35,12 +42,21 @@ class WidgetJsonAdapterFactory {
         var factory = PolymorphicJsonAdapterFactory.of(
             Widget::class.java, BEAGLE_WIDGET_TYPE
         )
+
+        factory = registerBaseSubTypes(factory)
         factory = registerLayoutClass(factory)
         factory = registerUIClass(factory)
         factory = registerCustomWidget(factory)
         factory = registerUndefinedWidget(factory)
 
         return factory
+    }
+
+    private fun registerBaseSubTypes(
+        factory: PolymorphicJsonAdapterFactory<Widget>
+    ): PolymorphicJsonAdapterFactory<Widget> {
+        return factory.withBaseSubType(PageIndicatorWidget::class.java)
+            .withBaseSubType(InputWidget::class.java)
     }
 
     private fun registerLayoutClass(
@@ -58,7 +74,8 @@ class WidgetJsonAdapterFactory {
             .withSubtype(ScrollView::class.java, createNamespaceFor<ScrollView>())
             .withSubtype(Expanded::class.java, createNamespaceFor<Expanded>())
             .withSubtype(LazyWidget::class.java, createNamespaceFor<LazyWidget>())
-//            .withSubtype(PageView::class.java, createNamespaceFor<PageView>())
+            .withSubtype(PageView::class.java, createNamespaceFor<PageView>())
+            .withSubtype(Form::class.java, createNamespaceFor<Form>())
     }
 
     private fun registerUIClass(
@@ -71,8 +88,10 @@ class WidgetJsonAdapterFactory {
             .withSubtype(ListView::class.java, createNamespaceFor<ListView>())
             .withSubtype(Navigator::class.java, createNamespaceFor<Navigator>())
             .withSubtype(NavigationBar::class.java, createNamespaceFor<NavigationBar>())
-//            .withSubtype(PageIndicator::class.java, createNamespaceFor<PageIndicator>())
             .withSubtype(TabView::class.java, createNamespaceFor<TabView>())
+            .withSubtype(PageIndicator::class.java, createNamespaceFor<PageIndicator>())
+            .withSubtype(FormInput::class.java, createNamespaceFor<FormInput>())
+            .withSubtype(FormSubmit::class.java, createNamespaceFor<FormSubmit>())
     }
 
     private fun registerCustomWidget(

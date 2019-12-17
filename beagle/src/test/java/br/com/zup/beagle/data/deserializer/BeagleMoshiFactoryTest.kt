@@ -5,11 +5,16 @@ import br.com.zup.beagle.action.CustomAction
 import br.com.zup.beagle.action.FormValidation
 import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.ShowNativeDialog
+import br.com.zup.beagle.mockdata.CustomInputWidget
 import br.com.zup.beagle.mockdata.CustomWidgetFactory
 import br.com.zup.beagle.mockdata.CustomWidget
+import br.com.zup.beagle.mockdata.FormInputViewFactory
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.view.WidgetViewFactory
 import br.com.zup.beagle.widget.core.Widget
+import br.com.zup.beagle.widget.form.Form
+import br.com.zup.beagle.widget.form.FormInput
+import br.com.zup.beagle.widget.form.FormSubmit
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.FlexSingleWidget
 import br.com.zup.beagle.widget.layout.FlexWidget
@@ -32,7 +37,6 @@ import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import org.junit.After
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
@@ -40,7 +44,8 @@ import kotlin.test.assertTrue
 private const val APP_NAME = "sample"
 @Suppress("UNCHECKED_CAST")
 private val WIDGETS = mapOf(
-    CustomWidget::class.java as Class<Widget> to CustomWidgetFactory() as WidgetViewFactory<Widget>
+    CustomWidget::class.java as Class<Widget> to CustomWidgetFactory() as WidgetViewFactory<Widget>,
+    CustomInputWidget::class.java as Class<Widget> to FormInputViewFactory() as WidgetViewFactory<Widget>
 )
 
 class BeagleMoshiFactoryTest {
@@ -260,7 +265,6 @@ class BeagleMoshiFactoryTest {
     }
 
     @Test
-    @Ignore("Remove ignore when moshi is fixed")
     fun make_should_return_moshi_to_deserialize_a_PageView() {
         // Given
         val json = makePageViewWidgetJson()
@@ -274,7 +278,6 @@ class BeagleMoshiFactoryTest {
     }
 
     @Test
-    @Ignore("Remove ignore when moshi is fixed")
     fun make_should_return_moshi_to_deserialize_a_PageIndicator() {
         // Given
         val json = makePageIndicatorWidgetJson()
@@ -337,5 +340,44 @@ class BeagleMoshiFactoryTest {
         // Then
         assertNotNull(actual)
         assertTrue(actual is FormValidation)
+    }
+
+    @Test
+    fun make_should_return_moshi_to_deserialize_a_FormInput() {
+        // Given
+        val json = makeFormInputJson()
+
+        // When
+        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+
+        // Then
+        assertNotNull(actual)
+        assertTrue(actual is FormInput)
+    }
+
+    @Test
+    fun make_should_return_moshi_to_deserialize_a_FormSubmit() {
+        // Given
+        val json = makeFormSubmitJson()
+
+        // When
+        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+
+        // Then
+        assertNotNull(actual)
+        assertTrue(actual is FormSubmit)
+    }
+
+    @Test
+    fun make_should_return_moshi_to_deserialize_a_Form() {
+        // Given
+        val json = makeFormJson()
+
+        // When
+        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+
+        // Then
+        assertNotNull(actual)
+        assertTrue(actual is Form)
     }
 }
