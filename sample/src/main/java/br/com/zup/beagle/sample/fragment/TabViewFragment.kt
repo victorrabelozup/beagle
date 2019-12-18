@@ -22,68 +22,53 @@ class TabViewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val declarative = TabView(
-            buildItems()
-        )
-        return context?.let { declarative.toView(this) }
-    }
-
-    private fun buildItems(): List<TabItem> {
-        return listOf(
-            TabItem(
-                title = "Title 1",
-                content = Text("text"),
-                icon = "ic_launcher_foreground"
-            ),
-            TabItem(
-                title = "Title 2",
-                content = Button("button"),
-                icon = "ic_launcher_background"
-            ),
-            TabItem(
-                title = "Title 3",
-                content = FlexSingleWidget(
-                    flex = Flex(
-                        justifyContent = JustifyContent.CENTER,
-                        alignItems = Alignment.CENTER
-                    ),
-                    child = Text("text")
+            listOf(
+                TabItem(
+                    title = "Title 1",
+                    content = Text("text"),
+                    icon = "ic_launcher_foreground"
                 ),
-                icon = "indicator_default"
-            ),
-            TabItem(
-                title = "Title 4",
-                content = FlexSingleWidget(
-                    flex = Flex(
-                        justifyContent = JustifyContent.CENTER,
-                        alignItems = Alignment.CENTER
-                    ),
-                    child = Button("button")
+                TabItem(
+                    title = "Title 2",
+                    content = Button("button"),
+                    icon = "ic_launcher_background"
                 ),
-                icon = "ic_launcher_background"
-            ),
-            TabItem(
-                title = "Title 5",
-                content = FlexSingleWidget(
-                    flex = Flex(
-                        justifyContent = JustifyContent.FLEX_START,
-                        alignItems = Alignment.FLEX_END
+                TabItem(
+                    title = "Title 3",
+                    content = FlexSingleWidget(
+                        flex = Flex(
+                            justifyContent = JustifyContent.CENTER,
+                            alignItems = Alignment.CENTER
+                        ),
+                        child = Text("text")
                     ),
-                    child = Text("text")
+                    icon = "indicator_default"
                 ),
-                icon = "indicator_default"
-            ),
-            TabItem(
-                title = "Title 6",
-                content = FlexSingleWidget(
-                    flex = Flex(
-                        justifyContent = JustifyContent.FLEX_START,
-                        alignItems = Alignment.FLEX_END
+                TabItem(
+                    title = "Title 4",
+                    content = FlexSingleWidget(
+                        flex = Flex(
+                            justifyContent = JustifyContent.CENTER,
+                            alignItems = Alignment.CENTER
+                        ),
+                        child = Button("button")
                     ),
-                    child = Button("button")
+                    icon = "ic_launcher_background"
                 ),
-                icon = "ic_launcher_foreground"
+                TabItem(
+                    title = "Title 5",
+                    content = FlexSingleWidget(
+                        flex = Flex(
+                            justifyContent = JustifyContent.FLEX_START,
+                            alignItems = Alignment.FLEX_END
+                        ),
+                        child = Text("text")
+                    ),
+                    icon = "indicator_default"
+                )
             )
         )
+        return context?.let { declarative.toView(this) }
     }
 
     companion object {

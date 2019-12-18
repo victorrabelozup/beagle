@@ -12,10 +12,12 @@ import br.com.zup.beagle.widget.ui.NetworkImage
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.RequestManager
+import com.bumptech.glide.request.RequestListener
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkStatic
@@ -34,7 +36,7 @@ class NetworkImageViewRendererTest {
     private lateinit var viewFactory: ViewFactory
     @MockK
     private lateinit var viewMapper: ViewMapper
-    @MockK
+    @RelaxedMockK
     private lateinit var imageView: ImageView
     @MockK
     private lateinit var context: Context
@@ -50,6 +52,8 @@ class NetworkImageViewRendererTest {
 
     private lateinit var networkImageViewRenderer: NetworkImageViewRenderer
 
+    private val onRequestListenerSlot = slot<RequestListener<Drawable>>()
+
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
@@ -59,6 +63,7 @@ class NetworkImageViewRendererTest {
         every { Glide.with(any<View>()) } returns requestManager
         every { requestManager.load(any<String>()) } returns requestBuilder
         every { requestBuilder.into(any()) } returns mockk()
+        every { requestBuilder.listener(capture(onRequestListenerSlot)) } returns requestBuilder
         every { viewFactory.makeImageView(context) } returns imageView
         every { viewMapper.toScaleType(any()) } returns scaleType
         every { imageView.scaleType = any() } just Runs
@@ -88,5 +93,19 @@ class NetworkImageViewRendererTest {
         verify(exactly = once()) { Glide.with(imageView) }
         verify(exactly = once()) { requestManager.load(DEFAULT_URL) }
         verify(exactly = once()) { requestBuilder.into(imageView) }
+    }
+
+    @Test
+    fun build_should_call_request_layout() {
+        // When
+        callBuildAndRequest()
+
+        // Then
+        verify(exactly = once()) { imageView.requestLayout() }
+    }
+
+    private fun callBuildAndRequest() {
+        networkImageViewRenderer.build(rootView)
+        onRequestListenerSlot.captured.onResourceReady(mockk(), mockk(), mockk(), mockk(), false)
     }
 }
