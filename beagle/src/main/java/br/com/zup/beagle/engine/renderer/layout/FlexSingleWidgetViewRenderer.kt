@@ -15,8 +15,9 @@ internal class FlexSingleWidgetViewRenderer(
 ) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
 
     override fun build(rootView: RootView): View {
-        return viewFactory.makeBeagleFlexView(rootView.getContext(), flexSingleWidget.flex ?: Flex()).apply {
-            addView(viewRendererFactory.make(flexSingleWidget.child).build(rootView))
+        val flex = flexSingleWidget.flex ?: Flex()
+        return viewFactory.makeBeagleFlexView(rootView.getContext(), flex).apply {
+            addView(viewRendererFactory.make(flexSingleWidget.child).build(rootView), flex)
         }
     }
 }

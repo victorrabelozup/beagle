@@ -9,13 +9,9 @@ import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.layout.FlexSingleWidget
-import io.mockk.MockKAnnotations
-import io.mockk.Runs
 import br.com.zup.beagle.extensions.once
-import io.mockk.every
+import io.mockk.*
 import io.mockk.impl.annotations.MockK
-import io.mockk.just
-import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 
@@ -54,7 +50,7 @@ class FlexSingleWidgetViewRendererTest {
         every { viewFactory.makeBeagleFlexView(any(), any()) } returns beagleFlexView
         every { viewRendererFactory.make(childWidget) } returns buttonViewRenderer
         every { buttonViewRenderer.build(any()) } returns beagleFlexView
-        every { beagleFlexView.addView(any()) } just Runs
+        every { beagleFlexView.addView(any(), flex) } just Runs
         every { rootView.getContext() } returns context
     }
 
@@ -77,6 +73,6 @@ class FlexSingleWidgetViewRendererTest {
     fun build_should_addView_to_BeagleFlexView() {
         flexSingleWidgetViewRenderer.build(rootView)
 
-        verify(exactly = once()) { beagleFlexView.addView(beagleFlexView) }
+        verify(exactly = once()) { beagleFlexView.addView(beagleFlexView, flex) }
     }
 }

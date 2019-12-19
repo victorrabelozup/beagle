@@ -2,6 +2,7 @@ package br.com.zup.beagle.engine.renderer.ui
 
 import android.graphics.drawable.Drawable
 import android.view.View
+import android.widget.ImageView
 import br.com.zup.beagle.engine.renderer.UIViewRenderer
 import br.com.zup.beagle.engine.mapper.ViewMapper
 import br.com.zup.beagle.engine.renderer.RootView
@@ -24,28 +25,31 @@ internal class NetworkImageViewRenderer(
         return viewFactory.makeImageView(rootView.getContext()).apply {
             val contentMode = image.contentMode ?: ImageContentMode.FIT_CENTER
             scaleType = viewMapper.toScaleType(contentMode)
-            Glide.with(this).load(image.url)
-                .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        return false
-                    }
-
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        dataSource: DataSource?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        requestLayout()
-                        return false
-                    }
-                }).into(this)
+            loadImage(this)
         }
+    }
+    fun loadImage(imageView : ImageView) {
+        Glide.with(imageView).load(image.url)
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    imageView.requestLayout()
+                    return false
+                }
+            }).into(imageView)
     }
 }
