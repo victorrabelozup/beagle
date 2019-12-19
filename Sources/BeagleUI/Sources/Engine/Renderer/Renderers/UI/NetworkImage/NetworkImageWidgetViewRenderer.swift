@@ -9,7 +9,7 @@
 import UIKit
 import YogaKit
 
-final class NetworkImageWidgetViewRenderer: WidgetViewRenderer<NetworkImage> {
+final class NetworkImageWidgetViewRenderer: ViewRendering<NetworkImage> {
     
     private var imageDataProvider: ImageDataProvider = ImageDataProviding()
     

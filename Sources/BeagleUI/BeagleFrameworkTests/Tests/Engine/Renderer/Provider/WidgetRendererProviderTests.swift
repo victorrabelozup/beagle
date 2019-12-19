@@ -13,7 +13,7 @@ final class WidgetRendererProviderTests: XCTestCase {
     
     func test_buildRendererWithUnkownWidget_shouldReturnAnWidgetViewRenderer() {
         // Given
-        let provider = WidgetRendererProviding()
+        let provider = RendererProviding()
         provider.providers = [CustomRendererProviderStub()]
 
         // When
@@ -30,7 +30,7 @@ final class WidgetRendererProviderTests: XCTestCase {
         let expectedError = "WidgetDummy has no renderer's registered, please check this."
 
         // When
-        let error = WidgetRendererProviding.Error.couldNotFindRendererForWidget(widget)
+        let error = RendererProviding.Error.couldNotFindRendererForWidget(widget)
 
         // Then
         XCTAssertEqual(expectedError, error.localizedDescription)
@@ -44,12 +44,12 @@ struct WidgetDummy: NativeWidget {}
 
 private class CustomRendererProviderStub: CustomWidgetsRendererProvider {
 
-    var rendererToReturn: WidgetViewRendererProtocol?
+    var rendererToReturn: ViewRenderer?
     var errorToThrow: Error = NSError(domain: "CustomWidgetsRendererProviderDequeuingStub", code: 1, userInfo: nil)
 
-    func registerRenderer<W>(_ rendererType: WidgetViewRenderer<W>.Type, for widgetType: W.Type) where W : Widget {}
+    func registerRenderer<W>(_ rendererType: ViewRendering<W>.Type, for widgetType: W.Type) where W : Widget {}
 
-    func buildRenderer(for widget: Widget, dependencies: RendererDependencies) throws -> WidgetViewRendererProtocol {
+    func buildRenderer(for widget: Widget, dependencies: ViewRenderer.Dependencies) throws -> ViewRenderer {
         if let rendererToReturn = rendererToReturn {
             return rendererToReturn
         }

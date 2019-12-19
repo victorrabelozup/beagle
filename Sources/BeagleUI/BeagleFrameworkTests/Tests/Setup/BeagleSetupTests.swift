@@ -1,7 +1,5 @@
 //
-//  BeagleSetupTests.swift
-//  BeagleFrameworkTests
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 import XCTest
@@ -15,21 +13,37 @@ final class BeagleSetupTests: XCTestCase {
         assertSnapshot(matching: dependencies, as: .dump)
     }
 
-    func test_start_shouldStartTheEnviromentWithRightBundle() {
-        let dependencies = BeagleDependencies(appName: "Beagle")
-            .appBundle(Bundle.main)
-            .deepLinkHandler(DeepLinkHandlerDummy())
-            .theme(AppThemeDummy())
-            .validatorProvider(ValidatorProviding())
-            .actionHandler(CustomActionHandlerDummy())
-            .baseURL(URL(string: "www.test.com")!)
-            .networkingDispatcher(URLRequestDispatchingDummy())
-            .customWidgetsProvider(CustomWidgetsRendererProviderDummy())
-            .flex(FlexViewConfiguratorDummy())
-            .rendererProvider(WidgetRendererProviderDummy())
+    func testChangedDependencies() {
+        let dep = BeagleDependencies(appName: "Beagle")
+        dep.appBundle = Bundle.main
+        dep.deepLinkHandler = DeepLinkHandlerDummy()
+        dep.theme = AppThemeDummy()
+        dep.validatorProvider = ValidatorProviding()
+        dep.customActionHandler = CustomActionHandlerDummy()
+        dep.baseURL = URL(string: "www.test.com")!
+        dep.networkDispatcher = URLRequestDispatchingDummy()
+        dep.customWidgetsProvider = CustomWidgetsRendererProviderDummy()
+        dep.flex = FlexViewConfiguratorDummy()
+        dep.rendererProvider = RendererProviderDummy()
 
-        // Then
-        assertSnapshot(matching: dependencies, as: .dump)
+        assertSnapshot(matching: dep, as: .dump)
+    }
+
+    func test_ifChangingDependency_othersShouldUseNewInstance() {
+        let dependencies = BeagleDependencies(appName: "TEST")
+
+        let actionSpy = CustomActionHandlerSpy()
+        dependencies.customActionHandler = actionSpy
+
+        let dummyAction = CustomAction(name: "", data: [:])
+
+        dependencies.actionExecutor.doAction(
+            dummyAction,
+            sender: self,
+            context: BeagleContextDummy()
+        )
+
+        XCTAssert(actionSpy.actionsHandledCount == 1)
     }
 }
 
@@ -47,14 +61,14 @@ final class WidgetDecodingDummy: WidgetDecoding {
     func decodeAction(from data: Data) throws -> Action { return ActionDummy() }
 }
 
-final class WidgetViewRendererDummy: WidgetViewRenderer<WidgetDummy> {
+final class ViewRendererDummy: ViewRendering<WidgetDummy> {
     override func buildView(context: BeagleContext) -> UIView { return UIView() }
 }
 
 final class CustomWidgetsRendererProviderDummy: CustomWidgetsRendererProvider {
-    func registerRenderer<W>(_ rendererType: WidgetViewRenderer<W>.Type, for widgetType: W.Type) where W : Widget {}
-    func buildRenderer(for widget: Widget, dependencies: RendererDependencies) throws -> WidgetViewRendererProtocol {
-        return try WidgetViewRendererDummy(widget: widget, dependencies: Beagle.dependencies)
+    func registerRenderer<W>(_ rendererType: ViewRendering<W>.Type, for widgetType: W.Type) where W : Widget {}
+    func buildRenderer(for widget: Widget, dependencies: ViewRenderer.Dependencies) throws -> ViewRenderer {
+        return try ViewRendererDummy(widget: widget, dependencies: Beagle.dependencies)
     }
 }
 

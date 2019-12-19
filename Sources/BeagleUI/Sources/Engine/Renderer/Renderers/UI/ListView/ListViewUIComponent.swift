@@ -41,7 +41,7 @@ final class ListViewUIComponent: UIView {
     
     init(
         frame: CGRect = .zero,
-        flexViewConfigurator: FlexViewConfiguratorProtocol = FlexViewConfigurator(),
+        flexViewConfigurator: FlexViewConfiguratorProtocol,
         model: Model
     ) {
         self.flexViewConfigurator = flexViewConfigurator
@@ -78,12 +78,7 @@ final class ListViewUIComponent: UIView {
     
     private func constrainCollectionView() {
         addSubview(collectionView)
-        collectionView.anchor(
-            top: topAnchor,
-            left: leftAnchor,
-            bottom: bottomAnchor,
-            right: rightAnchor
-        )
+        collectionView.anchorTo(superview: self)
     }
     
 }

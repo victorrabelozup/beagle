@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class FormInputWidgetViewRenderer: WidgetViewRenderer<FormInput> {
+final class FormInputWidgetViewRenderer: ViewRendering<FormInput> {
     
     // MARK: - Public Functions
     

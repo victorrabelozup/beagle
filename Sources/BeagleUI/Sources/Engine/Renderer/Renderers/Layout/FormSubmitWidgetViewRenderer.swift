@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class FormSubmitWidgetViewRenderer: WidgetViewRenderer<FormSubmit> {
+final class FormSubmitWidgetViewRenderer: ViewRendering<FormSubmit> {
     
     // MARK: - Public Functions
     

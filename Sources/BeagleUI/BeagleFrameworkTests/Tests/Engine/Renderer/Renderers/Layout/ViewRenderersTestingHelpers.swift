@@ -1,9 +1,5 @@
 //
-//  ViewRenderersTestingHelpers.swift
-//  BeagleFrameworkTests
-//
-//  Created by Yan Dias on 21/10/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 21/10/19 Zup IT. All rights reserved.
 //
 
 import XCTest
@@ -11,15 +7,15 @@ import XCTest
 
 // MARK: - Testing Helpers
 
-final class WidgetViewRendererProtocolDummy: WidgetViewRendererProtocol {
+final class ViewRendererProtocolDummy: ViewRenderer {
     init() { }
-    init(widget: Widget, dependencies: RendererDependencies?) throws {}
+    init(widget: Widget, dependencies: ViewRenderer.Dependencies) throws {}
     func buildView(context: BeagleContext) -> UIView { return UIView() }
 }
 
-class WidgetRendererProviderDummy: WidgetRendererProvider {
-    func buildRenderer(for widget: Widget, dependencies: RendererDependencies) -> WidgetViewRendererProtocol {
-        return WidgetViewRendererProtocolDummy()
+class RendererProviderDummy: RendererProvider {
+    func buildRenderer(for widget: Widget, dependencies: ViewRenderer.Dependencies) -> ViewRenderer {
+        return ViewRendererProtocolDummy()
     }
 }
 

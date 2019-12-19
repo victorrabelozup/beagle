@@ -19,7 +19,7 @@ final class LayoutViewRendererProviderTests: XCTestCase {
             children: [Text("Oloquinho")],
             flex: Flex(direction: .ltr, flexDirection: .column)
         )
-        let provider = WidgetRendererProviding()
+        let provider = RendererProviding()
         // When
         let flexRenderer = provider.buildRenderer(for: widget, dependencies: dependencies)
         // Then
@@ -32,7 +32,7 @@ final class LayoutViewRendererProviderTests: XCTestCase {
             child: Text("Meu"),
             flex: Flex(direction: .ltr, flexDirection: .column)
         )
-        let provider = WidgetRendererProviding()
+        let provider = RendererProviding()
         // When
         let flexRenderer = provider.buildRenderer(for: widget, dependencies: dependencies)
         // Then
@@ -42,7 +42,7 @@ final class LayoutViewRendererProviderTests: XCTestCase {
     func test_whenContainer_shouldReturnContainerWidgetViewRenderer() {
         // Given
         let widget = Container(header: Text("Tá pegando"), content: Text("Fogo"), footer: Text("Bixo"))
-        let provider = WidgetRendererProviding()
+        let provider = RendererProviding()
         // When
         let containerRenderer = provider.buildRenderer(for: widget, dependencies: dependencies)
         // Then
@@ -52,7 +52,7 @@ final class LayoutViewRendererProviderTests: XCTestCase {
     func test_whenSpacer_shouldReturnSpacerWidgetViewRenderer() {
         // Given
         let widget = Spacer(100)
-        let renderer = WidgetRendererProviding()
+        let renderer = RendererProviding()
         // When
         let spaceRenderer = renderer.buildRenderer(for: widget, dependencies: dependencies)
         // Then
@@ -62,7 +62,7 @@ final class LayoutViewRendererProviderTests: XCTestCase {
     func test_whenListView_shouldReturnListViewWidgetViewRenderer() {
         // Given
         let widget = ListView()
-        let provider = WidgetRendererProviding()
+        let provider = RendererProviding()
         // When
         let listRenderer = provider.buildRenderer(for: widget, dependencies: dependencies)
         // Then
@@ -75,7 +75,7 @@ final class LayoutViewRendererProviderTests: XCTestCase {
             action: Navigate(type: .popView),
             child: Text("Navigation")
         )
-        let provider = WidgetRendererProviding()
+        let provider = RendererProviding()
         // When
         let navigationRenderer = provider.buildRenderer(for: widget, dependencies: dependencies)
         // Then
@@ -89,7 +89,7 @@ final class LayoutViewRendererProviderTests: XCTestCase {
                 Text("Text")
             }
         }
-        let provider = WidgetRendererProviding()
+        let provider = RendererProviding()
         // When
         let scrollRenderer = provider.buildRenderer(for: widget, dependencies: dependencies)
         // Then
@@ -99,7 +99,7 @@ final class LayoutViewRendererProviderTests: XCTestCase {
     func test_whenForm_shouldReturnFormViewRenderer() {
         // Given
         let widget = Form(action: "", method: .get, child: WidgetDummy())
-        let renderer = WidgetRendererProviding()
+        let renderer = RendererProviding()
         // When
         let flexRenderer = renderer.buildRenderer(for: widget, dependencies: dependencies)
         // Then
@@ -109,7 +109,7 @@ final class LayoutViewRendererProviderTests: XCTestCase {
     func test_whenFormInput_shouldReturnFormInputViewRenderer() {
         // Given
         let widget = FormInput(name: "name", child: WidgetDummy())
-        let provider = WidgetRendererProviding()
+        let provider = RendererProviding()
         // When
         let formInputRenderer = provider.buildRenderer(for: widget, dependencies: dependencies)
         // Then
@@ -119,7 +119,7 @@ final class LayoutViewRendererProviderTests: XCTestCase {
     func test_whenFormSubmit_shouldReturnFormSubmitViewRenderer() {
         // Given
         let widget = FormSubmit(child: WidgetDummy())
-        let provider = WidgetRendererProviding()
+        let provider = RendererProviding()
         // When
         let formSubmitRenderer = provider.buildRenderer(for: widget, dependencies: dependencies)
         // Then
@@ -129,7 +129,7 @@ final class LayoutViewRendererProviderTests: XCTestCase {
     func test_whenLazyWidget_shouldReturnLazyWidgetViewRenderer() {
         // Given
         let widget = LazyWidget(url: "", initialState: WidgetDummy())
-        let provider = WidgetRendererProviding()
+        let provider = RendererProviding()
         // When
         let lazyRenderer = provider.buildRenderer(for: widget, dependencies: dependencies)
         // Then

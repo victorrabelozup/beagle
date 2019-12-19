@@ -11,36 +11,34 @@ import XCTest
 
 final class ImageWidgetViewRendererTests: XCTestCase {
     
-    // MARK: - Tests
+    private let dependencies = RendererDependenciesContainer()
     
     func test_onInitWithNoButtonWidget_shouldThrowError() {
         //Given
         let widget = UnknownWidget()
         
         // When / Then
-        XCTAssertThrowsError(_ = try ImageWidgetViewRenderer(widget: widget), "Expected error, but got nil.")
+        XCTAssertThrowsError(_ = try ImageWidgetViewRenderer(
+            widget: widget,
+            dependencies: dependencies
+        ))
     }
     
-    func test_onInitWithImageWidget_shouldSetRightContentMode() {
+    func testContentMode() throws {
         //Given
-        let imageName = "teste"
-        let expectedContentMode: UIImageView.ContentMode = .scaleToFill
-        let widget = Image(name: imageName, contentMode: .fitXY)
-        let context = BeagleContextDummy()
+        let expectedContentMode = UIImageView.ContentMode.scaleToFill
+        let widget = Image(name: "teste", contentMode: .fitXY)
         
         //When
-        guard let imageWidgetRenderer = try? ImageWidgetViewRenderer(widget: widget) else {
-            XCTFail("Could not create ImageWidgetViewRenderer.")
-            return
-        }
+        let renderer = try ImageWidgetViewRenderer(widget: widget, dependencies: dependencies)
         
-        guard let imageView = imageWidgetRenderer.buildView(context: context) as? UIImageView else {
+        guard let imageView = renderer.buildView(context: BeagleContextDummy()) as? UIImageView else {
             XCTFail("Build View not returning UIImageView")
             return
         }
         
         // Then
-        XCTAssertEqual(expectedContentMode, imageView.contentMode, "Expected '\(String(describing: expectedContentMode))', but got '\(String(describing: imageView.contentMode))'")
+        XCTAssertEqual(expectedContentMode, imageView.contentMode)
     }
 }
 

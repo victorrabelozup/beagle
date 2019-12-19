@@ -26,8 +26,8 @@
   ▿ remoteConnector: RemoteConnecting
     ▿ dependencies: InnerDependenciesResolver
       - container: (Function)
-  ▿ rendererProvider: WidgetRendererProviding
-    - $__lazy_storage_$_providers: Optional<Array<WidgetRendererProviderThrowable>>.none
+  ▿ rendererProvider: RendererProviding
+    - $__lazy_storage_$_providers: Optional<Array<RendererProviderThrowable>>.none
   ▿ resolver: InnerDependenciesResolver
     - container: (Function)
   ▿ theme: AppTheme

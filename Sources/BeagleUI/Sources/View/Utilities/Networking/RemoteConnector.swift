@@ -53,9 +53,7 @@ public final class RemoteConnecting: RemoteConnector {
     
     // MARK: - Initialization
     
-    public init(
-        dependencies: Dependencies = Beagle.dependencies
-    ) {
+    public init(dependencies: Dependencies) {
         self.dependencies = dependencies
     }
     

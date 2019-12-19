@@ -9,7 +9,7 @@
 import UIKit
 import YogaKit
 
-final class FlexWidgetViewRenderer: WidgetViewRenderer<FlexWidget> {
+final class FlexWidgetViewRenderer: ViewRendering<FlexWidget> {
     
     // MARK: - Public Functions
     

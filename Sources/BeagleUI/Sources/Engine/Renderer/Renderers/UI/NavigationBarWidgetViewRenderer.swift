@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class NavigationBarWidgetViewRenderer: WidgetViewRenderer<NavigationBar> {
+final class NavigationBarWidgetViewRenderer: ViewRendering<NavigationBar> {
     
     // MARK: - Public Functions
     

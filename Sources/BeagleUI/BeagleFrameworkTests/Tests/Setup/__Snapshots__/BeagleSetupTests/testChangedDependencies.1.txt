@@ -23,7 +23,7 @@
   ▿ remoteConnector: RemoteConnecting
     ▿ dependencies: InnerDependenciesResolver
       - container: (Function)
-  - rendererProvider: WidgetRendererProviderDummy
+  - rendererProvider: RendererProviderDummy
   ▿ resolver: InnerDependenciesResolver
     - container: (Function)
   - theme: AppThemeDummy

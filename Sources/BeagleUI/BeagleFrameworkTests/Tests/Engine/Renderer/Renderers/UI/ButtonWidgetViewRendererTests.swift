@@ -1,15 +1,13 @@
 //
-//  ButtonWidgetViewRendererTests.swift
-//  BeagleFrameworkTests
-//
-//  Created by Yan Dias on 08/10/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 08/10/19 Zup IT. All rights reserved.
 //
 
 import XCTest
 @testable import BeagleUI
 
 final class ButtonWidgetViewRendererTests: XCTestCase {
+
+    private let dependencies = RendererDependenciesContainer()
     
     // MARK: - Tests
     
@@ -18,24 +16,23 @@ final class ButtonWidgetViewRendererTests: XCTestCase {
         let widget = UnknownWidget()
         
         // When / Then
-        XCTAssertThrowsError(_ = try ButtonWidgetViewRenderer(widget: widget), "Expected error, but got nil.") { error in
+        XCTAssertThrowsError(
+            _ = try ButtonWidgetViewRenderer(widget: widget, dependencies: dependencies)
+        ) { error in
             XCTAssertNotNil(error, "Expected error, but got \(error.localizedDescription)")
         }
     }
     
-    func test_onInitWithButtonWidget_shouldSetRightButtonTitle() {
+    func test_onInitWithButtonWidget_shouldSetRightButtonTitle() throws {
         //Given
         let buttonTitle = "title"
         let widget = Button(text: buttonTitle)
         let context = BeagleContextDummy()
         
         //When
-        guard let buttonWidgetRenderer = try? ButtonWidgetViewRenderer(widget: widget) else {
-            XCTFail("Could not render Button.")
-            return
-        }
+        let renderer = try ButtonWidgetViewRenderer(widget: widget, dependencies: dependencies)
         
-        guard let button: UIButton = buttonWidgetRenderer.buildView(context: context) as? UIButton else {
+        guard let button = renderer.buildView(context: context) as? UIButton else {
             XCTFail("Build View not returning UIButton")
             return
         }

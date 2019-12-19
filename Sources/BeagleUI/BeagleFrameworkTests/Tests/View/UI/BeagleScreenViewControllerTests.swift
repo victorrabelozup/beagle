@@ -121,7 +121,7 @@ struct SimpleWidget {
 struct ScreenViewControllerDependencies: BeagleScreenViewController.Dependencies {
     var actionExecutor: ActionExecutor = ActionExecutorDummy()
     var flex: FlexViewConfiguratorProtocol = FlexViewConfiguratorDummy()
-    var rendererProvider: WidgetRendererProvider = WidgetRendererProviderDummy()
+    var rendererProvider: RendererProvider = RendererProviderDummy()
     var remoteConnector: RemoteConnector = RemoteConnectorDummy()
     var theme: Theme = AppThemeDummy()
     var validatorProvider: ValidatorProvider? = ValidatorProviding()

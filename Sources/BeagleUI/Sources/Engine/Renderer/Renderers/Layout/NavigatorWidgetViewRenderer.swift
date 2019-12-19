@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class NavigatorWidgetViewRenderer: WidgetViewRenderer<Navigator> {
+final class NavigatorWidgetViewRenderer: ViewRendering<Navigator> {
     
     private var context: BeagleContext?
     

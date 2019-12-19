@@ -45,11 +45,11 @@ public struct EntityPair<E: WidgetEntity> {
     /// Defines a pair (widgetType, viewRenderer) for describing a UI-related representation of a Widget
     public struct ViewPair<W: Widget> {
         public let widgetType: W.Type
-        public let viewRenderer: WidgetViewRenderer<W>.Type
+        public let viewRenderer: ViewRendering<W>.Type
         
         public init(
             widgetType: W.Type,
-            viewRenderer: WidgetViewRenderer<W>.Type
+            viewRenderer: ViewRendering<W>.Type
         ) {
             self.widgetType = widgetType
             self.viewRenderer = viewRenderer
@@ -61,9 +61,9 @@ public struct EntityPair<E: WidgetEntity> {
 /// Defines a pair (widgetType, viewRenderer) for describing a UI-related representation of a Widget
 public struct ViewPair<W: Widget> {
     public let widgetType: W.Type
-    public let viewRenderer: WidgetViewRenderer<W>.Type
+    public let viewRenderer: ViewRendering<W>.Type
     
-    public init(widgetType: W.Type, viewRenderer: WidgetViewRenderer<W>.Type) {
+    public init(widgetType: W.Type, viewRenderer: ViewRendering<W>.Type) {
         self.widgetType = widgetType
         self.viewRenderer = viewRenderer
     }

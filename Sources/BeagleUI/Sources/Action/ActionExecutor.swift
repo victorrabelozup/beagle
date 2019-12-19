@@ -22,11 +22,9 @@ final class ActionExecuting: ActionExecutor {
         DependencyNavigation
         & DependencyCustomActionHandler
 
-    var dependencies: Dependencies
+    let dependencies: Dependencies
     
-    init(
-        dependencies: Dependencies = Beagle.dependencies
-    ) {
+    init(dependencies: Dependencies) {
         self.dependencies = dependencies
     }
     

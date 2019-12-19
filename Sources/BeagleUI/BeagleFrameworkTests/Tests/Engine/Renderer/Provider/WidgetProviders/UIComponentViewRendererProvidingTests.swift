@@ -16,7 +16,7 @@ final class UIComponentViewRendererProvidingTests: XCTestCase {
     func test_whenButton_shouldReturnButtonWigetViewRenderer() {
         // Given
         let widget = Button(text: "Aoba")
-        let renderer = WidgetRendererProviding()
+        let renderer = RendererProviding()
         // When
         let buttonWidgetViewRenderer = renderer.buildRenderer(for: widget, dependencies: dependencies)
         // Then
@@ -26,7 +26,7 @@ final class UIComponentViewRendererProvidingTests: XCTestCase {
     func test_whenText_shouldReturnImageWigetViewRenderer() {
         // Given
         let widget = Image(name: "image")
-        let renderer = WidgetRendererProviding()
+        let renderer = RendererProviding()
         // When
         let imageWidgetViewRenderer = renderer.buildRenderer(for: widget, dependencies: dependencies)
         // Then
@@ -36,7 +36,7 @@ final class UIComponentViewRendererProvidingTests: XCTestCase {
     func test_whenText_shouldReturnTextWigetViewRenderer() {
         // Given
         let widget = Text("aoba")
-        let renderer = WidgetRendererProviding()
+        let renderer = RendererProviding()
         // When
         let textWidgetViewRenderer = renderer.buildRenderer(for: widget, dependencies: dependencies)
         // Then
@@ -46,7 +46,7 @@ final class UIComponentViewRendererProvidingTests: XCTestCase {
     func test_whenImage_shouldReturnImageWigetViewRenderer() {
         // Given
         let widget = Image(name: "teste")
-        let renderer = WidgetRendererProviding()
+        let renderer = RendererProviding()
         // When
         let imageWidgetViewRenderer = renderer.buildRenderer(for: widget, dependencies: dependencies)
         // Then
@@ -56,7 +56,7 @@ final class UIComponentViewRendererProvidingTests: XCTestCase {
     func test_whenNetworkImage_shouldReturnImageWigetViewRenderer() {
         // Given
         let widget = NetworkImage(url: "www.some.com")
-        let renderer = WidgetRendererProviding()
+        let renderer = RendererProviding()
         // When
         let networkImageWidgetViewRenderer = renderer.buildRenderer(for: widget, dependencies: dependencies)
         // Then
@@ -66,7 +66,7 @@ final class UIComponentViewRendererProvidingTests: XCTestCase {
     func test_whenNavigationBar_shouldReturnNavigationBarWigetViewRenderer() {
         // Given
         let widget = NavigationBar(title: "Teste", leading: nil, trailing: nil)
-        let renderer = WidgetRendererProviding()
+        let renderer = RendererProviding()
         // When
         let navigationWidgetViewRenderer = renderer.buildRenderer(for: widget, dependencies: dependencies)
         // Then

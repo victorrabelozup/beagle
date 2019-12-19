@@ -17,7 +17,7 @@ final class WidgetViewRenderingErrorTests: XCTestCase {
         let expectedLocalizedDescription = "Could not cast widget to `\(type)`."
         
         // When
-        let error: WidgetViewRenderingError = .couldNotCastWidgetToType(type)
+        let error: ViewRendererError = .couldNotCastWidgetToType(type)
         let localizedDescription = error.localizedDescription
         
         // Then

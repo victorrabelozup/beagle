@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class TextWidgetViewRenderer: WidgetViewRenderer<Text> {
+final class TextWidgetViewRenderer: ViewRendering<Text> {
     
     override func buildView(context: BeagleContext) -> UIView {
         

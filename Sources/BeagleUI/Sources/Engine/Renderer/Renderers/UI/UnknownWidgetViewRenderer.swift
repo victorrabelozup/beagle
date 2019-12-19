@@ -8,29 +8,35 @@
 
 import UIKit
 
-public final class UnknownWidgetViewRenderer: WidgetViewRendererProtocol {
+public final class UnknownWidgetViewRenderer: ViewRenderer {
 
     let widget: AnyWidget
-    let dependencies: RendererDependencies
+    let dependencies: Dependencies
     
-    public init(widget: Widget, dependencies: RendererDependencies?) throws {
+    public init(
+        widget: Widget,
+        dependencies: Dependencies
+    ) throws {
         self.widget = AnyWidget(value: widget as Any)
-        self.dependencies = dependencies ?? Beagle.dependencies
+        self.dependencies = dependencies
     }
 
     convenience init(widget: Widget) {
-        try! self.init(widget: widget, dependencies: nil)
+        try! self.init(widget: widget, dependencies: Beagle.dependencies)
     }
-    
-    // MARK: - Public Functions
-    
-    public func buildView(context: BeagleContext) -> UIView {
+
+    private(set) lazy var label: UILabel = {
         let label = UILabel(frame: .zero)
         label.numberOfLines = 2
         label.text = "Unknown Widget of type:\n \(String(describing: widget))"
         label.textColor = .red
         label.backgroundColor = .yellow
-
+        return label
+    }()
+    
+    // MARK: - Public Functions
+    
+    public func buildView(context: BeagleContext) -> UIView {
         return label
     }
     

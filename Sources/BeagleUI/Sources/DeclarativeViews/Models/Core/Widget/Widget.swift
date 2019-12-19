@@ -26,7 +26,7 @@ extension Widget {
 
     func toView(
         context: BeagleContext,
-        dependencies: RendererDependencies = Beagle.dependencies
+        dependencies: ViewRenderer.Dependencies
     ) -> UIView {
         return dependencies.rendererProvider
             .buildRenderer(for: self, dependencies: dependencies)

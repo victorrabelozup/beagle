@@ -10,7 +10,7 @@ import Foundation
 
 import YogaKit
 
-final class ScrollViewWidgetViewRenderer: WidgetViewRenderer<ScrollView> {
+final class ScrollViewWidgetViewRenderer: ViewRendering<ScrollView> {
     
     // MARK: - Public Functions
     

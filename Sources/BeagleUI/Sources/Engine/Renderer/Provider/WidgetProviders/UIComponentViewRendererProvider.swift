@@ -8,9 +8,12 @@
 
 import Foundation
 
-final class UIComponentViewRendererProviding: WidgetRendererProviderThrowable {
+final class UIComponentViewRendererProviding: RendererProviderThrowable {
     
-    func buildRenderer(for widget: Widget, dependencies: RendererDependencies) throws -> WidgetViewRendererProtocol {
+    func buildRenderer(
+        for widget: Widget,
+        dependencies: ViewRenderer.Dependencies
+    ) throws -> ViewRenderer {
         switch widget {
         case is Button:
             return try ButtonWidgetViewRenderer(widget: widget, dependencies: dependencies)
@@ -25,7 +28,7 @@ final class UIComponentViewRendererProviding: WidgetRendererProviderThrowable {
         case is DefaultPageIndicator:
             return try DefaultPageIndicatorRenderer(widget: widget, dependencies: dependencies)
         default:
-            throw WidgetRendererProviding.Error.couldNotFindRendererForWidget(widget)
+            throw RendererProviding.Error.couldNotFindRendererForWidget(widget)
         }
     }
     

@@ -1,15 +1,11 @@
 //
-//  ListViewTests.swift
-//  BeagleFrameworkTests
-//
-//  Created by Eduardo Sanches Bocato on 02/10/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 02/10/19 Zup IT. All rights reserved.
 //
 
 import XCTest
 @testable import BeagleUI
 
-final class ListViewTests: XCTestCase {
+final class ListViewInitTests: XCTestCase {
 
     func test_initWithRowBuilder_shouldReturnExpectedInstance() {
         // Given / When

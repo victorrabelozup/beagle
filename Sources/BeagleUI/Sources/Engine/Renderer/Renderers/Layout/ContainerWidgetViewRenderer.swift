@@ -9,7 +9,7 @@
 import UIKit
 import YogaKit
 
-final class ContainerWidgetViewRenderer: WidgetViewRenderer<Container> {
+final class ContainerWidgetViewRenderer: ViewRendering<Container> {
     
     // MARK: - Public Functions
     

@@ -28,8 +28,8 @@ class CustomPageIndicatorTest: XCTestCase {
         return custom
     }()
 
-    private lazy var provider: WidgetRendererProviding = {
-        let renderer = WidgetRendererProviding()
+    private lazy var provider: RendererProviding = {
+        let renderer = RendererProviding()
         renderer.providers.append(customRendererProvider)
         return renderer
     }()

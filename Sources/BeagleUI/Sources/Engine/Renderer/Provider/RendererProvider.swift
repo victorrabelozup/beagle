@@ -1,28 +1,32 @@
 //
-//  WidgetRendererProvider.swift
-//  BeagleUI
-//
-//  Created by Eduardo Sanches Bocato on 07/10/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 07/10/19 Zup IT. All rights reserved.
 //
 
 import Foundation
 
-public protocol WidgetRendererProvider {
+public protocol RendererProvider {
 
-    func buildRenderer(for widget: Widget, dependencies: RendererDependencies) -> WidgetViewRendererProtocol
+    func buildRenderer(
+        for widget: Widget,
+        dependencies: ViewRenderer.Dependencies
+    ) -> ViewRenderer
 }
 
 public protocol DependencyRendererProvider {
-    var rendererProvider: WidgetRendererProvider { get }
+    var rendererProvider: RendererProvider { get }
 }
 
-public protocol WidgetRendererProviderThrowable {
+public protocol RendererProviderThrowable {
 
-    func buildRenderer(for widget: Widget, dependencies: RendererDependencies) throws -> WidgetViewRendererProtocol
+    func buildRenderer(
+        for widget: Widget,
+        dependencies: ViewRenderer.Dependencies
+    ) throws -> ViewRenderer
 }
 
-final class WidgetRendererProviding: WidgetRendererProvider {
+// MARK: - Implementation
+
+final class RendererProviding: RendererProvider {
 
     public enum Error: Swift.Error {
 
@@ -39,7 +43,7 @@ final class WidgetRendererProviding: WidgetRendererProvider {
 
     // MARK: - Dependencies
 
-    public lazy var providers: [WidgetRendererProviderThrowable] = [
+    public lazy var providers: [RendererProviderThrowable] = [
         LayoutViewRendererProviding(),
         UIComponentViewRendererProviding(),
         Beagle.customWidgetsProvider
@@ -47,8 +51,11 @@ final class WidgetRendererProviding: WidgetRendererProvider {
     
     // MARK: - Public Methods
     
-    func buildRenderer(for widget: Widget, dependencies: RendererDependencies) -> WidgetViewRendererProtocol {
-        var result: WidgetViewRendererProtocol = UnknownWidgetViewRenderer(widget: widget)
+    func buildRenderer(
+        for widget: Widget,
+        dependencies: ViewRenderer.Dependencies
+    ) -> ViewRenderer {
+        var result: ViewRenderer = UnknownWidgetViewRenderer(widget: widget)
 
         for provider in providers {
             if let render = try? provider.buildRenderer(for: widget, dependencies: dependencies) {

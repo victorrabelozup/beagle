@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-class PageViewRender: WidgetViewRenderer<PageView> {
+class PageViewRender: ViewRendering<PageView> {
 
     override func buildView(
         context: BeagleContext
@@ -37,7 +37,7 @@ class PageViewRender: WidgetViewRenderer<PageView> {
         let view = render.buildView(context: context)
 
         guard let indicatorView = view as? PageIndicatorUIView else {
-            throw WidgetViewRenderingError.couldNotCastWidgetToType(String(describing: PageIndicatorUIView.self))
+            throw ViewRendererError.couldNotCastWidgetToType(String(describing: PageIndicatorUIView.self))
         }
 
         return indicatorView

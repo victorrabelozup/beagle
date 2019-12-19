@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class ListViewWidgetRenderer: WidgetViewRenderer<ListView> {
+final class ListViewWidgetRenderer: ViewRendering<ListView> {
     
     // MARK: - Public Functions
     
@@ -26,7 +26,7 @@ final class ListViewWidgetRenderer: WidgetViewRenderer<ListView> {
             widgetViews: widgetViews
         )
         
-        let listView = ListViewUIComponent(model: model)
+        let listView = ListViewUIComponent(flexViewConfigurator: dependencies.flex, model: model)
         
         let flex = Flex(grow: 1)
         self.flex.setupFlex(flex, for: listView)

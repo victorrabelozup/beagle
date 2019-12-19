@@ -13,7 +13,10 @@ final class BeagleViewBuilderTests: XCTestCase {
         let context = BeagleContextDummy()
         
         // When
-        let rootView = widget.toView(context: context)
+        let rootView = widget.toView(
+            context: context,
+            dependencies: BeagleDependencies(appName: "TEST")
+        )
         
         // Then
         XCTAssertTrue(rootView is UILabel, "Expected a `UILabel`, but got \(String(describing: rootView)).")

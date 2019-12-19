@@ -13,7 +13,7 @@ final class NavigatorWidgetViewRendererTests: XCTestCase {
     
     func test_buildView_shouldReturnTheExpectedView() {
         // Given
-        let rendererProviderSpy = WidgetRendererProviderSpy()
+        let rendererProviderSpy = RendererProviderSpy()
         let dependencies = RendererDependenciesContainer(
             rendererProvider: rendererProviderSpy
         )
@@ -36,12 +36,12 @@ final class NavigatorWidgetViewRendererTests: XCTestCase {
     }
 }
 
-final class WidgetRendererProviderSpy: WidgetRendererProvider {
+final class RendererProviderSpy: RendererProvider {
     
     private(set) var buildRendererCount = 0
     
-    func buildRenderer(for widget: Widget, dependencies: RendererDependencies) -> WidgetViewRendererProtocol {
+    func buildRenderer(for widget: Widget, dependencies: ViewRenderer.Dependencies) -> ViewRenderer {
         buildRendererCount += 1
-        return WidgetViewRendererProtocolDummy()
+        return ViewRendererProtocolDummy()
     }
 }

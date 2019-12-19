@@ -72,6 +72,15 @@ extension UIView {
         
         return anchors
     }
+
+    public func anchorTo(superview: UIView) {
+        anchor(
+            top: superview.topAnchor,
+            left: superview.leftAnchor,
+            bottom: superview.bottomAnchor,
+            right: superview.rightAnchor
+        )
+    }
     
     /// Anchor center X into current view's superview with a constant margin value.
     ///

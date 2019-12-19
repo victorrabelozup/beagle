@@ -41,7 +41,7 @@ public struct CustomPageIndicatorEntity: WidgetConvertibleEntity {
 
 // MARK: - CustomPageIndicator Renderer
 
-public final class CustomPageIndicatorRenderer: WidgetViewRenderer<CustomPageIndicator> {
+public final class CustomPageIndicatorRenderer: ViewRendering<CustomPageIndicator> {
     public override func buildView(context: BeagleContext) -> UIView {
         return CustomPageIndicatorUIComponent()
     }

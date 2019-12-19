@@ -15,7 +15,7 @@ extension DefaultPageIndicatorEntity: WidgetConvertible {
     }
 }
 
-class DefaultPageIndicatorRenderer: WidgetViewRenderer<DefaultPageIndicator> {
+class DefaultPageIndicatorRenderer: ViewRendering<DefaultPageIndicator> {
 
     override func buildView(context: BeagleContext) -> UIView {
         return DefaultPageIndicatorUIComponent()

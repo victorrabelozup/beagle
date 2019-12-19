@@ -1,43 +1,35 @@
 //
-//  NetworkImageWidgetViewRendererTests.swift
-//  BeagleFrameworkTests
-//
-//  Created by Gabriela Coelho on 01/11/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 01/11/19 Zup IT. All rights reserved.
 //
 
 import XCTest
 @testable import BeagleUI
 
 final class NetworkImageWidgetViewRendererTests: XCTestCase {
-    
-    func test_onBuildingNetworkImageWidgetWithImageOnURL_shouldFetchImageCorrectly() {
+
+    private let dependencies = RendererDependenciesContainer()
+
+    func test_withValidURL_itShouldFetchImage() throws {
         // Given
         let widget = NetworkImage(url: "https://cdn1-www.dogtime.com/assets/uploads/2011/01/file_23012_beagle-460x290.jpg")
 
         // When
-        guard let networkImageWidgetRenderer = try? NetworkImageWidgetViewRenderer(widget: widget) else {
-            XCTFail("Could not create NetworkImageWidgetViewRenderer.")
-            return
-        }
+        let renderer = try NetworkImageWidgetViewRenderer(widget: widget, dependencies: dependencies)
                 
-        guard let _ = networkImageWidgetRenderer.buildView(context: BeagleContextDummy()) as? UIImageView else {
+        guard let _ = renderer.buildView(context: BeagleContextDummy()) as? UIImageView else {
             XCTFail("Build view not returning UIImageView.")
             return
         }
     }
     
-    func test_onBuildingNetworkImageWithAnInvalidURL_itShouldNotSetImage() {
+    func test_withInvalidURL_itShouldNotSetImage() throws {
         // Given
         let widget = NetworkImage(url: "www.com")
         
         // When
-        guard let networkImageWidgetRenderer = try? NetworkImageWidgetViewRenderer(widget: widget) else {
-            XCTFail("Could not create NetworkImageWidgetViewRenderer.")
-            return
-        }
+        let renderer = try NetworkImageWidgetViewRenderer(widget: widget, dependencies: dependencies)
         
-        guard let imageView = networkImageWidgetRenderer.buildView(context: BeagleContextDummy()) as? UIImageView else {
+        guard let imageView = renderer.buildView(context: BeagleContextDummy()) as? UIImageView else {
             XCTFail("Build view not returning UIImageView")
             return
         }

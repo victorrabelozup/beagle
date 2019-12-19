@@ -1,19 +1,15 @@
 //
-//  FormWidgetViewRendererTests.swift
-//  BeagleFrameworkTests
-//
-//  Created by Lucas Araújo on 22/11/19.
-//  Copyright © 2019 Zup IT. All rights reserved.
+//  Copyright © 22/11/19 Zup IT. All rights reserved.
 //
 
 import XCTest
 @testable import BeagleUI
 
 final class FormWidgetViewRendererTests: XCTestCase {
-    
+
     func test_buildView_shouldReturnTheExpectedView() {
         // Given
-        let rendererProvider = WidgetRendererProviderSpy()
+        let rendererProvider = RendererProviderSpy()
         let dependencies = RendererDependenciesContainer(
             rendererProvider: rendererProvider
         )
@@ -34,19 +30,19 @@ final class FormWidgetViewRendererTests: XCTestCase {
         XCTAssertEqual(rendererProvider.buildRendererCount, 1)
     }
     
-    func test_buildView_shouldRegisterFormSubmit() {
+    func test_buildView_shouldRegisterFormSubmit() throws {
         // Given
         let child = FlexWidget(children: [FormSubmit(child: Text("submit"))])
         let form = Form(action: "/singup", method: .post, child: child)
+        let dependencies = RendererDependenciesContainer(
+            rendererProvider: RendererProviding()
+        )
 
-        guard let sut = try? FormWidgetViewRenderer(widget: form) else {
-            XCTFail("Could not create renderer.")
-            return
-        }
+        let renderer = try FormWidgetViewRenderer(widget: form, dependencies: dependencies)
         let context = BeagleContextSpy()
                 
         // When
-        let _ = sut.buildView(context: context)
+        let _ = renderer.buildView(context: context)
         
         // Then
         XCTAssertTrue(context.didCallRegisterFormSubmit)

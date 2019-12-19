@@ -8,7 +8,10 @@
 
 import UIKit
 
-public protocol BeagleDependenciesProtocol: RendererDependencies,
+public protocol BeagleDependenciesProtocol: DependencyFlexViewConfigurator,
+    DependencyRendererProvider,
+    DependencyTheme,
+    DependencyValidatorProvider,
     DependencyActionExecutor,
     DependencyRemoteConnector,
     DependencyBaseURL,
@@ -34,7 +37,7 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
     public var deepLinkHandler: BeagleDeepLinkScreenManaging?
     public var customActionHandler: CustomActionHandler?
     public var flex: FlexViewConfiguratorProtocol
-    public var rendererProvider: WidgetRendererProvider
+    public var rendererProvider: RendererProvider
     public var actionExecutor: ActionExecutor
     public var remoteConnector: RemoteConnector
     public var navigation: BeagleNavigation
@@ -54,78 +57,11 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
         self.appBundle = Bundle.main
         self.theme = AppTheme(styles: [:])
         self.flex = FlexViewConfigurator()
-        self.rendererProvider = WidgetRendererProviding()
+        self.rendererProvider = RendererProviding()
         self.actionExecutor = ActionExecuting(dependencies: resolver)
         self.remoteConnector = RemoteConnecting(dependencies: resolver)
 
         self.resolver.container = { [unowned self] in self }
-    }
-
-    // MARK: - Builders
-    @discardableResult
-    public func appBundle(_ bundle: Bundle) -> BeagleDependencies {
-        self.appBundle = bundle
-        return self
-    }
-    
-    @discardableResult
-    public func networkingDispatcher(_ dispatcher: NetworkDispatcher) -> BeagleDependencies {
-        self.networkDispatcher = dispatcher
-        return self
-    }
-    
-    @discardableResult
-    public func customWidgetsProvider(_ customWidgetsProvider: CustomWidgetsRendererProvider) -> BeagleDependencies {
-        self.customWidgetsProvider = customWidgetsProvider
-        return self
-    }
-    
-    @discardableResult
-    public func theme(_ theme: Theme) -> BeagleDependencies {
-        self.theme = theme
-        return self
-    }
-    
-    @discardableResult
-    public func deepLinkHandler(_ deepLinkHandler: BeagleDeepLinkScreenManaging) -> BeagleDependencies {
-        self.deepLinkHandler = deepLinkHandler
-        return self
-    }
-    
-    @discardableResult
-    public func validatorProvider(_ validatorProvider: ValidatorProvider) -> BeagleDependencies {
-        self.validatorProvider = validatorProvider
-        return self
-    }
-    
-    @discardableResult
-    public func actionHandler(_ actionHandler: CustomActionHandler) -> BeagleDependencies {
-        self.customActionHandler = actionHandler
-        return self
-    }
-    
-    @discardableResult
-    public func baseURL(_ baseURL: URL) -> BeagleDependencies {
-        self.baseURL = baseURL
-        return self
-    }
-
-    @discardableResult
-    public func flex(_ flex: FlexViewConfiguratorProtocol) -> BeagleDependencies {
-        self.flex = flex
-        return self
-    }
-
-    @discardableResult
-    public func rendererProvider(_ rendererProvider: WidgetRendererProvider) -> BeagleDependencies {
-        self.rendererProvider = rendererProvider
-        return self
-    }
-
-    @discardableResult
-    public func actionExecutor(_ actionExecutor: ActionExecutor) -> BeagleDependencies {
-        self.actionExecutor = actionExecutor
-        return self
     }
 }
 

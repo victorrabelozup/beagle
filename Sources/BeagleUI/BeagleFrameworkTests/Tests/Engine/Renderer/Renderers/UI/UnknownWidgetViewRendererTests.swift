@@ -1,35 +1,22 @@
 //
-//  UnknownWidgetViewRendererTests.swift
-//  BeagleFrameworkTests
-//
-//  Created by Eduardo Sanches Bocato on 14/10/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 14/10/19 Zup IT. All rights reserved.
 //
 
 import XCTest
 @testable import BeagleUI
+import SnapshotTesting
 
 final class UnknownWidgetViewRendererTests: XCTestCase {
     
     func test_initUnknownWidgetView_shouldConfigureALabelWithTheRightParameters() {
         // Given
-        let unknownWidget = WidgetDummy()
-        let unknownWidgetViewRenderer = UnknownWidgetViewRenderer(widget: unknownWidget)
-        let anyWidget = AnyWidget(value: unknownWidget as Any)
-        let expectedText = "Unknown Widget of type:\n \(String(describing: anyWidget))"
+        let renderer = UnknownWidgetViewRenderer(widget: WidgetDummy())
         let context = BeagleContextDummy()
         
         // When
-        let builtView = unknownWidgetViewRenderer.buildView(context: context)
-        guard let widgetView = builtView as? UILabel else {
-            XCTFail("Expected a UILabel, but got \(String(describing: type(of: builtView))).")
-            return
-        }
+        let view = renderer.buildView(context: context)
         
         // Then
-        XCTAssertEqual(widgetView.text, expectedText, "Expected `\(expectedText)`, but got \(String(describing: widgetView.text)).")
-        XCTAssertEqual(widgetView.textColor, .red, "Expected `red`, but got \(String(describing: widgetView.textColor)).")
-        XCTAssertEqual(widgetView.backgroundColor, .yellow, "Expected `\(expectedText)`, but got \(String(describing: widgetView.backgroundColor)).")
+        XCTAssert(view === renderer.label)
     }
-
 }

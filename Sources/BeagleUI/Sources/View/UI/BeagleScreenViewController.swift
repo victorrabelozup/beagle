@@ -34,7 +34,7 @@ public class BeagleScreenViewController: UIViewController {
     public typealias Dependencies =
         DependencyActionExecutor
         & DependencyRemoteConnector
-        & RendererDependencies
+        & ViewRenderer.Dependencies
     
     // MARK: - Properties
     
@@ -46,10 +46,10 @@ public class BeagleScreenViewController: UIViewController {
 
     public init(
         screenType: ScreenType,
-        dependencies: Dependencies? = nil
+        dependencies: Dependencies = Beagle.dependencies
     ) {
         self.screenType = screenType
-        self.dependencies = dependencies ?? Beagle.dependencies
+        self.dependencies = dependencies
         super.init(nibName: nil, bundle: nil)
     }
     

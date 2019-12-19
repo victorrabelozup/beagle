@@ -11,6 +11,8 @@ import XCTest
 
 final class NavigationBarWidgetViewRendererTests: XCTestCase {
 
+    private let dependencies = RendererDependenciesContainer()
+
     // MARK: - Tests
     
     func test_onInitWithNoNavigationBarWidget_shouldReturnThrowError() {
@@ -18,52 +20,48 @@ final class NavigationBarWidgetViewRendererTests: XCTestCase {
         let widget = UnknownWidget()
         
         // When / Then
-        XCTAssertThrowsError(_ = try NavigationBarWidgetViewRenderer(widget: widget), "Expected error, but got nil.") { error in
+        XCTAssertThrowsError(
+            _ = try NavigationBarWidgetViewRenderer(widget: widget, dependencies: dependencies)
+        ) { error in
             XCTAssertNotNil(error, "Expected error, but got \(error.localizedDescription)")
         }
     }
     
-    func test_onInitWithNavigationWidget_shouldSetCorrectTitle() {
+    func test_onInitWithNavigationWidget_shouldSetCorrectTitle() throws {
         //Given
         let title = "Teste"
         let widget = NavigationBar(title: title, leading: nil, trailing: nil)
         let context = BeagleContextDummy()
         
         //When
-        guard let navigationBarWidgetViewRenderer = try? NavigationBarWidgetViewRenderer(widget: widget) else {
-            XCTFail("Could not render NavigationBar.")
-            return
-        }
+        let renderer = try NavigationBarWidgetViewRenderer(widget: widget, dependencies: dependencies)
         
-        guard let navigation: UINavigationBar = navigationBarWidgetViewRenderer.buildView(context: context) as? UINavigationBar else {
+        guard let navigation = renderer.buildView(context: context) as? UINavigationBar else {
             XCTFail("Build View not returning UINavigationBar")
             return
         }
         
         // Then
-        XCTAssertEqual(navigation.topItem?.title, title, "Expected equal titles, but got \(String(describing: navigation.topItem?.title)).")
+        XCTAssertEqual(navigation.topItem?.title, title)
     }
 
-    func test_onInitWithNavigationWidgetWithProperties_shouldSetCorrectly() {
+    func test_onInitWithNavigationWidgetWithProperties_shouldSetCorrectly() throws {
         //Given
         let title = "Teste"
         let widget = NavigationBar(title: title, leading: WidgetDummy(), trailing: WidgetDummy())
         let context = BeagleContextDummy()
         
         //When
-        guard let navigationBarWidgetViewRenderer = try? NavigationBarWidgetViewRenderer(widget: widget) else {
-            XCTFail("Could not render NavigationBar.")
-            return
-        }
+        let renderer = try NavigationBarWidgetViewRenderer(widget: widget, dependencies: dependencies)
         
-        guard let navigation: UINavigationBar = navigationBarWidgetViewRenderer.buildView(context: context) as? UINavigationBar else {
+        guard let navigation = renderer.buildView(context: context) as? UINavigationBar else {
             XCTFail("Build View not returning UINavigationBar")
             return
         }
         
         // Then
-        XCTAssertEqual(navigation.topItem?.title, title, "Expected equal titles, but got \(String(describing: navigation.topItem?.title)).")
-        XCTAssertNotNil(navigation.items?.count == 3, "Expected three items to be created, but got none.")
+        XCTAssertEqual(navigation.topItem?.title, title)
+        XCTAssertNotNil(navigation.items?.count == 3)
     }
     
 }

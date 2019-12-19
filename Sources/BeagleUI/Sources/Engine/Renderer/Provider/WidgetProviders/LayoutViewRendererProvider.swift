@@ -8,9 +8,12 @@
 
 import Foundation
 
-final class LayoutViewRendererProviding: WidgetRendererProviderThrowable {
+final class LayoutViewRendererProviding: RendererProviderThrowable {
     
-    func buildRenderer(for widget: Widget, dependencies: RendererDependencies) throws -> WidgetViewRendererProtocol {
+    func buildRenderer(
+        for widget: Widget,
+        dependencies: ViewRenderer.Dependencies
+    ) throws -> ViewRenderer {
         switch widget {
         case is FlexSingleWidget:
             return try FlexSingleWidgetViewRenderer(widget: widget, dependencies: dependencies)
@@ -37,7 +40,7 @@ final class LayoutViewRendererProviding: WidgetRendererProviderThrowable {
         case is LazyWidget:
             return try LazyWidgetViewRenderer(widget: widget, dependencies: dependencies)
         default:
-            throw WidgetRendererProviding.Error.couldNotFindRendererForWidget(widget)
+            throw RendererProviding.Error.couldNotFindRendererForWidget(widget)
         }
     }
     

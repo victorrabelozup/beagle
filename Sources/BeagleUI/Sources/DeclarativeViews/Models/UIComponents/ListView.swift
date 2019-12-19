@@ -19,7 +19,7 @@ public struct ListView: NativeWidget {
     
     // MARK: - Initialization
     
-    init(
+    public init(
         rows: [Widget]? = nil,
         remoteDataSource: String? = nil,
         loadingState: Widget? = nil,

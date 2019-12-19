@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class LazyWidgetViewRenderer: WidgetViewRenderer<LazyWidget> {
+final class LazyWidgetViewRenderer: ViewRendering<LazyWidget> {
     
     private var context: BeagleContext?
     

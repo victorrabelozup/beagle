@@ -48,14 +48,14 @@ final class CustomWidgetsRendererProviderRegisterTests: XCTestCase {
         
         // When / Then
         XCTAssertThrowsError(_ = try sut.buildRenderer(for: dummyWidget, dependencies: dependencies), "Expected an error, but got nothing.") { error in
-            XCTAssertTrue(error is WidgetRendererProviding.Error)
+            XCTAssertTrue(error is RendererProviding.Error)
         }
     }
     
 }
 
 // MARK: - Testing Helpers
-private class DummyRenderer: WidgetViewRenderer<WidgetDummy> {
+private class DummyRenderer: ViewRendering<WidgetDummy> {
     
     override func buildView(context: BeagleContext) -> UIView {
         return DummyView()

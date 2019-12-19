@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class ImageWidgetViewRenderer: WidgetViewRenderer<Image> {
+final class ImageWidgetViewRenderer: ViewRendering<Image> {
     
     override func buildView(context: BeagleContext) -> UIView {
         let image = UIImageView(frame: .zero)

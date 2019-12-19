@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class FlexSingleWidgetViewRenderer: WidgetViewRenderer<FlexSingleWidget> {
+final class FlexSingleWidgetViewRenderer: ViewRendering<FlexSingleWidget> {
     
     // MARK: - Public Functions
     

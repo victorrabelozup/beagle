@@ -13,7 +13,7 @@ final class FormInputWidgetViewRendererTests: XCTestCase {
     
     func test_buildView_shouldReturnTheExpectedView() {
         // Given
-        let rendererProviderSpy = WidgetRendererProviderSpy()
+        let rendererProviderSpy = RendererProviderSpy()
         let dependencies = RendererDependenciesContainer(
             rendererProvider: rendererProviderSpy
         )

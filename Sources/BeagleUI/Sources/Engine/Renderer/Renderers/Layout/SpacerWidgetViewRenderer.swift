@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SpacerWidgetViewRenderer: WidgetViewRenderer<Spacer> {
+final class SpacerWidgetViewRenderer: ViewRendering<Spacer> {
     
     override func buildView(context: BeagleContext) -> UIView {
         
