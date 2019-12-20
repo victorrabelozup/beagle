@@ -5,8 +5,8 @@ object ApplicationId {
 object Modules {
     const val sample = ":sample"
     const val beagle = ":beagle"
-    const val libfb = ":libfb"
-    const val yoga = ":yoga"
+    const val libfb = ":libs:libfb"
+    const val yoga = ":libs:yoga"
 }
 
 object Releases {
