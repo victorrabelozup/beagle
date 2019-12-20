@@ -9,7 +9,7 @@
 import UIKit
 
 public protocol BeagleNavigation {
-    func navigate(action: Navigate, source: UIViewController, animated: Bool)
+    func navigate(action: Navigate, context: BeagleContext, animated: Bool)
 }
 
 public protocol DependencyNavigation {
@@ -18,7 +18,18 @@ public protocol DependencyNavigation {
 
 class BeagleNavigator: BeagleNavigation {
     
-    func navigate(action: Navigate, source: UIViewController, animated: Bool = false) {
+    typealias Dependencies = DependencyPreFetching
+    
+    private let dependencies: Dependencies
+    
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
+    }
+    
+    // MARK: - Navigate
+    
+    func navigate(action: Navigate, context: BeagleContext, animated: Bool = false) {
+        let source = context.screenController
         switch action.type {
         case .openDeepLink:
             if let path = action.path {
@@ -26,11 +37,11 @@ class BeagleNavigator: BeagleNavigation {
             }
         case .swapView:
             if let url = action.path {
-                swapView(url: url, source: source, animated: animated)
+                swapView(url: url, context: context, animated: animated)
             }
         case .addView:
             if let url = action.path {
-                addView(url: url, source: source, animated: animated)
+                addView(url: url, context: context, animated: animated)
             }
         case .finishView:
             finishView(source: source, animated: animated)
@@ -42,10 +53,12 @@ class BeagleNavigator: BeagleNavigation {
             }
         case .presentView:
             if let url = action.path {
-                presentView(url: url, source: source, animated: animated)
+                presentView(url: url, context: context, animated: animated)
             }
         }
     }
+    
+    // MARK: - Navigation Methods
         
     private func openDeepLink(path: String, source: UIViewController, animated: Bool) {
         do {
@@ -56,16 +69,6 @@ class BeagleNavigator: BeagleNavigation {
         } catch {
             return
         }
-    }
-    
-    private func swapView(url: String, source: UIViewController, animated: Bool) {
-        let viewController = BeagleScreenViewController(screenType: .remote(url))
-        source.navigationController?.setViewControllers([viewController], animated: animated)
-    }
-    
-    private func addView(url: String, source: UIViewController, animated: Bool) {
-        let viewController = BeagleScreenViewController(screenType: .remote(url))
-        source.navigationController?.pushViewController(viewController, animated: animated)
     }
     
     private func finishView(source: UIViewController, animated: Bool) {
@@ -93,10 +96,19 @@ class BeagleNavigator: BeagleNavigation {
         }
     }
     
-    private func presentView(url: String, source: UIViewController, animated: Bool) {
-        let viewController = BeagleScreenViewController(screenType: .remote(url))
-        let navigationToPresent = UINavigationController(rootViewController: viewController)
-        source.navigationController?.present(navigationToPresent, animated: animated)
+    private func swapView(url: String, context: BeagleContext, animated: Bool) {
+        let viewController = dependencies.preFetchHelper.dequeueWidget(path: url)
+        context.screenController.navigationController?.setViewControllers([viewController], animated: animated)
     }
-    
+
+    private func addView(url: String, context: BeagleContext, animated: Bool) {
+        let viewController = dependencies.preFetchHelper.dequeueWidget(path: url)
+        context.screenController.navigationController?.pushViewController(viewController, animated: animated)
+    }
+
+    private func presentView(url: String, context: BeagleContext, animated: Bool) {
+        let viewController = dependencies.preFetchHelper.dequeueWidget(path: url)
+        let navigationToPresent = UINavigationController(rootViewController: viewController)
+        context.screenController.navigationController?.present(navigationToPresent, animated: animated)
+    }
 }

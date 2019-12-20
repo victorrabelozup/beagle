@@ -73,16 +73,13 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         
         let delegateSpy = BeagleScreenViewControllerDelegateSpy()
         
-        let sut = BeagleScreenViewController(
+        let _ = BeagleScreenViewController(
             screenType: .remote(url),
             dependencies: ScreenViewControllerDependencies(
                 remoteConnector: loaderStub
-            )
+            ),
+            delegate: delegateSpy
         )
-        sut.delegate = delegateSpy
-        
-        // When
-        sut.viewDidLoad()
         
         // Then
         XCTAssertTrue(delegateSpy.didFailToLoadWithErrorCalled, "`didFailToLoadWithError` should have been called.")

@@ -12,8 +12,13 @@ import XCTest
 final class ActionExecutorTests: XCTestCase {
 
     private struct Dependencies: ActionExecuting.Dependencies {
+        
         var customActionHandler: CustomActionHandler? = CustomActionHandlerDummy()
-        var navigation: BeagleNavigation = BeagleNavigator()
+        var navigation: BeagleNavigation = BeagleNavigator(dependencies: Prefetch())
+        
+        struct Prefetch: DependencyPreFetching {
+            var preFetchHelper: BeaglePrefetchHelping = BeaglePreFetchHelper()
+        }
     }
 
     func test_whenExecuteNavigateAction_shouldUseTheNavigator() {
@@ -97,7 +102,7 @@ class CustomActionHandlerDummy: CustomActionHandler {
 
 class BeagleNavigationSpy: BeagleNavigation {
     private(set) var didCallNavigate = false
-    func navigate(action: Navigate, source: UIViewController, animated: Bool) {
+    func navigate(action: Navigate, context: BeagleContext, animated: Bool) {
         didCallNavigate = true
     }
 }

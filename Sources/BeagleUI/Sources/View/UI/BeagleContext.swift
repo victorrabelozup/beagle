@@ -15,7 +15,7 @@ extension BeagleScreenViewController: BeagleContext {
     public var screenController: UIViewController {
         return self
     }
-    
+        
     public func register(action: Action, inView view: UIView) {
         let gestureRecognizer = ActionGestureRecognizer(
             action: action,

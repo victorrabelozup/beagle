@@ -15,6 +15,10 @@ public enum NavigationType: String, StringRawRepresentable {
     case popView = "POP_VIEW"
     case popToView = "POP_TO_VIEW"
     case presentView = "PRESENT_VIEW"
+    
+    func isPrefetchable() -> Bool {
+        return self == .addView || self == .swapView || self == .presentView
+    }
 }
 
 /// Action to represent a screen transition

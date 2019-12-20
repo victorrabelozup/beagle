@@ -41,7 +41,7 @@ final class ActionExecuting: ActionExecutor {
     }
     
     private func navigate(_ action: Navigate, context: BeagleContext) {
-        dependencies.navigation.navigate(action: action, source: context.screenController, animated: true)
+        dependencies.navigation.navigate(action: action, context: context, animated: true)
     }
     
     private func validateForm(_ action: FormValidation, sender: Any, context: BeagleContext) {

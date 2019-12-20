@@ -18,7 +18,8 @@ public protocol BeagleDependenciesProtocol: DependencyFlexViewConfigurator,
     DependencyWidgetDecoding,
     DependencyNetworkDispatcher,
     DependencyCustomActionHandler,
-    DependencyNavigation {
+    DependencyNavigation,
+    DependencyPreFetching {
 
     var customWidgetsProvider: CustomWidgetsRendererProvider { get }
     var appBundle: Bundle { get }
@@ -41,6 +42,7 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
     public var actionExecutor: ActionExecutor
     public var remoteConnector: RemoteConnector
     public var navigation: BeagleNavigation
+    public var preFetchHelper: BeaglePrefetchHelping
 
     private let resolver: InnerDependenciesResolver
     
@@ -50,17 +52,18 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
 
         self.decoder = WidgetDecoder(namespace: appName)
         self.networkDispatcher = URLSessionDispatcher()
-        self.navigation = BeagleNavigator()
+        self.preFetchHelper = BeaglePreFetchHelper()
         self.customActionHandler = CustomActionHandling()
-
         self.customWidgetsProvider = CustomWidgetsRendererProviding()
         self.appBundle = Bundle.main
         self.theme = AppTheme(styles: [:])
         self.flex = FlexViewConfigurator()
         self.rendererProvider = RendererProviding()
+        
+        self.navigation = BeagleNavigator(dependencies: resolver)
         self.actionExecutor = ActionExecuting(dependencies: resolver)
         self.remoteConnector = RemoteConnecting(dependencies: resolver)
-
+        
         self.resolver.container = { [unowned self] in self }
     }
 }
@@ -70,7 +73,8 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
 /// The problem happened because we needed to pass `self` as dependency before `init` has concluded.
 /// - Example: see where `resolver` is being used in the `BeagleDependencies` `init`.
 private class InnerDependenciesResolver: RemoteConnecting.Dependencies,
-    ActionExecuting.Dependencies {
+    ActionExecuting.Dependencies,
+    DependencyPreFetching {
 
     var container: () -> BeagleDependenciesProtocol = {
         fatalError("You should set this closure to get the dependencies container")
@@ -80,5 +84,7 @@ private class InnerDependenciesResolver: RemoteConnecting.Dependencies,
     var decoder: WidgetDecoding { container().decoder }
     var networkDispatcher: NetworkDispatcher { container().networkDispatcher }
     var navigation: BeagleNavigation { container().navigation }
+    var preFetchHelper: BeaglePrefetchHelping { container().preFetchHelper }
     var customActionHandler: CustomActionHandler? { container().customActionHandler }
+    
 }

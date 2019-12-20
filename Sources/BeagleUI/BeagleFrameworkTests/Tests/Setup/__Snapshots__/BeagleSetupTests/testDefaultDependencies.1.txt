@@ -19,10 +19,14 @@
   - deepLinkHandler: Optional<BeagleDeepLinkScreenManaging>.none
   ▿ flex: FlexViewConfigurator
     - yogaTranslator: YogaTranslating
-  - navigation: BeagleNavigator
+  ▿ navigation: BeagleNavigator
+    ▿ dependencies: InnerDependenciesResolver
+      - container: (Function)
   ▿ networkDispatcher: URLSessionDispatcher
     - requestBuilderType: DefaultURLRequestBuilder
     - session: <__NSURLSessionLocal>
+  ▿ preFetchHelper: BeaglePreFetchHelper
+    - screens: 0 key/value pairs
   ▿ remoteConnector: RemoteConnecting
     ▿ dependencies: InnerDependenciesResolver
       - container: (Function)

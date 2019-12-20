@@ -259,11 +259,13 @@
 		E70B4EAE236B586700BBC921 /* ImageWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B4EAD236B586700BBC921 /* ImageWidgetViewRenderer.swift */; };
 		E70B4EB0236B6B5700BBC921 /* ImageWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B4EAF236B6B5600BBC921 /* ImageWidgetViewRendererTests.swift */; };
 		E72D79CE23A3FEB2006AA39E /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = E72D79CD23A3FEB2006AA39E /* SnapshotTesting */; };
+		E73107BC23A971B000188B3D /* BeaglePrefetchHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73107BB23A971B000188B3D /* BeaglePrefetchHelper.swift */; };
 		E7523AF8239E8F2100F93385 /* BeagleDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7523AF7239E8F2100F93385 /* BeagleDependencies.swift */; };
 		E759590C2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E759590B2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift */; };
 		E759590E2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E759590D2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift */; };
 		E7595912235E120600EB80C2 /* ViewRenderersTestingHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7595911235E120600EB80C2 /* ViewRenderersTestingHelpers.swift */; };
 		E7716B9D2375E9FF006E26F2 /* BeagleDeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7716B9C2375E9FF006E26F2 /* BeagleDeepLinkHandler.swift */; };
+		E79D846D23AABFA100BAE9FA /* BeaglePrefetchHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79D846C23AABFA100BAE9FA /* BeaglePrefetchHelperTests.swift */; };
 		E7DA3EE023872426000F065E /* PageViewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DA3EDF23872426000F065E /* PageViewEntity.swift */; };
 		E7F8CF51239190F4004C6C19 /* CustomPageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F8CF50239190F4004C6C19 /* CustomPageIndicator.swift */; };
 /* End PBXBuildFile section */
@@ -553,11 +555,13 @@
 		E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnknownWidgetViewRenderer.swift; sourceTree = "<group>"; };
 		E70B4EAD236B586700BBC921 /* ImageWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWidgetViewRenderer.swift; sourceTree = "<group>"; };
 		E70B4EAF236B6B5600BBC921 /* ImageWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWidgetViewRendererTests.swift; sourceTree = "<group>"; };
+		E73107BB23A971B000188B3D /* BeaglePrefetchHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaglePrefetchHelper.swift; sourceTree = "<group>"; };
 		E7523AF7239E8F2100F93385 /* BeagleDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleDependencies.swift; sourceTree = "<group>"; };
 		E759590B2358F92800EB80C2 /* FlexSingleWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		E759590D2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		E7595911235E120600EB80C2 /* ViewRenderersTestingHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRenderersTestingHelpers.swift; sourceTree = "<group>"; };
 		E7716B9C2375E9FF006E26F2 /* BeagleDeepLinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleDeepLinkHandler.swift; sourceTree = "<group>"; };
+		E79D846C23AABFA100BAE9FA /* BeaglePrefetchHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaglePrefetchHelperTests.swift; sourceTree = "<group>"; };
 		E7DA3EDF23872426000F065E /* PageViewEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewEntity.swift; sourceTree = "<group>"; };
 		E7F8CF50239190F4004C6C19 /* CustomPageIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1247,6 +1251,7 @@
 				E50B284423639299005E2E6D /* BeagleScreenViewControllerTests.swift */,
 				A0F45499237C1B0F00B146A1 /* BeagleNavigatorTests.swift */,
 				A0F4549B237C474C00B146A1 /* BeagleContextTests.swift */,
+				E79D846C23AABFA100BAE9FA /* BeaglePrefetchHelperTests.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1427,10 +1432,11 @@
 		E5A6F4CC2359050E008906F8 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				A0EF0ABF238B0CBE0019BE83 /* ActionGestureRecognizer.swift */,
 				A0F45495237AF16800B146A1 /* BeagleContext.swift */,
 				A0F45497237B87E800B146A1 /* BeagleNavigator.swift */,
+				E73107BB23A971B000188B3D /* BeaglePrefetchHelper.swift */,
 				E5CB5D64234E7CF6009783A7 /* BeagleScreenViewController.swift */,
-				A0EF0ABF238B0CBE0019BE83 /* ActionGestureRecognizer.swift */,
 				A0EF0AC1238B0CEC0019BE83 /* SubmitFormGestureRecognizer.swift */,
 			);
 			path = UI;
@@ -2041,6 +2047,7 @@
 				93B9744F23A2833600B0D1CF /* NetworkDispatcher.swift in Sources */,
 				A0F4548B23798E7C00B146A1 /* NavigateEntity.swift in Sources */,
 				E7DA3EE023872426000F065E /* PageViewEntity.swift in Sources */,
+				E73107BC23A971B000188B3D /* BeaglePrefetchHelper.swift in Sources */,
 				9303B08C2357B49A008BAA6D /* ContainerWidgetViewRenderer.swift in Sources */,
 				C831ADF82385A282009D72D9 /* PageView.swift in Sources */,
 				E5223766237C3C0600E555BB /* ImageContentMode.swift in Sources */,
@@ -2178,6 +2185,7 @@
 				9835E20823830E1B00F7CBFA /* NavigationBarWidgetViewRendererTests.swift in Sources */,
 				E5A7763F237DA1F3002F5515 /* FormTests.swift in Sources */,
 				989F7AA123637F2800E4E0E8 /* LayoutViewRendererProviderTests.swift in Sources */,
+				E79D846D23AABFA100BAE9FA /* BeaglePrefetchHelperTests.swift in Sources */,
 				E50B2841236350B9005E2E6D /* RemoteConnectorTests.swift in Sources */,
 				E7F8CF51239190F4004C6C19 /* CustomPageIndicator.swift in Sources */,
 				E5CE421C2334049200295277 /* PaddingEntityTests.swift in Sources */,

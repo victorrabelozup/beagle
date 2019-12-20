@@ -28,7 +28,6 @@ public class BeagleScreenViewController: UIViewController {
     // MARK: - Dependencies
     
     let screenType: ScreenType
-
     var dependencies: Dependencies
 
     public typealias Dependencies =
@@ -46,11 +45,15 @@ public class BeagleScreenViewController: UIViewController {
 
     public init(
         screenType: ScreenType,
-        dependencies: Dependencies = Beagle.dependencies
+        dependencies: Dependencies = Beagle.dependencies,
+        delegate: BeagleScreenViewControllerDelegate? = nil
     ) {
         self.screenType = screenType
         self.dependencies = dependencies
+        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
+        setupView()
+        loadScreen()
     }
     
     @available(*, unavailable)
@@ -62,8 +65,6 @@ public class BeagleScreenViewController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
-        loadScreen()
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -134,7 +135,7 @@ public class BeagleScreenViewController: UIViewController {
     
     private func loadScreenFromURL(_ url: String) {
         view.showLoading(.whiteLarge)
-        dependencies.remoteConnector.fetchWidget(from: url) { [weak self] result in
+        self.dependencies.remoteConnector.fetchWidget(from: url) { [weak self] result in
             self?.view.hideLoading()
             switch result {
             case let .success(widget):
