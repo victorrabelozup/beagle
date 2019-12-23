@@ -10,7 +10,7 @@ import BeagleUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -24,9 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         dependencies.deepLinkHandler = deepLinkHandler
         Beagle.dependencies = dependencies
         
-        let rootViewController = BeagleScreenViewController(screenType: .declarative(MainScreen().widget))
+        let rootViewController = BeagleScreenViewController(screenType: .declarative(TabViewScreen().content))
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         
         return true
     }
+    
 }

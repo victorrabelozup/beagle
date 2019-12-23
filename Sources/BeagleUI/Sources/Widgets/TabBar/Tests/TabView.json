@@ -1,0 +1,33 @@
+{
+    "_beagleType_": "beagle:widget:tabView",
+    "tabItems": [
+        {
+            "_beagleType_": "beagle:widget:tabItem",
+            "icon": "beagle",
+            "title": "tab 1",
+            "content":
+                {
+                    "_beagleType_": "beagle:widget:flexWidget",
+                    "flex": {
+                        "flexDirection": "COLUMN",
+                        "flexWrap": "NO_WRAP",
+                        "justifyContent": "SPACE_AROUND"
+                    },
+                    "children": [
+                        {
+                            "_beagleType_": "beagle:widget:text",
+                            "text": "1 This is a text"
+                        },
+                        {
+                            "_beagleType_": "beagle:widget:text",
+                            "text": "This is a text"
+                        },
+                        {
+                            "_beagleType_": "beagle:widget:text",
+                            "text": "This is a text"
+                        }
+                    ]
+                }
+        }
+    ]
+}

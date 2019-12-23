@@ -5,6 +5,10 @@
 import Foundation
 import UIKit
 
+public protocol PageViewUIComponentDelegate: AnyObject {
+    func changedCurrentPage(_ currentPage: Int)
+}
+
 class PageViewUIComponent: UIView {
 
     var model: Model {
@@ -19,6 +23,7 @@ class PageViewUIComponent: UIView {
     private var pendingPage = 0
 
     private let indicatorView: PageIndicatorUIView?
+    weak var pageViewDelegate: PageViewUIComponentDelegate?
 
     // MARK: - Init
 
@@ -159,5 +164,6 @@ extension PageViewUIComponent: UIPageViewControllerDataSource, UIPageViewControl
     ) {
         guard finished && completed else { return }
         model.currentPage = pendingPage
+        pageViewDelegate?.changedCurrentPage(model.currentPage)
     }
 }

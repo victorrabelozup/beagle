@@ -15,7 +15,7 @@ public struct NavigationBar: NativeWidget {
     public let trailing: Widget?
     
     // MARK: - Initialization
-
+    
     init(
         title: String,
         leading: Widget? = nil,
@@ -25,14 +25,29 @@ public struct NavigationBar: NativeWidget {
         self.leading = leading
         self.trailing = trailing
     }
-
+    
     public init(
-         title: String,
-         @WidgetBuilder leading leadingBuilder: () -> Widget,
-         @WidgetBuilder trailing trailingBuilder: () -> Widget
+        title: String,
+        @WidgetBuilder leading leadingBuilder: () -> Widget,
+        @WidgetBuilder trailing trailingBuilder: () -> Widget
     ) {
         self.title = title
         self.leading = leadingBuilder()
         self.trailing = trailingBuilder()
     }
+    
+    public init(
+        title: String,
+        @WidgetBuilder leading leadingBuilder: () -> Widget
+    ) {
+        self.init(title: title, leading: leadingBuilder())
+    }
+    
+    public init(
+        title: String,
+        @WidgetBuilder trailing trailingBuilder: () -> Widget
+    ) {
+        self.init(title: title, trailing: trailingBuilder())
+    }
+    
 }

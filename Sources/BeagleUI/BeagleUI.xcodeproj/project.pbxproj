@@ -70,8 +70,19 @@
 		9835E20623830A5F00F7CBFA /* NavigationBarEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9835E20523830A5F00F7CBFA /* NavigationBarEntityTests.swift */; };
 		9835E20823830E1B00F7CBFA /* NavigationBarWidgetViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9835E20723830E1B00F7CBFA /* NavigationBarWidgetViewRendererTests.swift */; };
 		9835E2482385D53700F7CBFA /* NavigationBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9835E2472385D53700F7CBFA /* NavigationBarTests.swift */; };
+		983E8C862396C7570018C6CA /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983E8C852396C7570018C6CA /* TabView.swift */; };
+		983E8C882396C7940018C6CA /* TabViewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983E8C872396C7940018C6CA /* TabViewEntity.swift */; };
+		983E8C8A2396C7B00018C6CA /* TabViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983E8C892396C7B00018C6CA /* TabViewRenderer.swift */; };
+		983E8C8C2396C7FA0018C6CA /* TabViewUIComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983E8C8B2396C7FA0018C6CA /* TabViewUIComponent.swift */; };
+		983E8C8E2396C81C0018C6CA /* TabBarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983E8C8D2396C81C0018C6CA /* TabBarCollectionViewCell.swift */; };
+		983E8C912396DF430018C6CA /* TabViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983E8C902396DF430018C6CA /* TabViewTests.swift */; };
+		983E8C932396DF5F0018C6CA /* TabViewEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983E8C922396DF5F0018C6CA /* TabViewEntityTests.swift */; };
+		983E8C952396DF8A0018C6CA /* TabViewRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983E8C942396DF8A0018C6CA /* TabViewRendererTests.swift */; };
+		983E8C972396DFAA0018C6CA /* TabBarCollectionViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983E8C962396DFAA0018C6CA /* TabBarCollectionViewCellTests.swift */; };
+		983E8C992396DFC90018C6CA /* TabViewUIComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983E8C982396DFC90018C6CA /* TabViewUIComponentTests.swift */; };
 		9841FD0123454B7B0069D7D2 /* FlexWidgetEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9841FD0023454B7B0069D7D2 /* FlexWidgetEntityTests.swift */; };
 		9841FD0323454F080069D7D2 /* FlexSingleWidgetEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9841FD0223454F080069D7D2 /* FlexSingleWidgetEntityTests.swift */; };
+		9848A53023AAF1C2002474AD /* ContainerIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9848A52F23AAF1C2002474AD /* ContainerIndicatorView.swift */; };
 		985EBA7B2354D1320042C19A /* WidgetViewRenderingErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985EBA7A2354D1320042C19A /* WidgetViewRenderingErrorTests.swift */; };
 		985EBA8D2356467B0042C19A /* ListViewEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985EBA8C2356467B0042C19A /* ListViewEntityTests.swift */; };
 		985EBA9123565F180042C19A /* ImageEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985EBA9023565F180042C19A /* ImageEntityTests.swift */; };
@@ -81,6 +92,7 @@
 		989F7AA123637F2800E4E0E8 /* LayoutViewRendererProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F7AA023637F2800E4E0E8 /* LayoutViewRendererProviderTests.swift */; };
 		989F7AA32363842E00E4E0E8 /* UIComponentViewRendererProvidingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F7AA22363842E00E4E0E8 /* UIComponentViewRendererProvidingTests.swift */; };
 		989F7AA523638C5700E4E0E8 /* WidgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989F7AA423638C5700E4E0E8 /* WidgetTests.swift */; };
+		98A7F36A23A84AFF00E88C70 /* TabView.json in Resources */ = {isa = PBXBuildFile; fileRef = 98A7F36923A84AFF00E88C70 /* TabView.json */; };
 		A0642DCF23969BDE0028AFF3 /* OnStateUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0642DCE23969BDE0028AFF3 /* OnStateUpdatable.swift */; };
 		A068234523831EE100CEE57A /* FormWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068234423831EE100CEE57A /* FormWidgetViewRenderer.swift */; };
 		A068234723833BE900CEE57A /* FormInputWidgetViewRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068234623833BE900CEE57A /* FormInputWidgetViewRenderer.swift */; };
@@ -359,8 +371,19 @@
 		9835E20523830A5F00F7CBFA /* NavigationBarEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarEntityTests.swift; sourceTree = "<group>"; };
 		9835E20723830E1B00F7CBFA /* NavigationBarWidgetViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarWidgetViewRendererTests.swift; sourceTree = "<group>"; };
 		9835E2472385D53700F7CBFA /* NavigationBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarTests.swift; sourceTree = "<group>"; };
+		983E8C852396C7570018C6CA /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		983E8C872396C7940018C6CA /* TabViewEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewEntity.swift; sourceTree = "<group>"; };
+		983E8C892396C7B00018C6CA /* TabViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewRenderer.swift; sourceTree = "<group>"; };
+		983E8C8B2396C7FA0018C6CA /* TabViewUIComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewUIComponent.swift; sourceTree = "<group>"; };
+		983E8C8D2396C81C0018C6CA /* TabBarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCollectionViewCell.swift; sourceTree = "<group>"; };
+		983E8C902396DF430018C6CA /* TabViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewTests.swift; sourceTree = "<group>"; };
+		983E8C922396DF5F0018C6CA /* TabViewEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewEntityTests.swift; sourceTree = "<group>"; };
+		983E8C942396DF8A0018C6CA /* TabViewRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewRendererTests.swift; sourceTree = "<group>"; };
+		983E8C962396DFAA0018C6CA /* TabBarCollectionViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCollectionViewCellTests.swift; sourceTree = "<group>"; };
+		983E8C982396DFC90018C6CA /* TabViewUIComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewUIComponentTests.swift; sourceTree = "<group>"; };
 		9841FD0023454B7B0069D7D2 /* FlexWidgetEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexWidgetEntityTests.swift; sourceTree = "<group>"; };
 		9841FD0223454F080069D7D2 /* FlexSingleWidgetEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexSingleWidgetEntityTests.swift; sourceTree = "<group>"; };
+		9848A52F23AAF1C2002474AD /* ContainerIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerIndicatorView.swift; sourceTree = "<group>"; };
 		985EBA7A2354D1320042C19A /* WidgetViewRenderingErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewRenderingErrorTests.swift; sourceTree = "<group>"; };
 		985EBA8C2356467B0042C19A /* ListViewEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewEntityTests.swift; sourceTree = "<group>"; };
 		985EBA9023565F180042C19A /* ImageEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEntityTests.swift; sourceTree = "<group>"; };
@@ -370,6 +393,7 @@
 		989F7AA023637F2800E4E0E8 /* LayoutViewRendererProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutViewRendererProviderTests.swift; sourceTree = "<group>"; };
 		989F7AA22363842E00E4E0E8 /* UIComponentViewRendererProvidingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponentViewRendererProvidingTests.swift; sourceTree = "<group>"; };
 		989F7AA423638C5700E4E0E8 /* WidgetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTests.swift; sourceTree = "<group>"; };
+		98A7F36923A84AFF00E88C70 /* TabView.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TabView.json; sourceTree = "<group>"; };
 		A0642DCE23969BDE0028AFF3 /* OnStateUpdatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnStateUpdatable.swift; sourceTree = "<group>"; };
 		A068234423831EE100CEE57A /* FormWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormWidgetViewRenderer.swift; sourceTree = "<group>"; };
 		A068234623833BE900CEE57A /* FormInputWidgetViewRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormInputWidgetViewRenderer.swift; sourceTree = "<group>"; };
@@ -985,6 +1009,33 @@
 			path = NetworkImage;
 			sourceTree = "<group>";
 		};
+		983E8C842396C7440018C6CA /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				983E8C8F2396DF2B0018C6CA /* Tests */,
+				983E8C852396C7570018C6CA /* TabView.swift */,
+				983E8C872396C7940018C6CA /* TabViewEntity.swift */,
+				983E8C892396C7B00018C6CA /* TabViewRenderer.swift */,
+				983E8C8B2396C7FA0018C6CA /* TabViewUIComponent.swift */,
+				983E8C8D2396C81C0018C6CA /* TabBarCollectionViewCell.swift */,
+				9848A52F23AAF1C2002474AD /* ContainerIndicatorView.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		983E8C8F2396DF2B0018C6CA /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				98A7F36923A84AFF00E88C70 /* TabView.json */,
+				983E8C962396DFAA0018C6CA /* TabBarCollectionViewCellTests.swift */,
+				983E8C902396DF430018C6CA /* TabViewTests.swift */,
+				983E8C922396DF5F0018C6CA /* TabViewEntityTests.swift */,
+				983E8C942396DF8A0018C6CA /* TabViewRendererTests.swift */,
+				983E8C982396DFC90018C6CA /* TabViewUIComponentTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		A068234A2384308A00CEE57A /* Form */ = {
 			isa = PBXGroup;
 			children = (
@@ -1068,6 +1119,7 @@
 		C87622D823903FD1006F1361 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
+				983E8C842396C7440018C6CA /* TabBar */,
 				C85D9B9D238701450075B6C0 /* Page */,
 			);
 			path = Widgets;
@@ -1943,6 +1995,7 @@
 			files = (
 				C86E7C1523954E2700D6FEDB /* PageViewInvalid.json in Resources */,
 				C89E816F23982B4700C2D0ED /* CustomPageIndicator.json in Resources */,
+				98A7F36A23A84AFF00E88C70 /* TabView.json in Resources */,
 				C8FD20B323959AED003E6F5B /* PageViewWith3PagesAndIndicator.json in Resources */,
 				C8983D9C23984C820080D439 /* PageViewWithCustomIndicator.json in Resources */,
 				C85D9BAA2388596A0075B6C0 /* PageViewWith3Pages.json in Resources */,
@@ -1983,6 +2036,7 @@
 				C62E8EAC2373581200FF1497 /* ScrollViewEntity.swift in Sources */,
 				E5CE41CA233274AE00295277 /* PaddingEntity.swift in Sources */,
 				C85D9BA1238701E60075B6C0 /* PageViewUIComponent.swift in Sources */,
+				983E8C8C2396C7FA0018C6CA /* TabViewUIComponent.swift in Sources */,
 				E5CE41D22332766900295277 /* ButtonEntity.swift in Sources */,
 				93B9744823A2833600B0D1CF /* URLRequestAdapter.swift in Sources */,
 				9835E200238304B600F7CBFA /* NavigationBar.swift in Sources */,
@@ -2015,6 +2069,7 @@
 				E56A02E22347B6ED00C0F23D /* ViewRenderer.swift in Sources */,
 				A0642DCF23969BDE0028AFF3 /* OnStateUpdatable.swift in Sources */,
 				E5CE41A52331D59E00295277 /* AnyDecodableContainer.swift in Sources */,
+				983E8C8A2396C7B00018C6CA /* TabViewRenderer.swift in Sources */,
 				C85D9B9F2387017C0075B6C0 /* PageViewRenderer.swift in Sources */,
 				A0F4548A23798E7200B146A1 /* NavigatorEntity.swift in Sources */,
 				93B9744B23A2833600B0D1CF /* CodableSerializing.swift in Sources */,
@@ -2065,11 +2120,13 @@
 				E50B0902234CCAB90091AF0A /* RendererProvider.swift in Sources */,
 				981DB2E823748AF1001CE5E0 /* NetworkImageWidgetViewRenderer.swift in Sources */,
 				E531D6C1235A3230007EEBA7 /* NSErrorExtension.swift in Sources */,
+				983E8C8E2396C81C0018C6CA /* TabBarCollectionViewCell.swift in Sources */,
 				E7716B9D2375E9FF006E26F2 /* BeagleDeepLinkHandler.swift in Sources */,
 				9368180F232A88B300E6E724 /* Vertical.swift in Sources */,
 				93B9744723A2833600B0D1CF /* URLRequestProtocol.swift in Sources */,
 				E52236C223745A7F00E555BB /* ListItemTableViewCell.swift in Sources */,
 				E5A6F4A92358A547008906F8 /* FatalErrorUtil.swift in Sources */,
+				983E8C882396C7940018C6CA /* TabViewEntity.swift in Sources */,
 				A0F45498237B87E900B146A1 /* BeagleNavigator.swift in Sources */,
 				A0EF0AD8238DA38C0019BE83 /* ActionEntity.swift in Sources */,
 				E522375F237C3B8600E555BB /* FormInputEntity.swift in Sources */,
@@ -2116,11 +2173,13 @@
 				E5CE41CE233274CA00295277 /* StackEntity.swift in Sources */,
 				E531D6B12359FD18007EEBA7 /* LoadingView.swift in Sources */,
 				E5223774237C3C4800E555BB /* Flex.swift in Sources */,
+				9848A53023AAF1C2002474AD /* ContainerIndicatorView.swift in Sources */,
 				E52236CD23745E8E00E555BB /* ListViewUIComponent.swift in Sources */,
 				E522377D237C3C5500E555BB /* Navigator.swift in Sources */,
 				981DB2EB23748B2A001CE5E0 /* ImageDataProviding.swift in Sources */,
 				E56A02B423451CE900C0F23D /* FlexWidgetEntity.swift in Sources */,
 				E522377B237C3C5500E555BB /* Widget.swift in Sources */,
+				983E8C862396C7570018C6CA /* TabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2154,6 +2213,7 @@
 				93B9745623A2879900B0D1CF /* MemoryCacheService.swift in Sources */,
 				985EBAA32358BC960042C19A /* ContainerWidgetViewRendererTests.swift in Sources */,
 				A0FBC1B0238F1D09005C5E67 /* LazyWidgetEntityTests.swift in Sources */,
+				983E8C992396DFC90018C6CA /* TabViewUIComponentTests.swift in Sources */,
 				E56A02CB23462AD100C0F23D /* VerticalTests.swift in Sources */,
 				A0EF0ABB238877530019BE83 /* ActionExecutorTests.swift in Sources */,
 				A0EF0AB9238877460019BE83 /* CustomActionHandlerTests.swift in Sources */,
@@ -2183,6 +2243,7 @@
 				A0EF0ACF238D925E0019BE83 /* FormValidationEntityTests.swift in Sources */,
 				9835E20623830A5F00F7CBFA /* NavigationBarEntityTests.swift in Sources */,
 				9835E20823830E1B00F7CBFA /* NavigationBarWidgetViewRendererTests.swift in Sources */,
+				983E8C912396DF430018C6CA /* TabViewTests.swift in Sources */,
 				E5A7763F237DA1F3002F5515 /* FormTests.swift in Sources */,
 				989F7AA123637F2800E4E0E8 /* LayoutViewRendererProviderTests.swift in Sources */,
 				E79D846D23AABFA100BAE9FA /* BeaglePrefetchHelperTests.swift in Sources */,
@@ -2192,8 +2253,11 @@
 				980262B02345432B0025A9C3 /* FlexSingleWidgetTests.swift in Sources */,
 				A0F4549C237C474C00B146A1 /* BeagleContextTests.swift in Sources */,
 				E5CB5DC623565440009783A7 /* BeagleSetupTests.swift in Sources */,
+				983E8C932396DF5F0018C6CA /* TabViewEntityTests.swift in Sources */,
+				983E8C952396DF8A0018C6CA /* TabViewRendererTests.swift in Sources */,
 				E5CE421E233404A200295277 /* SpacerEntityTests.swift in Sources */,
 				E5CE4220233404B800295277 /* StackEntityTests.swift in Sources */,
+				983E8C972396DFAA0018C6CA /* TabBarCollectionViewCellTests.swift in Sources */,
 				E56A02CF23462B8400C0F23D /* PaddingTests.swift in Sources */,
 				C65F25392375E93C007670EC /* ScrollViewWidgetViewRendererTests.swift in Sources */,
 				E759590E2358F97900EB80C2 /* FlexWidgetViewRendererTests.swift in Sources */,

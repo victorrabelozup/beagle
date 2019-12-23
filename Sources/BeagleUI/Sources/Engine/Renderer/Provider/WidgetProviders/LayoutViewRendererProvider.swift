@@ -39,6 +39,8 @@ final class LayoutViewRendererProviding: RendererProviderThrowable {
             return try PageViewRender(widget: widget, dependencies: dependencies)
         case is LazyWidget:
             return try LazyWidgetViewRenderer(widget: widget, dependencies: dependencies)
+        case is TabView:
+            return try TabViewRenderer(widget: widget, dependencies: dependencies)
         default:
             throw RendererProviding.Error.couldNotFindRendererForWidget(widget)
         }

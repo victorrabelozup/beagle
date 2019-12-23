@@ -91,9 +91,64 @@ final class LayoutViewRendererProviderTests: XCTestCase {
         }
         let provider = RendererProviding()
         // When
-        let scrollRenderer = provider.buildRenderer(for: widget, dependencies: dependencies)
+        let scrollWidgetViewRenderer = provider.buildRenderer(for: widget, dependencies: dependencies)
         // Then
-        XCTAssert(scrollRenderer is ScrollViewWidgetViewRenderer, "Expected to build a container widget view renderer, but has built \(String(describing: type(of: scrollRenderer))).")
+        XCTAssert(scrollWidgetViewRenderer is ScrollViewWidgetViewRenderer, "Expected to build a scroll widget view renderer, but has built \(String(describing: type(of: scrollWidgetViewRenderer))).")
+    }
+    
+    func test_whenTabBar_shouldReturnTabBarWidgetViewRenderer() {
+        // Given
+         let widget = TabView(tabItems: [
+             TabItem(title: "Tab 1") {
+                 FlexWidget {
+                     Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj")
+                     Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj")
+
+                 }.applyFlex(Flex(alignContent: .center))
+             },
+             TabItem(title: "Tab 2") {
+                 FlexWidget {
+                     Text("Text1 Tab 2")
+                     Text("Text2 Tab 2")
+                 }.applyFlex(Flex(justifyContent: .flexEnd))
+             }
+         ])
+        let renderer = RendererProviding()
+        // When
+        let tabBarWidgetViewRenderer = renderer.buildRenderer(for: widget, dependencies: dependencies)
+        // Then
+        XCTAssert(tabBarWidgetViewRenderer is TabViewRenderer, "Expected to build a tabBar widget view renderer, but has built \(String(describing: type(of: tabBarWidgetViewRenderer))).")
+    }
+    
+    func test_whenForm_shouldReturnFormWidgetViewRenderer() {
+        // Given
+        let widget = Form(action: "Add", method: .post, child: Button(text: "Button Teste"))
+        let renderer = RendererProviding()
+        // When
+        let formWidgetViewRenderer = renderer.buildRenderer(for: widget, dependencies: dependencies)
+        // Then
+        XCTAssert(formWidgetViewRenderer is FormWidgetViewRenderer, "Expected to build a form widget view renderer, but has built \(String(describing: type(of: formWidgetViewRenderer))).")
+    }
+
+    func test_whenFormSubmit_shouldReturnFormSubmitWidgetViewRenderer() {
+        // Given
+        let widget = FormSubmit(child: Button(text: "Teste 2"))
+        let renderer = RendererProviding()
+        // When
+        let formSubmitWidgetViewRenderer = renderer.buildRenderer(for: widget, dependencies: dependencies)
+        // Then
+        XCTAssert(formSubmitWidgetViewRenderer is FormSubmitWidgetViewRenderer, "Expected to build a form submit widget view renderer, but has built \(String(describing: type(of: formSubmitWidgetViewRenderer))).")
+    }
+
+    func test_whenFormInput_shouldReturnFormInputWidgetViewRenderer() {
+        // Given
+        let widget = FormInput(name: "Input", child: Button(text: "Input Button"))
+        let renderer = RendererProviding()
+        // When
+        let formInputWidgetViewRenderer = renderer.buildRenderer(for: widget, dependencies: dependencies)
+        // Then
+        XCTAssert(formInputWidgetViewRenderer is FormInputWidgetViewRenderer, "Expected to build a form input widget view renderer, but has built \(String(describing: type(of: formInputWidgetViewRenderer))).")
+
     }
     
     func test_whenForm_shouldReturnFormViewRenderer() {
