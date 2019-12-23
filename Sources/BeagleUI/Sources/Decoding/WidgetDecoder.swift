@@ -1,15 +1,12 @@
 //
-//  WidgetDecoder.swift
-//  BeagleUI
-//
-//  Created by Eduardo Sanches Bocato on 18/09/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 18/09/19 Zup IT. All rights reserved.
 //
 
 import Foundation
 
 public protocol WidgetDecoding {
     func register<T: WidgetEntity>(_ type: T.Type, for typeName: String)
+    func decodableType(forType type: String) -> Decodable.Type?
     func decodeWidget(from data: Data) throws -> Widget
     func decodeAction(from data: Data) throws -> Action
 }
@@ -24,29 +21,43 @@ enum WidgetDecodingError: Error {
 
 final class WidgetDecoder: WidgetDecoding {
     
+    private enum ContentType: String {
+        case widget
+        case action
+    }
+    
     // MARK: - Dependencies
     
     private let jsonDecoder: JSONDecoder
-    private static let beagleNamespace = "beagle"
-    private static var customWidgetsNamespace: String = beagleNamespace
+
+    private let customNamespace: String
+
+    private enum Namespace {
+        case beagle
+        case custom
+    }
     
-    private static let widgetType = "widget"
-    private static let actionType = "action"
+    private var decoders: [String: Decodable.Type] = [:]
     
     // MARK: - Initialization
     
     init(
         jsonDecoder: JSONDecoder = JSONDecoder(),
-        namespace: String = "beagle"
+        namespace: String = "custom"
     ) {
         self.jsonDecoder = jsonDecoder
-        WidgetDecoder.customWidgetsNamespace = namespace
-        WidgetDecoder.registerDefaultTypes()
+        self.customNamespace = namespace
+
+        registerDefaultTypes()
     }
     
     func register<T: WidgetEntity>(_ type: T.Type, for typeName: String) {
-        let decodingKey = WidgetDecoder.widgetDecodingKey(for: typeName, isCustom: true)
-        AnyDecodableContainer.register(type, for: decodingKey)
+        let key = decodingKey(for: typeName, ofType: .widget, namespaceType: .custom)
+        registerEntity(type, for: key)
+    }
+    
+    func decodableType(forType type: String) -> Decodable.Type? {
+        return decoders[type]
     }
     
     func decodeWidget(from data: Data) throws -> Widget {
@@ -74,28 +85,28 @@ final class WidgetDecoder: WidgetDecoding {
         }
         return content
     }
+    
+    private func decodingKey(
+        for typeName: String,
+        ofType contentType: ContentType,
+        namespaceType: Namespace = .beagle
+    ) -> String {
+        let namespace = namespaceString(namespaceType)
+        return "\(namespace):\(contentType.rawValue):\(typeName)".lowercased()
+    }
 
-    private static func widgetDecodingKey(for typeName: String, isCustom: Bool = false) -> String {
-        decodingKey(for: typeName, type: WidgetDecoder.widgetType, isCustom: isCustom)
-    }
-    
-    private static func actionDecodingKey(for typeName: String) -> String {
-        decodingKey(for: typeName, type: WidgetDecoder.actionType, isCustom: false)
-    }
-    
-    private static func decodingKey(for typeName: String, type: String, isCustom: Bool = false) -> String {
-        let namespace: String
-        if isCustom && !customWidgetsNamespace.isEmpty {
-            namespace = customWidgetsNamespace
-        } else {
-            namespace = beagleNamespace
+    private func namespaceString(_ type: Namespace) -> String {
+        switch type {
+        case .beagle:
+            return "beagle"
+        case .custom:
+            return customNamespace
         }
-        return "\(namespace):\(type):\(typeName)".lowercased()
     }
     
     // MARK: - Types Registration
     
-    private static func registerDefaultTypes() {
+    private func registerDefaultTypes() {
         registerActions()
         registerCoreTypes()
         registerFormModels()
@@ -103,44 +114,48 @@ final class WidgetDecoder: WidgetDecoding {
         registerUITypes()
     }
     
-    private static func registerActions() {
-        AnyDecodableContainer.register(NavigateEntity.self, for: actionDecodingKey(for: "Navigate"))
-        AnyDecodableContainer.register(FormValidationEntity.self, for: actionDecodingKey(for: "FormValidation"))
-        AnyDecodableContainer.register(ShowNativeDialogEntity.self, for: actionDecodingKey(for: "ShowNativeDialog"))
-        AnyDecodableContainer.register(CustomActionEntity.self, for: actionDecodingKey(for: "CustomAction"))
+    private func registerActions() {
+        registerEntity(NavigateEntity.self, for: decodingKey(for: "Navigate", ofType: .action))
+        registerEntity(FormValidationEntity.self, for: decodingKey(for: "FormValidation", ofType: .action))
+        registerEntity(ShowNativeDialogEntity.self, for: decodingKey(for: "ShowNativeDialog", ofType: .action))
+        registerEntity(CustomActionEntity.self, for: decodingKey(for: "CustomAction", ofType: .action))
     }
     
-    private static func registerFormModels() {
-        AnyDecodableContainer.register(FormEntity.self, for: widgetDecodingKey(for: "Form"))
-        AnyDecodableContainer.register(FormSubmitEntity.self, for: widgetDecodingKey(for: "FormSubmit"))
-        AnyDecodableContainer.register(FormInputEntity.self, for: widgetDecodingKey(for: "FormInput"))
+    private func registerCoreTypes() {
+        registerEntity(FlexWidgetEntity.self, for: decodingKey(for: "FlexWidget", ofType: .widget))
+        registerEntity(FlexSingleWidgetEntity.self, for: decodingKey(for: "FlexSingleWidget", ofType: .widget))
+        registerEntity(NavigatorEntity.self, for: decodingKey(for: "Navigator", ofType: .widget))
     }
     
-    private static func registerCoreTypes() {
-        AnyDecodableContainer.register(FlexWidgetEntity.self, for: widgetDecodingKey(for: "FlexWidget"))
-        AnyDecodableContainer.register(FlexSingleWidgetEntity.self, for: widgetDecodingKey(for: "FlexSingleWidget"))
-        AnyDecodableContainer.register(NavigatorEntity.self, for: widgetDecodingKey(for: "Navigator"))
+    private func registerFormModels() {
+        registerEntity(FormEntity.self, for: decodingKey(for: "Form", ofType: .widget))
+        registerEntity(FormSubmitEntity.self, for: decodingKey(for: "FormSubmit", ofType: .widget))
+        registerEntity(FormInputEntity.self, for: decodingKey(for: "FormInput", ofType: .widget))
     }
     
-    private static func registerLayoutTypes() {
-        AnyDecodableContainer.register(ContainerEntity.self, for: widgetDecodingKey(for: "Container"))
-        AnyDecodableContainer.register(HorizontalEntity.self, for: widgetDecodingKey(for: "Horizontal"))
-        AnyDecodableContainer.register(PaddingEntity.self, for: widgetDecodingKey(for: "Padding"))
-        AnyDecodableContainer.register(SpacerEntity.self, for: widgetDecodingKey(for: "Spacer"))
-        AnyDecodableContainer.register(StackEntity.self, for: widgetDecodingKey(for: "Stack"))
-        AnyDecodableContainer.register(VerticalEntity.self, for: widgetDecodingKey(for: "Vertical"))
-        AnyDecodableContainer.register(ScrollViewEntity.self, for: widgetDecodingKey(for: "ScrollView"))
+    private func registerLayoutTypes() {
+        registerEntity(ContainerEntity.self, for: decodingKey(for: "Container", ofType: .widget))
+        registerEntity(HorizontalEntity.self, for: decodingKey(for: "Horizontal", ofType: .widget))
+        registerEntity(PaddingEntity.self, for: decodingKey(for: "Padding", ofType: .widget))
+        registerEntity(SpacerEntity.self, for: decodingKey(for: "Spacer", ofType: .widget))
+        registerEntity(StackEntity.self, for: decodingKey(for: "Stack", ofType: .widget))
+        registerEntity(VerticalEntity.self, for: decodingKey(for: "Vertical", ofType: .widget))
+        registerEntity(ScrollViewEntity.self, for: decodingKey(for: "ScrollView", ofType: .widget))
     }
     
-    private static func registerUITypes() {
-        AnyDecodableContainer.register(ButtonEntity.self, for: widgetDecodingKey(for: "Button"))
-        AnyDecodableContainer.register(ImageEntity.self, for: widgetDecodingKey(for: "Image"))
-        AnyDecodableContainer.register(ListViewEntity.self, for: widgetDecodingKey(for: "ListView"))
-        AnyDecodableContainer.register(TextEntity.self, for: widgetDecodingKey(for: "Text"))
-        AnyDecodableContainer.register(NavigationBarEntity.self, for: widgetDecodingKey(for: "NavigationBar"))
-        AnyDecodableContainer.register(PageViewEntity.self, for: widgetDecodingKey(for: "PageView"))
-        AnyDecodableContainer.register(TabViewEntity.self, for: widgetDecodingKey(for: "TabView"))
-        AnyDecodableContainer.register(TabItemEntity.self, for: widgetDecodingKey(for: "TabItem"))
-        AnyDecodableContainer.register(DefaultPageIndicatorEntity.self, for: widgetDecodingKey(for: "DefaultPageIndicator"))
+    private func registerUITypes() {
+        registerEntity(ButtonEntity.self, for: decodingKey(for: "Button", ofType: .widget))
+        registerEntity(ImageEntity.self, for: decodingKey(for: "Image", ofType: .widget))
+        registerEntity(ListViewEntity.self, for: decodingKey(for: "ListView", ofType: .widget))
+        registerEntity(TextEntity.self, for: decodingKey(for: "Text", ofType: .widget))
+        registerEntity(NavigationBarEntity.self, for: decodingKey(for: "NavigationBar", ofType: .widget))
+        registerEntity(PageViewEntity.self, for: decodingKey(for: "PageView", ofType: .widget))
+        registerEntity(TabViewEntity.self, for: decodingKey(for: "TabView", ofType: .widget))
+        registerEntity(TabItemEntity.self, for: decodingKey(for: "TabItem", ofType: .widget))
+        registerEntity(DefaultPageIndicatorEntity.self, for: decodingKey(for: "DefaultPageIndicator", ofType: .widget))
+    }
+        
+    private func registerEntity<T: Decodable>(_ type: T.Type, for typeName: String) {
+        decoders[typeName.lowercased()] = type
     }
 }

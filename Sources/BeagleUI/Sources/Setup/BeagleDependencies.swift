@@ -46,7 +46,7 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
 
     private let resolver: InnerDependenciesResolver
     
-    public init(appName: String) {
+    public init(appName: String = "Beagle") {
         let resolver = InnerDependenciesResolver()
         self.resolver = resolver
 

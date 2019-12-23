@@ -338,6 +338,7 @@ final class NetworkDispatcherSpy: NetworkDispatcher {
 final class WidgetDecodingStub: WidgetDecoding {
     
     func register<T>(_ type: T.Type, for typeName: String) where T : WidgetEntity {}
+    func decodableType(forType type: String) -> Decodable.Type? { return nil }
 
     var widgetToReturnOnDecode: WidgetEntity?
     var errorToThrowOnDecode: Error?

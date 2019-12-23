@@ -9,12 +9,24 @@ import SnapshotTesting
 
 class CustomPageIndicatorTest: XCTestCase {
 
-    private let typeName = "CustomPageIndicator"
+    private static let typeName = "CustomPageIndicator"
+    
+    override func setUp() {
+        super.setUp()
+        Beagle.dependencies = BeagleDependencies()
+        Beagle.dependencies.decoder.register(
+            CustomPageIndicatorEntity.self,
+            for: CustomPageIndicatorTest.typeName
+        )
+    }
+    
+    override func tearDown() {
+        Beagle.dependencies = BeagleDependencies()
+        super.tearDown()
+    }
 
-    private lazy var decoder: WidgetDecoder = {
-        let decoder = WidgetDecoder()
-        decoder.register(CustomPageIndicatorEntity.self, for: typeName)
-        return decoder
+    private lazy var decoder: WidgetDecoding = {
+        Beagle.dependencies.decoder
     }()
 
     let indicator = CustomPageIndicator(
@@ -40,7 +52,7 @@ class CustomPageIndicatorTest: XCTestCase {
 
     func test_indicator_decoder() throws {
         let widget: CustomPageIndicator = try widgetFromJsonFile(
-            fileName: typeName,
+            fileName: CustomPageIndicatorTest.typeName,
             decoder: decoder
         )
         assertSnapshot(matching: widget, as: .dump)

@@ -28,14 +28,14 @@ enum UIModelConversionError: Error {
 }
 
 /// Defines a protocol to constrain raw representables where the RawValue is a String
-protocol StringRawRepresentable: RawRepresentable where RawValue == String {}
+public protocol StringRawRepresentable: RawRepresentable where RawValue == String {}
 
 /// Markup to define that this type can be converted to a UIModel Enum
-protocol UIEnumModelConvertible: RawRepresentable {
+public protocol UIEnumModelConvertible: RawRepresentable {
     func mapToUIModel<T>(ofType: T.Type) throws -> T where T: StringRawRepresentable
 }
 extension UIEnumModelConvertible {
-    func mapToUIModel<T>(ofType: T.Type) throws -> T where T: StringRawRepresentable {
+    public func mapToUIModel<T>(ofType: T.Type) throws -> T where T: StringRawRepresentable {
         guard let rawValue = self.rawValue as? String else {
             let type = String(describing: self)
             throw UIModelConversionError.rawValueIsNotOfStringForType(type)

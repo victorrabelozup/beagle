@@ -1,13 +1,15 @@
 import UIKit
 
 /// Interface to access application specific operations
-public protocol BeagleContext {
+public protocol BeagleContext: AnyObject {
     
     var screenController: UIViewController { get }
     
     func register(action: Action, inView view: UIView)
     func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorProvider?)
+    
     func lazyLoad(url: String, initialState: UIView)
+    func doAction(_ action: Action, sender: Any)
 }
 
 extension BeagleScreenViewController: BeagleContext {
@@ -46,6 +48,10 @@ extension BeagleScreenViewController: BeagleContext {
                 self?.handleError(error)
             }
         }
+    }
+    
+    public func doAction(_ action: Action, sender: Any) {
+        dependencies.actionExecutor.doAction(action, sender: sender, context: self)
     }
         
     // MARK: - Action

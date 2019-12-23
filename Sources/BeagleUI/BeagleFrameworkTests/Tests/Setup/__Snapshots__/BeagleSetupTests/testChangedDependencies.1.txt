@@ -8,13 +8,7 @@
   ▿ customActionHandler: Optional<CustomActionHandler>
     - some: CustomActionHandlerDummy
   - customWidgetsProvider: CustomWidgetsRendererProviderDummy
-  ▿ decoder: WidgetDecoder
-    ▿ jsonDecoder: JSONDecoder
-      - dataDecodingStrategy: DataDecodingStrategy.base64
-      - dateDecodingStrategy: DateDecodingStrategy.deferredToDate
-      - keyDecodingStrategy: KeyDecodingStrategy.useDefaultKeys
-      - nonConformingFloatDecodingStrategy: NonConformingFloatDecodingStrategy.throw
-      - userInfo: 0 key/value pairs
+  - decoder: WidgetDecodingDummy
   ▿ deepLinkHandler: Optional<BeagleDeepLinkScreenManaging>
     - some: DeepLinkHandlerDummy
   - flex: FlexViewConfiguratorDummy

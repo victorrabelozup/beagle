@@ -37,9 +37,10 @@ public class BeagleScreenViewController: UIViewController {
     
     // MARK: - Properties
     
-    weak var delegate: BeagleScreenViewControllerDelegate?
+    weak open var delegate: BeagleScreenViewControllerDelegate?
     
     weak var rootWidgetView: UIView?
+    var keyboardConstraint: NSLayoutConstraint?
     
     // MARK: - Initialization
 
@@ -70,6 +71,49 @@ public class BeagleScreenViewController: UIViewController {
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleKeyboardChangeNotification(_:)),
+            name: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleKeyboardWillHideNotification(_:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+    }
+        
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc private func handleKeyboardChangeNotification(_ notification: Notification) {
+        let height = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height
+        configureKeybord(height: height ?? 0, notification: notification)
+    }
+    
+    @objc private func handleKeyboardWillHideNotification(_ notification: Notification) {
+        configureKeybord(height: 0, notification: notification)
+    }
+    
+    private func configureKeybord(height: CGFloat, notification: Notification) {
+        let curve = (notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber)?.uintValue
+        let duration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue
+        let options = UIView.AnimationOptions(rawValue: (curve ?? 0) << 16)
+        UIView.animate(
+            withDuration: duration ?? 0,
+            delay: 0,
+            options: options,
+            animations: {
+                self.keyboardConstraint?.constant = height
+                self.view.layoutIfNeeded()
+            },
+            completion: nil
+        )
     }
     
     public override func viewDidLayoutSubviews() {
@@ -93,25 +137,31 @@ public class BeagleScreenViewController: UIViewController {
         rootView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(rootView)
         
+        let keyboardConstraint = view.bottomAnchor.constraint(greaterThanOrEqualTo: rootView.bottomAnchor)
+        let bottomConstraint: NSLayoutConstraint
         let constraints: [NSLayoutConstraint]
         if #available(iOS 11.0, *) {
             let guide = view.safeAreaLayoutGuide
+            bottomConstraint = rootView.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
             constraints = [
                 rootView.topAnchor.constraint(equalTo: guide.topAnchor),
-                rootView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
+                rootView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
                 rootView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
-                rootView.leadingAnchor.constraint(equalTo: guide.leadingAnchor)
+                bottomConstraint, keyboardConstraint
             ]
         } else {
+            bottomConstraint = rootView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor)
             constraints = [
-                rootView.topAnchor.constraint(equalTo: view.topAnchor),
-                rootView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                rootView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
                 rootView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                rootView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+                rootView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                bottomConstraint, keyboardConstraint
             ]
         }
+        bottomConstraint.priority = .init(999)
         NSLayoutConstraint.activate(constraints)
         
+        self.keyboardConstraint = keyboardConstraint
         self.rootWidgetView = rootView
     }
     

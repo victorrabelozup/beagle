@@ -22,7 +22,7 @@ func widgetFromJsonFile<W: Widget>(
     }
 
     let json = try Data(contentsOf: url)
-    let widget = try WidgetDecoder().decodeWidget(from: json)
+    let widget = try decoder.decodeWidget(from: json)
 
     guard let typed = widget as? W else {
         throw WidgetFromJsonError.couldNotMatchWidgetType

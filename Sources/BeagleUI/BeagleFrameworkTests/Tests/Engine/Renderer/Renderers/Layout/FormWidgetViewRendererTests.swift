@@ -54,6 +54,7 @@ class BeagleContextSpy: BeagleContext {
     private(set) var didCallRegisterAction = false
     private(set) var didCallRegisterFormSubmit = false
     private(set) var didCallLazyLoad = false
+    private(set) var didCallDoAction = false
     
     var screenController: UIViewController = UIViewController()
     
@@ -67,5 +68,9 @@ class BeagleContextSpy: BeagleContext {
     
     func lazyLoad(url: String, initialState: UIView) {
         didCallLazyLoad = true
+    }
+    
+    func doAction(_ action: Action, sender: Any) {
+        didCallDoAction = true
     }
 }

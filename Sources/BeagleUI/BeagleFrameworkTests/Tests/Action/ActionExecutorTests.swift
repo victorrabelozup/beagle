@@ -129,4 +129,6 @@ class BeagleContextStub: BeagleContext {
     }
     func lazyLoad(url: String, initialState: UIView) {
     }
+    func doAction(_ action: Action, sender: Any) {
+    }
 }

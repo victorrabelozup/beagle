@@ -9,12 +9,12 @@ import SnapshotTesting
 final class BeagleSetupTests: XCTestCase {
 
     func testDefaultDependencies() {
-        let dependencies = BeagleDependencies(appName: "DEFAULT")
+        let dependencies = BeagleDependencies(appName: "TEST")
         assertSnapshot(matching: dependencies, as: .dump)
     }
 
     func testChangedDependencies() {
-        let dep = BeagleDependencies(appName: "Beagle")
+        let dep = BeagleDependencies(appName: "TEST")
         dep.appBundle = Bundle.main
         dep.deepLinkHandler = DeepLinkHandlerDummy()
         dep.theme = AppThemeDummy()
@@ -25,6 +25,7 @@ final class BeagleSetupTests: XCTestCase {
         dep.customWidgetsProvider = CustomWidgetsRendererProviderDummy()
         dep.flex = FlexViewConfiguratorDummy()
         dep.rendererProvider = RendererProviderDummy()
+        dep.decoder = WidgetDecodingDummy()
 
         assertSnapshot(matching: dep, as: .dump)
     }
@@ -57,6 +58,7 @@ final class DeepLinkHandlerDummy: BeagleDeepLinkScreenManaging {
 
 final class WidgetDecodingDummy: WidgetDecoding {
     func register<T>(_ type: T.Type, for typeName: String) where T : WidgetEntity {}
+    func decodableType(forType type: String) -> Decodable.Type? { return nil }
     func decodeWidget(from data: Data) throws -> Widget { return WidgetDummy() }
     func decodeAction(from data: Data) throws -> Action { return ActionDummy() }
 }

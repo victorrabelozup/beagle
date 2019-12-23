@@ -13,7 +13,7 @@ final class WidgetDecoderTests: XCTestCase {
     
     // MARK: - Properties
     
-    private lazy var sut = WidgetDecoder()
+    private lazy var sut = Beagle.dependencies.decoder
     
     // MARK: - Tests
     
