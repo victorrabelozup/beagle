@@ -33,9 +33,8 @@ final class ScrollViewWidgetViewRendererTests: XCTestCase {
         
         // Then
         XCTAssertTrue(flexSpy.setupFlexCalled, "Expected to call `applyFlex`.")
-        XCTAssertEqual(resultingView, flexSpy.viewPassedToSetupFlex, "Expected \(String(describing: resultingView)), but got \(String(describing: flexSpy.viewPassedToSetupFlex)).")
         XCTAssertTrue(resultingView.subviews.count == 1, "Expected view to have 1 subviews, but has \(resultingView.subviews)")
-        XCTAssertEqual(flexSpy.timesPassed, 3, "Expected 3, but got \(String(describing: flexSpy.timesPassed)).")
+        XCTAssertEqual(flexSpy.timesPassed, 1, "Expected 3, but got \(String(describing: flexSpy.timesPassed)).")
     }
     
     func test_whenLayoutSubViewsIsCalledOnBagleContainerScrollView_itShouldSetupTheContentSizeCorrectly() {

@@ -1,9 +1,5 @@
 //
-//  ContainerViewRenderer.swift
-//  BeagleUI
-//
-//  Created by Daniel Tes on 16/10/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 import UIKit
@@ -14,49 +10,37 @@ final class ContainerWidgetViewRenderer: ViewRendering<Container> {
     // MARK: - Public Functions
     
     override func buildView(context: BeagleContext) -> UIView {
-
         let view = UIView()
+        
         if let header = widget.header {
-            let renderer = self.rendererProvider.buildRenderer(for: header, dependencies: dependencies)
-            let headerView = renderer.buildView(context: context)
+            let headerView = self.rendererProvider
+                .buildRenderer(for: header, dependencies: dependencies)
+                .buildView(context: context)
             view.addSubview(headerView)
+            self.flex.enableYoga(true, for: headerView)
         }
         
-        let scrollView = buildContentScrollView(context: context)
-        view.addSubview(scrollView)
+        let contentView = buildContentView(context: context)
+        view.addSubview(contentView)
         
         if let footer = widget.footer {
-            let renderer = self.rendererProvider.buildRenderer(for: footer, dependencies: dependencies)
-            let footerView = renderer.buildView(context: context)
+            let footerView = self.rendererProvider
+                .buildRenderer(for: footer, dependencies: dependencies)
+                .buildView(context: context)
             view.addSubview(footerView)
+            self.flex.enableYoga(true, for: footerView)
         }
-        self.flex.setupFlex(Flex(), for: view)
-        
         return view
     }
     
     // MARK: - Private Functions
     
-    private func buildContentScrollView(context: BeagleContext) -> UIScrollView {
-        
-        let scrollView = BeagleContainerScrollView()
+    private func buildContentView(context: BeagleContext) -> UIView {
         let flex = Flex(grow: 1)
         let contentView = self.rendererProvider
             .buildRenderer(for: widget.content, dependencies: dependencies)
             .buildView(context: context)
-        scrollView.addSubview(contentView)
-        
-        self.flex.setupFlex(flex, for: scrollView)
-        
-        return scrollView
-    }
-}
-
-final class BeagleContainerScrollView: UIScrollView {
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if let contentView = subviews.first {
-            contentSize = contentView.frame.size
-        }
+        self.flex.setupFlex(flex, for: contentView)
+        return contentView
     }
 }

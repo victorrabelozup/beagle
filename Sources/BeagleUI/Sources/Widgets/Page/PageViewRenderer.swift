@@ -24,8 +24,6 @@ class PageViewRender: ViewRendering<PageView> {
             indicatorView: indicatorView
         )
 
-        self.flex.applyYogaLayout(to: view, preservingOrigin: true)
-        self.flex.setupFlex(Flex(), for: view)
         return view
     }
 

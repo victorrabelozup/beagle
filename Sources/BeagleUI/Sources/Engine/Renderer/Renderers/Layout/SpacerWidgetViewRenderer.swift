@@ -1,9 +1,5 @@
 //
-//  SpacerWidgetViewRenderer.swift
-//  BeagleUI
-//
-//  Created by Eduardo Sanches Bocato on 16/10/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 import UIKit
@@ -20,6 +16,9 @@ final class SpacerWidgetViewRenderer: ViewRendering<Spacer> {
         )
         
         let view = UIView()
+        view.isUserInteractionEnabled = false
+        view.isAccessibilityElement = false
+        view.backgroundColor = .clear
         
         self.flex.setupFlex(flex, for: view)
         

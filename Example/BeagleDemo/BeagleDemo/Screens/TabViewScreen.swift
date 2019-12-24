@@ -1,16 +1,15 @@
 //
 //  TabViewScreen.swift
-//  BeagleDemo
-//
-//  Created by Gabriela Coelho on 17/12/19.
 //  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 import BeagleUI
 
 
-struct TabViewScreen {
-    var content: Widget {
+struct TabViewScreen: DeeplinkScreen {
+    init(path: String, data: [String : String]?) {
+    }
+    var widget: Widget {
         TabView(tabItems: [
             TabItem(icon: "beagle", content: {
                 FlexWidget {

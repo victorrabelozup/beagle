@@ -1,8 +1,4 @@
 //
-//  PageViewScreen.swift
-//  BeagleDemo
-//
-//  Created by Lucas Araújo on 03/12/19.
 //  Copyright © 2019 Zup IT. All rights reserved.
 //
 

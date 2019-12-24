@@ -1,9 +1,5 @@
 //
-//  TextWidgetViewRenderer.swift
-//  BeagleUI
-//
-//  Created by Gabriela Coelho on 08/10/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 import UIKit
@@ -19,8 +15,6 @@ final class TextWidgetViewRenderer: ViewRendering<Text> {
         if let style = widget.style {
             self.theme.applyStyle(for: label, withId: style)
         }
-        
-        self.flex.enableYoga(true, for: label)
         
         return label
     }

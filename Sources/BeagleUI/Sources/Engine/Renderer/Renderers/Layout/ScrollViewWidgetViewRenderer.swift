@@ -1,35 +1,23 @@
 //
-//  ScrollViewWidgetViewRenderer.swift
-//  BeagleUI
-//
-//  Created by Tarcisio Clemente on 06/11/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
-import Foundation
-
-import YogaKit
+import UIKit
 
 final class ScrollViewWidgetViewRenderer: ViewRendering<ScrollView> {
     
     // MARK: - Public Functions
     
-    override func buildView(context: BeagleContext) -> UIScrollView {
-
-        let scrollView = buildContentScrollView(context: context)
-        scrollView.backgroundColor = .green
-        
-        self.flex.setupFlex(Flex(), for: scrollView)
-        
+    override func buildView(context: BeagleContext) -> UIView {
+        let scrollView = buildScrollView(context: context)
         return scrollView
     }
     
     // MARK: - Private Functions
     
-    private func buildContentScrollView(context: BeagleContext) -> UIScrollView {
+    private func buildScrollView(context: BeagleContext) -> UIScrollView {
         
         let scrollView = BeagleContainerScrollView()
-        let flex = Flex(grow: 1)
         let contentView = UIView()
         
         widget.children.forEach {
@@ -37,16 +25,22 @@ final class ScrollViewWidgetViewRenderer: ViewRendering<ScrollView> {
                 .buildRenderer(for: $0, dependencies: dependencies)
                 .buildView(context: context)
             contentView.addSubview(childView)
+            self.flex.enableYoga(true, for: childView)
         }
-        
         scrollView.addSubview(contentView)
         
         let flexContent = Flex(grow: 1, shrink: 0)
-        
-        self.flex.setupFlex(flex, for: scrollView)
         self.flex.setupFlex(flexContent, for: contentView)
         
         return scrollView
     }
-    
+}
+
+final class BeagleContainerScrollView: UIScrollView {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if let contentView = subviews.first {
+            contentSize = contentView.frame.size
+        }
+    }
 }

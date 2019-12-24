@@ -1,10 +1,7 @@
 //
-//  AppDelegate.swift
-//  BeagleDemo
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
-//  Created by Daniel Tes on 10/09/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
-//
+
 import UIKit
 import BeagleUI
 
@@ -18,13 +15,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let deepLinkHandler = DeeplinkScreenManager.shared
         deepLinkHandler["lazywidget"] = LazyWidgetScreen.self
         deepLinkHandler["pageview"] = PageViewScreen.self
-        
+        deepLinkHandler["tabview"] = TabViewScreen.self
 
         let dependencies = BeagleDependencies(appName: "BeagleDemo")
         dependencies.deepLinkHandler = deepLinkHandler
         Beagle.dependencies = dependencies
         
-        let rootViewController = BeagleScreenViewController(screenType: .declarative(TabViewScreen().content))
+        let rootViewController = BeagleScreenViewController(screenType: .declarative(MainScreen().widget))
         window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         
         return true

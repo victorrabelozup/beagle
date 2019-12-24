@@ -1,9 +1,5 @@
 //
-//  MainScreen.swift
-//  BeagleDemo
-//
-//  Created by Lucas Araújo on 03/12/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 import BeagleUI
@@ -34,6 +30,9 @@ struct MainScreen: DeeplinkScreen {
                 }
                 Navigator(action: Navigate(type: .openDeepLink, path: "pageview")) {
                     Button(text: "Page View")
+                }
+                Navigator(action: Navigate(type: .openDeepLink, path: "tabview")) {
+                    Button(text: "Tab View")
                 }
             }
         })

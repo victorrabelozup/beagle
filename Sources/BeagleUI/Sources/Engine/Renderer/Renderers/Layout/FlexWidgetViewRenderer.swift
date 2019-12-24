@@ -1,9 +1,5 @@
 //
-//  FlexWidgetViewRenderer.swift
-//  BeagleUI
-//
-//  Created by Daniel Tes on 16/10/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 import UIKit
@@ -22,6 +18,7 @@ final class FlexWidgetViewRenderer: ViewRendering<FlexWidget> {
                 .buildRenderer(for: $0, dependencies: dependencies)
                 .buildView(context: context)
             containerView.addSubview(childView)
+            self.flex.enableYoga(true, for: childView)
         }
         
         self.flex.setupFlex(widget.flex, for: containerView)

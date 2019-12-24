@@ -1,9 +1,5 @@
 //
-//  ContainerWidgetViewRendererTests.swift
-//  BeagleFrameworkTests
-//
-//  Created by Gabriela Coelho on 17/10/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 import XCTest
@@ -31,7 +27,6 @@ final class ContainerWidgetViewRendererTests: XCTestCase {
         
         // Then
         XCTAssertTrue(flexSpy.setupFlexCalled, "Expected to call `applyFlex`.")
-        XCTAssertEqual(resultingView, flexSpy.viewPassedToSetupFlex, "Expected \(String(describing: resultingView)), but got \(String(describing: flexSpy.viewPassedToSetupFlex)).")
         XCTAssertTrue(resultingView.subviews.count == 3, "Expected view to have 3 subviews, a header, a content and a footer, but has \(resultingView.subviews)")
     }
     
@@ -83,12 +78,6 @@ final class FlexViewConfiguratorSpy: FlexViewConfiguratorProtocol {
         enableYogaCalled = true
         enablePassed = enable
         viewPassedToEnableYoga = view
-    }
-    
-    private(set) var viewPassedToInstrinsicSize: UIView?
-    func instrinsicSize(for view: UIView) -> CGSize {
-        viewPassedToInstrinsicSize = view
-        return view.frame.size
     }
     
 }

@@ -133,7 +133,6 @@ final class FlexViewConfiguratorDummy: FlexViewConfiguratorProtocol {
     func setupFlex(_ flex: Flex, for view: UIView) {}
     func applyYogaLayout(to view: UIView, preservingOrigin: Bool) {}
     func enableYoga(_ enable: Bool, for view: UIView) {}
-    func instrinsicSize(for view: UIView) -> CGSize { return .zero }
 }
 
 final class RemoteConnectorStub: RemoteConnector {

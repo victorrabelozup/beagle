@@ -109,7 +109,7 @@ extension ListViewUIComponent: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let widgetView = model.widgetViews[indexPath.row]
-        let size = flexViewConfigurator.instrinsicSize(for: widgetView)
+        let size = widgetView.sizeThatFits(CGSize(width: CGFloat.infinity, height: CGFloat.infinity))
         return size
     }
     
