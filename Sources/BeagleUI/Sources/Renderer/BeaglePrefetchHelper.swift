@@ -18,7 +18,9 @@ public class BeaglePreFetchHelper: BeaglePrefetchHelping {
     private var screens = [String: BeagleScreenViewController]()
     
     public func prefetchWidget(path: String) {
-        screens[path] = BeagleScreenViewController(screenType: .remote(path))
+        if screens[path] == nil {
+            screens[path] = BeagleScreenViewController(screenType: .remote(path))
+        }
     }
     
     public func dequeueWidget(path: String) -> BeagleScreenViewController {

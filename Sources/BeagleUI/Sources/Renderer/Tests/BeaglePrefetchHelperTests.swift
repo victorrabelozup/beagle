@@ -44,5 +44,17 @@ final class BeaglePrefetchHelperTests: XCTestCase {
             XCTFail("Not the right type")
         }
     }
+    
+    func testPrefetchTheSameScreenTwice() {
+        let sut = BeaglePreFetchHelper()
+        let url = "url-test"
+
+        sut.prefetchWidget(path: url)
+        let result1 = sut.dequeueWidget(path: url)
+        sut.prefetchWidget(path: url)
+        let result2 = sut.dequeueWidget(path: url)
+        
+        XCTAssertTrue(result1 === result2, "`dequeueWidget` expected to return the same screen")
+    }
 
 }
