@@ -29,5 +29,7 @@ comment:
   require_changes: false
 
 ignore:
- - "Sources/BeagleUI/BeagleFrameworkTests/.*"
+ - "Sources/BeagleUI/**/Tests/"
+ - "Sources/BeagleUI/**/*Test*.swift"
+ - "Sources/BeagleUI/**/*Tests*.swift"
  - "Libraries/"
