@@ -7,10 +7,6 @@ import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.ser.std.StdSerializer
 
-private const val TYPE = "_beagleType_"
-private const val WIDGET_NAMESPACE = "widget"
-private const val BEAGLE_NAMESPACE = "beagle"
-
 class BeagleWidgetSerializer(
     private val objectFieldSerializer: ObjectFieldSerializer = ObjectFieldSerializer()
 ) : StdSerializer<Widget>(Widget::class.java) {
@@ -38,9 +34,9 @@ class BeagleWidgetSerializer(
 
         if (registeredWidgets.contains(value::class.java)) {
             val appName = BeagleEnvironment.appName
-            gen.writeStringField(TYPE, "$appName:$WIDGET_NAMESPACE:$widgetName")
+            gen.writeStringField(BEAGLE_TYPE, "$appName:$WIDGET_NAMESPACE:$widgetName")
         } else {
-            gen.writeStringField(TYPE, "$BEAGLE_NAMESPACE:$WIDGET_NAMESPACE:$widgetName")
+            gen.writeStringField(BEAGLE_TYPE, "$BEAGLE_NAMESPACE:$WIDGET_NAMESPACE:$widgetName")
         }
     }
 
