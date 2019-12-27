@@ -4,7 +4,7 @@ import br.com.zup.beagle.action.Action
 import br.com.zup.beagle.data.cache.BeagleWidgetCacheHelper
 import br.com.zup.beagle.data.deserializer.BeagleDeserializationException
 import br.com.zup.beagle.data.deserializer.BeagleDeserializer
-import br.com.zup.beagle.data.deserializer.makeContainerJson
+import br.com.zup.beagle.data.deserializer.makeScreenWidgetJson
 import br.com.zup.beagle.exception.BeagleException
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.networking.HttpClient
@@ -28,7 +28,7 @@ import kotlin.test.assertTrue
 
 
 private val URL = RandomData.httpUrl()
-private val JSON_SUCCESS = makeContainerJson()
+private val JSON_SUCCESS = makeScreenWidgetJson()
 private const val JSON_ERROR = ""
 
 @ExperimentalCoroutinesApi

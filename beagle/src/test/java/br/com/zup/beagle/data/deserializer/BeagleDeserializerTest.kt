@@ -5,8 +5,7 @@ import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.NavigationType
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.widget.core.Widget
-import br.com.zup.beagle.widget.layout.Container
-import br.com.zup.beagle.widget.layout.Vertical
+import br.com.zup.beagle.widget.ui.Button
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import io.mockk.MockKAnnotations
@@ -48,14 +47,14 @@ class BeagleDeserializerTest {
     fun deserializeWidget_should_return_a_Widget_when_pass_a_valid_json_representation() {
         // Given
         val json = "{}"
-        val container = Container(content = Vertical(children = listOf()))
-        every { widgetJsonAdapter.fromJson(json) } returns container
+        val button = Button(RandomData.string())
+        every { widgetJsonAdapter.fromJson(json) } returns button
 
         // When
         val actual = beagleDeserializer.deserializeWidget(json)
 
         // Then
-        assertEquals(container, actual)
+        assertEquals(button, actual)
     }
 
     @Test

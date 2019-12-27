@@ -7,7 +7,6 @@ import android.widget.HorizontalScrollView
 import android.widget.ImageView
 import android.widget.ScrollView
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.RecyclerView
 import br.com.zup.beagle.widget.core.Flex
 import com.google.android.material.tabs.TabLayout
@@ -44,10 +43,6 @@ internal class ViewFactory {
     fun makeRecyclerView(context: Context) = RecyclerView(context)
 
     fun makeAlertDialogBuilder(context: Context) = AlertDialog.Builder(context)
-
-    fun makeNavigationBar(context: Context) = Toolbar(context)
-
-    fun makeFrameLayout(context: Context) = FrameLayout(context)
 
     fun makeFrameLayoutParams(width: Int, height: Int) = FrameLayout.LayoutParams(width, height)
 

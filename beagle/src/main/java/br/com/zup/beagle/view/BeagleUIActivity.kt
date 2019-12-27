@@ -3,9 +3,11 @@ package br.com.zup.beagle.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import br.com.zup.beagle.R
 import br.com.zup.beagle.setup.BeagleEnvironment
 
@@ -43,6 +45,18 @@ class BeagleUIActivity : AppCompatActivity() {
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
+        if (this@BeagleUIActivity.supportActionBar == null) {
+            addView(createToolbar())
+        }
+    }
+
+    private fun createToolbar(): Toolbar {
+        return Toolbar(this).apply {
+            setSupportActionBar(this)
+            setNavigationOnClickListener {
+                BeagleNavigator.pop(context)
+            }
+        }
     }
 
     override fun onBackPressed() {
@@ -50,6 +64,17 @@ class BeagleUIActivity : AppCompatActivity() {
             finish()
         } else {
             super.onBackPressed()
+        }
+    }
+
+    // If ActionBar is present on Theme then set the back button action
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

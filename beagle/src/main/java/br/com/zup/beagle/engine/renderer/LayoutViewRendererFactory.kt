@@ -1,6 +1,6 @@
 package br.com.zup.beagle.engine.renderer
 
-import br.com.zup.beagle.engine.renderer.layout.ContainerViewRenderer
+import br.com.zup.beagle.engine.renderer.layout.ScreenViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.ExpandedViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.FlexSingleWidgetViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.FlexWidgetViewRenderer
@@ -16,9 +16,9 @@ import br.com.zup.beagle.engine.renderer.layout.StackViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.StatefulWidgetViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.UpdatableWidgetViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.VerticalViewRender
+import br.com.zup.beagle.widget.ScreenWidget
 import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.form.Form
-import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.Expanded
 import br.com.zup.beagle.widget.layout.FlexSingleWidget
 import br.com.zup.beagle.widget.layout.FlexWidget
@@ -43,7 +43,7 @@ internal class LayoutViewRendererFactory : AbstractViewRendererFactory {
             is FlexSingleWidget -> FlexSingleWidgetViewRenderer(widget)
             is StatefulWidget -> StatefulWidgetViewRenderer(widget)
             is UpdatableWidget -> UpdatableWidgetViewRenderer(widget)
-            is Container -> ContainerViewRenderer(widget)
+            is ScreenWidget -> ScreenViewRenderer(widget)
             is Vertical -> VerticalViewRender(widget)
             is Horizontal -> HorizontalViewRenderer(widget)
             is Stack -> StackViewRenderer(widget)

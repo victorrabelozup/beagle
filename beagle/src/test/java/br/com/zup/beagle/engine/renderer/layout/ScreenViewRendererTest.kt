@@ -1,8 +1,9 @@
 package br.com.zup.beagle.engine.renderer.layout
 
-import android.content.Context
 import android.graphics.Color
 import android.view.View
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
@@ -12,7 +13,6 @@ import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.JustifyContent
 import br.com.zup.beagle.widget.core.Widget
-import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.Expanded
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
@@ -27,13 +27,18 @@ import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 import br.com.zup.beagle.extensions.once
+import br.com.zup.beagle.testutil.RandomData
+import br.com.zup.beagle.widget.ScreenWidget
+import br.com.zup.beagle.widget.layout.NavigationBar
 
 private const val DEFAULT_COLOR = 0xFFFFFF
 
-class ContainerViewRendererTest {
+class ScreenViewRendererTest {
 
     @MockK
-    private lateinit var container: Container
+    private lateinit var screenWidget: ScreenWidget
+    @MockK
+    private lateinit var navigationBar: NavigationBar
     @MockK
     private lateinit var viewRendererFactory: ViewRendererFactory
     @MockK
@@ -41,7 +46,7 @@ class ContainerViewRendererTest {
     @MockK
     private lateinit var rootView: RootView
     @MockK
-    private lateinit var context: Context
+    private lateinit var context: AppCompatActivity
     @MockK
     private lateinit var beagleFlexView: BeagleFlexView
     @MockK
@@ -51,7 +56,7 @@ class ContainerViewRendererTest {
     @MockK
     private lateinit var view: View
 
-    private lateinit var containerViewRenderer: ContainerViewRenderer
+    private lateinit var screenViewRenderer: ScreenViewRenderer
 
     @Before
     fun setUp() {
@@ -63,29 +68,30 @@ class ContainerViewRendererTest {
         every { viewFactory.makeBeagleFlexView(any(), any()) } returns beagleFlexView
         every { beagleFlexView.addView(any()) } just Runs
         every { beagleFlexView.addView(any(), any<Flex>()) } just Runs
-        every { container.header } returns null
-        every { container.content } returns widget
-        every { container.footer } returns null
+        every { screenWidget.navigationBar } returns null
+        every { screenWidget.header } returns null
+        every { screenWidget.content } returns widget
+        every { screenWidget.footer } returns null
         every { viewRendererFactory.make(any()) } returns viewRenderer
         every { viewRenderer.build(any()) } returns view
         every { Color.parseColor(any()) } returns DEFAULT_COLOR
         every { rootView.getContext() } returns context
 
-        containerViewRenderer = ContainerViewRenderer(
-            container,
+        screenViewRenderer = ScreenViewRenderer(
+            screenWidget,
             viewRendererFactory,
             viewFactory
         )
     }
 
     @Test
-    fun build_should_create_a_container_with_flexDirection_COLUMN_and_justifyContent_SPACE_BETWEEN() {
+    fun build_should_create_a_screenWidget_with_flexDirection_COLUMN_and_justifyContent_SPACE_BETWEEN() {
         // Given
         val flexValues = mutableListOf<Flex>()
         every { viewFactory.makeBeagleFlexView(any(), capture(flexValues)) } returns beagleFlexView
 
         // When
-        containerViewRenderer.build(rootView)
+        screenViewRenderer.build(rootView)
 
 
         // Then
@@ -94,12 +100,12 @@ class ContainerViewRendererTest {
     }
 
     @Test
-    fun build_should_call_header_builder_and_add_to_container_view() {
+    fun build_should_call_header_builder_and_add_to_screenWidget_view() {
         // Given
-        every { container.header } returns widget
+        every { screenWidget.header } returns widget
 
         // When
-        containerViewRenderer.build(rootView)
+        screenViewRenderer.build(rootView)
 
         // Then
         verify(atLeast = once()) { viewRendererFactory.make(widget) }
@@ -112,11 +118,11 @@ class ContainerViewRendererTest {
         // Given
         val content = mockk<Widget>()
         val expanded = slot<Expanded>()
-        every { container.content } returns content
+        every { screenWidget.content } returns content
         every { viewRendererFactory.make(capture(expanded)) } returns viewRenderer
 
         // When
-        containerViewRenderer.build(rootView)
+        screenViewRenderer.build(rootView)
 
         // Then
         verify(exactly = once()) { viewRendererFactory.make(expanded.captured) }
@@ -126,16 +132,37 @@ class ContainerViewRendererTest {
     }
 
     @Test
-    fun build_should_call_footer_builder_and_add_to_container_view() {
+    fun build_should_call_footer_builder_and_add_to_screenWidget_view() {
         // Given
-        every { container.footer } returns widget
+        every { screenWidget.footer } returns widget
 
         // When
-        containerViewRenderer.build(rootView)
+        screenViewRenderer.build(rootView)
 
         // Then
         verify(atLeast = once()) { viewRendererFactory.make(widget) }
         verify(atLeast = once()) { viewRenderer.build(rootView) }
         verify(atLeast = once()) { beagleFlexView.addView(view) }
+    }
+
+    @Test
+    fun build_should_configure_toolbar_when_supportActionBar_is_not_null() {
+        // Given
+        val actionBar = mockk<ActionBar>(relaxed = true)
+        val title = RandomData.string()
+        val showBackButton = true
+        every { navigationBar.title } returns title
+        every { navigationBar.showBackButton } returns showBackButton
+        every { screenWidget.navigationBar } returns navigationBar
+        every { context.supportActionBar } returns actionBar
+
+        // When
+        screenViewRenderer.build(rootView)
+
+        // Then
+        verify(atLeast = once()) { actionBar.title = title }
+        verify(atLeast = once()) { actionBar.setDisplayHomeAsUpEnabled(showBackButton) }
+        verify(atLeast = once()) { actionBar.setDisplayShowHomeEnabled(showBackButton) }
+        verify(atLeast = once()) { actionBar.show() }
     }
 }

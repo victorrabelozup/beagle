@@ -11,11 +11,11 @@ import br.com.zup.beagle.mockdata.CustomWidget
 import br.com.zup.beagle.mockdata.FormInputViewFactory
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.view.WidgetViewFactory
+import br.com.zup.beagle.widget.ScreenWidget
 import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormSubmit
-import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.FlexSingleWidget
 import br.com.zup.beagle.widget.layout.FlexWidget
 import br.com.zup.beagle.widget.layout.Horizontal
@@ -70,16 +70,16 @@ class BeagleMoshiFactoryTest {
     }
 
     @Test
-    fun make_should_return_moshi_to_deserialize_a_Container() {
+    fun make_should_return_moshi_to_deserialize_a_ScreenWidget() {
         // Given
-        val json = makeContainerJson()
+        val json = makeScreenWidgetJson()
 
         // When
         val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
-        assertTrue(actual is Container)
+        assertTrue(actual is ScreenWidget)
     }
 
     @Test

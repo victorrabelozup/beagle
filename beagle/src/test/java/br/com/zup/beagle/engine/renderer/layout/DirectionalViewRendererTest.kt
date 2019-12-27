@@ -64,7 +64,7 @@ class DirectionalViewRendererTest {
         val beagleFlexView = mockk<BeagleFlexView>()
         val context = mockk<Context>()
         val rootView = mockk<RootView>()
-        val containerViewRenderer = mockk<ContainerViewRenderer>()
+        val containerViewRenderer = mockk<ScreenViewRenderer>()
         val view = mockk<View>()
         val flexSlot = slot<Flex>()
         every { rootView.getContext() } returns context

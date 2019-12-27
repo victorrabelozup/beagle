@@ -8,11 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import br.com.zup.beagle.utils.toView
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.JustifyContent
-import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.FlexWidget
-import br.com.zup.beagle.widget.ui.Button
-import br.com.zup.beagle.widget.ui.NavigationBar
 import br.com.zup.beagle.sample.widgets.TextField
+import br.com.zup.beagle.widget.layout.NavigationBar
+import br.com.zup.beagle.widget.layout.Screen
 
 class NavigationBarActivity : AppCompatActivity() {
     companion object {
@@ -27,14 +26,13 @@ class NavigationBarActivity : AppCompatActivity() {
     }
 
     private fun buildContent(): View {
-        val declarative = Container(
+        val declarative = Screen(
+            navigationBar = NavigationBar(
+                title = "Sample Title"
+            ),
             content = FlexWidget(
                 flex = Flex(justifyContent = JustifyContent.CENTER),
                 children = listOf(
-                    NavigationBar(
-                        title = "Navigation Bar",
-                        trailing = Button(text = "B")
-                    ),
                     TextField(
                         hint = "this hint",
                         color = "#FFFFFF"

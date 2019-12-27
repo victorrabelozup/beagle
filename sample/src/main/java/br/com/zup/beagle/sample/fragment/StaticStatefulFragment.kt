@@ -10,8 +10,8 @@ import br.com.zup.beagle.widget.core.Alignment
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.JustifyContent
-import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.FlexWidget
+import br.com.zup.beagle.widget.layout.Screen
 import br.com.zup.beagle.widget.layout.StatefulWidget
 import br.com.zup.beagle.widget.layout.UpdatableState
 import br.com.zup.beagle.widget.layout.UpdatableWidget
@@ -25,7 +25,7 @@ class StaticStatefulFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val declarative = Container(
+        val declarative = Screen(
             content =
             StatefulWidget(
                 child = FlexWidget(

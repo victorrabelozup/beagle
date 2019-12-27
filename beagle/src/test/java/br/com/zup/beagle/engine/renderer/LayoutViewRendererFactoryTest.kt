@@ -1,6 +1,6 @@
 package br.com.zup.beagle.engine.renderer
 
-import br.com.zup.beagle.engine.renderer.layout.ContainerViewRenderer
+import br.com.zup.beagle.engine.renderer.layout.ScreenViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.FlexSingleWidgetViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.FlexWidgetViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.FormViewRenderer
@@ -11,9 +11,9 @@ import br.com.zup.beagle.engine.renderer.layout.SpacerViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.StackViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.VerticalViewRender
 import br.com.zup.beagle.engine.renderer.layout.*
+import br.com.zup.beagle.widget.ScreenWidget
 import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.form.Form
-import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.Expanded
 import br.com.zup.beagle.widget.layout.FlexSingleWidget
 import br.com.zup.beagle.widget.layout.FlexWidget
@@ -42,15 +42,15 @@ class LayoutViewRendererFactoryTest {
     }
 
     @Test
-    fun make_should_return_ContainerViewRenderer_when_widget_is_a_Container() {
+    fun make_should_return_ContainerViewRenderer_when_widget_is_a_ScreenWidget() {
         // Given
-        val widget = mockk<Container>()
+        val widget = mockk<ScreenWidget>()
 
         // When
         val actual = viewRendererFactory.make(widget)
 
         // Then
-        assertTrue(actual is ContainerViewRenderer)
+        assertTrue(actual is ScreenViewRenderer)
     }
 
     @Test

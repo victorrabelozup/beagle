@@ -16,9 +16,9 @@ import br.com.zup.beagle.widget.core.Size
 import br.com.zup.beagle.widget.core.UnitType
 import br.com.zup.beagle.widget.core.UnitValue
 import br.com.zup.beagle.widget.core.Widget
-import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.FlexSingleWidget
 import br.com.zup.beagle.widget.layout.FlexWidget
+import br.com.zup.beagle.widget.layout.Screen
 import br.com.zup.beagle.widget.navigation.Navigator
 import br.com.zup.beagle.widget.ui.Button
 
@@ -27,7 +27,7 @@ class NavigationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val declarative = Container(
+        val declarative = Screen(
             content =
             FlexWidget(
                 flex = Flex(

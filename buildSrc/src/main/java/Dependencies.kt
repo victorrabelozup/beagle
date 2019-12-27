@@ -36,7 +36,7 @@ object Versions {
 
     const val findsBug = "3.0.1"
 
-    const val beagleDeclarative = "0.0.17"
+    const val beagleDeclarative = "0.0.18"
 
     const val glide = "4.9.0"
 
@@ -75,7 +75,7 @@ object GeneralLibraries {
 
     const val findsBug = "com.google.code.findbugs:jsr305:${Versions.findsBug}"
 
-    const val beagleDeclarative = "br.com.zup:beagle-declarative:${Versions.beagleDeclarative}"
+    const val beagleDeclarative = "br.com.zup.beagle:declarative:${Versions.beagleDeclarative}"
     const val yoga = "br.com.zup.beagleui:yoga:${Releases.yogaVersionName}"
 
     const val materialDesign = "com.google.android.material:material:${Versions.materialDesign}"

@@ -23,9 +23,13 @@ fun makeFlexJson() = """
     }
 """
 
-fun makeContainerJson() = """
+fun makeScreenWidgetJson() = """
     {
-        "_beagleType_": "beagle:widget:container",
+        "_beagleType_": "beagle:widget:screenwidget",
+        "navigationBar": {
+            "title": "${RandomData.string()}",
+            "showBackButton": true
+        },
         "header": ${makeButtonJson()},
         "content": ${makeVerticalJson()},
         "footer": ${makeButtonJson()}

@@ -2,13 +2,13 @@ package br.com.zup.beagle.data.deserializer.adapter
 
 import br.com.zup.beagle.data.deserializer.PolymorphicJsonAdapterFactory
 import br.com.zup.beagle.setup.BeagleEnvironment
+import br.com.zup.beagle.widget.ScreenWidget
 import br.com.zup.beagle.widget.UndefinedWidget
 import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormSubmit
 import br.com.zup.beagle.widget.form.InputWidget
-import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.Expanded
 import br.com.zup.beagle.widget.layout.FlexSingleWidget
 import br.com.zup.beagle.widget.layout.FlexWidget
@@ -26,7 +26,6 @@ import br.com.zup.beagle.widget.navigation.Navigator
 import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.Image
 import br.com.zup.beagle.widget.ui.ListView
-import br.com.zup.beagle.widget.ui.NavigationBar
 import br.com.zup.beagle.widget.ui.NetworkImage
 import br.com.zup.beagle.widget.ui.PageIndicator
 import br.com.zup.beagle.widget.ui.Text
@@ -62,7 +61,7 @@ class WidgetJsonAdapterFactory {
     private fun registerLayoutClass(
         factory: PolymorphicJsonAdapterFactory<Widget>
     ): PolymorphicJsonAdapterFactory<Widget> {
-        return factory.withSubtype(Container::class.java, createNamespaceFor<Container>())
+        return factory.withSubtype(ScreenWidget::class.java, createNamespaceFor<ScreenWidget>())
             .withSubtype(FlexWidget::class.java, createNamespaceFor<FlexWidget>())
             .withSubtype(FlexSingleWidget::class.java, createNamespaceFor<FlexSingleWidget>())
             .withSubtype(Vertical::class.java, createNamespaceFor<Vertical>())
@@ -87,7 +86,6 @@ class WidgetJsonAdapterFactory {
             .withSubtype(Button::class.java, createNamespaceFor<Button>())
             .withSubtype(ListView::class.java, createNamespaceFor<ListView>())
             .withSubtype(Navigator::class.java, createNamespaceFor<Navigator>())
-            .withSubtype(NavigationBar::class.java, createNamespaceFor<NavigationBar>())
             .withSubtype(TabView::class.java, createNamespaceFor<TabView>())
             .withSubtype(PageIndicator::class.java, createNamespaceFor<PageIndicator>())
             .withSubtype(FormInput::class.java, createNamespaceFor<FormInput>())

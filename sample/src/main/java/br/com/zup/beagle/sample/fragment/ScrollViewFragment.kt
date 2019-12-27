@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import br.com.zup.beagle.utils.toView
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
-import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.FlexWidget
+import br.com.zup.beagle.widget.layout.Screen
 import br.com.zup.beagle.widget.layout.ScrollAxis
 import br.com.zup.beagle.widget.layout.ScrollView
 import br.com.zup.beagle.widget.ui.Button
@@ -22,7 +22,7 @@ class ScrollViewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val declarative = Container(
+        val declarative = Screen(
             header = Button(text = "Top"),
             footer = Button(text = "Bottom"),
             content = ScrollView(

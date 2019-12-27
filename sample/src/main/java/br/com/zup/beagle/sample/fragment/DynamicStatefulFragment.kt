@@ -14,7 +14,6 @@ import br.com.zup.beagle.widget.core.Size
 import br.com.zup.beagle.widget.core.UnitType
 import br.com.zup.beagle.widget.core.UnitValue
 import br.com.zup.beagle.widget.core.Widget
-import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.DynamicState
 import br.com.zup.beagle.widget.layout.FlexSingleWidget
 import br.com.zup.beagle.widget.layout.FlexWidget
@@ -23,6 +22,7 @@ import br.com.zup.beagle.widget.layout.UpdatableState
 import br.com.zup.beagle.widget.layout.UpdatableWidget
 import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.sample.widgets.TextField
+import br.com.zup.beagle.widget.layout.Screen
 
 class DynamicStatefulFragment : Fragment() {
 
@@ -31,7 +31,7 @@ class DynamicStatefulFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val declarative = Container(
+        val declarative = Screen(
             content =
             StatefulWidget(
                 child = FlexWidget(

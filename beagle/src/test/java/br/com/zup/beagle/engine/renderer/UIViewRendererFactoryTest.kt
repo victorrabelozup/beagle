@@ -7,7 +7,6 @@ import br.com.zup.beagle.engine.renderer.ui.ButtonViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.ImageViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.ListViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.CustomWidgetViewRenderer
-import br.com.zup.beagle.engine.renderer.ui.NavigationBarViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.NetworkImageViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.TextViewRenderer
 import br.com.zup.beagle.widget.core.ComposeWidget
@@ -17,7 +16,6 @@ import br.com.zup.beagle.widget.form.FormSubmit
 import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.Image
 import br.com.zup.beagle.widget.ui.ListView
-import br.com.zup.beagle.widget.ui.NavigationBar
 import br.com.zup.beagle.widget.ui.NetworkImage
 import br.com.zup.beagle.widget.ui.Text
 import io.mockk.mockk
@@ -141,17 +139,4 @@ class UIViewRendererFactoryTest {
         // Then
         assertTrue(actual is FormSubmitViewRenderer)
     }
-
-    @Test
-    fun make_should_return_NavigationBar_when_widget_is_a_NavigationBar() {
-        // Given
-        val widget = mockk<NavigationBar>()
-
-        // When
-        val actual = viewRendererFactory.make(widget)
-
-        // Then
-        assertTrue { actual is NavigationBarViewRenderer }
-    }
-
 }
