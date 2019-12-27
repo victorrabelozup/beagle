@@ -16,6 +16,11 @@ internal object BeagleLogger {
         Log.e(BEAGLE_TAG, message)
     }
 
+    fun error(message: String, throwable: Throwable) = runIfDebug {
+        Log.e(BEAGLE_TAG, message, throwable)
+    }
+
+
     fun info(message: String) = runIfDebug {
         Log.i(BEAGLE_TAG, message)
     }

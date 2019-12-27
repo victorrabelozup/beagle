@@ -5,12 +5,15 @@ import android.view.View
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.extensions.once
+import br.com.zup.beagle.logger.BeagleMessageLogs
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.view.WidgetViewFactory
 import br.com.zup.beagle.widget.core.Widget
 import io.mockk.MockKAnnotations
+import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
@@ -40,6 +43,8 @@ class CustomWidgetViewRendererTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
+
+        mockkObject(BeagleMessageLogs)
 
         every { rootView.getContext() } returns context
 
@@ -77,6 +82,7 @@ class CustomWidgetViewRendererTest {
         every { BeagleEnvironment.widgets } returns mapOf()
         every { viewRendererFactory.makeUndefinedViewRenderer() } returns undefinedViewRenderer
         every { undefinedViewRenderer.build(any()) } returns view
+        every { BeagleMessageLogs.logViewFactoryNotFoundForWidget(any()) } just Runs
 
         // When
         val actual = customWidgetViewRenderer.build(rootView)

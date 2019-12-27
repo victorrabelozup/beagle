@@ -5,7 +5,7 @@ import java.net.MalformedURLException
 import java.net.URL
 
 internal class UrlFormatter {
-    fun format(path: String, endpoint: String): String {
+    fun format(endpoint: String, path: String): String {
         // if endpoint has a host, return it as url
         if (endpoint.isValidUrl()) {
             return endpoint

@@ -22,7 +22,7 @@ class UrlFormatterTest {
         val endpoint = "foo/bar/"
 
         // Then
-        assertEquals("http://example.com/api/foo/bar/", urlFormatter.format(path, endpoint))
+        assertEquals("http://example.com/api/foo/bar/", urlFormatter.format(endpoint, path))
     }
 
     @Test
@@ -32,7 +32,7 @@ class UrlFormatterTest {
         val endpoint = "foo/bar/"
 
         // Then
-        assertEquals("http://example.com/foo/bar/", urlFormatter.format(path, endpoint))
+        assertEquals("http://example.com/foo/bar/", urlFormatter.format(endpoint, path))
     }
 
     @Test
@@ -42,7 +42,7 @@ class UrlFormatterTest {
         val endpoint = "/foo/bar/"
 
         // Then
-        assertEquals("http://example.com/foo/bar/", urlFormatter.format(path, endpoint))
+        assertEquals("http://example.com/foo/bar/", urlFormatter.format(endpoint, path))
     }
 
     @Test
@@ -52,17 +52,17 @@ class UrlFormatterTest {
         val endpoint = "/foo/bar/"
 
         // Then
-        assertEquals("http://example.com/foo/bar/", urlFormatter.format(path, endpoint))
+        assertEquals("http://example.com/foo/bar/", urlFormatter.format(endpoint, path))
     }
 
     @Test
     fun format_should_replace_all() {
         // Given
-        val path = "http://example.com/"
         val endpoint = "https://github.com/square/retrofit/"
+        val path = "http://example.com/"
 
         // Then
-        assertEquals("https://github.com/square/retrofit/", urlFormatter.format(path, endpoint))
+        assertEquals("https://github.com/square/retrofit/", urlFormatter.format(endpoint, path))
     }
 
     @Test
@@ -72,6 +72,6 @@ class UrlFormatterTest {
         val endpoint = "//github.com/square/retrofit/"
 
         // Then
-        assertEquals("http://github.com/square/retrofit/", urlFormatter.format(path, endpoint))
+        assertEquals("http://github.com/square/retrofit/", urlFormatter.format(endpoint, path))
     }
 }

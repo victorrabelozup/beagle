@@ -1,8 +1,8 @@
 package br.com.zup.beagle.form
 
 import br.com.zup.beagle.action.Action
-import br.com.zup.beagle.data.deserializer.BeagleDeserializationException
 import br.com.zup.beagle.data.deserializer.BeagleDeserializer
+import br.com.zup.beagle.exception.BeagleException
 import br.com.zup.beagle.networking.HttpClient
 import br.com.zup.beagle.networking.HttpClientFactory
 import br.com.zup.beagle.networking.HttpMethod
@@ -32,7 +32,7 @@ internal class FormSubmitter(
             try {
                 val action = deserialization.deserializeAction(String(response.data))
                 result(FormResult.Success(action))
-            } catch (ex: BeagleDeserializationException) {
+            } catch (ex: BeagleException) {
                 result(FormResult.Error(ex))
             }
         }, {

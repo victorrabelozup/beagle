@@ -15,7 +15,7 @@ import br.com.zup.beagle.form.FormSubmitter
 import br.com.zup.beagle.form.InputValue
 import br.com.zup.beagle.form.ValidationErrorListener
 import br.com.zup.beagle.form.ValidatorHandler
-import br.com.zup.beagle.logger.BeagleLogger
+import br.com.zup.beagle.logger.BeagleMessageLogs
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.utils.hideKeyboard
 import br.com.zup.beagle.view.ViewFactory
@@ -43,6 +43,14 @@ internal class FormViewRenderer(
 
         if (view is ViewGroup) {
             fetchFormViews(view)
+        }
+
+        if (formInputViews.size == 0) {
+            BeagleMessageLogs.logFormInputsNotFound(widget.action)
+        }
+
+        if (formSubmitView == null) {
+            BeagleMessageLogs.logFormSubmitNotFound(widget.action)
         }
 
         return view
@@ -109,9 +117,10 @@ internal class FormViewRenderer(
                         formsValue[formInput.name] = inputValue.getValue().toString()
                     formInputView is ValidationErrorListener ->
                         formInputView.onValidationError(formInput.errorMessage)
-                    else -> BeagleLogger.warning("FormInput with name ${formInput.name} is not valid" +
-                            " and does not implement a ValidationErrorListener")
+                    else -> BeagleMessageLogs.logInvalidFormInputState(formInput.name)
                 }
+            } ?: run {
+                BeagleMessageLogs.logFormValidatorNotFound(validator)
             }
         }
     }

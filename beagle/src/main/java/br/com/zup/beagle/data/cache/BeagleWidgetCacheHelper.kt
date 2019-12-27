@@ -4,16 +4,17 @@ import br.com.zup.beagle.widget.core.Widget
 
 internal object BeagleWidgetCacheHelper {
     private val widgetCacheMap = mutableMapOf<String, Widget>()
+
     fun cacheWidget(
         url: String,
         widget: Widget
     ): Widget {
-
         widgetCacheMap[url] = widget
 
         return widget
     }
 
-    fun getWidgetFromCache(url: String) =
-        widgetCacheMap.containsKey(url).let { widgetCacheMap[url] }
+    fun getWidgetFromCache(url: String) = widgetCacheMap.containsKey(url).let {
+        widgetCacheMap[url]
+    }
 }

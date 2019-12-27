@@ -16,6 +16,7 @@ import br.com.zup.beagle.form.FormSubmitter
 import br.com.zup.beagle.form.Validator
 import br.com.zup.beagle.form.ValidatorHandler
 import br.com.zup.beagle.logger.BeagleLogger
+import br.com.zup.beagle.logger.BeagleMessageLogs
 import br.com.zup.beagle.mockdata.FormInputView
 import br.com.zup.beagle.mockdata.FormInputViewWithoutValidation
 import br.com.zup.beagle.testutil.RandomData
@@ -106,11 +107,14 @@ class FormViewRendererTest {
         )
 
         mockkStatic("br.com.zup.beagle.utils.ViewExtensionsKt")
-        mockkObject(BeagleLogger)
+        mockkObject(BeagleMessageLogs)
 
+        every { BeagleMessageLogs.logFormInputsNotFound(any())} just Runs
+        every { BeagleMessageLogs.logFormSubmitNotFound(any())} just Runs
         every { viewRendererFactory.make(form) } returns viewRenderer
         every { viewRenderer.build(rootView) } returns viewGroup
         every { form.child } returns form
+        every { form.action } returns RandomData.string()
         every { formInput.required } returns false
         every { formInputViewWithoutValidation.hideKeyboard() } just Runs
         every { formInputViewWithoutValidation.context } returns appCompatActivity
@@ -136,6 +140,7 @@ class FormViewRendererTest {
     fun tearDown() {
         unmockkStatic("br.com.zup.beagle.utils.ViewExtensionsKt")
         unmockkObject(BeagleLogger)
+        unmockkObject(BeagleMessageLogs)
     }
 
     @Test
@@ -257,13 +262,13 @@ class FormViewRendererTest {
         every { formInput.required } returns true
         every { validator.isValid(any()) } returns false
         every { viewGroup.getChildAt(0) } returns formInputViewWithoutValidation
-        every { BeagleLogger.warning(any()) } just Runs
+        every { BeagleMessageLogs.logInvalidFormInputState(any()) } just Runs
 
         // When
         executeFormSubmitOnClickListener()
 
         // Then
-        verify(exactly = once()) { BeagleLogger.warning("FormInput with name ${formInput.name} is not valid and does not implement a ValidationErrorListener") }
+        verify(exactly = once()) { BeagleMessageLogs.logInvalidFormInputState(formInput.name) }
         verify(exactly = 0) { formSubmitter.submitForm(any(), any(), any()) }
     }
 

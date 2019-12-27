@@ -1,5 +1,7 @@
 package br.com.zup.beagle.data.deserializer
 
+import br.com.zup.beagle.exception.BeagleException
+import br.com.zup.beagle.logger.BeagleMessageLogs
 import br.com.zup.beagle.action.Action
 import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.NavigationType
@@ -9,8 +11,13 @@ import br.com.zup.beagle.widget.ui.Button
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import io.mockk.MockKAnnotations
+import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.just
+import io.mockk.mockkObject
+import io.mockk.unmockkObject
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
@@ -38,9 +45,17 @@ class BeagleDeserializerTest {
 
         beagleDeserializer = BeagleDeserializer(beagleMoshiFactory)
 
+        mockkObject(BeagleMessageLogs)
+
+        every { BeagleMessageLogs.logDeserializationError(any(), any()) } just Runs
         every { beagleMoshiFactory.make() } returns moshi
         every { moshi.adapter(Widget::class.java) } returns widgetJsonAdapter
         every { moshi.adapter(Action::class.java) } returns actionJsonAdapter
+    }
+
+    @After
+    fun tearDown() {
+        unmockkObject(BeagleMessageLogs)
     }
 
     @Test
@@ -67,7 +82,7 @@ class BeagleDeserializerTest {
         val actual = assertFails{ beagleDeserializer.deserializeWidget(json) }
 
         // Then
-        assertTrue(actual is BeagleDeserializationException)
+        assertTrue(actual is BeagleException)
     }
 
     @Test
@@ -80,7 +95,7 @@ class BeagleDeserializerTest {
         val actual = assertFails { beagleDeserializer.deserializeWidget(RandomData.string()) }
 
         // Then
-        assertTrue(actual is BeagleDeserializationException)
+        assertTrue(actual is BeagleException)
     }
 
     @Test
@@ -107,7 +122,7 @@ class BeagleDeserializerTest {
         val actual = assertFails{ beagleDeserializer.deserializeAction(json) }
 
         // Then
-        assertTrue(actual is BeagleDeserializationException)
+        assertTrue(actual is BeagleException)
     }
 
     @Test
@@ -120,6 +135,6 @@ class BeagleDeserializerTest {
         val actual = assertFails { beagleDeserializer.deserializeAction(RandomData.string()) }
 
         // Then
-        assertTrue(actual is BeagleDeserializationException)
+        assertTrue(actual is BeagleException)
     }
 }
