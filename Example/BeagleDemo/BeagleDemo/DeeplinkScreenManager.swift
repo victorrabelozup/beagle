@@ -34,6 +34,8 @@ final class DeeplinkScreenManager: BeagleDeepLinkScreenManaging {
             throw NSError(domain: "DeeplinkScreenManager", code: 1, userInfo: nil)
         }
         let screen = screenType.init(path: path, data: data)
-        return BeagleScreenViewController(screenType: .declarative(screen.widget))
+        return BeagleScreenViewController(
+            viewModel: .init(screenType: .declarative(screen.widget))
+        )
     }
 }

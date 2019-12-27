@@ -11,7 +11,9 @@ class PageViewRender: ViewRendering<PageView> {
         context: BeagleContext
     ) -> UIView {
         let pages = widget.pages.map {
-            BeagleScreenViewController(screenType: .declarative($0))
+            BeagleScreenViewController(
+                viewModel: .init(screenType: .declarative($0))
+            )
         }
 
         var indicatorView: PageIndicatorUIView?

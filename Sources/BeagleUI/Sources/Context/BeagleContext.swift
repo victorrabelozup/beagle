@@ -45,7 +45,7 @@ extension BeagleScreenViewController: BeagleContext {
             case let .success(widget):
                 self?.update(initialView: initialState, lazyLoaded: widget)
             case let .failure(error):
-                self?.handleError(error)
+                self?.viewModel.handleError(error)
             }
         }
     }
@@ -109,7 +109,7 @@ extension BeagleScreenViewController: BeagleContext {
         case let .success(action):
             dependencies.actionExecutor.doAction(action, sender: sender, context: self)
         case let .failure(error):
-            handleError(error)
+            viewModel.handleError(error)
         }
     }
     
@@ -123,8 +123,8 @@ extension BeagleScreenViewController: BeagleContext {
         } else if !updated {
             replaceView(initialView, with: lazyLoaded)
         }
-        if let widgetView = self.rootWidgetView?.subviews.first {
-            widgetView.frame = (self.rootWidgetView ?? self.view).bounds
+        if let widgetView = self.rootWidgetView.subviews.first {
+            widgetView.frame = self.rootWidgetView.bounds
             dependencies.flex.applyYogaLayout(to: widgetView, preservingOrigin: true)
         }
     }

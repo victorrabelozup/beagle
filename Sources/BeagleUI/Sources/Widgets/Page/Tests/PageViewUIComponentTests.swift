@@ -23,7 +23,9 @@ class PageViewUIComponentTests: XCTestCase {
     ]
 
     private func makeScreen(_ widget: Widget) -> BeagleScreenViewController {
-        BeagleScreenViewController(screenType: .declarative(widget))
+        BeagleScreenViewController(
+            viewModel: .init(screenType: .declarative(widget))
+        )
     }
 
     private lazy var pager = pageView.pageViewController

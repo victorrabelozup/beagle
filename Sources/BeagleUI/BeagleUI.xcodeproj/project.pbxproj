@@ -161,6 +161,8 @@
 		C85D9BA1238701E60075B6C0 /* PageViewUIComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85D9BA0238701E60075B6C0 /* PageViewUIComponent.swift */; };
 		C85D9BA8238858B40075B6C0 /* PageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85D9BA7238858B40075B6C0 /* PageViewTests.swift */; };
 		C85D9BAA2388596A0075B6C0 /* PageViewWith3Pages.json in Resources */ = {isa = PBXBuildFile; fileRef = C85D9BA92388596A0075B6C0 /* PageViewWith3Pages.json */; };
+		C8605F6A23B5423100FD4C4F /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8605F6923B5423100FD4C4F /* KeyboardManager.swift */; };
+		C862606223B504850084A086 /* BeagleScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C862606123B504850084A086 /* BeagleScreenViewModel.swift */; };
 		C86D0CC323B25AE3009CE0EB /* LoadingViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B052BD23706395008EB9BE /* LoadingViewTests.swift */; };
 		C86D0CC523B25B1A009CE0EB /* NetworkingErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B9745D23A287A800B0D1CF /* NetworkingErrorTests.swift */; };
 		C86D0CC723B28195009CE0EB /* DefaultURLRequestBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B9746423A287A800B0D1CF /* DefaultURLRequestBuilderTests.swift */; };
@@ -443,6 +445,8 @@
 		C85D9BA7238858B40075B6C0 /* PageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewTests.swift; sourceTree = "<group>"; };
 		C85D9BA92388596A0075B6C0 /* PageViewWith3Pages.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PageViewWith3Pages.json; sourceTree = "<group>"; };
 		C85EDE1423A2C1F2002F190F /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
+		C8605F6923B5423100FD4C4F /* KeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
+		C862606123B504850084A086 /* BeagleScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleScreenViewModel.swift; sourceTree = "<group>"; };
 		C86E7C1423954E2700D6FEDB /* PageViewInvalid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PageViewInvalid.json; sourceTree = "<group>"; };
 		C86E7C162395602400D6FEDB /* WidgetFromJsonFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WidgetFromJsonFile.swift; path = Sources/Common/Util/Tests/WidgetFromJsonFile.swift; sourceTree = SOURCE_ROOT; };
 		C86F892523B28FAE00287D5D /* ImageEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEntity.swift; sourceTree = "<group>"; };
@@ -1006,6 +1010,8 @@
 			children = (
 				E73107BB23A971B000188B3D /* BeaglePrefetchHelper.swift */,
 				E5CB5D64234E7CF6009783A7 /* BeagleScreenViewController.swift */,
+				C862606123B504850084A086 /* BeagleScreenViewModel.swift */,
+				C8605F6923B5423100FD4C4F /* KeyboardManager.swift */,
 				E5DD468A234CCEEB004B7289 /* UnknownWidgetViewRenderer.swift */,
 				E56A02E12347B6ED00C0F23D /* ViewRenderer.swift */,
 				C829CEA823B15C8D001B7225 /* Provider */,
@@ -1695,11 +1701,13 @@
 				C86F893A23B28FAE00287D5D /* NetworkImageWidgetViewRenderer.swift in Sources */,
 				E5223783237C3CAF00E555BB /* FormInput.swift in Sources */,
 				9397F5D02357615F00054D42 /* FlexViewConfigurator.swift in Sources */,
+				C862606223B504850084A086 /* BeagleScreenViewModel.swift in Sources */,
 				A068234923833C0B00CEE57A /* FormSubmitWidgetViewRenderer.swift in Sources */,
 				9368180D232A889900E6E724 /* Stack.swift in Sources */,
 				9317CBB523872E170015B4CB /* WidgetEntity.swift in Sources */,
 				E5CE41A72331D93F00295277 /* ContainerEntity.swift in Sources */,
 				E5A6F4C52358ED7D008906F8 /* SpacerWidgetViewRenderer.swift in Sources */,
+				C8605F6A23B5423100FD4C4F /* KeyboardManager.swift in Sources */,
 				E5CE41C223325E2100295277 /* FlexEntity.swift in Sources */,
 				E56A02E22347B6ED00C0F23D /* ViewRenderer.swift in Sources */,
 				A0642DCF23969BDE0028AFF3 /* OnStateUpdatable.swift in Sources */,

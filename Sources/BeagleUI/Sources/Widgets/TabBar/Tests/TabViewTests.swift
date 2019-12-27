@@ -33,7 +33,9 @@ final class TabViewTests: XCTestCase {
             }
         ])
         
-        let screen = BeagleScreenViewController(screenType: .declarative(tabView))
+        let screen = BeagleScreenViewController(
+            viewModel: .init(screenType: .declarative(tabView))
+        )
         assertSnapshot(matching: screen, as: .image)
     }
     

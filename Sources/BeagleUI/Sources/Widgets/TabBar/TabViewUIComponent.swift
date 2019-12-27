@@ -51,7 +51,9 @@ final class TabViewUIComponent: UIView {
     
     lazy var contentView: PageViewUIComponent = {
         let pages = model.tabViewItems.map {
-            BeagleScreenViewController(screenType: .declarative($0.content))
+            BeagleScreenViewController(
+                viewModel: .init(screenType: .declarative($0.content))
+            )
         }
         
         let view = PageViewUIComponent(model: .init(pages: pages), indicatorView: nil)

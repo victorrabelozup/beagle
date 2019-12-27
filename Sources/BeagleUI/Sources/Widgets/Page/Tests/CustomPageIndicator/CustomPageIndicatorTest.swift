@@ -81,10 +81,10 @@ class CustomPageIndicatorTest: XCTestCase {
             pageIndicator: indicator
         )
 
-        let screen = BeagleScreenViewController(
+        let screen = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(widget),
             dependencies: dependencies
-        )
+        ))
 
         assertSnapshot(matching: screen, as: .image)
     }

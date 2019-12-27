@@ -176,11 +176,11 @@ final class BeagleNavigatorTests: XCTestCase {
         XCTAssertTrue(navigationSpy.presentViewControllerCalled)
     }
 
-    private func beagleViewController(screen: BeagleScreenViewController.ScreenType) -> BeagleScreenViewController {
-        return BeagleScreenViewController(
+    private func beagleViewController(screen: BeagleScreenViewModel.ScreenType) -> BeagleScreenViewController {
+        return BeagleScreenViewController(viewModel: .init(
             screenType: screen,
             dependencies: ScreenViewControllerDependencies()
-        )
+        ))
     }
 }
 

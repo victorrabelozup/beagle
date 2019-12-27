@@ -15,10 +15,10 @@ final class BeagleContextTests: XCTestCase {
     func test_screenController_shouldBeBeagleScreenViewController() {
         // Given
         let widget = SimpleWidget()
-        let sut: BeagleContext = BeagleScreenViewController(
+        let sut: BeagleContext = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(widget.content),
             dependencies: ScreenViewControllerDependencies()
-        )
+        ))
         
         // Then
         XCTAssertTrue(sut.screenController is BeagleScreenViewController)
@@ -27,10 +27,10 @@ final class BeagleContextTests: XCTestCase {
     func test_registerAction_shouldAddGestureRecognizer() {
         // Given
         let widget = SimpleWidget()
-        let sut = BeagleScreenViewController(
+        let sut = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(widget.content),
             dependencies: ScreenViewControllerDependencies()
-        )
+        ))
         let view = UILabel()
         let action = Navigate(type: .popView)
         
@@ -47,12 +47,12 @@ final class BeagleContextTests: XCTestCase {
         let widget = SimpleWidget()
         let actionExecutorSpy = ActionExecutorSpy()
 
-        let controller = BeagleScreenViewController(
+        let controller = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(widget.content),
             dependencies: ScreenViewControllerDependencies(
                 actionExecutor: actionExecutorSpy
             )
-        )
+        ))
         
         let navigationController = UINavigationController(rootViewController: controller)
         guard let sut = navigationController.viewControllers.first as? BeagleScreenViewController else {
@@ -79,10 +79,10 @@ final class BeagleContextTests: XCTestCase {
     func test_registerForm_shouldAddGestureRecognizer() {
         // Given
         let widget = SimpleWidget()
-        let sut = BeagleScreenViewController(
+        let sut = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(widget.content),
             dependencies: ScreenViewControllerDependencies()
-        )
+        ))
         let form = Form(action: "action", method: .put, child: WidgetDummy())
         let formView = UIView()
         let submitView = UILabel()
@@ -98,10 +98,10 @@ final class BeagleContextTests: XCTestCase {
     func test_formSubmit_shouldValidateInputs() {
         // Given
         let widget = SimpleWidget()
-        let sut = BeagleScreenViewController(
+        let sut = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(widget.content),
             dependencies: ScreenViewControllerDependencies()
-        )
+        ))
         
         let form = Form(action: "submit", method: .post, child: WidgetDummy())
 
@@ -162,13 +162,13 @@ final class BeagleContextTests: XCTestCase {
             submitFormResult: .success(CustomAction(name: "custom", data: [:]))
         )
 
-        let sut = BeagleScreenViewController(
+        let sut = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(widget.content),
             dependencies: ScreenViewControllerDependencies(
                 actionExecutor: actionExecutorSpy,
                 remoteConnector: screenLoaderStub
             )
-        )
+        ))
         
         let form = Form(action: "submit", method: .post, child: WidgetDummy())
         let validInput = FormInput(name: "name", child: WidgetDummy())
@@ -196,13 +196,13 @@ final class BeagleContextTests: XCTestCase {
         let screenLoaderStub = RemoteConnectorStub(
             submitFormResult: .failure(.invalidEntity)
         )
-        let sut = BeagleScreenViewController(
+        let sut = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(widget.content),
             dependencies: ScreenViewControllerDependencies(
                 actionExecutor: actionExecutorSpy,
                 remoteConnector: screenLoaderStub
             )
-        )
+        ))
         
         let form = Form(action: "delete", method: .delete, child: WidgetDummy())
         let formView = UIView()
@@ -226,10 +226,10 @@ final class BeagleContextTests: XCTestCase {
             loadWidgetResult: .success(SimpleWidget().content)
         )
 
-        let sut = BeagleScreenViewController(
+        let sut = BeagleScreenViewController(viewModel: .init(
             screenType: .remote(""),
             dependencies: dependencies
-        )
+        ))
 
         assertSnapshot(matching: sut, as: .image)
     }
@@ -239,12 +239,12 @@ final class BeagleContextTests: XCTestCase {
         let initialView = OnStateUpdatableViewSpy()
         initialView.yoga.isEnabled = true
         let screenLoader = RemoteConnectorStub(loadWidgetResult: .success(WidgetDummy()))
-        let sut = BeagleScreenViewController(
+        let sut = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(WidgetDummy()),
             dependencies: ScreenViewControllerDependencies(
                 remoteConnector: screenLoader
             )
-        )
+        ))
         sut.view.addSubview(initialView)
         
         // When

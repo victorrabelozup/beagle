@@ -1,9 +1,5 @@
 //
-//  BeagleNavigator.swift
-//  BeagleUI
-//
-//  Created by Lucas Araújo on 04/11/19.
-//  Copyright © 2019 Zup IT. All rights reserved.
+//  Copyright © 04/11/19 Zup IT. All rights reserved.
 //
 
 import UIKit
@@ -80,20 +76,29 @@ class BeagleNavigator: BeagleNavigation {
     }
     
     private func popToView(url: String, source: UIViewController, animated: Bool) {
-        let viewControllers = source.navigationController?.viewControllers
-        
-        let targetViewController = viewControllers?.last {
-            guard let screenType = ($0 as? BeagleScreenViewController)?.screenType else {
-                return false
-            }
-            if case let .remote(screenURL) = screenType {
-                return screenURL == url
-            }
-            return false
+        guard let viewControllers = source.navigationController?.viewControllers else {
+            assertionFailure("Trying to pop when there is nothing to pop"); return
         }
-        if let targetViewController = targetViewController {
-            source.navigationController?.popToViewController(targetViewController, animated: animated)
+
+        let last = viewControllers.last {
+            isViewController($0, identifiedBy: url)
         }
+
+        guard let target = last else { return }
+
+        source.navigationController?.popToViewController(target, animated: animated)
+    }
+
+    private func isViewController(
+        _ viewController: UIViewController,
+        identifiedBy url: String
+    ) -> Bool {
+        guard
+            let screen = viewController as? BeagleScreenViewController,
+            case .remote(let screenUrl) = screen.viewModel.screenType
+        else { return false }
+
+        return screenUrl == url
     }
     
     private func swapView(url: String, context: BeagleContext, animated: Bool) {

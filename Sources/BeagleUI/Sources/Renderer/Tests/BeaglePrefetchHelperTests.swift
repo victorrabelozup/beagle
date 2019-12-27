@@ -37,7 +37,7 @@ final class BeaglePrefetchHelperTests: XCTestCase {
         sut.prefetchWidget(path: url)
         let result = sut.dequeueWidget(path: url)
 
-        switch result.screenType {
+        switch result.viewModel.screenType {
         case .remote(let path):
             XCTAssert(path == url)
         case .declarative:

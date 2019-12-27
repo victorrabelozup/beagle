@@ -18,15 +18,20 @@ public class BeaglePreFetchHelper: BeaglePrefetchHelping {
     private var screens = [String: BeagleScreenViewController]()
     
     public func prefetchWidget(path: String) {
-        if screens[path] == nil {
-            screens[path] = BeagleScreenViewController(screenType: .remote(path))
-        }
+        guard screens[path] == nil else { return }
+
+        screens[path] = BeagleScreenViewController(
+            viewModel: .init(screenType: .remote(path))
+        )
     }
     
     public func dequeueWidget(path: String) -> BeagleScreenViewController {
-        guard let screen = screens[path] else {
-            return BeagleScreenViewController(screenType: .remote(path))
+        if let screen = screens[path] {
+            return screen
+        } else {
+            return BeagleScreenViewController(
+                viewModel: .init(screenType:.remote(path))
+            )
         }
-        return screen
     }
 }

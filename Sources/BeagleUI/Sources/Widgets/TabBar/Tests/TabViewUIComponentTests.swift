@@ -33,7 +33,9 @@ final class TabViewUIComponentTests: XCTestCase {
     private lazy var sut = TabViewUIComponent(model: model)
 
     private func makeScreen(_ widget: Widget) -> BeagleScreenViewController {
-        BeagleScreenViewController(screenType: .declarative(widget))
+        BeagleScreenViewController(
+            viewModel: .init(screenType: .declarative(widget))
+        )
     }
 
     // MARK: - Unit testing Functions
