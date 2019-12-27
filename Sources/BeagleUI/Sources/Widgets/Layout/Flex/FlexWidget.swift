@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct FlexWidget: NativeWidget {
+public struct FlexWidget: Widget {
     
     // MARK: - Public Properties
     

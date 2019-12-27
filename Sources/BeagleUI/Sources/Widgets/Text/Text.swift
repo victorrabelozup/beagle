@@ -8,7 +8,7 @@
 
 import UIKit
 
-public struct Text: NativeWidget {
+public struct Text: Widget {
     
     // MARK: - Public Properties
     

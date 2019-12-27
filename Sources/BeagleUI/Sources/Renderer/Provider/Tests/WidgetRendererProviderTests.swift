@@ -40,7 +40,7 @@ final class WidgetRendererProviderTests: XCTestCase {
 
 // MARK: - Testing Helpers
 
-struct WidgetDummy: NativeWidget {}
+struct WidgetDummy: Widget {}
 
 private class CustomRendererProviderStub: CustomWidgetsRendererProvider {
 

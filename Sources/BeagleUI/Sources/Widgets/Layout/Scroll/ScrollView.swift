@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ScrollView: NativeWidget {
+public struct ScrollView: Widget {
     
     // MARK: - Public Properties
     

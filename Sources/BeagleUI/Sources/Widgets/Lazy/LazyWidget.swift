@@ -6,7 +6,7 @@
 //  Copyright © 2019 Zup IT. All rights reserved.
 //
 
- public struct LazyWidget: NativeWidget {
+ public struct LazyWidget: Widget {
     
     // MARK: - Public Properties
     

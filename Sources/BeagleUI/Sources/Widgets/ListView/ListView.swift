@@ -8,7 +8,7 @@
 
 import UIKit
 
-public struct ListView: NativeWidget {
+public struct ListView: Widget {
     
     // MARK: - Public Properties
     

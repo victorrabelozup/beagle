@@ -1,29 +1,16 @@
 //
-//  Widget.swift
-//  BeagleUI
-//
-//  Created by Daniel Tes on 12/09/19.
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
-/// Defines some component that can be rendered on a Screen
-public protocol Widget {
-    func build() throws -> Widget
-}
+public protocol Widget {}
 
-/// Defines some component that can be rendered on a Screen
-public protocol NativeWidget: Widget {}
-extension NativeWidget {
-    public func build() throws -> Widget {
-        throw unbuildableWidgetError
-    }
+public protocol ComposeWidget: Widget {
+    func build() -> Widget
 }
 
 extension Widget {
-
     func toView(
         context: BeagleContext,
         dependencies: ViewRenderer.Dependencies
@@ -34,23 +21,7 @@ extension Widget {
     }
 }
 
-private let unbuildableWidgetError = NSError(
-    domain: "Widget",
-    code: -1,
-    description: "NativeWidgets don't need to be built!"
-)
-
 // Defines a representation of an unknwon Widget
 struct AnyWidget: Widget {
-    
     let value: Any
-    
-    func build() throws -> Widget {
-        guard let buildable = value as? Widget else {
-            throw unbuildableWidgetError
-        }
-        
-        return try buildable.build()
-    }
-    
 }

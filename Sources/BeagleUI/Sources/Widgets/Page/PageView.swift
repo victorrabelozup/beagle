@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-public struct PageView: NativeWidget {
+public struct PageView: Widget {
 
     public let pages: [Widget]
     public let pageIndicator: PageIndicator?
@@ -19,5 +19,4 @@ public struct PageView: NativeWidget {
     }
 }
 
-public protocol PageIndicator: NativeWidget {
-}
+public protocol PageIndicator: Widget {}

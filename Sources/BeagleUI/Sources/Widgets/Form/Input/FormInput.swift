@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct FormInput: NativeWidget {
+public struct FormInput: Widget {
     
     public let name: String
     public let required: Bool?

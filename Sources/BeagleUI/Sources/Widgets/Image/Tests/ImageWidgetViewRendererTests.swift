@@ -42,4 +42,4 @@ final class ImageWidgetViewRendererTests: XCTestCase {
     }
 }
 
-private struct UnknownWidget: NativeWidget { }
+private struct UnknownWidget: Widget {}

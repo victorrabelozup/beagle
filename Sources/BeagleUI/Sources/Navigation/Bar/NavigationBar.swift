@@ -6,7 +6,7 @@
 //  Copyright © 2019 Zup IT. All rights reserved.
 //
 
-public struct NavigationBar: NativeWidget {
+public struct NavigationBar: Widget {
     
     // MARK: - Public Properties
     

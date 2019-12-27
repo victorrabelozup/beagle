@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Form: NativeWidget {
+public struct Form: Widget {
     
     // MARK: - Public Properties
     

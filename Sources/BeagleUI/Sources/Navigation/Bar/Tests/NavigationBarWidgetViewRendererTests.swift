@@ -66,4 +66,4 @@ final class NavigationBarWidgetViewRendererTests: XCTestCase {
     
 }
 
-private struct UnknownWidget: NativeWidget { }
+private struct UnknownWidget: Widget { }

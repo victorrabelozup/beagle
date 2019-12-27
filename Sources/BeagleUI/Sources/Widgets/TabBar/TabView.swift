@@ -6,7 +6,7 @@
 //  Copyright © 2019 Zup IT. All rights reserved.
 //
 
-public struct TabItem: NativeWidget {
+public struct TabItem: Widget {
     public let icon: String?
     public let title: String?
     public let content: Widget
@@ -31,7 +31,7 @@ public struct TabItem: NativeWidget {
     }
 }
 
-public struct TabView: NativeWidget {
+public struct TabView: Widget {
     public let tabItems: [TabItem]
     
     public init(

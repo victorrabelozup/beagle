@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct Padding: NativeWidget {
+public struct Padding: Widget {
     
     // MARK: - Public Properties
     
