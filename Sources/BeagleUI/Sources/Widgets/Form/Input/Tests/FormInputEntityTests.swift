@@ -18,6 +18,7 @@ final class InputWidgetEntityTests: XCTestCase {
             name: "",
             required: false,
             validator: "coisa",
+            errorMessage: nil,
             child: child
         )
         

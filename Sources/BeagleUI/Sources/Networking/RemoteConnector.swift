@@ -106,6 +106,7 @@ public final class RemoteConnecting: RemoteConnector {
         case .post, .put, .patch:
             request.parameters = .body(values)
         }
+        request.headers = ["Content-Type": "application/json"]
         dependencies.networkDispatcher.execute(request: request) { [weak self] in
             switch $0 {
             case let .success(data):

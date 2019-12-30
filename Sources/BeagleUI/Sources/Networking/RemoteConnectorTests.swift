@@ -210,6 +210,8 @@ final class RemoteConnectorTests: XCTestCase {
         for method in urlParamMethods {
             sut.submitForm(action: url, method: method, values: values) { _ in
             }
+            let contentType = dispatcherSpy.executedRequest?.headers?["Content-Type"]
+            XCTAssertEqual(contentType, "application/json")
             guard let parameters = dispatcherSpy.executedRequest?.parameters else {
                 XCTFail("Parameters form method \(method) should not be nil")
                 return

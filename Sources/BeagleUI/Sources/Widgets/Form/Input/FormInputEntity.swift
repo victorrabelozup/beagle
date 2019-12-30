@@ -9,8 +9,9 @@
 struct FormInputEntity: WidgetConvertibleEntity {
     
     let name: String
-    var required: Bool?
-    var validator: String?
+    let required: Bool?
+    let validator: String?
+    let errorMessage: String?
     let child: AnyDecodableContainer
     
     func mapToWidget() throws -> Widget {
@@ -20,6 +21,7 @@ struct FormInputEntity: WidgetConvertibleEntity {
             name: name,
             required: required,
             validator: validator,
+            errorMessage: errorMessage,
             child: child
         )
     }

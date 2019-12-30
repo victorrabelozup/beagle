@@ -11,7 +11,7 @@ final class NetworkImageWidgetViewRenderer: ViewRendering<NetworkImage> {
     
     override func buildView(context: BeagleContext) -> UIView {
         let imageView = NetworkUIImageView(imageDataProvider: imageDataProvider, url: widget.url)
-        imageView.contentMode = widget.contentMode.toUIKit()
+        imageView.contentMode = (widget.contentMode ?? .fitCenter).toUIKit()
         let flex = Flex(size: .init(width: 100%, height: 100%))
         self.flex.setupFlex(flex, for: imageView)
         return imageView

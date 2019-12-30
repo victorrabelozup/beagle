@@ -12,7 +12,7 @@ final class ImageWidgetViewRenderer: ViewRendering<Image> {
     
     override func buildView(context: BeagleContext) -> UIView {
         let image = UIImageView(frame: .zero)
-        image.contentMode = widget.contentMode.toUIKit()
+        image.contentMode = (widget.contentMode ?? .fitCenter).toUIKit()
         image.setImageFromAsset(named: widget.name)
         self.flex.enableYoga(true, for: image)
         return image

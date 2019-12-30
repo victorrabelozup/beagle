@@ -1,9 +1,5 @@
 //
-//  Image.swift
-//  BeagleUI
-//
-//  Created by Daniel Tes on 12/09/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 public struct Image: Widget {
@@ -11,13 +7,13 @@ public struct Image: Widget {
     // MARK: - Public Properties
     
     public let name: String
-    public let contentMode: ImageContentMode
+    public let contentMode: ImageContentMode?
     
     // MARK: - Initialization
     
     public init(
         name: String,
-        contentMode: ImageContentMode = .fitCenter
+        contentMode: ImageContentMode? = nil
     ) {
         self.name = name
         self.contentMode = contentMode
