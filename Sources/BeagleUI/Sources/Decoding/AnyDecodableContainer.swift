@@ -3,7 +3,7 @@
 //
 
 /// Defines a container to hold any registered Decodable type
-struct AnyDecodableContainer {
+public struct AnyDecodableContainer {
     let content: Decodable
 }
 
@@ -14,7 +14,7 @@ extension AnyDecodableContainer: Decodable {
         case type = "_beagleType_"
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let type = try container.decode(String.self, forKey: .type)
 
