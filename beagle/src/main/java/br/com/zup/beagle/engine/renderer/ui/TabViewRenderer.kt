@@ -1,6 +1,8 @@
 package br.com.zup.beagle.engine.renderer.ui
 
 import android.content.Context
+import android.content.res.Resources
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -9,6 +11,7 @@ import androidx.viewpager.widget.ViewPager
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.UIViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
+import br.com.zup.beagle.logger.BeagleMessageLogs
 import br.com.zup.beagle.utils.dp
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
@@ -61,16 +64,20 @@ internal class TabViewRenderer(
             addTab(newTab().apply {
                 text = tabView.tabItems[i].title
                 tabView.tabItems[i].icon?.let {
-                    icon = context.resources.getDrawable(
-                        context.resources.getIdentifier(
-                            tabView.tabItems[i].icon,
-                            DEFTYPE_DRAWABLE,
-                            context.packageName
-                        )
-                    )
+                    try {
+                        icon = getIconFromResources(context, it)
+                    } catch (e: Resources.NotFoundException) {
+                        BeagleMessageLogs.logIconResourceNotFound(it, e)
+                    }
                 }
             })
         }
+    }
+
+    private fun getIconFromResources(context: Context, icon: String): Drawable {
+        return context.resources.getDrawable(
+            context.resources.getIdentifier(icon, DEFTYPE_DRAWABLE, context.packageName)
+        )
     }
 
     private fun getTabSelectedListener(viewPager: ViewPager): TabLayout.OnTabSelectedListener {

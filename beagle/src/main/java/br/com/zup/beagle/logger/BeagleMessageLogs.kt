@@ -64,4 +64,8 @@ internal object BeagleMessageLogs {
         BeagleLogger.warning("Are you missing to declare your FormSubmit widget for " +
                 "form action '$formActionName'?")
     }
+
+    fun logIconResourceNotFound(inputName: String, ex: Exception) {
+        BeagleLogger.error("Resource with name $inputName not found", ex)
+    }
 }
