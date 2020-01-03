@@ -1,5 +1,6 @@
 package br.com.zup.beagle.engine.renderer.layout
 
+import android.graphics.Color
 import android.view.View
 import br.com.zup.beagle.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagle.engine.renderer.RootView
@@ -16,8 +17,14 @@ internal class FlexSingleWidgetViewRenderer(
 
     override fun build(rootView: RootView): View {
         val flex = flexSingleWidget.flex ?: Flex()
-        return viewFactory.makeBeagleFlexView(rootView.getContext(), flex).apply {
+        return viewFactory.makeBeagleFlexView(
+            rootView.getContext(),
+            flex
+        ).apply {
             addView(viewRendererFactory.make(flexSingleWidget.child).build(rootView), flex)
+            flexSingleWidget.appearance?.backgroundColor?.let {
+                setBackgroundColor(Color.parseColor(it))
+            }
         }
     }
 }

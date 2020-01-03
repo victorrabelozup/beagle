@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import br.com.zup.beagle.sample.activities.NavigationBarActivity
 import br.com.zup.beagle.sample.fragment.DynamicStatefulFragment
+import br.com.zup.beagle.sample.fragment.FlexSingleWidgetFragment
 import br.com.zup.beagle.sample.fragment.ImageViewFragment
 import br.com.zup.beagle.sample.fragment.LazyWidgetFragment
 import br.com.zup.beagle.sample.fragment.NavigationFragment
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity() {
             R.id.navigationBar -> startActivity(NavigationBarActivity.newIntent(this))
             R.id.stateful_dynamic -> goToFragment(DynamicStatefulFragment.newInstance())
             R.id.navigationFragment -> goToFragment(NavigationFragment.newInstance())
+            R.id.flexSingleWidget -> goToFragment(FlexSingleWidgetFragment.newInstance())
             R.id.navigation -> startActivity(
                 BeagleUIActivity.newIntent(
                     this,

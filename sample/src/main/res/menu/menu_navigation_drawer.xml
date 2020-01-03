@@ -86,5 +86,11 @@
             android:icon="@mipmap/ic_launcher"
             android:title="Form"
             tools:ignore="HardcodedText" />
+
+        <item
+            android:id="@+id/flexSingleWidget"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Flex Single Widget"
+            tools:ignore="HardcodedText" />
     </group>
 </menu>
