@@ -4,7 +4,7 @@
 
 /// Defines a container to hold any registered Decodable type
 public struct AnyDecodableContainer {
-    let content: Decodable
+    public let content: Decodable
 }
 
 // MARK: - Decodable

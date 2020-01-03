@@ -22,6 +22,10 @@ extension Widget {
 }
 
 // Defines a representation of an unknwon Widget
-struct AnyWidget: Widget {
-    let value: Any
+public struct AnyWidget: Widget {
+    public let value: Any
+    
+    public init(value: Any) {
+        self.value = value
+    }
 }
