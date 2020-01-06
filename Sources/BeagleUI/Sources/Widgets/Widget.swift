@@ -10,7 +10,7 @@ public protocol ComposeWidget: Widget {
     func build() -> Widget
 }
 
-extension Widget {
+public extension Widget {
     func toView(
         context: BeagleContext,
         dependencies: ViewRenderer.Dependencies
