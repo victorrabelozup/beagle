@@ -1,8 +1,6 @@
 package br.com.zup.beagle.sample
 
 import android.app.Application
-import android.util.TypedValue
-import br.com.zup.beagle.setup.ButtonStyle
 import br.com.zup.beagle.setup.DesignSystem
 
 class AppDesignSystem(
@@ -24,27 +22,11 @@ class AppDesignSystem(
         }
     }
 
-    override fun buttonStyle(name: String): ButtonStyle {
+    override fun buttonStyle(name: String): Int {
         return when (name) {
-            "DesignSystem.Button.White" -> ButtonStyle(
-                textAppearance = R.style.DesignSystem_Button_White,
-                background = R.drawable.bg_white_button
-            )
-            "DesignSystem.Button.Text" -> ButtonStyle(
-                textAppearance = R.style.DesignSystem_Button_Text,
-                background = with(TypedValue()) {
-                    context.theme.resolveAttribute(
-                        android.R.attr.selectableItemBackground,
-                        this,
-                        true
-                    )
-                    resourceId
-                }
-            )
-            else -> ButtonStyle(
-                textAppearance = R.style.DesignSystem_Button_Default,
-                background = R.drawable.bg_gradient_button
-            )
+            "DesignSystem.Button.White" -> R.style.DesignSystem_Button_White
+            "DesignSystem.Button.Text" -> R.style.DesignSystem_Button_Text
+            else -> R.style.DesignSystem_Button_Default
         }
     }
 }

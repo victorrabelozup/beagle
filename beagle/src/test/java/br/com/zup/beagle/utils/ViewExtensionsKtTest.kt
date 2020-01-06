@@ -1,6 +1,8 @@
 package br.com.zup.beagle.utils
 
 import android.app.Activity
+import android.content.res.TypedArray
+import android.graphics.drawable.Drawable
 import android.os.IBinder
 import android.view.Gravity
 import android.view.View
@@ -15,7 +17,6 @@ import br.com.zup.beagle.engine.renderer.ActivityRootView
 import br.com.zup.beagle.engine.renderer.FragmentRootView
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.setup.BeagleEnvironment
-import br.com.zup.beagle.setup.ButtonStyle
 import br.com.zup.beagle.setup.DesignSystem
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.view.BeagleButtonView
@@ -75,11 +76,11 @@ class ViewExtensionsKtTest {
     @MockK
     private lateinit var beagleButton: BeagleButtonView
     @MockK
-    private lateinit var buttonStyle: ButtonStyle
-    @MockK
     private lateinit var imageView: ImageView
     @MockK
     private lateinit var viewMapper: ViewMapper
+    @MockK(relaxed = true)
+    private lateinit var typedArray: TypedArray
 
     private val textValueSlot = slot<String>()
     private val viewSlot = slot<View>()
@@ -102,17 +103,18 @@ class ViewExtensionsKtTest {
         every { activity.getSystemService(Activity.INPUT_METHOD_SERVICE) } returns inputMethodManager
         every { BeagleEnvironment.designSystem } returns designSystem
         every { designSystem.textAppearance(any()) } returns STYLE_RES
-        every { designSystem.buttonStyle(any()) } returns buttonStyle
+        every { designSystem.buttonStyle(any()) } returns STYLE_RES
         every { designSystem.image(any()) } returns IMAGE_RES
         every { beagleTextView.text = capture(textValueSlot) } just Runs
         every { beagleTextView.gravity = capture(textAlignment) } just Runs
         every { beagleButton.text = capture(textValueSlot) } just Runs
         every { beagleButton.setBackgroundResource(any()) } just Runs
-        every { buttonStyle.background } returns STYLE_RES
-        every { buttonStyle.textAppearance } returns STYLE_RES
         every { TextViewCompat.setTextAppearance(any(), any()) } just Runs
         every { imageView.scaleType = any() } just Runs
         every { imageView.setImageResource(any()) } just Runs
+        every { beagleButton.context } returns activity
+        every { beagleButton.setBackground(any()) } just Runs
+        every { activity.obtainStyledAttributes(any<Int>(), any()) } returns typedArray
     }
 
     @After
@@ -305,7 +307,7 @@ class ViewExtensionsKtTest {
 
         // Then
         assertEquals(textValue, textValueSlot.captured)
-        verify(exactly = 1) { beagleButton.setBackgroundResource(STYLE_RES) }
+        verify(exactly = 1) { beagleButton.setBackground(typedArray.getDrawable(STYLE_RES)) }
         verify(exactly = 1) { TextViewCompat.setTextAppearance(beagleButton, STYLE_RES) }
     }
 

@@ -12,6 +12,7 @@ import androidx.core.view.size
 import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import br.com.zup.beagle.R
 import br.com.zup.beagle.data.BeagleViewModel
 import br.com.zup.beagle.engine.mapper.ViewMapper
 import br.com.zup.beagle.engine.renderer.ActivityRootView
@@ -88,8 +89,10 @@ internal fun BeagleButtonView.setData(widget: Button) {
     val designSystem = BeagleEnvironment.designSystem
     if (designSystem != null) {
         val buttonStyle = designSystem.buttonStyle(style)
-        setBackgroundResource(buttonStyle.background)
-        TextViewCompat.setTextAppearance(this, buttonStyle.textAppearance)
+        val typedArray = context.obtainStyledAttributes(buttonStyle, R.styleable.BeagleButtonStyle)
+        setBackground(typedArray.getDrawable(R.styleable.BeagleButtonStyle_android_background))
+        typedArray.recycle()
+        TextViewCompat.setTextAppearance(this, buttonStyle)
     }
 }
 

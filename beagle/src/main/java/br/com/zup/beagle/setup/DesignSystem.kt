@@ -7,10 +7,5 @@ interface DesignSystem {
     @DrawableRes fun image(name: String): Int
     @StyleRes fun theme(): Int
     @StyleRes fun textAppearance(name: String): Int
-    fun buttonStyle(name: String): ButtonStyle
+    @StyleRes fun buttonStyle(name: String): Int
 }
-
-data class ButtonStyle(
-    @field:StyleRes val textAppearance: Int,
-    @field:StyleRes val background: Int
-)
