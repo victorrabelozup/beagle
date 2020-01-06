@@ -9,4 +9,4 @@ data class FlexSingleWidget(
     val flex: Flex? = null,
     val child: Widget,
     override val appearance: Appearance? = null
-) : AppearanceWidget
+) : Widget, AppearanceWidget

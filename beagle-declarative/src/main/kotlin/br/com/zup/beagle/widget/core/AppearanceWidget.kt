@@ -1,5 +1,5 @@
 package br.com.zup.beagle.widget.core
 
-interface AppearanceWidget : Widget {
+interface AppearanceWidget {
     val appearance: Appearance?
 }
