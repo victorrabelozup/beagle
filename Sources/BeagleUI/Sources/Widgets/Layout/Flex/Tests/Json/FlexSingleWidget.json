@@ -1,0 +1,38 @@
+{
+  "_beagleType_": "beagle:widget:FlexSingleWidget",
+  "appearance": {
+    "backgroundColor": "#00FFFF"
+  },
+  "child": {
+    "_beagleType_": "beagle:widget:FlexSingleWidget",
+    "appearance": {
+      "backgroundColor": "#00FF00"
+    },
+    "child": {
+      "_beagleType_": "beagle:widget:Text",
+      "text": "My Flex Single Widget"
+    },
+    "flex": {
+      "margin": {
+        "all": {
+          "value": 10,
+          "type": "REAL"
+        }
+      }
+    }
+  },
+  "flex": {
+    "margin": {
+      "all": {
+        "value": 10,
+        "type": "REAL"
+      }
+    },
+    "padding": {
+      "all": {
+        "value": 20,
+        "type": "REAL"
+      }
+    }
+  }
+}

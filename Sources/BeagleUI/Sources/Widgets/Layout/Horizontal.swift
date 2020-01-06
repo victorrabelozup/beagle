@@ -6,42 +6,48 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct Horizontal: Widget {
+public struct Horizontal: Widget, HasAppearance {
     
     // MARK: - Public Properties
     
+    public let appearance: Appearance?
     public let children: [Widget]
     public let reversed: Bool
     
     // MARK: - Initialization
     
     init(
+        appearance: Appearance? = nil,
         children: [Widget] = [],
         reversed: Bool = false
     ) {
+        self.appearance = appearance
         self.children = children
         self.reversed = reversed
     }
     
     public init(
+        appearance: Appearance? = nil,
         @WidgetBuilder _ childBuilder: () -> Widget
     ) {
         let singleChild = childBuilder()
-        self.init(children: [singleChild])
+        self.init(appearance: appearance, children: [singleChild])
     }
     
     public static func new(
+        appearance: Appearance? = nil,
         closure: () -> Widget
     ) -> Horizontal {
         let singleChild = closure()
-        return .init(children: [singleChild])
+        return .init(appearance: appearance, children: [singleChild])
     }
     
     public init(
+        appearance: Appearance? = nil,
         @WidgetArrayBuilder _ childrenBuilder: () -> [Widget]
     ) {
         let children = childrenBuilder()
-        self.init(children: children)
+        self.init(appearance: appearance, children: children)
     }
     
     public static func new(

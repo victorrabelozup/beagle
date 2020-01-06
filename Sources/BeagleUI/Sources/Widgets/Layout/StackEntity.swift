@@ -8,6 +8,7 @@
 
 struct StackEntity: WidgetConvertibleEntity {
     
+    let appearance: AppearanceEntity?
     let children: [AnyDecodableContainer]
     
     func mapToWidget() throws -> Widget {
@@ -16,6 +17,9 @@ struct StackEntity: WidgetConvertibleEntity {
             try ($0.content as? WidgetConvertibleEntity)?.mapToWidget()
         }
         
-        return Stack(children: children)
+        return Stack(
+            appearance: try appearance?.mapToUIModel(),
+            children: children
+        )
     }
 }

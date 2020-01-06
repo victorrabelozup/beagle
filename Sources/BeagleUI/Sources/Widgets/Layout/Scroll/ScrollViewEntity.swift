@@ -1,23 +1,22 @@
 //
-//  ScrollViewEntity.swift
-//  BeagleUI
-//
-//  Created by Tarcisio Clemente on 06/11/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 struct ScrollViewEntity: WidgetConvertibleEntity {
     
     let children: [AnyDecodableContainer]
+    let appearance: AppearanceEntity?
     
     func mapToWidget() throws -> Widget {
 
         let children = try self.children.compactMap {
             try ($0.content as? WidgetConvertibleEntity)?.mapToWidget()
         }
+        let appearance = try self.appearance?.mapToUIModel()
 
         return ScrollView(
-            children: children
+            children: children,
+            appearance: appearance
         )
     }
 }

@@ -1,12 +1,9 @@
 //
-//  FlexSingleWidgetTests.swift
-//  BeagleFrameworkTests
-//
-//  Created by Gabriela Coelho on 02/10/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 import XCTest
+import SnapshotTesting
 @testable import BeagleUI
 
 final class FlexSingleWidgetTests: XCTestCase {
@@ -32,5 +29,21 @@ final class FlexSingleWidgetTests: XCTestCase {
         let flexSingleWidget = widget.apply(Flex(justifyContent: .center))
         // Then
         XCTAssertNotNil(flexSingleWidget.flex, "Expected to have a flex widget to have flex attribute, but got none.")
+    }
+    
+    func test_whenDecodingJson_shouldReturnAFlexSingleWidget() throws {
+        let widget: FlexSingleWidget = try widgetFromJsonFile(fileName: "FlexSingleWidget")
+        assertSnapshot(matching: widget, as: .dump)
+    }
+    
+    func test_renderFlexSingleWidget() {
+        guard let widget: FlexSingleWidget = try? widgetFromJsonFile(fileName: "FlexSingleWidget") else {
+            XCTFail("Failed to load FlexSingleWidget.json")
+            return
+        }
+        let screen = BeagleScreenViewController(
+            viewModel: .init(screenType: .declarative(widget))
+        )
+        assertSnapshot(matching: screen, as: .image)
     }
 }

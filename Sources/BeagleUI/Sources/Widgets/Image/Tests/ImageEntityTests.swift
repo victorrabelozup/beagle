@@ -13,7 +13,7 @@ final class ImageEntityTests: XCTestCase {
 
     func test_whenMapToWidgetIsCalled_thenItShouldReturnAImage() {
         // Given
-        let sut = ImageEntity(name: "Beagle", contentMode: .fitXY)
+        let sut = ImageEntity(name: "Beagle", contentMode: .fitXY, appearance: nil)
         
         // When
         let image = try? sut.mapToWidget()

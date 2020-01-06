@@ -15,6 +15,7 @@ final class TextWidgetViewRenderer: ViewRendering<Text> {
         if let style = widget.style {
             self.theme.applyStyle(for: label, withId: style)
         }
+        label.applyAppearance(widget.appearance)
         
         return label
     }

@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import SnapshotTesting
 @testable import BeagleUI
 
 final class ScrollViewTests: XCTestCase {
@@ -53,6 +54,22 @@ final class ScrollViewTests: XCTestCase {
         // When/ Then
         XCTAssert(widget.children.count > 1, "Expected widget to have more than one children, but it has \(widget.children.count).")
         XCTAssert(widget.children.last is Text, "Expected last child to be a Text widget, but it is \(String(describing: type(of: widget.children.last))).")
+    }
+    
+    func test_whenDecodingJson_shouldReturnAScrollView() throws {
+        let widget: ScrollView = try widgetFromJsonFile(fileName: "ScrollViewWidget")
+        assertSnapshot(matching: widget, as: .dump)
+    }
+    
+    func test_renderFlexWidget() {
+        guard let widget: ScrollView = try? widgetFromJsonFile(fileName: "ScrollViewWidget") else {
+            XCTFail("Failed to load ScrollViewWidget.json")
+            return
+        }
+        let screen = BeagleScreenViewController(
+            viewModel: .init(screenType: .declarative(widget))
+        )
+        assertSnapshot(matching: screen, as: .image)
     }
 
 }

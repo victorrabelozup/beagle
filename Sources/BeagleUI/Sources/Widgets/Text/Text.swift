@@ -1,29 +1,28 @@
 //
-//  Text.swift
-//  BeagleUI
-//
-//  Created by Daniel Tes on 12/09/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 import UIKit
 
-public struct Text: Widget {
+public struct Text: Widget, HasAppearance {
     
     // MARK: - Public Properties
     
     public let text: String
     public let style: String?
     public let alignment: Alignment?
+    public let appearance: Appearance?
     
     public init(
         _ text: String,
         style: String? = nil,
-        alignment: Alignment? = nil
+        alignment: Alignment? = nil,
+        appearance: Appearance? = nil
     ) {
         self.text = text
         self.style = style
         self.alignment = alignment
+        self.appearance = appearance
     }
     
 }

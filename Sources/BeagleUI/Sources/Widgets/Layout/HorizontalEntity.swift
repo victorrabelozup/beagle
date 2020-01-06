@@ -8,6 +8,7 @@
 
 struct HorizontalEntity: WidgetConvertibleEntity {
     
+    var appearance: AppearanceEntity?
     var children: [AnyDecodableContainer] = []
     var reversed: Bool = false
     
@@ -18,6 +19,7 @@ struct HorizontalEntity: WidgetConvertibleEntity {
         }
         
         return Horizontal(
+            appearance: try appearance?.mapToUIModel(),
             children: children,
             reversed: reversed
         )

@@ -20,6 +20,7 @@ final class FlexWidgetViewRenderer: ViewRendering<FlexWidget> {
             containerView.addSubview(childView)
             self.flex.enableYoga(true, for: childView)
         }
+        containerView.applyAppearance(widget.appearance)
         
         self.flex.setupFlex(widget.flex, for: containerView)
         

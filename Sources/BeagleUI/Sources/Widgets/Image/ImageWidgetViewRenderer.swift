@@ -14,6 +14,7 @@ final class ImageWidgetViewRenderer: ViewRendering<Image> {
         let image = UIImageView(frame: .zero)
         image.contentMode = (widget.contentMode ?? .fitCenter).toUIKit()
         image.setImageFromAsset(named: widget.name)
+        image.applyAppearance(widget.appearance)
         self.flex.enableYoga(true, for: image)
         return image
     }

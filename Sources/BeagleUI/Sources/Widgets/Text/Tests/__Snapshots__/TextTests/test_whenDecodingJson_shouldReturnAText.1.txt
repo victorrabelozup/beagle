@@ -1,0 +1,10 @@
+▿ Text
+  ▿ alignment: Optional<Alignment>
+    - some: Alignment.right
+  ▿ appearance: Optional<Appearance>
+    ▿ some: Appearance
+      ▿ backgroundColor: Optional<String>
+        - some: "#FFFF00"
+  ▿ style: Optional<String>
+    - some: "test.text.style"
+  - text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."

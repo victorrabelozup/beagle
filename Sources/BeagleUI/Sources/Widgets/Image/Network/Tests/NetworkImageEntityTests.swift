@@ -13,7 +13,7 @@ final class NetworkImageEntityTests: XCTestCase {
 
     func test_whenMapToWidgetIsCalled_thenItShouldReturnANetworkImage() {
         // Given
-        let sut = NetworkImageEntity(url: "https://teste.com", contentMode: .center)
+        let sut = NetworkImageEntity(url: "https://teste.com", contentMode: .center, appearance: nil)
         
         // When
         let networkImage = try? sut.mapToWidget()

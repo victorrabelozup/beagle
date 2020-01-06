@@ -8,10 +8,12 @@
 
 struct NetworkImageEntity: WidgetConvertibleEntity {
     let url: String
-    let contentMode: ImageEntityContentMode
+    let contentMode: ImageEntityContentMode?
+    let appearance: AppearanceEntity?
     
     func mapToWidget() throws -> Widget {
-        let contentMode = try self.contentMode.mapToUIModel(ofType: ImageContentMode.self)
-        return NetworkImage(url: url, contentMode: contentMode)
+        let contentMode = try self.contentMode?.mapToUIModel(ofType: ImageContentMode.self)
+        let appearance = try self.appearance?.mapToUIModel()
+        return NetworkImage(url: url, contentMode: contentMode, appearance: appearance)
     }
 }

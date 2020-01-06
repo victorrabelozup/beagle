@@ -28,6 +28,7 @@ final class ScrollViewWidgetViewRenderer: ViewRendering<ScrollView> {
             self.flex.enableYoga(true, for: childView)
         }
         scrollView.addSubview(contentView)
+        scrollView.applyAppearance(widget.appearance)
         
         let flexContent = Flex(grow: 1, shrink: 0)
         self.flex.setupFlex(flexContent, for: contentView)

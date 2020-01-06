@@ -8,10 +8,11 @@
 
 import Foundation
 
-public struct FlexSingleWidget: Widget {
+public struct FlexSingleWidget: Widget, HasAppearance {
     
     // MARK: - Public Properties
     
+    public let appearance: Appearance?
     public let child: Widget
     public let flex: Flex
     
@@ -19,17 +20,20 @@ public struct FlexSingleWidget: Widget {
     
     init(
         child: Widget,
-        flex: Flex = Flex()
+        flex: Flex = Flex(),
+        appearance: Appearance? = nil
     ) {
         self.child = child
         self.flex = flex
+        self.appearance = appearance
     }
     
     public init(
+        appearance: Appearance? = nil,
         @WidgetBuilder _ childBuilder: () -> Widget
     ) {
         let child = childBuilder()
-        self.init(child: child)
+        self.init(child: child, appearance: appearance)
     }
     
     // MARK: - Configuration

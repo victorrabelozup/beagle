@@ -15,7 +15,7 @@ final class StackEntityTests: XCTestCase {
         // Given
         let content = TextEntity(text: "text")
         let children = [AnyDecodableContainer(content: content)]
-        let sut = StackEntity(children: children)
+        let sut = StackEntity(appearance: nil, children: children)
 
         // When
         let stack = try? sut.mapToWidget()

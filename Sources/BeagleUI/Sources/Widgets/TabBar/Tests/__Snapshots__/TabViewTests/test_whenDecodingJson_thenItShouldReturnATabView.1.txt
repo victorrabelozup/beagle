@@ -2,17 +2,21 @@
   ▿ tabItems: 1 element
     ▿ TabItem
       ▿ content: FlexWidget
+        - appearance: Optional<Appearance>.none
         ▿ children: 3 elements
           ▿ Text
             - alignment: Optional<Alignment>.none
+            - appearance: Optional<Appearance>.none
             - style: Optional<String>.none
             - text: "1 This is a text"
           ▿ Text
             - alignment: Optional<Alignment>.none
+            - appearance: Optional<Appearance>.none
             - style: Optional<String>.none
             - text: "This is a text"
           ▿ Text
             - alignment: Optional<Alignment>.none
+            - appearance: Optional<Appearance>.none
             - style: Optional<String>.none
             - text: "This is a text"
         ▿ flex: Flex

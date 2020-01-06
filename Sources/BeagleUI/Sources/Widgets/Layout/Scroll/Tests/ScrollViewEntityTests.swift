@@ -15,7 +15,7 @@ final class ScrollViewEntityTests: XCTestCase {
         // Given
         let content = TextEntity(text: "text")
         let children = [AnyDecodableContainer(content: content)]
-        let sut = ScrollViewEntity(children: children)
+        let sut = ScrollViewEntity(children: children, appearance: nil)
 
         // When
         let scrollView = try? sut.mapToWidget()

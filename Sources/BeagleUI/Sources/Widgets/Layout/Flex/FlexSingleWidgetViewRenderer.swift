@@ -16,6 +16,7 @@ final class FlexSingleWidgetViewRenderer: ViewRendering<FlexSingleWidget> {
         
         let view = UIView()
         view.addSubview(childView)
+        view.applyAppearance(widget.appearance)
         
         self.flex.enableYoga(true, for: childView)
         self.flex.setupFlex(widget.flex, for: view)

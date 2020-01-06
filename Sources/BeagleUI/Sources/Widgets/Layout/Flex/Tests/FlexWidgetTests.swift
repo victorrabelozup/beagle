@@ -1,12 +1,10 @@
 //
 //  FlexWidgetTests.swift
-//  BeagleFrameworkTests
-//
-//  Created by Gabriela Coelho on 02/10/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 import XCTest
+import SnapshotTesting
 @testable import BeagleUI
 
 final class FlexWidgetTests: XCTestCase {
@@ -83,5 +81,21 @@ final class FlexWidgetTests: XCTestCase {
         // Then
         XCTAssert(widget.children.count > 1, "Expected flex widget to have created more than one child, but it has \(widget.children.count).")
         XCTAssert(widget.children.last is Button, "Expected last child to be a Button, but it is \(String(describing: type(of: widget.children.last))).")
+    }
+    
+    func test_whenDecodingJson_shouldReturnAFlexWidget() throws {
+        let widget: FlexWidget = try widgetFromJsonFile(fileName: "FlexWidget")
+        assertSnapshot(matching: widget, as: .dump)
+    }
+    
+    func test_renderFlexWidget() {
+        guard let widget: FlexWidget = try? widgetFromJsonFile(fileName: "FlexWidget") else {
+            XCTFail("Failed to load FlexWidget.json")
+            return
+        }
+        let screen = BeagleScreenViewController(
+            viewModel: .init(screenType: .declarative(widget))
+        )
+        assertSnapshot(matching: screen, as: .image)
     }
 }
