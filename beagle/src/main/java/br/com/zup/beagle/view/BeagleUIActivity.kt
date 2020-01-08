@@ -8,14 +8,21 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import br.com.zup.beagle.R
 import br.com.zup.beagle.setup.BeagleEnvironment
+import android.util.TypedValue
+import android.view.View
+import android.widget.LinearLayout
+import br.com.zup.beagle.R
 
 private const val SCREEN_URL_KEY = "SCREEN_URL_KEY"
 
 class BeagleUIActivity : AppCompatActivity() {
 
     private val screenUrl: String by lazy { intent.extras?.getString(SCREEN_URL_KEY) ?: "" }
+    private val defaultLayoutParams = ViewGroup.LayoutParams(
+        ViewGroup.LayoutParams.MATCH_PARENT,
+        ViewGroup.LayoutParams.MATCH_PARENT
+    )
 
     companion object {
         fun newIntent(context: Context, url: String): Intent {
@@ -32,27 +39,44 @@ class BeagleUIActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
-        supportActionBar?.hide()
+        setContentView(buildContent(), defaultLayoutParams)
 
-        setContentView(buildContent())
+        if (supportActionBar == null) {
+            val toolbar = findViewById<Toolbar>(R.id.beagle_toolbar)
+            setSupportActionBar(toolbar)
+        }
+        supportActionBar?.hide()
 
         BeagleNavigator.addScreen(this, screenUrl)
     }
 
-    private fun buildContent() = FrameLayout(this).apply {
-        id = R.id.beagle_content
-        layoutParams = FrameLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT
-        )
-        if (this@BeagleUIActivity.supportActionBar == null) {
-            addView(createToolbar())
+    private fun buildContent(): View {
+        val containerLayout = FrameLayout(this@BeagleUIActivity).apply {
+            id = R.id.beagle_content
         }
+        return LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            if (this@BeagleUIActivity.supportActionBar == null) {
+                addView(createToolbar(), getToolbarLayoutParams())
+            }
+            addView(containerLayout, defaultLayoutParams)
+        }
+    }
+
+    private fun getToolbarLayoutParams(): ViewGroup.LayoutParams {
+        val typedValue = TypedValue()
+        val actionBarHeight = if (theme.resolveAttribute(android.R.attr.actionBarSize, typedValue, true)) {
+            TypedValue.complexToDimensionPixelSize(typedValue.data, resources.displayMetrics)
+        } else {
+            0
+        }
+        return ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, actionBarHeight)
     }
 
     private fun createToolbar(): Toolbar {
         return Toolbar(this).apply {
-            setSupportActionBar(this)
+            id = R.id.beagle_toolbar
+            visibility = View.GONE
             setNavigationOnClickListener {
                 BeagleNavigator.pop(context)
             }

@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
@@ -37,7 +38,7 @@ class ScreenViewRendererTest {
 
     @MockK
     private lateinit var screenWidget: ScreenWidget
-    @MockK
+    @MockK(relaxed = true)
     private lateinit var navigationBar: NavigationBar
     @MockK
     private lateinit var viewRendererFactory: ViewRendererFactory
@@ -55,6 +56,8 @@ class ScreenViewRendererTest {
     private lateinit var viewRenderer: ViewRenderer
     @MockK
     private lateinit var view: View
+    @MockK(relaxed = true)
+    private lateinit var actionBar: ActionBar
 
     private lateinit var screenViewRenderer: ScreenViewRenderer
 
@@ -146,15 +149,15 @@ class ScreenViewRendererTest {
     }
 
     @Test
-    fun build_should_configure_toolbar_when_supportActionBar_is_not_null() {
+    fun build_should_configure_toolbar_when_supportActionBar_is_not_null_and_toolbar_is_null() {
         // Given
-        val actionBar = mockk<ActionBar>(relaxed = true)
         val title = RandomData.string()
         val showBackButton = true
         every { navigationBar.title } returns title
         every { navigationBar.showBackButton } returns showBackButton
         every { screenWidget.navigationBar } returns navigationBar
         every { context.supportActionBar } returns actionBar
+        every { context.findViewById<Toolbar>(any()) } returns null
 
         // When
         screenViewRenderer.build(rootView)
@@ -164,5 +167,20 @@ class ScreenViewRendererTest {
         verify(atLeast = once()) { actionBar.setDisplayHomeAsUpEnabled(showBackButton) }
         verify(atLeast = once()) { actionBar.setDisplayShowHomeEnabled(showBackButton) }
         verify(atLeast = once()) { actionBar.show() }
+    }
+
+    @Test
+    fun build_should_configure_toolbar_when_supportActionBar_is_not_null_and_toolbar_is_not_null() {
+        // Given
+        val toolbar = mockk<Toolbar>(relaxed = true)
+        every { screenWidget.navigationBar } returns navigationBar
+        every { context.supportActionBar } returns actionBar
+        every { context.findViewById<Toolbar>(any()) } returns toolbar
+
+        // When
+        screenViewRenderer.build(rootView)
+
+        // Then
+        verify(atLeast = once()) { toolbar.visibility = View.VISIBLE }
     }
 }
