@@ -146,6 +146,7 @@ final class WidgetDecoder: WidgetDecoding {
     private func registerUITypes() {
         registerEntity(ButtonEntity.self, for: decodingKey(for: "Button", ofType: .widget))
         registerEntity(ImageEntity.self, for: decodingKey(for: "Image", ofType: .widget))
+        registerEntity(NetworkImageEntity.self, for: decodingKey(for: "NetworkImage", ofType: .widget))
         registerEntity(ListViewEntity.self, for: decodingKey(for: "ListView", ofType: .widget))
         registerEntity(TextEntity.self, for: decodingKey(for: "Text", ofType: .widget))
         registerEntity(NavigationBarEntity.self, for: decodingKey(for: "NavigationBar", ofType: .widget))

@@ -11,7 +11,7 @@
     - renderers: 0 key/value pairs
   ▿ decoder: WidgetDecoder
     - customNamespace: "TEST"
-    ▿ decoders: 26 key/value pairs
+    ▿ decoders: 27 key/value pairs
       ▿ (2 elements)
         - key: "beagle:action:customaction"
         - value: CustomActionEntity
@@ -63,6 +63,9 @@
       ▿ (2 elements)
         - key: "beagle:widget:navigator"
         - value: NavigatorEntity
+      ▿ (2 elements)
+        - key: "beagle:widget:networkimage"
+        - value: NetworkImageEntity
       ▿ (2 elements)
         - key: "beagle:widget:padding"
         - value: PaddingEntity
