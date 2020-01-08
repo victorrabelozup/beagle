@@ -16,6 +16,11 @@ android {
 
         testInstrumentationRunner GeneralNames.testInstrumentationRunner
     }
+
+    lintOptions {
+        abortOnError false
+    }
+
     buildTypes {
         debug {
             testCoverageEnabled true

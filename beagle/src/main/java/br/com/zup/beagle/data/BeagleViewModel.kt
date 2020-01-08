@@ -36,7 +36,6 @@ internal class BeagleViewModel(
             } else {
                 setLoading(url, true)
                 val widget = beagleService.fetchWidget(url)
-
                 state.value = ViewState.Result(widget)
             }
         } catch (exception: BeagleException) {
