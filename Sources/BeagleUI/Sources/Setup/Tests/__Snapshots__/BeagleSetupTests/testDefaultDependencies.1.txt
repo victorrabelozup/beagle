@@ -11,7 +11,7 @@
     - renderers: 0 key/value pairs
   ▿ decoder: WidgetDecoder
     - customNamespace: "TEST"
-    ▿ decoders: 27 key/value pairs
+    ▿ decoders: 28 key/value pairs
       ▿ (2 elements)
         - key: "beagle:action:customaction"
         - value: CustomActionEntity
@@ -54,6 +54,9 @@
       ▿ (2 elements)
         - key: "beagle:widget:image"
         - value: ImageEntity
+      ▿ (2 elements)
+        - key: "beagle:widget:lazywidget"
+        - value: LazyWidgetEntity
       ▿ (2 elements)
         - key: "beagle:widget:listview"
         - value: ListViewEntity

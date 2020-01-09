@@ -154,6 +154,7 @@ final class WidgetDecoder: WidgetDecoding {
         registerEntity(TabViewEntity.self, for: decodingKey(for: "TabView", ofType: .widget))
         registerEntity(TabItemEntity.self, for: decodingKey(for: "TabItem", ofType: .widget))
         registerEntity(DefaultPageIndicatorEntity.self, for: decodingKey(for: "DefaultPageIndicator", ofType: .widget))
+        registerEntity(LazyWidgetEntity.self, for: decodingKey(for: "LazyWidget", ofType: .widget))
     }
         
     private func registerEntity<T: Decodable>(_ type: T.Type, for typeName: String) {
