@@ -20,7 +20,7 @@ final class SpacerWidgetViewRenderer: ViewRendering<Spacer> {
         view.isAccessibilityElement = false
         view.backgroundColor = .clear
         
-        self.flex.setupFlex(flex, for: view)
+        dependencies.flex.setupFlex(flex, for: view)
         
         return view
     }

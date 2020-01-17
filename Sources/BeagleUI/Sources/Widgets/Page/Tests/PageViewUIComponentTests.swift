@@ -23,7 +23,7 @@ class PageViewUIComponentTests: XCTestCase {
     ]
 
     private func makeScreen(_ widget: Widget) -> BeagleScreenViewController {
-        BeagleScreenViewController(
+        return BeagleScreenViewController(
             viewModel: .init(screenType: .declarative(widget))
         )
     }

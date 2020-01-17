@@ -26,7 +26,7 @@ final class ListViewTests: XCTestCase {
 
         let view = makeListUiView(widget)
 
-        assertSnapshot(matching: view, as: .image(size: imageSize))
+        assertSnapshotImage(view, size: imageSize)
     }
 
     func testDirectionVertical() throws {
@@ -37,7 +37,7 @@ final class ListViewTests: XCTestCase {
 
         let view = makeListUiView(widget)
 
-        assertSnapshot(matching: view, as: .image(size: imageSize))
+        assertSnapshotImage(view, size: imageSize)
     }
 
     // MARK: - Many Rows
@@ -54,7 +54,7 @@ final class ListViewTests: XCTestCase {
 
         let view = makeListUiView(widget)
 
-        assertSnapshot(matching: view, as: .image(size: imageSize))
+        assertSnapshotImage(view, size: imageSize)
     }
 
     func testDirectionVerticalWithManyRows() {
@@ -65,7 +65,7 @@ final class ListViewTests: XCTestCase {
 
         let view = makeListUiView(widget)
 
-        assertSnapshot(matching: view, as: .image(size: imageSize))
+        assertSnapshotImage(view, size: imageSize)
     }
 
     // MARK: - Many Large Rows
@@ -82,7 +82,7 @@ final class ListViewTests: XCTestCase {
 
         let view = makeListUiView(widget)
 
-        assertSnapshot(matching: view, as: .image(size: imageSize))
+        assertSnapshotImage(view, size: imageSize)
     }
 
     func testDirectionVerticalWithManyLargeRows() {
@@ -93,7 +93,7 @@ final class ListViewTests: XCTestCase {
 
         let view = makeListUiView(widget)
 
-        assertSnapshot(matching: view, as: .image(size: imageSize))
+        assertSnapshotImage(view, size: imageSize)
     }
 
     // MARK: Rows with Different Sizes
@@ -110,7 +110,7 @@ final class ListViewTests: XCTestCase {
 
         let view = makeListUiView(widget)
 
-        assertSnapshot(matching: view, as: .image(size: imageSize))
+        assertSnapshotImage(view, size: imageSize)
     }
 
     func testDirectionVerticalWithRowsWithDifferentSizes() {
@@ -121,7 +121,7 @@ final class ListViewTests: XCTestCase {
 
         let view = makeListUiView(widget)
 
-        assertSnapshot(matching: view, as: .image(size: imageSize))
+        assertSnapshotImage(view, size: imageSize)
     }
 
     // MARK: - Cells
@@ -140,10 +140,10 @@ final class ListViewTests: XCTestCase {
         }?.value as? UIView
 
         // Then
-        XCTAssertTrue(widgetWithRequestViewSpy.cancelHTTPRequestCalled, "`cancelHTTPRequest` should have been called.")
-        XCTAssertEqual(sut.contentView.subviews.count, 0, "`contentView` should have no subviews.")
-        XCTAssertNil(sut.contentView.viewWithTag(widgetWithRequestViewSpy.tag), "`contentView` should not contain the `widgetView`.")
-        XCTAssertNil(innerWidgetView, "The inner property `widgetView` should be nil.")
+        XCTAssert(widgetWithRequestViewSpy.cancelHTTPRequestCalled)
+        XCTAssert(sut.contentView.subviews.isEmpty)
+        XCTAssert(sut.contentView.viewWithTag(widgetWithRequestViewSpy.tag) == nil)
+        XCTAssert(innerWidgetView == nil)
     }
 
     // MARK: - Helper

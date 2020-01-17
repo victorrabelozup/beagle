@@ -9,17 +9,16 @@ final class FlexSingleWidgetViewRenderer: ViewRendering<FlexSingleWidget> {
     // MARK: - Public Functions
     
     override func buildView(context: BeagleContext) -> UIView {
-        
         let child = widget.child
-        let childRenderer = self.rendererProvider.buildRenderer(for: child, dependencies: dependencies)
+        let childRenderer = dependencies.rendererProvider.buildRenderer(for: child, dependencies: dependencies)
         let childView = childRenderer.buildView(context: context)
         
         let view = UIView()
         view.addSubview(childView)
         view.applyAppearance(widget.appearance)
         
-        self.flex.enableYoga(true, for: childView)
-        self.flex.setupFlex(widget.flex, for: view)
+        dependencies.flex.enableYoga(true, for: childView)
+        dependencies.flex.setupFlex(widget.flex, for: view)
         
         return view
     }

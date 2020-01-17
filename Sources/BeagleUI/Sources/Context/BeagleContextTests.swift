@@ -17,7 +17,7 @@ final class BeagleContextTests: XCTestCase {
         let widget = SimpleWidget()
         let sut: BeagleContext = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(widget.content),
-            dependencies: ScreenViewControllerDependencies()
+            dependencies: BeagleScreenDependencies()
         ))
         
         // Then
@@ -29,7 +29,7 @@ final class BeagleContextTests: XCTestCase {
         let widget = SimpleWidget()
         let sut = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(widget.content),
-            dependencies: ScreenViewControllerDependencies()
+            dependencies: BeagleScreenDependencies()
         ))
         let view = UILabel()
         let action = Navigate(type: .popView)
@@ -49,7 +49,7 @@ final class BeagleContextTests: XCTestCase {
 
         let controller = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(widget.content),
-            dependencies: ScreenViewControllerDependencies(
+            dependencies: BeagleScreenDependencies(
                 actionExecutor: actionExecutorSpy
             )
         ))
@@ -81,7 +81,7 @@ final class BeagleContextTests: XCTestCase {
         let widget = SimpleWidget()
         let sut = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(widget.content),
-            dependencies: ScreenViewControllerDependencies()
+            dependencies: BeagleScreenDependencies()
         ))
         let form = Form(action: "action", method: .put, child: WidgetDummy())
         let formView = UIView()
@@ -100,7 +100,7 @@ final class BeagleContextTests: XCTestCase {
         let widget = SimpleWidget()
         let sut = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(widget.content),
-            dependencies: ScreenViewControllerDependencies()
+            dependencies: BeagleScreenDependencies()
         ))
         
         let form = Form(action: "submit", method: .post, child: WidgetDummy())
@@ -164,7 +164,7 @@ final class BeagleContextTests: XCTestCase {
 
         let sut = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(widget.content),
-            dependencies: ScreenViewControllerDependencies(
+            dependencies: BeagleScreenDependencies(
                 actionExecutor: actionExecutorSpy,
                 remoteConnector: screenLoaderStub
             )
@@ -198,7 +198,7 @@ final class BeagleContextTests: XCTestCase {
         )
         let sut = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(widget.content),
-            dependencies: ScreenViewControllerDependencies(
+            dependencies: BeagleScreenDependencies(
                 actionExecutor: actionExecutorSpy,
                 remoteConnector: screenLoaderStub
             )
@@ -231,7 +231,7 @@ final class BeagleContextTests: XCTestCase {
             dependencies: dependencies
         ))
 
-        assertSnapshot(matching: sut, as: .image)
+        assertSnapshotImage(sut)
     }
     
     func test_lazyLoad_withUpdatableView_shouldCallUpdate() {
@@ -241,7 +241,7 @@ final class BeagleContextTests: XCTestCase {
         let screenLoader = RemoteConnectorStub(loadWidgetResult: .success(WidgetDummy()))
         let sut = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(WidgetDummy()),
-            dependencies: ScreenViewControllerDependencies(
+            dependencies: BeagleScreenDependencies(
                 remoteConnector: screenLoader
             )
         ))
@@ -285,9 +285,11 @@ class FormInputViewStub: UIView, InputValue, ValidationErrorListener {
         super.init(frame: .zero)
         self.beagleFormElement = formInput
     }
+
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        BeagleUI.fatalError("init(coder:) has not been implemented")
     }
+
     func getValue() -> Any {
         return value
     }

@@ -13,12 +13,13 @@ final class LazyWidgetTests: XCTestCase {
     
     func test_initWithInitialStateBuilder_shouldReturnExpectedInstance() {
         // Given / When
-        let sut = LazyWidget(url: "widget") {
-            Text("text")
-        }
+        let sut = LazyWidget(
+            url: "widget",
+            initialState: Text("text")
+        )
 
         // Then
-        XCTAssertEqual(sut.url, "widget")
-        XCTAssertTrue(sut.initialState is Text)
+        XCTAssert(sut.url == "widget")
+        XCTAssert(sut.initialState is Text)
     }
 }

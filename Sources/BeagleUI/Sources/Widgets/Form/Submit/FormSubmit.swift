@@ -16,17 +16,10 @@ public struct FormSubmit: Widget {
     
     // MARK: - Initialization
     
-    init(
+    public init(
         child: Widget
     ) {
         self.child = child
-    }
-    
-    public init(
-        @WidgetBuilder _ childBuilder: () -> Widget
-    ) {
-        let child = childBuilder()
-        self.init(child: child)
     }
     
 }

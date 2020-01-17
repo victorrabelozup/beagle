@@ -179,7 +179,7 @@ final class BeagleNavigatorTests: XCTestCase {
     private func beagleViewController(screen: BeagleScreenViewModel.ScreenType) -> BeagleScreenViewController {
         return BeagleScreenViewController(viewModel: .init(
             screenType: screen,
-            dependencies: ScreenViewControllerDependencies()
+            dependencies: BeagleScreenDependencies()
         ))
     }
 }
@@ -192,7 +192,7 @@ class DummyBeagleContext: BeagleContext {
         self.viewController = viewController
     }
     
-    var screenController: UIViewController { viewController }
+    var screenController: UIViewController { return viewController }
     
     func register(action: Action, inView view: UIView) {}
     func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorProvider?) {}

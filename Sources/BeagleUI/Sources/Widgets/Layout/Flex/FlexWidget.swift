@@ -18,7 +18,7 @@ public struct FlexWidget: Widget, HasAppearance {
     
     // MARK: - Initialization
     
-    init(
+    public init(
         children: [Widget],
         flex: Flex = Flex(),
         appearance: Appearance? = nil
@@ -26,38 +26,6 @@ public struct FlexWidget: Widget, HasAppearance {
         self.children = children
         self.flex = flex
         self.appearance = appearance
-    }
-    
-    public init(
-        appearance: Appearance? = nil,
-        @WidgetBuilder _ childBuilder: () -> Widget
-    ) {
-        let singleChild = childBuilder()
-        self.init(children: [singleChild], appearance: appearance)
-    }
-    
-    public static func new(
-        appearance: Appearance? = nil,
-        closure: () -> Widget
-    ) -> FlexWidget {
-        let children = closure()
-        return .init(children: [children], appearance: appearance)
-    }
-    
-    public init(
-        appearance: Appearance? = nil,
-        @WidgetArrayBuilder _ childrenBuilder: () -> [Widget]
-    ) {
-        let children = childrenBuilder()
-        self.init(children: children, appearance: appearance)
-    }
-    
-    public static func new(
-        appearance: Appearance? = nil,
-        _ closure: () -> [Widget]
-    ) -> FlexWidget {
-        let children = closure()
-        return .init(children: children, appearance: appearance)
     }
     
    // MARK: - Configuration

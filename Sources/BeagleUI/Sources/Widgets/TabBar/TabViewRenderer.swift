@@ -14,8 +14,8 @@ final class TabViewRenderer: ViewRendering<TabView> {
         let model = TabViewUIComponent.Model(tabIndex: 0, tabViewItems: widget.tabItems)
         let tabView = TabViewUIComponent(model: model)
         let flex = Flex(grow: 1)
-        self.flex.setupFlex(flex, for: tabView)
-        self.flex.enableYoga(true, for: tabView)
+        dependencies.flex.setupFlex(flex, for: tabView)
+        dependencies.flex.enableYoga(true, for: tabView)
         return tabView
     }
 }

@@ -1,9 +1,5 @@
 //
-//  TabBarCollectionViewCellTests.swift
-//  BeagleFrameworkTests
-//
-//  Created by Gabriela Coelho on 29/11/19.
-//  Copyright © 2019 Zup IT. All rights reserved.
+//  Copyright © 29/11/19 Zup IT. All rights reserved.
 //
 
 import XCTest
@@ -16,15 +12,15 @@ final class TabBarCollectionViewCellTests: XCTestCase {
         let sut = TabBarCollectionViewCell(frame: .zero)
         
         // When
-        sut.setupTab(with: TabItem(icon: "icon", title: "Tab") {
+        sut.setupTab(with: TabItem(icon: "icon", title: "Tab", content:
             Text("Text")
-        })
+        ))
         
         let innerWidgetView = Mirror(reflecting: sut).children.first
         
         // Then
-        XCTAssertTrue(innerWidgetView?.value is UIStackView, "Inner property value should be UIStackView.")
-        XCTAssertEqual(sut.contentView.subviews.count, 1, "`contentView` should have `1` subviews, a UIStackView.")
+        XCTAssert(innerWidgetView?.value is UIStackView)
+        XCTAssert(sut.contentView.subviews.count == 1)
     }
     
     func test_setupShouldSetTabItemsWithIconOnly() {
@@ -32,16 +28,16 @@ final class TabBarCollectionViewCellTests: XCTestCase {
         let sut = TabBarCollectionViewCell(frame: .zero)
         
         // When
-        sut.setupTab(with: TabItem(icon: "icon") {
+        sut.setupTab(with: TabItem(icon: "icon", content:
             Text("Text")
-        })
+        ))
         
         let innerWidgetView = Mirror(reflecting: sut).children.first
         let stackView = innerWidgetView?.value as? UIStackView
         
         // Then
-        XCTAssertNotNil(stackView, "StackView should not be nil. ")
-        XCTAssertTrue(stackView?.subviews[0].isHidden == false, "ImageView from stackView should not be hidden.")
+        XCTAssertNotNil(stackView)
+        XCTAssert(stackView?.subviews[0].isHidden == false)
         
     }
     
@@ -50,16 +46,16 @@ final class TabBarCollectionViewCellTests: XCTestCase {
         let sut = TabBarCollectionViewCell(frame: .zero)
         
         // When
-        sut.setupTab(with: TabItem(title: "Tab 1") {
+        sut.setupTab(with: TabItem(title: "Tab 1", content:
             Text("Text")
-        })
+        ))
         
         let innerWidgetView = Mirror(reflecting: sut).children.first
         let stackView = innerWidgetView?.value as? UIStackView
         
         // Then
-        XCTAssertNotNil(stackView, "StackView should not be nil. ")
-        XCTAssertTrue(stackView?.subviews[1].isHidden == false, "UILabel from stackView should not be hidden.")
+        XCTAssertNotNil(stackView)
+        XCTAssert(stackView?.subviews[1].isHidden == false)
     }
     
 }

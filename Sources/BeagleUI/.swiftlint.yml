@@ -61,6 +61,7 @@ opt_in_rules:
 
 excluded:
   - BeagleFrameworkTests
+  - Carthage
 
 file_length:
   warning: 500

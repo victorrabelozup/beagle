@@ -14,7 +14,7 @@ final class NetworkImageWidgetViewRenderer: ViewRendering<NetworkImage> {
         imageView.contentMode = (widget.contentMode ?? .fitCenter).toUIKit()
         imageView.applyAppearance(widget.appearance)
         let flex = Flex(size: .init(width: 100%, height: 100%))
-        self.flex.setupFlex(flex, for: imageView)
+        dependencies.flex.setupFlex(flex, for: imageView)
         return imageView
     }
 }

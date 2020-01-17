@@ -1,5 +1,4 @@
 //
-//  FlexWidgetTests.swift
 //  Copyright © 2019 Zup IT. All rights reserved.
 //
 
@@ -21,66 +20,21 @@ final class FlexWidgetTests: XCTestCase {
         let flex = mirror.firstChild(of: Flex.self)
         let widget = mirror.firstChild(of: [Widget].self)
         // Then
-        XCTAssertTrue(sut.children.count > 1, "Expected flex widget to have children.")
-        XCTAssertNotNil(flex, "Expected a valid instance of type `Flex`, but got nil.")
-        XCTAssertNotNil(widget, "Expected a valid instance of type `Widget`, but got nil.")
+        XCTAssertTrue(sut.children.count == 2)
+        XCTAssertNotNil(flex)
+        XCTAssertNotNil(widget)
         
-    }
-    
-    func test_initWithOnlyOneChild_shouldReturnFlexWidgetAndSetDependenciesProperly() {
-        // Given
-        let sut = FlexWidget(children: [Text("Some text.")], flex: Flex())
-        let mirror = Mirror(reflecting: sut)
-        
-        // When
-        let flex = mirror.firstChild(of: Flex.self)
-        let widget = mirror.firstChild(of: [Widget].self)
-        
-        // Then
-        XCTAssertTrue(sut.children.count == 1, "Expected flex widget to have one child.")
-        XCTAssertNotNil(flex, "Expected a valid instance of type `Flex`, but got nil.")
-        XCTAssertNotNil(widget, "Expected a valid instance of type `Widget`, but got nil.")
-    }
-    
-    func test_initWidgetArrayBuilder_shouldReturnFlexWidget() {
-        // Given / When
-        let flexWidget = FlexWidget {
-            Text("Some texts")
-            Text("More texts")
-        }
-        // Then
-        XCTAssertTrue(flexWidget.children.count > 1, "Expected flex widget to have children.")
     }
     
     func test_applyFlex_shouldReturnFlexWidget() {
         // Given
-        let widget = FlexWidget {
+        let widget = FlexWidget(children: [
             Text("Some texts")
-        }
+        ])
         // When
         let flexWidget = widget.applyFlex(Flex(justifyContent: .center))
         // Then
-        XCTAssertNotNil(flexWidget.flex, "Expected to have a flex type, but got none.")
-    }
-    
-    func test_onNewClosure_shouldInstantiateChild() {
-        // Given / When
-        let widget = FlexWidget.new { () -> Widget in
-            Text("Some text")
-        }
-        // Then
-        XCTAssert(widget.children.count == 1, "Expected flex widget to have created only one child, but it has \(widget.children.count).")
-        XCTAssert(widget.children.first is Text, "Expected child to be a Text, but it is \(String(describing: type(of: widget.children.first))).")
-    }
-    
-    func test_onNewClosure_shouldInstantiateChildren() {
-        // Given / When
-        let widget = FlexWidget.new { () -> [Widget] in
-            [Text("One text"), Text("Two texts"), Button(text: "One button")]
-        }
-        // Then
-        XCTAssert(widget.children.count > 1, "Expected flex widget to have created more than one child, but it has \(widget.children.count).")
-        XCTAssert(widget.children.last is Button, "Expected last child to be a Button, but it is \(String(describing: type(of: widget.children.last))).")
+        XCTAssertNotNil(flexWidget.flex)
     }
     
     func test_whenDecodingJson_shouldReturnAFlexWidget() throws {
@@ -88,14 +42,11 @@ final class FlexWidgetTests: XCTestCase {
         assertSnapshot(matching: widget, as: .dump)
     }
     
-    func test_renderFlexWidget() {
-        guard let widget: FlexWidget = try? widgetFromJsonFile(fileName: "FlexWidget") else {
-            XCTFail("Failed to load FlexWidget.json")
-            return
-        }
+    func test_renderFlexWidget() throws {
+        let widget: FlexWidget = try widgetFromJsonFile(fileName: "FlexWidget")
         let screen = BeagleScreenViewController(
             viewModel: .init(screenType: .declarative(widget))
         )
-        assertSnapshot(matching: screen, as: .image)
+        assertSnapshotImage(screen, size: ViewImageConfig.iPhoneXr.size!)
     }
 }

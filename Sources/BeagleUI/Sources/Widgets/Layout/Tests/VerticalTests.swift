@@ -13,58 +13,38 @@ final class VerticalTests: XCTestCase {
     
     func test_initWithChildBuilder_shouldReturnExpectedInstance() {
         // Given / When
-        let widget = Vertical {
+        let widget = Vertical(children: [
             Text("text")
-        }
+        ])
         
         // Then
-        XCTAssertEqual(widget.children.count, 1, "Expected `children.count` to be `1`.")
-        XCTAssertTrue(widget.children[safe: 0] is Text, "Expected to find `Text`.")
+        XCTAssert(widget.children.count == 1)
+        XCTAssert(widget.children[safe: 0] is Text)
     }
     
     func test_initWithChildrenBuilder_shouldReturnExpectedInstance() {
         // Given / When
-        let widget = Vertical {
-            Text("text")
+        let widget = Vertical(children: [
+            Text("text"),
             Button(text: "text")
-        }
+        ])
         
         // Then
-        XCTAssertEqual(widget.children.count, 2, "Expected `children.count` to be `2`.")
-        XCTAssertTrue(widget.children[safe: 0] is Text, "Expected to find `Text`.")
-        XCTAssertTrue(widget.children[safe: 1] is Button, "Expected to find `Button`.")
+        XCTAssert(widget.children.count == 2)
+        XCTAssert(widget.children[safe: 0] is Text)
+        XCTAssert(widget.children[safe: 1] is Button)
     }
     
     func test_callingReversed_shouldChangeItsValue() {
         // Given
-        let widget = Vertical {
+        let widget = Vertical(children: [
             Text("text")
-        }
+        ])
         
         // When
         let updatedWidget = widget.reversed()
         
         // Then
-        XCTAssertNotEqual(widget.reversed, updatedWidget.reversed, "Expected `reversed` to be diferent from initial value.")
-    }
-    
-    func test_whenNewClosureWithSingleChildWidget_shouldInitializeChild() {
-        // Given
-        let widget = Vertical.new { () -> Widget in
-            Text("coisa")
-        }
-        // When/ Then
-        XCTAssert(widget.children.count == 1, "Expected widget to have only one children, but it has \(widget.children.count).")
-        XCTAssert(widget.children.first is Text, "Expected child to be a Text widget, but it is \(String(describing: type(of: widget.children.first))).")
-    }
-    
-    func test_whenNewClosureWithChildrenWidget_shouldInitializeChildren() {
-        // Given
-        let widget = Vertical.new { () -> [Widget] in
-            [Text("coisa"), Text("coisa 2")]
-        }
-        // When/ Then
-        XCTAssert(widget.children.count > 1, "Expected widget to have more than one children, but it has \(widget.children.count).")
-        XCTAssert(widget.children.last is Text, "Expected last child to be a Text widget, but it is \(String(describing: type(of: widget.children.last))).")
+        XCTAssert(widget.reversed != updatedWidget.reversed)
     }
 }

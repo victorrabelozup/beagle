@@ -24,7 +24,7 @@ final class ImageDataProviding: ImageDataProvider {
     private let cacheService: CacheServiceProvider
     
     init(
-        dispatcher: NetworkDispatcher = Beagle.networkDispatcher,
+        dispatcher: NetworkDispatcher = Beagle.dependencies.networkDispatcher,
         cacheService: CacheServiceProvider = MemoryCacheService()
     ) {
         self.dispatcher = dispatcher

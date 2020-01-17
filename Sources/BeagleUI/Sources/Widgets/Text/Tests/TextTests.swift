@@ -13,21 +13,13 @@ final class TextTests: XCTestCase {
     ])
     
     private func textStyle() -> (UILabel?) -> Void {
-        BeagleStyle.label(font: .boldSystemFont(ofSize: 20), color: .blue)
+        return BeagleStyle.label(font: .boldSystemFont(ofSize: 20), color: .blue)
             <> BeagleStyle.backgroundColor(withColor: .black)
     }
-    
-    override func setUp() {
-        super.setUp()
-        let dependencies = BeagleDependencies()
-        dependencies.theme = theme
-        Beagle.dependencies = dependencies
-    }
-    
-    override func tearDown() {
-        Beagle.dependencies = BeagleDependencies()
-        super.tearDown()
-    }
+
+    private lazy var dependencies = RendererDependenciesContainer(
+        theme: theme
+    )
     
     func test_whenDecodingJson_shouldReturnAText() throws {
         let widget: Text = try widgetFromJsonFile(fileName: "TextWidget")
@@ -36,10 +28,8 @@ final class TextTests: XCTestCase {
     
     func test_renderTextWidget() throws {
         let widget: Text = try widgetFromJsonFile(fileName: "TextWidget")
-        let screen = BeagleScreenViewController(
-            viewModel: .init(screenType: .declarative(widget))
-        )
-        assertSnapshot(matching: screen, as: .image)
+        let view = widget.toView(context: BeagleContextDummy(), dependencies: dependencies)
+        assertSnapshotImage(view, size: CGSize(width: 300, height: 150))
     }
 
 }

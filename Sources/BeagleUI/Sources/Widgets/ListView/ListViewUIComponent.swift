@@ -72,7 +72,7 @@ final class ListViewUIComponent: UIView {
     private func setupCollectionViewLayout() {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = model.widget.direction.toUIKit()
-        flowLayout.itemSize = UICollectionViewFlowLayout.automaticSize
+        flowLayout.itemSize = UICollectionViewFlowLayoutAutomaticSize
         collectionView.collectionViewLayout = flowLayout
     }
     

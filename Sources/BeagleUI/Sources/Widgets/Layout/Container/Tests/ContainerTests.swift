@@ -14,15 +14,9 @@ final class ContainerTests: XCTestCase {
     func test_initWithBuilders_shouldReturnExpectedInstance() {
         // Given / When
         let widget = Container(
-            header: {
-                Text("text")
-            },
-            content: {
-               Text("text")
-            },
-            footer: {
-                Text("text")
-            }
+            header: Text("text"),
+            content: Text("text"),
+            footer: Text("text")
         )
 
         // Then

@@ -4,7 +4,6 @@
 
 import Foundation
 
-@dynamicMemberLookup
 public class Beagle {
 
     public static var dependencies: BeagleDependenciesProtocol = BeagleDependencies()
@@ -28,9 +27,5 @@ public class Beagle {
         dependencies.customWidgetsProvider.registerRenderer(
             item.view.viewRenderer, for: item.view.widgetType
         )
-    }
-
-    public static subscript<T>(dynamicMember keyPath: KeyPath<BeagleDependenciesProtocol, T>) -> T {
-        return dependencies[keyPath: keyPath]
     }
 }

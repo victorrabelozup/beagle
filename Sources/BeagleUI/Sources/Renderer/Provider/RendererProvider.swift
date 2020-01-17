@@ -46,7 +46,7 @@ final class RendererProviding: RendererProvider {
     public lazy var providers: [RendererProviderThrowable] = [
         LayoutViewRendererProviding(),
         UIComponentViewRendererProviding(),
-        Beagle.customWidgetsProvider
+        Beagle.dependencies.customWidgetsProvider
     ]
     
     // MARK: - Public Methods

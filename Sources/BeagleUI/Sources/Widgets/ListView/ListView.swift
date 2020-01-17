@@ -31,48 +31,6 @@ public struct ListView: Widget {
         self.direction = direction
     }
     
-    // MARK: - Builders
-    
-    public init(
-        @WidgetBuilder _ rowBuilder: () -> Widget
-    ) {
-        let singleRow = rowBuilder()
-        self.init(rows: [singleRow])
-    }
-    
-    public static func new(
-        closure: () -> Widget
-    ) -> ListView {
-        let singleRow = closure()
-        return .init(rows: [singleRow])
-    }
-    
-    public init(
-        @WidgetArrayBuilder _ rowsBuilder: () -> [Widget]
-    ) {
-        let rows = rowsBuilder()
-        self.init(rows: rows)
-    }
-    
-    public static func new(
-        closure: () -> [Widget]
-    ) -> ListView {
-        let rows = closure()
-        return .init(rows: rows)
-    }
-    
-    public static func dynamic(_ size: Int, @WidgetBuilder builder: () -> Widget) -> ListView {
-        
-        var rows = [Widget]()
-        let widget = builder()
-        for _ in stride(from: 0, through: size - 1, by: 1) {
-            rows.append(widget)
-        }
-        
-        return ListView(rows: rows)
-        
-    }
-    
     // MARK: - Configuration
     
     public func remoteDataSource(_ remoteDataSource: String) -> ListView {
@@ -102,8 +60,8 @@ public struct ListView: Widget {
             direction: direction
         )
     }
-    
 }
+
 extension ListView {
     
     public enum Direction {
@@ -119,7 +77,5 @@ extension ListView {
                 return .vertical
             }
         }
-        
     }
-    
 }

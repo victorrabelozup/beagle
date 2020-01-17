@@ -6,20 +6,21 @@ project_type: ios
 workflows:
   ci:
     steps:
-    - cache-pull@2.1.3: {}
-    - brew-install@0.10.2:
+    - cache-pull: {}
+    - carthage:
         inputs:
-        - packages: swiftLint
-    - xcode-test@2.4.3:
+        - carthage_options: "--platform iOS --cache-builds --use-ssh --project-directory
+            Sources/BeagleUI/"
+    - xcode-test:
         title: BeagleUIFrameworkTests
         inputs:
         - generate_code_coverage_files: 'yes'
-        - simulator_device: iPhone 11
+        - simulator_device: iPhone XR
         - scheme: BeagleUI
-    - codecov@1.1.6:
+    - codecov:
         inputs:
         - CODECOV_TOKEN: "$CODECOV_TOKEN"
-    - cache-push@2.2.3: {}
+    - cache-push: {}
 
   deploy:
     steps:

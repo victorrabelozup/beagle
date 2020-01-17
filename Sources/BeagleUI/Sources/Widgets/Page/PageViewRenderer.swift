@@ -33,7 +33,7 @@ class PageViewRender: ViewRendering<PageView> {
         for indicator: PageIndicator,
         context: BeagleContext
     ) throws -> PageIndicatorUIView {
-        let render = self.rendererProvider.buildRenderer(for: indicator, dependencies: dependencies)
+        let render = dependencies.rendererProvider.buildRenderer(for: indicator, dependencies: dependencies)
         let view = render.buildView(context: context)
 
         guard let indicatorView = view as? PageIndicatorUIView else {

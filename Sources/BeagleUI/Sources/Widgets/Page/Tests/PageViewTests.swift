@@ -25,11 +25,11 @@ class PageViewTests: XCTestCase {
         )
     }
 
-    private let page = FlexWidget {
-        Text("First text")
-        Button(text: "Button")
+    private let page = FlexWidget(children: [
+        Text("First text"),
+        Button(text: "Button"),
         Text("Second text")
-    }.applyFlex(Flex(flexDirection: .column, justifyContent: .center))
+    ]).applyFlex(Flex(flexDirection: .column, justifyContent: .center))
 
     func test_viewWithPages() {
         let pageView = PageView(
@@ -40,7 +40,7 @@ class PageViewTests: XCTestCase {
         let screen = BeagleScreenViewController(
             viewModel: .init(screenType: .declarative(pageView))
         )
-        assertSnapshot(matching: screen, as: .image)
+        assertSnapshotImage(screen)
     }
 
     func test_viewWithPagesAndIndicator() {
@@ -52,7 +52,7 @@ class PageViewTests: XCTestCase {
         let screen = BeagleScreenViewController(
             viewModel: .init(screenType: .declarative(pageView))
         )
-        assertSnapshot(matching: screen, as: .image)
+        assertSnapshotImage(screen)
     }
 
 }

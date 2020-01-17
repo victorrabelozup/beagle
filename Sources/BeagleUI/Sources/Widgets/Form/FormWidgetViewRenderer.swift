@@ -14,12 +14,12 @@ final class FormWidgetViewRenderer: ViewRendering<Form> {
     
     override func buildView(context: BeagleContext) -> UIView {
         let child = widget.child
-        let childRenderer = self.rendererProvider.buildRenderer(for: child, dependencies: dependencies)
+        let childRenderer = dependencies.rendererProvider.buildRenderer(for: child, dependencies: dependencies)
         let childView = childRenderer.buildView(context: context)
         
         func registerFormSubmit(view: UIView) {
             if view.beagleFormElement is FormSubmit {
-                context.register(form: widget, formView: childView, submitView: view, validator: self.validatorProvider)
+                context.register(form: widget, formView: childView, submitView: view, validator: dependencies.validatorProvider)
             }
             for subview in view.subviews {
                 registerFormSubmit(view: subview)

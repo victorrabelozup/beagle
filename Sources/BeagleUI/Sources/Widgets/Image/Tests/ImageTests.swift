@@ -14,21 +14,16 @@ class ImageTests: XCTestCase {
         assertSnapshot(matching: widget, as: .dump)
     }
     
-    func test_renderImage() {
+    func test_renderImage() throws {
         let dependencies = BeagleDependencies()
         dependencies.appBundle = Bundle(for: ImageTests.self)
         Beagle.dependencies = dependencies
         addTeardownBlock {
             Beagle.dependencies = BeagleDependencies()
         }
-        guard let image: Image = try? widgetFromJsonFile(fileName: "ImageWidget") else {
-            XCTFail("Failed to load ImageWidget.json")
-            return
-        }
-        let screen = BeagleScreenViewController(
-            viewModel: .init(screenType: .declarative(image))
-        )
-        assertSnapshot(matching: screen, as: .image)
-    }
 
+        let image: Image = try widgetFromJsonFile(fileName: "ImageWidget")
+        let view = image.toView(context: BeagleContextDummy(), dependencies: dependencies)
+        assertSnapshotImage(view, size: CGSize(width: 400, height: 400))
+    }
 }

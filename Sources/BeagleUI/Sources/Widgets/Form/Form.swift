@@ -27,17 +27,8 @@ public struct Form: Widget {
         self.method = method
         self.child = child
     }
-    
-    public init(
-        action: String,
-        method: MethodType,
-        @WidgetBuilder _ childBuilder: () -> Widget
-    ) {
-        let child = childBuilder()
-        self.init(action: action, method: method, child: child)
-    }
-    
 }
+
 extension Form {
     public enum MethodType: String, StringRawRepresentable {
         case get = "GET"

@@ -16,6 +16,10 @@ public protocol DependencyTheme {
     var theme: Theme { get }
 }
 
+public protocol DependencyAppBundle {
+    var appBundle: Bundle { get }
+}
+
 public struct AppTheme: Theme {
     let styles: [String: Any]
     
@@ -46,7 +50,7 @@ public struct BeagleStyle {
     }
 
     public static func label(font: UIFont, color: UIColor) -> (UILabel?) -> Void {
-        label(withFont: font)
+        return label(withFont: font)
             <> label(withTextColor: color)
     }
     

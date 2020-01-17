@@ -9,8 +9,18 @@ final class RemoteConnectorTests: XCTestCase {
 
     private struct Dependencies: RemoteConnecting.Dependencies {
         var baseURL: URL?
-        var networkDispatcher: NetworkDispatcher = URLRequestDispatchingDummy()
-        var decoder: WidgetDecoding = WidgetDecodingDummy()
+        var networkDispatcher: NetworkDispatcher
+        var decoder: WidgetDecoding
+
+        init(
+            baseURL: URL? = nil,
+            networkDispatcher: NetworkDispatcher = URLRequestDispatchingDummy(),
+            decoder: WidgetDecoding = WidgetDecodingDummy()
+        ) {
+            self.baseURL = baseURL
+            self.networkDispatcher = networkDispatcher
+            self.decoder = decoder
+        }
     }
 
     func test_requestWithInvalidURL_itShouldFail() {
@@ -40,9 +50,9 @@ final class RemoteConnectorTests: XCTestCase {
         XCTAssertNotNil(fetchError)
         XCTAssertNotNil(formError)
         guard
-            case .invalidURL = fetchError,
-            case .invalidURL = formError else
-        {
+            case .invalidURL? = fetchError,
+            case .invalidURL? = formError
+        else {
             let errorName = String(describing: fetchError ?? formError)
             XCTFail("Expected a `.invalidURL` error, but got \(errorName).")
             return
@@ -102,8 +112,8 @@ final class RemoteConnectorTests: XCTestCase {
         wait(for: [fetchWidgetExpectation], timeout: 1.0)
 
         // Then
-        XCTAssertNotNil(widgetReturned, "Expected a widget, but got nil.")
-        XCTAssertTrue(widgetReturned is Text, "Expected a `Text`, but got something else.")
+        XCTAssertNotNil(widgetReturned)
+        XCTAssert(widgetReturned is Text)
     }
 
     func test_whenRequestFails_itShouldThrowRequestError() {
@@ -126,8 +136,8 @@ final class RemoteConnectorTests: XCTestCase {
         wait(for: [fetchWidgetExpectation], timeout: 1.0)
 
         // Then
-        XCTAssertNotNil(errorThrown, "Expected an error, but got nil.")
-        guard case .request = errorThrown else {
+        XCTAssertNotNil(errorThrown)
+        guard case .request? = errorThrown else {
             XCTFail("Expected a `.request` error, but got \(String(describing: errorThrown)).")
             return
         }
@@ -155,12 +165,11 @@ final class RemoteConnectorTests: XCTestCase {
         wait(for: [fetchWidgetExpectation], timeout: 1.0)
 
         // Then
-        XCTAssertNotNil(errorThrown, "Expected an error, but got nil.")
-        guard case .emptyData = errorThrown else {
+        XCTAssertNotNil(errorThrown)
+        guard case .emptyData? = errorThrown else {
             XCTFail("Expected a `.emptyData` error, but got \(String(describing: errorThrown)).")
             return
         }
-
     }
 
     func test_whenRequestSucceeds_butTheDecodingFailsWithAnError_itShouldThrowDecodingError() {
@@ -187,8 +196,8 @@ final class RemoteConnectorTests: XCTestCase {
         wait(for: [fetchWidgetExpectation], timeout: 1.0)
 
         // Then
-        XCTAssertNotNil(errorThrown, "Expected an error, but got nil.")
-        guard case .decoding = errorThrown else {
+        XCTAssertNotNil(errorThrown)
+        guard case .decoding? = errorThrown else {
             XCTFail("Expected a `.decoding` error, but got \(String(describing: errorThrown)).")
             return
         }
@@ -262,8 +271,8 @@ final class RemoteConnectorTests: XCTestCase {
         wait(for: [submitFormExpectation], timeout: 1.0)
 
         // Then
-        XCTAssertNotNil(errorThrown, "Expected an error, but got nil.")
-        guard case .request = errorThrown else {
+        XCTAssertNotNil(errorThrown)
+        guard case .request? = errorThrown else {
             XCTFail("Expected a `.request` error, but got \(String(describing: errorThrown)).")
             return
         }
@@ -289,8 +298,8 @@ final class RemoteConnectorTests: XCTestCase {
         wait(for: [submitFormExpectation], timeout: 1.0)
 
         // Then
-        XCTAssertNotNil(errorThrown, "Expected an error, but got nil.")
-        guard case .emptyData = errorThrown else {
+        XCTAssertNotNil(errorThrown)
+        guard case .emptyData? = errorThrown else {
             XCTFail("Expected a `.emptyData` error, but got \(String(describing: errorThrown)).")
             return
         }
@@ -319,8 +328,8 @@ final class RemoteConnectorTests: XCTestCase {
         wait(for: [submitFormExpectation], timeout: 1.0)
 
         // Then
-        XCTAssertNotNil(errorThrown, "Expected an error, but got nil.")
-        guard case .decoding = errorThrown else {
+        XCTAssertNotNil(errorThrown)
+        guard case .decoding? = errorThrown else {
             XCTFail("Expected a `.decoding` error, but got \(String(describing: errorThrown)).")
             return
         }

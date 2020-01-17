@@ -16,7 +16,7 @@ public struct Horizontal: Widget, HasAppearance {
     
     // MARK: - Initialization
     
-    init(
+    public init(
         appearance: Appearance? = nil,
         children: [Widget] = [],
         reversed: Bool = false
@@ -24,37 +24,6 @@ public struct Horizontal: Widget, HasAppearance {
         self.appearance = appearance
         self.children = children
         self.reversed = reversed
-    }
-    
-    public init(
-        appearance: Appearance? = nil,
-        @WidgetBuilder _ childBuilder: () -> Widget
-    ) {
-        let singleChild = childBuilder()
-        self.init(appearance: appearance, children: [singleChild])
-    }
-    
-    public static func new(
-        appearance: Appearance? = nil,
-        closure: () -> Widget
-    ) -> Horizontal {
-        let singleChild = closure()
-        return .init(appearance: appearance, children: [singleChild])
-    }
-    
-    public init(
-        appearance: Appearance? = nil,
-        @WidgetArrayBuilder _ childrenBuilder: () -> [Widget]
-    ) {
-        let children = childrenBuilder()
-        self.init(appearance: appearance, children: children)
-    }
-    
-    public static func new(
-        closure: () -> [Widget]
-    ) -> Horizontal {
-        let children = closure()
-        return .init(children: children)
     }
     
     // MARK: - Configuration

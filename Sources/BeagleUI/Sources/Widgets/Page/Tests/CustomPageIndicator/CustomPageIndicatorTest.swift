@@ -46,7 +46,7 @@ class CustomPageIndicatorTest: XCTestCase {
         return renderer
     }()
 
-    private lazy var dependencies = ScreenViewControllerDependencies(
+    private lazy var dependencies = BeagleScreenDependencies(
         rendererProvider: provider
     )
 
@@ -60,9 +60,7 @@ class CustomPageIndicatorTest: XCTestCase {
 
     func test_indicator_render() {
         let view = indicator.toView(context: BeagleContextDummy(), dependencies: dependencies)
-        view.frame = .init(x: 0, y: 0, width: 200, height: 30)
-
-        assertSnapshot(matching: view, as: .image)
+        assertSnapshotImage(view, size: .init(width: 200, height: 30))
     }
 
     func test_pageViewWithCustomIndicator_decoder() throws {
@@ -86,6 +84,6 @@ class CustomPageIndicatorTest: XCTestCase {
             dependencies: dependencies
         ))
 
-        assertSnapshot(matching: screen, as: .image)
+        assertSnapshotImage(screen)
     }
 }

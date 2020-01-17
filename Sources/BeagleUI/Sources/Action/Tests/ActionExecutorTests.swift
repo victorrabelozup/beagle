@@ -13,11 +13,19 @@ final class ActionExecutorTests: XCTestCase {
 
     private struct Dependencies: ActionExecuting.Dependencies {
         
-        var customActionHandler: CustomActionHandler? = CustomActionHandlerDummy()
-        var navigation: BeagleNavigation = BeagleNavigator(dependencies: Prefetch())
+        var customActionHandler: CustomActionHandler?
+        var navigation: BeagleNavigation
         
         struct Prefetch: DependencyPreFetching {
             var preFetchHelper: BeaglePrefetchHelping = BeaglePreFetchHelper()
+        }
+
+        init(
+            customActionHandler: CustomActionHandler = CustomActionHandlerDummy(),
+            navigation: BeagleNavigation = BeagleNavigator(dependencies: Prefetch())
+        ) {
+            self.customActionHandler = customActionHandler
+            self.navigation = navigation
         }
     }
 

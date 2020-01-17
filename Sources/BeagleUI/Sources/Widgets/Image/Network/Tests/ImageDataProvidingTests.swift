@@ -31,7 +31,7 @@ final class ImageServiceTests: XCTestCase {
         wait(for: [fetchImageDataExpectation], timeout: 2.0)
 
         // Then
-        XCTAssertNotNil(resultData, "Expected data to be found, but it was not.")
+        XCTAssertNotNil(resultData)
     }
 
     func test_whenHasCachedData_returnValidImageData() {
@@ -55,12 +55,12 @@ final class ImageServiceTests: XCTestCase {
         wait(for: [fetchImageDataFromURLExpectation], timeout: 1.0)
 
         // Then
-        guard case let .success(data) = resultReturned else {
+        guard case let .success(data)? = resultReturned else {
             XCTFail("Expected .failure, but got \(String(describing: resultReturned))")
             return
         }
 
-        XCTAssertEqual(dataToReturn, data, "Expected \(dataToReturn.debugDescription), but got \(data.debugDescription)")
+        XCTAssert(dataToReturn == data)
     }
 
     func test_whenRequestFromNetworkAndItReturnsRequestError_itShouldReturnError() {
@@ -79,7 +79,7 @@ final class ImageServiceTests: XCTestCase {
         wait(for: [fetchImageDataExpectation], timeout: 1.0)
 
         // Then
-        guard case let .failure(error) = resultReturned else {
+        guard case let .failure(error)? = resultReturned else {
             XCTFail("Expected .failure, but got \(String(describing: resultReturned))")
             return
         }
@@ -107,7 +107,7 @@ final class ImageServiceTests: XCTestCase {
         wait(for: [fetchImageDataExpectation], timeout: 1.0)
 
         // Then
-        XCTAssertEqual(expectedError, resultReturned, "Expected empty data error, but got \(String(describing: resultReturned))")
+        XCTAssert(expectedError == resultReturned)
     }
 
     func test_whenRequestFromNetworkAndItReturnsRequestBuilderFailed_itShouldReturnError() {
@@ -127,7 +127,7 @@ final class ImageServiceTests: XCTestCase {
         wait(for: [fetchImageDataExpectation], timeout: 1.0)
 
         // Then
-        XCTAssertEqual(expectedError, resultReturned, "Expected request builder failed error, but got \(String(describing: resultReturned))")
+        XCTAssert(expectedError == resultReturned)
     }
 
 }

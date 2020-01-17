@@ -1,9 +1,5 @@
 //
-//  TabViewUIComponentTests.swift
-//  BeagleFrameworkTests
-//
-//  Created by Gabriela Coelho on 29/11/19.
-//  Copyright © 2019 Zup IT. All rights reserved.
+//  Copyright © 29/11/19 Zup IT. All rights reserved.
 //
 
 import XCTest
@@ -13,19 +9,20 @@ final class TabViewUIComponentTests: XCTestCase {
     
     // MARK: - Variables
     private lazy var widget = TabView(tabItems: [
-        TabItem(icon: "beagle", title: "Tab 1") {
-            FlexWidget {
+        TabItem(icon: "beagle", title: "Tab 1", content:
+            FlexWidget(children: [
+                Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj"),
                 Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj")
-                Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj")
-
-            }.applyFlex(Flex(alignContent: .center))
-        },
-        TabItem(icon: "beagle", title: "Tab 2") {
-            FlexWidget {
-                Text("Text1 Tab 2")
+            ])
+            .applyFlex(Flex(alignContent: .center))
+        ),
+        TabItem(icon: "beagle", title: "Tab 2", content:
+            FlexWidget(children: [
+                Text("Text1 Tab 2"),
                 Text("Text2 Tab 2")
-            }.applyFlex(Flex(justifyContent: .flexEnd))
-        }
+            ])
+            .applyFlex(Flex(justifyContent: .flexEnd))
+        )
     ])
     
     private lazy var model = TabViewUIComponent.Model(tabIndex: 0, tabViewItems: widget.tabItems)
@@ -33,7 +30,7 @@ final class TabViewUIComponentTests: XCTestCase {
     private lazy var sut = TabViewUIComponent(model: model)
 
     private func makeScreen(_ widget: Widget) -> BeagleScreenViewController {
-        BeagleScreenViewController(
+        return BeagleScreenViewController(
             viewModel: .init(screenType: .declarative(widget))
         )
     }
@@ -45,7 +42,7 @@ final class TabViewUIComponentTests: XCTestCase {
             XCTFail("Could not find `collectionView`.")
             return
         }
-        XCTAssertNotNil(collectionView.collectionViewLayout, "Expected collectionViewLayout to be initiated.")
+        XCTAssertNotNil(collectionView.collectionViewLayout)
     }
     
     func test_numberOfItemsInSection_shouldReturnModelItemsCount() {
@@ -60,7 +57,7 @@ final class TabViewUIComponentTests: XCTestCase {
         }
         
         // Then
-        XCTAssertEqual(model.tabViewItems.count, count, "Expected \(model.tabViewItems.count), but got \(count).")
+        XCTAssert(model.tabViewItems.count == count)
     }
     
     func test_cellForItemAt_shouldReturnCorrectCell() {
@@ -75,20 +72,8 @@ final class TabViewUIComponentTests: XCTestCase {
         let cell = sut.collectionView(collectionView, cellForItemAt: indexPath)
         
         // Then
-        XCTAssertTrue(cell is TabBarCollectionViewCell, "The returned cell should be of type `TabBarCollectionViewCell`.")
-        XCTAssertEqual(1, cell.contentView.subviews.count, "The cell's `contentView` should have a stackView.")
-    }
-    
-    func test_didSelectItem_shouldChangeIndicatorViewColor() {
-        // Given /When
-        let mockedCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 360, height: 50), collectionViewLayout: UICollectionViewFlowLayout())
-        
-        sut.collectionView(mockedCollectionView, didSelectItemAt: IndexPath(row: 0, section: 1))
-        
-        guard (sut.subviews.first(where: { $0 is UICollectionView }) as? UICollectionView) != nil else {
-            XCTFail("Could not find `collectionView`.")
-            return
-        }
+        XCTAssert(cell is TabBarCollectionViewCell)
+        XCTAssert(cell.contentView.subviews.count == 1)
     }
     
     func test_whenChangedPages_shouldCallChangeFunction() {
@@ -116,7 +101,7 @@ final class TabViewUIComponentTests: XCTestCase {
         )
         
         // Then
-        XCTAssertTrue(spy.changedCurrentPageFuncionCalled, "Expected changedCurrentPageFunction to be called.")
+        XCTAssert(spy.changedCurrentPageFuncionCalled)
     }
     
     func test_whenChangedPages_shouldChangeCollectionTab() {
@@ -129,7 +114,7 @@ final class TabViewUIComponentTests: XCTestCase {
             transitionCompleted: true
         )
         // Then
-        XCTAssertEqual(sut.contentView.model.currentPage, sut.model.tabIndex, "Expected indexes to be the same.")
+        XCTAssert(sut.contentView.model.currentPage == sut.model.tabIndex)
     }
     
     func test_whenChangedTabs_shouldChangeCurrentPage() {

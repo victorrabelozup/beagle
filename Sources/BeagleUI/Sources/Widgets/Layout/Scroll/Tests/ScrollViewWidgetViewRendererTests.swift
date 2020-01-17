@@ -16,9 +16,9 @@ final class ScrollViewWidgetViewRendererTests: XCTestCase {
         let flexSpy = FlexViewConfiguratorSpy()
         let dependencies = RendererDependenciesContainer(flex: flexSpy)
         
-        let container = ScrollView {
+        let container = ScrollView(children: [
             WidgetDummy()
-        }
+        ])
 
         guard let renderer = try? ScrollViewWidgetViewRenderer(
             widget: container,
@@ -32,9 +32,9 @@ final class ScrollViewWidgetViewRendererTests: XCTestCase {
         let resultingView = renderer.buildView(context: BeagleContextDummy())
         
         // Then
-        XCTAssertTrue(flexSpy.setupFlexCalled, "Expected to call `applyFlex`.")
-        XCTAssertTrue(resultingView.subviews.count == 1, "Expected view to have 1 subviews, but has \(resultingView.subviews)")
-        XCTAssertEqual(flexSpy.timesPassed, 1, "Expected 3, but got \(String(describing: flexSpy.timesPassed)).")
+        XCTAssert(flexSpy.setupFlexCalled)
+        XCTAssert(resultingView.subviews.count == 1)
+        XCTAssert(flexSpy.timesPassed == 1)
     }
     
     func test_whenLayoutSubViewsIsCalledOnBagleContainerScrollView_itShouldSetupTheContentSizeCorrectly() {
@@ -47,7 +47,7 @@ final class ScrollViewWidgetViewRendererTests: XCTestCase {
         sut.layoutSubviews()
 
         // Then
-        XCTAssertEqual(subview.frame.size, sut.contentSize, "Expected \(subview.frame.size), but got \(sut.contentSize).")
+        XCTAssert(subview.frame.size == sut.contentSize)
         
     }
     

@@ -14,7 +14,7 @@ final class ButtonWidgetViewRenderer: ViewRendering<Button> {
         button.setTitle(widget.text, for: .normal)
         
         if let style = widget.style {
-            self.theme.applyStyle(for: button, withId: style)
+            dependencies.theme.applyStyle(for: button, withId: style)
         }
         
         return button

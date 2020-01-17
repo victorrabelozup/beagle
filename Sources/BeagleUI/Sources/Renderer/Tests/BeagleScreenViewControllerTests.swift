@@ -19,11 +19,13 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         sut.viewDidLoad()
         
         // Then
-        if #available(iOS 13.0, *) {
-            XCTAssertEqual(sut.view.backgroundColor, .systemBackground)
-        } else {
+
+        // TODO: uncomment this when using Xcode > 10.3 (which will support iOS 13)
+        // if #available(iOS 13.0, *) {
+        //    XCTAssertEqual(sut.view.backgroundColor, .systemBackground)
+        // } else {
             XCTAssertEqual(sut.view.backgroundColor, .white)
-        }
+        // }
     }
     
     func test_onViewDidLayoutSubviews_shouldApplyYogaLayout() {
@@ -32,7 +34,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
 
         let sut = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(WidgetDummy()),
-            dependencies: ScreenViewControllerDependencies(
+            dependencies: BeagleScreenDependencies(
                 flex: flexSpy
             )
         ))
@@ -71,7 +73,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         
         _ = BeagleScreenViewController(viewModel: .init(
             screenType: .remote(url),
-            dependencies: ScreenViewControllerDependencies(
+            dependencies: BeagleScreenDependencies(
                 remoteConnector: loaderStub
             ),
             delegate: delegateSpy
@@ -98,25 +100,44 @@ final class BeagleScreenViewControllerTests: XCTestCase {
             dependencies: dependencies
         ))
 
-        assertSnapshot(matching: sut, as: .image)
+        assertSnapshotImage(sut)
     }
 }
 
 // MARK: - Testing Helpers
 
 struct SimpleWidget {
-    var content = FlexSingleWidget {
+    var content = FlexSingleWidget(child:
         Text("Mock")
-    }
+    )
 }
 
-struct ScreenViewControllerDependencies: BeagleScreenViewModel.Dependencies {
-    var actionExecutor: ActionExecutor = ActionExecutorDummy()
-    var flex: FlexViewConfiguratorProtocol = FlexViewConfiguratorDummy()
-    var rendererProvider: RendererProvider = RendererProviderDummy()
-    var remoteConnector: RemoteConnector = RemoteConnectorDummy()
-    var theme: Theme = AppThemeDummy()
-    var validatorProvider: ValidatorProvider? = ValidatorProviding()
+struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
+    var actionExecutor: ActionExecutor
+    var flex: FlexViewConfiguratorProtocol
+    var rendererProvider: RendererProvider
+    var remoteConnector: RemoteConnector
+    var theme: Theme
+    var validatorProvider: ValidatorProvider?
+    var appBundle: Bundle
+
+    init(
+        actionExecutor: ActionExecutor = ActionExecutorDummy(),
+        flex: FlexViewConfiguratorProtocol = FlexViewConfiguratorDummy(),
+        rendererProvider: RendererProvider = RendererProviderDummy(),
+        remoteConnector: RemoteConnector = RemoteConnectorDummy(),
+        theme: Theme = AppThemeDummy(),
+        validatorProvider: ValidatorProvider = ValidatorProviding(),
+        appBundle: Bundle = Bundle(for: ImageTests.self)
+    ) {
+        self.actionExecutor = actionExecutor
+        self.flex = flex
+        self.rendererProvider = rendererProvider
+        self.remoteConnector = remoteConnector
+        self.theme = theme
+        self.validatorProvider = validatorProvider
+        self.appBundle = appBundle
+    }
 }
 
 final class RemoteConnectorDummy: RemoteConnector {

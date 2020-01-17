@@ -1,13 +1,10 @@
 //
-//  WidgetDecoderTests.swift
-//  BeagleFrameworkTests
-//
-//  Created by Eduardo Sanches Bocato on 18/09/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 18/09/19 Zup IT. All rights reserved.
 //
 
 import XCTest
 @testable import BeagleUI
+import SnapshotTesting
 
 final class WidgetDecoderTests: XCTestCase {
     
@@ -16,6 +13,13 @@ final class WidgetDecoderTests: XCTestCase {
     private lazy var sut = Beagle.dependencies.decoder
     
     // MARK: - Tests
+
+    // TODO: remove this test when using newer versions of SnapshotTesting,
+    // because this behaviour will be already tested on BeagleSetupTests.
+    func testIfAllDecodersAreBeingRegistered() {
+        let decoder = WidgetDecoder(jsonDecoder: .init(), namespace: "TEST")
+        assertSnapshot(matching: decoder.decoders, as: .dump)
+    }
     
     func test_initWithCustomJsonDecoder_shouldSetupJsonDecoderCorrectly() {
         // Given

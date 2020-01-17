@@ -15,19 +15,11 @@ public struct Navigator: Widget {
     
     // MARK: - Initialization
     
-    init(
+    public init(
         action: Navigate,
         child: Widget
     ) {
         self.action = action
         self.child = child
-    }
-    
-    public init(
-        action: Navigate,
-        @WidgetBuilder _ childBuilder: () -> Widget
-    ) {
-        let child = childBuilder()
-        self.init(action: action, child: child)
     }
 }

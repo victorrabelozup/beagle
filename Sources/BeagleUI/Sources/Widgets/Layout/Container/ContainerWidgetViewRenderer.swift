@@ -13,22 +13,22 @@ final class ContainerWidgetViewRenderer: ViewRendering<Container> {
         let view = UIView()
         
         if let header = widget.header {
-            let headerView = self.rendererProvider
+            let headerView = dependencies.rendererProvider
                 .buildRenderer(for: header, dependencies: dependencies)
                 .buildView(context: context)
             view.addSubview(headerView)
-            self.flex.enableYoga(true, for: headerView)
+            dependencies.flex.enableYoga(true, for: headerView)
         }
         
         let contentView = buildContentView(context: context)
         view.addSubview(contentView)
         
         if let footer = widget.footer {
-            let footerView = self.rendererProvider
+            let footerView = dependencies.rendererProvider
                 .buildRenderer(for: footer, dependencies: dependencies)
                 .buildView(context: context)
             view.addSubview(footerView)
-            self.flex.enableYoga(true, for: footerView)
+            dependencies.flex.enableYoga(true, for: footerView)
         }
         return view
     }
@@ -37,10 +37,10 @@ final class ContainerWidgetViewRenderer: ViewRendering<Container> {
     
     private func buildContentView(context: BeagleContext) -> UIView {
         let flex = Flex(grow: 1)
-        let contentView = self.rendererProvider
+        let contentView = dependencies.rendererProvider
             .buildRenderer(for: widget.content, dependencies: dependencies)
             .buildView(context: context)
-        self.flex.setupFlex(flex, for: contentView)
+        dependencies.flex.setupFlex(flex, for: contentView)
         return contentView
     }
 }

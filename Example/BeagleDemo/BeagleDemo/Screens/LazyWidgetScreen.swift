@@ -9,21 +9,23 @@ struct LazyWidgetScreen: DeeplinkScreen {
     init(path: String, data: [String : String]?) {
     }
     var widget: Widget {
-        Form(
-        action: "https://t001-2751a.firebaseapp.com/action/shownativedialog.json", method: .get) {
-            FlexWidget {
-                Text("Form & LazyWidget")
-                FormInput(name: "field") {
-                    LazyWidget(url: "http://www.mocky.io/v2/5de16c0a32000056638093da") {
-                        Text("Loading...")
-                    }
-                }
-                FormSubmit {
+        return Form(
+            action: "https://t001-2751a.firebaseapp.com/action/shownativedialog.json",
+            method: .get,
+            child: FlexWidget(children: [
+                Text("Form & LazyWidget"),
+                FormInput(
+                    name: "field",
+                    child: LazyWidget(
+                        url: "http://www.mocky.io/v2/5de16c0a32000056638093da",
+                        initialState: Text("Loading...")
+                    )
+                ),
+                FormSubmit(child:
                     Text("FormSubmit")
-                }
-            }
-            .applyFlex(Flex(justifyContent: .spaceBetween))
-        }
+                )
+            ]).applyFlex(Flex(justifyContent: .spaceBetween))
+        )
     }
 }
 

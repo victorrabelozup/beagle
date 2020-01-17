@@ -11,6 +11,7 @@ public protocol ViewRenderer {
         & DependencyRendererProvider
         & DependencyTheme
         & DependencyValidatorProvider
+        & DependencyAppBundle
 
     typealias Error = ViewRendererError
 
@@ -36,7 +37,6 @@ public enum ViewRendererError: Error {
 
 // MARK: - Implementation
 
-@dynamicMemberLookup
 open class ViewRendering<W: Widget>: ViewRenderer {
 
     var dependencies: Dependencies
@@ -53,10 +53,6 @@ open class ViewRendering<W: Widget>: ViewRenderer {
     
     open func buildView(context: BeagleContext) -> UIView {
         fatalError("This needs to be overriden.")
-    }
-
-    subscript<T>(dynamicMember keyPath: KeyPath<Dependencies, T>) -> T {
-        return dependencies[keyPath: keyPath]
     }
 }
 

@@ -84,7 +84,7 @@ final class TabViewUIComponent: UIView {
         collectionView.heightAnchor.constraint(lessThanOrEqualToConstant: 65).isActive = true
         
         collectionView.addSubview(containerIndicator)
-        collectionView.bringSubviewToFront(containerIndicator.indicatorView)
+        collectionView.bringSubview(toFront: containerIndicator.indicatorView)
         containerIndicator.anchor(bottom: collectionView.bottomAnchor, bottomConstant: -65, heightConstant: 3)
         containerWidthConstraint = NSLayoutConstraint(item: containerIndicator.indicatorView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100)
         containerWidthConstraint?.isActive = true

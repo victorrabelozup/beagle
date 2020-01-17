@@ -11,6 +11,16 @@ struct FlexWidgetEntity: WidgetConvertibleEntity {
     var children: [AnyDecodableContainer] = []
     var flex: FlexEntity?
     var appearance: AppearanceEntity?
+
+    init(
+        children: [AnyDecodableContainer] = [],
+        flex: FlexEntity? = nil,
+        appearance: AppearanceEntity? = nil
+    ) {
+        self.children = children
+        self.flex = flex
+        self.appearance = appearance
+    }
     
     func mapToWidget() throws -> Widget {
         let children = try self.children.compactMap {

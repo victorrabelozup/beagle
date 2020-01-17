@@ -13,7 +13,7 @@ struct LazyWidgetEntity: WidgetConvertibleEntity {
 
     func mapToWidget() throws -> Widget {
         let initialStateEntity = initialState.content as? WidgetConvertibleEntity
-        let initialState = try initialStateEntity?.mapToWidget() ?? AnyWidget(value: self.initialState.content)
-        return LazyWidget(url: url, initialState: initialState)
+        let initialWidget = try initialStateEntity?.mapToWidget() ?? AnyWidget(value: initialState.content)
+        return LazyWidget(url: url, initialState: initialWidget)
     }
 }

@@ -13,11 +13,11 @@ final class FormTests: XCTestCase {
     
     func test_initWithChild_shouldReturnValidForm() {
         // Given / When
-        let sut = Form(action: "action", method: .get) {
+        let sut = Form(action: "action", method: .get, child:
             Text("Teste")
-        }
+        )
         // Then
-        XCTAssertTrue(sut.child is Text, "Expected `Text`, but got \(String(describing: sut.child))")
+        XCTAssertTrue(sut.child is Text)
     }
     
 }

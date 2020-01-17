@@ -100,7 +100,7 @@ class CustomPageIndicatorUIComponent: UIView, PageIndicatorUIView {
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        BeagleUI.fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: Private functions

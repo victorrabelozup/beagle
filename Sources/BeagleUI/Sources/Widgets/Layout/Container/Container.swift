@@ -14,7 +14,7 @@ public struct Container: Widget {
     
     // MARK: - Initialization
     
-    init(
+    public init(
         header: Widget? = nil,
         content: Widget,
         footer: Widget? = nil
@@ -23,20 +23,4 @@ public struct Container: Widget {
         self.content = content
         self.footer = footer
     }
-    
-    public init(
-        header headerBuilder: (() -> Widget?)? = nil,
-        content contentBuilder: () -> Widget,
-        footer footerBuilder: (() -> Widget?)? = nil
-    ) {
-        let header = headerBuilder?()
-        let content = contentBuilder()
-        let footer = footerBuilder?()
-        self.init(
-            header: header,
-            content: content,
-            footer: footer
-        )
-    }
-    
 }

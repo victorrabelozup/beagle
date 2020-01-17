@@ -50,12 +50,12 @@ public class BeagleScreenViewController: UIViewController {
     // MARK: - Lifecycle
 
     private func initView() {
-        if #available(iOS 13.0, *) {
-            view.backgroundColor = UIColor.systemBackground
-        } else {
+        // TODO: uncomment this when using Xcode > 10.3 (which will support iOS 13)
+        // if #available(iOS 13.0, *) {
+        //    view.backgroundColor = UIColor.systemBackground
+        // } else {
             view.backgroundColor = .white
-        }
-
+        // }
         view.addSubview(rootWidgetView)
         addConstraints()
     }

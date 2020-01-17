@@ -15,7 +15,7 @@ final class LazyWidgetViewRenderer: ViewRendering<LazyWidget> {
     // MARK: - Public Functions
     
     override func buildView(context: BeagleContext) -> UIView {
-        let view = self.rendererProvider
+        let view = dependencies.rendererProvider
             .buildRenderer(for: widget.initialState, dependencies: dependencies)
             .buildView(context: context)
         context.lazyLoad(url: widget.url, initialState: view)

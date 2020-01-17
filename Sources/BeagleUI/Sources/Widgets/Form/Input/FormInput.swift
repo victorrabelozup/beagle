@@ -16,7 +16,7 @@ public struct FormInput: Widget {
     public let errorMessage: String?
     public let child: Widget
 
-    init(
+    public init(
         name: String,
         required: Bool? = nil,
         validator: String? = nil,
@@ -28,23 +28,6 @@ public struct FormInput: Widget {
         self.validator = validator
         self.errorMessage = errorMessage
         self.child = child
-    }
-    
-    public init(
-        name: String,
-        required: Bool? = nil,
-        validator: String? = nil,
-        errorMessage: String? = nil,
-        @WidgetBuilder _ childBuilder: () -> Widget
-    ) {
-        let child = childBuilder()
-        self.init(
-            name: name,
-            required: required,
-            validator: validator,
-            errorMessage: errorMessage,
-            child: child
-        )
     }
     
 }

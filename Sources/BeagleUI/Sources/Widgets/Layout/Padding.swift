@@ -15,28 +15,12 @@ public struct Padding: Widget {
     
     // MARK: - Initialization
     
-    init(
-        value: Value,
+    public init(
+        value: Value = Value(),
         child: Widget
     ) {
         self.value = value
         self.child = child
-    }
-    
-    public init(
-        value: Value = Value(),
-        @WidgetBuilder child childBuilder: () -> Widget
-    ) {
-        self.value = value
-        self.child = childBuilder()
-    }
-    
-    public static func new(
-        value: Value = Value(),
-        closure: () -> Widget
-    ) -> Padding {
-        let child = closure()
-        return .init(value: value, child: child)
     }
     
 }

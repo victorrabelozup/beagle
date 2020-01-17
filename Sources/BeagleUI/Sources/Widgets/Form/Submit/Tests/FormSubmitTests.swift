@@ -13,11 +13,11 @@ final class FormSubmitTests: XCTestCase {
     
     func test_initWithChild_shouldReturnValidFormSubmit() {
         // Given / When
-        let sut = FormSubmit {
+        let sut = FormSubmit(child:
             Text("Text")
-        }
+        )
         // Then
-        XCTAssertTrue(sut.child is Text, "Expected `Text`, but got \(String(describing: sut.child))")
+        XCTAssert(sut.child is Text)
     }
     
 }

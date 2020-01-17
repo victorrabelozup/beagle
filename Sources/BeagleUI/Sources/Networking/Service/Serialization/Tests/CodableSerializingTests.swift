@@ -31,8 +31,8 @@ final class CodableSerializingTests: XCTestCase {
         wait(for: [serializeCodableExpectation], timeout: 1.0)
 
         // Then
-        XCTAssertNotNil(errorThrown, "An error, should have been thrown.")
-        guard case .noData = errorThrown as? NetworkingError else {
+        XCTAssertNotNil(errorThrown)
+        guard case .noData? = errorThrown as? NetworkingError else {
             XCTFail("Invalid error found, expected `URLRequestError.noData`.")
             return
         }
@@ -64,7 +64,7 @@ final class CodableSerializingTests: XCTestCase {
         wait(for: [serializeCodableExpectation], timeout: 1.0)
 
         // Then
-        XCTAssertEqual(expectedCodableResult, codableResult, "Expected \(expectedCodableResult), but got \(String(describing: codableResult)).")
+        XCTAssert(expectedCodableResult == codableResult)
     }
     
     func test_serializingInvalidData_shouldReturnSerializationError() {
@@ -77,8 +77,7 @@ final class CodableSerializingTests: XCTestCase {
             return
         }
         let resultToSerialize: Result<Data?, URLRequestError> = .success(invalidData)
-        
-        // When
+
         // When
         let serializeCodableExpectation = expectation(description: "serializeCodableExpectation")
         var errorThrown: Error?
@@ -94,8 +93,8 @@ final class CodableSerializingTests: XCTestCase {
         wait(for: [serializeCodableExpectation], timeout: 1.0)
 
         // Then
-        XCTAssertNotNil(errorThrown, "An error, should have been thrown.")
-        guard case .serializationError = errorThrown as? NetworkingError else {
+        XCTAssertNotNil(errorThrown)
+        guard case .serializationError? = errorThrown as? NetworkingError else {
             XCTFail("Invalid error found, expected `URLRequestError.serializationError`.")
             return
         }
@@ -121,8 +120,8 @@ final class CodableSerializingTests: XCTestCase {
         wait(for: [serializeCodableExpectation], timeout: 1.0)
 
         // Then
-        XCTAssertNotNil(errorThrown, "An error, should have been thrown.")
-        guard case .urlRequest = errorThrown as? NetworkingError else {
+        XCTAssertNotNil(errorThrown)
+        guard case .urlRequest? = errorThrown as? NetworkingError else {
             XCTFail("Invalid error found, expected `URLRequestError.urlRequest`.")
             return
         }

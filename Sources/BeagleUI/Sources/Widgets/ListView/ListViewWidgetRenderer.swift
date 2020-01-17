@@ -16,7 +16,7 @@ final class ListViewWidgetRenderer: ViewRendering<ListView> {
         
         let widgetViews = widget.rows?
             .compactMap {
-                self.rendererProvider
+                dependencies.rendererProvider
                     .buildRenderer(for: $0, dependencies: dependencies)
                     .buildView(context: context)
             } ?? []
@@ -29,9 +29,8 @@ final class ListViewWidgetRenderer: ViewRendering<ListView> {
         let listView = ListViewUIComponent(flexViewConfigurator: dependencies.flex, model: model)
         
         let flex = Flex(grow: 1)
-        self.flex.setupFlex(flex, for: listView)
-        
-        self.flex.enableYoga(true, for: listView)
+        dependencies.flex.setupFlex(flex, for: listView)
+        dependencies.flex.enableYoga(true, for: listView)
         
         return listView
         

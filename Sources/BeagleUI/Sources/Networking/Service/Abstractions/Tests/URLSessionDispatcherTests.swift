@@ -35,8 +35,8 @@ final class URLSessionDispatcherTests: XCTestCase {
         wait(for: [executeRequestExpectation], timeout: 1.0)
 
         // Then
-        XCTAssertNotNil(errorThrown, "An error, should have been thrown.")
-        guard case .requestBuilderFailed = errorThrown as? URLRequestError else {
+        XCTAssertNotNil(errorThrown)
+        guard case .requestBuilderFailed? = errorThrown as? URLRequestError else {
             XCTFail("Invalid error found, expected `URLRequestError.requestBuilderFailed`.")
             return
         }
@@ -70,8 +70,8 @@ final class URLSessionDispatcherTests: XCTestCase {
         wait(for: [executeRequestExpectation], timeout: 1.0)
 
         // Then
-        XCTAssertNotNil(errorThrown, "An error, should have been thrown.")
-        guard case .invalidHTTPURLResponse = errorThrown as? URLRequestError else {
+        XCTAssertNotNil(errorThrown)
+        guard case .invalidHTTPURLResponse? = errorThrown as? URLRequestError else {
             XCTFail("Invalid error found, expected `URLRequestError.invalidHTTPURLResponse`.")
             return
         }
@@ -111,7 +111,7 @@ final class URLSessionDispatcherTests: XCTestCase {
         wait(for: [executeRequestExpectation], timeout: 1.0)
 
         // Then
-        XCTAssertTrue(isDataReturnedNil, "Expected to receive `nil` data.")
+        XCTAssert(isDataReturnedNil)
     }
     
     func test_validData_shouldReturnSuccessWithValidData() {
@@ -148,7 +148,7 @@ final class URLSessionDispatcherTests: XCTestCase {
         wait(for: [executeRequestExpectation], timeout: 1.0)
 
         // Then
-        XCTAssertTrue(isDataReturnedValid, "Expected to receive `nil` data.")
+        XCTAssert(isDataReturnedValid)
     }
     
     func test_not400not200range_shouldReturnUnknownError() {
@@ -186,8 +186,8 @@ final class URLSessionDispatcherTests: XCTestCase {
         wait(for: [executeRequestExpectation], timeout: 1.0)
 
         // Then
-        XCTAssertNotNil(errorThrown, "An error, should have been thrown.")
-        guard case .unknown = errorThrown as? URLRequestError else {
+        XCTAssertNotNil(errorThrown)
+        guard case .unknown? = errorThrown as? URLRequestError else {
             XCTFail("Invalid error found, expected `URLRequestError.unknown`.")
             return
         }
@@ -228,8 +228,8 @@ final class URLSessionDispatcherTests: XCTestCase {
         wait(for: [executeRequestExpectation], timeout: 1.0)
 
         // Then
-        XCTAssertNotNil(errorThrown, "An error, should have been thrown.")
-        guard case .withData = errorThrown as? URLRequestError else {
+        XCTAssertNotNil(errorThrown)
+        guard case .withData? = errorThrown as? URLRequestError else {
             XCTFail("Invalid error found, expected `URLRequestError.withData`.")
             return
         }
@@ -270,8 +270,8 @@ final class URLSessionDispatcherTests: XCTestCase {
         wait(for: [executeRequestExpectation], timeout: 1.0)
 
         // Then
-        XCTAssertNotNil(errorThrown, "An error, should have been thrown.")
-        guard case .unknown = errorThrown as? URLRequestError else {
+        XCTAssertNotNil(errorThrown)
+        guard case .unknown? = errorThrown as? URLRequestError else {
             XCTFail("Invalid error found, expected `URLRequestError.unknown`.")
             return
         }

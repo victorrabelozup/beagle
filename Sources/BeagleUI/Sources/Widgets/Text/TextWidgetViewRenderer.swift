@@ -13,7 +13,7 @@ final class TextWidgetViewRenderer: ViewRendering<Text> {
         label.numberOfLines = 0
         label.textAlignment = widget.alignment?.toUIKit() ?? .natural
         if let style = widget.style {
-            self.theme.applyStyle(for: label, withId: style)
+            dependencies.theme.applyStyle(for: label, withId: style)
         }
         label.applyAppearance(widget.appearance)
         

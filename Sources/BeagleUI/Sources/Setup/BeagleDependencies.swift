@@ -19,10 +19,10 @@ public protocol BeagleDependenciesProtocol: DependencyFlexViewConfigurator,
     DependencyNetworkDispatcher,
     DependencyCustomActionHandler,
     DependencyNavigation,
-    DependencyPreFetching {
+    DependencyPreFetching,
+    DependencyAppBundle {
 
     var customWidgetsProvider: CustomWidgetsRendererProvider { get }
-    var appBundle: Bundle { get }
     var deepLinkHandler: BeagleDeepLinkScreenManaging? { get }
 }
 
@@ -80,11 +80,10 @@ private class InnerDependenciesResolver: RemoteConnecting.Dependencies,
         fatalError("You should set this closure to get the dependencies container")
     }
 
-    var baseURL: URL? { container().baseURL }
-    var decoder: WidgetDecoding { container().decoder }
-    var networkDispatcher: NetworkDispatcher { container().networkDispatcher }
-    var navigation: BeagleNavigation { container().navigation }
-    var preFetchHelper: BeaglePrefetchHelping { container().preFetchHelper }
-    var customActionHandler: CustomActionHandler? { container().customActionHandler }
-    
+    var baseURL: URL? { return container().baseURL }
+    var decoder: WidgetDecoding { return container().decoder }
+    var networkDispatcher: NetworkDispatcher { return container().networkDispatcher }
+    var navigation: BeagleNavigation { return container().navigation }
+    var preFetchHelper: BeaglePrefetchHelping { return container().preFetchHelper }
+    var customActionHandler: CustomActionHandler? { return container().customActionHandler }
 }

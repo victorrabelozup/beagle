@@ -33,11 +33,11 @@ final class FlexSingleWidgetViewRendererTests: XCTestCase {
         let resultingView = renderer.buildView(context: context)
         
         //Then
-        XCTAssertTrue(flexSpy.setupFlexCalled, "Expected to call `applyFlex`.")
-        XCTAssertEqual(resultingView, flexSpy.viewPassedToSetupFlex, "Expected \(String(describing: resultingView)), but got \(String(describing: flexSpy.viewPassedToSetupFlex)).")
-        XCTAssertEqual(flexWidget.flex.size?.height, flexSpy.flexPassed?.size?.height, "Expected \(String(describing: flexWidget.flex.size?.height)), but got \(String(describing: flexSpy.flexPassed?.size?.height)).")
-        XCTAssertEqual(flexWidget.flex.size?.width, flexSpy.flexPassed?.size?.width, "Expected \(String(describing: flexWidget.flex.size?.width)), but got \(String(describing: flexSpy.flexPassed?.size?.width)).")
-        XCTAssertEqual(resultingView.subviews.count, expectedNumberOfSubviews, "Expected \(expectedNumberOfSubviews) subview, but got \(resultingView.subviews.count).")
+        XCTAssert(flexSpy.setupFlexCalled)
+        XCTAssert(resultingView == flexSpy.viewPassedToSetupFlex)
+        XCTAssert(flexWidget.flex.size?.height == flexSpy.flexPassed?.size?.height)
+        XCTAssert(flexWidget.flex.size?.width == flexSpy.flexPassed?.size?.width)
+        XCTAssert(resultingView.subviews.count == expectedNumberOfSubviews)
         
     }
 }

@@ -21,17 +21,17 @@ final class ScrollViewWidgetViewRenderer: ViewRendering<ScrollView> {
         let contentView = UIView()
         
         widget.children.forEach {
-            let childView = self.rendererProvider
+            let childView = dependencies.rendererProvider
                 .buildRenderer(for: $0, dependencies: dependencies)
                 .buildView(context: context)
             contentView.addSubview(childView)
-            self.flex.enableYoga(true, for: childView)
+            dependencies.flex.enableYoga(true, for: childView)
         }
         scrollView.addSubview(contentView)
         scrollView.applyAppearance(widget.appearance)
         
         let flexContent = Flex(grow: 1, shrink: 0)
-        self.flex.setupFlex(flexContent, for: contentView)
+        dependencies.flex.setupFlex(flexContent, for: contentView)
         
         return scrollView
     }

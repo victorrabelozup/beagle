@@ -7,11 +7,12 @@
 //
 
 public struct TabItem: Widget {
+
     public let icon: String?
     public let title: String?
     public let content: Widget
     
-    init(
+    public init(
         icon: String? = nil,
         title: String? = nil,
         content: Widget
@@ -19,15 +20,6 @@ public struct TabItem: Widget {
         self.icon = icon
         self.title = title
         self.content = content
-    }
-    
-    public init(
-        icon: String? = nil,
-        title: String? = nil,
-        @WidgetBuilder content contentBuilder: () -> Widget
-    ) {
-        let singleContent = contentBuilder()
-        self.init(icon: icon, title: title, content: singleContent)
     }
 }
 

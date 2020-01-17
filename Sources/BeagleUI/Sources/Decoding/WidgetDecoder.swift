@@ -36,8 +36,8 @@ final class WidgetDecoder: WidgetDecoding {
         case beagle
         case custom
     }
-    
-    private var decoders: [String: Decodable.Type] = [:]
+
+    private(set) var decoders: [String: Decodable.Type] = [:]
     
     // MARK: - Initialization
     

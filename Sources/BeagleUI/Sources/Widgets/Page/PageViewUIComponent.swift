@@ -17,7 +17,15 @@ class PageViewUIComponent: UIView {
 
     struct Model {
         var pages: [BeagleScreenViewController]
-        var currentPage = 0
+        var currentPage: Int
+
+        init(
+            pages: [BeagleScreenViewController],
+            currentPage: Int = 0
+        ) {
+            self.pages = pages
+            self.currentPage = currentPage
+        }
     }
 
     private var pendingPage = 0
@@ -76,7 +84,7 @@ class PageViewUIComponent: UIView {
 
         stackView.addArrangedSubview(view)
 
-        if let indicator = indicatorView {
+        if let indicator = indicatorView as? UIView {
             stackView.addArrangedSubview(indicator)
             indicator.heightAnchor.constraint(equalToConstant: 40).isActive = true
         }

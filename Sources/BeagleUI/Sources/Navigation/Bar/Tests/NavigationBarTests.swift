@@ -2,51 +2,41 @@
 //  Copyright © 20/11/19 Zup IT. All rights reserved.
 //
 
-// swiftlint:disable trailing_closure
-
 import XCTest
 @testable import BeagleUI
 
 final class NavigationBarTests: XCTestCase {
 
-    func test_initWithLeadingAndTrailing_shouldReturnExpectedInstance() {
+    func testLeadingAndTrailing() {
         // Given / When
         let widget = NavigationBar(
             title: "Teste",
-            leading: {
-                Button(text: "Button")
-            },
-            trailing: {
-                Button(text: "Button2")
-            }
+            leading: Button(text: "Button"),
+            trailing: Button(text: "Button2")
         )
         // Then
-        XCTAssertTrue(widget.leading is Button, "Expected to find `Button`.")
-        XCTAssertTrue(widget.trailing is Button, "Expected to find `Button`.")
+        XCTAssert(widget.leading is Button)
+        XCTAssert(widget.trailing is Button)
     }
     
-    func test_initWithLeadingOnly_shouldReturnExpectedInstance() {
+    func testLeadingOnly() {
         // Given / When
         let widget = NavigationBar(
             title: "Teste",
-            leading: {
-                Button(text: "Button")
-            }
+            leading: Button(text: "Button")
         )
         // Then
-        XCTAssertTrue(widget.leading is Button, "Expected to find `Button`.")
+        XCTAssert(widget.leading is Button)
     }
     
-    func test_initWithTrailingOnly_shouldReturnExpectedInstance() {
+    func testTrailingOnly() {
         // Given / When
         let widget = NavigationBar(
             title: "Teste",
-            trailing: {
-                Button(text: "Button2")
-            }
+            trailing: Button(text: "Button2")
         )
         // Then
-        XCTAssertTrue(widget.trailing is Button, "Expected to find `Button`.")
+        XCTAssert(widget.trailing is Button)
     }
 
 }

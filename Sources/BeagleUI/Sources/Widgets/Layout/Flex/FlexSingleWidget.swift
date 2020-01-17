@@ -18,7 +18,7 @@ public struct FlexSingleWidget: Widget, HasAppearance {
     
     // MARK: - Initialization
     
-    init(
+    public init(
         child: Widget,
         flex: Flex = Flex(),
         appearance: Appearance? = nil
@@ -26,14 +26,6 @@ public struct FlexSingleWidget: Widget, HasAppearance {
         self.child = child
         self.flex = flex
         self.appearance = appearance
-    }
-    
-    public init(
-        appearance: Appearance? = nil,
-        @WidgetBuilder _ childBuilder: () -> Widget
-    ) {
-        let child = childBuilder()
-        self.init(child: child, appearance: appearance)
     }
     
     // MARK: - Configuration

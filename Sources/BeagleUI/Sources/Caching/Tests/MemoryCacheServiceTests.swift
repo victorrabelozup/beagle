@@ -1,9 +1,5 @@
 //
-//  MemoryCacheService.swift
-//  CachingTests
-//
-//  Created by Eduardo Sanches Bocato on 10/10/19.
-//  Copyright © 2019 Bocato. All rights reserved.
+//  Copyright © 10/10/19 Zup IT. All rights reserved.
 //
 
 import XCTest

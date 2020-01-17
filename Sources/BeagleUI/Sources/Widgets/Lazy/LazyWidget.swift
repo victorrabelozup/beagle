@@ -15,19 +15,11 @@
         
     // MARK: - Initialization
     
-    init(
+    public init(
         url: String,
         initialState: Widget
     ) {
         self.url = url
         self.initialState = initialState
-    }
-    
-    public init(
-        url: String,
-        @WidgetBuilder _ initialStateBuilder: () -> Widget
-    ) {
-        let initialState = initialStateBuilder()
-        self.init(url: url, initialState: initialState)
     }
 }

@@ -1,9 +1,5 @@
 //
-//  TabBarWidgetViewRendererTests.swift
-//  BeagleFrameworkTests
-//
-//  Created by Gabriela Coelho on 26/11/19.
-//  Copyright © 2019 Zup IT. All rights reserved.
+//  Copyright © 26/11/19 Zup IT. All rights reserved.
 //
 
 import XCTest
@@ -15,19 +11,20 @@ final class TabViewRendererTests: XCTestCase {
     func test_buildView_shouldReturnTheExpectedView() {
         // Given
         let widget = TabView(tabItems: [
-             TabItem(title: "Tab 1") {
-                 FlexWidget {
+             TabItem(title: "Tab 1", content:
+                 FlexWidget(children: [
+                     Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj"),
                      Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj")
-                     Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj")
-
-                 }.applyFlex(Flex(alignContent: .center))
-             },
-             TabItem(title: "Tab 2") {
-                 FlexWidget {
-                     Text("Text1 Tab 2")
+                 ])
+                .applyFlex(Flex(alignContent: .center))
+             ),
+             TabItem(title: "Tab 2", content:
+                 FlexWidget(children: [
+                     Text("Text1 Tab 2"),
                      Text("Text2 Tab 2")
-                 }.applyFlex(Flex(justifyContent: .flexEnd))
-             }
+                 ])
+                 .applyFlex(Flex(justifyContent: .flexEnd))
+             )
         ])
         guard let sut = try? TabViewRenderer(widget: widget, dependencies: dependencies) else {
             XCTFail("Could not create renderer for TabBar.")
@@ -45,7 +42,7 @@ final class TabViewRendererTests: XCTestCase {
         let model = Mirror(reflecting: tabViewUIComponent).firstChild(of: TabViewUIComponent.Model.self)
         
         // Then
-        XCTAssertEqual(widget.tabItems, model?.tabViewItems, "Expected \(String(describing: widget.tabItems)) tabs, but got \(String(describing: model?.tabViewItems)).")
+        XCTAssert(widget.tabItems == model?.tabViewItems)
     }
 
 }

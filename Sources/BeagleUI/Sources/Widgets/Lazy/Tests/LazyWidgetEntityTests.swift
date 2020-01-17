@@ -21,8 +21,8 @@ final class LazyWidgetEntityTests: XCTestCase {
         let widget = try? sut.mapToWidget()
         
         // Then
-        XCTAssertNotNil(widget, "LazyWidget should not be nil.")
-        XCTAssertTrue(widget is LazyWidget)
+        XCTAssertNotNil(widget)
+        XCTAssert(widget is LazyWidget)
     }
     
     func test_whenInitialStateContentIsNotWidget_itShouldMapToAnyWidget() {
@@ -34,6 +34,6 @@ final class LazyWidgetEntityTests: XCTestCase {
         let widget = try? sut.mapToWidget() as? LazyWidget
         
         // Then
-        XCTAssertTrue(widget?.initialState is AnyWidget)
+        XCTAssert(widget??.initialState is AnyWidget)
     }
 }

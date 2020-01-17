@@ -11,6 +11,16 @@ struct HorizontalEntity: WidgetConvertibleEntity {
     var appearance: AppearanceEntity?
     var children: [AnyDecodableContainer] = []
     var reversed: Bool = false
+
+    init(
+        appearance: AppearanceEntity? = nil,
+        children: [AnyDecodableContainer] = [],
+        reversed: Bool = false
+    ) {
+        self.appearance = appearance
+        self.children = children
+        self.reversed = reversed
+    }
     
     func mapToWidget() throws -> Widget {
         

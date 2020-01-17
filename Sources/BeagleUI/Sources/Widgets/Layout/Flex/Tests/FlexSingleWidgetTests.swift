@@ -16,19 +16,19 @@ final class FlexSingleWidgetTests: XCTestCase {
         let flex = mirror.firstChild(of: Flex.self)
         let widget = mirror.firstChild(of: Widget.self)
         // Then
-        XCTAssertNotNil(flex, "Expected a valid instance of type `Flex`, but got nil.")
-        XCTAssertNotNil(widget, "Expected a valid instance of type `Widget`, but got nil.")
+        XCTAssertNotNil(flex)
+        XCTAssertNotNil(widget)
     }
     
     func test_applyFlex_shouldReturnFlexWidget() {
         // Given
-        let widget = FlexSingleWidget {
+        let widget = FlexSingleWidget(child:
             Text("Some texts")
-        }
+        )
         // When
         let flexSingleWidget = widget.apply(Flex(justifyContent: .center))
         // Then
-        XCTAssertNotNil(flexSingleWidget.flex, "Expected to have a flex widget to have flex attribute, but got none.")
+        XCTAssertNotNil(flexSingleWidget.flex)
     }
     
     func test_whenDecodingJson_shouldReturnAFlexSingleWidget() throws {
@@ -36,14 +36,11 @@ final class FlexSingleWidgetTests: XCTestCase {
         assertSnapshot(matching: widget, as: .dump)
     }
     
-    func test_renderFlexSingleWidget() {
-        guard let widget: FlexSingleWidget = try? widgetFromJsonFile(fileName: "FlexSingleWidget") else {
-            XCTFail("Failed to load FlexSingleWidget.json")
-            return
-        }
+    func test_renderFlexSingleWidget() throws {
+        let widget: FlexSingleWidget = try widgetFromJsonFile(fileName: "FlexSingleWidget")
         let screen = BeagleScreenViewController(
             viewModel: .init(screenType: .declarative(widget))
         )
-        assertSnapshot(matching: screen, as: .image)
+        assertSnapshotImage(screen)
     }
 }

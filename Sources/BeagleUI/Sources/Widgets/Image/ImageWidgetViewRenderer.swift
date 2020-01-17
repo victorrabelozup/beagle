@@ -13,15 +13,15 @@ final class ImageWidgetViewRenderer: ViewRendering<Image> {
     override func buildView(context: BeagleContext) -> UIView {
         let image = UIImageView(frame: .zero)
         image.contentMode = (widget.contentMode ?? .fitCenter).toUIKit()
-        image.setImageFromAsset(named: widget.name)
+        image.setImageFromAsset(named: widget.name, bundle: dependencies.appBundle)
         image.applyAppearance(widget.appearance)
-        self.flex.enableYoga(true, for: image)
+        dependencies.flex.enableYoga(true, for: image)
         return image
     }
 }
 
 private extension UIImageView {
-    func setImageFromAsset(named: String) {
-        self.image = UIImage(named: named, in: Beagle.appBundle, compatibleWith: nil)
+    func setImageFromAsset(named: String, bundle: Bundle) {
+        self.image = UIImage(named: named, in: bundle, compatibleWith: nil)
     }
 }

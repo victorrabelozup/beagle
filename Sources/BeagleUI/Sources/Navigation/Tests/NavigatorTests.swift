@@ -13,14 +13,15 @@ final class NavigatorTests: XCTestCase {
     
     func test_initWithChildBuilder_shouldReturnExpectedInstance() {
         // Given / When
-        let widget = Navigator(action: Navigate(type: .popView)) {
-            Text("text")
-        }
+        let widget = Navigator(
+            action: Navigate(type: .popView),
+            child: Text("text")
+        )
 
         // Then
-        XCTAssertEqual(widget.action.type, .popView, "Expected `action.type` to be `.popView`")
-        XCTAssertNil(widget.action.path, "Expected `action.path` to be nil")
-        XCTAssertNil(widget.action.data, "Expected `action.data` to be nil")
-        XCTAssertTrue(widget.child is Text, "Expected to find `Text`.")
+        XCTAssert(widget.action.type == .popView)
+        XCTAssertNil(widget.action.path)
+        XCTAssertNil(widget.action.data)
+        XCTAssert(widget.child is Text)
     }
 }
