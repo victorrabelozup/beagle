@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply from: "../screenshots.gradle"
 
 android {
     compileSdkVersion Versions.compileSdk
@@ -14,7 +15,7 @@ android {
         versionCode Releases.versionCode
         versionName Releases.versionName
 
-        testInstrumentationRunner GeneralNames.testInstrumentationRunner
+        testInstrumentationRunner GeneralNames.sampleTestInstrumentationRunner
     }
 
     lintOptions {
@@ -48,4 +49,6 @@ dependencies {
     androidTestImplementation TestLibraries.testRunner
     androidTestImplementation TestLibraries.testExt
     androidTestImplementation TestLibraries.espressoCore
+    // AndroidJUnitRunner and JUnit Rules
+    androidTestImplementation TestLibraries.testRules
 }

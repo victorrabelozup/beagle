@@ -57,6 +57,7 @@ object Versions {
 
 object GeneralNames {
     const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    const val sampleTestInstrumentationRunner = "br.com.zup.beagle.sample.SampleTestRunner"
     const val consumerProguard = "consumer-rules.pro"
 }
 
@@ -104,4 +105,5 @@ object TestLibraries {
     const val testExt = "androidx.test.ext:junit:${Versions.testExt}"
     const val archCoreTesting = "androidx.arch.core:core-testing:${Versions.archCoreTesting}"
     const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
+    const val testRules = "androidx.test:rules:${Versions.testExt}"
 }
