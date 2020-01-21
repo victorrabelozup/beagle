@@ -175,12 +175,50 @@ final class BeagleNavigatorTests: XCTestCase {
         // Then
         XCTAssertTrue(navigationSpy.presentViewControllerCalled)
     }
+    
+    func test_openDeepLink_shouldPushANativeScreenWithData() {
+        // Given
+        let sut = BeagleNavigator(dependencies: Prefetch())
+        let data = ["uma": "uma", "dois": "duas"]
+        let path = "https://example.com/screen.json"
+        let action = Navigate(type: .openDeepLink, path: path, data: data)
+        let firstViewController = UIViewController()
+        let context = DummyBeagleContext(viewController: firstViewController)
+        let navigation = UINavigationController(rootViewController: firstViewController)
+        
+        let dependencieManager = BeagleDependencies(appName: "demo")
+        let deepLinkSpy = DeepLinkHandlerSpy()
+        dependencieManager.deepLinkHandler = deepLinkSpy
+        Beagle.dependencies = dependencieManager
+        addTeardownBlock {
+            Beagle.dependencies = BeagleDependencies()
+        }
+        
+        // When
+        sut.navigate(action: action, context: context)
+        
+        //Then
+        XCTAssertEqual(2, navigation.viewControllers.count)
+        XCTAssertEqual(data, deepLinkSpy.calledData)
+        XCTAssertEqual(path, deepLinkSpy.calledPath)
+    }
 
     private func beagleViewController(screen: BeagleScreenViewModel.ScreenType) -> BeagleScreenViewController {
         return BeagleScreenViewController(viewModel: .init(
             screenType: screen,
             dependencies: BeagleScreenDependencies()
         ))
+    }
+}
+
+class DeepLinkHandlerSpy: BeagleDeepLinkScreenManaging {
+    var calledPath: String? = nil
+    var calledData: [String : String]? = nil
+    
+    func getNaviteScreen(with path: String, data: [String : String]?) throws -> UIViewController {
+        calledData = data
+        calledPath = path
+        return UIViewController()
     }
 }
 

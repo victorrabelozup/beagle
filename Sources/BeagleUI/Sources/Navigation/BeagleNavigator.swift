@@ -29,7 +29,7 @@ class BeagleNavigator: BeagleNavigation {
         switch action.type {
         case .openDeepLink:
             if let path = action.path {
-                openDeepLink(path: path, source: source, animated: animated)
+                openDeepLink(path: path, source: source, data: action.data,animated: animated)
             }
         case .swapView:
             if let url = action.path {
@@ -56,11 +56,11 @@ class BeagleNavigator: BeagleNavigation {
     
     // MARK: - Navigation Methods
         
-    private func openDeepLink(path: String, source: UIViewController, animated: Bool) {
+    private func openDeepLink(path: String, source: UIViewController, data: [String: String]?, animated: Bool) {
         guard let deepLinkHandler = Beagle.dependencies.deepLinkHandler else { return }
 
         do {
-            let viewController = try deepLinkHandler.getNaviteScreen(with: path, data: nil)
+            let viewController = try deepLinkHandler.getNaviteScreen(with: path, data: data)
             source.navigationController?.pushViewController(viewController, animated: animated)
         } catch {
             return
