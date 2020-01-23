@@ -5,12 +5,10 @@
 import UIKit
 
 public class BeagleScreenViewController: UIViewController {
-    
-    // MARK: - Dependencies
-    
+
     public let viewModel: BeagleScreenViewModel
-    
-    // MARK: - Properties
+
+    private var viewIsPresented = false
 
     private(set) var rootWidgetView: UIView = {
         let root = UIView()
@@ -23,6 +21,7 @@ public class BeagleScreenViewController: UIViewController {
         view.bottomAnchor.constraint(greaterThanOrEqualTo: rootWidgetView.bottomAnchor)
     }()
 
+    private var safeAreaManager: SafeAreaManager?
     private var keyboardManager: KeyboardManager?
 
     var dependencies: ViewModel.Dependencies {
@@ -38,7 +37,6 @@ public class BeagleScreenViewController: UIViewController {
 
         super.init(nibName: nil, bundle: nil)
 
-        initView()
         viewModel.stateObserver = self
     }
     
@@ -48,39 +46,57 @@ public class BeagleScreenViewController: UIViewController {
     }
     
     // MARK: - Lifecycle
-
-    private func initView() {
-        // TODO: uncomment this when using Xcode > 10.3 (which will support iOS 13)
-        // if #available(iOS 13.0, *) {
-        //    view.backgroundColor = UIColor.systemBackground
-        // } else {
-            view.backgroundColor = .white
-        // }
-        view.addSubview(rootWidgetView)
-        addConstraints()
-    }
-
-    func updateView(state: ViewModel.State) {
-        switch state {
-        case .loading:
-            view.showLoading(.whiteLarge)
-
-        case .result(let result):
-            view.hideLoading()
-            if case .success(let widget) = result {
-                buildViewFromWidget(widget)
-            }
-        }
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        initView()
     }
     
     public override func viewWillAppear(_ animated: Bool) {
+        viewIsPresented = true
+        renderWidgetIfNeeded()
+
         super.viewWillAppear(animated)
 
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+        updateNavigationBar(animated: animated)
         keyboardManager = KeyboardManager(
             bottomConstraint: keyboardConstraint,
             view: view
         )
+    }
+    
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewIsPresented = false
+    }
+    
+    private func renderWidgetIfNeeded() {
+        guard viewIsPresented, let screen = viewModel.screen, case .success = viewModel.state else { return }
+        buildViewFromWidget(screen)
+        safeAreaManager?.safeArea = screen.safeArea
+        viewModel.didRenderWidget()
+    }
+    
+    private func updateNavigationBar(animated: Bool) {
+        let hideNavBar = viewModel.screen?.navigationBar == nil
+        navigationController?.setNavigationBarHidden(hideNavBar, animated: animated)
+        navigationItem.title = viewModel.screen?.navigationBar?.title
+        navigationItem.hidesBackButton = !(viewModel.screen?.navigationBar?.showBackButton ?? true)
+    }
+    
+    // MARK: -
+
+    fileprivate func updateView(state: ViewModel.State) {
+        switch state {
+        case .loading:
+            view.showLoading(.whiteLarge)
+        case .success, .failure:
+            view.hideLoading()
+            renderWidgetIfNeeded()
+            updateNavigationBar(animated: viewIsPresented)
+        case .rendered:
+            break
+        }
     }
 
     public override func viewDidDisappear(_ animated: Bool) {
@@ -100,41 +116,27 @@ public class BeagleScreenViewController: UIViewController {
     
     // MARK: - View Setup
 
-    private func addConstraints() {
-        let root = rootWidgetView
-        let bottomConstraint: NSLayoutConstraint
-        var constraints: [NSLayoutConstraint]
-
-        if #available(iOS 11.0, *) {
-            let guide = view.safeAreaLayoutGuide
-            bottomConstraint = root.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
-            constraints = [
-                root.topAnchor.constraint(equalTo: guide.topAnchor),
-                root.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
-                root.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
-                bottomConstraint
-            ]
-        } else {
-            bottomConstraint = root.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor)
-            constraints = [
-                root.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
-                root.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                root.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                bottomConstraint
-            ]
-        }
-
-        bottomConstraint.priority = .init(999)
-
-        constraints.append(keyboardConstraint)
-        NSLayoutConstraint.activate(constraints)
+    private func initView() {
+        // TODO: uncomment this when using Xcode > 10.3 (which will support iOS 13)
+        // if #available(iOS 13.0, *) {
+        //    view.backgroundColor = UIColor.systemBackground
+        // } else {
+        view.backgroundColor = .white
+        // }
+        view.addSubview(rootWidgetView)
+        safeAreaManager = SafeAreaManager(
+            viewController: self,
+            view: rootWidgetView,
+            safeArea: viewModel.screen?.safeArea
+        )
+        keyboardConstraint.isActive = true
     }
 
     private func buildViewFromWidget(_ widget: Widget) {
         let view = widget.toView(context: self, dependencies: viewModel.dependencies)
         setupWidgetView(view)
     }
-    
+
     private func setupWidgetView(_ widgetView: UIView) {
         rootWidgetView.addSubview(widgetView)
         widgetView.frame = rootWidgetView.bounds

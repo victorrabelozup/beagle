@@ -39,7 +39,7 @@ final class LayoutViewRendererProviderTests: XCTestCase {
     
     func testContainerRenderer() {
         // Given
-        let widget = Container(
+        let widget = ScreenWidget(
             header: Text("Tá pegando"),
             content: Text("Fogo"),
             footer: Text("Bixo")
@@ -48,7 +48,7 @@ final class LayoutViewRendererProviderTests: XCTestCase {
         // When
         let renderer = provider.buildRenderer(for: widget, dependencies: dependencies)
         // Then
-        XCTAssert(renderer is ContainerWidgetViewRenderer)
+        XCTAssert(renderer is ScreenWidgetViewRenderer)
     }
     
     func testSpacerRenderer() {

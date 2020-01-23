@@ -1,8 +1,4 @@
 //
-//  DeeplinkScreenManager.swift
-//  BeagleDemo
-//
-//  Created by Lucas Araújo on 02/12/19.
 //  Copyright © 2019 Zup IT. All rights reserved.
 //
 
@@ -11,7 +7,7 @@ import BeagleUI
 
 protocol DeeplinkScreen {
     init(path: String, data: [String: String]?)
-    var widget: Widget { get }
+    func screenController() -> UIViewController
 }
 
 final class DeeplinkScreenManager: BeagleDeepLinkScreenManaging {
@@ -33,9 +29,6 @@ final class DeeplinkScreenManager: BeagleDeepLinkScreenManaging {
         guard let screenType = self[path] else {
             throw NSError(domain: "DeeplinkScreenManager", code: 1, userInfo: nil)
         }
-        let screen = screenType.init(path: path, data: data)
-        return BeagleScreenViewController(
-            viewModel: .init(screenType: .declarative(screen.widget))
-        )
+        return screenType.init(path: path, data: data).screenController()
     }
 }

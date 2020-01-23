@@ -122,7 +122,7 @@ final class BeagleNavigatorTests: XCTestCase {
         let sut = BeagleNavigator(dependencies: Prefetch())
         let widget = SimpleWidget()
         let action = Navigate(type: .popToView, path: screenURL1)
-        let vc1 = beagleViewController(screen: .declarative(widget.content))
+        let vc1 = beagleViewController(screen: .declarative(widget.content.toScreen()))
         let vc2 = beagleViewController(screen: .remote(screenURL2))
         let vc3 = beagleViewController(screen: .remote(screenURL3))
         let vc4 = UIViewController()

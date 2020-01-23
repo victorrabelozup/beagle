@@ -5,15 +5,15 @@
 import XCTest
 @testable import BeagleUI
 
-final class ContainerWidgetViewRendererTests: XCTestCase {
+final class ScreenWidgetViewRendererTests: XCTestCase {
     
     func test_buildView_shouldReturnTheExpectedView() {
         // Given
         let flexSpy = FlexViewConfiguratorSpy()
         let dependencies = RendererDependenciesContainer(flex: flexSpy)
 
-        let container = Container(header: WidgetDummy(), content: WidgetDummy(), footer: WidgetDummy())
-        guard let renderer = try? ContainerWidgetViewRenderer(
+        let container = ScreenWidget(header: WidgetDummy(), content: WidgetDummy(), footer: WidgetDummy())
+        guard let renderer = try? ScreenWidgetViewRenderer(
             widget: container,
             dependencies: dependencies
         ) else {
@@ -26,8 +26,8 @@ final class ContainerWidgetViewRendererTests: XCTestCase {
         let resultingView = renderer.buildView(context: context)
         
         // Then
-        XCTAssertTrue(flexSpy.setupFlexCalled, "Expected to call `applyFlex`.")
-        XCTAssertTrue(resultingView.subviews.count == 3, "Expected view to have 3 subviews, a header, a content and a footer, but has \(resultingView.subviews)")
+        XCTAssert(flexSpy.setupFlexCalled)
+        XCTAssert(resultingView.subviews.count == 3)
     }
     
     func test_whenLayoutSubViewsIsCalledOnBagleContainerScrollView_itShouldSetupTheContentSizeCorrectly() {
@@ -40,7 +40,7 @@ final class ContainerWidgetViewRendererTests: XCTestCase {
         sut.layoutSubviews()
         
         // Then
-        XCTAssertEqual(subview.frame.size, sut.contentSize, "Expected \(subview.frame.size), but got \(sut.contentSize).")
+        XCTAssert(subview.frame.size == sut.contentSize)
     }
     
 }

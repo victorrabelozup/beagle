@@ -9,6 +9,12 @@ struct PageViewScreen: DeeplinkScreen {
     init(path: String, data: [String : String]?) {
     }
     
+    func screenController() -> UIViewController {
+        return BeagleScreenViewController(
+            viewModel: .init(screenType: .declarative(widget.toScreen()))
+        )
+    }
+    
     var widget: Widget {
         return PageView(
             pages: Array(repeating: Page(), count: 3).map { $0.content },

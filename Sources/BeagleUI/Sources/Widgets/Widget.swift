@@ -10,14 +10,19 @@ public protocol ComposeWidget: Widget {
     func build() -> Widget
 }
 
-public extension Widget {
-    func toView(
+extension Widget {
+
+    public func toView(
         context: BeagleContext,
         dependencies: ViewRenderer.Dependencies
     ) -> UIView {
         return dependencies.rendererProvider
             .buildRenderer(for: self, dependencies: dependencies)
             .buildView(context: context)
+    }
+
+    public func toScreen() -> ScreenWidget {
+        return (self as? ScreenWidget) ?? ScreenWidget(content: self)
     }
 }
 

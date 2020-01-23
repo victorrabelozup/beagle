@@ -134,7 +134,7 @@ final class WidgetDecoder: WidgetDecoding {
     }
     
     private func registerLayoutTypes() {
-        registerEntity(ContainerEntity.self, for: decodingKey(for: "Container", ofType: .widget))
+        registerEntity(ScreenWidgetEntity.self, for: decodingKey(for: "ScreenWidget", ofType: .widget))
         registerEntity(HorizontalEntity.self, for: decodingKey(for: "Horizontal", ofType: .widget))
         registerEntity(PaddingEntity.self, for: decodingKey(for: "Padding", ofType: .widget))
         registerEntity(SpacerEntity.self, for: decodingKey(for: "Spacer", ofType: .widget))
@@ -149,7 +149,6 @@ final class WidgetDecoder: WidgetDecoding {
         registerEntity(NetworkImageEntity.self, for: decodingKey(for: "NetworkImage", ofType: .widget))
         registerEntity(ListViewEntity.self, for: decodingKey(for: "ListView", ofType: .widget))
         registerEntity(TextEntity.self, for: decodingKey(for: "Text", ofType: .widget))
-        registerEntity(NavigationBarEntity.self, for: decodingKey(for: "NavigationBar", ofType: .widget))
         registerEntity(PageViewEntity.self, for: decodingKey(for: "PageView", ofType: .widget))
         registerEntity(TabViewEntity.self, for: decodingKey(for: "TabView", ofType: .widget))
         registerEntity(TabItemEntity.self, for: decodingKey(for: "TabItem", ofType: .widget))

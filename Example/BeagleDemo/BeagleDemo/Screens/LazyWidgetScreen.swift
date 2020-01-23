@@ -6,8 +6,16 @@ import UIKit
 import BeagleUI
 
 struct LazyWidgetScreen: DeeplinkScreen {
+    
     init(path: String, data: [String : String]?) {
     }
+    
+    func screenController() -> UIViewController {
+        return BeagleScreenViewController(
+            viewModel: .init(screenType: .declarative(widget.toScreen()))
+        )
+    }
+    
     var widget: Widget {
         return Form(
             action: "https://t001-2751a.firebaseapp.com/action/shownativedialog.json",

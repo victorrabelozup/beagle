@@ -16,7 +16,7 @@ final class BeagleContextTests: XCTestCase {
         // Given
         let widget = SimpleWidget()
         let sut: BeagleContext = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(widget.content),
+            screenType: .declarative(widget.content.toScreen()),
             dependencies: BeagleScreenDependencies()
         ))
         
@@ -28,7 +28,7 @@ final class BeagleContextTests: XCTestCase {
         // Given
         let widget = SimpleWidget()
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(widget.content),
+            screenType: .declarative(widget.content.toScreen()),
             dependencies: BeagleScreenDependencies()
         ))
         let view = UILabel()
@@ -48,7 +48,7 @@ final class BeagleContextTests: XCTestCase {
         let actionExecutorSpy = ActionExecutorSpy()
 
         let controller = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(widget.content),
+            screenType: .declarative(widget.content.toScreen()),
             dependencies: BeagleScreenDependencies(
                 actionExecutor: actionExecutorSpy
             )
@@ -80,7 +80,7 @@ final class BeagleContextTests: XCTestCase {
         // Given
         let widget = SimpleWidget()
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(widget.content),
+            screenType: .declarative(widget.content.toScreen()),
             dependencies: BeagleScreenDependencies()
         ))
         let form = Form(action: "action", method: .put, child: WidgetDummy())
@@ -99,7 +99,7 @@ final class BeagleContextTests: XCTestCase {
         // Given
         let widget = SimpleWidget()
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(widget.content),
+            screenType: .declarative(widget.content.toScreen()),
             dependencies: BeagleScreenDependencies()
         ))
         
@@ -163,7 +163,7 @@ final class BeagleContextTests: XCTestCase {
         )
 
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(widget.content),
+            screenType: .declarative(widget.content.toScreen()),
             dependencies: BeagleScreenDependencies(
                 actionExecutor: actionExecutorSpy,
                 remoteConnector: screenLoaderStub
@@ -197,7 +197,7 @@ final class BeagleContextTests: XCTestCase {
             submitFormResult: .failure(.invalidEntity)
         )
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(widget.content),
+            screenType: .declarative(widget.content.toScreen()),
             dependencies: BeagleScreenDependencies(
                 actionExecutor: actionExecutorSpy,
                 remoteConnector: screenLoaderStub
@@ -240,7 +240,7 @@ final class BeagleContextTests: XCTestCase {
         initialView.yoga.isEnabled = true
         let screenLoader = RemoteConnectorStub(loadWidgetResult: .success(WidgetDummy()))
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(WidgetDummy()),
+            screenType: .declarative(WidgetDummy().toScreen()),
             dependencies: BeagleScreenDependencies(
                 remoteConnector: screenLoader
             )

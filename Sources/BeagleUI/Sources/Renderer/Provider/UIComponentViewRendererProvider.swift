@@ -23,8 +23,6 @@ final class UIComponentViewRendererProviding: RendererProviderThrowable {
             return try NetworkImageWidgetViewRenderer(widget: widget, dependencies: dependencies)
         case is Text:
             return try TextWidgetViewRenderer(widget: widget, dependencies: dependencies)
-        case is NavigationBar:
-            return try NavigationBarWidgetViewRenderer(widget: widget, dependencies: dependencies)
         case is DefaultPageIndicator:
             return try DefaultPageIndicatorRenderer(widget: widget, dependencies: dependencies)
         default:

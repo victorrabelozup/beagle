@@ -39,7 +39,7 @@ final class FlexSingleWidgetTests: XCTestCase {
     func test_renderFlexSingleWidget() throws {
         let widget: FlexSingleWidget = try widgetFromJsonFile(fileName: "FlexSingleWidget")
         let screen = BeagleScreenViewController(
-            viewModel: .init(screenType: .declarative(widget))
+            viewModel: .init(screenType: .declarative(widget.toScreen()))
         )
         assertSnapshotImage(screen)
     }

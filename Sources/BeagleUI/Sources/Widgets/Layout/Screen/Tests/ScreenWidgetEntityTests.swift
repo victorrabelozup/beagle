@@ -1,31 +1,29 @@
 //
-//  ContainerEntityTests.swift
-//  BeagleFrameworkTests
-//
-//  Created by Eduardo Sanches Bocato on 19/09/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 import XCTest
 @testable import BeagleUI
 
-final class ContainerEntityTests: XCTestCase {
+final class ScreenWidgetEntityTests: XCTestCase {
 
     func test_whenMapToWidgetIsCalled_thenItShouldReturnAContainerWidget() {
         // Given
         let innerContent = TextEntity(text: "text")
         let containerMock = AnyDecodableContainer(content: innerContent)
-        let sut = ContainerEntity(
+        let sut = ScreenWidgetEntity(
+            safeArea: nil,
+            navigationBar: nil,
             header: containerMock,
             content: containerMock,
             footer: containerMock
         )
 
         // When
-        let container = try? sut.mapToWidget()
+        let widget = try? sut.mapToWidget()
 
         // Then
-        XCTAssertNotNil(container, "The Container widget should not be nil.")
-        XCTAssertTrue(container is Container)
+        XCTAssert(widget != nil)
+        XCTAssert(widget is ScreenWidget)
     }
 }

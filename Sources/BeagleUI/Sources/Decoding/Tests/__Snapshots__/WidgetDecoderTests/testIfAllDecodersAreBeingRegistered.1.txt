@@ -1,4 +1,4 @@
-▿ 28 key/value pairs
+▿ 27 key/value pairs
   ▿ (2 elements)
     - key: "beagle:action:customaction"
     - value: CustomActionEntity
@@ -14,9 +14,6 @@
   ▿ (2 elements)
     - key: "beagle:widget:button"
     - value: ButtonEntity
-  ▿ (2 elements)
-    - key: "beagle:widget:container"
-    - value: ContainerEntity
   ▿ (2 elements)
     - key: "beagle:widget:defaultpageindicator"
     - value: DefaultPageIndicatorEntity
@@ -48,9 +45,6 @@
     - key: "beagle:widget:listview"
     - value: ListViewEntity
   ▿ (2 elements)
-    - key: "beagle:widget:navigationbar"
-    - value: NavigationBarEntity
-  ▿ (2 elements)
     - key: "beagle:widget:navigator"
     - value: NavigatorEntity
   ▿ (2 elements)
@@ -62,6 +56,9 @@
   ▿ (2 elements)
     - key: "beagle:widget:pageview"
     - value: PageViewEntity
+  ▿ (2 elements)
+    - key: "beagle:widget:screenwidget"
+    - value: ScreenWidgetEntity
   ▿ (2 elements)
     - key: "beagle:widget:scrollview"
     - value: ScrollViewEntity

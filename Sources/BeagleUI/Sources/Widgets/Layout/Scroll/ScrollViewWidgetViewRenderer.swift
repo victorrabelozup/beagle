@@ -30,7 +30,7 @@ final class ScrollViewWidgetViewRenderer: ViewRendering<ScrollView> {
         scrollView.addSubview(contentView)
         scrollView.applyAppearance(widget.appearance)
         
-        let flexContent = Flex(grow: 1, shrink: 0)
+        let flexContent = Flex(grow: 0, shrink: 0)
         dependencies.flex.setupFlex(flexContent, for: contentView)
         
         return scrollView

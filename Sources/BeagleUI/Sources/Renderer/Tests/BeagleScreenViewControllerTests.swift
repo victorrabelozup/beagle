@@ -12,7 +12,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         // Given
         let widget = SimpleWidget()
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(widget.content)
+            screenType: .declarative(widget.content.toScreen())
         ))
         
         // When
@@ -33,7 +33,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         let flexSpy = FlexViewConfiguratorSpy()
 
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(WidgetDummy()),
+            screenType: .declarative(WidgetDummy().toScreen()),
             dependencies: BeagleScreenDependencies(
                 flex: flexSpy
             )
@@ -41,6 +41,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         
         // When
         _ = sut.view
+        sut.viewWillAppear(false)
         sut.viewDidLayoutSubviews()
         
         // Then
@@ -51,7 +52,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         // Given
         let widget = SimpleWidget()
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(widget.content)
+            screenType: .declarative(widget.content.toScreen())
         ))
         let navigation = UINavigationController(rootViewController: sut)
         

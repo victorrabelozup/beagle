@@ -80,7 +80,7 @@ class CustomPageIndicatorTest: XCTestCase {
         )
 
         let screen = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(widget),
+            screenType: .declarative(widget.toScreen()),
             dependencies: dependencies
         ))
 

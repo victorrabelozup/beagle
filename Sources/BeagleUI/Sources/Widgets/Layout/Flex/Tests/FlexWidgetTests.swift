@@ -45,7 +45,7 @@ final class FlexWidgetTests: XCTestCase {
     func test_renderFlexWidget() throws {
         let widget: FlexWidget = try widgetFromJsonFile(fileName: "FlexWidget")
         let screen = BeagleScreenViewController(
-            viewModel: .init(screenType: .declarative(widget))
+            viewModel: .init(screenType: .declarative(widget.toScreen()))
         )
         assertSnapshotImage(screen, size: ViewImageConfig.iPhoneXr.size!)
     }

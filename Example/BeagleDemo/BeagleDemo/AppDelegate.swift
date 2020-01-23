@@ -21,10 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         dependencies.deepLinkHandler = deepLinkHandler
         Beagle.dependencies = dependencies
         
-        let rootViewController = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(MainScreen().widget)
-        ))
-        window?.rootViewController = UINavigationController(rootViewController: rootViewController)
+        let rootViewController = MainScreen().screenController()
+        window?.rootViewController = rootViewController
         
         return true
     }

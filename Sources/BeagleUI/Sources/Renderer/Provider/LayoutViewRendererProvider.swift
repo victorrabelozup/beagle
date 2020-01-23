@@ -19,8 +19,8 @@ final class LayoutViewRendererProviding: RendererProviderThrowable {
             return try FlexSingleWidgetViewRenderer(widget: widget, dependencies: dependencies)
         case is FlexWidget:
             return try FlexWidgetViewRenderer(widget: widget, dependencies: dependencies)
-        case is Container:
-            return try ContainerWidgetViewRenderer(widget: widget, dependencies: dependencies)
+        case is ScreenWidget:
+            return try ScreenWidgetViewRenderer(widget: widget, dependencies: dependencies)
         case is Spacer:
             return try SpacerWidgetViewRenderer(widget: widget, dependencies: dependencies)
         case is ScrollView:

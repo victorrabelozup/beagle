@@ -12,7 +12,7 @@ class PageViewRender: ViewRendering<PageView> {
     ) -> UIView {
         let pages = widget.pages.map {
             BeagleScreenViewController(
-                viewModel: .init(screenType: .declarative($0))
+                viewModel: .init(screenType: .declarative($0.toScreen()))
             )
         }
 

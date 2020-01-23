@@ -3,13 +3,20 @@
 //  Copyright © 2019 Zup IT. All rights reserved.
 //
 
+import UIKit
 import BeagleUI
 
-
 struct TabViewScreen: DeeplinkScreen {
+    
     init(path: String, data: [String : String]?) {
     }
 
+    func screenController() -> UIViewController {
+        return BeagleScreenViewController(
+            viewModel: .init(screenType: .declarative(widget.toScreen()))
+        )
+    }
+    
     var widget: Widget {
         return TabView(tabItems: [
             TabItem(icon: "beagle", content:
@@ -40,4 +47,3 @@ struct TabViewScreen: DeeplinkScreen {
         ])
     }
 }
-

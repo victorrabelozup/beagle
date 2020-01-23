@@ -38,7 +38,7 @@ class PageViewTests: XCTestCase {
         )
 
         let screen = BeagleScreenViewController(
-            viewModel: .init(screenType: .declarative(pageView))
+            viewModel: .init(screenType: .declarative(pageView.toScreen()))
         )
         assertSnapshotImage(screen)
     }
@@ -50,7 +50,7 @@ class PageViewTests: XCTestCase {
         )
 
         let screen = BeagleScreenViewController(
-            viewModel: .init(screenType: .declarative(pageView))
+            viewModel: .init(screenType: .declarative(pageView.toScreen()))
         )
         assertSnapshotImage(screen)
     }

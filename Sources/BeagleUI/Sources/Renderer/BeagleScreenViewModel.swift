@@ -2,7 +2,7 @@
 //  Copyright © 26/12/19 Zup IT. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public class BeagleScreenViewModel {
 
@@ -12,7 +12,7 @@ public class BeagleScreenViewModel {
 
     public enum ScreenType {
         case remote(String)
-        case declarative(Widget)
+        case declarative(ScreenWidget)
     }
 
     // MARK: State
@@ -20,10 +20,14 @@ public class BeagleScreenViewModel {
     private(set) var state: State {
         didSet { didChangeState() }
     }
+    
+    private(set) var screen: ScreenWidget?
 
     public enum State {
         case loading
-        case result(Result<Widget, RemoteConnectorError>)
+        case success
+        case failure(RemoteConnectorError)
+        case rendered
     }
 
     // MARK: Dependencies
@@ -55,8 +59,9 @@ public class BeagleScreenViewModel {
         self.delegate = delegate
 
         switch screenType {
-        case .declarative(let widget):
-            state = .result(.success(widget))
+        case .declarative(let screen):
+            self.screen = screen
+            state = .success
         case .remote(let url):
             state = .loading
             loadScreenFromUrl(url)
@@ -70,8 +75,18 @@ public class BeagleScreenViewModel {
 
         dependencies.remoteConnector.fetchWidget(from: url) { [weak self] result in
             guard let self = self else { return }
-            self.state = .result(result)
+            switch result {
+            case .success(let widget):
+                self.screen = widget.toScreen()
+                self.state = .success
+            case .failure(let error):
+                self.state = .failure(error)
+            }
         }
+    }
+    
+    func didRenderWidget() {
+        state = .rendered
     }
 
     func handleError(_ error: RemoteConnectorError) {
@@ -81,7 +96,7 @@ public class BeagleScreenViewModel {
     private func didChangeState() {
         stateObserver?.didChangeState(state)
 
-        guard case .result(.failure(let error)) = state else { return }
+        guard case .failure(let error) = state else { return }
 
         handleError(error)
     }
