@@ -6,37 +6,40 @@ import java.net.URL
 
 internal class UrlFormatter {
     fun format(endpoint: String, path: String): String {
-        // if endpoint has a host, return it as url
-        if (endpoint.isValidUrl()) {
-            return endpoint
+        // if path has a host, return it as url
+        if (path.isValidUrl()) {
+            return path
         }
 
-        if (path.isEmpty()) throw MalformedURLException("Invalid base url")
+        if (endpoint.isEmpty()) throw MalformedURLException("Invalid base url")
 
-        // path should end with a '/' and ignore anything after it
-        val url = URL(path.substring(0, (path.lastIndexOf("/") + 1)))
+        // endpoint should end with a '/' and ignore anything after it
+        val url = URL(endpoint.substring(0, (endpoint.lastIndexOf("/") + 1)))
 
-        // if endpoint is an scheme, replace url's scheme
-        if (endpoint.startsWith("//")) {
-            return replaceUrlScheme(url, endpoint)
+        // if path is an scheme, replace url's scheme
+        if (path.startsWith("//")) {
+            return replaceUrlScheme(url, path)
         }
 
-        // if endpoint is absolute, replace url's specified path
-        if (endpoint.startsWith("/")) {
-            return replaceUrlSpecifiedPath(url, endpoint)
+        // if path is absolute, replace url's specified path
+        if (path.startsWith("/")) {
+            return replaceUrlSpecifiedPath(url, path)
         }
 
-        // else just concatenate path and endpoint
-        return url.toString() + endpoint
+        // else just concatenate endpoint and path
+        return url.toString() + path
     }
 
-    private fun replaceUrlSpecifiedPath(url: URL, endpoint: String): String {
-        return StringBuilder().append(url.protocol).append("://").append(url.host)
-            .append(endpoint).toString()
+    private fun replaceUrlSpecifiedPath(url: URL, path: String): String {
+        var newUrl = StringBuilder().append(url.protocol).append("://").append(url.host)
+        if (url.port != -1) {
+            newUrl.append(":").append(url.port)
+        }
+        return newUrl.append(path).toString()
     }
 
-    private fun replaceUrlScheme(url: URL, endpoint: String): String {
-        return StringBuilder().append(url.protocol).append(":").append(endpoint).toString()
+    private fun replaceUrlScheme(url: URL, path: String): String {
+        return StringBuilder().append(url.protocol).append(":").append(path).toString()
     }
 
 }

@@ -35,7 +35,7 @@ internal class HttpClientDefault(
             }
         }
 
-        return object: RequestCall {
+        return object : RequestCall {
             override fun cancel() {
                 this@HttpClientDefault.cancel()
             }
@@ -53,7 +53,7 @@ internal class HttpClientDefault(
         request: RequestData
     ): ResponseData {
         val urlConnection = urlFactory.make(
-            urlFormatter.format(request.endpoint, request.path ?: "")
+            urlFormatter.format(request.endpoint ?: "", request.path ?: "")
         ).openConnection() as HttpURLConnection
 
         urlConnection.setRequestProperty("Content-Type", "application/json")
@@ -79,7 +79,7 @@ internal class HttpClientDefault(
     private fun addRequestMethod(urlConnection: HttpURLConnection, method: HttpMethod) {
         val methodValue = method.toString()
 
-        if (method == HttpMethod.PATCH || method ==  HttpMethod.HEAD) {
+        if (method == HttpMethod.PATCH || method == HttpMethod.HEAD) {
             urlConnection.setRequestProperty("X-HTTP-Method-Override", methodValue)
             urlConnection.requestMethod = "POST"
         } else {

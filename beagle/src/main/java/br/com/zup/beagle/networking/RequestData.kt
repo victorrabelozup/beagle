@@ -1,7 +1,7 @@
 package br.com.zup.beagle.networking
 
 data class RequestData(
-    val endpoint: String,
+    val endpoint: String? = null,
     val path: String? = null,
     val method: HttpMethod = HttpMethod.GET,
     val headers: Map<String, String> = mapOf(),

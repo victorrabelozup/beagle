@@ -5,6 +5,7 @@ import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.networking.HttpClient
 import br.com.zup.beagle.networking.HttpMethod
 import br.com.zup.beagle.networking.RequestData
+import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormMethodType
@@ -13,8 +14,11 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
+import io.mockk.mockkObject
 import io.mockk.slot
+import io.mockk.unmockkObject
 import io.mockk.verify
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -36,8 +40,15 @@ class FormSubmitterTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
+        mockkObject(BeagleEnvironment)
+        every { BeagleEnvironment.baseUrl } returns RandomData.httpUrl()
 
         every { httpClient.execute(capture(requestDataSlot), any(), any()) } returns mockk()
+    }
+
+    @After
+    fun tearDown() {
+        unmockkObject(BeagleEnvironment)
     }
 
     @Test
@@ -62,7 +73,7 @@ class FormSubmitterTest {
         val requestData = requestDataSlot.captured
         assertEquals(HttpMethod.POST, requestData.method)
         assertEquals("""{"$inputName":"$inputValue"}""", requestData.body)
-        assertEquals(action, requestData.endpoint)
+        assertEquals(action, requestData.path)
     }
 
     @Test
@@ -143,7 +154,7 @@ class FormSubmitterTest {
         formSubmitter.submitForm(form, FORMS_VALUE) {}
 
         // Then
-        assertEquals(action, requestDataSlot.captured.endpoint)
+        assertEquals(action, requestDataSlot.captured.path)
     }
 
     @Test
@@ -168,7 +179,7 @@ class FormSubmitterTest {
         val element0 = formElements.elementAt(0)
         val element1 = formElements.elementAt(1)
         val expected = "$action?${element0.key}=${element0.value}&${element1.key}=${element1.value}"
-        assertEquals(expected, requestDataSlot.captured.endpoint)
+        assertEquals(expected, requestDataSlot.captured.path)
     }
 
     @Test
@@ -193,7 +204,7 @@ class FormSubmitterTest {
         val element0 = formElements.elementAt(0)
         val element1 = formElements.elementAt(1)
         val expected = "$action?${element0.key}=${element0.value}&${element1.key}=${element1.value}"
-        assertEquals(expected, requestDataSlot.captured.endpoint)
+        assertEquals(expected, requestDataSlot.captured.path)
     }
 
     @Test

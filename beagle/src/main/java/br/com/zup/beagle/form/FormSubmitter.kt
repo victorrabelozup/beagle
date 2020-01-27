@@ -8,6 +8,7 @@ import br.com.zup.beagle.networking.HttpClientFactory
 import br.com.zup.beagle.networking.HttpMethod
 import br.com.zup.beagle.networking.RequestData
 import br.com.zup.beagle.networking.URLFactory
+import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormMethodType
 
@@ -42,7 +43,8 @@ internal class FormSubmitter(
 
     private fun createRequestData(form: Form, formsValue: Map<String, String>): RequestData {
         return RequestData(
-            endpoint = createUrl(form, formsValue),
+            endpoint = BeagleEnvironment.baseUrl,
+            path = createUrl(form, formsValue),
             method = when (form.method) {
                 FormMethodType.POST -> HttpMethod.POST
                 FormMethodType.GET -> HttpMethod.GET
