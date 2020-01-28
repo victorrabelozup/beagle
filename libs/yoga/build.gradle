@@ -18,6 +18,7 @@ android {
 
         versionCode Releases.versionCode
         versionName "${Releases.yogaVersionName}"
+        project.projectName = "yoga"
         //Needed for maven-publish
         project.setVersion(versionName)
 

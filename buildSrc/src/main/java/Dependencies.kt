@@ -12,7 +12,7 @@ object Modules {
 object Releases {
     const val versionCode = 1
     const val versionName = "1.0"
-    const val beagleVersionName = "0.0.6-alpha"
+    const val beagleVersionName = "0.0.10-alpha"
     const val yogaVersionName = "0.0.1-alpha1"
 }
 
@@ -36,7 +36,7 @@ object Versions {
 
     const val findsBug = "3.0.1"
 
-    const val beagleDeclarative = "0.0.21"
+    const val beagleDeclarative = "0.0.22"
 
     const val glide = "4.9.0"
 
@@ -77,7 +77,7 @@ object GeneralLibraries {
     const val findsBug = "com.google.code.findbugs:jsr305:${Versions.findsBug}"
 
     const val beagleDeclarative = "br.com.zup.beagle:declarative:${Versions.beagleDeclarative}"
-    const val yoga = "br.com.zup.beagleui:yoga:${Releases.yogaVersionName}"
+    const val yoga = "br.com.zup.beagle:yoga:${Releases.yogaVersionName}"
 
     const val materialDesign = "com.google.android.material:material:${Versions.materialDesign}"
 }
