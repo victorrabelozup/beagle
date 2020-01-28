@@ -81,14 +81,14 @@
 
     <distributionManagement>
         <repository>
-            <id>dw-nexus-release-admin</id>
-            <name>Darwin Nexus Release Repository Admin</name>
-            <url>https://repo.zup.com.br/repository/darwin-jars-releases/</url>
+            <id>beagle-nexus-release</id>
+            <name>Beagle Nexus Release Repository Admin</name>
+            <url>https://repo-iti.zup.com.br/repository/beagle-jars-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>dw-nexus-snapshot-admin</id>
-            <name>Darwin Nexus Snapshots Repository Admin</name>
-            <url>https://repo.zup.com.br/repository/darwin-jars-snapshots/</url>
+            <id>beagle-nexus-snapshots</id>
+            <name>Beagle Nexus Snapshots Repository Admin</name>
+            <url>https://repo-iti.zup.com.br/repository/beagle-jars-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
