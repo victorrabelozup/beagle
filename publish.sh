@@ -1,1 +1,1 @@
-mvn -pl .,beagle-declarative,beagle-framework release:prepare release:perform
+mvn release:prepare release:perform
