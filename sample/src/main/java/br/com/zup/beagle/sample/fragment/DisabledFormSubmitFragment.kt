@@ -47,70 +47,86 @@ class DisabledFormSubmitFragment : Fragment() {
         return Form(
             child = FlexWidget(
                 children = listOf(
-                    FlexSingleWidget(
-                        flex = Flex(
-                            alignSelf = Alignment.CENTER,
-                            margin = EdgeValue(
-                                top = UnitValue(45.0, UnitType.REAL),
-                                start = UnitValue(10.0, UnitType.REAL),
-                                end = UnitValue(10.0, UnitType.REAL)
-                            )
-                        ),
-                        child = Text(
-                            text = charade.charade,
-                            alignment = TextAlignment.CENTER
-                        )
-                    ),
-                    FlexSingleWidget(
-                        flex = Flex(
-                            alignSelf = Alignment.CENTER,
-                            margin = EdgeValue(
-                                top = UnitValue(5.0, UnitType.REAL)
-                            )
-                        ),
-                        child = MutableText(
-                            firstText = "show answer",
-                            secondText = "Mary",
-                            color = "#3380FF"
-                        )
-                    ),
-                    FlexSingleWidget(
-                        flex = Flex(
-                            margin = EdgeValue(
-                                top = UnitValue(10.0, UnitType.REAL)
-                            ),
-                            size = Size(
-                                width = UnitValue(92.0, UnitType.PERCENT)
-                            ),
-                            alignSelf = Alignment.CENTER
-                        ),
-                        child = FormInput(
-                            name = charade.name,
-                            child = TextField(
-                                hint = "answer"
-                            ),
-                            validator = charade.validator
-                        )
-                    ),
-                    FlexSingleWidget(
-                        flex = Flex(
-                            alignSelf = Alignment.CENTER,
-                            size = Size(
-                                width = UnitValue(95.0, UnitType.PERCENT)
-                            ),
-                            margin = EdgeValue(
-                                top = UnitValue(15.0, UnitType.REAL)
-                            )
-                        ),
-                        child = FormSubmit(
-                            child = Button("flag"),
-                            enabled = false
-                        )
-                    )
+                    makeCharadeText(charade),
+                    makeCharadeAnswer(),
+                    makeCharadeAnswerInput(charade),
+                    makeCharadeFormSubmit()
                 )
             ),
             method = FormMethodType.POST,
             action = "endereco/endpoint"
+        )
+    }
+
+    private fun makeCharadeFormSubmit(): FlexSingleWidget {
+        return FlexSingleWidget(
+            flex = Flex(
+                alignSelf = Alignment.CENTER,
+                size = Size(
+                    width = UnitValue(95.0, UnitType.PERCENT)
+                ),
+                margin = EdgeValue(
+                    top = UnitValue(15.0, UnitType.REAL)
+                )
+            ),
+            child = FormSubmit(
+                child = Button("flag"),
+                enabled = false
+            )
+        )
+    }
+
+    private fun makeCharadeAnswerInput(charade: CharadeInput): FlexSingleWidget {
+        return FlexSingleWidget(
+            flex = Flex(
+                margin = EdgeValue(
+                    top = UnitValue(10.0, UnitType.REAL)
+                ),
+                size = Size(
+                    width = UnitValue(92.0, UnitType.PERCENT)
+                ),
+                alignSelf = Alignment.CENTER
+            ),
+            child = FormInput(
+                name = charade.name,
+                child = TextField(
+                    hint = "answer"
+                ),
+                validator = charade.validator
+            )
+        )
+    }
+
+    private fun makeCharadeAnswer(): FlexSingleWidget {
+        return FlexSingleWidget(
+            flex = Flex(
+                alignSelf = Alignment.CENTER,
+                margin = EdgeValue(
+                    top = UnitValue(5.0, UnitType.REAL)
+                )
+            ),
+            child = MutableText(
+                firstText = "show answer",
+                secondText = "Mary",
+                color = "#3380FF"
+            )
+        )
+    }
+
+    private fun makeCharadeText(charade: CharadeInput): FlexSingleWidget {
+        return FlexSingleWidget(
+            flex = Flex(
+                alignSelf = Alignment.CENTER,
+                margin = EdgeValue(
+                    top = UnitValue(45.0, UnitType.REAL),
+                    start = UnitValue(10.0, UnitType.REAL),
+                    end = UnitValue(10.0, UnitType.REAL)
+                )
+            ),
+            child = Text(
+                text = charade.charade,
+                alignment = TextAlignment.CENTER
+            )
         )
     }
 
