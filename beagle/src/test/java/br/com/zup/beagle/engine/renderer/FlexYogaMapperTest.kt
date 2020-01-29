@@ -5,18 +5,21 @@ import br.com.zup.beagle.engine.mapper.makeYogaDirection
 import br.com.zup.beagle.engine.mapper.makeYogaDisplay
 import br.com.zup.beagle.engine.mapper.makeYogaFlexDirection
 import br.com.zup.beagle.engine.mapper.makeYogaJustify
+import br.com.zup.beagle.engine.mapper.makeYogaPositionType
 import br.com.zup.beagle.engine.mapper.makeYogaWrap
 import br.com.zup.beagle.widget.core.Alignment
 import br.com.zup.beagle.widget.core.FlexWrap
 import br.com.zup.beagle.widget.core.Direction
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.FlexDisplay
+import br.com.zup.beagle.widget.core.FlexPositionType
 import br.com.zup.beagle.widget.core.JustifyContent
 import com.facebook.yoga.YogaAlign
 import com.facebook.yoga.YogaDirection
 import com.facebook.yoga.YogaDisplay
 import com.facebook.yoga.YogaFlexDirection
 import com.facebook.yoga.YogaJustify
+import com.facebook.yoga.YogaPositionType
 import com.facebook.yoga.YogaWrap
 import org.junit.Test
 
@@ -412,5 +415,29 @@ class FlexYogaMapperTest {
 
         // Then
         assertNull(actual)
+    }
+
+    @Test
+    fun makeYogaPositionType_should_return_RELATIVE_when_FlexPositionType_is_RELATIVE() {
+        // Given
+        val flexPositionType = FlexPositionType.RELATIVE
+
+        // When
+        val actual = makeYogaPositionType(flexPositionType)
+
+        // Then
+        assertEquals(YogaPositionType.RELATIVE, actual)
+    }
+
+    @Test
+    fun makeYogaPositionType_should_return_ABSOLUTE_when_FlexPositionType_is_ABSOLUTE() {
+        // Given
+        val flexPositionType = FlexPositionType.ABSOLUTE
+
+        // When
+        val actual = makeYogaPositionType(flexPositionType)
+
+        // Then
+        assertEquals(YogaPositionType.ABSOLUTE, actual)
     }
 }

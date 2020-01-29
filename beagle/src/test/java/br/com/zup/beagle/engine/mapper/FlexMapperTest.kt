@@ -32,6 +32,9 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import br.com.zup.beagle.extensions.once
+import br.com.zup.beagle.widget.core.FlexPositionType
+import com.facebook.yoga.YogaPositionType
+
 private const val HUNDRED_UNIT_VALUE = 100.0
 private const val ONE_UNIT_VALUE = 1.0
 
@@ -65,6 +68,7 @@ class FlexMapperTest {
         every { yogaNode.flexShrink = any() } just Runs
         every { yogaNode.display = any() } just Runs
         every { yogaNode.aspectRatio = any() } just Runs
+        every { yogaNode.positionType = any() } just Runs
         every { yogaNode.setWidth(any()) } just Runs
         every { yogaNode.setWidthPercent(any()) } just Runs
         every { yogaNode.setHeight(any()) } just Runs
@@ -665,5 +669,33 @@ class FlexMapperTest {
 
         // Then
         verify(exactly = once()) { yogaNode.setPositionPercent(YogaEdge.TOP, ONE_UNIT_VALUE.toFloat()) }
+    }
+
+    @Test
+    fun makeYogaNode_should_set_positionType_as_RELATIVE() {
+        // Given
+        val flex = Flex(
+            positionType = FlexPositionType.RELATIVE
+        )
+
+        // When
+        val yogaNode = flexMapper.makeYogaNode(flex)
+
+        // Then
+        verify(exactly = once()) { yogaNode.positionType = YogaPositionType.RELATIVE }
+    }
+
+    @Test
+    fun makeYogaNode_should_set_positionType_as_ABSOLUTE() {
+        // Given
+        val flex = Flex(
+            positionType = FlexPositionType.ABSOLUTE
+        )
+
+        // When
+        val yogaNode = flexMapper.makeYogaNode(flex)
+
+        // Then
+        verify(exactly = once()) { yogaNode.positionType = YogaPositionType.ABSOLUTE }
     }
 }

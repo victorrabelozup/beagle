@@ -1,17 +1,20 @@
 package br.com.zup.beagle.engine.mapper
 
 import br.com.zup.beagle.widget.core.Alignment
-import br.com.zup.beagle.widget.core.FlexWrap
 import br.com.zup.beagle.widget.core.Direction
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.FlexDisplay
+import br.com.zup.beagle.widget.core.FlexPositionType
+import br.com.zup.beagle.widget.core.FlexWrap
 import br.com.zup.beagle.widget.core.JustifyContent
 import com.facebook.yoga.YogaAlign
 import com.facebook.yoga.YogaDirection
 import com.facebook.yoga.YogaDisplay
 import com.facebook.yoga.YogaFlexDirection
 import com.facebook.yoga.YogaJustify
+import com.facebook.yoga.YogaPositionType
 import com.facebook.yoga.YogaWrap
+
 
 internal fun makeYogaWrap(flexWrap: FlexWrap?): YogaWrap? = when (flexWrap) {
     FlexWrap.NO_WRAP -> YogaWrap.NO_WRAP
@@ -32,15 +35,16 @@ internal fun makeYogaAlign(alignment: Alignment?): YogaAlign? = when (alignment)
     else -> null
 }
 
-internal fun makeYogaJustify(justifyContent: JustifyContent?): YogaJustify? = when (justifyContent) {
-    JustifyContent.FLEX_START -> YogaJustify.FLEX_START
-    JustifyContent.CENTER -> YogaJustify.CENTER
-    JustifyContent.FLEX_END -> YogaJustify.FLEX_END
-    JustifyContent.SPACE_BETWEEN -> YogaJustify.SPACE_BETWEEN
-    JustifyContent.SPACE_AROUND -> YogaJustify.SPACE_AROUND
-    JustifyContent.SPACE_EVENLY -> YogaJustify.SPACE_EVENLY
-    else -> null
-}
+internal fun makeYogaJustify(justifyContent: JustifyContent?): YogaJustify? =
+    when (justifyContent) {
+        JustifyContent.FLEX_START -> YogaJustify.FLEX_START
+        JustifyContent.CENTER -> YogaJustify.CENTER
+        JustifyContent.FLEX_END -> YogaJustify.FLEX_END
+        JustifyContent.SPACE_BETWEEN -> YogaJustify.SPACE_BETWEEN
+        JustifyContent.SPACE_AROUND -> YogaJustify.SPACE_AROUND
+        JustifyContent.SPACE_EVENLY -> YogaJustify.SPACE_EVENLY
+        else -> null
+    }
 
 internal fun makeYogaDirection(direction: Direction?): YogaDirection? = when (direction) {
     Direction.INHERIT -> YogaDirection.INHERIT
@@ -49,16 +53,24 @@ internal fun makeYogaDirection(direction: Direction?): YogaDirection? = when (di
     else -> null
 }
 
-internal fun makeYogaFlexDirection(flexDirection: FlexDirection?): YogaFlexDirection? = when (flexDirection) {
-    FlexDirection.COLUMN -> YogaFlexDirection.COLUMN
-    FlexDirection.ROW -> YogaFlexDirection.ROW
-    FlexDirection.COLUMN_REVERSE -> YogaFlexDirection.COLUMN_REVERSE
-    FlexDirection.ROW_REVERSE -> YogaFlexDirection.ROW_REVERSE
-    else -> null
-}
+internal fun makeYogaFlexDirection(flexDirection: FlexDirection?): YogaFlexDirection? =
+    when (flexDirection) {
+        FlexDirection.COLUMN -> YogaFlexDirection.COLUMN
+        FlexDirection.ROW -> YogaFlexDirection.ROW
+        FlexDirection.COLUMN_REVERSE -> YogaFlexDirection.COLUMN_REVERSE
+        FlexDirection.ROW_REVERSE -> YogaFlexDirection.ROW_REVERSE
+        else -> null
+    }
 
 internal fun makeYogaDisplay(display: FlexDisplay?): YogaDisplay? = when (display) {
     FlexDisplay.FLEX -> YogaDisplay.FLEX
     FlexDisplay.NONE -> YogaDisplay.NONE
     else -> null
 }
+
+internal fun makeYogaPositionType(positionType: FlexPositionType?): YogaPositionType? =
+    when (positionType) {
+        FlexPositionType.RELATIVE -> YogaPositionType.RELATIVE
+        FlexPositionType.ABSOLUTE -> YogaPositionType.ABSOLUTE
+        else -> null
+    }

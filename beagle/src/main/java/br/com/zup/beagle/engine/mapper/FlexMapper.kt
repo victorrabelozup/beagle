@@ -13,6 +13,7 @@ import com.facebook.yoga.YogaEdge
 import com.facebook.yoga.YogaFlexDirection
 import com.facebook.yoga.YogaJustify
 import com.facebook.yoga.YogaNode
+import com.facebook.yoga.YogaPositionType
 import com.facebook.yoga.YogaWrap
 
 class FlexMapper {
@@ -28,6 +29,7 @@ class FlexMapper {
         flexGrow = flex.grow?.toFloat() ?: 0.0f
         flexShrink = flex.shrink?.toFloat() ?: 1.0f
         display = makeYogaDisplay(flex.display) ?: YogaDisplay.FLEX
+        positionType = makeYogaPositionType(flex.positionType) ?: YogaPositionType.RELATIVE
         applyAttributes(flex, this)
     }
 
@@ -112,9 +114,9 @@ class FlexMapper {
     }
 
     private fun setBasis(basis: UnitValue?, yogaNode: YogaNode) {
-        when {
-            basis?.type == UnitType.REAL -> yogaNode.setFlexBasis(basis.value.toFloat())
-            basis?.type == UnitType.PERCENT -> yogaNode.setFlexBasisPercent(basis.value.toFloat())
+        when (basis?.type) {
+            UnitType.REAL -> yogaNode.setFlexBasis(basis.value.toFloat())
+            UnitType.PERCENT -> yogaNode.setFlexBasisPercent(basis.value.toFloat())
             else -> yogaNode.setFlexBasisAuto()
         }
     }
@@ -149,7 +151,10 @@ class FlexMapper {
         }
     }
 
-    private fun applyEdgeValue(edgeValue: EdgeValue?, finish: (yogaEdge: YogaEdge, unitValue: UnitValue) -> Unit) {
+    private fun applyEdgeValue(
+        edgeValue: EdgeValue?,
+        finish: (yogaEdge: YogaEdge, unitValue: UnitValue) -> Unit
+    ) {
         edgeValue?.top?.let {
             finish(YogaEdge.TOP, it)
         }
