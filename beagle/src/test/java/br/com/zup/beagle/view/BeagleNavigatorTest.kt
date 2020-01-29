@@ -2,6 +2,9 @@ package br.com.zup.beagle.view
 
 import android.app.Activity
 import android.content.Intent
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import br.com.zup.beagle.R
@@ -48,6 +51,7 @@ class BeagleNavigatorTest {
 
         val supportFragmentManager = mockk<FragmentManager>()
         every { context.supportFragmentManager } returns supportFragmentManager
+        every { supportFragmentManager.getFragments() } returns mutableListOf<Fragment>()
         every { supportFragmentManager.beginTransaction() } returns fragmentTransaction
         every {
             fragmentTransaction.setCustomAnimations(
@@ -182,5 +186,22 @@ class BeagleNavigatorTest {
 
         // Then
         verify(exactly = once()) { context.startActivity(intent) }
+    }
+
+    @Test
+    fun pop_should_call_dialog_dismiss() {
+        // Given
+        every { context.onBackPressed() } just Runs
+        val supportFragmentManager = mockk<FragmentManager>()
+        val dialogFragment = mockk<DialogFragment>()
+        every { context.supportFragmentManager } returns supportFragmentManager
+        every { supportFragmentManager.fragments } returns listOf(dialogFragment)
+        every { dialogFragment.dismiss() } just Runs
+
+        // When
+        BeagleNavigator.pop(context)
+
+        // Then
+        verify(exactly = once()) { dialogFragment.dismiss() }
     }
 }

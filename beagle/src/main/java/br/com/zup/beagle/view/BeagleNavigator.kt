@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentActivity
 import br.com.zup.beagle.R
 
 internal object BeagleNavigator {
@@ -15,6 +17,14 @@ internal object BeagleNavigator {
     }
 
     fun pop(context: Context) {
+        val f =
+            (context as? FragmentActivity)?.supportFragmentManager?.fragments?.lastOrNull {
+                it is DialogFragment } as DialogFragment?
+        if (f != null) {
+            f.dismiss()
+            return
+        }
+
         if (context is Activity) {
             context.onBackPressed()
         }
