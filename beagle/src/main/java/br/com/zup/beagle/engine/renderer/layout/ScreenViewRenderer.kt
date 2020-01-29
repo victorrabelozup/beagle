@@ -49,17 +49,37 @@ internal class ScreenViewRenderer(
     }
 
     private fun addToolbarIfNecessary(context: Context, navigationBar: NavigationBar?) {
-        if (navigationBar != null && context is AppCompatActivity) {
-            context.supportActionBar?.apply {
-                context.findViewById<Toolbar>(R.id.beagle_toolbar)?.let {
-                    it.visibility = View.VISIBLE
-                }
-                title = navigationBar.title
-                val showBackButton = navigationBar.showBackButton ?: true
-                setDisplayHomeAsUpEnabled(showBackButton)
-                setDisplayShowHomeEnabled(showBackButton)
-                show()
+        if (context is AppCompatActivity) {
+            if (navigationBar != null) {
+                configNavigationBar(context, navigationBar)
+            } else {
+                hideNavigationBar(context)
             }
+        }
+    }
+
+    private fun hideNavigationBar(context: AppCompatActivity) {
+        context.supportActionBar?.apply {
+            context.findViewById<Toolbar>(R.id.beagle_toolbar)?.let {
+                it.visibility = View.GONE
+            }
+            hide()
+        }
+    }
+
+    private fun configNavigationBar(
+        context: AppCompatActivity,
+        navigationBar: NavigationBar
+    ) {
+        context.supportActionBar?.apply {
+            context.findViewById<Toolbar>(R.id.beagle_toolbar)?.let {
+                it.visibility = View.VISIBLE
+            }
+            title = navigationBar.title
+            val showBackButton = navigationBar.showBackButton ?: true
+            setDisplayHomeAsUpEnabled(showBackButton)
+            setDisplayShowHomeEnabled(showBackButton)
+            show()
         }
     }
 }

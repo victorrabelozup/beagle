@@ -92,6 +92,7 @@ class ScreenViewRendererTest {
         // Given
         val flexValues = mutableListOf<Flex>()
         every { viewFactory.makeBeagleFlexView(any(), capture(flexValues)) } returns beagleFlexView
+        every { context.supportActionBar } returns null
 
         // When
         screenViewRenderer.build(rootView)
@@ -106,6 +107,7 @@ class ScreenViewRendererTest {
     fun build_should_call_header_builder_and_add_to_screenWidget_view() {
         // Given
         every { screenWidget.header } returns widget
+        every { context.supportActionBar } returns null
 
         // When
         screenViewRenderer.build(rootView)
@@ -123,6 +125,7 @@ class ScreenViewRendererTest {
         val expanded = slot<Expanded>()
         every { screenWidget.content } returns content
         every { viewRendererFactory.make(capture(expanded)) } returns viewRenderer
+        every { context.supportActionBar } returns null
 
         // When
         screenViewRenderer.build(rootView)
@@ -138,6 +141,7 @@ class ScreenViewRendererTest {
     fun build_should_call_footer_builder_and_add_to_screenWidget_view() {
         // Given
         every { screenWidget.footer } returns widget
+        every { context.supportActionBar } returns null
 
         // When
         screenViewRenderer.build(rootView)

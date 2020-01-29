@@ -13,8 +13,9 @@ import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.form.FormResult
 import br.com.zup.beagle.form.FormSubmitter
-import br.com.zup.beagle.form.Validator
 import br.com.zup.beagle.form.ValidatorHandler
+import br.com.zup.beagle.form.Validator
+import br.com.zup.beagle.form.FormValidatorController
 import br.com.zup.beagle.logger.BeagleLogger
 import br.com.zup.beagle.logger.BeagleMessageLogs
 import br.com.zup.beagle.mockdata.FormInputView
@@ -60,9 +61,11 @@ class FormViewRendererTest {
     @MockK
     private lateinit var validatorHandler: ValidatorHandler
     @MockK
-    private lateinit var validator: Validator
+    private lateinit var validator: Validator<Any, Any>
     @MockK
     private lateinit var formValidationActionHandler: FormValidationActionHandler
+    @MockK(relaxed = true)
+    private lateinit var formValidatorController: FormValidatorController
     @MockK(relaxed = true)
     private lateinit var actionExecutor: ActionExecutor
     @MockK
@@ -101,6 +104,7 @@ class FormViewRendererTest {
             validatorHandler,
             formValidationActionHandler,
             formSubmitter,
+            formValidatorController,
             actionExecutor,
             viewRendererFactory,
             viewFactory
@@ -109,8 +113,8 @@ class FormViewRendererTest {
         mockkStatic("br.com.zup.beagle.utils.ViewExtensionsKt")
         mockkObject(BeagleMessageLogs)
 
-        every { BeagleMessageLogs.logFormInputsNotFound(any())} just Runs
-        every { BeagleMessageLogs.logFormSubmitNotFound(any())} just Runs
+        every { BeagleMessageLogs.logFormInputsNotFound(any()) } just Runs
+        every { BeagleMessageLogs.logFormSubmitNotFound(any()) } just Runs
         every { viewRendererFactory.make(form) } returns viewRenderer
         every { viewRenderer.build(rootView) } returns viewGroup
         every { form.child } returns form
@@ -197,6 +201,7 @@ class FormViewRendererTest {
         val views = formViewRenderer.getPrivateField<List<View>>(FORM_INPUT_VIEWS_FIELD_NAME)
         assertEquals(1, views.size)
         assertEquals(formInputView, views[0])
+        verify { formValidatorController.formSubmitView = formSubmitView }
     }
 
     @Test
@@ -206,6 +211,14 @@ class FormViewRendererTest {
         val actual = formViewRenderer.getPrivateField<View>(FORM_SUBMIT_VIEW_FIELD_NAME)
         assertEquals(formSubmitView, actual)
         verify(exactly = once()) { formSubmitView.setOnClickListener(any()) }
+        verify { formValidatorController.configFormSubmit() }
+    }
+
+    @Test
+    fun build_should_call_configFormSubmit_on_fetchForms() {
+        formViewRenderer.build(rootView)
+
+        verify { formValidatorController.configFormSubmit() }
     }
 
     @Test
@@ -232,13 +245,13 @@ class FormViewRendererTest {
     fun onClick_of_formSubmit_should_validate_formField_that_is_required_and_is_valid() {
         // Given
         every { formInput.required } returns true
-        every { validator.isValid(any()) } returns true
+        every { validator.isValid(any(), any()) } returns true
 
         // When
         executeFormSubmitOnClickListener()
 
         // Then
-        verify(exactly = once()) { validator.isValid(INPUT_VALUE) }
+        verify(exactly = once()) { validator.isValid(INPUT_VALUE, any()) }
         verify(exactly = once()) { formSubmitter.submitForm(any(), any(), any()) }
     }
 
@@ -246,7 +259,7 @@ class FormViewRendererTest {
     fun onClick_of_formSubmit_should_validate_formField_that_is_required_and_that_not_is_valid() {
         // Given
         every { formInput.required } returns true
-        every { validator.isValid(any()) } returns false
+        every { validator.isValid(any(), any()) } returns false
 
         // When
         executeFormSubmitOnClickListener()
@@ -260,7 +273,7 @@ class FormViewRendererTest {
     fun onClick_of_formSubmit_should_validate_formField_that_does_implement_validation() {
         // Given
         every { formInput.required } returns true
-        every { validator.isValid(any()) } returns false
+        every { validator.isValid(any(), any()) } returns false
         every { viewGroup.getChildAt(0) } returns formInputViewWithoutValidation
         every { BeagleMessageLogs.logInvalidFormInputState(any()) } just Runs
 
@@ -293,7 +306,12 @@ class FormViewRendererTest {
         val alertDialogBuilder = mockk<AlertDialog.Builder>()
         every { alertDialogBuilder.setTitle(any<String>()) } returns alertDialogBuilder
         every { alertDialogBuilder.setMessage(any<String>()) } returns alertDialogBuilder
-        every { alertDialogBuilder.setPositiveButton(any<String>(), any()) } returns alertDialogBuilder
+        every {
+            alertDialogBuilder.setPositiveButton(
+                any<String>(),
+                any()
+            )
+        } returns alertDialogBuilder
         every { alertDialogBuilder.show() } returns mockk()
         every { viewFactory.makeAlertDialogBuilder(appCompatActivity) } returns alertDialogBuilder
 

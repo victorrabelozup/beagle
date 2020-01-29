@@ -92,5 +92,11 @@
             android:icon="@mipmap/ic_launcher"
             android:title="Flex Single Widget"
             tools:ignore="HardcodedText" />
+
+        <item
+            android:id="@+id/disabledFormSubmit"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Disabled Form Submit"
+            tools:ignore="HardcodedText" />
     </group>
 </menu>

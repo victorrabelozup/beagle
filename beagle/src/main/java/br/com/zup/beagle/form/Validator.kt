@@ -1,7 +1,7 @@
 package br.com.zup.beagle.form
 
-interface Validator {
-    fun isValid(input: Any): Boolean
+interface Validator<in I, in W> {
+    fun isValid(input: I, widget: W): Boolean
 }
 
 interface ValidationErrorListener {

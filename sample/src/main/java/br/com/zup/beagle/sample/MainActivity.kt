@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import br.com.zup.beagle.sample.activities.NavigationBarActivity
+import br.com.zup.beagle.sample.fragment.DisabledFormSubmitFragment
 import br.com.zup.beagle.sample.fragment.DynamicStatefulFragment
 import br.com.zup.beagle.sample.fragment.FlexSingleWidgetFragment
 import br.com.zup.beagle.sample.fragment.ImageViewFragment
@@ -15,10 +16,10 @@ import br.com.zup.beagle.sample.fragment.PageViewFragment
 import br.com.zup.beagle.sample.fragment.RemoteStatefulFragment
 import br.com.zup.beagle.sample.fragment.ScrollViewFragment
 import br.com.zup.beagle.sample.fragment.StaticStatefulFragment
+import br.com.zup.beagle.sample.fragment.TabViewFragment
 import br.com.zup.beagle.sample.fragment.TextFieldFragment
 import br.com.zup.beagle.utils.dp
 import br.com.zup.beagle.view.BeagleUIActivity
-import br.com.zup.beagle.sample.fragment.TabViewFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -50,7 +51,12 @@ class MainActivity : AppCompatActivity() {
             R.id.lazywidget -> goToFragment(LazyWidgetFragment.newInstance())
             R.id.image -> goToFragment(ImageViewFragment.newInstance())
             R.id.pageView -> goToFragment(PageViewFragment.newInstance())
-            R.id.pageView2 -> startActivity(BeagleUIActivity.newIntent(this, "http://10.0.2.2:8080/sample"))
+            R.id.pageView2 -> startActivity(
+                BeagleUIActivity.newIntent(
+                    this,
+                    "http://10.0.2.2:8080/sample"
+                )
+            )
             // Navigation Bar requires an activity without toolbar
             R.id.navigationBar -> startActivity(NavigationBarActivity.newIntent(this))
             R.id.stateful_dynamic -> goToFragment(DynamicStatefulFragment.newInstance())
@@ -64,6 +70,7 @@ class MainActivity : AppCompatActivity() {
             )
             R.id.remote_stateful -> goToFragment(RemoteStatefulFragment.newInstance())
             R.id.tabBar -> goToFragment(TabViewFragment.newInstance())
+            R.id.disabledFormSubmit -> goToFragment(DisabledFormSubmitFragment.newInstance())
         }
     }
 

@@ -1,5 +1,5 @@
 package br.com.zup.beagle.form
 
 interface ValidatorHandler {
-    fun getValidator(name: String): Validator?
+    fun getValidator(name: String): Validator<Any, Any>?
 }

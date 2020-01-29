@@ -10,11 +10,12 @@ import br.com.zup.beagle.action.FormValidationActionHandler
 import br.com.zup.beagle.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
-import br.com.zup.beagle.form.FormResult
-import br.com.zup.beagle.form.FormSubmitter
+import br.com.zup.beagle.form.ValidatorHandler
+import br.com.zup.beagle.form.FormValidatorController
 import br.com.zup.beagle.form.InputValue
 import br.com.zup.beagle.form.ValidationErrorListener
-import br.com.zup.beagle.form.ValidatorHandler
+import br.com.zup.beagle.form.FormResult
+import br.com.zup.beagle.form.FormSubmitter
 import br.com.zup.beagle.logger.BeagleMessageLogs
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.utils.hideKeyboard
@@ -28,6 +29,7 @@ internal class FormViewRenderer(
     private val validatorHandler: ValidatorHandler? = BeagleEnvironment.validatorHandler,
     private val formValidationActionHandler: FormValidationActionHandler = FormValidationActionHandler(),
     private val formSubmitter: FormSubmitter = FormSubmitter(),
+    private val formValidatorController: FormValidatorController = FormValidatorController(),
     private val actionExecutor: ActionExecutor = ActionExecutor(
         formValidationActionHandler = formValidationActionHandler
     ),
@@ -61,14 +63,18 @@ internal class FormViewRenderer(
             if (childView.tag != null) {
                 if (childView.tag is FormInput) {
                     formInputViews.add(childView)
+                    formValidatorController.configFormInputList(childView)
                 } else if (childView.tag is FormSubmit && formSubmitView == null) {
                     formSubmitView = childView
                     addClickToFormSubmit(childView)
+                    formValidatorController.formSubmitView = childView
                 }
             } else if (childView is ViewGroup) {
                 fetchFormViews(childView)
             }
         }
+
+        formValidatorController.configFormSubmit()
     }
 
     private fun addClickToFormSubmit(formSubmitView: View) {
@@ -113,7 +119,7 @@ internal class FormViewRenderer(
                 val formValue = inputValue.getValue()
 
                 when {
-                    it.isValid(formValue) ->
+                    it.isValid(formValue, formInput.child) ->
                         formsValue[formInput.name] = inputValue.getValue().toString()
                     formInputView is ValidationErrorListener ->
                         formInputView.onValidationError(formInput.errorMessage)
@@ -142,3 +148,8 @@ internal class FormViewRenderer(
             .show()
     }
 }
+
+data class FormInputValidator(
+    val formInput: FormInput,
+    var isValid: Boolean
+)

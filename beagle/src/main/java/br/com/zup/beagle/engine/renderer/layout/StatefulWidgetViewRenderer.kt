@@ -72,7 +72,12 @@ internal class StatefulWidgetViewRenderer(
                     o: Observable<WidgetState>,
                     widgetState: WidgetState
                 ) {
-                    statefulRendererHelper.handleStateChange(updatableState, children, rootView, widgetState)
+                    statefulRendererHelper.handleStateChange(
+                        updatableState,
+                        children,
+                        rootView,
+                        widgetState
+                    )
                 }
             })
         }
