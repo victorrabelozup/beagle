@@ -8,13 +8,13 @@ import br.com.zup.beagle.logger.BeagleMessageLogs
 private const val EXCEPTION_MESSAGE = "Unexpected error when trying to serialize json="
 
 internal class BeagleDeserializer(
-    private val beagleMoshiFactory: BeagleMoshiFactory = BeagleMoshiFactory()
+    private val beagleMoshiFactory: BeagleMoshi = BeagleMoshi
 ) {
 
     @Throws(BeagleException::class)
     fun deserializeWidget(json: String): Widget {
         try {
-            return beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json) ?:
+            return beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json) ?:
                 throw NullPointerException()
         } catch (ex: Exception) {
             BeagleMessageLogs.logDeserializationError(json, ex)
@@ -25,7 +25,7 @@ internal class BeagleDeserializer(
     @Throws(BeagleException::class)
     fun deserializeAction(json: String): Action {
         try {
-            return beagleMoshiFactory.make().adapter(Action::class.java).fromJson(json) ?:
+            return beagleMoshiFactory.moshi.adapter(Action::class.java).fromJson(json) ?:
                 throw NullPointerException()
         } catch (ex: Exception) {
             BeagleMessageLogs.logDeserializationError(json, ex)

@@ -48,15 +48,15 @@ private val WIDGETS = mapOf(
     CustomInputWidget::class.java as Class<Widget> to FormInputViewFactory() as WidgetViewFactory<Widget>
 )
 
-class BeagleMoshiFactoryTest {
+class BeagleMoshiTest {
 
-    private lateinit var beagleMoshiFactory: BeagleMoshiFactory
+    private lateinit var beagleMoshiFactory: BeagleMoshi
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
 
-        beagleMoshiFactory = BeagleMoshiFactory()
+        beagleMoshiFactory = BeagleMoshi
 
         mockkObject(BeagleEnvironment)
 
@@ -75,7 +75,7 @@ class BeagleMoshiFactoryTest {
         val json = makeScreenWidgetJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -88,7 +88,7 @@ class BeagleMoshiFactoryTest {
         val json = makeFlexWidgetJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -101,7 +101,7 @@ class BeagleMoshiFactoryTest {
         val json = makeFlexSingleWidgetJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -114,7 +114,7 @@ class BeagleMoshiFactoryTest {
         val json = makeVerticalJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -127,7 +127,7 @@ class BeagleMoshiFactoryTest {
         val json = makeHorizontalJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -140,7 +140,7 @@ class BeagleMoshiFactoryTest {
         val json = makeStackJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -153,7 +153,7 @@ class BeagleMoshiFactoryTest {
         val json = makeSpacerJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -166,7 +166,7 @@ class BeagleMoshiFactoryTest {
         val json = makeTextJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -179,7 +179,7 @@ class BeagleMoshiFactoryTest {
         val json = makeImageJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -192,7 +192,7 @@ class BeagleMoshiFactoryTest {
         val json = makeNetworkImageJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -205,7 +205,7 @@ class BeagleMoshiFactoryTest {
         val json = makeButtonJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -218,7 +218,7 @@ class BeagleMoshiFactoryTest {
         val json = makeListViewJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -231,7 +231,7 @@ class BeagleMoshiFactoryTest {
         val json = makeCustomWidgetJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -244,7 +244,7 @@ class BeagleMoshiFactoryTest {
         val json = makeLazyWidgetJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -257,7 +257,7 @@ class BeagleMoshiFactoryTest {
         val json = makeScrollViewJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -270,7 +270,7 @@ class BeagleMoshiFactoryTest {
         val json = makePageViewWidgetJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -283,7 +283,7 @@ class BeagleMoshiFactoryTest {
         val json = makePageIndicatorWidgetJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -296,7 +296,7 @@ class BeagleMoshiFactoryTest {
         val json = makeNavigationActionJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Action::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Action::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -309,7 +309,7 @@ class BeagleMoshiFactoryTest {
         val json = makeShowNativeDialogJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Action::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Action::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -322,7 +322,7 @@ class BeagleMoshiFactoryTest {
         val json = makeCustomActionJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Action::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Action::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -335,7 +335,7 @@ class BeagleMoshiFactoryTest {
         val json = makeFormValidationJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Action::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Action::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -348,7 +348,7 @@ class BeagleMoshiFactoryTest {
         val json = makeFormInputJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -361,7 +361,7 @@ class BeagleMoshiFactoryTest {
         val json = makeFormSubmitJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
@@ -374,7 +374,7 @@ class BeagleMoshiFactoryTest {
         val json = makeFormJson()
 
         // When
-        val actual = beagleMoshiFactory.make().adapter(Widget::class.java).fromJson(json)
+        val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)

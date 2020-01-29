@@ -28,8 +28,7 @@ import kotlin.test.assertTrue
 
 class BeagleDeserializerTest {
 
-    @MockK
-    private lateinit var beagleMoshiFactory: BeagleMoshiFactory
+
     @MockK
     private lateinit var moshi: Moshi
     @MockK
@@ -43,12 +42,13 @@ class BeagleDeserializerTest {
     fun setUp() {
         MockKAnnotations.init(this)
 
-        beagleDeserializer = BeagleDeserializer(beagleMoshiFactory)
+        beagleDeserializer = BeagleDeserializer(BeagleMoshi)
 
         mockkObject(BeagleMessageLogs)
+        mockkObject(BeagleMoshi)
 
         every { BeagleMessageLogs.logDeserializationError(any(), any()) } just Runs
-        every { beagleMoshiFactory.make() } returns moshi
+        every { BeagleMoshi.moshi } returns moshi
         every { moshi.adapter(Widget::class.java) } returns widgetJsonAdapter
         every { moshi.adapter(Action::class.java) } returns actionJsonAdapter
     }
@@ -56,6 +56,7 @@ class BeagleDeserializerTest {
     @After
     fun tearDown() {
         unmockkObject(BeagleMessageLogs)
+        unmockkObject(BeagleMoshi)
     }
 
     @Test
