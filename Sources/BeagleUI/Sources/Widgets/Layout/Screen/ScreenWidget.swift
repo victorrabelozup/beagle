@@ -55,11 +55,11 @@ extension ScreenWidget: Renderable {
     }
 
     // MARK: - Private Functions
-
+    
     private func createWidgetContentView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
         let headerView = header?.toView(context: context, dependencies: dependencies)
-        let contentView = content.toView(context: context, dependencies: dependencies)
         let footerView = footer?.toView(context: context, dependencies: dependencies)
+        let contentView = buildContentView(context: context, dependencies: dependencies)
         
         if headerView == nil && footerView == nil {
             return contentView
@@ -73,7 +73,7 @@ extension ScreenWidget: Renderable {
         }
         
         container.addSubview(contentView)
-        dependencies.flex.setupFlex(Flex(grow: 1), for: contentView)
+        dependencies.flex.enableYoga(true, for: contentView)
         
         if let footerView = footerView {
             container.addSubview(footerView)
@@ -81,6 +81,17 @@ extension ScreenWidget: Renderable {
         }
         
         return container
+    }
+    
+    private func buildContentView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+        let contentHolder = UIView()
+        let contentView = content.toView(context: context, dependencies: dependencies)
+        
+        contentHolder.addSubview(contentView)
+        dependencies.flex.setupFlex(Flex(grow: 1), for: contentHolder)
+        dependencies.flex.enableYoga(true, for: contentView)
+        
+        return contentHolder
     }
 }
 
@@ -105,6 +116,14 @@ public struct SafeArea: Equatable {
         self.leading = leading
         self.bottom = bottom
         self.trailing = trailing
+    }
+    
+    public static var all: SafeArea {
+        return SafeArea(top: true, leading: true, bottom: true, trailing: true)
+    }
+    
+    public static var none: SafeArea {
+        return SafeArea(top: false, leading: false, bottom: false, trailing: false)
     }
 }
 

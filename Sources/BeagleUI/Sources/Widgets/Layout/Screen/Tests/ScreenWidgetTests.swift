@@ -48,6 +48,26 @@ final class ScreenWidgetTests: XCTestCase {
         // Then
         XCTAssert(subview.frame.size == sut.contentSize)
     }
+    
+    func test_contentShouldUseOnlyTheSpaceRequiredByFlexRules() {
+        
+        let screen = ScreenWidget(
+            safeArea: .init(top: true, leading: true, bottom: true, trailing: true),
+            navigationBar: .init(title: "Test Flex"),
+            content: FlexSingleWidget(
+                child: FlexSingleWidget(
+                    child: Text("Line 0,\nLine 1,\nLine 2,\nLine 3,\nLine 4."),
+                    flex: .init(alignSelf: .center, size: .init(width: 50%, height: 25%)),
+                    appearance: .init(backgroundColor: "#FF0000")
+                ),
+                flex: .init(justifyContent: .center),
+                appearance: .init(backgroundColor: "#00FF00")
+            )
+        )
+        
+        let viewController = BeagleScreenViewController(viewModel: .init(screenType: .declarative(screen)))
+        assertSnapshotImage(viewController)
+    }
 }
 
 // MARK: - Testing Helpers

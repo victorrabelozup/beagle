@@ -9,7 +9,7 @@
 struct FlexSingleWidgetEntity: WidgetConvertibleEntity {
     
     let child: AnyDecodableContainer
-    var flex: FlexEntity = FlexEntity()
+    var flex: FlexEntity?
     var appearance: AppearanceEntity?
 
     init(
@@ -25,7 +25,7 @@ struct FlexSingleWidgetEntity: WidgetConvertibleEntity {
     func mapToWidget() throws -> Widget {
         let widgetEntity = self.child.content as? WidgetConvertibleEntity
         let child = try widgetEntity?.mapToWidget() ?? AnyWidget(value: self.child.content)
-        let flex = try self.flex.mapToUIModel()
+        let flex = try self.flex?.mapToUIModel() ?? Flex()
         let appearance = try self.appearance?.mapToUIModel()
         
         return FlexSingleWidget(

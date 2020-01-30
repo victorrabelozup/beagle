@@ -19,6 +19,7 @@
     }
   ],
   "flex": {
+    "grow": 1,
     "justifyContent": "SPACE_EVENLY",
     "margin": {
       "horizontal": {

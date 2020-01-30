@@ -31,7 +31,8 @@
     - flex: Optional<Double>.none
     - flexDirection: Optional<FlexDirection>.none
     - flexWrap: Optional<Wrap>.none
-    - grow: Optional<Double>.none
+    ▿ grow: Optional<Double>
+      - some: 1.0
     ▿ justifyContent: Optional<JustifyContent>
       - some: JustifyContent.spaceEvenly
     ▿ margin: Optional<EdgeValue>

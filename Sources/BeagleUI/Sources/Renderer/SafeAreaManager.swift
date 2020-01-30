@@ -13,13 +13,12 @@ final class SafeAreaManager {
         let trailing: NSLayoutXAxisAnchor
     }
     
-    let view: UIView
+    private weak var viewController: UIViewController?
+    private let view: UIView
     
     var safeArea: SafeArea? {
         didSet {
-            if safeArea != oldValue {
-                applyConstraints()
-            }
+            applyConstraints()
         }
     }
     
@@ -43,6 +42,7 @@ final class SafeAreaManager {
                 trailing: viewController.view.trailingAnchor
             )
         }
+        self.viewController = viewController
         self.view = view
         self.safeArea = safeArea
         applyConstraints()
@@ -56,10 +56,21 @@ final class SafeAreaManager {
         NSLayoutConstraint.deactivate(constraints)
         constraints.removeAll()
         
-        let topAnchor = (safeArea?.top ?? false) ? safeAreaAnchors.top : superview.topAnchor
-        let leadingAnchor = (safeArea?.leading ?? false) ? safeAreaAnchors.leading : superview.leadingAnchor
-        let bottomAnchor = (safeArea?.bottom ?? false) ? safeAreaAnchors.bottom : superview.bottomAnchor
-        let trailingAnchor = (safeArea?.trailing ?? false) ? safeAreaAnchors.trailing : superview.trailingAnchor
+        let defaultValue = true
+        let values: SafeArea?
+        
+        // When there is no NavigationController one is created and add as child.
+        // In the parent the safe area is ignored because it will be handled in the child.
+        if viewController?.navigationController == nil {
+            values = .none
+        } else {
+            values = safeArea
+        }
+        
+        let topAnchor = (values?.top ?? defaultValue) ? safeAreaAnchors.top : superview.topAnchor
+        let leadingAnchor = (values?.leading ?? defaultValue) ? safeAreaAnchors.leading : superview.leadingAnchor
+        let bottomAnchor = (values?.bottom ?? defaultValue) ? safeAreaAnchors.bottom : superview.bottomAnchor
+        let trailingAnchor = (values?.trailing ?? defaultValue) ? safeAreaAnchors.trailing : superview.trailingAnchor
         
         let bottomConstraint = view.bottomAnchor.constraint(equalTo: bottomAnchor)
         bottomConstraint.priority = .init(999)
