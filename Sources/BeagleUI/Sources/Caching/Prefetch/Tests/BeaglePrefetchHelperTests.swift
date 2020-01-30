@@ -4,31 +4,9 @@
 
 import XCTest
 @testable import BeagleUI
+import SnapshotTesting
 
 final class BeaglePrefetchHelperTests: XCTestCase {
-    
-    func testPreFetchWidgetShouldAddScreenToTheMap() {
-        // Given
-        let sut = BeaglePreFetchHelper()
-        let url = "www.something.com"
-        
-        // When
-        sut.prefetchWidget(path: url)
-        
-        // Then
-        XCTAssertNotNil(sut.dequeueWidget(path: url))
-    }
-    
-    func testDequeueWidgetShouldReturnANewScreenWhenItsNotInTheMap() {
-        // Given
-        let sut = BeaglePreFetchHelper()
-        
-        // When
-        let url = "www.something.com"
-        
-        // Then
-        XCTAssertNotNil(sut.dequeueWidget(path: url))
-    }
 
     func testPrefetchAndDequeue() {
         let sut = BeaglePreFetchHelper()
@@ -54,7 +32,32 @@ final class BeaglePrefetchHelperTests: XCTestCase {
         sut.prefetchWidget(path: url)
         let result2 = sut.dequeueWidget(path: url)
         
-        XCTAssertTrue(result1 === result2, "`dequeueWidget` expected to return the same screen")
+        XCTAssert(result1 === result2)
+    }
+
+    func testNavigationIsPrefetchable() {
+        let path = "path"
+        let data = ["data": "value"]
+
+        let actions: [Navigate] = [
+            .openDeepLink(.init(path: path)),
+            .openDeepLink(.init(path: path, data: nil)),
+            .openDeepLink(.init(path: path, data: data)),
+
+            .addView(path),
+            .presentView(path),
+            .swapView(path),
+            .popView,
+            .popToView(path),
+            .finishView
+        ]
+
+        let bools = actions.map { $0.isPrefetchable() }
+
+        let result: String = zip(actions, bools).reduce("") { partial, zip in
+            "\(partial)  \(zip.0)  -->  \(descriptionWithoutOptional(zip.1)) \n\n"
+        }
+        assertSnapshot(matching: result, as: .description)
     }
 
 }

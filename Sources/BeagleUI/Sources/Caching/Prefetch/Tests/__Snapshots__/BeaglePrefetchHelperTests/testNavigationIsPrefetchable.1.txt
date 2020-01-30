@@ -1,0 +1,18 @@
+  openDeepLink(BeagleUI.Navigate.DeepLink(path: "path", data: nil))  -->  NULL 
+
+  openDeepLink(BeagleUI.Navigate.DeepLink(path: "path", data: nil))  -->  NULL 
+
+  openDeepLink(BeagleUI.Navigate.DeepLink(path: "path", data: Optional(["data": "value"])))  -->  NULL 
+
+  addView("path")  -->  PrefechableData(path: "path") 
+
+  presentView("path")  -->  PrefechableData(path: "path") 
+
+  swapView("path")  -->  PrefechableData(path: "path") 
+
+  popView  -->  NULL 
+
+  popToView("path")  -->  NULL 
+
+  finishView  -->  NULL 
+

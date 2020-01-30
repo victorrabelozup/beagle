@@ -1,40 +1,30 @@
 //
-//  Navigate.swift
-//  BeagleUI
+//  Copyright © 08/11/19 Zup IT. All rights reserved.
 //
-//  Created by Lucas Araújo on 08/11/19.
-//  Copyright © 2019 Zup IT. All rights reserved.
-//
-
-/// Types of transitions between screens
-public enum NavigationType: String, StringRawRepresentable {
-    case openDeepLink = "OPEN_DEEP_LINK"
-    case swapView = "SWAP_VIEW"
-    case addView = "ADD_VIEW"
-    case finishView = "FINISH_VIEW"
-    case popView = "POP_VIEW"
-    case popToView = "POP_TO_VIEW"
-    case presentView = "PRESENT_VIEW"
-    
-    func isPrefetchable() -> Bool {
-        return self == .addView || self == .swapView || self == .presentView
-    }
-}
 
 /// Action to represent a screen transition
-public struct Navigate: Action {
-    
-    public let type: NavigationType
-    public let path: String?
-    public let data: [String: String]?
-    
-    public init(
-        type: NavigationType,
-        path: String? = nil,
-        data: [String: String]? = nil
-    ) {
-        self.type = type
-        self.path = path
-        self.data = data
+public enum Navigate: Action {
+
+    case openDeepLink(DeepLink)
+
+    case swapView(Path)
+    case addView(Path)
+    case presentView(Path)
+
+    case finishView
+    case popView
+    case popToView(Path)
+
+    public typealias Path = String
+    public typealias Data = [String: String]
+
+    public struct DeepLink {
+        public let path: Path
+        public let data: Data?
+
+        public init(path: Path, data: Data? = nil) {
+            self.path = path
+            self.data = data
+        }
     }
 }

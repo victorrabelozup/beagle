@@ -1,0 +1,84 @@
+openDeepLink-withPath-withData ->
+    openDeepLink(BeagleUI.Navigate.DeepLink(path: "path", data: Optional(["data": ""])))
+
+openDeepLink-withPath-noData ->
+    openDeepLink(BeagleUI.Navigate.DeepLink(path: "path", data: nil))
+
+openDeepLink-noPath-withData ->
+    ERROR
+
+openDeepLink-noPath-noData ->
+    ERROR
+
+swapView-withPath-withData ->
+    swapView("path")
+
+swapView-withPath-noData ->
+    swapView("path")
+
+swapView-noPath-withData ->
+    ERROR
+
+swapView-noPath-noData ->
+    ERROR
+
+addView-withPath-withData ->
+    addView("path")
+
+addView-withPath-noData ->
+    addView("path")
+
+addView-noPath-withData ->
+    ERROR
+
+addView-noPath-noData ->
+    ERROR
+
+finishView-withPath-withData ->
+    finishView
+
+finishView-withPath-noData ->
+    finishView
+
+finishView-noPath-withData ->
+    finishView
+
+finishView-noPath-noData ->
+    finishView
+
+popView-withPath-withData ->
+    popView
+
+popView-withPath-noData ->
+    popView
+
+popView-noPath-withData ->
+    popView
+
+popView-noPath-noData ->
+    popView
+
+popToView-withPath-withData ->
+    popToView("path")
+
+popToView-withPath-noData ->
+    popToView("path")
+
+popToView-noPath-withData ->
+    ERROR
+
+popToView-noPath-noData ->
+    ERROR
+
+presentView-withPath-withData ->
+    presentView("path")
+
+presentView-withPath-noData ->
+    presentView("path")
+
+presentView-noPath-withData ->
+    ERROR
+
+presentView-noPath-noData ->
+    ERROR
+

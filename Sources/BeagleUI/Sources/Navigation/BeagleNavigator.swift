@@ -26,31 +26,27 @@ class BeagleNavigator: BeagleNavigation {
     
     func navigate(action: Navigate, context: BeagleContext, animated: Bool = false) {
         let source = context.screenController
-        switch action.type {
-        case .openDeepLink:
-            if let path = action.path {
-                openDeepLink(path: path, source: source, data: action.data, animated: animated)
-            }
-        case .swapView:
-            if let url = action.path {
-                swapView(url: url, context: context, animated: animated)
-            }
-        case .addView:
-            if let url = action.path {
-                addView(url: url, context: context, animated: animated)
-            }
+        switch action {
+        case .openDeepLink(let deepLink):
+            openDeepLink(path: deepLink.path, source: source, data: deepLink.data, animated: animated)
+
+        case .swapView(let path):
+            swapView(url: path, context: context, animated: animated)
+
+        case .addView(let path):
+            addView(url: path, context: context, animated: animated)
+
         case .finishView:
             finishView(source: source, animated: animated)
+
         case .popView:
             popView(source: source, animated: animated)
-        case .popToView:
-            if let url = action.path {
-                popToView(url: url, source: source, animated: animated)
-            }
-        case .presentView:
-            if let url = action.path {
-                presentView(url: url, context: context, animated: animated)
-            }
+
+        case .popToView(let path):
+            popToView(url: path, source: source, animated: animated)
+
+        case .presentView(let path):
+            presentView(url: path, context: context, animated: animated)
         }
     }
     

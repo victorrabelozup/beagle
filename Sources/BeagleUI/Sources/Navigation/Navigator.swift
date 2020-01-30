@@ -31,9 +31,8 @@ extension Navigator: Renderable {
     }
     
     private func prefetchWidget(context: BeagleContext) {
-        guard let path = action.path else { return }
-        if action.type.isPrefetchable() {
-            Beagle.dependencies.preFetchHelper.prefetchWidget(path: path)
-        }
+        guard let prefetch = action.isPrefetchable() else { return }
+        
+        Beagle.dependencies.preFetchHelper.prefetchWidget(path: prefetch.path)
     }
 }

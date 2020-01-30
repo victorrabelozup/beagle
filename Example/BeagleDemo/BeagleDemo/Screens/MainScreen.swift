@@ -12,30 +12,26 @@ struct MainScreen: DeeplinkScreen {
     func screenController() -> UIViewController {
         let screen = ScreenWidget(
             navigationBar: .init(title: "Beagle Demo"),
-            content: ScrollView(
-                children: [
-                    Navigator(
-                        action: Navigate(
-                            type: .addView,
-                            path: "https://t001-2751a.firebaseapp.com/flow/step1.json"
-                        ),
-                        child: Button(text: "Navigator")
-                    ),
-                    Navigator(
-                        action: Navigate(type: .openDeepLink, path: "lazywidget"),
-                        child: Button(text: "Lazy Widget")
-                    ),
-                    Navigator(
-                        action: Navigate(type: .openDeepLink, path: "pageview"),
-                        child: Button(text: "Page View")
-                    ),
-                    Navigator(
-                        action: Navigate(type: .openDeepLink, path: "tabview"),
-                        child: Button(text: "Tab View")
-                    )
-                ]
-            )
+            content: ScrollView(children: [
+                Navigator(
+                    action: .addView("https://t001-2751a.firebaseapp.com/flow/step1.json"),
+                    child: Button(text: "Navigator")
+                ),
+                Navigator(
+                    action: .openDeepLink(.init(path: "lazywidget")),
+                    child: Button(text: "Lazy Widget")
+                ),
+                Navigator(
+                    action: .openDeepLink(.init(path: "pageview")),
+                    child: Button(text: "Page View")
+                ),
+                Navigator(
+                    action: .openDeepLink(.init(path: "tabview")),
+                    child: Button(text: "Tab View")
+                )
+            ])
         )
+
         return BeagleScreenViewController(
             viewModel: .init(screenType: .declarative(screen))
         )

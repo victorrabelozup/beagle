@@ -22,7 +22,11 @@ public protocol Renderable {
 
 extension Widget {
     public func toScreen() -> ScreenWidget {
-        return (self as? ScreenWidget) ?? ScreenWidget(content: self)
+        return (self as? ScreenWidget)
+        ?? ScreenWidget(
+            safeArea: SafeArea(top: true, leading: true, bottom: true, trailing: true),
+            content: self
+        )
     }
 }
 

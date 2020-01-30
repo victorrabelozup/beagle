@@ -1,14 +1,10 @@
 //
-//  NavigateEntity.swift
-//  BeagleUI
-//
-//  Created by Lucas Araújo on 08/11/19.
-//  Copyright © 2019 Zup IT. All rights reserved.
+//  Copyright © 08/11/19 Zup IT. All rights reserved.
 //
 
 import Foundation
 
-enum NavigationTypeEntity: String, Decodable, UIEnumModelConvertible {
+enum NavigationType: String, Decodable, UIEnumModelConvertible, CaseIterable {
     case openDeepLink = "OPEN_DEEP_LINK"
     case swapView = "SWAP_VIEW"
     case addView = "ADD_VIEW"
@@ -19,17 +15,53 @@ enum NavigationTypeEntity: String, Decodable, UIEnumModelConvertible {
 }
 
 struct NavigateEntity: Decodable {
-    let type: NavigationTypeEntity
+    let type: NavigationType
     let path: String?
     let data: [String: String]?
 }
 
 extension NavigateEntity: UIModelConvertible {
+
+    struct Error: Swift.Error {
+        let reason: String
+    }
+
     func mapToUIModel() throws -> Navigate {
-        return Navigate(
-            type: try type.mapToUIModel(ofType: NavigationType.self),
-            path: path,
-            data: data)
+        switch type {
+        case .openDeepLink:
+            let path = try usePath()
+            return .openDeepLink(
+                .init(path: path, data: data)
+            )
+
+        case .swapView:
+            let path = try usePath()
+            return .swapView(path)
+
+        case .addView:
+            let path = try usePath()
+            return .addView(path)
+
+        case .finishView:
+            return .finishView
+        case .popView:
+            return .popView
+
+        case .popToView:
+            let path = try usePath()
+            return .popToView(path)
+
+        case .presentView:
+            let path = try usePath()
+            return .presentView(path)
+        }
+    }
+
+    private func usePath() throws -> String {
+        guard let path = self.path else {
+            throw Error(reason: "Error: Navigate of `type` \(type), should have property `path`")
+        }
+        return path
     }
 }
 

@@ -30,7 +30,7 @@ public class BeaglePreFetchHelper: BeaglePrefetchHelping {
             return screen
         } else {
             return BeagleScreenViewController(
-                viewModel: .init(screenType:.remote(path))
+                viewModel: .init(screenType: .remote(path))
             )
         }
     }

@@ -1,5 +1,5 @@
 //
-//  Copyright © 2019 Zup IT. All rights reserved.
+//  Copyright © 04/11/19 Zup IT. All rights reserved.
 //
 
 import XCTest
@@ -11,27 +11,12 @@ final class BeagleNavigatorTests: XCTestCase {
         var preFetchHelper: BeaglePrefetchHelping = BeaglePreFetchHelper()
     }
     
-    func test_actionWithoutPath_shouldNotNavigate() {
-        // Given
-        let sut = BeagleNavigator(dependencies: Prefetch())
-        let action = Navigate(type: .swapView)
-        let firstViewController = UIViewController()
-        let secondViewController = UIViewController()
-        let context = DummyBeagleContext(viewController: secondViewController)
-        let navigation = UINavigationController()
-        navigation.viewControllers = [firstViewController, secondViewController]
-        
-        // When
-        sut.navigate(action: action, context: context)
-        
-        // Then
-        XCTAssertEqual(navigation.viewControllers, [firstViewController, secondViewController])
-    }
-    
     func test_openDeepLink_shouldNotPushANativeScreenToNavigationWhenDeepLinkHandlerItsNotSet() {
         // Given
         let sut = BeagleNavigator(dependencies: Prefetch())
-        let action = Navigate(type: .openDeepLink, path: "https://example.com/screen.json")
+        let action = Navigate.openDeepLink(.init(
+            path: "https://example.com/screen.json"
+        ))
         let firstViewController = UIViewController()
         let context = DummyBeagleContext(viewController: firstViewController)
         let navigation = UINavigationController(rootViewController: firstViewController)
@@ -40,13 +25,13 @@ final class BeagleNavigatorTests: XCTestCase {
         sut.navigate(action: action, context: context)
         
         //Then
-        XCTAssertEqual(1, navigation.viewControllers.count)
+        XCTAssert(navigation.viewControllers.count == 1)
     }
 
     func test_swapView_shouldReplaceNavigationStack() {
         // Given
         let sut = BeagleNavigator(dependencies: Prefetch())
-        let action = Navigate(type: .swapView, path: "https://example.com/screen.json")
+        let action = Navigate.swapView("https://example.com/screen.json")
         let firstViewController = UIViewController()
         let secondViewController = UIViewController()
         let context = DummyBeagleContext(viewController: secondViewController)
@@ -57,14 +42,14 @@ final class BeagleNavigatorTests: XCTestCase {
         sut.navigate(action: action, context: context)
 
         // Then
-        XCTAssertEqual(1, navigation.viewControllers.count)
-        XCTAssertTrue(navigation.viewControllers.last is BeagleScreenViewController)
+        XCTAssert(navigation.viewControllers.count == 1)
+        XCTAssert(navigation.viewControllers.last is BeagleScreenViewController)
     }
 
     func test_addView_shouldPushScreenInNavigation() {
         // Given
         let sut = BeagleNavigator(dependencies: Prefetch())
-        let action = Navigate(type: .addView, path: "https://example.com/screen.json")
+        let action = Navigate.addView("https://example.com/screen.json")
         let firstViewController = UIViewController()
         let context = DummyBeagleContext(viewController: firstViewController)
         let navigation = UINavigationController(rootViewController: firstViewController)
@@ -73,14 +58,14 @@ final class BeagleNavigatorTests: XCTestCase {
         sut.navigate(action: action, context: context)
 
         // Then
-        XCTAssertEqual(2, navigation.viewControllers.count)
-        XCTAssertTrue(navigation.viewControllers.last is BeagleScreenViewController)
+        XCTAssert(navigation.viewControllers.count == 2)
+        XCTAssert(navigation.viewControllers.last is BeagleScreenViewController)
     }
 
     func test_finishView_shouldDismissNavigation() {
         // Given
         let sut = BeagleNavigator(dependencies: Prefetch())
-        let action = Navigate(type: .finishView)
+        let action = Navigate.finishView
         let firstViewController = UIViewController()
         let context = DummyBeagleContext(viewController: firstViewController)
         let navigationSpy = UINavigationControllerSpy(rootViewController: firstViewController)
@@ -89,13 +74,13 @@ final class BeagleNavigatorTests: XCTestCase {
         sut.navigate(action: action, context: context)
 
         // Then
-        XCTAssertTrue(navigationSpy.dismissViewControllerCalled)
+        XCTAssert(navigationSpy.dismissViewControllerCalled)
     }
 
     func test_popView_shouldPopNavigationScreen() {
         // Given
         let sut = BeagleNavigator(dependencies: Prefetch())
-        let action = Navigate(type: .popView)
+        let action = Navigate.popView
         let firstViewController = UIViewController()
         let secondViewController = UIViewController()
         let thirdViewController = UIViewController()
@@ -107,7 +92,7 @@ final class BeagleNavigatorTests: XCTestCase {
         sut.navigate(action: action, context: context)
 
         // Then
-        XCTAssertEqual(2, navigation.viewControllers.count)
+        XCTAssert(navigation.viewControllers.count == 2)
     }
 
     func test_popToView_shouldNotNavigateWhenScreenIsNotFound() {
@@ -117,7 +102,7 @@ final class BeagleNavigatorTests: XCTestCase {
         let screenURL3 = "https://example.com/screen3.json"
         let sut = BeagleNavigator(dependencies: Prefetch())
         let widget = SimpleWidget()
-        let action = Navigate(type: .popToView, path: screenURL1)
+        let action = Navigate.popToView(screenURL1)
         let vc1 = beagleViewController(screen: .declarative(widget.content.toScreen()))
         let vc2 = beagleViewController(screen: .remote(screenURL2))
         let vc3 = beagleViewController(screen: .remote(screenURL3))
@@ -130,8 +115,8 @@ final class BeagleNavigatorTests: XCTestCase {
         sut.navigate(action: action, context: context)
 
         // Then
-        XCTAssertEqual(4, navigation.viewControllers.count)
-        XCTAssertEqual(navigation.viewControllers.last, vc4)
+        XCTAssert(navigation.viewControllers.count == 4)
+        XCTAssert(navigation.viewControllers.last == vc4)
     }
 
     func test_popToView_shouldRemoveFromStackScreensAfterTargetScreen() {
@@ -140,7 +125,7 @@ final class BeagleNavigatorTests: XCTestCase {
         let screenURL2 = "https://example.com/screen2.json"
         let screenURL3 = "https://example.com/screen3.json"
         let sut = BeagleNavigator(dependencies: Prefetch())
-        let action = Navigate(type: .popToView, path: screenURL2)
+        let action = Navigate.popToView(screenURL2)
         let vc1 = beagleViewController(screen: .remote(screenURL1))
         let vc2 = beagleViewController(screen: .remote(screenURL2))
         let vc3 = beagleViewController(screen: .remote(screenURL3))
@@ -153,14 +138,14 @@ final class BeagleNavigatorTests: XCTestCase {
         sut.navigate(action: action, context: context)
 
         // Then
-        XCTAssertEqual(2, navigation.viewControllers.count)
-        XCTAssertEqual(navigation.viewControllers.last, vc2)
+        XCTAssert(navigation.viewControllers.count == 2)
+        XCTAssert(navigation.viewControllers.last == vc2)
     }
 
     func test_presentView_shouldPresentTheScreen() {
         // Given
         let sut = BeagleNavigator(dependencies: Prefetch())
-        let action = Navigate(type: .presentView, path: "https://example.com/screen.json")
+        let action = Navigate.presentView("https://example.com/screen.json")
         let firstViewController = UIViewController()
         let context = DummyBeagleContext(viewController: firstViewController)
         let navigationSpy = UINavigationControllerSpy(rootViewController: firstViewController)
@@ -169,7 +154,7 @@ final class BeagleNavigatorTests: XCTestCase {
         sut.navigate(action: action, context: context)
 
         // Then
-        XCTAssertTrue(navigationSpy.presentViewControllerCalled)
+        XCTAssert(navigationSpy.presentViewControllerCalled)
     }
     
     func test_openDeepLink_shouldPushANativeScreenWithData() {
@@ -177,7 +162,7 @@ final class BeagleNavigatorTests: XCTestCase {
         let sut = BeagleNavigator(dependencies: Prefetch())
         let data = ["uma": "uma", "dois": "duas"]
         let path = "https://example.com/screen.json"
-        let action = Navigate(type: .openDeepLink, path: path, data: data)
+        let action = Navigate.openDeepLink(.init(path: path, data: data))
         let firstViewController = UIViewController()
         let context = DummyBeagleContext(viewController: firstViewController)
         let navigation = UINavigationController(rootViewController: firstViewController)
@@ -194,9 +179,9 @@ final class BeagleNavigatorTests: XCTestCase {
         sut.navigate(action: action, context: context)
         
         //Then
-        XCTAssertEqual(2, navigation.viewControllers.count)
-        XCTAssertEqual(data, deepLinkSpy.calledData)
-        XCTAssertEqual(path, deepLinkSpy.calledPath)
+        XCTAssert(navigation.viewControllers.count == 2)
+        XCTAssert(deepLinkSpy.calledData == data)
+        XCTAssert(deepLinkSpy.calledPath == path)
     }
 
     private func beagleViewController(screen: BeagleScreenViewModel.ScreenType) -> BeagleScreenViewController {
