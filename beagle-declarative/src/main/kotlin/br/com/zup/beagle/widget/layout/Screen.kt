@@ -11,7 +11,8 @@ data class SafeArea(
 
 data class NavigationBar(
     val title: String,
-    val showBackButton: Boolean? = null
+    val showBackButton: Boolean? = null,
+    val style: String? = null
 )
 
 data class Screen(
