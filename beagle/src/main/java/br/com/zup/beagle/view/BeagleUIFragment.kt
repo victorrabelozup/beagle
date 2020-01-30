@@ -1,5 +1,6 @@
 package br.com.zup.beagle.view
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -36,6 +37,8 @@ class BeagleUIFragment : Fragment(), StateChangedListener {
     ): View? {
         return context?.let {
             FrameLayout(it).apply {
+                val attrs = intArrayOf(android.R.attr.windowBackground)
+                setBackgroundColor(context.theme.obtainStyledAttributes(attrs).getColor(0, Color.TRANSPARENT))
                 createBeagleView(this)
                 createProgressBar(this)
             }

@@ -42,8 +42,8 @@ internal object BeagleNavigator {
         val transaction = activity.supportFragmentManager
             .beginTransaction()
             .setCustomAnimations(
-                R.anim.slide_from_right, R.anim.slide_to_right,
-                R.anim.slide_from_right, R.anim.slide_to_right
+                R.anim.slide_from_right, R.anim.none_animation,
+                R.anim.none_animation, R.anim.slide_to_right
             )
             .replace(R.id.beagle_content, BeagleUIFragment.newInstance(url))
 

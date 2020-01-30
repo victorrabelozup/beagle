@@ -102,8 +102,8 @@ class BeagleNavigatorTest {
 
         verify(exactly = once()) {
             fragmentTransaction.setCustomAnimations(
-                R.anim.slide_from_right, R.anim.slide_to_right,
-                R.anim.slide_from_right, R.anim.slide_to_right
+                R.anim.slide_from_right, R.anim.none_animation,
+                R.anim.none_animation, R.anim.slide_to_right
             )
         }
     }
