@@ -37,8 +37,7 @@ class BeagleUIFragment : Fragment(), StateChangedListener {
     ): View? {
         return context?.let {
             FrameLayout(it).apply {
-                val attrs = intArrayOf(android.R.attr.windowBackground)
-                setBackgroundColor(context.theme.obtainStyledAttributes(attrs).getColor(0, Color.TRANSPARENT))
+                setBackgroundColor(Color.TRANSPARENT)
                 createBeagleView(this)
                 createProgressBar(this)
             }
