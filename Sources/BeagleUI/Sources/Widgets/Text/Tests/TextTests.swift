@@ -21,6 +21,51 @@ final class TextTests: XCTestCase {
         theme: theme
     )
     
+    func testEqualTextContent() throws {
+        // Given
+        let widget = Text("Test")
+        let context = BeagleContextDummy()
+        
+        // When
+        guard let label = widget.toView(context: BeagleContextDummy(), dependencies: dependencies) as? UILabel else {
+            XCTFail("Unable to type cast to UILabel.")
+            return
+        }
+        
+        // Then
+        XCTAssertEqual(widget.text, label.text)
+    }
+    
+    func testTextWithRightAlignment() throws {
+        // Given
+        let widget = Text("Test")
+        let context = BeagleContextDummy()
+        
+        // When
+        guard let label = widget.toView(context: BeagleContextDummy(), dependencies: dependencies) as? UILabel else {
+            XCTFail("Unable to type cast to UILabel.")
+            return
+        }
+        
+        // Then
+        XCTAssertEqual(label.textAlignment, NSTextAlignment.natural)
+    }
+    
+    func testTextWithLeftAlignment() throws {
+        // Given
+        let widget = Text("Test", alignment: .left)
+        let context = BeagleContextDummy()
+        
+        // When
+        guard let label = widget.toView(context: BeagleContextDummy(), dependencies: dependencies) as? UILabel else {
+            XCTFail("Unable to type cast to UILabel.")
+            return
+        }
+        
+        // Then
+        XCTAssertEqual(label.textAlignment, NSTextAlignment.left)
+    }
+    
     func test_whenDecodingJson_shouldReturnAText() throws {
         let widget: Text = try widgetFromJsonFile(fileName: "TextWidget")
         assertSnapshot(matching: widget, as: .dump)

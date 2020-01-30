@@ -2,7 +2,6 @@
 //  Copyright © 21/11/19 Zup IT. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 public struct PageView: Widget {
@@ -16,6 +15,28 @@ public struct PageView: Widget {
     ) {
         self.pages = pages
         self.pageIndicator = pageIndicator
+    }
+}
+
+extension PageView: Renderable {
+    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+        let pagesControllers = pages.map {
+            BeagleScreenViewController(
+                viewModel: .init(screenType: .declarative($0.toScreen()))
+            )
+        }
+
+        var indicatorView: PageIndicatorUIView?
+        if let indicator = pageIndicator {
+            indicatorView = indicator.toView(context: context, dependencies: dependencies) as? PageIndicatorUIView
+        }
+
+        let view = PageViewUIComponent(
+            model: .init(pages: pagesControllers),
+            indicatorView: indicatorView
+        )
+
+        return view
     }
 }
 

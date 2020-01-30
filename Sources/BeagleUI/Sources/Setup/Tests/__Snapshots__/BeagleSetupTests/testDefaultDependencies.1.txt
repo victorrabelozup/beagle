@@ -7,8 +7,6 @@
   ▿ customActionHandler: Optional<CustomActionHandler>
     ▿ some: CustomActionHandling
       - handlers: 0 key/value pairs
-  ▿ customWidgetsProvider: CustomWidgetsRendererProviding
-    - renderers: 0 key/value pairs
   ▿ decoder: WidgetDecoder
     - customNamespace: "TEST"
     - decoders: (0 elements)
@@ -32,8 +30,6 @@
   ▿ remoteConnector: RemoteConnecting
     ▿ dependencies: InnerDependenciesResolver
       - container: (Function)
-  ▿ rendererProvider: RendererProviding
-    - providers.storage: Optional<Array<RendererProviderThrowable>>.none
   ▿ resolver: InnerDependenciesResolver
     - container: (Function)
   ▿ theme: AppTheme

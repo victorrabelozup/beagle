@@ -34,21 +34,7 @@ class CustomPageIndicatorTest: XCTestCase {
         defaultColor: "defaultColor"
     )
 
-    private lazy var customRendererProvider: CustomWidgetsRendererProviding = {
-        let custom = CustomWidgetsRendererProviding()
-        custom.registerRenderer(CustomPageIndicatorRenderer.self, for: CustomPageIndicator.self)
-        return custom
-    }()
-
-    private lazy var provider: RendererProviding = {
-        let renderer = RendererProviding()
-        renderer.providers.append(customRendererProvider)
-        return renderer
-    }()
-
-    private lazy var dependencies = BeagleScreenDependencies(
-        rendererProvider: provider
-    )
+    private lazy var dependencies = BeagleScreenDependencies()
 
     func test_indicator_decoder() throws {
         let widget: CustomPageIndicator = try widgetFromJsonFile(

@@ -1,12 +1,8 @@
 //
-//  FlexSingleWidget.swift
-//  BeagleUI
-//
-//  Created by Eduardo Sanches Bocato on 02/10/19.
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public struct FlexSingleWidget: Widget, HasAppearance {
     
@@ -34,4 +30,18 @@ public struct FlexSingleWidget: Widget, HasAppearance {
         return FlexSingleWidget(child: child, flex: flex)
     }
     
+}
+
+extension FlexSingleWidget: Renderable {
+    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+        let childView = child.toView(context: context, dependencies: dependencies)
+        let view = UIView()
+        view.addSubview(childView)
+        view.applyAppearance(appearance)
+        
+        dependencies.flex.enableYoga(true, for: childView)
+        dependencies.flex.setupFlex(flex, for: view)
+        
+        return view
+    }
 }

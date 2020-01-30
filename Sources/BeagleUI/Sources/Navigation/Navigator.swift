@@ -1,10 +1,8 @@
 //
-//  Navigator.swift
-//  BeagleUI
-//
-//  Created by Lucas Araújo on 04/11/19.
 //  Copyright © 2019 Zup IT. All rights reserved.
 //
+
+import UIKit
 
 public struct Navigator: Widget {
     
@@ -21,5 +19,21 @@ public struct Navigator: Widget {
     ) {
         self.action = action
         self.child = child
+    }
+}
+
+extension Navigator: Renderable {
+    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+        let childView = child.toView(context: context, dependencies: dependencies)
+        context.register(action: action, inView: childView)
+        prefetchWidget(context: context)
+        return childView
+    }
+    
+    private func prefetchWidget(context: BeagleContext) {
+        guard let path = action.path else { return }
+        if action.type.isPrefetchable() {
+            Beagle.dependencies.preFetchHelper.prefetchWidget(path: path)
+        }
     }
 }

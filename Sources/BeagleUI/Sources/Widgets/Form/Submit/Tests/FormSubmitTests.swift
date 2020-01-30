@@ -20,4 +20,15 @@ final class FormSubmitTests: XCTestCase {
         XCTAssert(sut.child is Text)
     }
     
+    func test_toView_shouldReturnTheExpectedView() {
+        // Given
+        let formSubmit = FormSubmit(child: WidgetDummy())
+                
+        // When
+        let view = formSubmit.toView(context: BeagleContextDummy(), dependencies: RendererDependenciesContainer())
+        
+        // Then
+        XCTAssertTrue(view.beagleFormElement is FormSubmit)
+    }
+    
 }

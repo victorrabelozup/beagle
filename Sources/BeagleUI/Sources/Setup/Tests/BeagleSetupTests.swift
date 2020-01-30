@@ -20,11 +20,11 @@ final class BeagleSetupTests: XCTestCase {
         dep.theme = AppThemeDummy()
         dep.validatorProvider = ValidatorProviding()
         dep.customActionHandler = CustomActionHandlerDummy()
-        dep.baseURL = URL(string: "www.test.com")!
+        if let url = URL(string: "www.test.com") {
+            dep.baseURL = url
+        }
         dep.networkDispatcher = URLRequestDispatchingDummy()
-        dep.customWidgetsProvider = CustomWidgetsRendererProviderDummy()
         dep.flex = FlexViewConfiguratorDummy()
-        dep.rendererProvider = RendererProviderDummy()
         dep.decoder = WidgetDecodingDummy()
 
         assertSnapshot(matching: dep, as: .dump)
@@ -63,14 +63,41 @@ final class WidgetDecodingDummy: WidgetDecoding {
     func decodeAction(from data: Data) throws -> Action { return ActionDummy() }
 }
 
-final class ViewRendererDummy: ViewRendering<WidgetDummy> {
-    override func buildView(context: BeagleContext) -> UIView { return UIView() }
+struct WidgetDummy: Widget {
+    func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+        return DummyView()
+    }
 }
 
-final class CustomWidgetsRendererProviderDummy: CustomWidgetsRendererProvider {
-    func registerRenderer<W>(_ rendererType: ViewRendering<W>.Type, for widgetType: W.Type) where W: Widget {}
-    func buildRenderer(for widget: Widget, dependencies: ViewRenderer.Dependencies) throws -> ViewRenderer {
-        return try ViewRendererDummy(widget: widget, dependencies: Beagle.dependencies)
+final class DummyView: UIView {}
+
+struct ActionDummy: Action {}
+
+class BeagleContextDummy: BeagleContext {
+    var screenController: UIViewController = UIViewController()
+    
+    func register(action: Action, inView view: UIView) {}
+    func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorProvider?) {}
+    func lazyLoad(url: String, initialState: UIView) {}
+    func doAction(_ action: Action, sender: Any) {}
+}
+
+struct RendererDependenciesContainer: Renderable.Dependencies {
+    var flex: FlexViewConfiguratorProtocol
+    var theme: Theme
+    var validatorProvider: ValidatorProvider?
+    var appBundle: Bundle
+
+    init(
+        flex: FlexViewConfiguratorProtocol = FlexViewConfiguratorDummy(),
+        theme: Theme = AppThemeDummy(),
+        validatorProvider: ValidatorProvider? = ValidatorProviding(),
+        appBundle: Bundle = Bundle(for: ImageTests.self)
+    ) {
+        self.flex = flex
+        self.theme = theme
+        self.validatorProvider = validatorProvider
+        self.appBundle = appBundle
     }
 }
 

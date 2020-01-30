@@ -1,12 +1,8 @@
 //
-//  FormInput.swift
-//  BeagleUI
-//
-//  Created by Eduardo Sanches Bocato on 12/11/19.
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public struct FormInput: Widget {
     
@@ -30,4 +26,12 @@ public struct FormInput: Widget {
         self.child = child
     }
     
+}
+
+extension FormInput: Renderable {
+    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+        let childView = child.toView(context: context, dependencies: dependencies)
+        childView.beagleFormElement = self
+        return childView
+    }
 }

@@ -2,6 +2,8 @@
 //  Copyright © 2019 Zup IT. All rights reserved.
 //
 
+import UIKit
+
 public struct ScreenWidget: Widget {
 
     // MARK: - Public Properties
@@ -29,6 +31,58 @@ public struct ScreenWidget: Widget {
     }
 }
 
+extension ScreenWidget: Renderable {
+    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+        guard let beagleController = context as? BeagleScreenViewController,
+            beagleController.screenController.navigationController == nil else {
+                return createWidgetContentView(context: context, dependencies: dependencies)
+        }
+        
+        let contentController = BeagleScreenViewController(
+            viewModel: .init(
+                screenType: .declarative(self),
+                dependencies: beagleController.viewModel.dependencies,
+                delegate: beagleController.viewModel.delegate
+            )
+        )
+        let navigationController = UINavigationController(rootViewController: contentController)
+        
+        beagleController.addChildViewController(navigationController)
+        DispatchQueue.main.async {
+            navigationController.didMove(toParentViewController: beagleController)
+        }
+        return navigationController.view
+    }
+
+    // MARK: - Private Functions
+
+    private func createWidgetContentView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+        let headerView = header?.toView(context: context, dependencies: dependencies)
+        let contentView = content.toView(context: context, dependencies: dependencies)
+        let footerView = footer?.toView(context: context, dependencies: dependencies)
+        
+        if headerView == nil && footerView == nil {
+            return contentView
+        }
+        
+        let container = UIView()
+        
+        if let headerView = headerView {
+            container.addSubview(headerView)
+            dependencies.flex.enableYoga(true, for: headerView)
+        }
+        
+        container.addSubview(contentView)
+        dependencies.flex.setupFlex(Flex(grow: 1), for: contentView)
+        
+        if let footerView = footerView {
+            container.addSubview(footerView)
+            dependencies.flex.enableYoga(true, for: footerView)
+        }
+        
+        return container
+    }
+}
 
 public struct SafeArea: Equatable {
 

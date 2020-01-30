@@ -10,7 +10,7 @@ public struct PageIndicatorUIViewModel {
     public let currentPage: Int
 }
 
-public protocol PageIndicatorUIView: class {
+public protocol PageIndicatorUIView: AnyObject {
     var outputReceiver: PageIndicatorOutput? { get set }
     var model: PageIndicatorUIViewModel? { get set }
 }

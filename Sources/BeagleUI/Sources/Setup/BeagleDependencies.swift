@@ -9,7 +9,6 @@
 import UIKit
 
 public protocol BeagleDependenciesProtocol: DependencyFlexViewConfigurator,
-    DependencyRendererProvider,
     DependencyTheme,
     DependencyValidatorProvider,
     DependencyActionExecutor,
@@ -22,7 +21,6 @@ public protocol BeagleDependenciesProtocol: DependencyFlexViewConfigurator,
     DependencyPreFetching,
     DependencyAppBundle {
 
-    var customWidgetsProvider: CustomWidgetsRendererProvider { get }
     var deepLinkHandler: BeagleDeepLinkScreenManaging? { get }
 }
 
@@ -31,14 +29,12 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
     public var baseURL: URL?
     public var networkDispatcher: NetworkDispatcher
     public var decoder: WidgetDecoding
-    public var customWidgetsProvider: CustomWidgetsRendererProvider
     public var appBundle: Bundle
     public var theme: Theme
     public var validatorProvider: ValidatorProvider?
     public var deepLinkHandler: BeagleDeepLinkScreenManaging?
     public var customActionHandler: CustomActionHandler?
     public var flex: FlexViewConfiguratorProtocol
-    public var rendererProvider: RendererProvider
     public var actionExecutor: ActionExecutor
     public var remoteConnector: RemoteConnector
     public var navigation: BeagleNavigation
@@ -54,11 +50,9 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
         self.networkDispatcher = URLSessionDispatcher()
         self.preFetchHelper = BeaglePreFetchHelper()
         self.customActionHandler = CustomActionHandling()
-        self.customWidgetsProvider = CustomWidgetsRendererProviding()
         self.appBundle = Bundle.main
         self.theme = AppTheme(styles: [:])
         self.flex = FlexViewConfigurator()
-        self.rendererProvider = RendererProviding()
         
         self.navigation = BeagleNavigator(dependencies: resolver)
         self.actionExecutor = ActionExecuting(dependencies: resolver)

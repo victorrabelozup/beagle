@@ -6,17 +6,17 @@ import XCTest
 @testable import BeagleUI
 import SnapshotTesting
 
-final class UnknownWidgetViewRendererTests: XCTestCase {
+final class AnyWidgetTests: XCTestCase {
     
-    func test_initUnknownWidgetView_shouldConfigureALabelWithTheRightParameters() {
+    func test_toView_shouldReturnTheExpectedView() {
         // Given
-        let renderer = UnknownWidgetViewRenderer(widget: WidgetDummy())
-        let context = BeagleContextDummy()
+        let widget = AnyWidget(value: WidgetDummy())
         
         // When
-        let view = renderer.buildView(context: context)
+        let view = widget.toView(context: BeagleContextDummy(), dependencies: RendererDependenciesContainer())
         
         // Then
-        XCTAssert(view === renderer.label)
+        XCTAssertTrue(view is UILabel)
+        XCTAssertEqual((view as? UILabel)?.text, "Unknown Widget of type:\n WidgetDummy()")
     }
 }

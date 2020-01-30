@@ -1,12 +1,8 @@
 //
-//  FlexWidget.swift
-//  BeagleFrameworkTests
-//
-//  Created by Eduardo Sanches Bocato on 02/10/19.
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public struct FlexWidget: Widget, HasAppearance {
     
@@ -34,4 +30,20 @@ public struct FlexWidget: Widget, HasAppearance {
         return FlexWidget(children: children, flex: flex)
     }
     
+}
+
+extension FlexWidget: Renderable {
+    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+        let containerView = UIView()
+        
+        children.forEach {
+            let childView = $0.toView(context: context, dependencies: dependencies)
+            containerView.addSubview(childView)
+            dependencies.flex.enableYoga(true, for: childView)
+        }
+        containerView.applyAppearance(appearance)
+        dependencies.flex.setupFlex(flex, for: containerView)
+        
+        return containerView
+    }
 }

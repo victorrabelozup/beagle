@@ -1,8 +1,4 @@
 //
-//  CustomPageIndicator.swift
-//  BeagleFrameworkTests
-//
-//  Created by Yan Dias on 29/11/19.
 //  Copyright © 2019 Zup IT. All rights reserved.
 //
 
@@ -12,6 +8,7 @@ import UIKit
 // MARK: - CustomPageIndicator Widget
 
 public struct CustomPageIndicator: PageIndicator {
+
     // MARK: - Public Properties
 
     public let selectedColor: String
@@ -26,6 +23,10 @@ public struct CustomPageIndicator: PageIndicator {
         self.selectedColor = selectedColor
         self.defaultColor = defaultColor
     }
+    
+    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+        return CustomPageIndicatorUIComponent()
+    }
 }
 
 // MARK: - CustomPageIndicator Entity
@@ -36,14 +37,6 @@ public struct CustomPageIndicatorEntity: WidgetConvertibleEntity {
 
     public func mapToWidget() throws -> Widget {
         return CustomPageIndicator(selectedColor: selectedColor, defaultColor: defaultColor)
-    }
-}
-
-// MARK: - CustomPageIndicator Renderer
-
-public final class CustomPageIndicatorRenderer: ViewRendering<CustomPageIndicator> {
-    public override func buildView(context: BeagleContext) -> UIView {
-        return CustomPageIndicatorUIComponent()
     }
 }
 

@@ -1,12 +1,8 @@
 //
-//  FormSubmit.swift
-//  BeagleUI
-//
-//  Created by Eduardo Sanches Bocato on 12/11/19.
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public struct FormSubmit: Widget {
     
@@ -22,4 +18,12 @@ public struct FormSubmit: Widget {
         self.child = child
     }
     
+}
+
+extension FormSubmit: Renderable {
+    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+        let childView = child.toView(context: context, dependencies: dependencies)
+        childView.beagleFormElement = self
+        return childView
+    }
 }

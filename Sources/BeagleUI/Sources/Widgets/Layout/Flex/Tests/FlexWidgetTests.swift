@@ -37,6 +37,26 @@ final class FlexWidgetTests: XCTestCase {
         XCTAssertNotNil(flexWidget.flex)
     }
     
+    func test_toView_shouldReturnTheExpectedView() throws {
+        //Given
+        let flexSpy = FlexViewConfiguratorSpy()
+        let dependencies = RendererDependenciesContainer(flex: flexSpy)
+
+        let numberOfChilds = 3
+        let flexWidgetChilds = Array(repeating: WidgetDummy(), count: numberOfChilds)
+        let flexWidget = FlexWidget(children: flexWidgetChilds)
+        
+        // When
+        let resultingView = flexWidget.toView(context: BeagleContextDummy(), dependencies: dependencies)
+        
+        //Then
+        XCTAssertTrue(flexSpy.setupFlexCalled)
+        XCTAssertEqual(resultingView, flexSpy.viewPassedToSetupFlex)
+        XCTAssertEqual(flexWidget.flex.size?.height, flexSpy.flexPassed?.size?.height)
+        XCTAssertEqual(flexWidget.flex.size?.width, flexSpy.flexPassed?.size?.width)
+        XCTAssertEqual(resultingView.subviews.count, numberOfChilds)
+    }
+    
     func test_whenDecodingJson_shouldReturnAFlexWidget() throws {
         let widget: FlexWidget = try widgetFromJsonFile(fileName: "FlexWidget")
         assertSnapshot(matching: widget, as: .dump)

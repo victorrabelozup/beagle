@@ -32,6 +32,38 @@ final class ScrollViewTests: XCTestCase {
         XCTAssert(widget.children[safe: 1] is Button)
     }
     
+    func test_toView_shouldReturnTheExpectedView() {
+        // Given
+        let flexSpy = FlexViewConfiguratorSpy()
+        let dependencies = RendererDependenciesContainer(flex: flexSpy)
+        
+        let container = ScrollView(children: [
+            WidgetDummy()
+        ])
+
+        // When
+        let resultingView = container.toView(context: BeagleContextDummy(), dependencies: dependencies)
+        
+        // Then
+        XCTAssert(flexSpy.setupFlexCalled)
+        XCTAssert(resultingView.subviews.count == 1)
+        XCTAssert(flexSpy.timesPassed == 1)
+    }
+    
+    func test_whenLayoutSubViewsIsCalledOnBagleContainerScrollView_itShouldSetupTheContentSizeCorrectly() {
+        // Given
+        let subview = UIView(frame: .init(x: 0, y: 0, width: 100, height: 100))
+        let sut = BeagleContainerScrollView()
+        sut.addSubview(subview)
+
+        // When
+        sut.layoutSubviews()
+
+        // Then
+        XCTAssert(subview.frame.size == sut.contentSize)
+        
+    }
+    
     func test_whenDecodingJson_shouldReturnAScrollView() throws {
         let widget: ScrollView = try widgetFromJsonFile(fileName: "ScrollViewWidget")
         assertSnapshot(matching: widget, as: .dump)

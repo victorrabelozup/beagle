@@ -2,7 +2,7 @@
 //  Copyright © 2019 Zup IT. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public struct NetworkImage: Widget, HasAppearance {
     
@@ -22,4 +22,15 @@ public struct NetworkImage: Widget, HasAppearance {
         self.appearance = appearance
     }
     
+}
+
+extension NetworkImage: Renderable {
+    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+        let imageView = NetworkUIImageView(imageDataProvider: ImageDataProviding(), url: url)
+        imageView.contentMode = (contentMode ?? .fitCenter).toUIKit()
+        imageView.applyAppearance(appearance)
+        let flex = Flex(size: .init(width: 100%, height: 100%))
+        dependencies.flex.setupFlex(flex, for: imageView)
+        return imageView
+    }
 }

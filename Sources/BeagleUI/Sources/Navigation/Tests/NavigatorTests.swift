@@ -1,8 +1,4 @@
 //
-//  NavigatorTests.swift
-//  BeagleFrameworkTests
-//
-//  Created by Lucas Araújo on 04/11/19.
 //  Copyright © 2019 Zup IT. All rights reserved.
 //
 
@@ -23,5 +19,16 @@ final class NavigatorTests: XCTestCase {
         XCTAssertNil(widget.action.path)
         XCTAssertNil(widget.action.data)
         XCTAssert(widget.child is Text)
+    }
+    
+    func test_toView_shouldReturnTheExpectedView() {
+        // Given
+        let navigator = Navigator(action: Navigate(type: .popView), child: WidgetDummy())
+
+        // When
+        let view = navigator.toView(context: BeagleContextDummy(), dependencies: RendererDependenciesContainer())
+        
+        // Then
+        XCTAssertTrue(view is DummyView)
     }
 }

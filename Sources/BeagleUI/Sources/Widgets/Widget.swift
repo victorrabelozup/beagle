@@ -4,23 +4,23 @@
 
 import UIKit
 
-public protocol Widget {}
+public protocol Widget: Renderable {}
 
 public protocol ComposeWidget: Widget {
     func build() -> Widget
 }
 
+public protocol Renderable {
+    typealias Dependencies =
+        DependencyFlexViewConfigurator
+        & DependencyTheme
+        & DependencyValidatorProvider
+        & DependencyAppBundle
+    
+    func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView
+}
+
 extension Widget {
-
-    public func toView(
-        context: BeagleContext,
-        dependencies: ViewRenderer.Dependencies
-    ) -> UIView {
-        return dependencies.rendererProvider
-            .buildRenderer(for: self, dependencies: dependencies)
-            .buildView(context: context)
-    }
-
     public func toScreen() -> ScreenWidget {
         return (self as? ScreenWidget) ?? ScreenWidget(content: self)
     }
@@ -32,5 +32,16 @@ public struct AnyWidget: Widget {
     
     public init(value: Any) {
         self.value = value
+    }
+}
+
+extension AnyWidget: Renderable {
+    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+        let label = UILabel(frame: .zero)
+        label.numberOfLines = 2
+        label.text = "Unknown Widget of type:\n \(String(describing: value))"
+        label.textColor = .red
+        label.backgroundColor = .yellow
+        return label
     }
 }

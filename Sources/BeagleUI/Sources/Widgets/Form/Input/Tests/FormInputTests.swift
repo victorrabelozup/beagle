@@ -20,4 +20,14 @@ final class FormInputTests: XCTestCase {
         XCTAssert(sut.child is Text)
     }
     
+    func test_buildView_shouldReturnTheExpectedView() {
+        // Given
+        let formInput = FormInput(name: "username", child: WidgetDummy())
+        
+        // When
+        let formInputView = formInput.toView(context: BeagleContextDummy(), dependencies: RendererDependenciesContainer())
+        
+        // Then
+        XCTAssertTrue(formInputView.beagleFormElement is FormInput)
+    }
 }

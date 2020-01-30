@@ -34,6 +34,38 @@ final class TabViewTests: XCTestCase {
         XCTAssert(widget.tabItems.count > 0)
         XCTAssert(widget.tabItems[safe: 0]?.content is FlexWidget)
     }
+    
+    func test_toView_shouldReturnTheExpectedView() {
+        // Given
+        let widget = TabView(tabItems: [
+             TabItem(title: "Tab 1", content:
+                 FlexWidget(children: [
+                     Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj"),
+                     Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj")
+                 ])
+                .applyFlex(Flex(alignContent: .center))
+             ),
+             TabItem(title: "Tab 2", content:
+                 FlexWidget(children: [
+                     Text("Text1 Tab 2"),
+                     Text("Text2 Tab 2")
+                 ])
+                 .applyFlex(Flex(justifyContent: .flexEnd))
+             )
+        ])
+        
+        // When
+        let resultingView = widget.toView(context: BeagleContextDummy(), dependencies: RendererDependenciesContainer())
+        guard let tabViewUIComponent = resultingView as? TabViewUIComponent else {
+            XCTFail("Expected `TabViewUIComponent`, but got \(String(describing: resultingView)).")
+            return
+        }
+        
+        let model = Mirror(reflecting: tabViewUIComponent).firstChild(of: TabViewUIComponent.Model.self)
+        
+        // Then
+        XCTAssert(widget.tabItems == model?.tabViewItems)
+    }
 
     private func tabItem(index: Int, flex: Flex) -> TabItem {
         return TabItem(title: "Tab \(index)", content:
@@ -43,5 +75,11 @@ final class TabViewTests: XCTestCase {
             ])
             .applyFlex(flex)
         )
+    }
+}
+
+extension TabItem: Equatable {
+    public static func == (lhs: TabItem, rhs: TabItem) -> Bool {
+        return lhs.title == rhs.title && lhs.icon == rhs.icon
     }
 }

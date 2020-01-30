@@ -24,7 +24,21 @@ public struct Text: Widget, HasAppearance {
         self.alignment = alignment
         self.appearance = appearance
     }
-    
+}
+
+extension Text: Renderable {
+    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+        let label = UILabel(frame: .zero)
+        label.text = text
+        label.numberOfLines = 0
+        label.textAlignment = alignment?.toUIKit() ?? .natural
+        if let style = style {
+            dependencies.theme.applyStyle(for: label, withId: style)
+        }
+        label.applyAppearance(appearance)
+        
+        return label
+    }
 }
 
 extension Text {

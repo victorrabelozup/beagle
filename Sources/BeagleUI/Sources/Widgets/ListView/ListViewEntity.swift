@@ -1,8 +1,4 @@
 //
-//  ListViewEntity.swift
-//  BeagleUI
-//
-//  Created by Eduardo Sanches Bocato on 18/09/19.
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
@@ -26,7 +22,7 @@ struct ListViewEntity: WidgetConvertibleEntity {
         let widgetEntity = self.loadingState?.content as? WidgetConvertibleEntity
         let loadingState = try widgetEntity?.mapToWidget()
         
-        let direction = inferDirection(from: rows)
+        let direction = ListView.Direction.vertical
         
         return ListView(
             rows: rows,
@@ -34,12 +30,5 @@ struct ListViewEntity: WidgetConvertibleEntity {
             loadingState: loadingState,
             direction: direction
         )
-    }
-    
-    private func inferDirection(from rows: [Widget]) -> ListView.Direction {
-        if rows.first is Horizontal {
-            return .horizontal
-        }
-        return .vertical
     }
 }

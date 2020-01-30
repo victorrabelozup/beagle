@@ -1,5 +1,5 @@
 //
-//  Copyright © 18/09/19 Zup IT. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 import Foundation
@@ -135,11 +135,7 @@ final class WidgetDecoder: WidgetDecoding {
     
     private func registerLayoutTypes() {
         registerEntity(ScreenWidgetEntity.self, for: decodingKey(for: "ScreenWidget", ofType: .widget))
-        registerEntity(HorizontalEntity.self, for: decodingKey(for: "Horizontal", ofType: .widget))
-        registerEntity(PaddingEntity.self, for: decodingKey(for: "Padding", ofType: .widget))
         registerEntity(SpacerEntity.self, for: decodingKey(for: "Spacer", ofType: .widget))
-        registerEntity(StackEntity.self, for: decodingKey(for: "Stack", ofType: .widget))
-        registerEntity(VerticalEntity.self, for: decodingKey(for: "Vertical", ofType: .widget))
         registerEntity(ScrollViewEntity.self, for: decodingKey(for: "ScrollView", ofType: .widget))
     }
     
@@ -151,7 +147,6 @@ final class WidgetDecoder: WidgetDecoding {
         registerEntity(TextEntity.self, for: decodingKey(for: "Text", ofType: .widget))
         registerEntity(PageViewEntity.self, for: decodingKey(for: "PageView", ofType: .widget))
         registerEntity(TabViewEntity.self, for: decodingKey(for: "TabView", ofType: .widget))
-        registerEntity(TabItemEntity.self, for: decodingKey(for: "TabItem", ofType: .widget))
         registerEntity(DefaultPageIndicatorEntity.self, for: decodingKey(for: "DefaultPageIndicator", ofType: .widget))
         registerEntity(LazyWidgetEntity.self, for: decodingKey(for: "LazyWidget", ofType: .widget))
     }

@@ -116,7 +116,6 @@ struct SimpleWidget {
 struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
     var actionExecutor: ActionExecutor
     var flex: FlexViewConfiguratorProtocol
-    var rendererProvider: RendererProvider
     var remoteConnector: RemoteConnector
     var theme: Theme
     var validatorProvider: ValidatorProvider?
@@ -125,7 +124,6 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
     init(
         actionExecutor: ActionExecutor = ActionExecutorDummy(),
         flex: FlexViewConfiguratorProtocol = FlexViewConfiguratorDummy(),
-        rendererProvider: RendererProvider = RendererProviderDummy(),
         remoteConnector: RemoteConnector = RemoteConnectorDummy(),
         theme: Theme = AppThemeDummy(),
         validatorProvider: ValidatorProvider = ValidatorProviding(),
@@ -133,7 +131,6 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
     ) {
         self.actionExecutor = actionExecutor
         self.flex = flex
-        self.rendererProvider = rendererProvider
         self.remoteConnector = remoteConnector
         self.theme = theme
         self.validatorProvider = validatorProvider

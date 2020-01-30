@@ -1,12 +1,10 @@
 //
-//  TabView.swift
-//  BeagleUI
-//
-//  Created by Gabriela Coelho on 20/11/19.
 //  Copyright © 2019 Zup IT. All rights reserved.
 //
 
-public struct TabItem: Widget {
+import UIKit
+
+public struct TabItem {
 
     public let icon: String?
     public let title: String?
@@ -30,5 +28,16 @@ public struct TabView: Widget {
         tabItems: [TabItem]
     ) {
         self.tabItems = tabItems
+    }
+}
+
+extension TabView: Renderable {
+    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+        let model = TabViewUIComponent.Model(tabIndex: 0, tabViewItems: tabItems)
+        let tabView = TabViewUIComponent(model: model)
+        let flex = Flex(grow: 1)
+        dependencies.flex.setupFlex(flex, for: tabView)
+        dependencies.flex.enableYoga(true, for: tabView)
+        return tabView
     }
 }

@@ -1,8 +1,4 @@
 //
-//  BeagleNavigatorTests.swift
-//  BeagleFrameworkTests
-//
-//  Created by Lucas Araújo on 04/11/19.
 //  Copyright © 2019 Zup IT. All rights reserved.
 //
 
@@ -212,10 +208,10 @@ final class BeagleNavigatorTests: XCTestCase {
 }
 
 class DeepLinkHandlerSpy: BeagleDeepLinkScreenManaging {
-    var calledPath: String? = nil
-    var calledData: [String : String]? = nil
+    var calledPath: String?
+    var calledData: [String: String]?
     
-    func getNaviteScreen(with path: String, data: [String : String]?) throws -> UIViewController {
+    func getNaviteScreen(with path: String, data: [String: String]?) throws -> UIViewController {
         calledData = data
         calledPath = path
         return UIViewController()

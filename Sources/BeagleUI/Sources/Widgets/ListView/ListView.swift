@@ -1,8 +1,4 @@
 //
-//  ListView.swift
-//  BeagleUI
-//
-//  Created by Daniel Tes on 12/09/19.
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
@@ -77,5 +73,27 @@ extension ListView {
                 return .vertical
             }
         }
+    }
+}
+
+extension ListView: Renderable {
+    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+        let widgetViews = rows?
+            .compactMap {
+                $0.toView(context: context, dependencies: dependencies)
+            } ?? []
+    
+        let model = ListViewUIComponent.Model(
+            widget: self,
+            widgetViews: widgetViews
+        )
+        
+        let listView = ListViewUIComponent(flexViewConfigurator: dependencies.flex, model: model)
+        
+        let flex = Flex(grow: 1)
+        dependencies.flex.setupFlex(flex, for: listView)
+        dependencies.flex.enableYoga(true, for: listView)
+        
+        return listView
     }
 }

@@ -15,14 +15,12 @@ extension DefaultPageIndicatorEntity: WidgetConvertible {
     }
 }
 
-class DefaultPageIndicatorRenderer: ViewRendering<DefaultPageIndicator> {
+class DefaultPageIndicator: PageIndicator {}
 
-    override func buildView(context: BeagleContext) -> UIView {
+extension DefaultPageIndicator: Renderable {
+    func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
         return DefaultPageIndicatorUIComponent()
     }
-}
-
-class DefaultPageIndicator: PageIndicator {
 }
 
 class DefaultPageIndicatorUIComponent: UIView, PageIndicatorUIView {

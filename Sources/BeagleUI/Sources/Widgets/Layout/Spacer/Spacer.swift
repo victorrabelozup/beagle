@@ -1,10 +1,8 @@
 //
-//  Spacer.swift
-//  BeagleUI
-//
-//  Created by Daniel Tes on 12/09/19.
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
+
+import UIKit
 
 public struct Spacer: Widget {
     
@@ -18,4 +16,23 @@ public struct Spacer: Widget {
         self.size = size
     }
     
+}
+
+extension Spacer: Renderable {
+    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+        let flex = Flex(
+            size: Flex.Size(
+                width: UnitValue(value: size, type: .real),
+                height: UnitValue(value: size, type: .real)
+            )
+        )
+        
+        let view = UIView()
+        view.isUserInteractionEnabled = false
+        view.isAccessibilityElement = false
+        view.backgroundColor = .clear
+        
+        dependencies.flex.setupFlex(flex, for: view)
+        return view
+    }
 }

@@ -43,4 +43,24 @@ final class FlexSingleWidgetTests: XCTestCase {
         )
         assertSnapshotImage(screen)
     }
+    
+    func test_toView_shouldReturnTheExpectedView() {
+        
+        // Given
+        let expectedNumberOfSubviews = 1
+        let flexWidget = FlexSingleWidget(child: WidgetDummy())
+        let flexSpy = FlexViewConfiguratorSpy()
+        let dependencies = RendererDependenciesContainer(flex: flexSpy)
+
+        // When
+        let resultingView = flexWidget.toView(context: BeagleContextDummy(), dependencies: dependencies)
+        
+        //Then
+        XCTAssert(flexSpy.setupFlexCalled)
+        XCTAssert(resultingView == flexSpy.viewPassedToSetupFlex)
+        XCTAssert(flexWidget.flex.size?.height == flexSpy.flexPassed?.size?.height)
+        XCTAssert(flexWidget.flex.size?.width == flexSpy.flexPassed?.size?.width)
+        XCTAssert(resultingView.subviews.count == expectedNumberOfSubviews)
+        
+    }
 }

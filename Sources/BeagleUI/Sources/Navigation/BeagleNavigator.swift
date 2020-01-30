@@ -29,7 +29,7 @@ class BeagleNavigator: BeagleNavigation {
         switch action.type {
         case .openDeepLink:
             if let path = action.path {
-                openDeepLink(path: path, source: source, data: action.data,animated: animated)
+                openDeepLink(path: path, source: source, data: action.data, animated: animated)
             }
         case .swapView:
             if let url = action.path {

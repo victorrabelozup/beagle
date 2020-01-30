@@ -1,10 +1,8 @@
 //
-//  Button.swift
-//  BeagleUI
-//
-//  Created by Daniel Tes on 12/09/19.
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
+
+import UIKit
 
 public struct Button: Widget {
     
@@ -19,5 +17,18 @@ public struct Button: Widget {
     ) {
         self.text = text
         self.style = style
+    }
+}
+
+extension Button: Renderable {
+    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+        let button = UIButton(type: .system)
+        button.setTitle(text, for: .normal)
+        
+        if let style = style {
+            dependencies.theme.applyStyle(for: button, withId: style)
+        }
+        
+        return button
     }
 }

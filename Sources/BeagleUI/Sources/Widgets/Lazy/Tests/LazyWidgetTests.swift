@@ -1,8 +1,4 @@
 //
-//  LazyWidgetTests.swift
-//  BeagleFrameworkTests
-//
-//  Created by Lucas Araújo on 26/11/19.
 //  Copyright © 2019 Zup IT. All rights reserved.
 //
 
@@ -21,5 +17,17 @@ final class LazyWidgetTests: XCTestCase {
         // Then
         XCTAssert(sut.url == "widget")
         XCTAssert(sut.initialState is Text)
+    }
+    
+    func test_toView_shouldReturnTheExpectedView() {
+        // Given
+        let lazyWidget = LazyWidget(url: "path", initialState: WidgetDummy())
+        let context = BeagleContextSpy()
+        
+        // When
+        _ = lazyWidget.toView(context: context, dependencies: RendererDependenciesContainer())
+        
+        // Then
+        XCTAssertTrue(context.didCallLazyLoad)
     }
 }

@@ -10,38 +10,41 @@ import Foundation
 
 /// Defines an API representation for `TabView`
 struct TabViewEntity: WidgetEntity {
-    let tabItems: [AnyDecodableContainer]
+    let tabItems: [TabItemEntity]
 }
 
 extension TabViewEntity: WidgetConvertible {
     
     func mapToWidget() throws -> Widget {
-        let widgets = try self.tabItems.compactMap {
-            try ($0.content as? WidgetConvertibleEntity)?.mapToWidget()
+        
+        let tabItemsConverted: [TabItem] = try tabItems.map {
+            let content = $0.content?.content as? WidgetConvertibleEntity
+    
+            guard let widget = try content?.mapToWidget() else {
+                throw WidgetConvertibleError.invalidType
+            }
+    
+            return TabItem(icon: $0.icon, title: $0.title, content: widget)
         }
         
-        guard let tabItems = widgets as? [TabItem] else {
-            throw WidgetConvertibleError.invalidType
-        }
-        
-        return TabView(tabItems: tabItems)
+        return TabView(tabItems: tabItemsConverted)
     }
 }
 
-struct TabItemEntity: WidgetEntity {
+struct TabItemEntity: Decodable {
     let icon: String?
     let title: String?
     let content: AnyDecodableContainer?
 }
 
-extension TabItemEntity: WidgetConvertible {
-    func mapToWidget() throws -> Widget {
-        let content = self.content?.content as? WidgetConvertibleEntity
-        
-        guard let widget = try content?.mapToWidget() else {
-            throw WidgetConvertibleError.invalidType
-        }
-
-        return TabItem(icon: icon, title: title, content: widget)
-    }
-}
+//extension TabItemEntity: WidgetConvertible {
+//    func mapToWidget() throws -> Widget {
+//        let content = self.content?.content as? WidgetConvertibleEntity
+//
+//        guard let widget = try content?.mapToWidget() else {
+//            throw WidgetConvertibleError.invalidType
+//        }
+//
+//        return TabItem(icon: icon, title: title, content: widget)
+//    }
+//}

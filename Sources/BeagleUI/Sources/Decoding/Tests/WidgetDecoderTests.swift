@@ -1,5 +1,5 @@
 //
-//  Copyright © 18/09/19 Zup IT. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 import XCTest
