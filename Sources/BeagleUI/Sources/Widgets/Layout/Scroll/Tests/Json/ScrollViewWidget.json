@@ -1,7 +1,8 @@
 {
   "_beagleType_": "beagle:widget:ScrollView",
   "appearance": {
-    "backgroundColor": "#60FF0000"
+    "backgroundColor": "#60FF0000",
+    "cornerRadius": 30.0
   },
   "children": [
     {

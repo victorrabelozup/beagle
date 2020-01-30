@@ -3,11 +3,14 @@
     ▿ some: Appearance
       ▿ backgroundColor: Optional<String>
         - some: "#00FFFF"
+      ▿ cornerRadius: Optional<Double>
+        - some: 10.0
   ▿ child: FlexSingleWidget
     ▿ appearance: Optional<Appearance>
       ▿ some: Appearance
         ▿ backgroundColor: Optional<String>
           - some: "#00FF00"
+        - cornerRadius: Optional<Double>.none
     ▿ child: Text
       - alignment: Optional<Alignment>.none
       - appearance: Optional<Appearance>.none

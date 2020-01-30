@@ -6,10 +6,13 @@ import UIKit
 
 extension UIView {
     func applyAppearance(_ appearance: Appearance?) {
-        guard let hex = appearance?.backgroundColor else {
-            return
+        if let hex = appearance?.backgroundColor {
+            backgroundColor = .init(hex: hex)
         }
-        backgroundColor = .init(hex: hex)
+        if let cornerRadius = appearance?.cornerRadius {
+            layer.masksToBounds = true
+            layer.cornerRadius = CGFloat(cornerRadius)
+        }
     }
 }
 

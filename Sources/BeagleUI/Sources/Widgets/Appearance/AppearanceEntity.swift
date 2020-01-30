@@ -6,10 +6,11 @@ import Foundation
 
 struct AppearanceEntity: Decodable {
     let backgroundColor: String?
+    let cornerRadius: Double?
 }
 
 extension AppearanceEntity: UIModelConvertible {
     func mapToUIModel() throws -> Appearance {
-        return Appearance(backgroundColor: backgroundColor)
+        return Appearance(backgroundColor: backgroundColor, cornerRadius: cornerRadius)
     }
 }

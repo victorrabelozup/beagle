@@ -4,6 +4,7 @@
   "style": "test.text.style",
   "alignment": "RIGHT",
   "appearance": {
-    "backgroundColor": "#FFFF00"
+    "backgroundColor": "#FFFF00",
+    "cornerRadius": 30.0
   }
 }

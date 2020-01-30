@@ -3,6 +3,8 @@
     ▿ some: Appearance
       ▿ backgroundColor: Optional<String>
         - some: "#60FF0000"
+      ▿ cornerRadius: Optional<Double>
+        - some: 30.0
   ▿ children: 3 elements
     ▿ Text
       - alignment: Optional<Alignment>.none
