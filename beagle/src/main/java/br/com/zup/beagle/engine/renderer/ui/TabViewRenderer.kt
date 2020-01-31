@@ -24,11 +24,11 @@ private val TABBAR_HEIGHT = 48.dp()
 private val DEFTYPE_DRAWABLE = "drawable"
 
 internal class TabViewRenderer(
-    private val tabView: TabView,
+    override val widget: TabView,
     private val viewFactory: ViewFactory = ViewFactory()
-) : UIViewRenderer {
+) : UIViewRenderer<TabView>() {
 
-    override fun build(rootView: RootView): View {
+    override fun buildView(rootView: RootView): View {
         val containerFlex = Flex(flexDirection = FlexDirection.COLUMN, grow = 1.0)
 
         val container = viewFactory.makeBeagleFlexView(rootView.getContext(), containerFlex)
@@ -36,7 +36,7 @@ internal class TabViewRenderer(
         val tabLayout = makeTabLayout(rootView.getContext())
 
         val viewPager = viewFactory.makeViewPager(rootView.getContext()).apply {
-            adapter = ContentAdapter(rootView = rootView, tabList = tabView.tabItems)
+            adapter = ContentAdapter(rootView = rootView, tabList = widget.tabItems)
         }
 
         tabLayout.addOnTabSelectedListener(getTabSelectedListener(viewPager))
@@ -60,10 +60,10 @@ internal class TabViewRenderer(
     }
 
     private fun TabLayout.addTabs(context: Context) {
-        for (i in tabView.tabItems.indices) {
+        for (i in widget.tabItems.indices) {
             addTab(newTab().apply {
-                text = tabView.tabItems[i].title
-                tabView.tabItems[i].icon?.let {
+                text = widget.tabItems[i].title
+                widget.tabItems[i].icon?.let {
                     try {
                         icon = getIconFromResources(context, it)
                     } catch (e: Resources.NotFoundException) {

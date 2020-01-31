@@ -37,7 +37,8 @@ import br.com.zup.beagle.widget.navigation.Navigator
 internal class LayoutViewRendererFactory : AbstractViewRendererFactory {
 
     @Throws(IllegalArgumentException::class)
-    override fun make(widget: Widget): ViewRenderer {
+    override fun make(widget: Widget): ViewRenderer<*> {
+
         return when (widget) {
             is FlexWidget -> FlexWidgetViewRenderer(widget)
             is FlexSingleWidget -> FlexSingleWidgetViewRenderer(widget)

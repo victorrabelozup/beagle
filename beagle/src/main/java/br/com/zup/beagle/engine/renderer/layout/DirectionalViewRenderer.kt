@@ -4,22 +4,22 @@ import android.view.View
 import br.com.zup.beagle.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
-import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.view.BeagleFlexView
+import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.Widget
 
-internal abstract class DirectionalViewRenderer(
+internal abstract class DirectionalViewRenderer<T : Widget>(
     private val children: List<Widget>,
     private val flex: Flex,
     viewRendererFactory: ViewRendererFactory,
     viewFactory: ViewFactory
-) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
+) : LayoutViewRenderer<T>(viewRendererFactory, viewFactory) {
 
     abstract fun getYogaFlexDirection(): FlexDirection
 
-    override fun build(rootView: RootView): View {
+    override fun buildView(rootView: RootView): View {
         val flexCopy = flex.copy(
             flexDirection = getYogaFlexDirection()
         )

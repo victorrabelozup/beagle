@@ -61,7 +61,7 @@ class ScreenViewRendererTest {
     @MockK
     private lateinit var widget: Widget
     @MockK
-    private lateinit var viewRenderer: ViewRenderer
+    private lateinit var viewRenderer: ViewRenderer<*>
     @MockK
     private lateinit var view: View
     @MockK(relaxed = true)

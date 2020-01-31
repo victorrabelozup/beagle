@@ -2,8 +2,6 @@ package br.com.zup.beagle.form
 
 import android.view.View
 import br.com.zup.beagle.engine.renderer.layout.FormInputValidator
-import br.com.zup.beagle.interfaces.StateChangeable
-import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormSubmit
 import io.mockk.*

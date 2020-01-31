@@ -12,7 +12,9 @@ import io.mockk.MockKAnnotations
 import br.com.zup.beagle.extensions.once
 import io.mockk.Runs
 import io.mockk.every
+import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
@@ -23,7 +25,7 @@ class FlexWidgetViewRendererTest {
 
     private val flexWidgetChildren = listOf<Widget>(mockk())
 
-    @MockK
+    @RelaxedMockK
     private lateinit var flexWidget: FlexWidget
     @MockK
     private lateinit var viewRendererFactory: ViewRendererFactory
@@ -36,18 +38,17 @@ class FlexWidgetViewRendererTest {
     private lateinit var context: Context
     @MockK
     private lateinit var rootView: RootView
-    @MockK
+    @RelaxedMockK
     private lateinit var beagleFlexView: BeagleFlexView
     @MockK
     private lateinit var buttonViewRenderer: FlexWidgetViewRenderer
 
+    @InjectMockKs
     private lateinit var flexWidgetViewRenderer: FlexWidgetViewRenderer
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-
-        flexWidgetViewRenderer = FlexWidgetViewRenderer(flexWidget, viewRendererFactory, viewFactory)
 
         every { rootView.getContext() } returns context
         every { flexWidget.flex } returns flex

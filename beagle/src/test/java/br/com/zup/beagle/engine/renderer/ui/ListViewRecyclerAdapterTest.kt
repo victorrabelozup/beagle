@@ -15,8 +15,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.*
+import kotlin.test.assertEquals
 
 private val ROWS = listOf<Widget>(mockk(), mockk())
 
@@ -25,7 +24,7 @@ class ListViewRecyclerAdapterTest {
     @MockK
     private lateinit var viewRendererFactory: ViewRendererFactory
     @MockK
-    private lateinit var viewRendererMock: ViewRenderer
+    private lateinit var viewRendererMock: ViewRenderer<*>
     @MockK
     private lateinit var rootView: RootView
     @MockK

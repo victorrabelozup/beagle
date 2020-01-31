@@ -2,6 +2,7 @@ package br.com.zup.beagle.engine.renderer.layout
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.engine.renderer.ui.ButtonViewRenderer
@@ -16,7 +17,9 @@ import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.called
 import io.mockk.every
+import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.mockkStatic
 import io.mockk.unmockkStatic
@@ -42,17 +45,21 @@ class FlexSingleWidgetViewRendererTest {
     private lateinit var rootView: RootView
     @MockK
     private lateinit var childWidget: Widget
-    @MockK
+    @RelaxedMockK
     private lateinit var beagleFlexView: BeagleFlexView
     @MockK
     private lateinit var buttonViewRenderer: ButtonViewRenderer
 
+    @RelaxedMockK
+    private lateinit var gradientDrawable: GradientDrawable
+
     private val backgroundColor = "#FFFFFF"
     private val backgroundColorInt = 0
 
-    @MockK
+    @RelaxedMockK
     private lateinit var appearance: Appearance
 
+    @InjectMockKs
     private lateinit var flexSingleWidgetViewRenderer: FlexSingleWidgetViewRenderer
 
     @Before
@@ -60,9 +67,6 @@ class FlexSingleWidgetViewRendererTest {
         MockKAnnotations.init(this)
 
         mockkStatic(Color::class)
-
-        flexSingleWidgetViewRenderer =
-            FlexSingleWidgetViewRenderer(flexSingleWidget, viewRendererFactory, viewFactory)
 
         every { flexSingleWidget.flex } returns flex
         every { flexSingleWidget.child } returns childWidget
@@ -75,6 +79,7 @@ class FlexSingleWidgetViewRendererTest {
         every { beagleFlexView.setBackgroundColor(any()) } just Runs
         every { rootView.getContext() } returns context
         every { Color.parseColor(any()) } returns backgroundColorInt
+        every { beagleFlexView.background } returns gradientDrawable
     }
 
     @After
@@ -109,8 +114,8 @@ class FlexSingleWidgetViewRendererTest {
         flexSingleWidgetViewRenderer.build(rootView)
 
         if (appearance.backgroundColor != null)
-            verify(exactly = once()) { beagleFlexView.setBackgroundColor(backgroundColorInt) }
+            verify(exactly = once()) { (beagleFlexView.background as? GradientDrawable)?.setColor(backgroundColorInt) }
         else
-            verify { beagleFlexView.setBackgroundColor(any()) wasNot called }
+            verify { beagleFlexView.setBackground(any()) wasNot called }
     }
 }

@@ -4,9 +4,9 @@ import br.com.zup.beagle.engine.renderer.layout.BuildableWidgetViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.FormInputViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.FormSubmitViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.ButtonViewRenderer
+import br.com.zup.beagle.engine.renderer.ui.CustomWidgetViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.ImageViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.ListViewRenderer
-import br.com.zup.beagle.engine.renderer.ui.CustomWidgetViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.NetworkImageViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.PageIndicatorViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.TabViewRenderer
@@ -25,7 +25,7 @@ import br.com.zup.beagle.widget.ui.Text
 
 internal class UIViewRendererFactory : AbstractViewRendererFactory {
 
-    override fun make(widget: Widget): ViewRenderer {
+    override fun make(widget: Widget): ViewRenderer<*> {
         return if (widget is ComposeWidget) {
             BuildableWidgetViewRenderer(widget)
         } else {

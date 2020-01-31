@@ -8,12 +8,12 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.form.FormSubmit
 
 internal class FormSubmitViewRenderer(
-    private val widget: FormSubmit,
+    override val widget: FormSubmit,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory()
-) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
+) : LayoutViewRenderer<FormSubmit>(viewRendererFactory, viewFactory) {
 
-    override fun build(rootView: RootView): View {
+    override fun buildView(rootView: RootView): View {
         return viewRendererFactory.make(widget.child).build(rootView).apply {
             tag = widget
         }

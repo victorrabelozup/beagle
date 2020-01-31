@@ -25,7 +25,7 @@ class BuildableWidgetViewRendererTest {
     @MockK
     private lateinit var rootView: RootView
     @MockK
-    private lateinit var viewRendererMock: ViewRenderer
+    private lateinit var viewRendererMock: ViewRenderer<*>
     @MockK
     private lateinit var view: View
 

@@ -1,6 +1,12 @@
 package br.com.zup.beagle.utils
 
 import android.app.Activity
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Path
+import android.graphics.RectF
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -18,13 +24,16 @@ import br.com.zup.beagle.engine.mapper.ViewMapper
 import br.com.zup.beagle.engine.renderer.ActivityRootView
 import br.com.zup.beagle.engine.renderer.FragmentRootView
 import br.com.zup.beagle.engine.renderer.RootView
+import br.com.zup.beagle.logger.BeagleLogger
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.view.BeagleButtonView
 import br.com.zup.beagle.view.BeagleTextView
 import br.com.zup.beagle.view.BeagleView
 import br.com.zup.beagle.view.StateChangedListener
 import br.com.zup.beagle.view.ViewFactory
+import br.com.zup.beagle.widget.core.AppearanceWidget
 import br.com.zup.beagle.widget.core.ImageContentMode
+import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.layout.UpdatableWidget
 import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.Image
@@ -32,6 +41,7 @@ import br.com.zup.beagle.widget.ui.Text
 import br.com.zup.beagle.widget.ui.TextAlignment
 
 internal var viewExtensionsViewFactory = ViewFactory()
+const val FLOAT_ZERO = 0.0f
 
 fun ViewGroup.loadView(activity: AppCompatActivity, url: String) {
     loadView(this, ActivityRootView(activity), url)
@@ -160,5 +170,54 @@ internal fun RootView.generateViewModelInstance(): BeagleViewModel {
             val fragment = (this as FragmentRootView).fragment
             ViewModelProviders.of(fragment)[BeagleViewModel::class.java]
         }
+    }
+}
+
+internal fun View.applyAppearance(widget: Widget) {
+    (widget as? AppearanceWidget)?.let {
+        this.background = GradientDrawable()
+        applyBackgroundColor(it)
+        applyCornerRadius(it)
+    }
+}
+
+internal fun View.applyBackgroundColor(appearanceWidget: AppearanceWidget) {
+    appearanceWidget.appearance?.backgroundColor?.let {
+        (this.background as? GradientDrawable)?.setColor(Color.parseColor(it))
+    }
+}
+
+internal fun View.applyCornerRadius(appearanceWidget: AppearanceWidget) {
+    appearanceWidget.appearance?.cornerRadius?.let { cornerRadius ->
+        if (cornerRadius.radius > FLOAT_ZERO) {
+            (this.background as? GradientDrawable)?.cornerRadius = cornerRadius.radius.toFloat()
+        }
+    }
+}
+
+internal fun Drawable.getGradientDrawableRadius(): Float {
+    try {
+        if (this is GradientDrawable) {
+            val mGradientStateField =
+                this.javaClass.getDeclaredField("mGradientState")
+            mGradientStateField.setNotFinalAndAccessible()
+            val gradientState = mGradientStateField.get(this)
+            val mRadiusField = gradientState.javaClass.getDeclaredField("mRadius")
+            mRadiusField.setNotFinalAndAccessible()
+            return mRadiusField.get(gradientState) as Float
+        }
+    } catch (e: Throwable) {
+        BeagleLogger.warning("Could not get corner radius, returning $FLOAT_ZERO")
+    }
+
+    return FLOAT_ZERO
+}
+
+internal fun Canvas.applyRadius(radius: Float) {
+    if (radius > FLOAT_ZERO) {
+        val path = Path()
+        val rect = RectF(FLOAT_ZERO, FLOAT_ZERO, this.width.toFloat(), this.height.toFloat())
+        path.addRoundRect(rect, radius, radius, Path.Direction.CW)
+        this.clipPath(path)
     }
 }

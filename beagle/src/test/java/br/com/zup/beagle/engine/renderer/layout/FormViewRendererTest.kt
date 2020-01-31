@@ -71,7 +71,7 @@ class FormViewRendererTest {
     @MockK
     private lateinit var formSubmitter: FormSubmitter
     @MockK
-    private lateinit var viewRenderer: ViewRenderer
+    private lateinit var viewRenderer: ViewRenderer<*>
     @MockK
     private lateinit var viewFactory: ViewFactory
     @MockK

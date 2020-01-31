@@ -44,7 +44,7 @@ class PageViewRendererTest {
     @MockK
     private lateinit var pageIndicatorWidget: PageIndicatorWidget
     @MockK
-    private lateinit var viewRenderer: ViewRenderer
+    private lateinit var viewRenderer: ViewRenderer<*>
     @MockK
     private lateinit var pageIndicatorView: BeaglePageIndicatorView
 

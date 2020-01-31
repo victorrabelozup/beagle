@@ -5,15 +5,18 @@ import android.widget.ImageView
 import br.com.zup.beagle.engine.mapper.ViewMapper
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.utils.setData
+import br.com.zup.beagle.view.BeagleImageView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.ui.Image
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
+import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.verify
-import junit.framework.Assert.assertTrue
+import kotlin.test.assertTrue
 import org.junit.Before
 import org.junit.Test
 
@@ -23,22 +26,21 @@ class ImageViewRendererTest {
     private lateinit var viewFactory: ViewFactory
     @MockK
     private lateinit var viewMapper: ViewMapper
-    @MockK
-    private lateinit var imageView: ImageView
+    @RelaxedMockK
+    private lateinit var imageView: BeagleImageView
     @MockK
     private lateinit var context: Context
     @MockK
     private lateinit var rootView: RootView
-    @MockK
+    @RelaxedMockK
     private lateinit var image: Image
 
+    @InjectMockKs
     private lateinit var imageViewRenderer: ImageViewRenderer
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-
-        imageViewRenderer = ImageViewRenderer(image, viewFactory, viewMapper)
 
         every { rootView.getContext() } returns context
     }

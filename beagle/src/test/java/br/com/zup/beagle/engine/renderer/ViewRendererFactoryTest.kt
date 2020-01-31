@@ -28,8 +28,8 @@ class ViewRendererFactoryTest {
 
         viewRendererFactory = ViewRendererFactory(layoutViewRendererFactory, uiViewRendererFactory)
 
-        every { layoutViewRendererFactory.make(any()) } returns mockk<LayoutViewRenderer>()
-        every { uiViewRendererFactory.make(any()) } returns mockk<UIViewRenderer>()
+        every { layoutViewRendererFactory.make(any()) } returns mockk<LayoutViewRenderer<*>>()
+        every { uiViewRendererFactory.make(any()) } returns mockk<UIViewRenderer<*>>()
     }
 
     @Test

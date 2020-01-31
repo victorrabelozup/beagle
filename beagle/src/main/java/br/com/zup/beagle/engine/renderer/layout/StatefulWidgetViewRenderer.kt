@@ -17,16 +17,16 @@ import br.com.zup.beagle.widget.layout.UpdatableState
 import br.com.zup.beagle.widget.layout.UpdatableWidget
 
 internal class StatefulWidgetViewRenderer(
-    private val statefulWidget: StatefulWidget,
+    override val widget: StatefulWidget,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory(),
     private val statefulRendererHelper: StatefulRendererHelper = StatefulRendererHelper()
-) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
+) : LayoutViewRenderer<StatefulWidget>(viewRendererFactory, viewFactory) {
 
     private var elementList = mutableListOf<View>()
 
-    override fun build(rootView: RootView): View {
-        val view = viewRendererFactory.make(statefulWidget.child).build(rootView)
+    override fun buildView(rootView: RootView): View {
+        val view = viewRendererFactory.make(widget.child).build(rootView)
 
         if (view is ViewGroup) {
             elementList = view.findChildViewForType(UpdatableWidget::class.java)

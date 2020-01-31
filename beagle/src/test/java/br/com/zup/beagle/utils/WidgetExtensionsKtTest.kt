@@ -34,7 +34,7 @@ class WidgetExtensionsKtTest {
     fun toView() {
         // Given
         val widget = mockk<Widget>()
-        val viewRenderer = mockk< ViewRenderer>()
+        val viewRenderer = mockk<ViewRenderer<*>>()
         val view = mockk<View>()
         every { viewRendererMock.make(widget) } returns viewRenderer
         every { viewRenderer.build(rootView) } returns view

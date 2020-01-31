@@ -71,7 +71,7 @@ class StatefulWidgetViewRendererTest {
     private lateinit var subject: StatefulWidgetViewRenderer
 
     private val context = mockk<Context>()
-    private val viewRenderer = mockk<ViewRenderer>()
+    private val viewRenderer = mockk<ViewRenderer<*>>()
     private val viewGroup = mockk<ViewGroup>(relaxUnitFun = true)
     private val childViewButton = mockk<View>(relaxUnitFun = true)
     private val childViewText = mockk<TextView>(relaxUnitFun = true)

@@ -4,15 +4,16 @@ import android.content.Context
 import android.widget.TextView
 import androidx.core.widget.TextViewCompat
 import br.com.zup.beagle.engine.renderer.RootView
-import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.utils.setData
 import br.com.zup.beagle.view.BeagleTextView
+import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.ui.Text
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.mockkStatic
 import io.mockk.unmockkStatic
@@ -31,9 +32,9 @@ class TextViewRendererTest {
     private lateinit var viewFactory: ViewFactory
     @MockK
     private lateinit var context: Context
-    @MockK
+    @RelaxedMockK
     private lateinit var textView: BeagleTextView
-    @MockK
+    @RelaxedMockK
     private lateinit var text: Text
     @MockK
     private lateinit var rootView: RootView

@@ -18,31 +18,31 @@ import br.com.zup.beagle.widget.layout.Expanded
 import br.com.zup.beagle.widget.layout.NavigationBar
 
 internal class ScreenViewRenderer(
-    private val screenWidget: ScreenWidget,
+    override val widget: ScreenWidget,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory()
-) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
+) : LayoutViewRenderer<ScreenWidget>(viewRendererFactory, viewFactory) {
 
-    override fun build(rootView: RootView): View {
+    override fun buildView(rootView: RootView): View {
         val flex = Flex(
             grow = 1.0,
             flexDirection = FlexDirection.COLUMN,
             justifyContent = JustifyContent.SPACE_BETWEEN
         )
 
-        addToolbarIfNecessary(rootView.getContext(), screenWidget.navigationBar)
+        addToolbarIfNecessary(rootView.getContext(), widget.navigationBar)
 
         val container = viewFactory.makeBeagleFlexView(rootView.getContext(), flex)
 
-        this.screenWidget.header?.let {
+        this.widget.header?.let {
             container.addView(viewRendererFactory.make(it).build(rootView))
         }
 
-        val expanded = Expanded(this.screenWidget.content)
+        val expanded = Expanded(this.widget.content)
         val contentView = viewRendererFactory.make(expanded).build(rootView)
         container.addView(contentView)
 
-        this.screenWidget.footer?.let {
+        this.widget.footer?.let {
             container.addView(viewRendererFactory.make(it).build(rootView))
         }
 

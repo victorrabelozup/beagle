@@ -10,12 +10,12 @@ import br.com.zup.beagle.widget.layout.ScrollView
 import br.com.zup.beagle.widget.layout.Stack
 
 internal class ScrollViewRenderer(
-    private val widget: ScrollView,
+    override val widget: ScrollView,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory()
-) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
+) : LayoutViewRenderer<ScrollView>(viewRendererFactory, viewFactory) {
 
-    override fun build(rootView: RootView): View {
+    override fun buildView(rootView: RootView): View {
         val scrollDirection = widget.scrollDirection ?: ScrollAxis.VERTICAL
         val scrollBarEnabled = widget.scrollBarEnabled ?: true
 

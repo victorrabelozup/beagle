@@ -7,18 +7,18 @@ import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.layout.Horizontal
 
 internal class HorizontalViewRenderer(
-    private val horizontal: Horizontal,
+    override val widget: Horizontal,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory()
-) : DirectionalViewRenderer(
-    horizontal.children,
+) : DirectionalViewRenderer<Horizontal>(
+    widget.children,
     Flex(),
     viewRendererFactory,
     viewFactory
 ) {
 
     override fun getYogaFlexDirection(): FlexDirection {
-        return if (horizontal.reversed == true) {
+        return if (widget.reversed == true) {
             FlexDirection.ROW_REVERSE
         } else {
             FlexDirection.ROW

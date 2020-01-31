@@ -7,11 +7,11 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.ui.PageIndicator
 
 internal class PageIndicatorViewRenderer(
-    private val widget: PageIndicator,
+    override val widget: PageIndicator,
     private val viewFactory: ViewFactory = ViewFactory()
-) : UIViewRenderer {
+) : UIViewRenderer<PageIndicator>() {
 
-    override fun build(rootView: RootView): View {
+    override fun buildView(rootView: RootView): View {
         return viewFactory.makePageIndicator(rootView.getContext()).apply {
             setWidget(widget)
         }

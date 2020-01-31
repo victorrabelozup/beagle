@@ -9,16 +9,16 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.lazy.LazyWidget
 
 internal class LazyWidgetViewRenderer(
-    private val lazyWidget: LazyWidget,
+    override val widget: LazyWidget,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory()
-) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
+) : LayoutViewRenderer<LazyWidget>(viewRendererFactory, viewFactory) {
 
-    override fun build(rootView: RootView): View {
+    override fun buildView(rootView: RootView): View {
         return viewFactory.makeBeagleView(rootView.getContext()).apply {
-            val initialState = lazyWidget.initialState.toView(rootView)
+            val initialState = widget.initialState.toView(rootView)
             addView(initialState)
-            updateView(rootView, lazyWidget.url, initialState)
+            updateView(rootView, widget.url, initialState)
         }
     }
 }

@@ -13,11 +13,11 @@ import br.com.zup.beagle.widget.ui.ListDirection
 import br.com.zup.beagle.widget.ui.ListView
 
 internal class ListViewRenderer(
-    private val widget: ListView,
+    override val widget: ListView,
     private val viewFactory: ViewFactory = ViewFactory()
-) : UIViewRenderer {
+) : UIViewRenderer<ListView>() {
 
-    override fun build(rootView: RootView): View {
+    override fun buildView(rootView: RootView): View {
         return viewFactory.makeRecyclerView(rootView.getContext()).apply {
             val direction = toRecyclerViewOrientation()
             layoutManager = LinearLayoutManager(context, direction, false)

@@ -9,14 +9,14 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.layout.RemoteUpdatableWidget
 
 internal class RemoteUpdatableWidgetViewRenderer(
-    private val remoteUpdatableWidget: RemoteUpdatableWidget,
+    override val widget: RemoteUpdatableWidget,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory()
-) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
+) : LayoutViewRenderer<RemoteUpdatableWidget>(viewRendererFactory, viewFactory) {
 
-    override fun build(rootView: RootView): View {
+    override fun buildView(rootView: RootView): View {
         return viewFactory.makeBeagleView(rootView.getContext()).apply {
-            val initialState = remoteUpdatableWidget.initialState.toView(rootView)
+            val initialState = widget.initialState.toView(rootView)
             addView(initialState)
         }
     }

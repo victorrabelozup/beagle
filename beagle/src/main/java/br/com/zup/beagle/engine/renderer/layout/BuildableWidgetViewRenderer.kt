@@ -8,12 +8,12 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.ComposeWidget
 
 internal class BuildableWidgetViewRenderer(
-    val widget: ComposeWidget,
+    override val widget: ComposeWidget,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory()
-) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
+) : LayoutViewRenderer<ComposeWidget>(viewRendererFactory, viewFactory) {
 
-    override fun build(rootView: RootView): View {
+    override fun buildView(rootView: RootView): View {
         val buildResult = widget
         return viewRendererFactory.make(buildResult).build(rootView)
     }

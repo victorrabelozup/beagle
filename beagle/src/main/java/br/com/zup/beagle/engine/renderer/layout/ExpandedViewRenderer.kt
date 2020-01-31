@@ -9,18 +9,18 @@ import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.layout.Expanded
 
 internal class ExpandedViewRenderer(
-    private val expanded: Expanded,
+    override val widget: Expanded,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory()
-) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
+) : LayoutViewRenderer<Expanded>(viewRendererFactory, viewFactory) {
 
-    override fun build(rootView: RootView): View {
+    override fun buildView(rootView: RootView): View {
         val flex = Flex(
             grow = 1.0
         )
 
         return viewFactory.makeBeagleFlexView(rootView.getContext(), flex).apply {
-            addView(viewRendererFactory.make(expanded.child).build(rootView), flex)
+            addView(viewRendererFactory.make(widget.child).build(rootView), flex)
         }
     }
 }

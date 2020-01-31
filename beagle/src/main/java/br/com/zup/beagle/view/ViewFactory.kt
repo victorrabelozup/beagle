@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.HorizontalScrollView
-import android.widget.ImageView
 import android.widget.ScrollView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
@@ -38,7 +37,7 @@ internal class ViewFactory {
 
     fun makeTextView(context: Context) = BeagleTextView(context)
 
-    fun makeImageView(context: Context) = ImageView(context)
+    fun makeImageView(context: Context) = BeagleImageView(context)
 
     fun makeRecyclerView(context: Context) = RecyclerView(context)
 

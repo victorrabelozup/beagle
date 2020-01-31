@@ -10,12 +10,12 @@ import br.com.zup.beagle.action.FormValidationActionHandler
 import br.com.zup.beagle.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
-import br.com.zup.beagle.form.ValidatorHandler
+import br.com.zup.beagle.form.FormResult
+import br.com.zup.beagle.form.FormSubmitter
 import br.com.zup.beagle.form.FormValidatorController
 import br.com.zup.beagle.form.InputValue
 import br.com.zup.beagle.form.ValidationErrorListener
-import br.com.zup.beagle.form.FormResult
-import br.com.zup.beagle.form.FormSubmitter
+import br.com.zup.beagle.form.ValidatorHandler
 import br.com.zup.beagle.logger.BeagleMessageLogs
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.utils.hideKeyboard
@@ -25,7 +25,7 @@ import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormSubmit
 
 internal class FormViewRenderer(
-    private val widget: Form,
+    override val widget: Form,
     private val validatorHandler: ValidatorHandler? = BeagleEnvironment.validatorHandler,
     private val formValidationActionHandler: FormValidationActionHandler = FormValidationActionHandler(),
     private val formSubmitter: FormSubmitter = FormSubmitter(),
@@ -35,12 +35,12 @@ internal class FormViewRenderer(
     ),
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory()
-) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
+) : LayoutViewRenderer<Form>(viewRendererFactory, viewFactory) {
 
     private val formInputViews = mutableListOf<View>()
     private var formSubmitView: View? = null
 
-    override fun build(rootView: RootView): View {
+    override fun buildView(rootView: RootView): View {
         val view = viewRendererFactory.make(widget.child).build(rootView)
 
         if (view is ViewGroup) {

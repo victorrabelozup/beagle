@@ -17,6 +17,7 @@ import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.slot
 import io.mockk.verify
@@ -26,7 +27,7 @@ import org.junit.Test
 
 class ScrollViewRendererTest {
 
-    @MockK
+    @RelaxedMockK
     private lateinit var scroll: ScrollView
     @MockK
     private lateinit var viewRendererFactory: ViewRendererFactory
@@ -37,12 +38,12 @@ class ScrollViewRendererTest {
     private lateinit var rootView: RootView
     @MockK
     private lateinit var context: Context
-    @MockK
+    @RelaxedMockK
     private lateinit var scrollView: android.widget.ScrollView
-    @MockK
+    @RelaxedMockK
     private lateinit var horizontalScrollView: HorizontalScrollView
     @MockK
-    private lateinit var viewRenderer: ViewRenderer
+    private lateinit var viewRenderer: ViewRenderer<*>
     @MockK
     private lateinit var view: View
     @MockK

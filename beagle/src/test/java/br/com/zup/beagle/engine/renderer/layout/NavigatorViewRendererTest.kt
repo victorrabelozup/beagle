@@ -55,7 +55,7 @@ class NavigatorViewRendererTest {
     fun setUp() {
         MockKAnnotations.init(this, relaxUnitFun = true)
 
-        val viewRenderer = mockk<ViewRenderer>()
+        val viewRenderer = mockk<ViewRenderer<*>>()
         every { viewRenderer.build(any()) } returns view
         every { view.setOnClickListener(capture(onClickListenerSlot)) } just Runs
         every { viewRendererFactory.make(any()) } returns viewRenderer

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import br.com.zup.beagle.utils.toView
 import br.com.zup.beagle.widget.core.Appearance
+import br.com.zup.beagle.widget.core.CornerRadius
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.layout.FlexSingleWidget
@@ -29,7 +30,7 @@ class FlexSingleWidgetFragment : Fragment() {
                 ),
                 child =
                 Text("Texto")
-                , appearance = Appearance(backgroundColor = "#D81B60")
+                , appearance = Appearance(backgroundColor = "#D81B60", cornerRadius = CornerRadius(25.0))
             )
         )
 

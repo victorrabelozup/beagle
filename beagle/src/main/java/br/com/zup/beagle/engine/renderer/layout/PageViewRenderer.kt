@@ -16,12 +16,12 @@ import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.layout.PageView
 
 internal class PageViewRenderer(
-    private val widget: PageView,
+    override val widget: PageView,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory()
-) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
+) : LayoutViewRenderer<PageView>(viewRendererFactory, viewFactory) {
 
-    override fun build(rootView: RootView): View {
+    override fun buildView(rootView: RootView): View {
         val containerFlex = Flex(
             flexDirection = FlexDirection.COLUMN,
             grow = 1.0

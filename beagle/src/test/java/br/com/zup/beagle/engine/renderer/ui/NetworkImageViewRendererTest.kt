@@ -7,6 +7,7 @@ import android.widget.ImageView
 import br.com.zup.beagle.engine.mapper.ViewMapper
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.extensions.once
+import br.com.zup.beagle.view.BeagleImageView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.ui.NetworkImage
 import com.bumptech.glide.Glide
@@ -16,6 +17,7 @@ import com.bumptech.glide.request.RequestListener
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
+import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
@@ -37,7 +39,7 @@ class NetworkImageViewRendererTest {
     @MockK
     private lateinit var viewMapper: ViewMapper
     @RelaxedMockK
-    private lateinit var imageView: ImageView
+    private lateinit var imageView: BeagleImageView
     @MockK
     private lateinit var context: Context
     @MockK
@@ -50,6 +52,7 @@ class NetworkImageViewRendererTest {
     private val scaleType = ImageView.ScaleType.FIT_CENTER
     private val networkImage = NetworkImage(DEFAULT_URL)
 
+    @InjectMockKs
     private lateinit var networkImageViewRenderer: NetworkImageViewRenderer
 
     private val onRequestListenerSlot = slot<RequestListener<Drawable>>()
@@ -69,7 +72,6 @@ class NetworkImageViewRendererTest {
         every { imageView.scaleType = any() } just Runs
         every { rootView.getContext() } returns context
 
-        networkImageViewRenderer = NetworkImageViewRenderer(networkImage, viewFactory, viewMapper)
     }
 
     @Test

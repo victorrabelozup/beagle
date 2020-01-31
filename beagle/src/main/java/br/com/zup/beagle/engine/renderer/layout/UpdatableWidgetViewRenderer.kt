@@ -9,12 +9,12 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.layout.UpdatableWidget
 
 internal class UpdatableWidgetViewRenderer(
-    private val widget: UpdatableWidget,
+    override val widget: UpdatableWidget,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory()
-) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
+) : LayoutViewRenderer<UpdatableWidget>(viewRendererFactory, viewFactory) {
 
-    override fun build(rootView: RootView): View {
+    override fun buildView(rootView: RootView): View {
         return viewRendererFactory.make(widget.child).build(rootView).apply {
             saveBeagleTag(widget)
         }

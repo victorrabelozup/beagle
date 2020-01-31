@@ -1,23 +1,40 @@
 package br.com.zup.beagle.engine.renderer
 
 import android.view.View
-import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.engine.renderer.ui.UndefinedViewRenderer
+import br.com.zup.beagle.utils.applyAppearance
+import br.com.zup.beagle.view.ViewFactory
+import br.com.zup.beagle.widget.UndefinedWidget
 import br.com.zup.beagle.widget.core.Widget
 
-internal interface ViewRenderer {
-    fun build(rootView: RootView): View
+internal abstract class ViewRenderer<T : Widget> {
+    abstract val widget: T
+
+    fun build(rootView: RootView): View {
+        val builtView = buildView(rootView)
+        afterBuildView(builtView, widget)
+        return builtView
+    }
+
+    abstract fun buildView(rootView: RootView): View
+
+    private fun afterBuildView(
+        view: View,
+        widget: T
+    ) {
+        view.applyAppearance(widget)
+    }
 }
 
-internal abstract class LayoutViewRenderer(
+internal abstract class LayoutViewRenderer<T : Widget>(
     protected val viewRendererFactory: ViewRendererFactory,
     protected val viewFactory: ViewFactory
-) : ViewRenderer
+) : ViewRenderer<T>()
 
-internal interface UIViewRenderer : ViewRenderer
+internal abstract class UIViewRenderer<T : Widget> : ViewRenderer<T>()
 
 internal interface AbstractViewRendererFactory {
-    fun make(widget: Widget): ViewRenderer
+    fun make(widget: Widget): ViewRenderer<*>
 }
 
 internal class ViewRendererFactory(
@@ -25,7 +42,7 @@ internal class ViewRendererFactory(
     private val ui: UIViewRendererFactory = UIViewRendererFactory()
 ) : AbstractViewRendererFactory {
 
-    override fun make(widget: Widget): ViewRenderer {
+    override fun make(widget: Widget): ViewRenderer<*> {
         return try {
             layout.make(widget)
         } catch (exception: IllegalArgumentException) {
@@ -33,5 +50,5 @@ internal class ViewRendererFactory(
         }
     }
 
-    fun makeUndefinedViewRenderer(): ViewRenderer = UndefinedViewRenderer()
+    fun makeUndefinedViewRenderer(): ViewRenderer<*> = UndefinedViewRenderer(UndefinedWidget())
 }

@@ -9,11 +9,11 @@ import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.widget.core.Widget
 
 internal class CustomWidgetViewRenderer(
-    private val widget: Widget,
+    override val widget: Widget,
     private val viewRendererFactory: ViewRendererFactory = ViewRendererFactory()
-) : UIViewRenderer {
+) : UIViewRenderer<Widget>() {
 
-    override fun build(rootView: RootView): View {
+    override fun buildView(rootView: RootView): View {
         val viewFactory = BeagleEnvironment.widgets[widget::class.java]
         return viewFactory?.make(rootView.getContext(), widget) ?: run {
             BeagleMessageLogs.logViewFactoryNotFoundForWidget(widget)

@@ -8,15 +8,15 @@ import br.com.zup.beagle.utils.setData
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.ui.Image
 
-internal class ImageViewRenderer (
-    private val image: Image,
+internal class ImageViewRenderer(
+    override val widget: Image,
     private val viewFactory: ViewFactory = ViewFactory(),
     private val viewMapper: ViewMapper = ViewMapper()
-) : UIViewRenderer {
+) : UIViewRenderer<Image>() {
 
-    override fun build(rootView: RootView): View {
+    override fun buildView(rootView: RootView): View {
         return viewFactory.makeImageView(rootView.getContext()).apply {
-            this.setData(image, viewMapper)
+            this.setData(widget, viewMapper)
         }
     }
 }

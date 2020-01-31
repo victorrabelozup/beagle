@@ -4,8 +4,8 @@ import android.content.Context
 import android.view.View
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
-import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.view.BeagleFlexView
+import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.Widget
@@ -13,7 +13,7 @@ import br.com.zup.beagle.widget.ui.Button
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
-import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.slot
@@ -22,12 +22,19 @@ import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 
+internal class DirectionalViewWidget(val children: List<Widget>) : Widget
+
 internal class DirectionalViewRendererImpl(
-    children: List<Widget>,
+    override val widget: DirectionalViewWidget,
     flex: Flex,
     viewRendererFactory: ViewRendererFactory,
     viewFactory: ViewFactory
-) : DirectionalViewRenderer(children, flex, viewRendererFactory, viewFactory) {
+) : DirectionalViewRenderer<DirectionalViewWidget>(
+    widget.children,
+    flex,
+    viewRendererFactory,
+    viewFactory
+) {
 
     override fun getYogaFlexDirection(): FlexDirection {
         return FlexDirection.COLUMN
@@ -36,26 +43,31 @@ internal class DirectionalViewRendererImpl(
 
 class DirectionalViewRendererTest {
 
-    @MockK
-    private lateinit var viewRendererFactory: ViewRendererFactory
-    @MockK
-    private lateinit var viewFactory: ViewFactory
+    private var viewRendererFactory: ViewRendererFactory = mockk()
 
-    private val flex = Flex()
+    private var viewFactory: ViewFactory = mockk()
+
+    private var directionalViewWidget: DirectionalViewWidget =
+        mockk(relaxUnitFun = true, relaxed = true)
+
+    private var flex: Flex = mockk()
+
     private val children = listOf(Button(""), Button(""))
 
-    private lateinit var directionalViewRenderer: DirectionalViewRenderer
+    @InjectMockKs
+    private lateinit var directionalViewRenderer: DirectionalViewRendererImpl
 
     @Before
     fun setUp() {
+        every { directionalViewWidget.children } returns children
         MockKAnnotations.init(this)
+        every {
+            flex.copy(
+                flexDirection = any()
+            )
+        } returns flex
+        every { flex.flexDirection } returns FlexDirection.COLUMN
 
-        directionalViewRenderer = DirectionalViewRendererImpl(
-            children,
-            flex,
-            viewRendererFactory,
-            viewFactory
-        )
     }
 
     @Test

@@ -13,14 +13,15 @@ import com.facebook.yogalayout.YogaLayout
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
+import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.*
+import kotlin.test.assertTrue
 
 class StackViewRendererTest {
 
@@ -31,29 +32,28 @@ class StackViewRendererTest {
     @MockK
     private lateinit var rootView: RootView
 
+    private var children = listOf(Button(""), Button(""))
+
+    @RelaxedMockK
+    private lateinit var stack: Stack
+
+    @RelaxedMockK
+    private lateinit var beagleFlexView:BeagleFlexView
+
+    @InjectMockKs
     private lateinit var stackViewRenderer: StackViewRenderer
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-
-        val stack = Stack(
-            listOf(Button(""), Button(""))
-        )
-
-        stackViewRenderer = StackViewRenderer(
-            stack,
-            viewRendererFactory,
-            viewFactory
-        )
+        every { stack.children } returns children
     }
 
     @Test
     fun build() {
         // Given
-        val beagleFlexView = mockk<BeagleFlexView>()
         val context = mockk<Context>()
-        val viewRenderer = mockk<ViewRenderer>()
+        val viewRenderer = mockk<ViewRenderer<*>>()
         val view = mockk<View>()
         every { beagleFlexView.addView(any()) } just Runs
         every { beagleFlexView.context } returns context

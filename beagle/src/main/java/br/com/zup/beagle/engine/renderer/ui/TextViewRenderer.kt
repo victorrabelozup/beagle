@@ -8,13 +8,13 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.ui.Text
 
 internal class TextViewRenderer(
-    private val textWidget: Text,
+    override val widget: Text,
     private val viewFactory: ViewFactory = ViewFactory()
-) : UIViewRenderer {
+) : UIViewRenderer<Text>() {
 
-    override fun build(rootView: RootView): View {
+    override fun buildView(rootView: RootView): View {
         return viewFactory.makeTextView(rootView.getContext()).apply {
-            this.setData(textWidget)
+            this.setData(widget)
         }
     }
 }

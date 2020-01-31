@@ -31,7 +31,7 @@ class FormInputViewRendererTest {
     @MockK
     private lateinit var rootView: RootView
     @MockK
-    private lateinit var viewRenderer: ViewRenderer
+    private lateinit var viewRenderer: ViewRenderer<*>
     @MockK
     private lateinit var view: View
 

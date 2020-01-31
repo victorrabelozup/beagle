@@ -10,14 +10,14 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.navigation.Navigator
 
 internal class NavigatorViewRenderer(
-    private val widget: Navigator,
+    override val widget: Navigator,
     private val navigationActionHandler: NavigationActionHandler = NavigationActionHandler(),
     private val preFetchHelper: PreFetchHelper = PreFetchHelper(),
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory()
-) : LayoutViewRenderer(viewRendererFactory, viewFactory) {
+) : LayoutViewRenderer<Navigator>(viewRendererFactory, viewFactory) {
 
-    override fun build(rootView: RootView): View {
+    override fun buildView(rootView: RootView): View {
         preFetchHelper.handlePreFetchWidget(rootView, widget.action)
         return viewRendererFactory.make(widget.child).build(rootView).apply {
             setOnClickListener { navigationActionHandler.handle(context, widget.action) }
