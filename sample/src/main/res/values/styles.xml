@@ -19,7 +19,6 @@
     <style name="DesignSystem.Toolbar" parent="Widget.AppCompat.Toolbar">
         <item name="titleTextAppearance">@style/DesignSystem.Toolbar.TextAppearance</item>
         <item name="android:background">#DB6C6C</item>
-        <item name="android:elevation">4dp</item>
         <item name="navigationIcon">@mipmap/ic_launcher</item>
     </style>
 

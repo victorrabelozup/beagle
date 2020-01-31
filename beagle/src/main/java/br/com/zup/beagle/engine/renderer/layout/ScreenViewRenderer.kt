@@ -73,25 +73,25 @@ internal class ScreenViewRenderer(
         navigationBar: NavigationBar
     ) {
         context.supportActionBar?.apply {
-            context.findViewById<Toolbar>(R.id.beagle_toolbar)?.let {
-                it.visibility = View.VISIBLE
-                configToolbarStyle(context, it, navigationBar.style)
-            }
             title = navigationBar.title
             val showBackButton = navigationBar.showBackButton ?: true
             setDisplayHomeAsUpEnabled(showBackButton)
             setDisplayShowHomeEnabled(showBackButton)
             show()
         }
+        context.findViewById<Toolbar>(R.id.beagle_toolbar)?.let {
+            it.visibility = View.VISIBLE
+            configToolbarStyle(context, it, navigationBar.style ?: "")
+        }
     }
 
     private fun configToolbarStyle(
         context: Context,
         toolbar: Toolbar,
-        style: String?
+        style: String
     ) {
         val designSystem = BeagleEnvironment.designSystem
-        if (designSystem != null && style != null) {
+        if (designSystem != null) {
             val toolbarStyle = designSystem.toolbarStyle(style)
             val typedArray = context.obtainStyledAttributes(
                 toolbarStyle,
