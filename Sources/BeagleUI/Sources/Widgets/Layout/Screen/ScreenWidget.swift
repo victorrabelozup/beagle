@@ -132,15 +132,18 @@ public struct NavigationBar {
     // MARK: - Public Properties
 
     public let title: String
+    public let style: String?
     public let showBackButton: Bool?
 
     // MARK: - Initialization
 
     public init(
         title: String,
+        style: String? = nil,
         showBackButton: Bool? = nil
     ) {
         self.title = title
+        self.style = style
         self.showBackButton = showBackButton
     }
 }

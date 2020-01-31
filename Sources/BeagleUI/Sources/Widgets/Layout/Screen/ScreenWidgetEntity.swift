@@ -54,11 +54,13 @@ struct SafeAreaEntity: Decodable {
 struct ScreenNavigationBarEntity: Decodable {
     
     let title: String
+    let style: String?
     let showBackButton: Bool?
     
     func toNavigationBar() -> NavigationBar {
         return NavigationBar(
             title: title,
+            style: style,
             showBackButton: showBackButton
         )
     }
