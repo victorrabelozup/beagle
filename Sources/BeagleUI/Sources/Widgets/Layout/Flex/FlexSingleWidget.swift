@@ -27,7 +27,7 @@ public struct FlexSingleWidget: Widget, HasAppearance {
     // MARK: - Configuration
     
     public func apply(_ flex: Flex) -> FlexSingleWidget {
-        return FlexSingleWidget(child: child, flex: flex)
+        return FlexSingleWidget(child: child, flex: flex, appearance: appearance)
     }
     
 }
