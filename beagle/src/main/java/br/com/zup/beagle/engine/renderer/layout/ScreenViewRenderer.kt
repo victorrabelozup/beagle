@@ -8,6 +8,7 @@ import br.com.zup.beagle.R
 import br.com.zup.beagle.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
+import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.ScreenWidget
 import br.com.zup.beagle.widget.core.Flex
@@ -74,12 +75,44 @@ internal class ScreenViewRenderer(
         context.supportActionBar?.apply {
             context.findViewById<Toolbar>(R.id.beagle_toolbar)?.let {
                 it.visibility = View.VISIBLE
+                configToolbarStyle(context, it, navigationBar.style)
             }
             title = navigationBar.title
             val showBackButton = navigationBar.showBackButton ?: true
             setDisplayHomeAsUpEnabled(showBackButton)
             setDisplayShowHomeEnabled(showBackButton)
             show()
+        }
+    }
+
+    private fun configToolbarStyle(
+        context: Context,
+        toolbar: Toolbar,
+        style: String?
+    ) {
+        val designSystem = BeagleEnvironment.designSystem
+        if (designSystem != null && style != null) {
+            val toolbarStyle = designSystem.toolbarStyle(style)
+            val typedArray = context.obtainStyledAttributes(
+                toolbarStyle,
+                R.styleable.BeagleToolbarStyle
+            )
+            toolbar.navigationIcon = typedArray.getDrawable(
+                R.styleable.BeagleToolbarStyle_navigationIcon
+            )
+            val textAppearance = typedArray.getResourceId(
+                R.styleable.BeagleToolbarStyle_titleTextAppearance, 0
+            )
+            if (textAppearance != 0) {
+                toolbar.setTitleTextAppearance(context, textAppearance)
+            }
+            val backgroundColor = typedArray.getColor(
+                R.styleable.BeagleToolbarStyle_android_background, 0
+            )
+            if (backgroundColor != 0) {
+                toolbar.setBackgroundColor(backgroundColor)
+            }
+            typedArray.recycle()
         }
     }
 }

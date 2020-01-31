@@ -8,4 +8,5 @@ interface DesignSystem {
     @StyleRes fun theme(): Int
     @StyleRes fun textAppearance(name: String): Int
     @StyleRes fun buttonStyle(name: String): Int
+    @StyleRes fun toolbarStyle(name: String): Int
 }

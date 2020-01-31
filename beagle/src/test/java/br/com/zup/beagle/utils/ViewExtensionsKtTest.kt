@@ -79,8 +79,10 @@ class ViewExtensionsKtTest {
     private lateinit var imageView: ImageView
     @MockK
     private lateinit var viewMapper: ViewMapper
-    @MockK(relaxed = true)
+    @MockK
     private lateinit var typedArray: TypedArray
+    @MockK
+    private lateinit var drawable: Drawable
 
     private val textValueSlot = slot<String>()
     private val viewSlot = slot<View>()
@@ -115,6 +117,8 @@ class ViewExtensionsKtTest {
         every { beagleButton.context } returns activity
         every { beagleButton.setBackground(any()) } just Runs
         every { activity.obtainStyledAttributes(any<Int>(), any()) } returns typedArray
+        every { typedArray.getDrawable(any()) } returns drawable
+        every { typedArray.recycle() } just Runs
     }
 
     @After
@@ -307,7 +311,8 @@ class ViewExtensionsKtTest {
 
         // Then
         assertEquals(textValue, textValueSlot.captured)
-        verify(exactly = 1) { beagleButton.setBackground(typedArray.getDrawable(STYLE_RES)) }
+        verify(exactly = 1) { beagleButton.background = drawable }
+        verify(exactly = 1) { typedArray.recycle() }
         verify(exactly = 1) { TextViewCompat.setTextAppearance(beagleButton, STYLE_RES) }
     }
 

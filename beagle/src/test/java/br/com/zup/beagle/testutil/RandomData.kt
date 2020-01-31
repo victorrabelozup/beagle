@@ -1,10 +1,12 @@
 package br.com.zup.beagle.testutil
 
+import kotlin.random.Random
+
 object RandomData {
 
-    fun int(): Int = Math.random().toInt()
+    fun int(): Int = Random.nextInt(1, 10000)
 
-    fun double(): Double = Math.random()
+    fun double(): Double = Random.nextDouble(1.0, 10000.0)
 
     fun string(size: Int = 20): String {
         val alphabet: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')

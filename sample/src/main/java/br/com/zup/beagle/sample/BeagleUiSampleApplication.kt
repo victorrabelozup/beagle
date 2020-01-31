@@ -19,6 +19,6 @@ class BeagleUiSampleApplication : Application() {
             .registerWidget(TextField::class.java, TextFieldViewFactory())
             .registerWidget(MutableText::class.java, MutableTextViewFactory())
             .registerValidatorHandler(AppValidatorHandler())
-            .registerDesignSystem(AppDesignSystem(this))
+            .registerDesignSystem(AppDesignSystem())
     }
 }

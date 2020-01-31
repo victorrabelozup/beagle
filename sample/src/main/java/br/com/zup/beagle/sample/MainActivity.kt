@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             R.id.pageView2 -> startActivity(
                 BeagleUIActivity.newIntent(
                     this,
-                    "http://10.0.2.2:8080/sample"
+                    "http://10.0.2.2:8080/sample/"
                 )
             )
             // Navigation Bar requires an activity without toolbar

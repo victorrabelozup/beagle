@@ -1,10 +1,13 @@
 package br.com.zup.beagle.engine.renderer.layout
 
+import android.content.res.TypedArray
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import br.com.zup.beagle.R
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
@@ -28,9 +31,14 @@ import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 import br.com.zup.beagle.extensions.once
+import br.com.zup.beagle.setup.BeagleEnvironment
+import br.com.zup.beagle.setup.DesignSystem
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.widget.ScreenWidget
 import br.com.zup.beagle.widget.layout.NavigationBar
+import io.mockk.mockkObject
+import io.mockk.unmockkObject
+import org.junit.After
 
 private const val DEFAULT_COLOR = 0xFFFFFF
 
@@ -66,6 +74,7 @@ class ScreenViewRendererTest {
         MockKAnnotations.init(this)
 
         mockkStatic(Color::class)
+        mockkObject(BeagleEnvironment)
 
         every { viewFactory.makeBeagleFlexView(any()) } returns beagleFlexView
         every { viewFactory.makeBeagleFlexView(any(), any()) } returns beagleFlexView
@@ -85,6 +94,11 @@ class ScreenViewRendererTest {
             viewRendererFactory,
             viewFactory
         )
+    }
+
+    @After
+    fun tearDown() {
+        unmockkObject(BeagleEnvironment)
     }
 
     @Test
@@ -186,5 +200,46 @@ class ScreenViewRendererTest {
 
         // Then
         verify(atLeast = once()) { toolbar.visibility = View.VISIBLE }
+    }
+
+    @Test
+    fun build_should_configure_toolbar_style_when_supportActionBar_is_not_null_and_toolbar_is_not_null() {
+        // Given
+        val toolbar = mockk<Toolbar>(relaxed = true)
+        val designSystemMock = mockk<DesignSystem>()
+        val typedArray = mockk<TypedArray>()
+        val style = RandomData.string()
+        val styleInt = RandomData.int()
+        val navigationIcon = mockk<Drawable>()
+        val titleTextAppearance = RandomData.int()
+        val backgroundColorInt = RandomData.int()
+        every { BeagleEnvironment.designSystem } returns designSystemMock
+        every { designSystemMock.toolbarStyle(style) } returns styleInt
+        every { navigationBar.style } returns style
+        every { screenWidget.navigationBar } returns navigationBar
+        every { context.supportActionBar } returns actionBar
+        every { context.findViewById<Toolbar>(any()) } returns toolbar
+        every {
+            context.obtainStyledAttributes(styleInt, R.styleable.BeagleToolbarStyle)
+        } returns typedArray
+        every {
+            typedArray.getDrawable(R.styleable.BeagleToolbarStyle_navigationIcon)
+        } returns navigationIcon
+        every {
+            typedArray.getResourceId(R.styleable.BeagleToolbarStyle_titleTextAppearance, 0)
+        } returns titleTextAppearance
+        every {
+            typedArray.getColor(R.styleable.BeagleToolbarStyle_android_background, 0)
+        } returns backgroundColorInt
+        every { typedArray.recycle() } just Runs
+
+        // When
+        screenViewRenderer.build(rootView)
+
+        // Then
+        verify(atLeast = once()) { toolbar.navigationIcon = navigationIcon }
+        verify(atLeast = once()) { toolbar.setTitleTextAppearance(context, titleTextAppearance) }
+        verify(atLeast = once()) { toolbar.setBackgroundColor(backgroundColorInt) }
+        verify(atLeast = once()) { typedArray.recycle() }
     }
 }

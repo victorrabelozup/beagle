@@ -8,6 +8,26 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.NoToolbar" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">#FFFFFF</item>
+    </style>
+
+    <style name="DesignSystem.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="titleTextAppearance">@style/DesignSystem.Toolbar.TextAppearance</item>
+        <item name="android:background">#DB6C6C</item>
+        <item name="android:elevation">4dp</item>
+        <item name="navigationIcon">@mipmap/ic_launcher</item>
+    </style>
+
+    <style name="DesignSystem.Toolbar.TextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+
     <style name="DesignSystem.Button.Default" parent="Widget.AppCompat.Button">
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">18sp</item>

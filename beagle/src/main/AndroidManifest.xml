@@ -5,6 +5,7 @@
     <application>
         <activity
             android:name="br.com.zup.beagle.view.BeagleUIActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 </manifest>

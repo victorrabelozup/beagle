@@ -1,17 +1,19 @@
 package br.com.zup.beagle.sample
 
-import android.app.Application
 import br.com.zup.beagle.setup.DesignSystem
 
-class AppDesignSystem(
-    private val context: Application
-) : DesignSystem {
+class AppDesignSystem : DesignSystem {
+
+    override fun toolbarStyle(name: String): Int {
+        return R.style.DesignSystem_Toolbar
+    }
+
     override fun image(name: String): Int {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun theme(): Int {
-        return R.style.AppTheme
+        return R.style.AppTheme_NoToolbar
     }
 
     override fun textAppearance(name: String): Int {
