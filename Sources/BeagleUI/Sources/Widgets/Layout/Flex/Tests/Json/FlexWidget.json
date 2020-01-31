@@ -2,7 +2,9 @@
   "_beagleType_": "beagle:widget:FlexWidget",
   "appearance": {
     "backgroundColor": "#500000FF",
-    "cornerRadius": 30.0
+    "cornerRadius": {
+        "radius": 30.0
+    }
   },
   "children": [
     {

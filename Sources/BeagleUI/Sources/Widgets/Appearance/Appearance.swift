@@ -6,13 +6,13 @@ public struct Appearance {
     
     // MARK: - Public Properties
     let backgroundColor: String?
-    let cornerRadius: Double?
+    let cornerRadius: CornerRadius?
     
     // MARK: - Initialization
     
     public init(
         backgroundColor: String? = nil,
-        cornerRadius: Double? = nil
+        cornerRadius: CornerRadius? = nil
     ) {
         self.backgroundColor = backgroundColor
         self.cornerRadius = cornerRadius
@@ -21,4 +21,8 @@ public struct Appearance {
 
 public protocol HasAppearance {
     var appearance: Appearance? { get }
+}
+
+public struct CornerRadius: Decodable {
+    let radius: Double = 0.0
 }

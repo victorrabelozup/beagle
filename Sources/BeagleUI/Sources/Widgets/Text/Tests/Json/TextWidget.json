@@ -5,6 +5,8 @@
   "alignment": "RIGHT",
   "appearance": {
     "backgroundColor": "#FFFF00",
-    "cornerRadius": 30.0
+    "cornerRadius": {
+        "radius": 30.0
+    }
   }
 }

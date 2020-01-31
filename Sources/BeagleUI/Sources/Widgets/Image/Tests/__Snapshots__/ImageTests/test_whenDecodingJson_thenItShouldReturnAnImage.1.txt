@@ -3,8 +3,9 @@
     ▿ some: Appearance
       ▿ backgroundColor: Optional<String>
         - some: "#800000FF"
-      ▿ cornerRadius: Optional<Double>
-        - some: 30.0
+      ▿ cornerRadius: Optional<CornerRadius>
+        ▿ some: CornerRadius
+          - radius: 0.0
   ▿ contentMode: Optional<ImageContentMode>
     - some: ImageContentMode.center
   - name: "test_image_square-x"

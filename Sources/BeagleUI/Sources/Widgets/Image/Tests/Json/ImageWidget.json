@@ -4,6 +4,8 @@
   "contentMode": "CENTER",
   "appearance": {
     "backgroundColor": "#800000FF",
-    "cornerRadius": 30.0
+    "cornerRadius": {
+        "radius": 30.0
+    }
   }
 }

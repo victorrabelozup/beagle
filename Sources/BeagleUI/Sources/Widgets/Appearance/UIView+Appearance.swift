@@ -11,7 +11,7 @@ extension UIView {
         }
         if let cornerRadius = appearance?.cornerRadius {
             layer.masksToBounds = true
-            layer.cornerRadius = CGFloat(cornerRadius)
+            layer.cornerRadius = CGFloat(cornerRadius.radius)
         }
     }
 }
