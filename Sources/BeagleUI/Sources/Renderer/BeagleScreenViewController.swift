@@ -78,11 +78,16 @@ public class BeagleScreenViewController: UIViewController {
     }
     
     private func updateNavigationBar(animated: Bool) {
-        let hideNavBar = viewModel.screen?.navigationBar == nil
+        let screenNavigationBar = viewModel.screen?.navigationBar
+        let hideNavBar = screenNavigationBar == nil
         navigationController?.setNavigationBarHidden(hideNavBar, animated: animated)
-        navigationItem.title = viewModel.screen?.navigationBar?.title
+        navigationItem.title = screenNavigationBar?.title
         navigationItem.backBarButtonItem = UIBarButtonItem(title: nil, style: .plain, target: nil, action: nil)
-        navigationItem.hidesBackButton = !(viewModel.screen?.navigationBar?.showBackButton ?? true)
+        navigationItem.hidesBackButton = !(screenNavigationBar?.showBackButton ?? true)
+        
+        navigationItem.rightBarButtonItems = screenNavigationBar?.navigationBarItems?.reversed().map {
+            $0.toBarButtonItem(context: self, dependencies: viewModel.dependencies)
+        }
         
         if let style = viewModel.screen?.navigationBar?.style,
            let navigationBar = navigationController?.navigationBar {

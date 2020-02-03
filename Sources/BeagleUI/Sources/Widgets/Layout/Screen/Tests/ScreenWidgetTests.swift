@@ -52,7 +52,7 @@ final class ScreenWidgetTests: XCTestCase {
     func test_contentShouldUseOnlyTheSpaceRequiredByFlexRules() {
         
         let screen = ScreenWidget(
-            safeArea: .init(top: true, leading: true, bottom: true, trailing: true),
+            safeArea: SafeArea.all,
             navigationBar: .init(title: "Test Flex"),
             content: FlexSingleWidget(
                 child: FlexSingleWidget(
@@ -67,6 +67,54 @@ final class ScreenWidgetTests: XCTestCase {
         
         let viewController = BeagleScreenViewController(viewModel: .init(screenType: .declarative(screen)))
         assertSnapshotImage(viewController)
+    }
+    
+    func test_navigationBarButtonItemWithImage() {
+        let dependencies = BeagleDependencies()
+        dependencies.appBundle = Bundle(for: ScreenWidgetTests.self)
+        Beagle.dependencies = dependencies
+        addTeardownBlock {
+            Beagle.dependencies = BeagleDependencies()
+        }
+        
+        let barItem = NavigationBarItem(image: "shuttle", text: "shuttle", action: ActionDummy())
+        
+        let screen = ScreenWidget(
+            safeArea: SafeArea.none,
+            navigationBar: .init(title: "title", showBackButton: true, navigationBarItems: [barItem]),
+            content: Text("")
+        )
+        
+        let viewController = BeagleScreenViewController(viewModel: .init(screenType: .declarative(screen)))
+        assertSnapshotImage(viewController, size: CGSize(width: 300, height: 200))
+    }
+    
+    func test_navigationBarButtonItemWithText() {
+        let barItem = NavigationBarItem(text: "shuttle", action: ActionDummy())
+        
+        let screen = ScreenWidget(
+            safeArea: SafeArea.all,
+            navigationBar: .init(title: "title", showBackButton: true, navigationBarItems: [barItem]),
+            content: Text("test")
+        )
+        
+        let viewController = BeagleScreenViewController(viewModel: .init(screenType: .declarative(screen)))
+        assertSnapshotImage(viewController, size: CGSize(width: 300, height: 200))
+    }
+    
+    func test_action_shouldBeTriggered() {
+        // Given
+        let action = ActionDummy()
+        let barItem = NavigationBarItem(text: "shuttle", action: action)
+        let context = BeagleContextSpy()
+        
+        // When
+        let resultingView = barItem.toBarButtonItem(context: context, dependencies: RendererDependenciesContainer())
+        _ = resultingView.target?.perform(resultingView.action)
+        
+        // Then
+        XCTAssertTrue(context.didCallDoAction)
+        XCTAssertEqual(context.actionCalled as? ActionDummy, action)
     }
 }
 

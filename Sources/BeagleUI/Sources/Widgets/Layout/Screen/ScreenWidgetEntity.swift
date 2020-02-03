@@ -5,7 +5,7 @@
 struct ScreenWidgetEntity: WidgetConvertibleEntity {
     
     let safeArea: SafeAreaEntity?
-    let navigationBar: ScreenNavigationBarEntity?
+    let navigationBar: NavigationBarEntity?
     let header: AnyDecodableContainer?
     let content: AnyDecodableContainer
     let footer: AnyDecodableContainer?
@@ -51,17 +51,42 @@ struct SafeAreaEntity: Decodable {
     }
 }
 
-struct ScreenNavigationBarEntity: Decodable {
+struct NavigationBarEntity: Decodable {
     
     let title: String
     let style: String?
     let showBackButton: Bool?
+    let navigationBarItems: [NavigationBarItemEntity]?
     
     func toNavigationBar() -> NavigationBar {
+        let items = navigationBarItems?.compactMap { try? $0.mapToUIModel() }
         return NavigationBar(
             title: title,
             style: style,
-            showBackButton: showBackButton
+            showBackButton: showBackButton,
+            navigationBarItems: items
         )
     }
+}
+
+struct NavigationBarItemEntity: Decodable {
+    
+    public let image: String?
+    public let text: String
+    public let action: AnyDecodableContainer
+
+}
+
+extension NavigationBarItemEntity: UIModelConvertible {
+        
+    func mapToUIModel() throws -> NavigationBarItem {
+        let actionEntity = self.action.content as? ActionConvertibleEntity
+        let action = try actionEntity?.mapToAction() ?? AnyAction(value: self.action.content)
+        return NavigationBarItem(
+            image: image,
+            text: text,
+            action: action
+        )
+    }
+    
 }

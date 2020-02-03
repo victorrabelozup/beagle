@@ -71,7 +71,7 @@ struct WidgetDummy: Widget {
 
 final class DummyView: UIView {}
 
-struct ActionDummy: Action {}
+struct ActionDummy: Action, Equatable {}
 
 class BeagleContextDummy: BeagleContext {
     var screenController: UIViewController = UIViewController()

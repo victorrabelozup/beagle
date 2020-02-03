@@ -11,6 +11,7 @@
 		931B6E302375BA7400DE73FD /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931B6E2F2375BA7400DE73FD /* Theme.swift */; };
 		931B6E32237610B300DE73FD /* FunctiontalUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931B6E31237610B300DE73FD /* FunctiontalUtils.swift */; };
 		932925E02327E11000A61F01 /* BeagleUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 932925D22327E11000A61F01 /* BeagleUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9362B6D223E85B4B0033FAD7 /* __Snapshots__ in Resources */ = {isa = PBXBuildFile; fileRef = 9362B6D123E85B4B0033FAD7 /* __Snapshots__ */; };
 		93681805232A886C00E6E724 /* ScreenWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93681804232A886C00E6E724 /* ScreenWidget.swift */; };
 		9368180B232A889100E6E724 /* Spacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368180A232A889100E6E724 /* Spacer.swift */; };
 		93932F4823E1C37800F41905 /* SpacerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93932F4723E1C37800F41905 /* SpacerTests.swift */; };
@@ -261,6 +262,7 @@
 		932925CF2327E11000A61F01 /* BeagleUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BeagleUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		932925D22327E11000A61F01 /* BeagleUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BeagleUI.h; sourceTree = "<group>"; };
 		932925D32327E11000A61F01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9362B6D123E85B4B0033FAD7 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		9367F9AE237C415800231A9C /* ThemeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTests.swift; sourceTree = "<group>"; };
 		93681804232A886C00E6E724 /* ScreenWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenWidget.swift; sourceTree = "<group>"; };
 		9368180A232A889100E6E724 /* Spacer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacer.swift; sourceTree = "<group>"; };
@@ -715,7 +717,6 @@
 		983E8C8F2396DF2B0018C6CA /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				C836180A23E0E0030010A919 /* __Snapshots__ */,
 				98A7F36923A84AFF00E88C70 /* TabView.json */,
 				983E8C962396DFAA0018C6CA /* TabBarCollectionViewCellTests.swift */,
 				983E8C902396DF430018C6CA /* TabViewTests.swift */,
@@ -1096,6 +1097,7 @@
 		C829CEF323B19506001B7225 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				9362B6D123E85B4B0033FAD7 /* __Snapshots__ */,
 				E5CE4217233403E000295277 /* ScreenWidgetEntityTests.swift */,
 				E56A02C023453CA700C0F23D /* ScreenWidgetTests.swift */,
 			);
@@ -1283,7 +1285,6 @@
 		C8A5DC5023E3246C001968C4 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				C84C29CE23E32E430037F21D /* __Snapshots__ */,
 				E79D846C23AABFA100BAE9FA /* BeaglePrefetchHelperTests.swift */,
 			);
 			path = Tests;
@@ -1518,6 +1519,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9362B6D223E85B4B0033FAD7 /* __Snapshots__ in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
