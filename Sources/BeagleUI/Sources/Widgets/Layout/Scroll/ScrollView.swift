@@ -35,6 +35,7 @@ extension ScrollView: Renderable {
         }
         scrollView.addSubview(contentView)
         scrollView.applyAppearance(appearance)
+        dependencies.flex.setupFlex(Flex(grow: 1), for: scrollView)
         
         let flexContent = Flex(grow: 0, shrink: 0)
         dependencies.flex.setupFlex(flexContent, for: contentView)

@@ -46,8 +46,8 @@ final class ScrollViewTests: XCTestCase {
         
         // Then
         XCTAssert(flexSpy.setupFlexCalled)
-        XCTAssert(resultingView.subviews.count == 1)
-        XCTAssert(flexSpy.timesPassed == 1)
+        XCTAssertEqual(resultingView.subviews.count, 1)
+        XCTAssertEqual(flexSpy.timesPassed, 2)
     }
     
     func test_whenLayoutSubViewsIsCalledOnBagleContainerScrollView_itShouldSetupTheContentSizeCorrectly() {

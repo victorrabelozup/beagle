@@ -62,7 +62,7 @@ final class SafeAreaManager {
         // When there is no NavigationController one is created and add as child.
         // In the parent the safe area is ignored because it will be handled in the child.
         if viewController?.navigationController == nil {
-            values = .none
+            values = SafeArea.none
         } else {
             values = safeArea
         }
