@@ -5,7 +5,7 @@
         - some: "#00FFFF"
       ▿ cornerRadius: Optional<CornerRadius>
         ▿ some: CornerRadius
-          - radius: 0.0
+          - radius: 10.0
   ▿ child: FlexSingleWidget
     ▿ appearance: Optional<Appearance>
       ▿ some: Appearance

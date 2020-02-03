@@ -41,7 +41,7 @@ final class FlexSingleWidgetTests: XCTestCase {
         let screen = BeagleScreenViewController(
             viewModel: .init(screenType: .declarative(widget.toScreen()))
         )
-        assertSnapshotImage(screen)
+        assertSnapshotImage(screen, size: CGSize(width: 300, height: 100))
     }
     
     func test_toView_shouldReturnTheExpectedView() {

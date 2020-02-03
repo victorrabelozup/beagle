@@ -24,5 +24,5 @@ public protocol HasAppearance {
 }
 
 public struct CornerRadius: Decodable {
-    let radius: Double = 0.0
+    let radius: Double
 }

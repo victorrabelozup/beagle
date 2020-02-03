@@ -5,7 +5,7 @@
         - some: "#500000FF"
       ▿ cornerRadius: Optional<CornerRadius>
         ▿ some: CornerRadius
-          - radius: 0.0
+          - radius: 30.0
   ▿ children: 3 elements
     ▿ Text
       - alignment: Optional<Alignment>.none
