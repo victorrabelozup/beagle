@@ -5,16 +5,18 @@
     <groupId>br.com.zup.beagle</groupId>
     <artifactId>beagle</artifactId>
     <version>0.0.25-SNAPSHOT</version>
+
     <name>beagle</name>
     <description>Beagle is a SDK to deal with server driven UI</description>
     <packaging>pom</packaging>
 
     <modules>
         <module>android-core</module>
-        <module>beagle-declarative</module>
-        <module>beagle-framework</module>
+        <module>beagle-annotation</module>
         <module>beagle-backend-declarative</module>
         <module>beagle-android-declarative</module>
+        <module>beagle-declarative</module>
+        <module>beagle-framework</module>
         <module>beagle-sample</module>
     </modules>
 
