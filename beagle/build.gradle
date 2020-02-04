@@ -45,6 +45,7 @@ dependencies {
     implementation GeneralLibraries.kotlinCoroutines
 
     api GeneralLibraries.beagleDeclarative
+//    api GeneralLibraries.beagleAndroidDeclarative
 
     implementation GlideLibraries.glide
     kapt GlideLibraries.glideCompiler

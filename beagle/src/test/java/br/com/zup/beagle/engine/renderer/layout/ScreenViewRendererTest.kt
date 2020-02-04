@@ -11,34 +11,33 @@ import br.com.zup.beagle.R
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
+import br.com.zup.beagle.extensions.once
+import br.com.zup.beagle.setup.BeagleEnvironment
+import br.com.zup.beagle.setup.DesignSystem
+import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
+import br.com.zup.beagle.widget.ScreenWidget
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.JustifyContent
 import br.com.zup.beagle.widget.core.Widget
-import br.com.zup.beagle.widget.layout.Expanded
+import br.com.zup.beagle.widget.layout.NavigationBar
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
 import io.mockk.mockk
+import io.mockk.mockkObject
 import io.mockk.mockkStatic
 import io.mockk.slot
+import io.mockk.unmockkObject
 import io.mockk.verify
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
-import br.com.zup.beagle.extensions.once
-import br.com.zup.beagle.setup.BeagleEnvironment
-import br.com.zup.beagle.setup.DesignSystem
-import br.com.zup.beagle.testutil.RandomData
-import br.com.zup.beagle.widget.ScreenWidget
-import br.com.zup.beagle.widget.layout.NavigationBar
-import io.mockk.mockkObject
-import io.mockk.unmockkObject
-import org.junit.After
 
 private const val DEFAULT_COLOR = 0xFFFFFF
 
@@ -134,21 +133,21 @@ class ScreenViewRendererTest {
 
     @Test
     fun build_should_call_content_builder() {
+
         // Given
         val content = mockk<Widget>()
-        val expanded = slot<Expanded>()
+        val flex = slot<Flex>()
         every { screenWidget.content } returns content
-        every { viewRendererFactory.make(capture(expanded)) } returns viewRenderer
+        every { beagleFlexView.addView(view, capture(flex)) } just Runs
         every { context.supportActionBar } returns null
 
         // When
         screenViewRenderer.build(rootView)
 
         // Then
-        verify(exactly = once()) { viewRendererFactory.make(expanded.captured) }
         verify(atLeast = once()) { viewRenderer.build(rootView) }
-        verify(atLeast = once()) { beagleFlexView.addView(view) }
-        assertEquals(content, expanded.captured.child)
+        verify(atLeast = once()) { beagleFlexView.addView(view, flex.captured) }
+        assertEquals(1.0, flex.captured.grow)
     }
 
     @Test

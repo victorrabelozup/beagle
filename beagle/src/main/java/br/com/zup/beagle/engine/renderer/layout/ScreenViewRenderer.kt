@@ -14,7 +14,6 @@ import br.com.zup.beagle.widget.ScreenWidget
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.JustifyContent
-import br.com.zup.beagle.widget.layout.Expanded
 import br.com.zup.beagle.widget.layout.NavigationBar
 
 internal class ScreenViewRenderer(
@@ -38,9 +37,9 @@ internal class ScreenViewRenderer(
             container.addView(viewRendererFactory.make(it).build(rootView))
         }
 
-        val expanded = Expanded(this.widget.content)
-        val contentView = viewRendererFactory.make(expanded).build(rootView)
-        container.addView(contentView)
+        val contentView = viewRendererFactory.make(this.widget.content).build(rootView)
+
+        container.addView(contentView, Flex(grow = 1.0))
 
         this.widget.footer?.let {
             container.addView(viewRendererFactory.make(it).build(rootView))

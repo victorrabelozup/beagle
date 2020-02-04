@@ -9,7 +9,6 @@ import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormSubmit
 import br.com.zup.beagle.widget.form.InputWidget
-import br.com.zup.beagle.widget.layout.Expanded
 import br.com.zup.beagle.widget.layout.FlexSingleWidget
 import br.com.zup.beagle.widget.layout.FlexWidget
 import br.com.zup.beagle.widget.layout.Horizontal
@@ -18,8 +17,6 @@ import br.com.zup.beagle.widget.layout.PageView
 import br.com.zup.beagle.widget.layout.ScrollView
 import br.com.zup.beagle.widget.layout.Spacer
 import br.com.zup.beagle.widget.layout.Stack
-import br.com.zup.beagle.widget.layout.StatefulWidget
-import br.com.zup.beagle.widget.layout.UpdatableWidget
 import br.com.zup.beagle.widget.layout.Vertical
 import br.com.zup.beagle.widget.lazy.LazyWidget
 import br.com.zup.beagle.widget.navigation.Navigator
@@ -68,10 +65,7 @@ class WidgetJsonAdapterFactory {
             .withSubtype(Horizontal::class.java, createNamespaceFor<Horizontal>())
             .withSubtype(Stack::class.java, createNamespaceFor<Stack>())
             .withSubtype(Spacer::class.java, createNamespaceFor<Spacer>())
-            .withSubtype(StatefulWidget::class.java, createNamespaceFor<StatefulWidget>())
-            .withSubtype(UpdatableWidget::class.java, createNamespaceFor<UpdatableWidget>())
             .withSubtype(ScrollView::class.java, createNamespaceFor<ScrollView>())
-            .withSubtype(Expanded::class.java, createNamespaceFor<Expanded>())
             .withSubtype(LazyWidget::class.java, createNamespaceFor<LazyWidget>())
             .withSubtype(PageView::class.java, createNamespaceFor<PageView>())
             .withSubtype(Form::class.java, createNamespaceFor<Form>())

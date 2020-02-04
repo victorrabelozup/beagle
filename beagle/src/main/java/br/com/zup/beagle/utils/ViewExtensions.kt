@@ -34,7 +34,6 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.AppearanceWidget
 import br.com.zup.beagle.widget.core.ImageContentMode
 import br.com.zup.beagle.widget.core.Widget
-import br.com.zup.beagle.widget.layout.UpdatableWidget
 import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.Image
 import br.com.zup.beagle.widget.ui.Text
@@ -146,14 +145,6 @@ internal inline fun <reified T> ViewGroup.findChildViewForType(type: Class<T>): 
     findChildViewForType(this, elementList, type)
 
     return elementList
-}
-
-internal fun List<View>.findChildViewForUpdatableWidgetId(
-    widgetId: String
-): View? {
-    return this.find { child ->
-        (child.tag as UpdatableWidget).id == widgetId
-    }
 }
 
 fun View.saveBeagleTag(tag: Any) {

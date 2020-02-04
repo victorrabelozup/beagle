@@ -14,7 +14,6 @@ import br.com.zup.beagle.engine.renderer.layout.*
 import br.com.zup.beagle.widget.ScreenWidget
 import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.form.Form
-import br.com.zup.beagle.widget.layout.Expanded
 import br.com.zup.beagle.widget.layout.FlexSingleWidget
 import br.com.zup.beagle.widget.layout.FlexWidget
 import br.com.zup.beagle.widget.layout.Horizontal
@@ -160,18 +159,6 @@ class LayoutViewRendererFactoryTest {
 
         // Then
         assertTrue(actual is ScrollViewRenderer)
-    }
-
-    @Test
-    fun make_should_return_ExpandedViewRenderer_when_widget_is_a_Expanded() {
-        // Given
-        val widget = mockk<Expanded>()
-
-        // When
-        val actual = viewRendererFactory.make(widget)
-
-        // Then
-        assertTrue(actual is ExpandedViewRenderer)
     }
 
     @Test
