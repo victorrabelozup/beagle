@@ -1,8 +1,7 @@
 package br.com.zup.beagle.widget.layout
 
 import br.com.zup.beagle.widget.core.Widget
-
-interface PageIndicatorWidget : Widget
+import br.com.zup.beagle.widget.pager.PageIndicatorWidget
 
 data class PageView(
     val pages: List<Widget>,

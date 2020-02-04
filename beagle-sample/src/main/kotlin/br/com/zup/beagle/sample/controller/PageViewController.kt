@@ -6,7 +6,7 @@ import br.com.zup.beagle.widget.core.JustifyContent
 import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.layout.FlexSingleWidget
 import br.com.zup.beagle.widget.layout.PageView
-import br.com.zup.beagle.widget.ui.PageIndicator
+import br.com.zup.beagle.widget.pager.PageIndicator
 import br.com.zup.beagle.widget.ui.Text
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController

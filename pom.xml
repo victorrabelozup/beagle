@@ -10,13 +10,17 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>android-core</module>
         <module>beagle-declarative</module>
         <module>beagle-framework</module>
+        <module>beagle-backend-declarative</module>
+        <module>beagle-android-declarative</module>
         <module>beagle-sample</module>
     </modules>
 
     <properties>
         <java.version>1.8</java.version>
+        <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
         <kotlin.version>1.3.41</kotlin.version>
     </properties>
 

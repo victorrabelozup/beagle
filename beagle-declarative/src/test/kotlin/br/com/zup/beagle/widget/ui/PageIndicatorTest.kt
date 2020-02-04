@@ -1,5 +1,6 @@
 package br.com.zup.beagle.widget.ui
 
+import br.com.zup.beagle.widget.pager.PageIndicator
 import org.junit.Test
 import kotlin.test.assertEquals
 

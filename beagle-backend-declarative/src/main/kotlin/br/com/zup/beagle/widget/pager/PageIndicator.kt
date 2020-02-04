@@ -1,6 +1,4 @@
-package br.com.zup.beagle.widget.ui
-
-import br.com.zup.beagle.widget.layout.PageIndicatorWidget
+package br.com.zup.beagle.widget.pager
 
 data class PageIndicator(
     val selectedColor: String,
