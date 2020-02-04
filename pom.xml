@@ -4,7 +4,7 @@
 
     <groupId>br.com.zup.beagle</groupId>
     <artifactId>beagle</artifactId>
-    <version>0.0.23-SNAPSHOT</version>
+    <version>0.0.24-SNAPSHOT</version>
     <name>beagle</name>
     <description>Beagle is a SDK to deal with server driven UI</description>
     <packaging>pom</packaging>

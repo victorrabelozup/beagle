@@ -1,9 +1,12 @@
 package br.com.zup.beagle.sample.controller
 
+import br.com.zup.beagle.action.Navigate
+import br.com.zup.beagle.action.NavigationType
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.JustifyContent
 import br.com.zup.beagle.widget.layout.FlexWidget
 import br.com.zup.beagle.widget.layout.NavigationBar
+import br.com.zup.beagle.widget.layout.NavigationBarItem
 import br.com.zup.beagle.widget.layout.Screen
 import br.com.zup.beagle.widget.ui.Button
 import org.springframework.web.bind.annotation.RequestMapping
@@ -17,7 +20,23 @@ class SampleViewController {
         return Screen(
             navigationBar = NavigationBar(
                 title = "Sample Bar",
-                showBackButton = true
+                style = "Style.Default",
+                navigationBarItems = listOf(
+                    NavigationBarItem(
+                        text = "First",
+                        image = "delete",
+                        action = Navigate(
+                            type = NavigationType.POP_VIEW
+                        )
+                    ),
+                    NavigationBarItem(
+                        text = "Second",
+                        image = "question",
+                        action = Navigate(
+                            type = NavigationType.POP_VIEW
+                        )
+                    )
+                )
             ),
             content = FlexWidget(
                 flex = Flex(justifyContent = JustifyContent.CENTER),

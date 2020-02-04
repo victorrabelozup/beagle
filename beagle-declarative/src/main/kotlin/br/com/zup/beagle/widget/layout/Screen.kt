@@ -1,5 +1,6 @@
 package br.com.zup.beagle.widget.layout
 
+import br.com.zup.beagle.action.Action
 import br.com.zup.beagle.widget.core.Widget
 
 data class SafeArea(
@@ -9,10 +10,17 @@ data class SafeArea(
     val trailing: Boolean? = null
 )
 
+data class NavigationBarItem(
+    val text: String,
+    val image: String? = null,
+    val action: Action
+)
+
 data class NavigationBar(
     val title: String,
     val showBackButton: Boolean? = null,
-    val style: String? = null
+    val style: String? = null,
+    val navigationBarItems: List<NavigationBarItem>? = null
 )
 
 data class Screen(
