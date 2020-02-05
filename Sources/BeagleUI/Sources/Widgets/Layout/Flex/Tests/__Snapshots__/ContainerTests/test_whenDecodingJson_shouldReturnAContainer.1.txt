@@ -1,4 +1,4 @@
-▿ FlexWidget
+▿ Container
   ▿ appearance: Optional<Appearance>
     ▿ some: Appearance
       ▿ backgroundColor: Optional<String>

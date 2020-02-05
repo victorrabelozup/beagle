@@ -15,14 +15,14 @@
     - key: "beagle:widget:button"
     - value: ButtonEntity
   ▿ (2 elements)
+    - key: "beagle:widget:container"
+    - value: ContainerEntity
+  ▿ (2 elements)
     - key: "beagle:widget:defaultpageindicator"
     - value: DefaultPageIndicatorEntity
   ▿ (2 elements)
     - key: "beagle:widget:flexsinglewidget"
     - value: FlexSingleWidgetEntity
-  ▿ (2 elements)
-    - key: "beagle:widget:flexwidget"
-    - value: FlexWidgetEntity
   ▿ (2 elements)
     - key: "beagle:widget:form"
     - value: FormEntity

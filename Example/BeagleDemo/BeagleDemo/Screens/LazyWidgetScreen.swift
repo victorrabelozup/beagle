@@ -22,7 +22,7 @@ struct LazyWidgetScreen: DeeplinkScreen {
             content: Form(
                 action: "https://t001-2751a.firebaseapp.com/action/shownativedialog.json",
                 method: .get,
-                child: FlexWidget(children: [
+                child: Container(children: [
                     Text("Form & LazyWidget"),
                     FormInput(
                         name: "field",

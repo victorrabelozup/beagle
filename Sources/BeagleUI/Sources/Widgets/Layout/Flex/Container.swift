@@ -4,7 +4,7 @@
 
 import UIKit
 
-public struct FlexWidget: Widget, HasAppearance {
+public struct Container: Widget, HasAppearance {
     
     // MARK: - Public Properties
     
@@ -26,13 +26,13 @@ public struct FlexWidget: Widget, HasAppearance {
     
    // MARK: - Configuration
     
-    public func applyFlex(_ flex: Flex) -> FlexWidget {
-        return FlexWidget(children: children, flex: flex, appearance: appearance)
+    public func applyFlex(_ flex: Flex) -> Container {
+        return Container(children: children, flex: flex, appearance: appearance)
     }
     
 }
 
-extension FlexWidget: Renderable {
+extension Container: Renderable {
     public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
         let containerView = UIView()
         

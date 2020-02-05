@@ -10,14 +10,14 @@ final class TabViewUIComponentTests: XCTestCase {
     // MARK: - Variables
     private lazy var widget = TabView(tabItems: [
         TabItem(icon: "beagle", title: "Tab 1", content:
-            FlexWidget(children: [
+            Container(children: [
                 Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj"),
                 Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj")
             ])
             .applyFlex(Flex(alignContent: .center))
         ),
         TabItem(icon: "beagle", title: "Tab 2", content:
-            FlexWidget(children: [
+            Container(children: [
                 Text("Text1 Tab 2"),
                 Text("Text2 Tab 2")
             ])

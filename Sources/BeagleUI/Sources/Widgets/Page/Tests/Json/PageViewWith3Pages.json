@@ -4,7 +4,7 @@
 
     "pages": [
         {
-            "_beagleType_": "beagle:widget:flexWidget",
+            "_beagleType_": "beagle:widget:container",
             "flex": {
                 "flexDirection": "COLUMN",
                 "flexWrap": "NO_WRAP",
@@ -26,7 +26,7 @@
             ]
         },
         {
-            "_beagleType_": "beagle:widget:flexWidget",
+            "_beagleType_": "beagle:widget:container",
             "flex": {
                 "flexDirection": "COLUMN",
                 "flexWrap": "NO_WRAP",
@@ -48,7 +48,7 @@
             ]
         },
         {
-            "_beagleType_": "beagle:widget:flexWidget",
+            "_beagleType_": "beagle:widget:container",
             "flex": {
                 "flexDirection": "COLUMN",
                 "flexWrap": "NO_WRAP",

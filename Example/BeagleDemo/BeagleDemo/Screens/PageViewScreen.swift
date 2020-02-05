@@ -27,8 +27,8 @@ struct PageViewScreen: DeeplinkScreen {
 }
 
 struct Page {
-    var content: FlexWidget {
-        return FlexWidget(children: [
+    var content: Container {
+        return Container(children: [
             Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj",alignment: .center),
             Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj",alignment: .right),
             Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj",alignment: .left),

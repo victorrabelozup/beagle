@@ -1,7 +1,7 @@
 ▿ TabView
   ▿ tabItems: 1 element
     ▿ TabItem
-      ▿ content: FlexWidget
+      ▿ content: Container
         - appearance: Optional<Appearance>.none
         ▿ children: 3 elements
           ▿ Text

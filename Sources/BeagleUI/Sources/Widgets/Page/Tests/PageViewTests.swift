@@ -25,7 +25,7 @@ class PageViewTests: XCTestCase {
         )
     }
 
-    private let page = FlexWidget(children: [
+    private let page = Container(children: [
         Text("First text"),
         Button(text: "Button"),
         Text("Second text")

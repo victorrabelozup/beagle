@@ -1,5 +1,5 @@
 {
-  "_beagleType_": "beagle:widget:FlexWidget",
+  "_beagleType_": "beagle:widget:container",
   "appearance": {
     "backgroundColor": "#500000FF",
     "cornerRadius": {

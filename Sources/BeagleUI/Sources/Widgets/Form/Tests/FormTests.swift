@@ -1,8 +1,4 @@
 //
-//  FormTests.swift
-//  BeagleFrameworkTests
-//
-//  Created by Eduardo Sanches Bocato on 14/11/19.
 //  Copyright © 2019 Zup IT. All rights reserved.
 //
 
@@ -22,7 +18,7 @@ final class FormTests: XCTestCase {
     
     func test_buildView_shouldRegisterFormSubmit() throws {
         // Given
-        let child = FlexWidget(children: [FormSubmit(child: Text("submit"))])
+        let child = Container(children: [FormSubmit(child: Text("submit"))])
         let form = Form(action: "/singup", method: .post, child: child)
         let context = BeagleContextSpy()
                 

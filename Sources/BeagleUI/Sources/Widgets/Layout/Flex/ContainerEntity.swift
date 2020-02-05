@@ -1,12 +1,8 @@
 //
-//  FlexWidgetEntity.swift
-//  BeagleUI
-//
-//  Created by Eduardo Sanches Bocato on 02/10/19.
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-struct FlexWidgetEntity: WidgetConvertibleEntity {
+struct ContainerEntity: WidgetConvertibleEntity {
     
     var children: [AnyDecodableContainer] = []
     var flex: FlexEntity?
@@ -29,7 +25,7 @@ struct FlexWidgetEntity: WidgetConvertibleEntity {
         let flex = try self.flex?.mapToUIModel() ?? Flex()
         let appearance = try self.appearance?.mapToUIModel()
         
-        return FlexWidget(
+        return Container(
             children: children,
             flex: flex,
             appearance: appearance

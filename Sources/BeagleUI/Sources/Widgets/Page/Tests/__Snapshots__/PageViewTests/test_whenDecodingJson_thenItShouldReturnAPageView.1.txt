@@ -1,7 +1,7 @@
 ▿ PageView
   - pageIndicator: Optional<PageIndicator>.none
   ▿ pages: 3 elements
-    ▿ FlexWidget
+    ▿ Container
       - appearance: Optional<Appearance>.none
       ▿ children: 3 elements
         ▿ Text
@@ -40,7 +40,7 @@
         - positionType: Optional<PositionType>.none
         - shrink: Optional<Double>.none
         - size: Optional<Size>.none
-    ▿ FlexWidget
+    ▿ Container
       - appearance: Optional<Appearance>.none
       ▿ children: 3 elements
         ▿ Text
@@ -79,7 +79,7 @@
         - positionType: Optional<PositionType>.none
         - shrink: Optional<Double>.none
         - size: Optional<Size>.none
-    ▿ FlexWidget
+    ▿ Container
       - appearance: Optional<Appearance>.none
       ▿ children: 3 elements
         ▿ Text

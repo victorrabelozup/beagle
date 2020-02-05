@@ -6,11 +6,11 @@ import XCTest
 import SnapshotTesting
 @testable import BeagleUI
 
-final class FlexWidgetTests: XCTestCase {
+final class ContainerTests: XCTestCase {
     
-    func test_initWithChildren_shouldReturnFlexWidgetAndSetDependenciesProperly() {
+    func test_initWithChildren_shouldReturnContainerAndSetDependenciesProperly() {
         // Given
-        let sut = FlexWidget(children: [
+        let sut = Container(children: [
             Text("Some texts."),
             Text("More texts.")
         ], flex: Flex())
@@ -26,15 +26,15 @@ final class FlexWidgetTests: XCTestCase {
         
     }
     
-    func test_applyFlex_shouldReturnFlexWidget() {
+    func test_applyFlex_shouldReturnContainer() {
         // Given
-        let widget = FlexWidget(children: [
+        let widget = Container(children: [
             Text("Some texts")
         ])
         // When
-        let flexWidget = widget.applyFlex(Flex(justifyContent: .center))
+        let container = widget.applyFlex(Flex(justifyContent: .center))
         // Then
-        XCTAssertNotNil(flexWidget.flex)
+        XCTAssertNotNil(container.flex)
     }
     
     func test_toView_shouldReturnTheExpectedView() throws {
@@ -43,27 +43,27 @@ final class FlexWidgetTests: XCTestCase {
         let dependencies = RendererDependenciesContainer(flex: flexSpy)
 
         let numberOfChilds = 3
-        let flexWidgetChilds = Array(repeating: WidgetDummy(), count: numberOfChilds)
-        let flexWidget = FlexWidget(children: flexWidgetChilds)
+        let containerChilds = Array(repeating: WidgetDummy(), count: numberOfChilds)
+        let container = Container(children: containerChilds)
         
         // When
-        let resultingView = flexWidget.toView(context: BeagleContextDummy(), dependencies: dependencies)
+        let resultingView = container.toView(context: BeagleContextDummy(), dependencies: dependencies)
         
         //Then
         XCTAssertTrue(flexSpy.setupFlexCalled)
         XCTAssertEqual(resultingView, flexSpy.viewPassedToSetupFlex)
-        XCTAssertEqual(flexWidget.flex.size?.height, flexSpy.flexPassed?.size?.height)
-        XCTAssertEqual(flexWidget.flex.size?.width, flexSpy.flexPassed?.size?.width)
+        XCTAssertEqual(container.flex.size?.height, flexSpy.flexPassed?.size?.height)
+        XCTAssertEqual(container.flex.size?.width, flexSpy.flexPassed?.size?.width)
         XCTAssertEqual(resultingView.subviews.count, numberOfChilds)
     }
     
-    func test_whenDecodingJson_shouldReturnAFlexWidget() throws {
-        let widget: FlexWidget = try widgetFromJsonFile(fileName: "FlexWidget")
+    func test_whenDecodingJson_shouldReturnAContainer() throws {
+        let widget: Container = try widgetFromJsonFile(fileName: "Container")
         assertSnapshot(matching: widget, as: .dump)
     }
     
-    func test_renderFlexWidget() throws {
-        let widget: FlexWidget = try widgetFromJsonFile(fileName: "FlexWidget")
+    func test_renderContainer() throws {
+        let widget: Container = try widgetFromJsonFile(fileName: "Container")
         let screen = BeagleScreenViewController(
             viewModel: .init(screenType: .declarative(widget.toScreen()))
         )

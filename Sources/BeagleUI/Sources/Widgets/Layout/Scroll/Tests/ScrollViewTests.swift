@@ -69,7 +69,7 @@ final class ScrollViewTests: XCTestCase {
         assertSnapshot(matching: widget, as: .dump)
     }
     
-    func test_renderFlexWidget() throws {
+    func test_renderScrollView() throws {
         let widget: ScrollView = try widgetFromJsonFile(fileName: "ScrollViewWidget")
         let screen = BeagleScreenViewController(
             viewModel: .init(screenType: .declarative(widget.toScreen()))

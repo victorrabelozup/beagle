@@ -7,7 +7,7 @@
             "title": "tab 1",
             "content":
                 {
-                    "_beagleType_": "beagle:widget:flexWidget",
+                    "_beagleType_": "beagle:widget:container",
                     "flex": {
                         "flexDirection": "COLUMN",
                         "flexWrap": "NO_WRAP",

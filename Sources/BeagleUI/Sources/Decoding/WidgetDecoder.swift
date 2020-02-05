@@ -122,7 +122,7 @@ final class WidgetDecoder: WidgetDecoding {
     }
     
     private func registerCoreTypes() {
-        registerEntity(FlexWidgetEntity.self, for: decodingKey(for: "FlexWidget", ofType: .widget))
+        registerEntity(ContainerEntity.self, for: decodingKey(for: "Container", ofType: .widget))
         registerEntity(FlexSingleWidgetEntity.self, for: decodingKey(for: "FlexSingleWidget", ofType: .widget))
         registerEntity(TouchableEntity.self, for: decodingKey(for: "Touchable", ofType: .widget))
     }
