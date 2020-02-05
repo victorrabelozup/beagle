@@ -1,5 +1,6 @@
 package br.com.zup.beagle.data
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import br.com.zup.beagle.action.Action
 import br.com.zup.beagle.data.cache.BeagleWidgetCacheHelper
 import br.com.zup.beagle.data.deserializer.BeagleDeserializer
@@ -11,6 +12,7 @@ import br.com.zup.beagle.networking.HttpClient
 import br.com.zup.beagle.networking.RequestCall
 import br.com.zup.beagle.networking.ResponseData
 import br.com.zup.beagle.setup.BeagleEnvironment
+import br.com.zup.beagle.testutil.CoroutineTestRule
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.widget.core.Widget
 import io.mockk.MockKAnnotations
@@ -23,10 +25,17 @@ import io.mockk.mockkObject
 import io.mockk.slot
 import io.mockk.unmockkObject
 import io.mockk.verify
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.TestCoroutineScope
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
@@ -55,6 +64,9 @@ class BeagleServiceTest {
     private lateinit var requestCall: RequestCall
     @MockK
     private lateinit var responseData: ResponseData
+
+    @get:Rule
+    val scope = CoroutineTestRule()
 
     @InjectMockKs
     private lateinit var beagleService: BeagleService

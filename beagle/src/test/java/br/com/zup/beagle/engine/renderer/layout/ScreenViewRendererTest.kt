@@ -1,13 +1,18 @@
 package br.com.zup.beagle.engine.renderer.layout
 
+import android.content.res.Resources
 import android.content.res.TypedArray
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.res.ResourcesCompat
 import br.com.zup.beagle.R
+import br.com.zup.beagle.action.Action
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
@@ -22,16 +27,19 @@ import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.JustifyContent
 import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.layout.NavigationBar
+import br.com.zup.beagle.widget.layout.NavigationBarItem
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.mockkStatic
 import io.mockk.slot
-import io.mockk.unmockkObject
+import io.mockk.spyk
+import io.mockk.unmockkAll
 import io.mockk.verify
 import org.junit.After
 import org.junit.Before
@@ -64,8 +72,29 @@ class ScreenViewRendererTest {
     private lateinit var view: View
     @MockK(relaxed = true)
     private lateinit var actionBar: ActionBar
+    @RelaxedMockK
+    private lateinit var toolbar: Toolbar
+    @MockK
+    private lateinit var action: Action
+    @RelaxedMockK
+    private lateinit var menu: Menu
+    @MockK
+    private lateinit var designSystemMock: DesignSystem
+    @MockK
+    private lateinit var typedArray: TypedArray
+    @MockK
+    private lateinit var navigationIcon: Drawable
+    @MockK
+    private lateinit var icon: Drawable
+    @MockK
+    private lateinit var resources: Resources
 
     private lateinit var screenViewRenderer: ScreenViewRenderer
+
+    private val style = RandomData.string()
+    private val styleInt = RandomData.int()
+    private val titleTextAppearance = RandomData.int()
+    private val backgroundColorInt = RandomData.int()
 
     @Before
     fun setUp() {
@@ -73,6 +102,7 @@ class ScreenViewRendererTest {
 
         mockkStatic(Color::class)
         mockkObject(BeagleEnvironment)
+        mockkStatic(ResourcesCompat::class)
 
         every { viewFactory.makeBeagleFlexView(any()) } returns beagleFlexView
         every { viewFactory.makeBeagleFlexView(any(), any()) } returns beagleFlexView
@@ -86,6 +116,20 @@ class ScreenViewRendererTest {
         every { viewRenderer.build(any()) } returns view
         every { Color.parseColor(any()) } returns DEFAULT_COLOR
         every { rootView.getContext() } returns context
+        every {
+            context.obtainStyledAttributes(styleInt, R.styleable.BeagleToolbarStyle)
+        } returns typedArray
+        every {
+            typedArray.getDrawable(R.styleable.BeagleToolbarStyle_navigationIcon)
+        } returns navigationIcon
+        every {
+            typedArray.getResourceId(R.styleable.BeagleToolbarStyle_titleTextAppearance, 0)
+        } returns titleTextAppearance
+        every {
+            typedArray.getColor(R.styleable.BeagleToolbarStyle_android_background, 0)
+        } returns backgroundColorInt
+        every { typedArray.recycle() } just Runs
+        every { context.resources } returns resources
 
         screenViewRenderer = ScreenViewRenderer(
             screenWidget,
@@ -96,7 +140,7 @@ class ScreenViewRendererTest {
 
     @After
     fun tearDown() {
-        unmockkObject(BeagleEnvironment)
+        unmockkAll()
     }
 
     @Test
@@ -132,7 +176,6 @@ class ScreenViewRendererTest {
 
     @Test
     fun build_should_call_content_builder() {
-
         // Given
         val content = mockk<Widget>()
         val flex = slot<Flex>()
@@ -188,7 +231,6 @@ class ScreenViewRendererTest {
     @Test
     fun build_should_configure_toolbar_when_supportActionBar_is_not_null_and_toolbar_is_not_null() {
         // Given
-        val toolbar = mockk<Toolbar>(relaxed = true)
         every { screenWidget.navigationBar } returns navigationBar
         every { context.supportActionBar } returns actionBar
         every { context.findViewById<Toolbar>(any()) } returns toolbar
@@ -203,33 +245,12 @@ class ScreenViewRendererTest {
     @Test
     fun build_should_configure_toolbar_style_when_supportActionBar_is_not_null_and_toolbar_is_not_null() {
         // Given
-        val toolbar = mockk<Toolbar>(relaxed = true)
-        val designSystemMock = mockk<DesignSystem>()
-        val typedArray = mockk<TypedArray>()
-        val style = RandomData.string()
-        val styleInt = RandomData.int()
-        val navigationIcon = mockk<Drawable>()
-        val titleTextAppearance = RandomData.int()
-        val backgroundColorInt = RandomData.int()
         every { BeagleEnvironment.designSystem } returns designSystemMock
         every { designSystemMock.toolbarStyle(style) } returns styleInt
         every { navigationBar.style } returns style
         every { screenWidget.navigationBar } returns navigationBar
         every { context.supportActionBar } returns actionBar
         every { context.findViewById<Toolbar>(any()) } returns toolbar
-        every {
-            context.obtainStyledAttributes(styleInt, R.styleable.BeagleToolbarStyle)
-        } returns typedArray
-        every {
-            typedArray.getDrawable(R.styleable.BeagleToolbarStyle_navigationIcon)
-        } returns navigationIcon
-        every {
-            typedArray.getResourceId(R.styleable.BeagleToolbarStyle_titleTextAppearance, 0)
-        } returns titleTextAppearance
-        every {
-            typedArray.getColor(R.styleable.BeagleToolbarStyle_android_background, 0)
-        } returns backgroundColorInt
-        every { typedArray.recycle() } just Runs
 
         // When
         screenViewRenderer.build(rootView)
@@ -239,5 +260,71 @@ class ScreenViewRendererTest {
         verify(atLeast = once()) { toolbar.setTitleTextAppearance(context, titleTextAppearance) }
         verify(atLeast = once()) { toolbar.setBackgroundColor(backgroundColorInt) }
         verify(atLeast = once()) { typedArray.recycle() }
+    }
+
+    @Test
+    fun build_should_configToolbarItems_when_navigationBarItems_is_not_null_and_image_is_null() {
+        // GIVEN
+        every { screenWidget.navigationBar } returns navigationBar
+        every { context.supportActionBar } returns null
+        every { context.findViewById<Toolbar>(any()) } returns toolbar
+        every { toolbar.menu } returns menu
+        val navigationBarItems = listOf(
+            NavigationBarItem(text = "Stub", action = action)
+        )
+        every { navigationBar.navigationBarItems } returns navigationBarItems
+        val menuItem = spyk<MenuItem>()
+        every { menu.add(any(), any(), any(), any<String>()) } returns menuItem
+
+        // WHEN
+        screenViewRenderer.build(rootView)
+
+        // THEN
+        assertEquals(View.VISIBLE, toolbar.visibility)
+        verify(exactly = navigationBarItems.size) { menu.add(Menu.NONE, 0, Menu.NONE, "Stub") }
+        verify(exactly = navigationBarItems.size) { menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER) }
+    }
+
+    @Test
+    fun build_should_configToolbarItems_when_navigationBarItems_is_not_null_and_image_is_not_null() {
+        // GIVEN
+        every { BeagleEnvironment.designSystem } returns designSystemMock
+        every { designSystemMock.toolbarStyle(any()) } returns styleInt
+        every { designSystemMock.image(any()) } returns RandomData.int()
+        every { screenWidget.navigationBar } returns navigationBar
+        every { context.supportActionBar } returns null
+        every { context.findViewById<Toolbar>(any()) } returns toolbar
+        every { toolbar.menu } returns menu
+        val navigationBarItems = listOf(
+            NavigationBarItem(text = "Stub", image = "image", action = action)
+        )
+        every { navigationBar.navigationBarItems } returns navigationBarItems
+        val menuItem = spyk<MenuItem>()
+        every { menu.add(any(), any(), any(), any<String>()) } returns menuItem
+        every { ResourcesCompat.getDrawable(any(), any(), any()) } returns icon
+
+        // WHEN
+        screenViewRenderer.build(rootView)
+
+        // THEN
+        verify(exactly = once()) { menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS) }
+        verify(exactly = once()) { menuItem.icon = icon }
+    }
+
+    @Test
+    fun build_should_hideNavigationBar_when_navigationBar_is_null() {
+        // GIVEN
+        every { context.supportActionBar } returns actionBar
+        every { context.findViewById<Toolbar>(any()) } returns toolbar
+        val expected = View.GONE
+        every { toolbar.visibility = any() } just Runs
+        every { toolbar.visibility } returns expected
+
+        // WHEN
+        screenViewRenderer.build(rootView)
+
+        // THEN
+        assertEquals(expected, toolbar.visibility)
+        verify(atLeast = once()) { actionBar.hide() }
     }
 }

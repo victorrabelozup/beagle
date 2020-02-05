@@ -9,7 +9,10 @@ class AppDesignSystem : DesignSystem {
     }
 
     override fun image(name: String): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return when (name) {
+            "delete" -> android.R.drawable.ic_delete
+            else -> android.R.drawable.ic_menu_help
+        }
     }
 
     override fun theme(): Int {

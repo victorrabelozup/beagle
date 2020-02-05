@@ -28,7 +28,9 @@ class NavigationBarActivity : AppCompatActivity() {
     private fun buildContent(): View {
         val declarative = Screen(
             navigationBar = NavigationBar(
-                title = "Sample Title"
+                title = "Sample Title",
+                showBackButton = true,
+                style = "toolbar"
             ),
             content = FlexWidget(
                 flex = Flex(justifyContent = JustifyContent.CENTER),

@@ -9,7 +9,8 @@ import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import br.com.zup.beagle.utils.dp
 import br.com.zup.beagle.sample.R
-import kotlinx.android.synthetic.main.custom_page_indicator.view.*
+import kotlinx.android.synthetic.main.custom_page_indicator.view.btContinue
+import kotlinx.android.synthetic.main.custom_page_indicator.view.btBack
 
 typealias OnIndexChanged = (index: Int) -> Unit
 
@@ -98,4 +99,3 @@ class CustomPageIndicatorView(context: Context) : RelativeLayout(context) {
         btBack.visibility = visibility
     }
 }
-

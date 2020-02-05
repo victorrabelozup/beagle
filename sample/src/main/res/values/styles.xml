@@ -1,15 +1,11 @@
 <resources>
-
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="AppTheme.NoToolbar" parent="Theme.AppCompat.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -18,13 +14,14 @@
 
     <style name="DesignSystem.Toolbar" parent="Widget.AppCompat.Toolbar">
         <item name="titleTextAppearance">@style/DesignSystem.Toolbar.TextAppearance</item>
-        <item name="android:background">#DB6C6C</item>
-        <item name="navigationIcon">@mipmap/ic_launcher</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="navigationIcon">?attr/homeAsUpIndicator</item>
     </style>
 
     <style name="DesignSystem.Toolbar.TextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textSize">26sp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="DesignSystem.Button.Default" parent="Widget.AppCompat.Button">

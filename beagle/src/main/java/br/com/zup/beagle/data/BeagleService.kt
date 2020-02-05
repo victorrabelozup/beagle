@@ -9,9 +9,11 @@ import br.com.zup.beagle.networking.HttpClient
 import br.com.zup.beagle.networking.HttpClientFactory
 import br.com.zup.beagle.networking.RequestData
 import br.com.zup.beagle.setup.BeagleEnvironment
+import br.com.zup.beagle.utils.CoroutineDispatchers
 import br.com.zup.beagle.utils.isValidUrl
 import br.com.zup.beagle.widget.core.Widget
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
@@ -21,12 +23,16 @@ internal class BeagleService(
 ) {
     @Throws(BeagleException::class)
     suspend fun fetchWidget(url: String): Widget {
-        return BeagleWidgetCacheHelper.getWidgetFromCache(url) ?: run {
-            val jsonResponse = fetchData(url)
-            val widget = deserializeWidget(jsonResponse)
-            BeagleWidgetCacheHelper.cacheWidget(url, widget)
+        return run {
+            withContext(CoroutineDispatchers.Default) {
+                BeagleWidgetCacheHelper.getWidgetFromCache(url)
+            }
+        } ?: run {
+                val jsonResponse = fetchData(url)
+                val widget = deserializeWidget(jsonResponse)
+                BeagleWidgetCacheHelper.cacheWidget(url, widget)
+            }
         }
-    }
 
     @Throws(BeagleException::class)
     suspend fun fetchAction(url: String): Action {

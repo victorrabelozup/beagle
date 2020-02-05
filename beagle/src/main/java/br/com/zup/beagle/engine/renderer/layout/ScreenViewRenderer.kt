@@ -1,25 +1,32 @@
 package br.com.zup.beagle.engine.renderer.layout
 
 import android.content.Context
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.res.ResourcesCompat
 import br.com.zup.beagle.R
+import br.com.zup.beagle.action.ActionExecutor
 import br.com.zup.beagle.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.setup.BeagleEnvironment
+import br.com.zup.beagle.setup.DesignSystem
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.layout.ScreenWidget
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.JustifyContent
 import br.com.zup.beagle.widget.layout.NavigationBar
+import br.com.zup.beagle.widget.layout.NavigationBarItem
 
 internal class ScreenViewRenderer(
     override val widget: ScreenWidget,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
-    viewFactory: ViewFactory = ViewFactory()
+    viewFactory: ViewFactory = ViewFactory(),
+    private val actionExecutor: ActionExecutor = ActionExecutor()
 ) : LayoutViewRenderer<ScreenWidget>(viewRendererFactory, viewFactory) {
 
     override fun buildView(rootView: RootView): View {
@@ -78,9 +85,12 @@ internal class ScreenViewRenderer(
             setDisplayShowHomeEnabled(showBackButton)
             show()
         }
-        context.findViewById<Toolbar>(R.id.beagle_toolbar)?.let {
-            it.visibility = View.VISIBLE
-            configToolbarStyle(context, it, navigationBar.style ?: "")
+        context.findViewById<Toolbar>(R.id.beagle_toolbar)?.let { toolbar ->
+            toolbar.visibility = View.VISIBLE
+            configToolbarStyle(context, toolbar, navigationBar.style ?: "")
+            navigationBar.navigationBarItems?.let { items ->
+                configToolbarItems(context, toolbar, items)
+            }
         }
     }
 
@@ -112,6 +122,45 @@ internal class ScreenViewRenderer(
                 toolbar.setBackgroundColor(backgroundColor)
             }
             typedArray.recycle()
+        }
+    }
+
+    private fun configToolbarItems(
+        context: Context,
+        toolbar: Toolbar,
+        items: List<NavigationBarItem>
+    ) {
+        val designSystem = BeagleEnvironment.designSystem
+        for (i in items.indices) {
+            toolbar.menu.add(Menu.NONE, i, Menu.NONE, items[i].text).apply {
+                setOnMenuItemClickListener {
+                    actionExecutor.doAction(context, items[i].action)
+                    return@setOnMenuItemClickListener true
+                }
+                if (items[i].image == null) {
+                    setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                } else {
+                    configMenuItem(designSystem, items, i, context)
+                }
+            }
+        }
+    }
+
+    private fun MenuItem.configMenuItem(
+        design: DesignSystem?,
+        items: List<NavigationBarItem>,
+        i: Int,
+        context: Context
+    ) {
+        design?.let { designSystem ->
+            items[i].image?.let { image ->
+                setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+                icon = ResourcesCompat.getDrawable(
+                    context.resources,
+                    designSystem.image(image),
+                    null
+                )
+            }
         }
     }
 }
