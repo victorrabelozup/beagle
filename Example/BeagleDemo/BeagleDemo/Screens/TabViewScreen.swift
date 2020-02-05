@@ -13,11 +13,11 @@ struct TabViewScreen: DeeplinkScreen {
 
     func screenController() -> UIViewController {
         return BeagleScreenViewController(
-            viewModel: .init(screenType: .declarative(widget.toScreen()))
+            viewModel: .init(screenType: .declarative(widget))
         )
     }
     
-    var widget: Widget {
+    var widget: ScreenWidget {
         let tab1 = TabItem(icon: "beagle", content:
             FlexWidget(children: [
                 Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj"),
@@ -46,7 +46,6 @@ struct TabViewScreen: DeeplinkScreen {
                 Text("Text2 Tab 4")
             ]).applyFlex(Flex(alignItems: .center))
         )
-
-        return TabView(tabItems: [tab1, tab2, tab3, tab4])
+        return ScreenWidget(navigationBar: NavigationBar(title: "TabView"), content: TabView(tabItems: [tab1, tab2, tab3, tab4]))
     }
 }

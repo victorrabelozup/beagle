@@ -1,6 +1,6 @@
-▿ Navigator
-  ▿ action: Navigate
-    - addView: ""
+▿ Touchable
+  ▿ action: AnyAction
+    - value: UnknownActionEntity
   ▿ child: Text
     - alignment: Optional<Alignment>.none
     - appearance: Optional<Appearance>.none

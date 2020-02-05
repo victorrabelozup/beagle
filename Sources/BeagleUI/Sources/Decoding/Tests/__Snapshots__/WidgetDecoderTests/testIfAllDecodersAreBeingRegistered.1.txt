@@ -42,9 +42,6 @@
     - key: "beagle:widget:listview"
     - value: ListViewEntity
   ▿ (2 elements)
-    - key: "beagle:widget:navigator"
-    - value: NavigatorEntity
-  ▿ (2 elements)
     - key: "beagle:widget:networkimage"
     - value: NetworkImageEntity
   ▿ (2 elements)
@@ -65,3 +62,6 @@
   ▿ (2 elements)
     - key: "beagle:widget:text"
     - value: TextEntity
+  ▿ (2 elements)
+    - key: "beagle:widget:touchable"
+    - value: TouchableEntity

@@ -6,25 +6,39 @@ import XCTest
 @testable import BeagleUI
 import SnapshotTesting
 
-final class NavigatorTests: XCTestCase {
+final class TouchableTests: XCTestCase {
 
-    func testNavigatorWidget() throws {
+    func testTouchableWidget() throws {
         // Given
-        let action = NavigateEntity(type: .addView, path: "", data: nil)
         let content = TextEntity(text: "text")
         let child = AnyDecodableContainer(content: content)
-        let sut = NavigatorEntity(action: action, child: child)
+        let action = AnyDecodableContainer(content: NavigateEntity(type: .addView, path: "", data: nil))
+        let sut = TouchableEntity(action: action, child: child)
 
         // When
-        let navigator = try sut.mapToWidget()
+        let touchable = try sut.mapToWidget()
 
         // Then
-        assertSnapshot(matching: navigator, as: .dump)
+        assertSnapshot(matching: touchable, as: .dump)
+    }
+    
+    func testTouchableWidgetWithUnknownAction() throws {
+        // Given
+        let content = TextEntity(text: "text")
+        let child = AnyDecodableContainer(content: content)
+        let action = AnyDecodableContainer(content: UnknownActionEntity())
+        let sut = TouchableEntity(action: action, child: child)
+
+        // When
+        let touchable = try sut.mapToWidget()
+
+        // Then
+        assertSnapshot(matching: touchable, as: .dump)
     }
 
-    func testNavigatorView() throws {
-        let navigator = Navigator(action: .popView, child: Text("Navigator"))
-        let view = navigator.toView(context: BeagleContextDummy(), dependencies: BeagleDependencies())
+    func testTouchableView() throws {
+        let touchable = Touchable(action: Navigate.popView, child: Text("Touchable"))
+        let view = touchable.toView(context: BeagleContextDummy(), dependencies: BeagleDependencies())
 
         assertSnapshotImage(view, size: CGSize(width: 100, height: 80))
     }
@@ -67,3 +81,5 @@ final class NavigatorTests: XCTestCase {
         """
     }
 }
+
+struct UnknownActionEntity: Decodable {}

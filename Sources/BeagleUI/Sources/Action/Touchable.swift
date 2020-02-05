@@ -4,17 +4,17 @@
 
 import UIKit
 
-public struct Navigator: Widget {
+public struct Touchable: Widget {
     
     // MARK: - Public Properties
     
-    public let action: Navigate
+    public let action: Action
     public let child: Widget
     
     // MARK: - Initialization
     
     public init(
-        action: Navigate,
+        action: Action,
         child: Widget
     ) {
         self.action = action
@@ -22,7 +22,7 @@ public struct Navigator: Widget {
     }
 }
 
-extension Navigator: Renderable {
+extension Touchable: Renderable {
     public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
         let childView = child.toView(context: context, dependencies: dependencies)
         context.register(action: action, inView: childView)
@@ -31,7 +31,7 @@ extension Navigator: Renderable {
     }
     
     private func prefetchWidget(context: BeagleContext) {
-        guard let prefetch = action.isPrefetchable() else { return }
+        guard let prefetch = (action as? Navigate)?.isPrefetchable() else { return }
         
         Beagle.dependencies.preFetchHelper.prefetchWidget(path: prefetch.path)
     }
