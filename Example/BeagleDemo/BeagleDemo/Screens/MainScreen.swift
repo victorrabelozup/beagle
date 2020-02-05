@@ -19,7 +19,7 @@ struct MainScreen: DeeplinkScreen {
                 ),
                 Navigator(
                     action: .openDeepLink(.init(path: "lazywidget")),
-                    child: Button(text: "Lazy Widget")
+                    child: Button(text: "Form & Lazy Widget")
                 ),
                 Navigator(
                     action: .openDeepLink(.init(path: "pageview")),
