@@ -1,7 +1,6 @@
-package br.com.zup.beagle.widget
+package br.com.zup.beagle.widget.layout
 
 import br.com.zup.beagle.widget.core.Widget
-import br.com.zup.beagle.widget.layout.NavigationBar
 
 internal data class ScreenWidget(
     val navigationBar: NavigationBar? = null,

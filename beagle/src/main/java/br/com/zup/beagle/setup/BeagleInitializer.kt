@@ -5,8 +5,7 @@ import br.com.zup.beagle.action.CustomActionHandler
 import br.com.zup.beagle.form.ValidatorHandler
 import br.com.zup.beagle.navigation.BeagleDeepLinkHandler
 import br.com.zup.beagle.networking.HttpClient
-import br.com.zup.beagle.view.WidgetViewFactory
-import br.com.zup.beagle.widget.core.Widget
+import br.com.zup.beagle.widget.core.WidgetView
 
 enum class Environment {
     DEBUG,
@@ -29,11 +28,8 @@ class BeagleInitializer private constructor() {
         }
 
         @JvmStatic
-        fun <T: Widget> registerWidget(
-            clazz: Class<T>,
-            factory: WidgetViewFactory<T>
-        ): Companion {
-            BeagleEnvironment.registerWidget(clazz, factory)
+        fun <T: WidgetView> registerWidget(clazz: Class<T>): Companion {
+            BeagleEnvironment.registerWidget(clazz)
             return this
         }
 
@@ -44,8 +40,9 @@ class BeagleInitializer private constructor() {
         }
 
         @JvmStatic
-        fun registerDesignSystem(designSystem: DesignSystem) {
+        fun registerDesignSystem(designSystem: DesignSystem): Companion {
             BeagleEnvironment.designSystem = designSystem
+            return this
         }
 
         @JvmStatic

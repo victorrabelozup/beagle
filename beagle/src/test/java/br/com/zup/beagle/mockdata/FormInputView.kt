@@ -2,26 +2,18 @@ package br.com.zup.beagle.mockdata
 
 import android.content.Context
 import android.view.View
-import br.com.zup.beagle.form.InputValue
-import br.com.zup.beagle.form.ValidationErrorListener
-import br.com.zup.beagle.view.WidgetViewFactory
 import br.com.zup.beagle.widget.form.InputWidget
 
-class FormInputView(context: Context) : View(context), InputValue, ValidationErrorListener {
-    override fun onValidationError(message: String?) {}
-
-    override fun getValue(): String = ""
-}
-
-class FormInputViewWithoutValidation(context: Context) : View(context), InputValue {
-    override fun getValue(): String = ""
-}
-
-class FormInputViewFactory : WidgetViewFactory<CustomInputWidget> {
-    override fun make(context: Context, widget: CustomInputWidget): View {
-        return FormInputView(context)
+class CustomInputWidget : InputWidget {
+    override fun onErrorMessage(message: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-}
+    override fun getValue(): Any {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
-class CustomInputWidget : InputWidget
+    override fun toView(context: Context): View {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+}

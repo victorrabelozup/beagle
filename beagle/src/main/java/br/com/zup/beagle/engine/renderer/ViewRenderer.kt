@@ -1,10 +1,8 @@
 package br.com.zup.beagle.engine.renderer
 
 import android.view.View
-import br.com.zup.beagle.engine.renderer.ui.UndefinedViewRenderer
 import br.com.zup.beagle.utils.applyAppearance
 import br.com.zup.beagle.view.ViewFactory
-import br.com.zup.beagle.widget.UndefinedWidget
 import br.com.zup.beagle.widget.core.Widget
 
 internal abstract class ViewRenderer<T : Widget> {
@@ -49,6 +47,4 @@ internal class ViewRendererFactory(
             ui.make(widget)
         }
     }
-
-    fun makeUndefinedViewRenderer(): ViewRenderer<*> = UndefinedViewRenderer(UndefinedWidget())
 }

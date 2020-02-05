@@ -6,33 +6,14 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.view.View
 import br.com.zup.beagle.utils.dp
-import br.com.zup.beagle.widget.ui.PageIndicator
 
-interface PageIndicatorInput {
-
-    fun setCount(pages: Int)
-    fun onItemUpdated(newIndex: Int)
-    fun initPageView(pageIndicatorOutput: PageIndicatorOutput)
-}
-
-class BeaglePageIndicatorView(context: Context) : View(context), PageIndicatorInput {
+class BeaglePageIndicatorView(context: Context) : View(context) {
 
     private var selectedItem = 0
     private var pagesCount = 0
     private var selectedColor: Int = Color.WHITE
     private var unselectedColor: Int = Color.GRAY
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-
-    fun setWidget(widget: PageIndicator) {
-        selectedColor = Color.parseColor(widget.selectedColor)
-        unselectedColor = Color.parseColor(widget.unselectedColor)
-        invalidate()
-    }
-
-    override fun setCount(pages: Int) {
-        pagesCount = pages
-        invalidate()
-    }
 
     override fun onDraw(canvas: Canvas?) {
         for (i in 0 until pagesCount) {
@@ -55,10 +36,23 @@ class BeaglePageIndicatorView(context: Context) : View(context), PageIndicatorIn
         setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), 25.dp())
     }
 
-    override fun onItemUpdated(newIndex: Int) {
-        selectedItem = newIndex
+    fun setSelectedColor(color: Int) {
+        selectedColor = color
         invalidate()
     }
 
-    override fun initPageView(pageIndicatorOutput: PageIndicatorOutput) {}
+    fun setUnselectedColor(color: Int) {
+        unselectedColor = color
+        invalidate()
+    }
+
+    fun setCount(pages: Int) {
+        pagesCount = pages
+        invalidate()
+    }
+
+    fun setCurrentIndex(newIndex: Int) {
+        selectedItem = newIndex
+        invalidate()
+    }
 }

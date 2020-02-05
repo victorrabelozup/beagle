@@ -11,7 +11,7 @@ private const val BEAGLE_WIDGET_TYPE = "_beagleType_"
 private const val BEAGLE_NAMESPACE = "beagle"
 private const val ACTION_NAMESPACE = "action"
 
-class ActionJsonAdapterFactory {
+internal object ActionJsonAdapterFactory {
 
     fun make(): PolymorphicJsonAdapterFactory<Action> {
         return PolymorphicJsonAdapterFactory.of(Action::class.java, BEAGLE_WIDGET_TYPE)

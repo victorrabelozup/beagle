@@ -1,16 +1,19 @@
 package br.com.zup.beagle.utils
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import br.com.zup.beagle.engine.renderer.ActivityRootView
 import br.com.zup.beagle.engine.renderer.FragmentRootView
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
-import br.com.zup.beagle.widget.ScreenWidget
+import br.com.zup.beagle.widget.layout.ScreenWidget
 import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.layout.Screen
 
 internal var viewRenderer = ViewRendererFactory()
+
+fun Widget.toView(context: Context) = this.toView(context as AppCompatActivity)
 
 fun Widget.toView(activity: AppCompatActivity) = this.toView(ActivityRootView(activity))
 

@@ -2,62 +2,55 @@ package br.com.zup.beagle.sample.components
 
 import android.content.Context
 import android.graphics.Color
-import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
-import br.com.zup.beagle.view.PageIndicatorInput
 import br.com.zup.beagle.utils.dp
-import br.com.zup.beagle.view.PageIndicatorOutput
-import br.com.zup.beagle.view.WidgetViewFactory
 import br.com.zup.beagle.sample.R
-import br.com.zup.beagle.sample.widgets.CustomPageIndicator
+import kotlinx.android.synthetic.main.custom_page_indicator.view.*
 
-class CustomPageIndicatorView(context: Context) : RelativeLayout(context), PageIndicatorInput {
+typealias OnIndexChanged = (index: Int) -> Unit
+
+class CustomPageIndicatorView(context: Context) : RelativeLayout(context) {
 
     private val selectedColor: Int = Color.WHITE
     private val unselectedColor: Int = Color.GRAY
     private var selectedItem = 0
     private var pagesCount = 0
     private val llPageIndicator: LinearLayout
-    lateinit var output: PageIndicatorOutput
+    private var onIndexChanged: OnIndexChanged? = null
 
     init {
         inflate(context, R.layout.custom_page_indicator, this)
         llPageIndicator = findViewById(R.id.llPageIndicator)
+        bind()
     }
 
-    fun bind(widget: CustomPageIndicator) {
+    private fun bind() {
         val btBack = findViewById<Button>(R.id.btBack)
         val btContinue = findViewById<Button>(R.id.btContinue)
         var newIndex: Int
-        if (!widget.showContinue) {
-            btContinue.visibility = INVISIBLE
-        } else {
-            btContinue.setOnClickListener {
-                newIndex = selectedItem + 1
-                if (newIndex < pagesCount) {
-                    onItemUpdated(newIndex)
-                    output.swapToPage(newIndex)
-                }
+
+        btContinue.setOnClickListener {
+            newIndex = selectedItem + 1
+            if (newIndex < pagesCount) {
+                setCurrentIndex(newIndex)
+                onIndexChanged?.invoke(newIndex)
             }
         }
-        if (!widget.showSkip) {
-            btBack.visibility = INVISIBLE
-        } else {
-            btBack.setOnClickListener {
-                newIndex = selectedItem - 1
-                if (newIndex >= 0) {
-                    onItemUpdated(newIndex)
-                    output.swapToPage(newIndex)
-                }
+
+        btBack.setOnClickListener {
+            newIndex = selectedItem - 1
+            if (newIndex >= 0) {
+                setCurrentIndex(newIndex)
+                onIndexChanged?.invoke(newIndex)
             }
         }
     }
 
-    override fun setCount(pages: Int) {
+    fun setCount(pages: Int) {
         for (i in 0 until pages) {
             val dot = ImageView(context)
             dot.id = i
@@ -87,21 +80,22 @@ class CustomPageIndicatorView(context: Context) : RelativeLayout(context), PageI
         pagesCount = pages
     }
 
-    override fun onItemUpdated(newIndex: Int) {
+    fun setCurrentIndex(newIndex: Int) {
         (llPageIndicator.getChildAt(selectedItem) as ImageView).setColorFilter(unselectedColor)
         (llPageIndicator.getChildAt(newIndex) as ImageView).setColorFilter(selectedColor)
         selectedItem = newIndex
     }
 
-    override fun initPageView(pageIndicatorOutput: PageIndicatorOutput) {
-        output = pageIndicatorOutput
+    fun setIndexChangedListener(onIndexChanged: OnIndexChanged) {
+        this.onIndexChanged = onIndexChanged
+    }
+
+    fun setContinueButtonVisibility(visibility: Int) {
+        btContinue.visibility = visibility
+    }
+
+    fun setBackButtonVisibility(visibility: Int) {
+        btBack.visibility = visibility
     }
 }
 
-class CustomPageIndicatorFactory : WidgetViewFactory<CustomPageIndicator> {
-    override fun make(context: Context, widget: CustomPageIndicator): View {
-        return CustomPageIndicatorView(context).apply {
-            bind(widget)
-        }
-    }
-}

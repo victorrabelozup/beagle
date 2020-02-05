@@ -1,6 +1,7 @@
 package br.com.zup.beagle.engine.renderer.layout
 
 import android.content.Context
+import android.view.View
 import androidx.core.view.size
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
@@ -12,12 +13,13 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.Widget
-import br.com.zup.beagle.widget.layout.PageIndicatorWidget
 import br.com.zup.beagle.widget.layout.PageView
+import br.com.zup.beagle.widget.pager.PageIndicatorWidget
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -89,21 +91,14 @@ class PageViewRendererTest {
     @Test
     fun build_when_page_indicator_is_not_null() {
         // GIVEN
+        val pageIndicatorView = mockk<View>()
         every { pageView.pageIndicator } returns pageIndicatorWidget
+        every { pageIndicatorWidget.toView(rootView.getContext()) } returns pageIndicatorView
 
         // WHEN
         pageViewRenderer.build(rootView)
 
         // THEN
-        verify(exactly = 1) { viewFactory.makeBeagleFlexView(context, flex[0]) }
-        assertEquals(FlexDirection.COLUMN, flex[0].flexDirection)
-        assertEquals(1.0, flex[0].grow)
-        verify(exactly = 1) { viewFactory.makeViewPager(any()) }
-        assertEquals(3, beaglePageView.size)
-        verify(exactly = 1) { viewFactory.makeBeagleFlexView(context, flex[1]) }
-        assertEquals(FlexDirection.COLUMN, flex[1].flexDirection)
         verify(exactly = 3) { beagleFlexView.addView(any()) }
-        verify(exactly = 1) { viewRenderer.build(rootView) }
-        verify(exactly = 1) { viewRendererFactory.make(any()) }
     }
 }

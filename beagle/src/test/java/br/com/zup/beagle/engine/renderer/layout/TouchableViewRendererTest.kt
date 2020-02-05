@@ -2,15 +2,15 @@ package br.com.zup.beagle.engine.renderer.layout
 
 import android.content.Context
 import android.view.View
+import br.com.zup.beagle.action.ActionExecutor
 import br.com.zup.beagle.action.Navigate
-import br.com.zup.beagle.action.NavigationActionHandler
 import br.com.zup.beagle.action.NavigationType
 import br.com.zup.beagle.data.PreFetchHelper
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.view.ViewFactory
-import br.com.zup.beagle.widget.navigation.Navigator
+import br.com.zup.beagle.widget.navigation.Touchable
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
@@ -23,9 +23,9 @@ import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class NavigatorViewRendererTest {
+class TouchableViewRendererTest {
 
-    private val navigator = Navigator(
+    private val touchable = Touchable(
         action = Navigate(NavigationType.ADD_VIEW),
         child = mockk()
     )
@@ -41,7 +41,7 @@ class NavigatorViewRendererTest {
     @MockK
     private lateinit var rootView: RootView
     @MockK
-    private lateinit var navigationActionHandler: NavigationActionHandler
+    private lateinit var actionExecutor: ActionExecutor
 
     @MockK
     private lateinit var preFetchHelper: PreFetchHelper
@@ -49,7 +49,7 @@ class NavigatorViewRendererTest {
     private val onClickListenerSlot = slot<View.OnClickListener>()
 
     @InjectMockKs
-    private lateinit var navigatorViewRenderer: NavigatorViewRenderer
+    private lateinit var touchableViewRenderer: TouchableViewRenderer
 
     @Before
     fun setUp() {
@@ -65,7 +65,7 @@ class NavigatorViewRendererTest {
 
     @Test
     fun build_should_make_child_view() {
-        val actual = navigatorViewRenderer.build(rootView)
+        val actual = touchableViewRenderer.build(rootView)
 
         assertEquals(view, actual)
     }
@@ -74,17 +74,17 @@ class NavigatorViewRendererTest {
     fun build_should_call_onClickListener() {
         // Given
         val navigateSlot = slot<Navigate>()
-        every { navigationActionHandler.handle(context, capture(navigateSlot)) } just Runs
+        every { actionExecutor.doAction(context, capture(navigateSlot)) } just Runs
 
         // When
         callBuildAndClick()
 
         // Then
-        assertEquals(navigator.action, navigateSlot.captured)
+        assertEquals(touchable.action, navigateSlot.captured)
     }
 
     private fun callBuildAndClick() {
-        navigatorViewRenderer.build(rootView)
+        touchableViewRenderer.build(rootView)
         onClickListenerSlot.captured.onClick(view)
     }
 }

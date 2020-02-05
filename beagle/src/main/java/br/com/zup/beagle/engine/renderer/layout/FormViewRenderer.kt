@@ -13,8 +13,6 @@ import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.form.FormResult
 import br.com.zup.beagle.form.FormSubmitter
 import br.com.zup.beagle.form.FormValidatorController
-import br.com.zup.beagle.form.InputValue
-import br.com.zup.beagle.form.ValidationErrorListener
 import br.com.zup.beagle.form.ValidatorHandler
 import br.com.zup.beagle.logger.BeagleMessageLogs
 import br.com.zup.beagle.setup.BeagleEnvironment
@@ -37,7 +35,7 @@ internal class FormViewRenderer(
     viewFactory: ViewFactory = ViewFactory()
 ) : LayoutViewRenderer<Form>(viewRendererFactory, viewFactory) {
 
-    private val formInputViews = mutableListOf<View>()
+    private val formInputs = mutableListOf<FormInput>()
     private var formSubmitView: View? = null
 
     override fun buildView(rootView: RootView): View {
@@ -47,7 +45,7 @@ internal class FormViewRenderer(
             fetchFormViews(view)
         }
 
-        if (formInputViews.size == 0) {
+        if (formInputs.size == 0) {
             BeagleMessageLogs.logFormInputsNotFound(widget.action)
         }
 
@@ -61,8 +59,9 @@ internal class FormViewRenderer(
     private fun fetchFormViews(viewGroup: ViewGroup) {
         viewGroup.children.forEach { childView ->
             if (childView.tag != null) {
-                if (childView.tag is FormInput) {
-                    formInputViews.add(childView)
+                val tag = childView.tag
+                if (tag is FormInput) {
+                    formInputs.add(tag)
                     formValidatorController.configFormInputList(childView)
                 } else if (childView.tag is FormSubmit && formSubmitView == null) {
                     formSubmitView = childView
@@ -79,7 +78,7 @@ internal class FormViewRenderer(
 
     private fun addClickToFormSubmit(formSubmitView: View) {
         formSubmitView.setOnClickListener {
-            formValidationActionHandler.formInputViews = formInputViews
+            formValidationActionHandler.formInputs = formInputs
             handleFormSubmit(formSubmitView.context)
         }
     }
@@ -87,18 +86,16 @@ internal class FormViewRenderer(
     private fun handleFormSubmit(context: Context) {
         val formsValue = mutableMapOf<String, String>()
 
-        formInputViews.filterIsInstance<InputValue>().forEach { formInputView ->
-            val formInput = (formInputView as View).tag as FormInput
-
+        formInputs.forEach { formInput ->
             if (formInput.required == true) {
-                validateFormFields(formInputView, formInput, formInputView, formsValue)
+                validateFormInput(formInput, formsValue)
             } else {
-                formsValue[formInput.name] = formInputView.getValue().toString()
+                formsValue[formInput.name] = formInput.child.getValue().toString()
             }
         }
 
-        if (formsValue.size == formInputViews.size) {
-            formInputViews.first().hideKeyboard()
+        if (formsValue.size == formInputs.size) {
+            formSubmitView?.hideKeyboard()
             formSubmitter.submitForm(widget, formsValue) {
                 (context as AppCompatActivity).runOnUiThread {
                     handleFormResult(context, it)
@@ -107,23 +104,20 @@ internal class FormViewRenderer(
         }
     }
 
-    private fun validateFormFields(
-        formInputView: View,
+    private fun validateFormInput(
         formInput: FormInput,
-        inputValue: InputValue,
         formsValue: MutableMap<String, String>
     ) {
         val validator = formInput.validator
         if (validator != null) {
             validatorHandler?.getValidator(validator)?.let {
-                val formValue = inputValue.getValue()
+                val inputWidget = formInput.child
+                val inputValue = inputWidget.getValue()
 
-                when {
-                    it.isValid(formValue, formInput.child) ->
-                        formsValue[formInput.name] = inputValue.getValue().toString()
-                    formInputView is ValidationErrorListener ->
-                        formInputView.onValidationError(formInput.errorMessage)
-                    else -> BeagleMessageLogs.logInvalidFormInputState(formInput.name)
+                if (it.isValid(inputValue, inputWidget)) {
+                    formsValue[formInput.name] = inputValue.toString()
+                } else {
+                    inputWidget.onErrorMessage(formInput.errorMessage ?: "")
                 }
             } ?: run {
                 BeagleMessageLogs.logFormValidatorNotFound(validator)

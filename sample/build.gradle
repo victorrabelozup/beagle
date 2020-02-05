@@ -39,7 +39,6 @@ dependencies {
     implementation GeneralLibraries.kotlin
     implementation AndroidxLibraries.coreKtx
 
-
     implementation project(Modules.beagle)
 
     // Unit Testing

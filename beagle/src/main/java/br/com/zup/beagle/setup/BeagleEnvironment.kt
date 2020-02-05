@@ -5,8 +5,7 @@ import br.com.zup.beagle.action.CustomActionHandler
 import br.com.zup.beagle.form.ValidatorHandler
 import br.com.zup.beagle.navigation.BeagleDeepLinkHandler
 import br.com.zup.beagle.networking.HttpClient
-import br.com.zup.beagle.view.WidgetViewFactory
-import br.com.zup.beagle.widget.core.Widget
+import br.com.zup.beagle.widget.core.WidgetView
 import com.facebook.soloader.SoLoader
 
 internal object BeagleEnvironment {
@@ -19,8 +18,7 @@ internal object BeagleEnvironment {
         private set
     lateinit var baseUrl: String
         private set
-    private var internalWidgets =
-        mutableMapOf<Class<Widget>, WidgetViewFactory<Widget>>()
+    private var internalWidgets = mutableListOf<Class<WidgetView>>()
 
     // SDK Configurations
     var validatorHandler: ValidatorHandler? = null
@@ -28,8 +26,7 @@ internal object BeagleEnvironment {
     var beagleDeepLinkHandler: BeagleDeepLinkHandler? = null
     var customActionHandler: CustomActionHandler? = null
     var designSystem: DesignSystem? = null
-    val widgets: Map<Class<Widget>, WidgetViewFactory<Widget>>
-        get() = internalWidgets
+    val widgets: List<Class<WidgetView>> get() = internalWidgets
 
     fun setup(
         applicationName: String,
@@ -53,7 +50,7 @@ internal object BeagleEnvironment {
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun <T : Widget> registerWidget(clazz: Class<T>, factory: WidgetViewFactory<T>) {
-        internalWidgets[clazz as Class<Widget>] = factory as WidgetViewFactory<Widget>
+    fun <T : WidgetView> registerWidget(clazz: Class<T>) {
+        internalWidgets.add(clazz as Class<WidgetView>)
     }
 }

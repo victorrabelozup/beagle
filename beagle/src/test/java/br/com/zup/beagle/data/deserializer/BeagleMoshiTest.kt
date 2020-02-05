@@ -1,18 +1,19 @@
 package br.com.zup.beagle.data.deserializer
 
+import android.content.Context
 import br.com.zup.beagle.action.Action
 import br.com.zup.beagle.action.CustomAction
 import br.com.zup.beagle.action.FormValidation
 import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.ShowNativeDialog
+import br.com.zup.beagle.data.deserializer.adapter.ActionJsonAdapterFactory
+import br.com.zup.beagle.data.deserializer.adapter.WidgetJsonAdapterFactory
 import br.com.zup.beagle.mockdata.CustomInputWidget
-import br.com.zup.beagle.mockdata.CustomWidgetFactory
 import br.com.zup.beagle.mockdata.CustomWidget
-import br.com.zup.beagle.mockdata.FormInputViewFactory
 import br.com.zup.beagle.setup.BeagleEnvironment
-import br.com.zup.beagle.view.WidgetViewFactory
-import br.com.zup.beagle.widget.ScreenWidget
+import br.com.zup.beagle.widget.layout.ScreenWidget
 import br.com.zup.beagle.widget.core.Widget
+import br.com.zup.beagle.widget.core.WidgetView
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormSubmit
@@ -25,15 +26,17 @@ import br.com.zup.beagle.widget.layout.Spacer
 import br.com.zup.beagle.widget.layout.Stack
 import br.com.zup.beagle.widget.layout.Vertical
 import br.com.zup.beagle.widget.lazy.LazyWidget
+import br.com.zup.beagle.widget.pager.PageIndicator
 import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.Image
 import br.com.zup.beagle.widget.ui.ListView
 import br.com.zup.beagle.widget.ui.NetworkImage
-import br.com.zup.beagle.widget.ui.PageIndicator
 import br.com.zup.beagle.widget.ui.Text
 import io.mockk.MockKAnnotations
 import io.mockk.every
+import io.mockk.impl.annotations.MockK
 import io.mockk.mockkObject
+import io.mockk.unmockkAll
 import io.mockk.unmockkObject
 import org.junit.After
 import org.junit.Before
@@ -43,9 +46,9 @@ import kotlin.test.assertTrue
 
 private const val APP_NAME = "sample"
 @Suppress("UNCHECKED_CAST")
-private val WIDGETS = mapOf(
-    CustomWidget::class.java as Class<Widget> to CustomWidgetFactory() as WidgetViewFactory<Widget>,
-    CustomInputWidget::class.java as Class<Widget> to FormInputViewFactory() as WidgetViewFactory<Widget>
+private val WIDGETS = listOf(
+    CustomWidget::class.java as Class<WidgetView>,
+    CustomInputWidget::class.java as Class<WidgetView>
 )
 
 class BeagleMoshiTest {

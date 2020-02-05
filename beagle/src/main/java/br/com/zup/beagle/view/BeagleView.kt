@@ -76,8 +76,8 @@ internal class BeagleView(
 
     private fun renderWidget(widget: Widget, view: View? = null) {
         if (view != null) {
-            if (view.implementsGenericTypeOf(OnStateUpdatable::class.java, widget::class.java)) {
-                (view as? OnStateUpdatable<Widget>)?.onUpdateState(widget)
+            if (widget.implementsGenericTypeOf(OnStateUpdatable::class.java, widget::class.java)) {
+                (widget as? OnStateUpdatable<Widget>)?.onUpdateState(widget)
             } else {
                 val widgetView = widget.toView(rootView)
                 removeView(view)

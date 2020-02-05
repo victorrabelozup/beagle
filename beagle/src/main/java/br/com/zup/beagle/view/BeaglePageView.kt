@@ -2,11 +2,7 @@ package br.com.zup.beagle.view
 
 import android.content.Context
 import androidx.viewpager.widget.ViewPager
-
-interface PageIndicatorOutput {
-
-    fun swapToPage(newIndex: Int)
-}
+import br.com.zup.beagle.widget.pager.PageIndicatorOutput
 
 class BeaglePageView(context: Context) : ViewPager(context), PageIndicatorOutput {
 

@@ -8,12 +8,12 @@ import br.com.zup.beagle.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.view.BeaglePageView
-import br.com.zup.beagle.view.PageIndicatorInput
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.layout.PageView
+import br.com.zup.beagle.widget.pager.PageIndicatorWidget
 
 internal class PageViewRenderer(
     override val widget: PageView,
@@ -42,9 +42,9 @@ internal class PageViewRenderer(
         container.addView(containerViewPager)
 
         widget.pageIndicator?.let {
-            val pageIndicator = viewRendererFactory.make(it).build(rootView)
-            setupPageIndicator(widget.pages.size, viewPager, pageIndicator as PageIndicatorInput)
-            container.addView(pageIndicator)
+            val pageIndicatorView = it.toView(rootView.getContext())
+            setupPageIndicator(widget.pages.size, viewPager, widget.pageIndicator)
+            container.addView(pageIndicatorView)
         }
 
         return container
@@ -53,10 +53,10 @@ internal class PageViewRenderer(
     private fun setupPageIndicator(
         pages: Int,
         viewPager: BeaglePageView,
-        pageIndicator: PageIndicatorInput
+        pageIndicator: PageIndicatorWidget?
     ) {
-        pageIndicator.initPageView(viewPager)
-        pageIndicator.setCount(pages)
+        pageIndicator?.initPageView(viewPager)
+        pageIndicator?.setCount(pages)
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
 
@@ -67,7 +67,7 @@ internal class PageViewRenderer(
             ) {}
 
             override fun onPageSelected(position: Int) {
-                pageIndicator.onItemUpdated(position)
+                pageIndicator?.onItemUpdated(position)
             }
         })
     }

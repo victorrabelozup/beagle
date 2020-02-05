@@ -5,11 +5,11 @@ import android.content.Intent
 import br.com.zup.beagle.action.CustomActionHandler
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.mockdata.CustomWidget
-import br.com.zup.beagle.mockdata.CustomWidgetFactory
 import br.com.zup.beagle.navigation.BeagleDeepLinkHandler
 import br.com.zup.beagle.networking.HttpClient
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.widget.core.Widget
+import br.com.zup.beagle.widget.core.WidgetView
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
@@ -45,12 +45,7 @@ class BeagleInitializerTest {
         mockkObject(BeagleEnvironment)
 
         every { BeagleEnvironment.setup(any(), any(), any(), any()) } just Runs
-        every {
-            BeagleEnvironment.registerWidget(
-                any<Class<Widget>>(),
-                any()
-            )
-        } just Runs
+        every { BeagleEnvironment.registerWidget(any<Class<WidgetView>>()) } just Runs
     }
 
     @After
@@ -79,13 +74,12 @@ class BeagleInitializerTest {
     fun registerWidget_should_call_BeagleEnvironment_registerWidget() {
         // Given
         val button = CustomWidget::class.java
-        val factory = CustomWidgetFactory()
 
         // When
-        BeagleInitializer.registerWidget(button, factory)
+        BeagleInitializer.registerWidget(button)
 
         // Then
-        verify(exactly = once()) { BeagleEnvironment.registerWidget(button, factory) }
+        verify(exactly = once()) { BeagleEnvironment.registerWidget(button) }
     }
 
     @Test

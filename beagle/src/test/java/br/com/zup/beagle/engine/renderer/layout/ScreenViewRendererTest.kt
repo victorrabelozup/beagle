@@ -17,7 +17,6 @@ import br.com.zup.beagle.setup.DesignSystem
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
-import br.com.zup.beagle.widget.ScreenWidget
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.JustifyContent
@@ -38,7 +37,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
-
+import br.com.zup.beagle.widget.layout.ScreenWidget
 private const val DEFAULT_COLOR = 0xFFFFFF
 
 class ScreenViewRendererTest {

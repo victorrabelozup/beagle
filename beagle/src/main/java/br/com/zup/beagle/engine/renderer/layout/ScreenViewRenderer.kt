@@ -10,7 +10,7 @@ import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.view.ViewFactory
-import br.com.zup.beagle.widget.ScreenWidget
+import br.com.zup.beagle.widget.layout.ScreenWidget
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.JustifyContent

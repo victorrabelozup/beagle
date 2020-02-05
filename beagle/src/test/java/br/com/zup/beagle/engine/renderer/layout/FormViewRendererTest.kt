@@ -18,8 +18,6 @@ import br.com.zup.beagle.form.Validator
 import br.com.zup.beagle.form.FormValidatorController
 import br.com.zup.beagle.logger.BeagleLogger
 import br.com.zup.beagle.logger.BeagleMessageLogs
-import br.com.zup.beagle.mockdata.FormInputView
-import br.com.zup.beagle.mockdata.FormInputViewWithoutValidation
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.testutil.getPrivateField
 import br.com.zup.beagle.utils.hideKeyboard
@@ -44,7 +42,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
-private const val FORM_INPUT_VIEWS_FIELD_NAME = "formInputViews"
+private const val FORM_INPUT_VIEWS_FIELD_NAME = "formInputs"
 private const val FORM_SUBMIT_VIEW_FIELD_NAME = "formSubmitView"
 private val INPUT_VALUE = RandomData.string()
 
@@ -79,9 +77,7 @@ class FormViewRendererTest {
     @MockK
     private lateinit var inputMethodManager: InputMethodManager
     @MockK(relaxed = true)
-    private lateinit var formInputView: FormInputView
-    @MockK(relaxed = true)
-    private lateinit var formInputViewWithoutValidation: FormInputViewWithoutValidation
+    private lateinit var formInputView: View
     @MockK
     private lateinit var formSubmitView: View
     @MockK
@@ -120,20 +116,17 @@ class FormViewRendererTest {
         every { form.child } returns form
         every { form.action } returns RandomData.string()
         every { formInput.required } returns false
-        every { formInputViewWithoutValidation.hideKeyboard() } just Runs
-        every { formInputViewWithoutValidation.context } returns appCompatActivity
-        every { formInputViewWithoutValidation.tag } returns formInput
-        every { formInputView.hideKeyboard() } just Runs
-        every { formInputView.getValue() } returns INPUT_VALUE
+        every { formInput.child.getValue() } returns INPUT_VALUE
         every { formInputView.context } returns appCompatActivity
         every { formInputView.tag } returns formInput
+        every { formSubmitView.hideKeyboard() } just Runs
         every { formSubmitView.tag } returns formSubmit
         every { formSubmitView.context } returns appCompatActivity
         every { formSubmitView.setOnClickListener(capture(onClickListenerSlot)) } just Runs
         every { viewGroup.childCount } returns 2
         every { viewGroup.getChildAt(0) } returns formInputView
         every { viewGroup.getChildAt(1) } returns formSubmitView
-        every { formValidationActionHandler.formInputViews = any() } just Runs
+        every { formValidationActionHandler.formInputs = any() } just Runs
         every { appCompatActivity.getSystemService(any()) } returns inputMethodManager
         every { appCompatActivity.runOnUiThread(capture(runnableSlot)) } just Runs
         every { formSubmitter.submitForm(any(), any(), capture(formResultCallbackSlot)) } just Runs
@@ -198,9 +191,9 @@ class FormViewRendererTest {
     fun build_should_group_formInput_views() {
         formViewRenderer.build(rootView)
 
-        val views = formViewRenderer.getPrivateField<List<View>>(FORM_INPUT_VIEWS_FIELD_NAME)
-        assertEquals(1, views.size)
-        assertEquals(formInputView, views[0])
+        val formInputs = formViewRenderer.getPrivateField<List<FormInput>>(FORM_INPUT_VIEWS_FIELD_NAME)
+        assertEquals(1, formInputs.size)
+        assertEquals(formInput, formInputs[0])
         verify { formValidatorController.formSubmitView = formSubmitView }
     }
 
@@ -227,8 +220,8 @@ class FormViewRendererTest {
         executeFormSubmitOnClickListener()
 
         // Then
-        val views = formViewRenderer.getPrivateField<List<View>>(FORM_INPUT_VIEWS_FIELD_NAME)
-        verify(exactly = once()) { formValidationActionHandler.formInputViews = views }
+        val views = formViewRenderer.getPrivateField<List<FormInput>>(FORM_INPUT_VIEWS_FIELD_NAME)
+        verify(exactly = once()) { formValidationActionHandler.formInputs = views }
     }
 
     @Test
@@ -237,7 +230,7 @@ class FormViewRendererTest {
         executeFormSubmitOnClickListener()
 
         // Then
-        verify(exactly = once()) { formInputView.hideKeyboard() }
+        verify(exactly = once()) { formSubmitView.hideKeyboard() }
         verify(exactly = once()) { formSubmitter.submitForm(any(), any(), any()) }
     }
 
@@ -265,23 +258,7 @@ class FormViewRendererTest {
         executeFormSubmitOnClickListener()
 
         // Then
-        verify(exactly = once()) { formInputView.onValidationError(any()) }
-        verify(exactly = 0) { formSubmitter.submitForm(any(), any(), any()) }
-    }
-
-    @Test
-    fun onClick_of_formSubmit_should_validate_formField_that_does_implement_validation() {
-        // Given
-        every { formInput.required } returns true
-        every { validator.isValid(any(), any()) } returns false
-        every { viewGroup.getChildAt(0) } returns formInputViewWithoutValidation
-        every { BeagleMessageLogs.logInvalidFormInputState(any()) } just Runs
-
-        // When
-        executeFormSubmitOnClickListener()
-
-        // Then
-        verify(exactly = once()) { BeagleMessageLogs.logInvalidFormInputState(formInput.name) }
+        verify(exactly = once()) { formInput.child.onErrorMessage(any()) }
         verify(exactly = 0) { formSubmitter.submitForm(any(), any(), any()) }
     }
 

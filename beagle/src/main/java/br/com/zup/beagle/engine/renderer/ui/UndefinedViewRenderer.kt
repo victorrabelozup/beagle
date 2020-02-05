@@ -7,7 +7,7 @@ import br.com.zup.beagle.engine.renderer.UIViewRenderer
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.setup.Environment
 import br.com.zup.beagle.view.ViewFactory
-import br.com.zup.beagle.widget.UndefinedWidget
+import br.com.zup.beagle.widget.ui.UndefinedWidget
 
 internal class UndefinedViewRenderer(
     override val widget: UndefinedWidget,

@@ -139,19 +139,6 @@ class BeagleMessageLogsTest {
     }
 
     @Test
-    fun logInvalidFormInputState_should_call_BeagleLogger_warning() {
-        // Given
-        val validator = RandomData.string()
-
-        // When
-        BeagleMessageLogs.logInvalidFormInputState(validator)
-
-        // Then
-        verify(exactly = 1) { BeagleLogger.warning("FormInput with name $validator is not valid" +
-                " and does not implement a ValidationErrorListener") }
-    }
-
-    @Test
     fun logFormInputsNotFound_should_call_BeagleLogger_warning() {
         // Given
         val formActionName = RandomData.string()

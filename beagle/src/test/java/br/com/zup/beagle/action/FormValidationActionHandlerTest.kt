@@ -1,9 +1,9 @@
 package br.com.zup.beagle.action
 
 import android.content.Context
+import android.view.View
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.logger.BeagleLogger
-import br.com.zup.beagle.mockdata.FormInputView
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.widget.form.FormInput
 import io.mockk.MockKAnnotations
@@ -43,7 +43,7 @@ class FormValidationActionHandlerTest {
     @Test
     fun handle_should_iterate_over_errors_and_call_ValidationErrorListener_of_view_with_name() {
         // Given
-        val view = mockk<FormInputView>(relaxed = true)
+        val view = mockk<View>(relaxed = true)
         val formInput = mockk<FormInput>(relaxed = true)
         val inputName = RandomData.string()
         val validationMessage = RandomData.string()
@@ -54,13 +54,13 @@ class FormValidationActionHandlerTest {
         )
         every { view.tag } returns formInput
         every { formInput.name } returns inputName
-        formValidationActionHandler.formInputViews = listOf(view)
+        formValidationActionHandler.formInputs = listOf(formInput)
 
         // When
         formValidationActionHandler.handle(context, formValidation)
 
         // Then
-        verify(exactly = once()) { view.onValidationError(validationMessage) }
+        verify(exactly = once()) { formInput.child.onErrorMessage(validationMessage) }
     }
 
     @Test

@@ -22,6 +22,8 @@ android {
         consumerProguardFiles GeneralNames.consumerProguard
     }
 
+
+
     buildTypes {
         debug {
             testCoverageEnabled true
@@ -44,8 +46,8 @@ dependencies {
     implementation GeneralLibraries.kotlin
     implementation GeneralLibraries.kotlinCoroutines
 
+    api GeneralLibraries.beagleAndroidDeclarative
     api GeneralLibraries.beagleDeclarative
-//    api GeneralLibraries.beagleAndroidDeclarative
 
     implementation GlideLibraries.glide
     kapt GlideLibraries.glideCompiler

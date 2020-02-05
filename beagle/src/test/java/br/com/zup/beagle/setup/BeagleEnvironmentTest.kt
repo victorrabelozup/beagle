@@ -3,7 +3,6 @@ package br.com.zup.beagle.setup
 import android.app.Application
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.mockdata.CustomWidget
-import br.com.zup.beagle.mockdata.CustomWidgetFactory
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.testutil.setPrivateField
 import com.facebook.soloader.SoLoader
@@ -85,7 +84,7 @@ class BeagleEnvironmentTest {
 
     @Test
     fun registerWidget_should_add_a_new_Widget() {
-        BeagleEnvironment.registerWidget(CustomWidget::class.java, CustomWidgetFactory())
+        BeagleEnvironment.registerWidget(CustomWidget::class.java)
 
         assertTrue(BeagleEnvironment.widgets.size == 1)
     }

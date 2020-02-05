@@ -19,7 +19,7 @@ import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.layout.FlexSingleWidget
 import br.com.zup.beagle.widget.layout.FlexWidget
 import br.com.zup.beagle.widget.layout.Screen
-import br.com.zup.beagle.widget.navigation.Navigator
+import br.com.zup.beagle.widget.navigation.Touchable
 import br.com.zup.beagle.widget.ui.Button
 
 class NavigationFragment : Fragment() {
@@ -47,7 +47,7 @@ class NavigationFragment : Fragment() {
     private fun buildChildren(): List<Widget> {
         return listOf(
             FlexSingleWidget(
-                child = Navigator(
+                child = Touchable(
                     child = Button(text = "Click to navigate"),
                     action = Navigate(
                         type = NavigationType.ADD_VIEW,

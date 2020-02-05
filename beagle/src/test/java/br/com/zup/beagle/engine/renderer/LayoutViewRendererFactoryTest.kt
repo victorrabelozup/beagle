@@ -6,12 +6,12 @@ import br.com.zup.beagle.engine.renderer.layout.FlexWidgetViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.FormViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.HorizontalViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.LazyWidgetViewRenderer
-import br.com.zup.beagle.engine.renderer.layout.NavigatorViewRenderer
+import br.com.zup.beagle.engine.renderer.layout.TouchableViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.SpacerViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.StackViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.VerticalViewRender
 import br.com.zup.beagle.engine.renderer.layout.*
-import br.com.zup.beagle.widget.ScreenWidget
+import br.com.zup.beagle.widget.layout.ScreenWidget
 import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.layout.FlexSingleWidget
@@ -22,7 +22,7 @@ import br.com.zup.beagle.widget.layout.Spacer
 import br.com.zup.beagle.widget.layout.Stack
 import br.com.zup.beagle.widget.layout.Vertical
 import br.com.zup.beagle.widget.lazy.LazyWidget
-import br.com.zup.beagle.widget.navigation.Navigator
+import br.com.zup.beagle.widget.navigation.Touchable
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.Before
@@ -127,15 +127,15 @@ class LayoutViewRendererFactoryTest {
     }
 
     @Test
-    fun make_should_return_NavigatorViewRenderer_when_widget_is_a_Navigator() {
+    fun make_should_return_NavigatorViewRenderer_when_widget_is_a_Touchable() {
         // Given
-        val widget = mockk<Navigator>()
+        val widget = mockk<Touchable>()
 
         // When
         val actual = viewRendererFactory.make(widget)
 
         // Then
-        assertTrue(actual is NavigatorViewRenderer)
+        assertTrue(actual is TouchableViewRenderer)
     }
 
     @Test

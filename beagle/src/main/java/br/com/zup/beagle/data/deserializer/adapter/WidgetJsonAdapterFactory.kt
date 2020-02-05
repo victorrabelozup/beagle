@@ -2,8 +2,8 @@ package br.com.zup.beagle.data.deserializer.adapter
 
 import br.com.zup.beagle.data.deserializer.PolymorphicJsonAdapterFactory
 import br.com.zup.beagle.setup.BeagleEnvironment
-import br.com.zup.beagle.widget.ScreenWidget
-import br.com.zup.beagle.widget.UndefinedWidget
+import br.com.zup.beagle.widget.layout.ScreenWidget
+import br.com.zup.beagle.widget.ui.UndefinedWidget
 import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
@@ -12,19 +12,19 @@ import br.com.zup.beagle.widget.form.InputWidget
 import br.com.zup.beagle.widget.layout.FlexSingleWidget
 import br.com.zup.beagle.widget.layout.FlexWidget
 import br.com.zup.beagle.widget.layout.Horizontal
-import br.com.zup.beagle.widget.layout.PageIndicatorWidget
 import br.com.zup.beagle.widget.layout.PageView
 import br.com.zup.beagle.widget.layout.ScrollView
 import br.com.zup.beagle.widget.layout.Spacer
 import br.com.zup.beagle.widget.layout.Stack
 import br.com.zup.beagle.widget.layout.Vertical
 import br.com.zup.beagle.widget.lazy.LazyWidget
-import br.com.zup.beagle.widget.navigation.Navigator
+import br.com.zup.beagle.widget.navigation.Touchable
+import br.com.zup.beagle.widget.pager.PageIndicator
+import br.com.zup.beagle.widget.pager.PageIndicatorWidget
 import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.Image
 import br.com.zup.beagle.widget.ui.ListView
 import br.com.zup.beagle.widget.ui.NetworkImage
-import br.com.zup.beagle.widget.ui.PageIndicator
 import br.com.zup.beagle.widget.ui.Text
 import br.com.zup.beagle.widget.ui.TabView
 
@@ -32,7 +32,7 @@ private const val BEAGLE_WIDGET_TYPE = "_beagleType_"
 private const val BEAGLE_NAMESPACE = "beagle"
 private const val WIDGET_NAMESPACE = "widget"
 
-class WidgetJsonAdapterFactory {
+internal object WidgetJsonAdapterFactory {
 
     fun make(): PolymorphicJsonAdapterFactory<Widget> {
         var factory = PolymorphicJsonAdapterFactory.of(
@@ -79,7 +79,7 @@ class WidgetJsonAdapterFactory {
             .withSubtype(NetworkImage::class.java, createNamespaceFor<NetworkImage>())
             .withSubtype(Button::class.java, createNamespaceFor<Button>())
             .withSubtype(ListView::class.java, createNamespaceFor<ListView>())
-            .withSubtype(Navigator::class.java, createNamespaceFor<Navigator>())
+            .withSubtype(Touchable::class.java, createNamespaceFor<Touchable>())
             .withSubtype(TabView::class.java, createNamespaceFor<TabView>())
             .withSubtype(PageIndicator::class.java, createNamespaceFor<PageIndicator>())
             .withSubtype(FormInput::class.java, createNamespaceFor<FormInput>())
@@ -95,9 +95,7 @@ class WidgetJsonAdapterFactory {
         var newFactory = factory
 
         widgets.forEach {
-            newFactory = newFactory.withSubtype(
-                it.key, createNamespace(appName, it.key)
-            )
+            newFactory = newFactory.withSubtype(it, createNamespace(appName, it))
         }
 
         return newFactory
