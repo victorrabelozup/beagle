@@ -24,15 +24,14 @@ class BeagleWidgetSerializer(
     private fun serializeWidget(value: Widget, gen: JsonGenerator) {
         gen.writeStartObject()
         addTypeToJson(value, gen)
-        objectFieldSerializer.serializeFields(value, gen)
+        this.objectFieldSerializer.serializeFields(value, gen)
         gen.writeEndObject()
     }
 
     private fun addTypeToJson(value: Widget, gen: JsonGenerator) {
         val widgetName = getClassName(value)
-
         if (value::class.annotations.any { it.annotationClass == RegisterWidget::class }) {
-            gen.writeStringField(BEAGLE_TYPE, "${this.objectFieldSerializer.beagleApplicationName}:$WIDGET_NAMESPACE:$widgetName")
+            gen.writeStringField(BEAGLE_TYPE, "$CUSTOM_WIDGET_BEAGLE_NAMESPACE:$WIDGET_NAMESPACE:$widgetName")
         } else {
             gen.writeStringField(BEAGLE_TYPE, "$BEAGLE_NAMESPACE:$WIDGET_NAMESPACE:$widgetName")
         }
