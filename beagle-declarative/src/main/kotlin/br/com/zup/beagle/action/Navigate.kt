@@ -1,5 +1,7 @@
 package br.com.zup.beagle.action
 
+import br.com.zup.beagle.widget.layout.Screen
+
 enum class NavigationType {
     OPEN_DEEP_LINK,
     ADD_VIEW,
@@ -13,5 +15,6 @@ enum class NavigationType {
 data class Navigate(
     val type: NavigationType,
     val href: String? = null,
-    val data: Map<String, String>? = null
+    val data: Map<String, String>? = null,
+    val screen: Screen? = null
 ) : Action
