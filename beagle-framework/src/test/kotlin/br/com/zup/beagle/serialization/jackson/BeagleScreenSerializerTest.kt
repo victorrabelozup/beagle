@@ -29,7 +29,7 @@ class BeagleScreenSerializerTest {
     fun setUp() {
         MockKAnnotations.init(this, relaxed = true)
 
-        beagleScreenSerializer = BeagleScreenSerializer(objectFieldSerializer)
+        beagleScreenSerializer = BeagleScreenSerializer()
     }
 
     @Test

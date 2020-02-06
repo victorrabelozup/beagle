@@ -1,22 +1,18 @@
 package br.com.zup.beagle.serialization.jackson
 
-import br.com.zup.beagle.setup.BeagleEnvironment
+import br.com.zup.beagle.annotation.RegisterWidget
 import br.com.zup.beagle.widget.core.ComposeWidget
 import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.Text
 import com.fasterxml.jackson.core.JsonGenerator
-import io.mockk.MockKAnnotations
-import io.mockk.Runs
-import io.mockk.every
+import io.mockk.*
 import io.mockk.impl.annotations.MockK
-import io.mockk.just
-import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 
 private const val TYPE = "_beagleType_"
-private const val APP_NAME = "test"
+private const val APP_NAME = "Test"
 
 class BeagleWidgetSerializerTest {
 
@@ -31,7 +27,7 @@ class BeagleWidgetSerializerTest {
     fun setUp() {
         MockKAnnotations.init(this)
 
-        beagleWidgetSerializer = BeagleWidgetSerializer(objectFieldSerializer)
+        beagleWidgetSerializer = BeagleWidgetSerializer()
 
         every { jsonGenerator.writeStartObject() } just Runs
         every { jsonGenerator.writeStringField(any(), any()) } just Runs
@@ -76,8 +72,6 @@ class BeagleWidgetSerializerTest {
     @Test
     fun serialize_should_serialize_a_CustomNativeWidget() {
         // Given
-        BeagleEnvironment.setup(APP_NAME)
-        BeagleEnvironment.registerWidget(CustomNativeWidget::class.java)
         val widget = CustomNativeWidget()
 
         // When
@@ -97,4 +91,5 @@ class CustomWidget(
     override fun build(): Widget = Button(value)
 }
 
+@RegisterWidget
 class CustomNativeWidget : Widget

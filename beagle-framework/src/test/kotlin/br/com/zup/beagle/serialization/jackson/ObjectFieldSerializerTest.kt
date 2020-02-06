@@ -1,12 +1,8 @@
 package br.com.zup.beagle.serialization.jackson
 
 import com.fasterxml.jackson.core.JsonGenerator
-import io.mockk.MockKAnnotations
-import io.mockk.Runs
-import io.mockk.every
+import io.mockk.*
 import io.mockk.impl.annotations.MockK
-import io.mockk.just
-import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 
