@@ -57,7 +57,7 @@ class PreFetchHelperTest {
     fun should_call_fetch_for_cache_test() {
         cachedTypes.forEach {
             val url = RandomData.string()
-            helper.handlePreFetchWidget(rootView, Navigate(type = it, path = url))
+            helper.handlePreFetchWidget(rootView, Navigate(type = it, href = url))
             verify(exactly = once()) { beagleViewModel.fetchWidgetForCache(url) }
         }
     }
@@ -66,7 +66,7 @@ class PreFetchHelperTest {
     fun should_not_call_fetch_for_cache_test() {
         cachedTypes.forEach {
             val url = RandomData.string()
-            helper.handlePreFetchWidget(rootView, Navigate(type = it, path = url))
+            helper.handlePreFetchWidget(rootView, Navigate(type = it, href = url))
             verify { beagleViewModel.fetchWidgetForCache(url) wasNot called }
         }
     }

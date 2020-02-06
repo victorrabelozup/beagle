@@ -21,7 +21,7 @@ internal class PreFetchHelper {
 
     private fun preFetchWidget(rootView: RootView, action: Navigate) {
         val viewModel = rootView.generateViewModelInstance()
-        action.path?.let {
+        action.href?.let {
             viewModel.fetchWidgetForCache(it)
         }
     }

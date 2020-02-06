@@ -51,7 +51,7 @@ class NavigationFragment : Fragment() {
                     child = Button(text = "Click to navigate"),
                     action = Navigate(
                         type = NavigationType.ADD_VIEW,
-                        path = "https://t001-2751a.firebaseapp.com/flow/step1.json"
+                        href = "https://t001-2751a.firebaseapp.com/flow/step1.json"
                     )
                 ),
                 flex = Flex(size = Size(width = UnitValue(80.0, UnitType.PERCENT)))
