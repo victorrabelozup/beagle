@@ -1,6 +1,6 @@
 package br.com.zup.beagle.mockdata
 
-import br.com.zup.beagle.data.deserializer.makeButtonJson
+import br.com.zup.beagle.data.serializer.makeButtonJson
 import br.com.zup.beagle.networking.HttpMethod
 import br.com.zup.beagle.networking.RequestData
 import br.com.zup.beagle.networking.ResponseData

@@ -1,4 +1,4 @@
-package br.com.zup.beagle.data.deserializer.adapter
+package br.com.zup.beagle.data.serializer.adapter
 
 import android.content.Context
 import android.view.View

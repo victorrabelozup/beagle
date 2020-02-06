@@ -3,8 +3,8 @@ package br.com.zup.beagle.data
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import br.com.zup.beagle.action.Action
 import br.com.zup.beagle.data.cache.BeagleWidgetCacheHelper
-import br.com.zup.beagle.data.deserializer.BeagleDeserializer
-import br.com.zup.beagle.data.deserializer.makeScreenWidgetJson
+import br.com.zup.beagle.data.serializer.BeagleSerializer
+import br.com.zup.beagle.data.serializer.makeScreenWidgetJson
 import br.com.zup.beagle.exception.BeagleException
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.logger.BeagleMessageLogs
@@ -53,7 +53,7 @@ class BeagleServiceTest {
     private val onErrorSlot = slot<(throwable: Throwable) -> Unit>()
 
     @MockK
-    private lateinit var deserializer: BeagleDeserializer
+    private lateinit var serializer: BeagleSerializer
     @MockK
     private lateinit var httpClient: HttpClient
     @MockK
@@ -84,10 +84,10 @@ class BeagleServiceTest {
         every { BeagleMessageLogs.logHttpRequestData(any()) } just Runs
         every { BeagleMessageLogs.logHttpResponseData(any()) } just Runs
         every { BeagleMessageLogs.logUnknownHttpError(any()) } just Runs
-        every { deserializer.deserializeWidget(any()) } returns widget
+        every { serializer.deserializeWidget(any()) } returns widget
         every { BeagleWidgetCacheHelper.getWidgetFromCache(any()) } returns null
         every { BeagleWidgetCacheHelper.cacheWidget(any(), any()) } returns widget
-        every { deserializer.deserializeAction(any()) } returns action
+        every { serializer.deserializeAction(any()) } returns action
         every { responseData.data } returns JSON_SUCCESS.toByteArray()
     }
 
@@ -115,7 +115,7 @@ class BeagleServiceTest {
     fun fetchWidget_should_deserialize_a_widget_response() = runBlockingTest {
         val widgetResult = beagleService.fetchWidget(URL)
 
-        verify(exactly = once()) { deserializer.deserializeWidget(JSON_SUCCESS) }
+        verify(exactly = once()) { serializer.deserializeWidget(JSON_SUCCESS) }
         assertEquals(widget, widgetResult)
     }
 
@@ -154,7 +154,7 @@ class BeagleServiceTest {
     fun fetchWidget_should_return_a_exception_moshi_deserialization_fails() = runBlockingTest {
         // Given
         val exception = BeagleException(RandomData.string())
-        every { deserializer.deserializeWidget(any()) } throws exception
+        every { serializer.deserializeWidget(any()) } throws exception
 
         // When
         val exceptionResponse =
@@ -170,7 +170,7 @@ class BeagleServiceTest {
     fun fetchAction_should_deserialize_a_action_response() = runBlockingTest {
         val actionResult = beagleService.fetchAction(URL)
 
-        verify(exactly = once()) { deserializer.deserializeAction(JSON_SUCCESS) }
+        verify(exactly = once()) { serializer.deserializeAction(JSON_SUCCESS) }
         assertEquals(action, actionResult)
     }
 
@@ -178,7 +178,7 @@ class BeagleServiceTest {
     fun fetchAction_should_return_a_exception_moshi_deserialization_fails() = runBlockingTest {
         // Given
         val exception = BeagleException(RandomData.string())
-        every { deserializer.deserializeAction(any()) } throws exception
+        every { serializer.deserializeAction(any()) } throws exception
 
         // When
         val exceptionResponse =

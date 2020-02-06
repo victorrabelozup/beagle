@@ -1,6 +1,6 @@
-package br.com.zup.beagle.data.deserializer.adapter
+package br.com.zup.beagle.data.serializer.adapter
 
-import br.com.zup.beagle.data.deserializer.PolymorphicJsonAdapterFactory
+import br.com.zup.beagle.data.serializer.PolymorphicJsonAdapterFactory
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.widget.layout.ScreenWidget
 import br.com.zup.beagle.widget.ui.UndefinedWidget

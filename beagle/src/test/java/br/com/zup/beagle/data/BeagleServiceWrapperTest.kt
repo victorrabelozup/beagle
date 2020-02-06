@@ -1,5 +1,6 @@
 package br.com.zup.beagle.data
 
+import br.com.zup.beagle.data.serializer.BeagleSerializer
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.widget.core.Widget
@@ -19,6 +20,7 @@ import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import kotlin.test.assertEquals
 
 private val URL = RandomData.httpUrl()
 
@@ -27,6 +29,9 @@ class BeagleServiceWrapperTest {
 
     @MockK
     private lateinit var beagleService: BeagleService
+
+    @MockK
+    private lateinit var beagleSerializer: BeagleSerializer
 
     @MockK
     private lateinit var widget: Widget
@@ -53,7 +58,7 @@ class BeagleServiceWrapperTest {
     @Test
     fun fetchWidget_when_success_should_call_onSuccess() = runBlockingTest {
         // GIVEN
-        subject.init(beagleService)
+        subject.init(beagleService,beagleSerializer)
         coEvery { beagleService.fetchWidget(URL) } returns widget
         every { listener.onSuccess(any()) } just Runs
 
@@ -67,7 +72,7 @@ class BeagleServiceWrapperTest {
     @Test
     fun fetchWidget_when_fail_should_call_onError() = runBlockingTest {
         // GIVEN
-        subject.init(beagleService)
+        subject.init(beagleService,beagleSerializer)
         coEvery { beagleService.fetchWidget(URL) } throws throwable
         every { listener.onError(any()) } just Runs
 
@@ -76,5 +81,33 @@ class BeagleServiceWrapperTest {
 
         // THEN
         verify(exactly = once()) { listener.onError(throwable) }
+    }
+
+    @Test
+    fun deserializeWidget_when_call_method() = runBlockingTest {
+        // GIVEN
+        subject.init(beagleService,beagleSerializer)
+        val randomString = RandomData.string()
+        every { beagleSerializer.deserializeWidget(randomString) } returns widget
+
+        // WHEN
+        subject.deserializeWidget(randomString)
+
+        // THEN
+        assertEquals(beagleSerializer.deserializeWidget(randomString), widget)
+    }
+
+    @Test
+    fun serializeWidget_when_call_method() = runBlockingTest {
+        // GIVEN
+        subject.init(beagleService,beagleSerializer)
+        val randomString = RandomData.string()
+        every { beagleSerializer.serializeWidget(widget) } returns randomString
+
+        // WHEN
+        subject.serializeWidget(widget)
+
+        // THEN
+        assertEquals(beagleSerializer.serializeWidget(widget), randomString)
     }
 }

@@ -1,8 +1,8 @@
-package br.com.zup.beagle.data.deserializer
+package br.com.zup.beagle.data.serializer
 
-import br.com.zup.beagle.data.deserializer.adapter.ActionJsonAdapterFactory
-import br.com.zup.beagle.data.deserializer.adapter.AndroidFrameworkIgnoreAdapterFactory
-import br.com.zup.beagle.data.deserializer.adapter.WidgetJsonAdapterFactory
+import br.com.zup.beagle.data.serializer.adapter.ActionJsonAdapterFactory
+import br.com.zup.beagle.data.serializer.adapter.AndroidFrameworkIgnoreAdapterFactory
+import br.com.zup.beagle.data.serializer.adapter.WidgetJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 

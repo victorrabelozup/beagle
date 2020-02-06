@@ -1,11 +1,11 @@
-package br.com.zup.beagle.data.deserializer.adapter
+package br.com.zup.beagle.data.serializer.adapter
 
 import br.com.zup.beagle.action.Action
 import br.com.zup.beagle.action.CustomAction
 import br.com.zup.beagle.action.FormValidation
 import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.ShowNativeDialog
-import br.com.zup.beagle.data.deserializer.PolymorphicJsonAdapterFactory
+import br.com.zup.beagle.data.serializer.PolymorphicJsonAdapterFactory
 
 private const val BEAGLE_WIDGET_TYPE = "_beagleType_"
 private const val BEAGLE_NAMESPACE = "beagle"

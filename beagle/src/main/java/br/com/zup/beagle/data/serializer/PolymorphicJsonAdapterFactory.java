@@ -1,4 +1,4 @@
-package br.com.zup.beagle.data.deserializer;
+package br.com.zup.beagle.data.serializer;
 
 import androidx.annotation.Nullable;
 

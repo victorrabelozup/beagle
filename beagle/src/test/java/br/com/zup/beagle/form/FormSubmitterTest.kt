@@ -1,6 +1,6 @@
 package br.com.zup.beagle.form
 
-import br.com.zup.beagle.data.deserializer.BeagleDeserializer
+import br.com.zup.beagle.data.serializer.BeagleSerializer
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.networking.HttpClient
 import br.com.zup.beagle.networking.HttpMethod
@@ -30,7 +30,7 @@ class FormSubmitterTest {
     @MockK
     private lateinit var httpClient: HttpClient
     @MockK
-    private lateinit var beagleDeserializer: BeagleDeserializer
+    private lateinit var beagleSerializer: BeagleSerializer
 
     private val requestDataSlot = slot<RequestData>()
 

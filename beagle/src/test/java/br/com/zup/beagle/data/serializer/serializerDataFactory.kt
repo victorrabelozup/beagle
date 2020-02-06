@@ -1,4 +1,4 @@
-package br.com.zup.beagle.data.deserializer
+package br.com.zup.beagle.data.serializer
 
 import br.com.zup.beagle.testutil.RandomData
 

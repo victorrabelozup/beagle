@@ -1,17 +1,13 @@
-package br.com.zup.beagle.data.deserializer
+package br.com.zup.beagle.data.serializer
 
-import android.content.Context
 import br.com.zup.beagle.action.Action
 import br.com.zup.beagle.action.CustomAction
 import br.com.zup.beagle.action.FormValidation
 import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.ShowNativeDialog
-import br.com.zup.beagle.data.deserializer.adapter.ActionJsonAdapterFactory
-import br.com.zup.beagle.data.deserializer.adapter.WidgetJsonAdapterFactory
 import br.com.zup.beagle.mockdata.CustomInputWidget
 import br.com.zup.beagle.mockdata.CustomWidget
 import br.com.zup.beagle.setup.BeagleEnvironment
-import br.com.zup.beagle.widget.layout.ScreenWidget
 import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.core.WidgetView
 import br.com.zup.beagle.widget.form.Form
@@ -21,6 +17,7 @@ import br.com.zup.beagle.widget.layout.FlexSingleWidget
 import br.com.zup.beagle.widget.layout.FlexWidget
 import br.com.zup.beagle.widget.layout.Horizontal
 import br.com.zup.beagle.widget.layout.PageView
+import br.com.zup.beagle.widget.layout.ScreenWidget
 import br.com.zup.beagle.widget.layout.ScrollView
 import br.com.zup.beagle.widget.layout.Spacer
 import br.com.zup.beagle.widget.layout.Stack
@@ -34,9 +31,7 @@ import br.com.zup.beagle.widget.ui.NetworkImage
 import br.com.zup.beagle.widget.ui.Text
 import io.mockk.MockKAnnotations
 import io.mockk.every
-import io.mockk.impl.annotations.MockK
 import io.mockk.mockkObject
-import io.mockk.unmockkAll
 import io.mockk.unmockkObject
 import org.junit.After
 import org.junit.Before

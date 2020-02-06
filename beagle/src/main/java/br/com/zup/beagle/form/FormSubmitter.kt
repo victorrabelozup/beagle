@@ -1,7 +1,7 @@
 package br.com.zup.beagle.form
 
 import br.com.zup.beagle.action.Action
-import br.com.zup.beagle.data.deserializer.BeagleDeserializer
+import br.com.zup.beagle.data.serializer.BeagleSerializer
 import br.com.zup.beagle.exception.BeagleException
 import br.com.zup.beagle.networking.HttpClient
 import br.com.zup.beagle.networking.HttpClientFactory
@@ -19,7 +19,7 @@ internal sealed class FormResult {
 
 internal class FormSubmitter(
     private val httpClient: HttpClient = HttpClientFactory(URLFactory()).make(),
-    private val deserialization: BeagleDeserializer = BeagleDeserializer()
+    private val deserialization: BeagleSerializer = BeagleSerializer()
 ) {
 
     fun submitForm(

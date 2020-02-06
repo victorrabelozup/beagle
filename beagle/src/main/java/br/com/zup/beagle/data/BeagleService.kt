@@ -2,7 +2,7 @@ package br.com.zup.beagle.data
 
 import br.com.zup.beagle.action.Action
 import br.com.zup.beagle.data.cache.BeagleWidgetCacheHelper
-import br.com.zup.beagle.data.deserializer.BeagleDeserializer
+import br.com.zup.beagle.data.serializer.BeagleSerializer
 import br.com.zup.beagle.exception.BeagleException
 import br.com.zup.beagle.logger.BeagleMessageLogs
 import br.com.zup.beagle.networking.HttpClient
@@ -18,7 +18,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
 internal class BeagleService(
-    private val deserializer: BeagleDeserializer = BeagleDeserializer(),
+    private val serializer: BeagleSerializer = BeagleSerializer(),
     private val httpClient: HttpClient = HttpClientFactory().make()
 ) {
     @Throws(BeagleException::class)
@@ -74,11 +74,11 @@ internal class BeagleService(
     }
 
     private fun deserializeAction(response: String): Action {
-        return deserializer.deserializeAction(response)
+        return serializer.deserializeAction(response)
     }
 
     private fun deserializeWidget(response: String): Widget {
-        return deserializer.deserializeWidget(response)
+        return serializer.deserializeWidget(response)
     }
 
     private fun genericErrorMessage(url: String)  = "fetchData error for url $url"
