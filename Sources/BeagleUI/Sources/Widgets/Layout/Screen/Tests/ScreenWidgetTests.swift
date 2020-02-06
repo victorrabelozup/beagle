@@ -116,6 +116,22 @@ final class ScreenWidgetTests: XCTestCase {
         XCTAssertTrue(context.didCallDoAction)
         XCTAssertEqual(context.actionCalled as? ActionDummy, action)
     }
+    
+    func test_shouldPrefetchNavigateAction() {
+        let prefetch = BeaglePrefetchHelpingSpy()
+        let dependencies = RendererDependenciesContainer(preFetchHelper: prefetch)
+        
+        let navigatePath = "button-item-prefetch"
+        let navigate = Navigate.addView(navigatePath)
+        let barItem = NavigationBarItem(text: "Item", action: navigate)
+        let screen = ScreenWidget(
+            navigationBar: NavigationBar(title: "Prefetch", navigationBarItems: [barItem]),
+            content: WidgetDummy()
+        )
+        
+        _ = screen.toView(context: BeagleContextDummy(), dependencies: dependencies)
+        XCTAssertEqual([navigatePath], prefetch.prefetched)
+    }
 }
 
 // MARK: - Testing Helpers

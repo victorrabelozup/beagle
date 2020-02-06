@@ -119,6 +119,7 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
     var remoteConnector: RemoteConnector
     var theme: Theme
     var validatorProvider: ValidatorProvider?
+    var preFetchHelper: BeaglePrefetchHelping
     var appBundle: Bundle
 
     init(
@@ -127,6 +128,7 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
         remoteConnector: RemoteConnector = RemoteConnectorDummy(),
         theme: Theme = AppThemeDummy(),
         validatorProvider: ValidatorProvider = ValidatorProviding(),
+        preFetchHelper: BeaglePrefetchHelping = BeaglePreFetchHelper(),
         appBundle: Bundle = Bundle(for: ImageTests.self)
     ) {
         self.actionExecutor = actionExecutor
@@ -134,6 +136,7 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
         self.remoteConnector = remoteConnector
         self.theme = theme
         self.validatorProvider = validatorProvider
+        self.preFetchHelper = preFetchHelper
         self.appBundle = appBundle
     }
 }

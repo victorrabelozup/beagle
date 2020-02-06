@@ -13,21 +13,21 @@ struct MainScreen: DeeplinkScreen {
         let screen = ScreenWidget(
             navigationBar: .init(title: "Beagle Demo"),
             content: ScrollView(children: [
-                Touchable(
-                    action: Navigate.addView("https://t001-2751a.firebaseapp.com/flow/step1.json"),
-                    child: Button(text: "Navigator")
+                Button(
+                    text: "Navigator",
+                    action: Navigate.addView("https://t001-2751a.firebaseapp.com/flow/step1.json")
                 ),
-                Touchable(
-                    action: Navigate.openDeepLink(.init(path: "lazywidget")),
-                    child: Button(text: "Form & Lazy Widget")
+                Button(
+                    text: "Form & Lazy Widget",
+                    action: Navigate.openDeepLink(.init(path: "lazywidget"))
                 ),
-                Touchable(
-                    action: Navigate.openDeepLink(.init(path: "pageview")),
-                    child: Button(text: "Page View")
+                Button(
+                    text: "Page View",
+                    action: Navigate.openDeepLink(.init(path: "pageview"))
                 ),
-                Touchable(
-                    action: Navigate.openDeepLink(.init(path: "tabview")),
-                    child: Button(text: "Tab View")
+                Button(
+                    text: "Tab View",
+                    action: Navigate.openDeepLink(.init(path: "tabview"))
                 )
             ])
         )

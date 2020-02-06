@@ -26,13 +26,12 @@ extension Touchable: Renderable {
     public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
         let childView = child.toView(context: context, dependencies: dependencies)
         context.register(action: action, inView: childView)
-        prefetchWidget(context: context)
+        prefetchWidget(context: context, dependencies: dependencies)
         return childView
     }
     
-    private func prefetchWidget(context: BeagleContext) {
-        guard let prefetch = (action as? Navigate)?.isPrefetchable() else { return }
-        
-        Beagle.dependencies.preFetchHelper.prefetchWidget(path: prefetch.path)
+    private func prefetchWidget(context: BeagleContext, dependencies: Renderable.Dependencies) {
+        guard let prefetch = (action as? Navigate)?.prefechableData else { return }
+        dependencies.preFetchHelper.prefetchWidget(path: prefetch.path)
     }
 }

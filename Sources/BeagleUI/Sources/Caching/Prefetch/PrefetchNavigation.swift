@@ -9,12 +9,12 @@ extension Navigate {
         let path: String
     }
 
-    func isPrefetchable() -> PrefechableData? {
+    var prefechableData: PrefechableData? {
         switch self {
         case .addView(let path), .swapView(let path), .presentView(let path):
             return PrefechableData(path: path)
 
-        case .finishView, .popView, .popToView(_), .openDeepLink:
+        case .finishView, .popView, .popToView, .openDeepLink:
             return nil
         }
     }

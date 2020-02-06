@@ -86,17 +86,20 @@ struct RendererDependenciesContainer: Renderable.Dependencies {
     var flex: FlexViewConfiguratorProtocol
     var theme: Theme
     var validatorProvider: ValidatorProvider?
+    var preFetchHelper: BeaglePrefetchHelping
     var appBundle: Bundle
 
     init(
         flex: FlexViewConfiguratorProtocol = FlexViewConfiguratorDummy(),
         theme: Theme = AppThemeDummy(),
         validatorProvider: ValidatorProvider? = ValidatorProviding(),
+        preFetchHelper: BeaglePrefetchHelping = BeaglePreFetchHelper(),
         appBundle: Bundle = Bundle(for: ImageTests.self)
     ) {
         self.flex = flex
         self.theme = theme
         self.validatorProvider = validatorProvider
+        self.preFetchHelper = preFetchHelper
         self.appBundle = appBundle
     }
 }

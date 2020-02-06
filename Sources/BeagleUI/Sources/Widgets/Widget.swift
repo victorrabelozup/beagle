@@ -15,6 +15,7 @@ public protocol Renderable {
         DependencyFlexViewConfigurator
         & DependencyTheme
         & DependencyValidatorProvider
+        & DependencyPreFetching
         & DependencyAppBundle
     
     func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView

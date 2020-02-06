@@ -52,7 +52,7 @@ final class BeaglePrefetchHelperTests: XCTestCase {
             .finishView
         ]
 
-        let bools = actions.map { $0.isPrefetchable() }
+        let bools = actions.map { $0.prefechableData }
 
         let result: String = zip(actions, bools).reduce("") { partial, zip in
             "\(partial)  \(zip.0)  -->  \(descriptionWithoutOptional(zip.1)) \n\n"
