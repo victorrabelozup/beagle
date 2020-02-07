@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import br.com.zup.beagle.utils.toView
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
-import br.com.zup.beagle.widget.layout.FlexWidget
+import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.Screen
 import br.com.zup.beagle.widget.layout.ScrollAxis
 import br.com.zup.beagle.widget.layout.ScrollView
@@ -28,7 +28,7 @@ class ScrollViewFragment : Fragment() {
             content = ScrollView(
                 scrollDirection = ScrollAxis.HORIZONTAL,
                 children = listOf(
-                    FlexWidget(
+                    Container(
                         flex = Flex(
                             flexDirection = FlexDirection.ROW
                         ),

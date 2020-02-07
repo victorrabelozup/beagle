@@ -10,7 +10,7 @@ import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormSubmit
 import br.com.zup.beagle.widget.form.InputWidget
 import br.com.zup.beagle.widget.layout.FlexSingleWidget
-import br.com.zup.beagle.widget.layout.FlexWidget
+import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.Horizontal
 import br.com.zup.beagle.widget.layout.PageView
 import br.com.zup.beagle.widget.layout.ScrollView
@@ -59,7 +59,7 @@ internal object WidgetJsonAdapterFactory {
         factory: PolymorphicJsonAdapterFactory<Widget>
     ): PolymorphicJsonAdapterFactory<Widget> {
         return factory.withSubtype(ScreenWidget::class.java, createNamespaceFor<ScreenWidget>())
-            .withSubtype(FlexWidget::class.java, createNamespaceFor<FlexWidget>())
+            .withSubtype(Container::class.java, createNamespaceFor<Container>())
             .withSubtype(FlexSingleWidget::class.java, createNamespaceFor<FlexSingleWidget>())
             .withSubtype(Vertical::class.java, createNamespaceFor<Vertical>())
             .withSubtype(Horizontal::class.java, createNamespaceFor<Horizontal>())

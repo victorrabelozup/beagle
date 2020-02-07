@@ -7,13 +7,13 @@ import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.layout.FlexWidget
+import br.com.zup.beagle.widget.layout.Container
 
-internal class FlexWidgetViewRenderer(
-    override val widget: FlexWidget,
+internal class ContainerViewRenderer(
+    override val widget: Container,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory()
-) : LayoutViewRenderer<FlexWidget>(viewRendererFactory, viewFactory) {
+) : LayoutViewRenderer<Container>(viewRendererFactory, viewFactory) {
 
     override fun buildView(rootView: RootView): View {
         return viewFactory.makeBeagleFlexView(rootView.getContext(), widget.flex ?: Flex())

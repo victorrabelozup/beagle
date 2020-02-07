@@ -36,9 +36,9 @@ fun makeScreenWidgetJson() = """
     }
 """
 
-fun makeFlexWidgetJson() = """
+fun makeContainerJson() = """
     {
-        "_beagleType_": "beagle:widget:flexwidget",
+        "_beagleType_": "beagle:widget:container",
         "flex": ${makeFlexJson()},
         "children": [${makeButtonJson()}, ${makeButtonJson()}]
     }
@@ -141,7 +141,7 @@ fun makeScrollViewJson() = """
     "_beagleType_": "beagle:widget:scrollview",
     "children": [
         {
-            "_beagleType_": "beagle:widget:flexwidget",
+            "_beagleType_": "beagle:widget:container",
             "flex": {
                 "flexDirection": "ROW"
             },

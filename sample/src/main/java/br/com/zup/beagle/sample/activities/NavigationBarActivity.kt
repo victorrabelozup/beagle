@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import br.com.zup.beagle.utils.toView
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.JustifyContent
-import br.com.zup.beagle.widget.layout.FlexWidget
+import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.sample.widgets.TextField
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.Screen
@@ -32,7 +32,7 @@ class NavigationBarActivity : AppCompatActivity() {
                 showBackButton = true,
                 style = "toolbar"
             ),
-            content = FlexWidget(
+            content = Container(
                 flex = Flex(justifyContent = JustifyContent.CENTER),
                 children = listOf(
                     TextField(

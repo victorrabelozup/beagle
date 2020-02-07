@@ -14,7 +14,7 @@ import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormSubmit
 import br.com.zup.beagle.widget.layout.FlexSingleWidget
-import br.com.zup.beagle.widget.layout.FlexWidget
+import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.Horizontal
 import br.com.zup.beagle.widget.layout.PageView
 import br.com.zup.beagle.widget.layout.ScreenWidget
@@ -81,16 +81,16 @@ class BeagleMoshiTest {
     }
 
     @Test
-    fun make_should_return_moshi_to_deserialize_a_FlexWidget() {
+    fun make_should_return_moshi_to_deserialize_a_Container() {
         // Given
-        val json = makeFlexWidgetJson()
+        val json = makeContainerJson()
 
         // When
         val actual = beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json)
 
         // Then
         assertNotNull(actual)
-        assertTrue(actual is FlexWidget)
+        assertTrue(actual is Container)
     }
 
     @Test

@@ -12,7 +12,7 @@ import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormMethodType
 import br.com.zup.beagle.widget.form.FormSubmit
-import br.com.zup.beagle.widget.layout.FlexWidget
+import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.ui.Button
 
 
@@ -22,10 +22,10 @@ class FormFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val declarative = FlexWidget(
+        val declarative = Container(
             children = listOf(
                 Form(
-                    child = FlexWidget(
+                    child = Container(
                         children = listOf(
                             FormInput(
                                 name = "nome",

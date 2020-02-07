@@ -19,7 +19,7 @@ import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormMethodType
 import br.com.zup.beagle.widget.form.FormSubmit
 import br.com.zup.beagle.widget.layout.FlexSingleWidget
-import br.com.zup.beagle.widget.layout.FlexWidget
+import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.Text
 import br.com.zup.beagle.widget.ui.TextAlignment
@@ -45,7 +45,7 @@ class DisabledFormSubmitFragment : Fragment() {
 
     private fun makeCharade(charade: CharadeInput): Form {
         return Form(
-            child = FlexWidget(
+            child = Container(
                 children = listOf(
                     makeCharadeText(charade),
                     makeCharadeAnswer(),
