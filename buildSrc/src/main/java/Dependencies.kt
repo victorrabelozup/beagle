@@ -12,7 +12,7 @@ object Modules {
 object Releases {
     const val versionCode = 1
     const val versionName = "1.0"
-    const val beagleVersionName = "0.0.11-alpha"
+    const val beagleVersionName = "0.0.16-alpha"
     const val yogaVersionName = "0.0.1-alpha1"
 }
 
