@@ -4,6 +4,7 @@ import android.view.View
 import br.com.zup.beagle.engine.renderer.layout.FormInputValidator
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormSubmit
+import br.com.zup.beagle.widget.form.InputWidget
 import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
@@ -21,11 +22,11 @@ class FormValidatorControllerTest {
     @MockK
     private lateinit var formSubmit: FormSubmit
     @MockK
+    private lateinit var inputWidget: InputWidget
+    @MockK
     private lateinit var formInput: FormInput
     @MockK
     lateinit var formInputValidator: FormInputValidator
-    @MockK
-    private lateinit var childViewFormInput: View
 
     private val submitViewEnabledSlot = slot<Boolean>()
 
@@ -40,7 +41,6 @@ class FormValidatorControllerTest {
 
         every { submitView.tag } returns formSubmit
         every { submitView.isEnabled = capture(submitViewEnabledSlot) } just Runs
-        every { childViewFormInput.tag } returns formInput
     }
 
     @Test
@@ -62,7 +62,7 @@ class FormValidatorControllerTest {
         val result = false
         every { formInputValidator.isValid } returns false
         every { formSubmit.enabled } returns false
-        formValidatorController.formInputValidViews.add(formInputValidator)
+        formValidatorController.formInputValidatorList.add(formInputValidator)
 
 
         // WHEN
@@ -77,11 +77,12 @@ class FormValidatorControllerTest {
         // GIVEN
         val result = 1
         every { formInput.validator } returns null
+        every { formInput.child } returns inputWidget
 
         // WHEN
-        formValidatorController.configFormInputList(childViewFormInput)
+        formValidatorController.configFormInputList(formInput)
 
         // THEN
-        assertTrue { result == formValidatorController.formInputValidViews.size }
+        assertTrue { result == formValidatorController.formInputValidatorList.size }
     }
 }

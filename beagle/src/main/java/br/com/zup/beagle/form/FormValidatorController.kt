@@ -14,18 +14,18 @@ class FormValidatorController(
     private val validatorHandler: ValidatorHandler? = BeagleEnvironment.validatorHandler
 ) {
 
-    var formInputValidViews = mutableListOf<FormInputValidator>()
+    var formInputValidatorList = mutableListOf<FormInputValidator>()
     var formSubmitView: View? = null
 
-    private fun subscribeOnValidState(view: View) {
-        if (view is StateChangeable) {
-            view.getState().addObserver(object : Observer<WidgetState> {
+    private fun subscribeOnValidState(formInput: FormInput) {
+        val inputWidget = formInput.child
+        if (inputWidget is StateChangeable) {
+            inputWidget.getState().addObserver(object : Observer<WidgetState> {
                 override fun update(o: Observable<WidgetState>, arg: WidgetState) {
-                    val formInput = view.tag as FormInput
                     val validator = formInput.validator
                     if (validator != null) {
                         validatorHandler?.getValidator(validator)?.let {
-                            formInputValidViews.find { formInputValidator ->
+                            formInputValidatorList.find { formInputValidator ->
                                 formInputValidator.formInput == formInput
                             }?.isValid = it.isValid(arg.value, formInput.child)
                         }
@@ -43,20 +43,20 @@ class FormValidatorController(
     }
 
     private fun checkFormFieldsValidate(): Boolean {
-        formInputValidViews.forEach {
+        formInputValidatorList.forEach {
             if (!it.isValid)
                 return false
         }
         return true
     }
 
-    fun configFormInputList(childView: View) {
-        formInputValidViews.add(
+    fun configFormInputList(formInput: FormInput) {
+        formInputValidatorList.add(
             FormInputValidator(
-                childView.tag as FormInput,
-                (childView.tag as FormInput).validator == null
+                formInput,
+                formInput.validator == null
             )
         )
-        subscribeOnValidState(childView)
+        subscribeOnValidState(formInput)
     }
 }

@@ -2,6 +2,8 @@ package br.com.zup.beagle.engine.renderer.ui
 
 import android.content.Context
 import androidx.core.widget.TextViewCompat
+import br.com.zup.beagle.action.Action
+import br.com.zup.beagle.action.ActionExecutor
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.utils.setData
 import br.com.zup.beagle.view.ViewFactory
@@ -12,6 +14,7 @@ import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.mockkStatic
 import io.mockk.unmockkStatic
@@ -32,10 +35,12 @@ class ButtonViewRendererTest {
     private lateinit var rootView: RootView
     @MockK
     private lateinit var context: Context
-    @MockK
+    @RelaxedMockK
     private lateinit var buttonView: BeagleButtonView
     @MockK
     private lateinit var button: Button
+    @MockK
+    private lateinit var actionExecutor: ActionExecutor
 
     @InjectMockKs
     private lateinit var buttonViewRenderer: ButtonViewRenderer
@@ -48,6 +53,7 @@ class ButtonViewRendererTest {
 
         every { button.style } returns DEFAULT_STYLE
         every { button.text } returns DEFAULT_TEXT
+        every { button.action } returns null
         every { buttonView.setBackgroundResource(any()) } just Runs
         every { rootView.getContext() } returns context
         every { TextViewCompat.setTextAppearance(any(), any()) } just Runs
@@ -63,7 +69,6 @@ class ButtonViewRendererTest {
     fun build_should_return_a_button_instance_and_set_data() {
         // Given
         every { viewFactory.makeButton(context) } returns buttonView
-        every { buttonView.setData(any()) } just Runs
 
         // When
         val view = buttonViewRenderer.build(rootView)

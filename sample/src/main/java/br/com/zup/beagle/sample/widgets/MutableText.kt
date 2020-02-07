@@ -6,18 +6,21 @@ import android.view.Gravity
 import android.widget.TextView
 import br.com.zup.beagle.widget.core.WidgetView
 
-data class MutableText (
+data class MutableText(
     val firstText: String = "",
     val secondText: String = "",
     val color: String = "#000000"
-): WidgetView {
+) : WidgetView {
     override fun toView(context: Context) = TextView(context).apply {
         val color = Color.parseColor(color)
         text = firstText
         setTextColor(color)
         gravity = Gravity.CENTER
         setOnClickListener {
-            this.text = secondText
+            text = if (text == firstText)
+                secondText
+            else
+                firstText
         }
     }
 }

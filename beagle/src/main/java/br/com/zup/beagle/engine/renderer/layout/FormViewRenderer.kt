@@ -62,7 +62,7 @@ internal class FormViewRenderer(
                 val tag = childView.tag
                 if (tag is FormInput) {
                     formInputs.add(tag)
-                    formValidatorController.configFormInputList(childView)
+                    formValidatorController.configFormInputList(tag)
                 } else if (childView.tag is FormSubmit && formSubmitView == null) {
                     formSubmitView = childView
                     addClickToFormSubmit(childView)

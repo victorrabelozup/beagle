@@ -4,7 +4,11 @@ import android.content.Context
 import android.graphics.Color
 import android.text.InputType
 import android.widget.EditText
+import androidx.core.widget.doOnTextChanged
+import br.com.zup.beagle.interfaces.StateChangeable
+import br.com.zup.beagle.interfaces.WidgetState
 import br.com.zup.beagle.sample.utils.MaskApplier
+import br.com.zup.beagle.state.Observable
 import br.com.zup.beagle.widget.form.InputWidget
 
 enum class TextFieldInputType {
@@ -20,13 +24,21 @@ data class TextField(
     val color: String = "#000000",
     val mask: String? = null,
     val inputType: TextFieldInputType? = null
-) : InputWidget {
+) : InputWidget, StateChangeable {
+
+    private val stateObservable = Observable<WidgetState>()
+
+    override fun getState(): Observable<WidgetState> = stateObservable
 
     private lateinit var textFieldView: EditText
 
     override fun toView(context: Context) = EditText(context).apply {
         textFieldView = this
         bind()
+
+        this.doOnTextChanged { text, _, _, _ ->
+            stateObservable.notifyObservers(WidgetState(text.toString()))
+        }
     }
 
     override fun onErrorMessage(message: String) {

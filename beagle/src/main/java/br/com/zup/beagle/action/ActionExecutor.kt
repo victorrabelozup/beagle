@@ -13,7 +13,7 @@ internal class ActionExecutor(
     private val formValidationActionHandler: ActionHandler<FormValidation>? = null
 ) {
 
-    fun doAction(context: Context, action: Action) {
+    fun doAction(context: Context, action: Action?) {
         when (action) {
             is Navigate -> navigationActionHandler.handle(context, action)
             is ShowNativeDialog -> showNativeDialogActionHandler.handle(context, action)

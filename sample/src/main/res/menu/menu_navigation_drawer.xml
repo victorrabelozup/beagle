@@ -98,5 +98,6 @@
             android:icon="@mipmap/ic_launcher"
             android:title="Disabled Form Submit"
             tools:ignore="HardcodedText" />
+
     </group>
 </menu>

@@ -70,7 +70,7 @@ class DisabledFormSubmitFragment : Fragment() {
                 )
             ),
             child = FormSubmit(
-                child = Button("flag"),
+                child = Button(text = "flag"),
                 enabled = false
             )
         )
