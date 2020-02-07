@@ -3,7 +3,7 @@ package br.com.zup.beagle.sample.controller
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.Widget
-import br.com.zup.beagle.widget.layout.FlexWidget
+import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.ScrollAxis
 import br.com.zup.beagle.widget.layout.ScrollView
 import br.com.zup.beagle.widget.ui.Text
@@ -18,7 +18,7 @@ class ScrollViewController {
         return ScrollView(
             scrollDirection = ScrollAxis.HORIZONTAL,
             children = listOf(
-                FlexWidget(
+                Container(
                     flex = Flex(
                         flexDirection = FlexDirection.ROW
                     ),

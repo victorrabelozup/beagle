@@ -4,12 +4,12 @@ import br.com.zup.beagle.widget.core.ComposeWidget
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.JustifyContent
 import br.com.zup.beagle.widget.core.Widget
-import br.com.zup.beagle.widget.layout.FlexWidget
+import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.Text
 
 class CustomWidget : ComposeWidget {
-    override fun build(): Widget = FlexWidget(
+    override fun build(): Widget = Container(
         flex = Flex(
             justifyContent = JustifyContent.CENTER
         ),
