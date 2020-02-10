@@ -36,7 +36,6 @@ interface BeagleSdk {
 }
 
 interface BeagleConfig {
-    val appName: String
     val environment: Environment
     val baseUrl: String
 }

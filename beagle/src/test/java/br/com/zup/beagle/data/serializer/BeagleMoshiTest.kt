@@ -39,7 +39,7 @@ import org.junit.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
-private const val APP_NAME = "sample"
+private const val APP_NAME = "custom"
 @Suppress("UNCHECKED_CAST")
 private val WIDGETS = listOf(
     CustomWidget::class.java as Class<WidgetView>,
@@ -58,7 +58,6 @@ class BeagleMoshiTest {
 
         mockkObject(BeagleEnvironment)
 
-        every { BeagleEnvironment.beagleSdk.config.appName } returns APP_NAME
         every { BeagleEnvironment.beagleSdk.registeredWidgets() } returns WIDGETS
     }
 

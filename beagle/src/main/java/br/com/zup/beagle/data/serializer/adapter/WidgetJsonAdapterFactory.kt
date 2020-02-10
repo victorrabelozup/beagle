@@ -89,7 +89,7 @@ internal object WidgetJsonAdapterFactory {
     private fun registerCustomWidget(
         factory: PolymorphicJsonAdapterFactory<Widget>
     ): PolymorphicJsonAdapterFactory<Widget> {
-        val appName = BeagleEnvironment.beagleSdk.config.appName
+        val appName = "custom"
         val widgets = BeagleEnvironment.beagleSdk.registeredWidgets()
 
         var newFactory = factory

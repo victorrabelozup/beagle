@@ -6,7 +6,6 @@ import br.com.zup.beagle.setup.Environment
 
 @BeagleComponent
 class AppBeagleConfig : BeagleConfig {
-    override val appName: String get() = "sample"
     override val environment: Environment get() = Environment.DEBUG
     override val baseUrl: String get() = "https://t001-2751a.firebaseapp.com/"
 }

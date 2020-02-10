@@ -124,7 +124,7 @@ fun makeListViewJson() = """
 
 fun makeCustomWidgetJson() = """
     {
-        "_beagleType_": "sample:widget:customwidget"
+        "_beagleType_": "custom:widget:customwidget"
     }
 """
 
@@ -214,7 +214,7 @@ fun makeFormValidationJson() = """
 
 fun makeCustomInputWidgetJson() = """
     {
-        "_beagleType_": "sample:widget:custominputwidget"
+        "_beagleType_": "custom:widget:custominputwidget"
     }
 """
 
