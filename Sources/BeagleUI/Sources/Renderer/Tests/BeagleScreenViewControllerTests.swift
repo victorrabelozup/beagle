@@ -66,8 +66,8 @@ final class BeagleScreenViewControllerTests: XCTestCase {
     func test_whenLoadScreenFails_itShouldCall_didFailToLoadWithError_onDelegate() {
         // Given
         let url = "www.something.com"
-        let loaderStub = RemoteConnectorStub(
-            loadWidgetResult: .failure(.emptyData)
+        let networkStub = NetworkStub(
+            widgetResult: .failure(.networkError(NSError()))
         )
         
         let delegateSpy = BeagleScreenDelegateSpy()
@@ -75,7 +75,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         _ = BeagleScreenViewController(viewModel: .init(
             screenType: .remote(url),
             dependencies: BeagleScreenDependencies(
-                remoteConnector: loaderStub
+                network: networkStub
             ),
             delegate: delegateSpy
         ))
@@ -89,12 +89,12 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         let viewToReturn = UIView()
         viewToReturn.tag = 1234
 
-        let loaderStub = RemoteConnectorStub(
-            loadWidgetResult: .success(SimpleWidget().content)
+        let loaderStub = NetworkStub(
+            widgetResult: .success(SimpleWidget().content)
         )
 
         let dependencies = BeagleDependencies(appName: "TEST")
-        dependencies.remoteConnector = loaderStub
+        dependencies.network = loaderStub
 
         let sut = BeagleScreenViewController(viewModel: .init(
             screenType: .remote("www.something.com"),
@@ -116,7 +116,7 @@ struct SimpleWidget {
 struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
     var actionExecutor: ActionExecutor
     var flex: FlexViewConfiguratorProtocol
-    var remoteConnector: RemoteConnector
+    var network: Network
     var theme: Theme
     var validatorProvider: ValidatorProvider?
     var preFetchHelper: BeaglePrefetchHelping
@@ -125,7 +125,7 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
     init(
         actionExecutor: ActionExecutor = ActionExecutorDummy(),
         flex: FlexViewConfiguratorProtocol = FlexViewConfiguratorDummy(),
-        remoteConnector: RemoteConnector = RemoteConnectorDummy(),
+        network: Network = NetworkDummy(),
         theme: Theme = AppThemeDummy(),
         validatorProvider: ValidatorProvider = ValidatorProviding(),
         preFetchHelper: BeaglePrefetchHelping = BeaglePreFetchHelper(),
@@ -133,7 +133,7 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
     ) {
         self.actionExecutor = actionExecutor
         self.flex = flex
-        self.remoteConnector = remoteConnector
+        self.network = network
         self.theme = theme
         self.validatorProvider = validatorProvider
         self.preFetchHelper = preFetchHelper
@@ -141,9 +141,18 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
     }
 }
 
-final class RemoteConnectorDummy: RemoteConnector {
-    func fetchWidget(from url: String, completion: @escaping (Result<Widget, RemoteConnector.Error>) -> Void) {}
-    func submitForm(action: String, method: Form.MethodType, values: [String: String], completion: @escaping (Result<Action, RemoteConnector.Error>) -> Void) {}
+final class NetworkDummy: Network {
+    func fetchWidget(url: String, completion: @escaping (Result<Widget, Request.Error>) -> Void) -> RequestToken? {
+        return nil
+    }
+
+    func submitForm(url: String, data: Request.FormData, completion: @escaping (Result<Action, Request.Error>) -> Void) -> RequestToken? {
+        return nil
+    }
+
+    func fetchImage(url: String, completion: @escaping (Result<Data, Request.Error>) -> Void) -> RequestToken? {
+        return nil
+    }
 }
 
 final class FlexViewConfiguratorDummy: FlexViewConfiguratorProtocol {
@@ -152,29 +161,49 @@ final class FlexViewConfiguratorDummy: FlexViewConfiguratorProtocol {
     func enableYoga(_ enable: Bool, for view: UIView) {}
 }
 
-final class RemoteConnectorStub: RemoteConnector {
-
-    let submitFormResult: Result<Action, RemoteConnectorError>?
-    let loadWidgetResult: Result<Widget, RemoteConnectorError>?
+struct NetworkStub: Network {
+    let widgetResult: Result<Widget, Request.Error>?
+    let formResult: Result<Action, Request.Error>?
+    let imageResult: Result<Data, Request.Error>?
 
     init(
-        submitFormResult: Result<Action, RemoteConnectorError>? = nil,
-        loadWidgetResult: Result<Widget, RemoteConnectorError>? = nil
+        widgetResult: Result<Widget, Request.Error>? = nil,
+        formResult: Result<Action, Request.Error>? = nil,
+        imageResult: Result<Data, Request.Error>? = nil
     ) {
-        self.submitFormResult = submitFormResult
-        self.loadWidgetResult = loadWidgetResult
+        self.widgetResult = widgetResult
+        self.formResult = formResult
+        self.imageResult = imageResult
     }
-    
-    func submitForm(action: String, method: Form.MethodType, values: [String: String], completion: @escaping (Result<Action, RemoteConnectorError>) -> Void) {
-        if let result = submitFormResult {
+
+    func fetchWidget(url: String, completion: @escaping (Result<Widget, Request.Error>) -> Void) -> RequestToken? {
+        if let result = widgetResult {
             completion(result)
         }
+        return nil
     }
-    
-    func fetchWidget(from url: String, completion: @escaping (Result<Widget, RemoteConnector.Error>) -> Void) {
-        if let result = loadWidgetResult {
+
+    func submitForm(url: String, data: Request.FormData, completion: @escaping (Result<Action, Request.Error>) -> Void) -> RequestToken? {
+        if let result = formResult {
             completion(result)
         }
+        return nil
+    }
+
+    func fetchImage(url: String, completion: @escaping (Result<Data, Request.Error>) -> Void) -> RequestToken? {
+        if let result = imageResult {
+            completion(result)
+        }
+        return nil
+    }
+}
+
+struct NetworkDispatcherStub: NetworkClient {
+    let result: NetworkClient.Result
+
+    func executeRequest(_ request: Request, completion: @escaping RequestCompletion) -> RequestToken? {
+        completion(result)
+        return nil
     }
 }
 
@@ -182,9 +211,9 @@ final class BeagleScreenDelegateSpy: BeagleScreenDelegate {
     
     private(set) var didFailToLoadWithErrorCalled = false
     private(set) var viewModel: BeagleScreenViewModel?
-    private(set) var errorPassed: RemoteConnectorError?
+    private(set) var errorPassed: Request.Error?
     
-    func beagleScreen(viewModel: BeagleScreenViewModel, didFailToLoadWithError error: RemoteConnectorError) {
+    func beagleScreen(viewModel: BeagleScreenViewModel, didFailToLoadWithError error: Request.Error) {
         didFailToLoadWithErrorCalled = true
         self.viewModel = viewModel
         errorPassed = error

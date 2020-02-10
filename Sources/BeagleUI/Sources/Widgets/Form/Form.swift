@@ -26,7 +26,7 @@ public struct Form: Widget {
 }
 
 extension Form {
-    public enum MethodType: String, StringRawRepresentable {
+    public enum MethodType: String, StringRawRepresentable, CaseIterable {
         case get = "GET"
         case post = "POST"
         case put = "PUT"

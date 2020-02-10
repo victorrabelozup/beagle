@@ -26,7 +26,7 @@ public struct NetworkImage: Widget, HasAppearance {
 
 extension NetworkImage: Renderable {
     public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
-        let imageView = NetworkUIImageView(imageDataProvider: ImageDataProviding(), url: url)
+        let imageView = NetworkUIImageView(network: dependencies.network, url: url)
         imageView.contentMode = (contentMode ?? .fitCenter).toUIKit()
         imageView.applyAppearance(appearance)
         let flex = Flex(size: .init(width: 100%, height: 100%))

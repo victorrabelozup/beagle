@@ -23,7 +23,7 @@ final class BeagleSetupTests: XCTestCase {
         if let url = URL(string: "www.test.com") {
             dep.baseURL = url
         }
-        dep.networkDispatcher = URLRequestDispatchingDummy()
+        dep.networkClient = NetworkClientDummy()
         dep.flex = FlexViewConfiguratorDummy()
         dep.decoder = WidgetDecodingDummy()
 
@@ -83,6 +83,7 @@ class BeagleContextDummy: BeagleContext {
 }
 
 struct RendererDependenciesContainer: Renderable.Dependencies {
+    var network: Network
     var flex: FlexViewConfiguratorProtocol
     var theme: Theme
     var validatorProvider: ValidatorProvider?
@@ -90,12 +91,14 @@ struct RendererDependenciesContainer: Renderable.Dependencies {
     var appBundle: Bundle
 
     init(
+        network: Network = NetworkDummy(),
         flex: FlexViewConfiguratorProtocol = FlexViewConfiguratorDummy(),
         theme: Theme = AppThemeDummy(),
         validatorProvider: ValidatorProvider? = ValidatorProviding(),
         preFetchHelper: BeaglePrefetchHelping = BeaglePreFetchHelper(),
         appBundle: Bundle = Bundle(for: ImageTests.self)
     ) {
+        self.network = network
         self.flex = flex
         self.theme = theme
         self.validatorProvider = validatorProvider
@@ -110,8 +113,8 @@ struct WidgetDummyEntity: WidgetConvertibleEntity {
     }
 }
 
-class URLRequestDispatchingDummy: NetworkDispatcher {
-    func execute(on queue: DispatchQueue, request: URLRequestProtocol, completion: @escaping (Result<Data?, URLRequestError>) -> Void) -> URLRequestToken? {
+class NetworkClientDummy: NetworkClient {
+    func executeRequest(_ request: Request, completion: @escaping RequestCompletion) -> RequestToken? {
         return nil
     }
 }

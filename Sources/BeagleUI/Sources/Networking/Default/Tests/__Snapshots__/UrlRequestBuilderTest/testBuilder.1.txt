@@ -1,0 +1,753 @@
+▿ 40 elements
+  ▿ 
+    - testNumber: 1
+    - parameters: "  baseUrl/  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.fetchWidget)"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: baseUrl/path
+        ▿ url: Optional<URL>
+          - some: baseUrl/path
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "GET"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        - httpBody: Optional<Data>.none
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 2
+    - parameters: "  NULL  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.fetchWidget)"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: path
+        ▿ url: Optional<URL>
+          - some: path
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "GET"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        - httpBody: Optional<Data>.none
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 3
+    - parameters: "  baseUrl/  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.fetchImage)"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: baseUrl/path
+        ▿ url: Optional<URL>
+          - some: baseUrl/path
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "GET"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        - httpBody: Optional<Data>.none
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 4
+    - parameters: "  NULL  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.fetchImage)"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: path
+        ▿ url: Optional<URL>
+          - some: path
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "GET"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        - httpBody: Optional<Data>.none
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 5
+    - parameters: "  baseUrl/  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.get, values: [\"key\": \"value\"])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: baseUrl/path?key=value
+        ▿ url: Optional<URL>
+          - some: baseUrl/path?key=value
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "GET"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        - httpBody: Optional<Data>.none
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 6
+    - parameters: "  NULL  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.get, values: [\"key\": \"value\"])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: path?key=value
+        ▿ url: Optional<URL>
+          - some: path?key=value
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "GET"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        - httpBody: Optional<Data>.none
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 7
+    - parameters: "  baseUrl/  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.get, values: [:])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: baseUrl/path?
+        ▿ url: Optional<URL>
+          - some: baseUrl/path?
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "GET"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        - httpBody: Optional<Data>.none
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 8
+    - parameters: "  NULL  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.get, values: [:])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: path?
+        ▿ url: Optional<URL>
+          - some: path?
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "GET"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        - httpBody: Optional<Data>.none
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 9
+    - parameters: "  baseUrl/  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.post, values: [\"key\": \"value\"])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: baseUrl/path
+        ▿ url: Optional<URL>
+          - some: baseUrl/path
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "POST"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        ▿ httpBody: Optional<Data>
+          - some: 15 bytes
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 10
+    - parameters: "  NULL  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.post, values: [\"key\": \"value\"])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: path
+        ▿ url: Optional<URL>
+          - some: path
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "POST"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        ▿ httpBody: Optional<Data>
+          - some: 15 bytes
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 11
+    - parameters: "  baseUrl/  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.post, values: [:])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: baseUrl/path
+        ▿ url: Optional<URL>
+          - some: baseUrl/path
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "POST"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        ▿ httpBody: Optional<Data>
+          - some: 2 bytes
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 12
+    - parameters: "  NULL  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.post, values: [:])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: path
+        ▿ url: Optional<URL>
+          - some: path
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "POST"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        ▿ httpBody: Optional<Data>
+          - some: 2 bytes
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 13
+    - parameters: "  baseUrl/  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.put, values: [\"key\": \"value\"])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: baseUrl/path
+        ▿ url: Optional<URL>
+          - some: baseUrl/path
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "PUT"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        ▿ httpBody: Optional<Data>
+          - some: 15 bytes
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 14
+    - parameters: "  NULL  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.put, values: [\"key\": \"value\"])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: path
+        ▿ url: Optional<URL>
+          - some: path
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "PUT"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        ▿ httpBody: Optional<Data>
+          - some: 15 bytes
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 15
+    - parameters: "  baseUrl/  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.put, values: [:])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: baseUrl/path
+        ▿ url: Optional<URL>
+          - some: baseUrl/path
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "PUT"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        ▿ httpBody: Optional<Data>
+          - some: 2 bytes
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 16
+    - parameters: "  NULL  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.put, values: [:])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: path
+        ▿ url: Optional<URL>
+          - some: path
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "PUT"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        ▿ httpBody: Optional<Data>
+          - some: 2 bytes
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 17
+    - parameters: "  baseUrl/  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.delete, values: [\"key\": \"value\"])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: baseUrl/path?key=value
+        ▿ url: Optional<URL>
+          - some: baseUrl/path?key=value
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "DELETE"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        - httpBody: Optional<Data>.none
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 18
+    - parameters: "  NULL  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.delete, values: [\"key\": \"value\"])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: path?key=value
+        ▿ url: Optional<URL>
+          - some: path?key=value
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "DELETE"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        - httpBody: Optional<Data>.none
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 19
+    - parameters: "  baseUrl/  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.delete, values: [:])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: baseUrl/path?
+        ▿ url: Optional<URL>
+          - some: baseUrl/path?
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "DELETE"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        - httpBody: Optional<Data>.none
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 20
+    - parameters: "  NULL  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.delete, values: [:])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: path?
+        ▿ url: Optional<URL>
+          - some: path?
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "DELETE"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        - httpBody: Optional<Data>.none
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 21
+    - parameters: "  baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.fetchWidget)"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: baseUrl/
+        ▿ url: Optional<URL>
+          - some: baseUrl/
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "GET"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        - httpBody: Optional<Data>.none
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 22
+    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.fetchWidget)"
+    ▿ result: Result<URLRequest, ClientError>
+      - failure: ClientError.invalidUrl
+  ▿ 
+    - testNumber: 23
+    - parameters: "  baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.fetchImage)"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: baseUrl/
+        ▿ url: Optional<URL>
+          - some: baseUrl/
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "GET"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        - httpBody: Optional<Data>.none
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 24
+    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.fetchImage)"
+    ▿ result: Result<URLRequest, ClientError>
+      - failure: ClientError.invalidUrl
+  ▿ 
+    - testNumber: 25
+    - parameters: "  baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.get, values: [\"key\": \"value\"])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: baseUrl/?key=value
+        ▿ url: Optional<URL>
+          - some: baseUrl/?key=value
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "GET"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        - httpBody: Optional<Data>.none
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 26
+    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.get, values: [\"key\": \"value\"])))"
+    ▿ result: Result<URLRequest, ClientError>
+      - failure: ClientError.invalidUrl
+  ▿ 
+    - testNumber: 27
+    - parameters: "  baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.get, values: [:])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: baseUrl/?
+        ▿ url: Optional<URL>
+          - some: baseUrl/?
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "GET"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        - httpBody: Optional<Data>.none
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 28
+    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.get, values: [:])))"
+    ▿ result: Result<URLRequest, ClientError>
+      - failure: ClientError.invalidUrl
+  ▿ 
+    - testNumber: 29
+    - parameters: "  baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.post, values: [\"key\": \"value\"])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: baseUrl/
+        ▿ url: Optional<URL>
+          - some: baseUrl/
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "POST"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        ▿ httpBody: Optional<Data>
+          - some: 15 bytes
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 30
+    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.post, values: [\"key\": \"value\"])))"
+    ▿ result: Result<URLRequest, ClientError>
+      - failure: ClientError.invalidUrl
+  ▿ 
+    - testNumber: 31
+    - parameters: "  baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.post, values: [:])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: baseUrl/
+        ▿ url: Optional<URL>
+          - some: baseUrl/
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "POST"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        ▿ httpBody: Optional<Data>
+          - some: 2 bytes
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 32
+    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.post, values: [:])))"
+    ▿ result: Result<URLRequest, ClientError>
+      - failure: ClientError.invalidUrl
+  ▿ 
+    - testNumber: 33
+    - parameters: "  baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.put, values: [\"key\": \"value\"])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: baseUrl/
+        ▿ url: Optional<URL>
+          - some: baseUrl/
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "PUT"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        ▿ httpBody: Optional<Data>
+          - some: 15 bytes
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 34
+    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.put, values: [\"key\": \"value\"])))"
+    ▿ result: Result<URLRequest, ClientError>
+      - failure: ClientError.invalidUrl
+  ▿ 
+    - testNumber: 35
+    - parameters: "  baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.put, values: [:])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: baseUrl/
+        ▿ url: Optional<URL>
+          - some: baseUrl/
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "PUT"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        ▿ httpBody: Optional<Data>
+          - some: 2 bytes
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 36
+    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.put, values: [:])))"
+    ▿ result: Result<URLRequest, ClientError>
+      - failure: ClientError.invalidUrl
+  ▿ 
+    - testNumber: 37
+    - parameters: "  baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.delete, values: [\"key\": \"value\"])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: baseUrl/?key=value
+        ▿ url: Optional<URL>
+          - some: baseUrl/?key=value
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "DELETE"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        - httpBody: Optional<Data>.none
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 38
+    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.delete, values: [\"key\": \"value\"])))"
+    ▿ result: Result<URLRequest, ClientError>
+      - failure: ClientError.invalidUrl
+  ▿ 
+    - testNumber: 39
+    - parameters: "  baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.delete, values: [:])))"
+    ▿ result: Result<URLRequest, ClientError>
+      ▿ success: baseUrl/?
+        ▿ url: Optional<URL>
+          - some: baseUrl/?
+        - cachePolicy: 1
+        - timeoutInterval: 100.0
+        - mainDocumentURL: Optional<URL>.none
+        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
+        - allowsCellularAccess: true
+        ▿ httpMethod: Optional<String>
+          - some: "DELETE"
+        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
+          ▿ some: 1 key/value pair
+            ▿ (2 elements)
+              - key: "Content-Type"
+              - value: "application/json"
+        - httpBody: Optional<Data>.none
+        - httpBodyStream: Optional<NSInputStream>.none
+        - httpShouldHandleCookies: true
+        - httpShouldUsePipelining: false
+  ▿ 
+    - testNumber: 40
+    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.delete, values: [:])))"
+    ▿ result: Result<URLRequest, ClientError>
+      - failure: ClientError.invalidUrl

@@ -26,7 +26,7 @@ public class BeagleScreenViewModel {
     public enum State {
         case loading
         case success
-        case failure(RemoteConnectorError)
+        case failure(Request.Error)
         case rendered
     }
 
@@ -36,7 +36,7 @@ public class BeagleScreenViewModel {
 
     public typealias Dependencies =
         DependencyActionExecutor
-        & DependencyRemoteConnector
+        & DependencyNetwork
         & Renderable.Dependencies
 
     // MARK: Delegate and Observer
@@ -73,12 +73,14 @@ public class BeagleScreenViewModel {
     func loadScreenFromUrl(_ url: String) {
         state = .loading
 
-        dependencies.remoteConnector.fetchWidget(from: url) { [weak self] result in
-            guard let self = self else { return }
+        dependencies.network.fetchWidget(url: url) {
+            [weak self] result in guard let self = self else { return }
+
             switch result {
             case .success(let widget):
                 self.screen = widget.toScreen()
                 self.state = .success
+
             case .failure(let error):
                 self.state = .failure(error)
             }
@@ -89,7 +91,7 @@ public class BeagleScreenViewModel {
         state = .rendered
     }
 
-    func handleError(_ error: RemoteConnectorError) {
+    func handleError(_ error: Request.Error) {
         delegate?.beagleScreen(viewModel: self, didFailToLoadWithError: error)
     }
 
@@ -109,7 +111,7 @@ public protocol BeagleScreenDelegate: AnyObject {
 
     func beagleScreen(
         viewModel: ViewModel,
-        didFailToLoadWithError error: RemoteConnectorError
+        didFailToLoadWithError error: Request.Error
     )
 }
 

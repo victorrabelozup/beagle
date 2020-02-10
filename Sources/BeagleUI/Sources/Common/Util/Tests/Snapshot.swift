@@ -6,7 +6,7 @@ import Foundation
 import SnapshotTesting
 import UIKit
 
-private let imageDiffPrecision: Float = 0.9
+private let imageDiffPrecision: Float = 0.95
 private let imageSize = CGSize(width: 300, height: 649) // 80% of iPhone X size
 
 func assertSnapshotImage(

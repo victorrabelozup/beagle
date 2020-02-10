@@ -158,15 +158,15 @@ final class BeagleContextTests: XCTestCase {
         // Given
         let widget = SimpleWidget()
         let actionExecutorSpy = ActionExecutorSpy()
-        let screenLoaderStub = RemoteConnectorStub(
-            submitFormResult: .success(CustomAction(name: "custom", data: [:]))
+        let networkStub = NetworkStub(
+            formResult: .success(CustomAction(name: "custom", data: [:]))
         )
 
         let sut = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(widget.content.toScreen()),
             dependencies: BeagleScreenDependencies(
                 actionExecutor: actionExecutorSpy,
-                remoteConnector: screenLoaderStub
+                network: networkStub
             )
         ))
         
@@ -193,14 +193,14 @@ final class BeagleContextTests: XCTestCase {
         // Given
         let widget = SimpleWidget()
         let actionExecutorSpy = ActionExecutorSpy()
-        let screenLoaderStub = RemoteConnectorStub(
-            submitFormResult: .failure(.invalidEntity)
+        let networkStub = NetworkStub(
+            formResult: .failure(.networkError(NSError()))
         )
         let sut = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(widget.content.toScreen()),
             dependencies: BeagleScreenDependencies(
                 actionExecutor: actionExecutorSpy,
-                remoteConnector: screenLoaderStub
+                network: networkStub
             )
         ))
         
@@ -222,8 +222,8 @@ final class BeagleContextTests: XCTestCase {
     
     func test_lazyLoad_shouldReplaceTheInitialContent() {
         let dependencies = BeagleDependencies(appName: "TEST")
-        dependencies.remoteConnector = RemoteConnectorStub(
-            loadWidgetResult: .success(SimpleWidget().content)
+        dependencies.network = NetworkStub(
+            widgetResult: .success(SimpleWidget().content)
         )
 
         let sut = BeagleScreenViewController(viewModel: .init(
@@ -238,11 +238,13 @@ final class BeagleContextTests: XCTestCase {
         // Given
         let initialView = OnStateUpdatableViewSpy()
         initialView.yoga.isEnabled = true
-        let screenLoader = RemoteConnectorStub(loadWidgetResult: .success(WidgetDummy()))
+        let networkStub = NetworkStub(
+            widgetResult: .success(WidgetDummy())
+        )
         let sut = BeagleScreenViewController(viewModel: .init(
             screenType: .declarative(WidgetDummy().toScreen()),
             dependencies: BeagleScreenDependencies(
-                remoteConnector: screenLoader
+                network: networkStub
             )
         ))
         sut.view.addSubview(initialView)
@@ -251,8 +253,8 @@ final class BeagleContextTests: XCTestCase {
         sut.lazyLoad(url: "URL", initialState: initialView)
         
         // Then
-        XCTAssertNotNil(initialView.superview, "`initialView` should not be removed from view hierarchy")
-        XCTAssertTrue(initialView.didCallOnUpdateState)
+        XCTAssert(initialView.superview != nil)
+        XCTAssert(initialView.didCallOnUpdateState)
     }
 }
 

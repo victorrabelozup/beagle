@@ -40,12 +40,15 @@ extension BeagleScreenViewController: BeagleContext {
     }
     
     public func lazyLoad(url: String, initialState: UIView) {
-        dependencies.remoteConnector.fetchWidget(from: url) { [weak self] result in
+        dependencies.network.fetchWidget(url: url) {
+            [weak self] result in guard let self = self else { return }
+
             switch result {
-            case let .success(widget):
-                self?.update(initialView: initialState, lazyLoaded: widget)
-            case let .failure(error):
-                self?.viewModel.handleError(error)
+            case .success(let widget):
+                self.update(initialView: initialState, lazyLoaded: widget)
+
+            case .failure(let error):
+                self.viewModel.handleError(error)
             }
         }
     }
@@ -67,16 +70,28 @@ extension BeagleScreenViewController: BeagleContext {
         let values = inputViews.reduce(into: [:]) {
             self.validate(formInput: $1, validatorHandler: sender.validator, result: &$0)
         }
+
         guard inputViews.count == values.count else { return }
 
+        makeRequest(sender: sender, values: values)
+    }
+
+    private func makeRequest(sender: SubmitFormGestureRecognizer, values: [String: String]) {
         view.showLoading(.whiteLarge)
-        dependencies.remoteConnector.submitForm(
-            action: sender.form.action,
+
+        let data = Request.FormData(
             method: sender.form.method,
             values: values
-        ) { [weak self] result in
-            self?.view.hideLoading()
-            self?.handleFormResult(result, sender: sender)
+        )
+
+        dependencies.network.submitForm(
+            url: sender.form.action,
+            data: data
+        ) {
+            [weak self] result in guard let self = self else { return }
+
+            self.view.hideLoading()
+            self.handleFormResult(result, sender: sender)
         }
     }
     
@@ -104,11 +119,11 @@ extension BeagleScreenViewController: BeagleContext {
         }
     }
     
-    private func handleFormResult(_ result: Result<Action, RemoteConnectorError>, sender: Any) {
+    private func handleFormResult(_ result: Result<Action, Request.Error>, sender: Any) {
         switch result {
-        case let .success(action):
+        case .success(let action):
             dependencies.actionExecutor.doAction(action, sender: sender, context: self)
-        case let .failure(error):
+        case .failure(let error):
             viewModel.handleError(error)
         }
     }

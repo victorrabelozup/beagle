@@ -5,6 +5,8 @@
 import Foundation
 
 public protocol WidgetDecoding {
+    typealias Error = WidgetDecodingError
+
     func register<T: WidgetEntity>(_ type: T.Type, for typeName: String)
     func decodableType(forType type: String) -> Decodable.Type?
     func decodeWidget(from data: Data) throws -> Widget
@@ -15,7 +17,7 @@ public protocol DependencyWidgetDecoding {
     var decoder: WidgetDecoding { get }
 }
 
-enum WidgetDecodingError: Error {
+public enum WidgetDecodingError: Error {
     case couldNotCastToType(String)
 }
 

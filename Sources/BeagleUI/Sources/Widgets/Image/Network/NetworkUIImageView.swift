@@ -9,19 +9,21 @@
 import UIKit
 
 final class NetworkUIImageView: UIImageView, HTTPRequestCanceling {
-    
-    private let imageDataProvider: ImageDataProvider
+
+    private let network: Network
     private let url: String
-    private var urlRequestToken: URLRequestToken?
+    private var token: RequestToken?
     
     init(
         frame: CGRect = .zero,
-        imageDataProvider: ImageDataProvider,
+        network: Network,
         url: String
     ) {
-        self.imageDataProvider = imageDataProvider
+        self.network = network
         self.url = url
+
         super.init(frame: frame)
+
         fetchImageData()
     }
     
@@ -31,14 +33,17 @@ final class NetworkUIImageView: UIImageView, HTTPRequestCanceling {
     }
     
     func cancelHTTPRequest() {
-        urlRequestToken?.cancel()
+        token?.cancel()
     }
     
     // MARK: - Private function
     private func fetchImageData() {
-        urlRequestToken = imageDataProvider.fetchImageData(from: url) { result in
-            guard let imageData = try? result.get() else { return }
-            let image = UIImage(data: imageData)
+        token = network.fetchImage(url: url) { [weak self] result in
+            guard let self = self else { return }
+
+            guard case .success(let data) = result else { return }
+
+            let image = UIImage(data: data)
             DispatchQueue.main.async {
                 self.image = image
             }
