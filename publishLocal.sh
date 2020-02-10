@@ -1,0 +1,1 @@
+./gradlew :android-annotation:publishMavenPublicationToMavenLocal :android-processor:publishMavenPublicationToMavenLocal :beagle:publishMavenPublicationToMavenLocal
