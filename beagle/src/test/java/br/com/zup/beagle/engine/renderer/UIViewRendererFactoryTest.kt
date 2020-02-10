@@ -9,6 +9,7 @@ import br.com.zup.beagle.engine.renderer.ui.ListViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.WidgetViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.NetworkImageViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.TextViewRenderer
+import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.widget.core.ComposeWidget
 import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.core.WidgetView
@@ -19,7 +20,11 @@ import br.com.zup.beagle.widget.ui.Image
 import br.com.zup.beagle.widget.ui.ListView
 import br.com.zup.beagle.widget.ui.NetworkImage
 import br.com.zup.beagle.widget.ui.Text
+import io.mockk.every
 import io.mockk.mockk
+import io.mockk.mockkObject
+import io.mockk.unmockkObject
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertTrue
@@ -30,7 +35,16 @@ class UIViewRendererFactoryTest {
 
     @Before
     fun setUp() {
+        mockkObject(BeagleEnvironment)
+
+        every { BeagleEnvironment.beagleSdk } returns mockk(relaxed = true)
+
         viewRendererFactory = UIViewRendererFactory()
+    }
+
+    @After
+    fun tearDown() {
+        unmockkObject(BeagleEnvironment)
     }
 
     @Test

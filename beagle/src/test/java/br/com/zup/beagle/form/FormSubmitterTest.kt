@@ -41,7 +41,7 @@ class FormSubmitterTest {
     fun setUp() {
         MockKAnnotations.init(this)
         mockkObject(BeagleEnvironment)
-        every { BeagleEnvironment.baseUrl } returns RandomData.httpUrl()
+        every { BeagleEnvironment.beagleSdk.config.baseUrl } returns RandomData.httpUrl()
 
         every { httpClient.execute(capture(requestDataSlot), any(), any()) } returns mockk()
     }

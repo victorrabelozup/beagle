@@ -4,6 +4,6 @@ import br.com.zup.beagle.setup.BeagleEnvironment
 
 internal class HttpClientFactory(private val urlFactory: URLFactory = URLFactory()) {
     fun make(): HttpClient {
-        return BeagleEnvironment.httpClient ?: HttpClientDefault(urlFactory)
+        return BeagleEnvironment.beagleSdk.httpClient ?: HttpClientDefault(urlFactory)
     }
 }

@@ -65,7 +65,7 @@ internal class BeagleService(
         val request = if (url.isValidUrl()) {
             RequestData(endpoint = url)
         } else {
-            RequestData(endpoint = BeagleEnvironment.baseUrl, path = url)
+            RequestData(endpoint = BeagleEnvironment.beagleSdk.config.baseUrl, path = url)
         }
 
         BeagleMessageLogs.logHttpRequestData(request)

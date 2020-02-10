@@ -1,6 +1,5 @@
 package br.com.zup.beagle.data
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import br.com.zup.beagle.action.Action
 import br.com.zup.beagle.data.cache.BeagleWidgetCacheHelper
 import br.com.zup.beagle.data.serializer.BeagleSerializer
@@ -25,14 +24,8 @@ import io.mockk.mockkObject
 import io.mockk.slot
 import io.mockk.unmockkObject
 import io.mockk.verify
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.TestCoroutineScope
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -80,7 +73,7 @@ class BeagleServiceTest {
         mockkObject(BeagleWidgetCacheHelper)
 
         mockListenerExecution { onSuccessSlot.captured(responseData) }
-        every { BeagleEnvironment.baseUrl } returns RandomData.httpUrl()
+        every { BeagleEnvironment.beagleSdk.config.baseUrl } returns RandomData.httpUrl()
         every { BeagleMessageLogs.logHttpRequestData(any()) } just Runs
         every { BeagleMessageLogs.logHttpResponseData(any()) } just Runs
         every { BeagleMessageLogs.logUnknownHttpError(any()) } just Runs

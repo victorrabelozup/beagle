@@ -1,5 +1,7 @@
 package br.com.zup.beagle.sample.widgets
 
+import br.com.zup.beagle.annotation.RegisterWidget
+import br.com.zup.beagle.widget.form.InputWidget
 import android.content.Context
 import android.graphics.Color
 import android.text.InputType
@@ -9,7 +11,6 @@ import br.com.zup.beagle.interfaces.StateChangeable
 import br.com.zup.beagle.interfaces.WidgetState
 import br.com.zup.beagle.sample.utils.MaskApplier
 import br.com.zup.beagle.state.Observable
-import br.com.zup.beagle.widget.form.InputWidget
 
 enum class TextFieldInputType {
     NUMBER,
@@ -17,6 +18,7 @@ enum class TextFieldInputType {
     TEXT
 }
 
+@RegisterWidget
 data class TextField(
     val id: String? = null,
     val description: String = "",

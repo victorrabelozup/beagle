@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 apply from: "../screenshots.gradle"
 
 android {
@@ -40,9 +41,12 @@ dependencies {
     implementation AndroidxLibraries.coreKtx
 
     implementation project(Modules.beagle)
+    kapt project(Modules.beagleCompiler)
 
     // Unit Testing
     testImplementation TestLibraries.junit
+    testImplementation TestLibraries.kotlinTest
+    testImplementation TestLibraries.mockk
 
     // Integration Testing
     androidTestImplementation TestLibraries.testRunner

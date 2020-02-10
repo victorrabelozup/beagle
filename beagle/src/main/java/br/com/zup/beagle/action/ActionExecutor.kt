@@ -5,7 +5,7 @@ import br.com.zup.beagle.setup.BeagleEnvironment
 
 internal class ActionExecutor(
     private val customActionHandler: CustomActionHandler? =
-        BeagleEnvironment.customActionHandler,
+        BeagleEnvironment.beagleSdk.customActionHandler,
     private val navigationActionHandler: NavigationActionHandler =
         NavigationActionHandler(),
     private val showNativeDialogActionHandler: ShowNativeDialogActionHandler =

@@ -1,7 +1,8 @@
 package br.com.zup.beagle.sample
-
+import br.com.zup.beagle.annotation.BeagleComponent
 import br.com.zup.beagle.setup.DesignSystem
 
+@BeagleComponent
 class AppDesignSystem : DesignSystem {
 
     override fun toolbarStyle(name: String): Int {

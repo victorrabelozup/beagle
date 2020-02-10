@@ -2,6 +2,7 @@ package br.com.zup.beagle.action
 
 import android.content.Context
 import br.com.zup.beagle.extensions.once
+import br.com.zup.beagle.setup.BeagleEnvironment
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
@@ -9,7 +10,10 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
 import io.mockk.mockk
+import io.mockk.mockkObject
+import io.mockk.unmockkObject
 import io.mockk.verify
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
@@ -32,6 +36,15 @@ class ActionExecutorTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
+
+        mockkObject(BeagleEnvironment)
+
+        every { BeagleEnvironment.beagleSdk } returns mockk(relaxed = true)
+    }
+
+    @After
+    fun tearDown() {
+        unmockkObject(BeagleEnvironment)
     }
 
     @Test

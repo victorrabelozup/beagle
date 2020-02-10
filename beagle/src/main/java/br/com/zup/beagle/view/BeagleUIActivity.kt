@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import br.com.zup.beagle.setup.BeagleEnvironment
 import android.util.TypedValue
 import android.view.View
 import android.widget.LinearLayout
 import br.com.zup.beagle.R
+import br.com.zup.beagle.setup.BeagleEnvironment
 
 private const val SCREEN_URL_KEY = "SCREEN_URL_KEY"
 
@@ -33,7 +33,7 @@ class BeagleUIActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        BeagleEnvironment.designSystem?.let {
+        BeagleEnvironment.beagleSdk.designSystem?.let {
             setTheme(it.theme())
         }
 

@@ -80,7 +80,7 @@ internal fun View.hideKeyboard() {
 internal fun BeagleTextView.setData(widget: Text) {
     this.text = widget.text
     val style = widget.style ?: ""
-    val designSystem = BeagleEnvironment.designSystem
+    val designSystem = BeagleEnvironment.beagleSdk.designSystem
     if (designSystem != null) {
         val styleRes = designSystem.textAppearance(style)
         TextViewCompat.setTextAppearance(this, styleRes)
@@ -95,7 +95,7 @@ internal fun BeagleTextView.setData(widget: Text) {
 internal fun BeagleButtonView.setData(widget: Button) {
     text = widget.text
     val style = widget.style ?: ""
-    val designSystem = BeagleEnvironment.designSystem
+    val designSystem = BeagleEnvironment.beagleSdk.designSystem
     if (designSystem != null) {
         val buttonStyle = designSystem.buttonStyle(style)
         val typedArray = context.obtainStyledAttributes(buttonStyle, R.styleable.BeagleButtonStyle)
@@ -108,7 +108,7 @@ internal fun BeagleButtonView.setData(widget: Button) {
 internal fun ImageView.setData(widget: Image, viewMapper: ViewMapper) {
     val contentMode = widget.contentMode ?: ImageContentMode.FIT_CENTER
     scaleType = viewMapper.toScaleType(contentMode)
-    val designSystem = BeagleEnvironment.designSystem
+    val designSystem = BeagleEnvironment.beagleSdk.designSystem
     if (designSystem != null) {
         val image = designSystem.image(widget.name)
         this.setImageResource(image)

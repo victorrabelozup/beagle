@@ -34,7 +34,7 @@ internal object BeagleLogger {
     }
 
     private fun runIfDebug(runBlock: () -> Unit) {
-        if (BeagleEnvironment.environment == Environment.DEBUG) {
+        if (BeagleEnvironment.beagleSdk.config.environment == Environment.DEBUG) {
             runBlock()
         }
     }

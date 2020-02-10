@@ -1,0 +1,10 @@
+apply plugin: 'kotlin'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+dependencies {
+    implementation GeneralLibraries.kotlin
+}
+
+apply from: rootProject.file('maven-publish.gradle')

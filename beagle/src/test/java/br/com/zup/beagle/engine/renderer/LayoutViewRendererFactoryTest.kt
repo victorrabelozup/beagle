@@ -11,6 +11,8 @@ import br.com.zup.beagle.engine.renderer.layout.SpacerViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.StackViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.VerticalViewRender
 import br.com.zup.beagle.engine.renderer.layout.*
+import br.com.zup.beagle.setup.BeagleEnvironment
+import br.com.zup.beagle.setup.BeagleSdk
 import br.com.zup.beagle.widget.layout.ScreenWidget
 import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.form.Form
@@ -25,6 +27,9 @@ import br.com.zup.beagle.widget.lazy.LazyWidget
 import br.com.zup.beagle.widget.navigation.Touchable
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.mockkObject
+import io.mockk.unmockkObject
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
@@ -37,7 +42,16 @@ class LayoutViewRendererFactoryTest {
 
     @Before
     fun setUp() {
+        mockkObject(BeagleEnvironment)
+
+        every { BeagleEnvironment.beagleSdk } returns mockk(relaxed = true)
+
         viewRendererFactory = LayoutViewRendererFactory()
+    }
+
+    @After
+    fun tearDown() {
+        unmockkObject(BeagleEnvironment)
     }
 
     @Test

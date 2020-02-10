@@ -103,7 +103,7 @@ class ViewExtensionsKtTest {
         every { beagleView.loadView(any(), any()) } just Runs
         every { beagleView.windowToken } returns iBinder
         every { activity.getSystemService(Activity.INPUT_METHOD_SERVICE) } returns inputMethodManager
-        every { BeagleEnvironment.designSystem } returns designSystem
+        every { BeagleEnvironment.beagleSdk.designSystem } returns designSystem
         every { designSystem.textAppearance(any()) } returns STYLE_RES
         every { designSystem.buttonStyle(any()) } returns STYLE_RES
         every { designSystem.image(any()) } returns IMAGE_RES
@@ -287,7 +287,7 @@ class ViewExtensionsKtTest {
         val textValue = RandomData.string()
         every { text.text } returns textValue
         every { text.style } returns RandomData.string()
-        every { BeagleEnvironment.designSystem } returns null
+        every { BeagleEnvironment.beagleSdk.designSystem } returns null
         every { text.alignment } returns null
 
         // When
@@ -338,7 +338,7 @@ class ViewExtensionsKtTest {
         val textValue = RandomData.string()
         every { button.text } returns textValue
         every { button.style } returns RandomData.string()
-        every { BeagleEnvironment.designSystem } returns null
+        every { BeagleEnvironment.beagleSdk.designSystem } returns null
 
         // When
         beagleButton.setData(button)
@@ -374,7 +374,7 @@ class ViewExtensionsKtTest {
         val scaleType = ImageView.ScaleType.CENTER_CROP
         every { image.contentMode } returns ImageContentMode.CENTER_CROP
         every { viewMapper.toScaleType(any()) } returns scaleType
-        every { BeagleEnvironment.designSystem } returns null
+        every { BeagleEnvironment.beagleSdk.designSystem } returns null
         every { imageView.scaleType = capture(scaleTypeSlot) } just Runs
 
         // When

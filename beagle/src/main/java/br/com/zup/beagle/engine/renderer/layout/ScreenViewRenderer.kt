@@ -99,7 +99,7 @@ internal class ScreenViewRenderer(
         toolbar: Toolbar,
         style: String
     ) {
-        val designSystem = BeagleEnvironment.designSystem
+        val designSystem = BeagleEnvironment.beagleSdk.designSystem
         if (designSystem != null) {
             val toolbarStyle = designSystem.toolbarStyle(style)
             val typedArray = context.obtainStyledAttributes(
@@ -130,7 +130,7 @@ internal class ScreenViewRenderer(
         toolbar: Toolbar,
         items: List<NavigationBarItem>
     ) {
-        val designSystem = BeagleEnvironment.designSystem
+        val designSystem = BeagleEnvironment.beagleSdk.designSystem
         for (i in items.indices) {
             toolbar.menu.add(Menu.NONE, i, Menu.NONE, items[i].text).apply {
                 setOnMenuItemClickListener {

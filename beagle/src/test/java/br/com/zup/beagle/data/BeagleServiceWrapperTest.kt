@@ -2,6 +2,7 @@ package br.com.zup.beagle.data
 
 import br.com.zup.beagle.data.serializer.BeagleSerializer
 import br.com.zup.beagle.extensions.once
+import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.widget.core.Widget
 import io.mockk.MockKAnnotations
@@ -10,6 +11,9 @@ import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
+import io.mockk.mockk
+import io.mockk.mockkObject
+import io.mockk.unmockkObject
 import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -42,16 +46,25 @@ class BeagleServiceWrapperTest {
     @MockK
     private lateinit var listener: FetchWidgetListener
 
-    private val subject = BeagleServiceWrapper()
+    private lateinit var subject: BeagleServiceWrapper
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
+
         Dispatchers.setMain(TestCoroutineDispatcher())
+
+        mockkObject(BeagleEnvironment)
+
+        every { BeagleEnvironment.beagleSdk } returns mockk(relaxed = true)
+
+        subject = BeagleServiceWrapper()
     }
 
     @After
     fun tearDown() {
+        unmockkObject(BeagleEnvironment)
+
         Dispatchers.resetMain()
     }
 

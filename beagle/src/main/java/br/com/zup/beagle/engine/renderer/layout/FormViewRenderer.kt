@@ -24,7 +24,7 @@ import br.com.zup.beagle.widget.form.FormSubmit
 
 internal class FormViewRenderer(
     override val widget: Form,
-    private val validatorHandler: ValidatorHandler? = BeagleEnvironment.validatorHandler,
+    private val validatorHandler: ValidatorHandler? = BeagleEnvironment.beagleSdk.validatorHandler,
     private val formValidationActionHandler: FormValidationActionHandler = FormValidationActionHandler(),
     private val formSubmitter: FormSubmitter = FormSubmitter(),
     private val formValidatorController: FormValidatorController = FormValidatorController(),

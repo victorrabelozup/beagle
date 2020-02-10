@@ -3,8 +3,10 @@ object ApplicationId {
 }
 
 object Modules {
-    const val sample = ":sample"
     const val beagle = ":beagle"
+    const val beagleCompiler = ":android-processor"
+    const val beagleAnnotation = ":android-annotation"
+    const val sample = ":sample"
     const val libfb = ":libs:libfb"
     const val yoga = ":libs:yoga"
 }
@@ -21,8 +23,11 @@ object Versions {
     const val minSdk = 19
     const val targetSdk = 29
     const val buildTools = "29.0.2"
+
     const val kotlin = "1.3.41"
     const val kotlinCoroutines = "1.3.1"
+
+    const val kotlinPoet = "1.4.4"
 
     const val appcompat = "1.1.0"
     const val viewModel = "2.1.0"
@@ -34,8 +39,6 @@ object Versions {
 
     const val soLoader = "0.5.1"
 
-    const val findsBug = "3.0.1"
-
     const val beagle = "0.0.30"
 
     const val glide = "4.9.0"
@@ -45,14 +48,17 @@ object Versions {
     const val kotlinTest = "1.3.50"
     const val kotlinCoroutinesTest = "1.3.1"
 
+    const val findsBug = "3.0.1"
+    const val materialDesign = "1.0.0"
+    const val googleCompileTesting = "0.18"
+    const val googleAutoService = "1.0-rc2"
+
     const val mockk = "1.9.3"
 
     const val testRunner = "1.2.0"
     const val testExt = "1.1.1"
     const val archCoreTesting = "2.0.1"
     const val espressoCore = "3.2.0"
-
-    const val materialDesign = "1.0.0"
 }
 
 object GeneralNames {
@@ -68,18 +74,25 @@ object GlideLibraries {
 
 object GeneralLibraries {
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
-    const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinCoroutines}"
+    const val kotlinCoroutines =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinCoroutines}"
+
+    const val kotlinPoet = "com.squareup:kotlinpoet:${Versions.kotlinPoet}"
 
     const val fresco = "com.facebook.fresco:fresco:${Versions.fresco}"
 
     const val soLoader = "com.facebook.soloader:soloader:${Versions.soLoader}"
 
-    const val findsBug = "com.google.code.findbugs:jsr305:${Versions.findsBug}"
-
     const val beagleDeclarative = "br.com.zup.beagle:declarative:${Versions.beagle}"
     const val beagleAndroidDeclarative = "br.com.zup.beagle:android-declarative:${Versions.beagle}"
-    const val yoga = "br.com.zup.beagle:yoga:${Releases.yogaVersionName}"
+    const val beagleAnnotation = "br.com.zup.beagle:annotation:${Versions.beagle}"
 
+    const val yoga = "br.com.zup.beagle:yoga:${Releases.yogaVersionName}"
+}
+
+object GoogleLibraries {
+    const val autoService = "com.google.auto.service:auto-service:${Versions.googleAutoService}"
+    const val findsBug = "com.google.code.findbugs:jsr305:${Versions.findsBug}"
     const val materialDesign = "com.google.android.material:material:${Versions.materialDesign}"
 }
 
@@ -102,6 +115,7 @@ object TestLibraries {
     const val mockk = "io.mockk:mockk:${Versions.mockk}"
     const val kotlinTest = "org.jetbrains.kotlin:kotlin-test:${Versions.kotlinTest}"
     const val kotlinCoroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlinCoroutinesTest}"
+    const val googleCompileTesting = "com.google.testing.compile:compile-testing:${Versions.googleCompileTesting}"
     const val testRunner = "androidx.test:runner:${Versions.testRunner}"
     const val testExt = "androidx.test.ext:junit:${Versions.testExt}"
     const val archCoreTesting = "androidx.arch.core:core-testing:${Versions.archCoreTesting}"

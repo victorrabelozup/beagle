@@ -1,4 +1,9 @@
-include Modules.sample, Modules.beagle, Modules.libfb, Modules.yoga
+include Modules.sample
+include Modules.beagle
+include Modules.beagleCompiler
+include Modules.beagleAnnotation
+include Modules.libfb
+include Modules.yoga
 
 project(Modules.yoga).projectDir = file('libs/yoga')
 project(Modules.libfb).projectDir = file('libs/fb')

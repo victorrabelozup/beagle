@@ -58,8 +58,8 @@ class BeagleMoshiTest {
 
         mockkObject(BeagleEnvironment)
 
-        every { BeagleEnvironment.appName } returns APP_NAME
-        every { BeagleEnvironment.widgets } returns WIDGETS
+        every { BeagleEnvironment.beagleSdk.config.appName } returns APP_NAME
+        every { BeagleEnvironment.beagleSdk.registeredWidgets() } returns WIDGETS
     }
 
     @After

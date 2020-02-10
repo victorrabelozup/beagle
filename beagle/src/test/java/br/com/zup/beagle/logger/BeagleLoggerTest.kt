@@ -1,11 +1,11 @@
 package br.com.zup.beagle.logger
 
 import android.util.Log
-import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.setup.Environment
 import br.com.zup.beagle.testutil.RandomData
 import io.mockk.every
 import br.com.zup.beagle.extensions.once
+import br.com.zup.beagle.setup.BeagleEnvironment
 import io.mockk.mockkObject
 import io.mockk.mockkStatic
 import io.mockk.unmockkObject
@@ -15,7 +15,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-private val BEAGLE_TAG = "BeagleSDK"
+private const val BEAGLE_TAG = "BeagleSDK"
 private val LOG = RandomData.string()
 
 class BeagleLoggerTest {
@@ -41,7 +41,7 @@ class BeagleLoggerTest {
     @Test
     fun warning_should_call_Log_w_if_is_debug() {
         // Given
-        every { BeagleEnvironment.environment } returns Environment.DEBUG
+        every { BeagleEnvironment.beagleSdk.config.environment } returns Environment.DEBUG
 
         // When
         BeagleLogger.warning(LOG)
@@ -53,7 +53,7 @@ class BeagleLoggerTest {
     @Test
     fun warning_should_not_call_Log_w_if_is_not_debug() {
         // Given
-        every { BeagleEnvironment.environment } returns Environment.PRODUCTION
+        every { BeagleEnvironment.beagleSdk.config.environment } returns Environment.PRODUCTION
 
         // When
         BeagleLogger.warning(LOG)
@@ -65,7 +65,7 @@ class BeagleLoggerTest {
     @Test
     fun error_should_call_Log_w_if_is_debug() {
         // Given
-        every { BeagleEnvironment.environment } returns Environment.DEBUG
+        every { BeagleEnvironment.beagleSdk.config.environment } returns Environment.DEBUG
 
         // When
         BeagleLogger.error(LOG)
@@ -77,7 +77,7 @@ class BeagleLoggerTest {
     @Test
     fun error_should_not_call_Log_w_if_is_not_debug() {
         // Given
-        every { BeagleEnvironment.environment } returns Environment.PRODUCTION
+        every { BeagleEnvironment.beagleSdk.config.environment } returns Environment.PRODUCTION
 
         // When
         BeagleLogger.error(LOG)
@@ -89,7 +89,7 @@ class BeagleLoggerTest {
     @Test
     fun info_should_call_Log_w_if_is_debug() {
         // Given
-        every { BeagleEnvironment.environment } returns Environment.DEBUG
+        every { BeagleEnvironment.beagleSdk.config.environment } returns Environment.DEBUG
 
         // When
         BeagleLogger.info(LOG)
@@ -101,7 +101,7 @@ class BeagleLoggerTest {
     @Test
     fun info_should_not_call_Log_w_if_is_not_debug() {
         // Given
-        every { BeagleEnvironment.environment } returns Environment.PRODUCTION
+        every { BeagleEnvironment.beagleSdk.config.environment } returns Environment.PRODUCTION
 
         // When
         BeagleLogger.info(LOG)
@@ -113,7 +113,7 @@ class BeagleLoggerTest {
     @Test
     fun debug_should_call_Log_w_if_is_debug() {
         // Given
-        every { BeagleEnvironment.environment } returns Environment.DEBUG
+        every { BeagleEnvironment.beagleSdk.config.environment } returns Environment.DEBUG
 
         // When
         BeagleLogger.debug(LOG)
@@ -125,7 +125,7 @@ class BeagleLoggerTest {
     @Test
     fun debug_should_not_call_Log_w_if_is_not_debug() {
         // Given
-        every { BeagleEnvironment.environment } returns Environment.PRODUCTION
+        every { BeagleEnvironment.beagleSdk.config.environment } returns Environment.PRODUCTION
 
         // When
         BeagleLogger.debug(LOG)
@@ -137,7 +137,7 @@ class BeagleLoggerTest {
     @Test
     fun verbose_should_call_Log_w_if_is_debug() {
         // Given
-        every { BeagleEnvironment.environment } returns Environment.DEBUG
+        every { BeagleEnvironment.beagleSdk.config.environment } returns Environment.DEBUG
 
         // When
         BeagleLogger.verbose(LOG)
@@ -149,7 +149,7 @@ class BeagleLoggerTest {
     @Test
     fun verbose_should_not_call_Log_w_if_is_not_debug() {
         // Given
-        every { BeagleEnvironment.environment } returns Environment.PRODUCTION
+        every { BeagleEnvironment.beagleSdk.config.environment } returns Environment.PRODUCTION
 
         // When
         BeagleLogger.verbose(LOG)

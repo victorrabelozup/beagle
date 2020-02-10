@@ -21,10 +21,10 @@ internal class NavigationActionHandler :
 
     private fun openDeepLink(action: Navigate, context: Context) {
         action.href?.let { path ->
-            BeagleEnvironment.beagleDeepLinkHandler?.getDeepLinkIntent(path, action.data)
-                ?.let { intent ->
-                    context.startActivity(intent)
-                }
+            BeagleEnvironment.beagleSdk.deepLinkHandler?.
+                getDeepLinkIntent(path, action.data)?.let { intent ->
+                context.startActivity(intent)
+            }
         }
     }
 

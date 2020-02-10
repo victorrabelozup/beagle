@@ -104,6 +104,7 @@ class ScreenViewRendererTest {
         mockkObject(BeagleEnvironment)
         mockkStatic(ResourcesCompat::class)
 
+        every { BeagleEnvironment.beagleSdk } returns mockk(relaxed = true)
         every { viewFactory.makeBeagleFlexView(any()) } returns beagleFlexView
         every { viewFactory.makeBeagleFlexView(any(), any()) } returns beagleFlexView
         every { beagleFlexView.addView(any()) } just Runs
@@ -229,23 +230,9 @@ class ScreenViewRendererTest {
     }
 
     @Test
-    fun build_should_configure_toolbar_when_supportActionBar_is_not_null_and_toolbar_is_not_null() {
-        // Given
-        every { screenWidget.navigationBar } returns navigationBar
-        every { context.supportActionBar } returns actionBar
-        every { context.findViewById<Toolbar>(any()) } returns toolbar
-
-        // When
-        screenViewRenderer.build(rootView)
-
-        // Then
-        verify(atLeast = once()) { toolbar.visibility = View.VISIBLE }
-    }
-
-    @Test
     fun build_should_configure_toolbar_style_when_supportActionBar_is_not_null_and_toolbar_is_not_null() {
         // Given
-        every { BeagleEnvironment.designSystem } returns designSystemMock
+        every { BeagleEnvironment.beagleSdk.designSystem } returns designSystemMock
         every { designSystemMock.toolbarStyle(style) } returns styleInt
         every { navigationBar.style } returns style
         every { screenWidget.navigationBar } returns navigationBar
@@ -260,11 +247,13 @@ class ScreenViewRendererTest {
         verify(atLeast = once()) { toolbar.setTitleTextAppearance(context, titleTextAppearance) }
         verify(atLeast = once()) { toolbar.setBackgroundColor(backgroundColorInt) }
         verify(atLeast = once()) { typedArray.recycle() }
+        verify(atLeast = once()) { toolbar.visibility = View.VISIBLE }
     }
 
     @Test
     fun build_should_configToolbarItems_when_navigationBarItems_is_not_null_and_image_is_null() {
         // GIVEN
+        every { BeagleEnvironment.beagleSdk.designSystem } returns null
         every { screenWidget.navigationBar } returns navigationBar
         every { context.supportActionBar } returns null
         every { context.findViewById<Toolbar>(any()) } returns toolbar
@@ -288,7 +277,7 @@ class ScreenViewRendererTest {
     @Test
     fun build_should_configToolbarItems_when_navigationBarItems_is_not_null_and_image_is_not_null() {
         // GIVEN
-        every { BeagleEnvironment.designSystem } returns designSystemMock
+        every { BeagleEnvironment.beagleSdk.designSystem } returns designSystemMock
         every { designSystemMock.toolbarStyle(any()) } returns styleInt
         every { designSystemMock.image(any()) } returns RandomData.int()
         every { screenWidget.navigationBar } returns navigationBar

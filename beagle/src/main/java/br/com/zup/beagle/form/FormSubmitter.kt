@@ -43,7 +43,7 @@ internal class FormSubmitter(
 
     private fun createRequestData(form: Form, formsValue: Map<String, String>): RequestData {
         return RequestData(
-            endpoint = BeagleEnvironment.baseUrl,
+            endpoint = BeagleEnvironment.beagleSdk.config.baseUrl,
             path = createUrl(form, formsValue),
             method = when (form.method) {
                 FormMethodType.POST -> HttpMethod.POST

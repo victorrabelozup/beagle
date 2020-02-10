@@ -5,6 +5,7 @@ import androidx.core.widget.TextViewCompat
 import br.com.zup.beagle.action.Action
 import br.com.zup.beagle.action.ActionExecutor
 import br.com.zup.beagle.engine.renderer.RootView
+import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.utils.setData
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.view.BeagleButtonView
@@ -16,7 +17,10 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
+import io.mockk.mockk
+import io.mockk.mockkObject
 import io.mockk.mockkStatic
+import io.mockk.unmockkObject
 import io.mockk.unmockkStatic
 import io.mockk.verify
 import org.junit.After
@@ -48,21 +52,24 @@ class ButtonViewRendererTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
+
+        mockkObject(BeagleEnvironment)
         mockkStatic(TextViewCompat::class)
         mockkStatic("br.com.zup.beagle.utils.ViewExtensionsKt")
 
+        every { BeagleEnvironment.beagleSdk } returns mockk(relaxed = true)
         every { button.style } returns DEFAULT_STYLE
         every { button.text } returns DEFAULT_TEXT
         every { button.action } returns null
         every { buttonView.setBackgroundResource(any()) } just Runs
         every { rootView.getContext() } returns context
         every { TextViewCompat.setTextAppearance(any(), any()) } just Runs
-
     }
 
     @After
     fun after() {
         unmockkStatic(TextViewCompat::class)
+        unmockkObject(BeagleEnvironment)
     }
 
     @Test

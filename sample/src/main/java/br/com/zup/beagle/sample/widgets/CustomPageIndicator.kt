@@ -1,11 +1,13 @@
 package br.com.zup.beagle.sample.widgets
 
+import br.com.zup.beagle.annotation.RegisterWidget
 import android.content.Context
 import android.view.View
 import br.com.zup.beagle.sample.components.CustomPageIndicatorView
 import br.com.zup.beagle.widget.pager.PageIndicatorOutput
 import br.com.zup.beagle.widget.pager.PageIndicatorWidget
 
+@RegisterWidget
 data class CustomPageIndicator(
     val showContinue: Boolean,
     val showSkip: Boolean

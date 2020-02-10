@@ -81,7 +81,7 @@ workflows:
             - gradlew_path: "$PROJECT_LOCATION/gradlew"
       - gradle-runner@1.8.4:
           inputs:
-            - gradle_task: :beagle:build :beagle:publish
+            - gradle_task: :android-annotation:build :android-annotation:publish :android-compiler:build :android-compiler:publish :beagle:build :beagle:publish
             - gradlew_path: "$PROJECT_LOCATION/gradlew"
       - script@1.1.5:
           title: Do anything with Script step

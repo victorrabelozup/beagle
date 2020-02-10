@@ -29,7 +29,7 @@ class HttpClientFactoryTest {
         MockKAnnotations.init(this)
 
         mockkObject(BeagleEnvironment)
-        every { BeagleEnvironment.httpClient } returns null
+        every { BeagleEnvironment.beagleSdk.httpClient } returns null
     }
 
     @After
@@ -46,7 +46,7 @@ class HttpClientFactoryTest {
     @Test
     fun test_make_should_return_custom_dispatcher() {
         // Given
-        every { BeagleEnvironment.httpClient } returns networkingDispatcher
+        every { BeagleEnvironment.beagleSdk.httpClient } returns networkingDispatcher
 
         // When
         val actual = httpClientFactory.make()

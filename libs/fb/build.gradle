@@ -35,8 +35,6 @@ android {
     dependencies {
         implementation GeneralLibraries.soLoader
 
-        implementation GeneralLibraries.findsBug
-
-//        implementation project(':yoga:proguard-annotations')
+        implementation GoogleLibraries.findsBug
     }
 }

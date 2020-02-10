@@ -3,7 +3,7 @@ package br.com.zup.beagle.action
 import android.content.Context
 import android.content.Intent
 import br.com.zup.beagle.extensions.once
-import br.com.zup.beagle.navigation.BeagleDeepLinkHandler
+import br.com.zup.beagle.navigation.DeepLinkHandler
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.view.BeagleNavigator
@@ -25,7 +25,7 @@ class NavigationActionHandlerTest {
     @MockK
     private lateinit var context: Context
     @MockK
-    private lateinit var beagleDeepLinkHandler: BeagleDeepLinkHandler
+    private lateinit var deepLinkHandler: DeepLinkHandler
 
     private lateinit var navigationActionHandler: NavigationActionHandler
 
@@ -52,13 +52,13 @@ class NavigationActionHandlerTest {
             type = NavigationType.OPEN_DEEP_LINK,
             href = RandomData.httpUrl()
         )
-        every { BeagleEnvironment.beagleDeepLinkHandler } returns null
+        every { BeagleEnvironment.beagleSdk.deepLinkHandler } returns null
 
         // When
         navigationActionHandler.handle(context, navigate)
 
         // Then
-        verify(exactly = 0) { beagleDeepLinkHandler.getDeepLinkIntent(any(), any()) }
+        verify(exactly = 0) { deepLinkHandler.getDeepLinkIntent(any(), any()) }
     }
 
     @Test
@@ -70,8 +70,8 @@ class NavigationActionHandlerTest {
         )
         val intent = mockk<Intent>()
         every { context.startActivity(any()) } just Runs
-        every { BeagleEnvironment.beagleDeepLinkHandler } returns beagleDeepLinkHandler
-        every { beagleDeepLinkHandler.getDeepLinkIntent(any(), any()) } returns intent
+        every { BeagleEnvironment.beagleSdk.deepLinkHandler } returns deepLinkHandler
+        every { deepLinkHandler.getDeepLinkIntent(any(), any()) } returns intent
 
         // When
         navigationActionHandler.handle(context, navigate)
@@ -91,7 +91,7 @@ class NavigationActionHandlerTest {
         navigationActionHandler.handle(context, navigate)
 
         // Then
-        verify(exactly = 0) { beagleDeepLinkHandler.getDeepLinkIntent(any(), any()) }
+        verify(exactly = 0) { deepLinkHandler.getDeepLinkIntent(any(), any()) }
     }
 
     @Test

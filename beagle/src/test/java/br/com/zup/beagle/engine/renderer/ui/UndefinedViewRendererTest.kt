@@ -52,7 +52,7 @@ class UndefinedViewRendererTest {
 
         mockkObject(BeagleEnvironment)
 
-        every { BeagleEnvironment.environment } returns Environment.DEBUG
+        every { BeagleEnvironment.beagleSdk.config.environment } returns Environment.DEBUG
         every { viewFactory.makeTextView(context) } returns textView
         every { textView.text = capture(textSlot) } just Runs
         every { textView.setTextColor(capture(textColorSlot)) } just Runs
@@ -90,7 +90,7 @@ class UndefinedViewRendererTest {
     @Test
     fun build_should_create_View_when_Environment_is_PRODUCTION() {
         // Given
-        every { BeagleEnvironment.environment } returns Environment.PRODUCTION
+        every { BeagleEnvironment.beagleSdk.config.environment } returns Environment.PRODUCTION
         every { viewFactory.makeView(any()) } returns textView
 
         // When

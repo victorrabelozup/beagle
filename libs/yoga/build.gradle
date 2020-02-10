@@ -6,7 +6,6 @@
  */
 
 apply plugin: 'com.android.library'
-apply from: "${rootProject.projectDir}/maven-publish.gradle"
 
 android {
     compileSdkVersion Versions.compileSdk
@@ -18,9 +17,6 @@ android {
 
         versionCode Releases.versionCode
         versionName "${Releases.yogaVersionName}"
-        project.projectName = "yoga"
-        //Needed for maven-publish
-        project.setVersion(versionName)
 
         ndk {
             abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
@@ -44,7 +40,7 @@ android {
 dependencies {
     implementation GeneralLibraries.soLoader
 
-    implementation GeneralLibraries.findsBug
-
-    //        implementation project(':yoga:proguard-annotations')
+    implementation GoogleLibraries.findsBug
 }
+
+apply from: rootProject.file('maven-publish.gradle')

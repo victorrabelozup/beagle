@@ -15,7 +15,7 @@ internal class UndefinedViewRenderer(
 ) : UIViewRenderer<UndefinedWidget>() {
 
     override fun buildView(rootView: RootView): View {
-        return if (BeagleEnvironment.environment == Environment.DEBUG) {
+        return if (BeagleEnvironment.beagleSdk.config.environment == Environment.DEBUG) {
             viewFactory.makeTextView(rootView.getContext()).apply {
                 text = "undefined widget"
                 setTextColor(Color.RED)

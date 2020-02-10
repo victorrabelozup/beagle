@@ -11,7 +11,7 @@ import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormSubmit
 
 class FormValidatorController(
-    private val validatorHandler: ValidatorHandler? = BeagleEnvironment.validatorHandler
+    private val validatorHandler: ValidatorHandler? = BeagleEnvironment.beagleSdk.validatorHandler
 ) {
 
     var formInputValidatorList = mutableListOf<FormInputValidator>()

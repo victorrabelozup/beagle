@@ -3,7 +3,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply from: '../jacoco.gradle'
-apply from: '../maven-publish.gradle'
 
 android {
     compileSdkVersion Versions.compileSdk
@@ -15,14 +14,10 @@ android {
 
         versionCode Releases.versionCode
         versionName "${Releases.beagleVersionName}"
-        //Needed for maven-publish
-        project.setVersion(versionName)
 
         testInstrumentationRunner GeneralNames.testInstrumentationRunner
         consumerProguardFiles GeneralNames.consumerProguard
     }
-
-
 
     buildTypes {
         debug {
@@ -48,6 +43,8 @@ dependencies {
 
     api GeneralLibraries.beagleAndroidDeclarative
     api GeneralLibraries.beagleDeclarative
+    api GeneralLibraries.beagleAnnotation
+    api project(Modules.beagleAnnotation)
 
     implementation GlideLibraries.glide
     kapt GlideLibraries.glideCompiler
@@ -56,7 +53,7 @@ dependencies {
 
     implementation GeneralLibraries.soLoader
 
-    implementation GeneralLibraries.materialDesign
+    implementation GoogleLibraries.materialDesign
 
     implementation MoshiLibraries.moshi
     implementation MoshiLibraries.kotlin
@@ -74,3 +71,5 @@ dependencies {
     androidTestImplementation TestLibraries.testExt
     androidTestImplementation TestLibraries.espressoCore
 }
+
+apply from: rootProject.file('maven-publish.gradle')
