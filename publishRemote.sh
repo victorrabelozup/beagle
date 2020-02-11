@@ -1,1 +1,2 @@
-./gradlew :android-annotation:publish :android-processor:publish :beagle:publish
+./gradlew build
+./gradlew publish

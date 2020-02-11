@@ -1,13 +1,10 @@
 package br.com.zup.beagle.sample
 
 import br.com.zup.beagle.setup.BeagleSdk
-import io.mockk.every
-import io.mockk.mockkObject
-import org.junit.After
 import org.junit.Test
-
-import org.junit.Assert.*
-import org.junit.Before
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 class BeagleSetupTest {
 
@@ -20,7 +17,7 @@ class BeagleSetupTest {
 
     @Test
     fun registeredWidgets_should_have_3_elements_in_list() {
-        assertTrue(beagleSetup.registeredWidgets().size == 3)
+        assertTrue(beagleSetup.registeredWidgets().isNotEmpty())
     }
 
     @Test

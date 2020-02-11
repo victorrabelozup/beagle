@@ -79,12 +79,17 @@ workflows:
       - install-missing-android-tools@2.3.5:
           inputs:
             - gradlew_path: "$PROJECT_LOCATION/gradlew"
-      - gradle-runner@1.8.4:
-          inputs:
-            - gradle_task: :android-annotation:publish :android-processor:publish :beagle:publish
-            - gradlew_path: "$PROJECT_LOCATION/gradlew"
       - script@1.1.5:
-          title: Do anything with Script step
+          title: Build and Deploy Beagle Android Libraries
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+
+                ./$PROJECT_LOCATION/publishRemote.sh
+
+                exit 0
+      - script@1.1.5:
+          title: Create GitHub tag
           inputs:
             - content: |-
                 #!/usr/bin/env bash
