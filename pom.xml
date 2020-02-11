@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>br.com.zup.beagle</groupId>
     <artifactId>beagle</artifactId>
-    <version>0.0.32-SNAPSHOT</version>
+    <version>0.0.33-SNAPSHOT</version>
 
     <name>beagle</name>
     <description>Beagle is a SDK to deal with server driven UI</description>
@@ -142,6 +141,7 @@
         <connection>scm:git@github.com:ZupIT/darwin-beagle-framework.git</connection>
         <url>https://github.com/ZupIT/darwin-beagle-framework</url>
         <developerConnection>scm:git:git@github.com:ZupIT/darwin-beagle-framework.git</developerConnection>
-    </scm>
+      <tag>HEAD</tag>
+  </scm>
 
 </project>
