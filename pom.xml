@@ -5,7 +5,7 @@
 
     <groupId>br.com.zup.beagle</groupId>
     <artifactId>beagle</artifactId>
-    <version>0.0.30</version>
+    <version>0.0.32-SNAPSHOT</version>
 
     <name>beagle</name>
     <description>Beagle is a SDK to deal with server driven UI</description>
@@ -136,7 +136,7 @@
         <connection>scm:git@github.com:ZupIT/darwin-beagle-framework.git</connection>
         <url>https://github.com/ZupIT/darwin-beagle-framework</url>
         <developerConnection>scm:git:git@github.com:ZupIT/darwin-beagle-framework.git</developerConnection>
-        <tag>0.0.30</tag>
+        <tag>0.0.32</tag>
     </scm>
 
 </project>
