@@ -31,7 +31,7 @@ final class BeagleNavigatorTests: XCTestCase {
     func test_swapView_shouldReplaceNavigationStack() {
         // Given
         let sut = BeagleNavigator(dependencies: Prefetch())
-        let action = Navigate.swapView("https://example.com/screen.json")
+        let action = Navigate.swapView(.init(path: "https://example.com/screen.json"))
         let firstViewController = UIViewController()
         let secondViewController = UIViewController()
         let context = DummyBeagleContext(viewController: secondViewController)
@@ -49,7 +49,7 @@ final class BeagleNavigatorTests: XCTestCase {
     func test_addView_shouldPushScreenInNavigation() {
         // Given
         let sut = BeagleNavigator(dependencies: Prefetch())
-        let action = Navigate.addView("https://example.com/screen.json")
+        let action = Navigate.addView(.init(path: "https://example.com/screen.json"))
         let firstViewController = UIViewController()
         let context = DummyBeagleContext(viewController: firstViewController)
         let navigation = UINavigationController(rootViewController: firstViewController)
@@ -145,7 +145,7 @@ final class BeagleNavigatorTests: XCTestCase {
     func test_presentView_shouldPresentTheScreen() {
         // Given
         let sut = BeagleNavigator(dependencies: Prefetch())
-        let action = Navigate.presentView("https://example.com/screen.json")
+        let action = Navigate.presentView(.init(path: "https://example.com/screen.json"))
         let firstViewController = UIViewController()
         let context = DummyBeagleContext(viewController: firstViewController)
         let navigationSpy = UINavigationControllerSpy(rootViewController: firstViewController)

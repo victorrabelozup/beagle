@@ -31,7 +31,7 @@ extension Touchable: Renderable {
     }
     
     private func prefetchWidget(context: BeagleContext, dependencies: Renderable.Dependencies) {
-        guard let prefetch = (action as? Navigate)?.prefechableData else { return }
-        dependencies.preFetchHelper.prefetchWidget(path: prefetch.path)
+        guard let newPath = (action as? Navigate)?.newPath else { return }
+        dependencies.preFetchHelper.prefetchWidget(newPath: newPath)
     }
 }

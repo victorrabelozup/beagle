@@ -35,7 +35,7 @@ final class ActionExecutorTests: XCTestCase {
         let sut = ActionExecuting(dependencies: Dependencies(
             navigation: navigationSpy
         ))
-        let action = Navigate.addView("")
+        let action = Navigate.addView(.init(path: ""))
         
         // When
         sut.doAction(action, sender: self, context: BeagleContextDummy())

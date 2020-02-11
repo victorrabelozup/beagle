@@ -122,7 +122,7 @@ final class ScreenWidgetTests: XCTestCase {
         let dependencies = RendererDependenciesContainer(preFetchHelper: prefetch)
         
         let navigatePath = "button-item-prefetch"
-        let navigate = Navigate.addView(navigatePath)
+        let navigate = Navigate.addView(.init(path: navigatePath, shouldPrefetch: true))
         let barItem = NavigationBarItem(text: "Item", action: navigate)
         let screen = ScreenWidget(
             navigationBar: NavigationBar(title: "Prefetch", navigationBarItems: [barItem]),

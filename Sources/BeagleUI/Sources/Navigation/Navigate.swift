@@ -4,12 +4,22 @@
 
 /// Action to represent a screen transition
 public enum Navigate: Action {
+    
+    var newPath: NewPath? {
+        switch self {
+        case .addView(let data), .swapView(let data), .presentView(let data):
+            return NewPath(path: data.path, shouldPrefetch: data.shouldPrefetch)
 
-    case openDeepLink(DeepLink)
-
-    case swapView(Path)
-    case addView(Path)
-    case presentView(Path)
+        case .finishView, .popView, .popToView, .openDeepLink:
+            return nil
+        }
+    }
+    
+    case openDeepLink(DeepLinkNavigation)
+    
+    case swapView(NewPath)
+    case addView(NewPath)
+    case presentView(NewPath)
 
     case finishView
     case popView
@@ -18,7 +28,17 @@ public enum Navigate: Action {
     public typealias Path = String
     public typealias Data = [String: String]
 
-    public struct DeepLink {
+    public struct NewPath {
+        public let path: Path
+        public let shouldPrefetch: Bool
+        
+        public init(path: Path, shouldPrefetch: Bool = false) {
+            self.path = path
+            self.shouldPrefetch = shouldPrefetch
+        }
+    }
+    
+    public struct DeepLinkNavigation {
         public let path: Path
         public let data: Data?
 

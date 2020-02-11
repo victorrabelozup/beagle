@@ -17,6 +17,7 @@ enum NavigationType: String, Decodable, UIEnumModelConvertible, CaseIterable {
 struct NavigateEntity: Decodable {
     let type: NavigationType
     let path: String?
+    let shouldPrefetch: Bool?
     let data: [String: String]?
 }
 
@@ -33,27 +34,22 @@ extension NavigateEntity: UIModelConvertible {
             return .openDeepLink(
                 .init(path: path, data: data)
             )
-
         case .swapView:
             let path = try usePath()
-            return .swapView(path)
-
+            return .swapView(.init(path: path, shouldPrefetch: shouldPrefetch ?? false))
         case .addView:
             let path = try usePath()
-            return .addView(path)
-
+            return .addView(.init(path: path, shouldPrefetch: shouldPrefetch ?? false))
+        case .presentView:
+            let path = try usePath()
+            return .presentView(.init(path: path, shouldPrefetch: shouldPrefetch ?? false))
         case .finishView:
             return .finishView
         case .popView:
             return .popView
-
         case .popToView:
             let path = try usePath()
             return .popToView(path)
-
-        case .presentView:
-            let path = try usePath()
-            return .presentView(path)
         }
     }
 

@@ -44,7 +44,7 @@ final class ButtonTests: XCTestCase {
         let dependencies = RendererDependenciesContainer(preFetchHelper: prefetch)
         
         let navigatePath = "path-to-prefetch"
-        let navigate = Navigate.presentView(navigatePath)
+        let navigate = Navigate.presentView(.init(path: navigatePath, shouldPrefetch: true))
         let button = Button(text: "prefetch", action: navigate)
         
         _ = button.toView(context: BeagleContextDummy(), dependencies: dependencies)
@@ -76,16 +76,16 @@ final class ThemeSpy: Theme {
 }
 
 final class BeaglePrefetchHelpingSpy: BeaglePrefetchHelping {
-    
-    private(set) var prefetched: [String] = []
-    private(set) var dequeued: [String] = []
-    
-    func prefetchWidget(path: String) {
-        prefetched.append(path)
+    func prefetchWidget(newPath: Navigate.NewPath) {
+        prefetched.append(newPath.path)
     }
     
     func dequeueWidget(path: String) -> BeagleScreenViewController {
         dequeued.append(path)
         return BeagleScreenViewController(viewModel: .init(screenType: .remote(path)))
     }
+    
+    
+    private(set) var prefetched: [String] = []
+    private(set) var dequeued: [String] = []
 }

@@ -30,11 +30,15 @@ class BeagleNavigator: BeagleNavigation {
         case .openDeepLink(let deepLink):
             openDeepLink(path: deepLink.path, source: source, data: deepLink.data, animated: animated)
 
-        case .swapView(let path):
-            swapView(url: path, context: context, animated: animated)
+        case .swapView(let newPath):
+            swapView(url: newPath.path, context: context, animated: animated)
 
-        case .addView(let path):
-            addView(url: path, context: context, animated: animated)
+        case .addView(let newPath):
+            addView(url: newPath.path, context: context, animated: animated)
+            
+        case .presentView(let newPath):
+            presentView(url: newPath.path, context: context, animated: animated)
+        
 
         case .finishView:
             finishView(source: source, animated: animated)
@@ -44,9 +48,6 @@ class BeagleNavigator: BeagleNavigation {
 
         case .popToView(let path):
             popToView(url: path, source: source, animated: animated)
-
-        case .presentView(let path):
-            presentView(url: path, context: context, animated: animated)
         }
     }
     

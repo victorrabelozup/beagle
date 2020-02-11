@@ -12,7 +12,7 @@ final class BeaglePrefetchHelperTests: XCTestCase {
         let sut = BeaglePreFetchHelper()
         let url = "url-test"
 
-        sut.prefetchWidget(path: url)
+        sut.prefetchWidget(newPath: .init(path: url, shouldPrefetch: true))
         let result = sut.dequeueWidget(path: url)
 
         switch result.viewModel.screenType {
@@ -27,9 +27,9 @@ final class BeaglePrefetchHelperTests: XCTestCase {
         let sut = BeaglePreFetchHelper()
         let url = "url-test"
 
-        sut.prefetchWidget(path: url)
+        sut.prefetchWidget(newPath: .init(path: url, shouldPrefetch: true))
         let result1 = sut.dequeueWidget(path: url)
-        sut.prefetchWidget(path: url)
+        sut.prefetchWidget(newPath: .init(path: url, shouldPrefetch: true))
         let result2 = sut.dequeueWidget(path: url)
         
         XCTAssert(result1 === result2)
@@ -40,19 +40,24 @@ final class BeaglePrefetchHelperTests: XCTestCase {
         let data = ["data": "value"]
 
         let actions: [Navigate] = [
-            .openDeepLink(.init(path: path)),
             .openDeepLink(.init(path: path, data: nil)),
             .openDeepLink(.init(path: path, data: data)),
 
-            .addView(path),
-            .presentView(path),
-            .swapView(path),
+            .addView(.init(path: path, shouldPrefetch: true)),
+            .addView(.init(path: path, shouldPrefetch: false)),
+            
+            .presentView(.init(path: path, shouldPrefetch: true)),
+            .presentView(.init(path: path, shouldPrefetch: false)),
+            
+            .swapView(.init(path: path, shouldPrefetch: true)),
+            .swapView(.init(path: path, shouldPrefetch: false)),
+            
             .popView,
             .popToView(path),
             .finishView
         ]
 
-        let bools = actions.map { $0.prefechableData }
+        let bools = actions.map { $0.newPath }
 
         let result: String = zip(actions, bools).reduce("") { partial, zip in
             "\(partial)  \(zip.0)  -->  \(descriptionWithoutOptional(zip.1)) \n\n"

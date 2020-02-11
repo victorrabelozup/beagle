@@ -12,7 +12,7 @@ final class TouchableTests: XCTestCase {
         // Given
         let content = TextEntity(text: "text")
         let child = AnyDecodableContainer(content: content)
-        let action = AnyDecodableContainer(content: NavigateEntity(type: .addView, path: "", data: nil))
+        let action = AnyDecodableContainer(content: NavigateEntity(type: .addView, path: "", shouldPrefetch: true, data: nil))
         let sut = TouchableEntity(action: action, child: child)
 
         // When
@@ -47,11 +47,11 @@ final class TouchableTests: XCTestCase {
         let types = NavigationType.allCases
         let paths = ["path", nil]
         let datas = [ ["data": ""], nil]
-
+        let shouldPrefetch = [true, false]
         var str = ""
-        types.forEach { t in paths.forEach { p in datas.forEach { d in
-            str += mapEntityToActionDescription(type: t, path: p, data: d)
-        }}}
+        types.forEach { t in paths.forEach { p in datas.forEach { d in shouldPrefetch.forEach { s in
+            str += mapEntityToActionDescription(type: t, path: p, data: d, shouldPrefetch: s)
+        }}}}
 
         assertSnapshot(matching: str, as: .description)
     }
@@ -59,9 +59,10 @@ final class TouchableTests: XCTestCase {
     private func mapEntityToActionDescription(
         type: NavigationType,
         path: String?,
-        data: [String: String]?
+        data: [String: String]?,
+        shouldPrefetch: Bool
     ) -> String {
-        let entity = NavigateEntity(type: type, path: path, data: data)
+        let entity = NavigateEntity(type: type, path: path, shouldPrefetch: shouldPrefetch, data: data)
         let pathDescription = path == nil ? "noPath" : "withPath"
         let dataDescription = data == nil ? "noData" : "withData"
 

@@ -1,6 +1,8 @@
 ▿ Touchable
   ▿ action: Navigate
-    - addView: ""
+    ▿ addView: NewPath
+      - path: ""
+      - shouldPrefetch: true
   ▿ child: Text
     - alignment: Optional<Alignment>.none
     - appearance: Optional<Appearance>.none

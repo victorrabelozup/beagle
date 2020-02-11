@@ -1,14 +1,18 @@
-  openDeepLink(BeagleUI.Navigate.DeepLink(path: "path", data: nil))  -->  NULL 
+  openDeepLink(BeagleUI.Navigate.DeepLinkNavigation(path: "path", data: nil))  -->  NULL 
 
-  openDeepLink(BeagleUI.Navigate.DeepLink(path: "path", data: nil))  -->  NULL 
+  openDeepLink(BeagleUI.Navigate.DeepLinkNavigation(path: "path", data: Optional(["data": "value"])))  -->  NULL 
 
-  openDeepLink(BeagleUI.Navigate.DeepLink(path: "path", data: Optional(["data": "value"])))  -->  NULL 
+  addView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true))  -->  NewPath(path: "path", shouldPrefetch: true) 
 
-  addView("path")  -->  PrefechableData(path: "path") 
+  addView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false))  -->  NewPath(path: "path", shouldPrefetch: false) 
 
-  presentView("path")  -->  PrefechableData(path: "path") 
+  presentView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true))  -->  NewPath(path: "path", shouldPrefetch: true) 
 
-  swapView("path")  -->  PrefechableData(path: "path") 
+  presentView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false))  -->  NewPath(path: "path", shouldPrefetch: false) 
+
+  swapView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true))  -->  NewPath(path: "path", shouldPrefetch: true) 
+
+  swapView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false))  -->  NewPath(path: "path", shouldPrefetch: false) 
 
   popView  -->  NULL 
 

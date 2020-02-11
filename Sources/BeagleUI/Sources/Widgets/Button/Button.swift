@@ -29,8 +29,8 @@ extension Button: Renderable {
         let button = BeagleUIButton.button(context: context, action: action)
         button.setTitle(text, for: .normal)
         
-        if let prefechableData = (action as? Navigate)?.prefechableData {
-            dependencies.preFetchHelper.prefetchWidget(path: prefechableData.path)
+        if let newPath = (action as? Navigate)?.newPath {
+            dependencies.preFetchHelper.prefetchWidget(newPath: newPath)
         }
         if let style = style {
             button.style = style

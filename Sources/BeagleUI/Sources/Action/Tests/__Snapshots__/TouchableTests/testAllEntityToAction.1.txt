@@ -1,8 +1,17 @@
 openDeepLink-withPath-withData ->
-    openDeepLink(BeagleUI.Navigate.DeepLink(path: "path", data: Optional(["data": ""])))
+    openDeepLink(BeagleUI.Navigate.DeepLinkNavigation(path: "path", data: Optional(["data": ""])))
+
+openDeepLink-withPath-withData ->
+    openDeepLink(BeagleUI.Navigate.DeepLinkNavigation(path: "path", data: Optional(["data": ""])))
 
 openDeepLink-withPath-noData ->
-    openDeepLink(BeagleUI.Navigate.DeepLink(path: "path", data: nil))
+    openDeepLink(BeagleUI.Navigate.DeepLinkNavigation(path: "path", data: nil))
+
+openDeepLink-withPath-noData ->
+    openDeepLink(BeagleUI.Navigate.DeepLinkNavigation(path: "path", data: nil))
+
+openDeepLink-noPath-withData ->
+    ERROR
 
 openDeepLink-noPath-withData ->
     ERROR
@@ -10,11 +19,23 @@ openDeepLink-noPath-withData ->
 openDeepLink-noPath-noData ->
     ERROR
 
+openDeepLink-noPath-noData ->
+    ERROR
+
 swapView-withPath-withData ->
-    swapView("path")
+    swapView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true))
+
+swapView-withPath-withData ->
+    swapView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false))
 
 swapView-withPath-noData ->
-    swapView("path")
+    swapView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true))
+
+swapView-withPath-noData ->
+    swapView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false))
+
+swapView-noPath-withData ->
+    ERROR
 
 swapView-noPath-withData ->
     ERROR
@@ -22,13 +43,28 @@ swapView-noPath-withData ->
 swapView-noPath-noData ->
     ERROR
 
+swapView-noPath-noData ->
+    ERROR
+
 addView-withPath-withData ->
-    addView("path")
+    addView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true))
+
+addView-withPath-withData ->
+    addView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false))
 
 addView-withPath-noData ->
-    addView("path")
+    addView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true))
+
+addView-withPath-noData ->
+    addView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false))
 
 addView-noPath-withData ->
+    ERROR
+
+addView-noPath-withData ->
+    ERROR
+
+addView-noPath-noData ->
     ERROR
 
 addView-noPath-noData ->
@@ -37,7 +73,16 @@ addView-noPath-noData ->
 finishView-withPath-withData ->
     finishView
 
+finishView-withPath-withData ->
+    finishView
+
 finishView-withPath-noData ->
+    finishView
+
+finishView-withPath-noData ->
+    finishView
+
+finishView-noPath-withData ->
     finishView
 
 finishView-noPath-withData ->
@@ -46,7 +91,16 @@ finishView-noPath-withData ->
 finishView-noPath-noData ->
     finishView
 
+finishView-noPath-noData ->
+    finishView
+
 popView-withPath-withData ->
+    popView
+
+popView-withPath-withData ->
+    popView
+
+popView-withPath-noData ->
     popView
 
 popView-withPath-noData ->
@@ -55,10 +109,22 @@ popView-withPath-noData ->
 popView-noPath-withData ->
     popView
 
+popView-noPath-withData ->
+    popView
+
+popView-noPath-noData ->
+    popView
+
 popView-noPath-noData ->
     popView
 
 popToView-withPath-withData ->
+    popToView("path")
+
+popToView-withPath-withData ->
+    popToView("path")
+
+popToView-withPath-noData ->
     popToView("path")
 
 popToView-withPath-noData ->
@@ -67,16 +133,34 @@ popToView-withPath-noData ->
 popToView-noPath-withData ->
     ERROR
 
+popToView-noPath-withData ->
+    ERROR
+
+popToView-noPath-noData ->
+    ERROR
+
 popToView-noPath-noData ->
     ERROR
 
 presentView-withPath-withData ->
-    presentView("path")
+    presentView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true))
+
+presentView-withPath-withData ->
+    presentView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false))
 
 presentView-withPath-noData ->
-    presentView("path")
+    presentView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true))
+
+presentView-withPath-noData ->
+    presentView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false))
 
 presentView-noPath-withData ->
+    ERROR
+
+presentView-noPath-withData ->
+    ERROR
+
+presentView-noPath-noData ->
     ERROR
 
 presentView-noPath-noData ->

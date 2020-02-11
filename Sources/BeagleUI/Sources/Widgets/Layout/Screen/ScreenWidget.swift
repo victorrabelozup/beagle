@@ -33,7 +33,7 @@ public struct ScreenWidget: Widget {
 
 extension ScreenWidget: Renderable {
     public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
-        
+
         prefetch(dependencies: dependencies)
         
         guard let beagleController = context as? BeagleScreenViewController,
@@ -61,8 +61,9 @@ extension ScreenWidget: Renderable {
     
     private func prefetch(dependencies: Renderable.Dependencies) {
         navigationBar?.navigationBarItems?
-            .compactMap { ($0.action as? Navigate)?.prefechableData }
-            .forEach { dependencies.preFetchHelper.prefetchWidget(path: $0.path) }
+            .compactMap { $0.action as? Navigate }
+            .compactMap { $0.newPath }
+            .forEach { dependencies.preFetchHelper.prefetchWidget(newPath: $0) }
     }
     
     private func createWidgetContentView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {

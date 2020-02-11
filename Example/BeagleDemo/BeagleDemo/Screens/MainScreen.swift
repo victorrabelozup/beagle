@@ -15,7 +15,7 @@ struct MainScreen: DeeplinkScreen {
             content: ScrollView(children: [
                 Button(
                     text: "Navigator",
-                    action: Navigate.addView("https://t001-2751a.firebaseapp.com/flow/step1.json")
+                    action: Navigate.addView(.init(path: "https://t001-2751a.firebaseapp.com/flow/step1.json", shouldPrefetch: true))
                 ),
                 Button(
                     text: "Form & Lazy Widget",
@@ -28,6 +28,10 @@ struct MainScreen: DeeplinkScreen {
                 Button(
                     text: "Tab View",
                     action: Navigate.openDeepLink(.init(path: "tabview"))
+                ),
+                Button(
+                    text: "Navigator",
+                    action: Navigate.addView(.init(path: "http://localhost:8080/cash-withdrawal/home", shouldPrefetch: false))
                 )
             ])
         )
