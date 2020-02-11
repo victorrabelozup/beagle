@@ -87,6 +87,7 @@ internal class ScreenViewRenderer(
         }
         context.findViewById<Toolbar>(R.id.beagle_toolbar)?.let { toolbar ->
             toolbar.visibility = View.VISIBLE
+            toolbar.menu.clear()
             configToolbarStyle(context, toolbar, navigationBar.style ?: "")
             navigationBar.navigationBarItems?.let { items ->
                 configToolbarItems(context, toolbar, items)

@@ -270,6 +270,7 @@ class ScreenViewRendererTest {
 
         // THEN
         assertEquals(View.VISIBLE, toolbar.visibility)
+        verify(exactly = once()) { menu.clear() }
         verify(exactly = navigationBarItems.size) { menu.add(Menu.NONE, 0, Menu.NONE, "Stub") }
         verify(exactly = navigationBarItems.size) { menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER) }
     }
