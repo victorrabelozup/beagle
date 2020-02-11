@@ -10,12 +10,12 @@ final class NetworkTests: XCTestCase {
     private struct Dependencies: NetworkDefault.Dependencies {
         var baseURL: URL?
         var networkClient: NetworkClient
-        var decoder: WidgetDecoding
+        var decoder: ComponentDecoding
 
         init(
             baseURL: URL? = nil,
             networkClient: NetworkClient = NetworkClientDummy(),
-            decoder: WidgetDecoding = WidgetDecodingDummy()
+            decoder: ComponentDecoding = ComponentDecodingDummy()
         ) {
             self.baseURL = baseURL
             self.networkClient = networkClient
@@ -28,14 +28,14 @@ final class NetworkTests: XCTestCase {
         let invalidURL = "🥶"
         
         // When
-        let fetchWidgetExpectation = expectation(description: "fetchWidget")
+        let fetchComponentExpectation = expectation(description: "fetchComponent")
         var fetchError: Request.Error?
 
-        sut.fetchWidget(url: invalidURL) {
+        sut.fetchComponent(url: invalidURL) {
             if case let .failure(error) = $0 {
                 fetchError = error
             }
-            fetchWidgetExpectation.fulfill()
+            fetchComponentExpectation.fulfill()
         }
 
         let submitFormExpectation = expectation(description: "submitForm")
@@ -50,7 +50,7 @@ final class NetworkTests: XCTestCase {
             }
             submitFormExpectation.fulfill()
         }
-        wait(for: [fetchWidgetExpectation, submitFormExpectation], timeout: 1.0)
+        wait(for: [fetchComponentExpectation, submitFormExpectation], timeout: 1.0)
 
         // Then
         guard
@@ -62,11 +62,11 @@ final class NetworkTests: XCTestCase {
         }
     }
     
-    func test_whenRequestSucceeds_withValidData_itShouldReturnSomeWidget() {
+    func test_whenRequestSucceeds_withValidData_itShouldReturnSomeComponent() {
         // Given
         guard let jsonData = """
         {
-            "_beagleType_": "beagle:widget:text",
+            "_beagleType_": "beagle:component:text",
             "text": "some text"
         }
         """.data(using: .utf8) else {
@@ -76,30 +76,30 @@ final class NetworkTests: XCTestCase {
         let clientStub = NetworkDispatcherStub(result: .success(jsonData))
         let sut = NetworkDefault(dependencies: Dependencies(
             networkClient: clientStub,
-            decoder: WidgetDecoder()
+            decoder: ComponentDecoder()
         ))
         let url = "www.something.com"
 
         // When
-        var widgetReturned: Widget?
-        let expec = expectation(description: "fetchWidgetExpectation")
-        sut.fetchWidget(url: url) { result in
-            if case .success(let widget) = result {
-                widgetReturned = widget
+        var componentReturned: ServerDrivenComponent?
+        let expec = expectation(description: "fetchComponentExpectation")
+        sut.fetchComponent(url: url) { result in
+            if case .success(let component) = result {
+                componentReturned = component
             }
             expec.fulfill()
         }
         wait(for: [expec], timeout: 1.0)
 
         // Then
-        XCTAssertNotNil(widgetReturned)
-        XCTAssert(widgetReturned is Text)
+        XCTAssertNotNil(componentReturned)
+        XCTAssert(componentReturned is Text)
     }
 
     func test_whenRequestSucceeds_butTheDecodingFailsWithAnError_itShouldThrowDecodingError() {
         // Given
         let clientStub = NetworkDispatcherStub(result: .success(Data()))
-        let decoderStub = WidgetDecodingStub()
+        let decoderStub = ComponentDecodingStub()
         decoderStub.errorToThrowOnDecode = NSError(domain: "Mock", code: 1, description: "Mock")
         let sut = NetworkDefault(dependencies: Dependencies(
             networkClient: clientStub,
@@ -110,8 +110,8 @@ final class NetworkTests: XCTestCase {
 
         // When
         var errorThrown: Request.Error?
-        let expec = expectation(description: "fetchWidgetExpectation")
-        sut.fetchWidget(url: url) { result in
+        let expec = expectation(description: "fetchComponentExpectation")
+        sut.fetchComponent(url: url) { result in
             if case let .failure(error) = result {
                 errorThrown = error
             }
@@ -139,19 +139,19 @@ final class NetworkClientSpy: NetworkClient {
     }
 }
 
-final class WidgetDecodingStub: WidgetDecoding {
+final class ComponentDecodingStub: ComponentDecoding {
     
-    func register<T>(_ type: T.Type, for typeName: String) where T: WidgetEntity {}
+    func register<T>(_ type: T.Type, for typeName: String) where T: ComponentEntity {}
     func decodableType(forType type: String) -> Decodable.Type? { return nil }
 
-    var widgetToReturnOnDecode: WidgetEntity?
+    var componentToReturnOnDecode: ComponentEntity?
     var errorToThrowOnDecode: Error?
     
-    func decodeWidget(from data: Data) throws -> Widget {
+    func decodeComponent(from data: Data) throws -> ServerDrivenComponent {
         if let error = errorToThrowOnDecode {
             throw error
         }
-        return WidgetDummy()
+        return ComponentDummy()
     }
 
     func decodeAction(from data: Data) throws -> Action {
@@ -162,9 +162,9 @@ final class WidgetDecodingStub: WidgetDecoding {
     }
 }
 
-private struct MappingFailureWidget: WidgetEntity, WidgetConvertible {
-    func mapToWidget() throws -> Widget {
-        throw NSError(domain: "Tests", code: -1, description: "MappingFailureWidget")
+private struct MappingFailureComponent: ComponentEntity, ComponentConvertible {
+    func mapToComponent() throws -> ServerDrivenComponent {
+        throw NSError(domain: "Tests", code: -1, description: "MappingFailureComponent")
     }
 }
 
@@ -180,7 +180,7 @@ final class NetworkSpy: Network {
         }
     }
 
-    func fetchWidget(url: String, completion: @escaping (Result<Widget, Request.Error>) -> Void) -> RequestToken? {
+    func fetchComponent(url: String, completion: @escaping (Result<ServerDrivenComponent, Request.Error>) -> Void) -> RequestToken? {
         didCallDispatch = true
         return token
     }

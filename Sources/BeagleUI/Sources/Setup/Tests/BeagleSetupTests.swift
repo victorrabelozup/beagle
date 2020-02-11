@@ -25,7 +25,7 @@ final class BeagleSetupTests: XCTestCase {
         }
         dep.networkClient = NetworkClientDummy()
         dep.flex = FlexViewConfiguratorDummy()
-        dep.decoder = WidgetDecodingDummy()
+        dep.decoder = ComponentDecodingDummy()
 
         assertSnapshot(matching: dep, as: .dump)
     }
@@ -56,14 +56,14 @@ final class DeepLinkHandlerDummy: BeagleDeepLinkScreenManaging {
     }
 }
 
-final class WidgetDecodingDummy: WidgetDecoding {
-    func register<T>(_ type: T.Type, for typeName: String) where T: WidgetEntity {}
+final class ComponentDecodingDummy: ComponentDecoding {
+    func register<T>(_ type: T.Type, for typeName: String) where T: ComponentEntity {}
     func decodableType(forType type: String) -> Decodable.Type? { return nil }
-    func decodeWidget(from data: Data) throws -> Widget { return WidgetDummy() }
+    func decodeComponent(from data: Data) throws -> ServerDrivenComponent { return ComponentDummy() }
     func decodeAction(from data: Data) throws -> Action { return ActionDummy() }
 }
 
-struct WidgetDummy: Widget {
+struct ComponentDummy: ServerDrivenComponent {
     func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
         return DummyView()
     }
@@ -109,9 +109,9 @@ struct RendererDependenciesContainer: Renderable.Dependencies {
     }
 }
 
-struct WidgetDummyEntity: WidgetConvertibleEntity {
-    func mapToWidget() throws -> Widget {
-        return WidgetDummy()
+struct ComponentDummyEntity: ComponentConvertibleEntity {
+    func mapToComponent() throws -> ServerDrivenComponent {
+        return ComponentDummy()
     }
 }
 

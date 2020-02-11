@@ -7,7 +7,7 @@
   ▿ customActionHandler: Optional<CustomActionHandler>
     ▿ some: CustomActionHandling
       - handlers: 0 key/value pairs
-  ▿ decoder: WidgetDecoder
+  ▿ decoder: ComponentDecoder
     - customNamespace: "TEST"
     - decoders: (0 elements)
     ▿ jsonDecoder: JSONDecoder

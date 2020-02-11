@@ -9,15 +9,15 @@ public protocol DependencyPreFetching {
 }
 
 public protocol BeaglePrefetchHelping {
-    func prefetchWidget(newPath: Navigate.NewPath)
-    func dequeueWidget(path: String) -> BeagleScreenViewController
+    func prefetchComponent(newPath: Navigate.NewPath)
+    func dequeueComponent(path: String) -> BeagleScreenViewController
 }
 
 public class BeaglePreFetchHelper: BeaglePrefetchHelping {
     
     private var screens = [String: BeagleScreenViewController]()
     
-    public func prefetchWidget(newPath: Navigate.NewPath) {
+    public func prefetchComponent(newPath: Navigate.NewPath) {
         if newPath.shouldPrefetch {
             guard screens[newPath.path] == nil else { return }
 
@@ -27,7 +27,7 @@ public class BeaglePreFetchHelper: BeaglePrefetchHelping {
         }
     }
     
-    public func dequeueWidget(path: String) -> BeagleScreenViewController {
+    public func dequeueComponent(path: String) -> BeagleScreenViewController {
         if let screen = screens[path] {
             return screen
         } else {

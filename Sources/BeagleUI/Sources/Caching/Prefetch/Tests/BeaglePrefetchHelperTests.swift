@@ -12,8 +12,8 @@ final class BeaglePrefetchHelperTests: XCTestCase {
         let sut = BeaglePreFetchHelper()
         let url = "url-test"
 
-        sut.prefetchWidget(newPath: .init(path: url, shouldPrefetch: true))
-        let result = sut.dequeueWidget(path: url)
+        sut.prefetchComponent(newPath: .init(path: url, shouldPrefetch: true))
+        let result = sut.dequeueComponent(path: url)
 
         switch result.viewModel.screenType {
         case .remote(let path):
@@ -27,10 +27,10 @@ final class BeaglePrefetchHelperTests: XCTestCase {
         let sut = BeaglePreFetchHelper()
         let url = "url-test"
 
-        sut.prefetchWidget(newPath: .init(path: url, shouldPrefetch: true))
-        let result1 = sut.dequeueWidget(path: url)
-        sut.prefetchWidget(newPath: .init(path: url, shouldPrefetch: true))
-        let result2 = sut.dequeueWidget(path: url)
+        sut.prefetchComponent(newPath: .init(path: url, shouldPrefetch: true))
+        let result1 = sut.dequeueComponent(path: url)
+        sut.prefetchComponent(newPath: .init(path: url, shouldPrefetch: true))
+        let result2 = sut.dequeueComponent(path: url)
         
         XCTAssert(result1 === result2)
     }

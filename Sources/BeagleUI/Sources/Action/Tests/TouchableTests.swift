@@ -8,7 +8,7 @@ import SnapshotTesting
 
 final class TouchableTests: XCTestCase {
 
-    func testTouchableWidget() throws {
+    func testTouchableComponent() throws {
         // Given
         let content = TextEntity(text: "text")
         let child = AnyDecodableContainer(content: content)
@@ -16,13 +16,13 @@ final class TouchableTests: XCTestCase {
         let sut = TouchableEntity(action: action, child: child)
 
         // When
-        let touchable = try sut.mapToWidget()
+        let touchable = try sut.mapToComponent()
 
         // Then
         assertSnapshot(matching: touchable, as: .dump)
     }
     
-    func testTouchableWidgetWithUnknownAction() throws {
+    func testTouchableComponentWithUnknownAction() throws {
         // Given
         let content = TextEntity(text: "text")
         let child = AnyDecodableContainer(content: content)
@@ -30,7 +30,7 @@ final class TouchableTests: XCTestCase {
         let sut = TouchableEntity(action: action, child: child)
 
         // When
-        let touchable = try sut.mapToWidget()
+        let touchable = try sut.mapToComponent()
 
         // Then
         assertSnapshot(matching: touchable, as: .dump)

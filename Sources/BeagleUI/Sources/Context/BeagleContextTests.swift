@@ -14,9 +14,9 @@ final class BeagleContextTests: XCTestCase {
     
     func test_screenController_shouldBeBeagleScreenViewController() {
         // Given
-        let widget = SimpleWidget()
+        let component = SimpleComponent()
         let sut: BeagleContext = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(widget.content.toScreen()),
+            screenType: .declarative(component.content.toScreen()),
             dependencies: BeagleScreenDependencies()
         ))
         
@@ -26,9 +26,9 @@ final class BeagleContextTests: XCTestCase {
 
     func test_registerAction_shouldAddGestureRecognizer() {
         // Given
-        let widget = SimpleWidget()
+        let component = SimpleComponent()
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(widget.content.toScreen()),
+            screenType: .declarative(component.content.toScreen()),
             dependencies: BeagleScreenDependencies()
         ))
         let view = UILabel()
@@ -44,11 +44,11 @@ final class BeagleContextTests: XCTestCase {
     
     func test_action_shouldBeTriggered() {
         // Given
-        let widget = SimpleWidget()
+        let component = SimpleComponent()
         let actionExecutorSpy = ActionExecutorSpy()
 
         let controller = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(widget.content.toScreen()),
+            screenType: .declarative(component.content.toScreen()),
             dependencies: BeagleScreenDependencies(
                 actionExecutor: actionExecutorSpy
             )
@@ -78,12 +78,12 @@ final class BeagleContextTests: XCTestCase {
     
     func test_registerForm_shouldAddGestureRecognizer() {
         // Given
-        let widget = SimpleWidget()
+        let component = SimpleComponent()
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(widget.content.toScreen()),
+            screenType: .declarative(component.content.toScreen()),
             dependencies: BeagleScreenDependencies()
         ))
-        let form = Form(action: "action", method: .put, child: WidgetDummy())
+        let form = Form(action: "action", method: .put, child: ComponentDummy())
         let formView = UIView()
         let submitView = UILabel()
         
@@ -97,30 +97,30 @@ final class BeagleContextTests: XCTestCase {
     
     func test_formSubmit_shouldValidateInputs() {
         // Given
-        let widget = SimpleWidget()
+        let component = SimpleComponent()
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(widget.content.toScreen()),
+            screenType: .declarative(component.content.toScreen()),
             dependencies: BeagleScreenDependencies()
         ))
         
-        let form = Form(action: "submit", method: .post, child: WidgetDummy())
+        let form = Form(action: "submit", method: .post, child: ComponentDummy())
 
         let otherView = UIView()
         otherView.beagleFormElement = FormInput(
-            name: "other", child: WidgetDummy()
+            name: "other", child: ComponentDummy()
         )
 
         let valid = FormInputViewStub(FormInput(
-            name: "name", required: true, validator: "valid", child: WidgetDummy()
+            name: "name", required: true, validator: "valid", child: ComponentDummy()
         ))
         let invalid = FormInputViewStub(FormInput(
-            name: "document", required: true, validator: "invalid", child: WidgetDummy()
+            name: "document", required: true, validator: "invalid", child: ComponentDummy()
         ))
         let optional = FormInputViewStub(FormInput(
-            name: "birthdate", child: WidgetDummy()
+            name: "birthdate", child: ComponentDummy()
         ))
         let invalidValidator = FormInputViewStub(FormInput(
-            name: "country", required: true, validator: "XYZ", child: WidgetDummy()
+            name: "country", required: true, validator: "XYZ", child: ComponentDummy()
         ))
 
         let formSubmit = FormSubmit(child: Button(text: "Add"), enabled: true)
@@ -160,22 +160,22 @@ final class BeagleContextTests: XCTestCase {
     
     func test_formSubmit_shouldExecuteResponseAction() {
         // Given
-        let widget = SimpleWidget()
+        let component = SimpleComponent()
         let actionExecutorSpy = ActionExecutorSpy()
         let networkStub = NetworkStub(
             formResult: .success(CustomAction(name: "custom", data: [:]))
         )
 
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(widget.content.toScreen()),
+            screenType: .declarative(component.content.toScreen()),
             dependencies: BeagleScreenDependencies(
                 actionExecutor: actionExecutorSpy,
                 network: networkStub
             )
         ))
         
-        let form = Form(action: "submit", method: .post, child: WidgetDummy())
-        let validInput = FormInput(name: "name", child: WidgetDummy())
+        let form = Form(action: "submit", method: .post, child: ComponentDummy())
+        let validInput = FormInput(name: "name", child: ComponentDummy())
         let formSubmit = FormSubmit(child: Button(text: "Add"), enabled: true)
         let validInputView = FormInputViewStub(validInput, value: "John Doe")
         let formSubmitView = FormSubmitViewStub(formSubmit)
@@ -198,20 +198,20 @@ final class BeagleContextTests: XCTestCase {
     
     func test_formSubmitError_shouldNotExecuteAction() {
         // Given
-        let widget = SimpleWidget()
+        let component = SimpleComponent()
         let actionExecutorSpy = ActionExecutorSpy()
         let networkStub = NetworkStub(
             formResult: .failure(.networkError(NSError()))
         )
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(widget.content.toScreen()),
+            screenType: .declarative(component.content.toScreen()),
             dependencies: BeagleScreenDependencies(
                 actionExecutor: actionExecutorSpy,
                 network: networkStub
             )
         ))
         
-        let form = Form(action: "delete", method: .delete, child: WidgetDummy())
+        let form = Form(action: "delete", method: .delete, child: ComponentDummy())
         let formView = UIView()
         
         sut.register(form: form, formView: formView, submitView: formView, validatorHandler: nil)
@@ -230,7 +230,7 @@ final class BeagleContextTests: XCTestCase {
     func test_lazyLoad_shouldReplaceTheInitialContent() {
         let dependencies = BeagleDependencies(appName: "TEST")
         dependencies.network = NetworkStub(
-            widgetResult: .success(SimpleWidget().content)
+            componentResult: .success(SimpleComponent().content)
         )
 
         let sut = BeagleScreenViewController(viewModel: .init(
@@ -246,10 +246,10 @@ final class BeagleContextTests: XCTestCase {
         let initialView = OnStateUpdatableViewSpy()
         initialView.yoga.isEnabled = true
         let networkStub = NetworkStub(
-            widgetResult: .success(WidgetDummy())
+            componentResult: .success(ComponentDummy())
         )
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(WidgetDummy().toScreen()),
+            screenType: .declarative(ComponentDummy().toScreen()),
             dependencies: BeagleScreenDependencies(
                 network: networkStub
             )
@@ -329,7 +329,7 @@ private class FormSubmitViewStub: UIView, Observer, WidgetStateObservable {
 class OnStateUpdatableViewSpy: UIView, OnStateUpdatable {
     private(set) var didCallOnUpdateState = false
     
-    func onUpdateState(widget: Widget) -> Bool {
+    func onUpdateState(component: ServerDrivenComponent) -> Bool {
         didCallOnUpdateState = true
         return true
     }

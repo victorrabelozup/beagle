@@ -7,13 +7,13 @@ import XCTest
 
 final class BeagleViewBuilderTests: XCTestCase {
 
-    func test_buildFromRootWidget_shouldReturnTheExpectedRootView() {
+    func test_buildFromRootComponent_shouldReturnTheExpectedRootView() {
         // Given
-        let widget = Text("Text")
+        let component = Text("Text")
         let context = BeagleContextDummy()
         
         // When
-        let rootView = widget.toView(
+        let rootView = component.toView(
             context: context,
             dependencies: BeagleDependencies(appName: "TEST")
         )

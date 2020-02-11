@@ -33,7 +33,7 @@ class UrlRequestBuilder {
 
     private func httpMethod(for request: Request) -> String {
         switch request.type {
-        case .fetchWidget, .fetchImage:
+        case .fetchComponent, .fetchImage:
             return "GET"
         case .submitForm(let data):
             return data.method.rawValue

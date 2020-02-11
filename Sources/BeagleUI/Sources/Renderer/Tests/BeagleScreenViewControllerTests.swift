@@ -10,9 +10,9 @@ final class BeagleScreenViewControllerTests: XCTestCase {
     
     func test_onViewDidLoad_backGroundColorShouldBeSetToWhite() {
         // Given
-        let widget = SimpleWidget()
+        let component = SimpleComponent()
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(widget.content.toScreen())
+            screenType: .declarative(component.content.toScreen())
         ))
         
         // When
@@ -33,7 +33,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         let flexSpy = FlexViewConfiguratorSpy()
 
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(WidgetDummy().toScreen()),
+            screenType: .declarative(ComponentDummy().toScreen()),
             dependencies: BeagleScreenDependencies(
                 flex: flexSpy
             )
@@ -50,9 +50,9 @@ final class BeagleScreenViewControllerTests: XCTestCase {
     
     func test_onViewWillAppear_navigationBarShouldBeHidden() {
         // Given
-        let widget = SimpleWidget()
+        let component = SimpleComponent()
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(widget.content.toScreen())
+            screenType: .declarative(component.content.toScreen())
         ))
         let navigation = UINavigationController(rootViewController: sut)
         
@@ -67,7 +67,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         // Given
         let url = "www.something.com"
         let networkStub = NetworkStub(
-            widgetResult: .failure(.networkError(NSError()))
+            componentResult: .failure(.networkError(NSError()))
         )
         
         let delegateSpy = BeagleScreenDelegateSpy()
@@ -90,7 +90,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         viewToReturn.tag = 1234
 
         let loaderStub = NetworkStub(
-            widgetResult: .success(SimpleWidget().content)
+            componentResult: .success(SimpleComponent().content)
         )
 
         let dependencies = BeagleDependencies(appName: "TEST")
@@ -107,9 +107,9 @@ final class BeagleScreenViewControllerTests: XCTestCase {
 
 // MARK: - Testing Helpers
 
-struct SimpleWidget {
-    var content = FlexSingleWidget(child:
-        Text("Mock")
+struct SimpleComponent {
+    var content = Container(children:
+        [Text("Mock")]
     )
 }
 
@@ -142,7 +142,7 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
 }
 
 final class NetworkDummy: Network {
-    func fetchWidget(url: String, completion: @escaping (Result<Widget, Request.Error>) -> Void) -> RequestToken? {
+    func fetchComponent(url: String, completion: @escaping (Result<ServerDrivenComponent, Request.Error>) -> Void) -> RequestToken? {
         return nil
     }
 
@@ -156,28 +156,28 @@ final class NetworkDummy: Network {
 }
 
 final class FlexViewConfiguratorDummy: FlexViewConfiguratorProtocol {
-    func setupFlex(_ flex: Flex, for view: UIView) {}
+    func setupFlex(_ flex: Flex?, for view: UIView) {}
     func applyYogaLayout(to view: UIView, preservingOrigin: Bool) {}
     func enableYoga(_ enable: Bool, for view: UIView) {}
 }
 
 struct NetworkStub: Network {
-    let widgetResult: Result<Widget, Request.Error>?
+    let componentResult: Result<ServerDrivenComponent, Request.Error>?
     let formResult: Result<Action, Request.Error>?
     let imageResult: Result<Data, Request.Error>?
 
     init(
-        widgetResult: Result<Widget, Request.Error>? = nil,
+        componentResult: Result<ServerDrivenComponent, Request.Error>? = nil,
         formResult: Result<Action, Request.Error>? = nil,
         imageResult: Result<Data, Request.Error>? = nil
     ) {
-        self.widgetResult = widgetResult
+        self.componentResult = componentResult
         self.formResult = formResult
         self.imageResult = imageResult
     }
 
-    func fetchWidget(url: String, completion: @escaping (Result<Widget, Request.Error>) -> Void) -> RequestToken? {
-        if let result = widgetResult {
+    func fetchComponent(url: String, completion: @escaping (Result<ServerDrivenComponent, Request.Error>) -> Void) -> RequestToken? {
+        if let result = componentResult {
             completion(result)
         }
         return nil

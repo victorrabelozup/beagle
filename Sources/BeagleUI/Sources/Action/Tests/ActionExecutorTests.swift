@@ -1,8 +1,4 @@
 //
-//  ActionExecutorTests.swift
-//  BeagleFrameworkTests
-//
-//  Created by Lucas Araújo on 22/11/19.
 //  Copyright © 2019 Zup IT. All rights reserved.
 //
 
@@ -52,10 +48,10 @@ final class ActionExecutorTests: XCTestCase {
         let fieldError = FieldError(inputName: inputName, message: errorMessage)
         let action = FormValidation(errors: [fieldError])
         
-        let formInput = FormInput(name: inputName, child: WidgetDummy())
+        let formInput = FormInput(name: inputName, child: ComponentDummy())
         let validationErrorListenerSpy = ValidationErrorListenerSpy()
         validationErrorListenerSpy.beagleFormElement = formInput
-        let form = Form(action: "action", method: .post, child: FlexSingleWidget(child: formInput))
+        let form = Form(action: "action", method: .post, child: Container(children: [formInput]))
         let formView = UIView()
         let formSubmitView = UIView()
         formView.addSubview(validationErrorListenerSpy)

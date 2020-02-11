@@ -7,9 +7,9 @@ import Foundation
 public protocol Network {
 
     @discardableResult
-    func fetchWidget(
+    func fetchComponent(
         url: String,
-        completion: @escaping (Result<Widget, Request.Error>) -> Void
+        completion: @escaping (Result<ServerDrivenComponent, Request.Error>) -> Void
     ) -> RequestToken?
 
     @discardableResult
@@ -41,7 +41,7 @@ public final class NetworkDefault: Network {
     // MARK: Dependencies
 
     public typealias Dependencies =
-        DependencyWidgetDecoding
+        DependencyComponentDecoding
         & DependencyNetworkClient
 
     let dependencies: Dependencies
@@ -55,17 +55,17 @@ public final class NetworkDefault: Network {
     // MARK: Public Methods
 
     @discardableResult
-    public func fetchWidget(
+    public func fetchComponent(
         url: String,
-        completion: @escaping (Result<Widget, Request.Error>) -> Void
+        completion: @escaping (Result<ServerDrivenComponent, Request.Error>) -> Void
     ) -> RequestToken? {
-        let request = Request(url: url, type: .fetchWidget)
+        let request = Request(url: url, type: .fetchComponent)
         return dependencies.networkClient.executeRequest(request) { [weak self] result in
             guard let self = self else { return }
 
             let mapped = result
                 .flatMapError { .failure(.networkError($0)) }
-                .flatMap { self.handleWidget($0) }
+                .flatMap { self.handleComponent($0) }
 
             DispatchQueue.main.async { completion(mapped) }
         }
@@ -105,12 +105,12 @@ public final class NetworkDefault: Network {
     
     // MARK: Network Result Handlers
     
-    private func handleWidget(
+    private func handleComponent(
         _ data: Data
-    ) -> Result<Widget, Request.Error> {
+    ) -> Result<ServerDrivenComponent, Request.Error> {
         do {
-            let widget: Widget = try dependencies.decoder.decodeWidget(from: data)
-            return .success(widget)
+            let component: ServerDrivenComponent = try dependencies.decoder.decodeComponent(from: data)
+            return .success(component)
         } catch {
             return .failure(.decoding(error))
         }

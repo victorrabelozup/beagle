@@ -9,7 +9,7 @@ public class BeagleScreenViewController: UIViewController {
     public let viewModel: BeagleScreenViewModel
     private var viewIsPresented = false
 
-    private(set) var rootWidgetView: UIView = {
+    private(set) var rootComponentView: UIView = {
         let root = UIView()
         root.backgroundColor = .clear
         root.translatesAutoresizingMaskIntoConstraints = false
@@ -17,7 +17,7 @@ public class BeagleScreenViewController: UIViewController {
     }()
     
     private lazy var keyboardConstraint: NSLayoutConstraint = {
-        view.bottomAnchor.constraint(greaterThanOrEqualTo: rootWidgetView.bottomAnchor)
+        view.bottomAnchor.constraint(greaterThanOrEqualTo: rootComponentView.bottomAnchor)
     }()
     
     private var safeAreaManager: SafeAreaManager?
@@ -53,7 +53,7 @@ public class BeagleScreenViewController: UIViewController {
     
     public override func viewWillAppear(_ animated: Bool) {
         viewIsPresented = true
-        renderWidgetIfNeeded()
+        renderComponentIfNeeded()
         
         super.viewWillAppear(animated)
         
@@ -69,11 +69,11 @@ public class BeagleScreenViewController: UIViewController {
         viewIsPresented = false
     }
     
-    private func renderWidgetIfNeeded() {
+    private func renderComponentIfNeeded() {
         guard viewIsPresented, let screen = viewModel.screen, case .success = viewModel.state else { return }
-        buildViewFromWidget(screen)
+        buildViewFromComponent(screen)
         safeAreaManager?.safeArea = screen.safeArea
-        viewModel.didRenderWidget()
+        viewModel.didRenderComponent()
     }
     
     private func updateNavigationBar(animated: Bool) {
@@ -102,7 +102,7 @@ public class BeagleScreenViewController: UIViewController {
             view.showLoading(.whiteLarge)
         case .success, .failure:
             view.hideLoading()
-            renderWidgetIfNeeded()
+            renderComponentIfNeeded()
             updateNavigationBar(animated: viewIsPresented)
         case .rendered:
             break
@@ -118,10 +118,10 @@ public class BeagleScreenViewController: UIViewController {
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        guard let widgetView = rootWidgetView.subviews.first else { return }
+        guard let componentView = rootComponentView.subviews.first else { return }
         
-        widgetView.frame = rootWidgetView.bounds
-        dependencies.flex.applyYogaLayout(to: widgetView, preservingOrigin: true)
+        componentView.frame = rootComponentView.bounds
+        dependencies.flex.applyYogaLayout(to: componentView, preservingOrigin: true)
     }
     
     // MARK: - View Setup
@@ -133,24 +133,24 @@ public class BeagleScreenViewController: UIViewController {
         // } else {
         view.backgroundColor = .white
         // }
-        view.addSubview(rootWidgetView)
+        view.addSubview(rootComponentView)
         safeAreaManager = SafeAreaManager(
             viewController: self,
-            view: rootWidgetView,
+            view: rootComponentView,
             safeArea: viewModel.screen?.safeArea
         )
         keyboardConstraint.isActive = true
     }
     
-    private func buildViewFromWidget(_ widget: Widget) {
-        let view = widget.toView(context: self, dependencies: viewModel.dependencies)
-        setupWidgetView(view)
+    private func buildViewFromComponent(_ component: ServerDrivenComponent) {
+        let view = component.toView(context: self, dependencies: viewModel.dependencies)
+        setupComponentView(view)
     }
     
-    private func setupWidgetView(_ widgetView: UIView) {
-        rootWidgetView.addSubview(widgetView)
-        widgetView.frame = rootWidgetView.bounds
-        dependencies.flex.applyYogaLayout(to: widgetView, preservingOrigin: true)
+    private func setupComponentView(_ componentView: UIView) {
+        rootComponentView.addSubview(componentView)
+        componentView.frame = rootComponentView.bounds
+        dependencies.flex.applyYogaLayout(to: componentView, preservingOrigin: true)
     }
 }
 

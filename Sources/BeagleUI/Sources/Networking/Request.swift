@@ -17,7 +17,7 @@ public struct Request {
     }
 
     public enum RequestType {
-        case fetchWidget
+        case fetchComponent
         case submitForm(FormData)
         case fetchImage
     }

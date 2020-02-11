@@ -7,7 +7,7 @@
     - some: www.test.com
   ▿ customActionHandler: Optional<CustomActionHandler>
     - some: CustomActionHandlerDummy
-  - decoder: WidgetDecodingDummy
+  - decoder: ComponentDecodingDummy
   ▿ deepLinkHandler: Optional<BeagleDeepLinkScreenManaging>
     - some: DeepLinkHandlerDummy
   - flex: FlexViewConfiguratorDummy

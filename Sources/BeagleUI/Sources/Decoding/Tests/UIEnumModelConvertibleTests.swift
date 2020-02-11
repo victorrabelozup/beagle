@@ -63,18 +63,18 @@ final class UIEnumModelConvertibleTests: XCTestCase {
 }
 
 // MARK: - Testing Helpers
-private enum BadItemDirectionEntity: Int, WidgetEntity, UIEnumModelConvertible {
+private enum BadItemDirectionEntity: Int, ComponentEntity, UIEnumModelConvertible {
     case inherit = 1
 }
 
-private enum ItemDirectionEntity: String, WidgetEntity, UIEnumModelConvertible {
+private enum ItemDirectionEntity: String, ComponentEntity, UIEnumModelConvertible {
     case inherited
 }
 
-private enum GodItemDirection: String, WidgetEntity, StringRawRepresentable {
+private enum GodItemDirection: String, ComponentEntity, StringRawRepresentable {
     case inherited
 }
 
-private enum ItemDirection: String, WidgetEntity, StringRawRepresentable {
+private enum ItemDirection: String, ComponentEntity, StringRawRepresentable {
     case inherit
 }

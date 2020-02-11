@@ -26,10 +26,10 @@ extension AnyDecodableContainer: Decodable {
     }
 }
 
-struct Unknown: WidgetConvertibleEntity {
+struct Unknown: ComponentConvertibleEntity {
     let type: String
     
-    func mapToWidget() -> Widget {
-        return AnyWidget(value: self)
+    func mapToComponent() -> ServerDrivenComponent {
+        return AnyComponent(value: self)
     }
 }

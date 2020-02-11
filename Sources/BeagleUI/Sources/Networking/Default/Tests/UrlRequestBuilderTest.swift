@@ -44,7 +44,7 @@ final class UrlRequestBuilderTest: XCTestCase {
         let forms = createAllForms().map { Request.RequestType.submitForm($0) }
 
         var types: [Request.RequestType] = [
-            .fetchWidget, .fetchImage
+            .fetchComponent, .fetchImage
         ]
         types.append(contentsOf: forms)
 

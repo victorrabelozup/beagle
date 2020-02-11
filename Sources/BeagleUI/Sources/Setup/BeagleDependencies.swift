@@ -10,7 +10,7 @@ public protocol BeagleDependenciesProtocol: DependencyFlexViewConfigurator,
     DependencyActionExecutor,
     DependencyNetwork,
     DependencyBaseURL,
-    DependencyWidgetDecoding,
+    DependencyComponentDecoding,
     DependencyNetworkClient,
     DependencyCustomActionHandler,
     DependencyNavigation,
@@ -24,7 +24,7 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
 
     public var baseURL: URL?
     public var networkClient: NetworkClient
-    public var decoder: WidgetDecoding
+    public var decoder: ComponentDecoding
     public var appBundle: Bundle
     public var theme: Theme
     public var validatorProvider: ValidatorProvider?
@@ -42,7 +42,7 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
         let resolver = InnerDependenciesResolver()
         self.resolver = resolver
 
-        self.decoder = WidgetDecoder(namespace: appName)
+        self.decoder = ComponentDecoder(namespace: appName)
         self.preFetchHelper = BeaglePreFetchHelper()
         self.customActionHandler = CustomActionHandling()
         self.appBundle = Bundle.main
@@ -72,7 +72,7 @@ private class InnerDependenciesResolver: NetworkDefault.Dependencies,
     }
 
     var baseURL: URL? { return container().baseURL }
-    var decoder: WidgetDecoding { return container().decoder }
+    var decoder: ComponentDecoding { return container().decoder }
     var networkClient: NetworkClient { return container().networkClient }
     var navigation: BeagleNavigation { return container().navigation }
     var preFetchHelper: BeaglePrefetchHelping { return container().preFetchHelper }

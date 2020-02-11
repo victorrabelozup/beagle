@@ -12,7 +12,7 @@ public class BeagleScreenViewModel {
 
     public enum ScreenType {
         case remote(String)
-        case declarative(ScreenWidget)
+        case declarative(ScreenComponent)
     }
 
     // MARK: State
@@ -21,7 +21,7 @@ public class BeagleScreenViewModel {
         didSet { didChangeState() }
     }
     
-    private(set) var screen: ScreenWidget?
+    private(set) var screen: ScreenComponent?
 
     public enum State {
         case loading
@@ -73,12 +73,12 @@ public class BeagleScreenViewModel {
     func loadScreenFromUrl(_ url: String) {
         state = .loading
 
-        dependencies.network.fetchWidget(url: url) {
+        dependencies.network.fetchComponent(url: url) {
             [weak self] result in guard let self = self else { return }
 
             switch result {
-            case .success(let widget):
-                self.screen = widget.toScreen()
+            case .success(let component):
+                self.screen = component.toScreen()
                 self.state = .success
 
             case .failure(let error):
@@ -87,7 +87,7 @@ public class BeagleScreenViewModel {
         }
     }
     
-    func didRenderWidget() {
+    func didRenderComponent() {
         state = .rendered
     }
 

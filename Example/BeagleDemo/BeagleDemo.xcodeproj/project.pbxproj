@@ -15,7 +15,7 @@
 		98A7F36C23A926C600E88C70 /* TabViewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A7F36B23A926C600E88C70 /* TabViewScreen.swift */; };
 		A0642DC82395A1840028AFF3 /* DeeplinkScreenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0642DC72395A1840028AFF3 /* DeeplinkScreenManager.swift */; };
 		A0642DCB23968A020028AFF3 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0642DCA23968A020028AFF3 /* MainScreen.swift */; };
-		A0642DCD23968B500028AFF3 /* LazyWidgetScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0642DCC23968B500028AFF3 /* LazyWidgetScreen.swift */; };
+		A0642DCD23968B500028AFF3 /* LazyComponentScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0642DCC23968B500028AFF3 /* LazyComponentScreen.swift */; };
 		A0642DD12396EC670028AFF3 /* PageViewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0642DD02396EC670028AFF3 /* PageViewScreen.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,7 +43,7 @@
 		98A7F36B23A926C600E88C70 /* TabViewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewScreen.swift; sourceTree = "<group>"; };
 		A0642DC72395A1840028AFF3 /* DeeplinkScreenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkScreenManager.swift; sourceTree = "<group>"; };
 		A0642DCA23968A020028AFF3 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
-		A0642DCC23968B500028AFF3 /* LazyWidgetScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyWidgetScreen.swift; sourceTree = "<group>"; };
+		A0642DCC23968B500028AFF3 /* LazyComponentScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyComponentScreen.swift; sourceTree = "<group>"; };
 		A0642DD02396EC670028AFF3 /* PageViewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,7 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				A0642DCA23968A020028AFF3 /* MainScreen.swift */,
-				A0642DCC23968B500028AFF3 /* LazyWidgetScreen.swift */,
+				A0642DCC23968B500028AFF3 /* LazyComponentScreen.swift */,
 				A0642DD02396EC670028AFF3 /* PageViewScreen.swift */,
 				98A7F36B23A926C600E88C70 /* TabViewScreen.swift */,
 			);
@@ -185,7 +185,7 @@
 				932925B22327E0E400A61F01 /* AppDelegate.swift in Sources */,
 				98A7F36C23A926C600E88C70 /* TabViewScreen.swift in Sources */,
 				A0642DC82395A1840028AFF3 /* DeeplinkScreenManager.swift in Sources */,
-				A0642DCD23968B500028AFF3 /* LazyWidgetScreen.swift in Sources */,
+				A0642DCD23968B500028AFF3 /* LazyComponentScreen.swift in Sources */,
 				A0642DD12396EC670028AFF3 /* PageViewScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

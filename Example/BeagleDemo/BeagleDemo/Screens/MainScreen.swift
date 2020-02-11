@@ -10,7 +10,7 @@ struct MainScreen: DeeplinkScreen {
     init(path: String, data: [String : String]?) {}
     
     func screenController() -> UIViewController {
-        let screen = ScreenWidget(
+        let screen = ScreenComponent(
             navigationBar: .init(title: "Beagle Demo"),
             content: ScrollView(children: [
                 Button(
@@ -18,8 +18,8 @@ struct MainScreen: DeeplinkScreen {
                     action: Navigate.addView(.init(path: "https://t001-2751a.firebaseapp.com/flow/step1.json", shouldPrefetch: true))
                 ),
                 Button(
-                    text: "Form & Lazy Widget",
-                    action: Navigate.openDeepLink(.init(path: "lazywidget"))
+                    text: "Form & Lazy Component",
+                    action: Navigate.openDeepLink(.init(path: "lazycomponent"))
                 ),
                 Button(
                     text: "Page View",

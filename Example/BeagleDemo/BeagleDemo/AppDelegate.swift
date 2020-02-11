@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         let deepLinkHandler = DeeplinkScreenManager.shared
-        deepLinkHandler["lazywidget"] = LazyWidgetScreen.self
+        deepLinkHandler["lazycomponent"] = LazyComponentScreen.self
         deepLinkHandler["pageview"] = PageViewScreen.self
         deepLinkHandler["tabview"] = TabViewScreen.self
 

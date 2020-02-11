@@ -101,9 +101,9 @@ final class BeagleNavigatorTests: XCTestCase {
         let screenURL2 = "https://example.com/screen2.json"
         let screenURL3 = "https://example.com/screen3.json"
         let sut = BeagleNavigator(dependencies: Prefetch())
-        let widget = SimpleWidget()
+        let component = SimpleComponent()
         let action = Navigate.popToView(screenURL1)
-        let vc1 = beagleViewController(screen: .declarative(widget.content.toScreen()))
+        let vc1 = beagleViewController(screen: .declarative(component.content.toScreen()))
         let vc2 = beagleViewController(screen: .remote(screenURL2))
         let vc3 = beagleViewController(screen: .remote(screenURL3))
         let vc4 = UIViewController()

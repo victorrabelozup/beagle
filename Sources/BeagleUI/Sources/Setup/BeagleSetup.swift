@@ -12,10 +12,10 @@ public class Beagle {
 
     // MARK: - Public Functions
     
-    /// Register a custom widget
-    public static func registerCustomWidget<W: Widget, E: WidgetConvertibleEntity>(
+    /// Register a custom component
+    public static func registerCustomComponent<W: ServerDrivenComponent, E: ComponentConvertibleEntity>(
         _ name: String,
-        widgetType: W.Type,
+        componentType: W.Type,
         entityType: E.Type
     ) {
         dependencies.decoder.register(entityType, for: name)

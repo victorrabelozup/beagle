@@ -99,17 +99,17 @@ class BeagleNavigator: BeagleNavigation {
     }
     
     private func swapView(url: String, context: BeagleContext, animated: Bool) {
-        let viewController = dependencies.preFetchHelper.dequeueWidget(path: url)
+        let viewController = dependencies.preFetchHelper.dequeueComponent(path: url)
         context.screenController.navigationController?.setViewControllers([viewController], animated: animated)
     }
 
     private func addView(url: String, context: BeagleContext, animated: Bool) {
-        let viewController = dependencies.preFetchHelper.dequeueWidget(path: url)
+        let viewController = dependencies.preFetchHelper.dequeueComponent(path: url)
         context.screenController.navigationController?.pushViewController(viewController, animated: animated)
     }
 
     private func presentView(url: String, context: BeagleContext, animated: Bool) {
-        let viewController = dependencies.preFetchHelper.dequeueWidget(path: url)
+        let viewController = dependencies.preFetchHelper.dequeueComponent(path: url)
         let navigationToPresent = UINavigationController(rootViewController: viewController)
         context.screenController.navigationController?.present(navigationToPresent, animated: animated)
     }

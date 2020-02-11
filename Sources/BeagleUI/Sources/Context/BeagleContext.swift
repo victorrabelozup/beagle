@@ -48,12 +48,12 @@ extension BeagleScreenViewController: BeagleContext {
     }
     
     public func lazyLoad(url: String, initialState: UIView) {
-        dependencies.network.fetchWidget(url: url) {
+        dependencies.network.fetchComponent(url: url) {
             [weak self] result in guard let self = self else { return }
 
             switch result {
-            case .success(let widget):
-                self.update(initialView: initialState, lazyLoaded: widget)
+            case .success(let component):
+                self.update(initialView: initialState, lazyLoaded: component)
 
             case .failure(let error):
                 self.viewModel.handleError(error)
@@ -143,24 +143,24 @@ extension BeagleScreenViewController: BeagleContext {
     
     // MARK: - Lazy Load
     
-    private func update(initialView: UIView, lazyLoaded: Widget) {
+    private func update(initialView: UIView, lazyLoaded: ServerDrivenComponent) {
         let updatable = initialView as? OnStateUpdatable
-        let updated = updatable?.onUpdateState(widget: lazyLoaded) ?? false
+        let updated = updatable?.onUpdateState(component: lazyLoaded) ?? false
         if updated && initialView.isYogaEnabled {
             initialView.yoga.markDirty()
         } else if !updated {
             replaceView(initialView, with: lazyLoaded)
         }
-        if let widgetView = self.rootWidgetView.subviews.first {
-            widgetView.frame = self.rootWidgetView.bounds
-            dependencies.flex.applyYogaLayout(to: widgetView, preservingOrigin: true)
+        if let componentView = self.rootComponentView.subviews.first {
+            componentView.frame = self.rootComponentView.bounds
+            dependencies.flex.applyYogaLayout(to: componentView, preservingOrigin: true)
         }
     }
     
-    private func replaceView(_ view: UIView, with widget: Widget) {
+    private func replaceView(_ view: UIView, with component: ServerDrivenComponent) {
         guard let superview = view.superview else { return }
         
-        let updatedView = widget.toView(context: self, dependencies: dependencies)
+        let updatedView = component.toView(context: self, dependencies: dependencies)
         updatedView.frame = view.frame
         superview.insertSubview(updatedView, belowSubview: view)
         view.removeFromSuperview()

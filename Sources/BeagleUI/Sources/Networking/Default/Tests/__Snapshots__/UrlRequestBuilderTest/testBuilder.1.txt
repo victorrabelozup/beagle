@@ -1,7 +1,7 @@
 ▿ 40 elements
   ▿ 
     - testNumber: 1
-    - parameters: "  baseUrl/  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.fetchWidget)"
+    - parameters: "  baseUrl/  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.fetchComponent)"
     ▿ result: Result<URLRequest, ClientError>
       ▿ success: baseUrl/path
         ▿ url: Optional<URL>
@@ -24,7 +24,7 @@
         - httpShouldUsePipelining: false
   ▿ 
     - testNumber: 2
-    - parameters: "  NULL  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.fetchWidget)"
+    - parameters: "  NULL  +  Request(url: \"path\", type: BeagleUI.Request.RequestType.fetchComponent)"
     ▿ result: Result<URLRequest, ClientError>
       ▿ success: path
         ▿ url: Optional<URL>
@@ -469,7 +469,7 @@
         - httpShouldUsePipelining: false
   ▿ 
     - testNumber: 21
-    - parameters: "  baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.fetchWidget)"
+    - parameters: "  baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.fetchComponent)"
     ▿ result: Result<URLRequest, ClientError>
       ▿ success: baseUrl/
         ▿ url: Optional<URL>
@@ -492,7 +492,7 @@
         - httpShouldUsePipelining: false
   ▿ 
     - testNumber: 22
-    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.fetchWidget)"
+    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.fetchComponent)"
     ▿ result: Result<URLRequest, ClientError>
       - failure: ClientError.invalidUrl
   ▿ 
