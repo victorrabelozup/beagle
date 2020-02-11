@@ -6,7 +6,7 @@ import br.com.zup.beagle.widget.core.ImageContentMode
 import br.com.zup.beagle.widget.core.Widget
 
 data class NetworkImage(
-    val url: String,
+    val path: String,
     val contentMode: ImageContentMode? = null /* = ImageContentMode.FIT_CENTER */,
     override val appearance: Appearance? = null
 ) : Widget, AppearanceWidget

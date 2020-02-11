@@ -10,7 +10,7 @@ enum class FormMethodType {
 }
 
 data class Form (
-    val action: String,
+    val path: String,
     val method: FormMethodType,
     val child: Widget
 ) : Widget

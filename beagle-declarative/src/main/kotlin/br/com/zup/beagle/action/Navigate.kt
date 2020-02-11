@@ -14,7 +14,7 @@ enum class NavigationType {
 
 data class Navigate(
     val type: NavigationType,
-    val href: String? = null,
+    val path: String? = null,
     val data: Map<String, String>? = null,
     val screen: Screen? = null
 ) : Action

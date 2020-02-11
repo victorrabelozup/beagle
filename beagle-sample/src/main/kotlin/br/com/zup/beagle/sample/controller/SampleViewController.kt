@@ -2,6 +2,7 @@ package br.com.zup.beagle.sample.controller
 
 import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.NavigationType
+import br.com.zup.beagle.annotation.BeaglePreview
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.JustifyContent
 import br.com.zup.beagle.widget.layout.Container
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class SampleViewController {
 
+    @BeaglePreview
     @RequestMapping("/sample")
     fun getSampleView(): Screen {
         return Screen(
@@ -26,7 +28,8 @@ class SampleViewController {
                         text = "First",
                         image = "delete",
                         action = Navigate(
-                            type = NavigationType.POP_VIEW
+                            type = NavigationType.POP_VIEW,
+                            path = "http://localhost:8080/sample"
                         )
                     ),
                     NavigationBarItem(

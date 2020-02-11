@@ -14,7 +14,7 @@ class LazyWidgetTest {
 
         val widget = LazyWidget(url, initialState)
 
-        assertEquals(url, widget.url)
+        assertEquals(url, widget.path)
         assertEquals(initialState, widget.initialState)
     }
 }
