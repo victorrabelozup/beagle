@@ -1,8 +1,8 @@
 package br.com.zup.beagle.sample.controller
 
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
-import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.ScrollAxis
 import br.com.zup.beagle.widget.layout.ScrollView
@@ -14,14 +14,11 @@ import org.springframework.web.bind.annotation.RestController
 class ScrollViewController {
 
     @RequestMapping("/scrollView")
-    fun getPageView(): Widget {
+    fun getPageView(): ServerDrivenComponent {
         return ScrollView(
             scrollDirection = ScrollAxis.HORIZONTAL,
             children = listOf(
                 Container(
-                    flex = Flex(
-                        flexDirection = FlexDirection.ROW
-                    ),
                     children = listOf(
                         Text("Texto"),
                         Text("Texto"),
@@ -44,6 +41,10 @@ class ScrollViewController {
                         Text("Texto"),
                         Text("Texto"),
                         Text("Texto")
+                    )
+                ).applyFlex(
+                    flex = Flex(
+                        flexDirection = FlexDirection.ROW
                     )
                 )
             )

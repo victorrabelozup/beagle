@@ -1,7 +1,7 @@
 package br.com.zup.beagle.widget.layout
 
 import br.com.zup.beagle.action.Action
-import br.com.zup.beagle.widget.core.Widget
+import br.com.zup.beagle.core.ServerDrivenComponent
 
 data class SafeArea(
     val top: Boolean? = null,
@@ -26,7 +26,7 @@ data class NavigationBar(
 data class Screen(
     val safeArea: SafeArea? = null,
     val navigationBar: NavigationBar? = null,
-    val header: Widget? = null,
-    val content: Widget,
-    val footer: Widget? = null
+    val header: ServerDrivenComponent? = null,
+    val content: ServerDrivenComponent,
+    val footer: ServerDrivenComponent? = null
 )

@@ -1,6 +1,6 @@
 package br.com.zup.beagle.widget.ui
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class TabViewTest {

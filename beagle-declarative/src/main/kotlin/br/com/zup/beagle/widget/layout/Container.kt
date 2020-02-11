@@ -1,12 +1,8 @@
 package br.com.zup.beagle.widget.layout
 
-import br.com.zup.beagle.widget.core.Appearance
-import br.com.zup.beagle.widget.core.AppearanceWidget
-import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.core.Widget
+import br.com.zup.beagle.core.ServerDrivenComponent
+import br.com.zup.beagle.widget.Widget
 
 data class Container(
-    val flex: Flex? = null,
-    val children: List<Widget>,
-    override val appearance: Appearance? = null
-) : Widget, AppearanceWidget
+    val children: List<ServerDrivenComponent>
+) : Widget()

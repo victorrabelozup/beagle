@@ -19,6 +19,7 @@ class SampleViewController {
     @BeaglePreview
     @RequestMapping("/sample")
     fun getSampleView(): Screen {
+
         return Screen(
             navigationBar = NavigationBar(
                 title = "Sample Bar",
@@ -42,11 +43,10 @@ class SampleViewController {
                 )
             ),
             content = Container(
-                flex = Flex(justifyContent = JustifyContent.CENTER),
                 children = listOf(
                     Button("")
                 )
-            )
+            ).applyFlex(Flex(justifyContent = JustifyContent.CENTER))
         )
     }
 }

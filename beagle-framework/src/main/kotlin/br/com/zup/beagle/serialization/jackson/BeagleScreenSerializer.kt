@@ -12,7 +12,7 @@ class BeagleScreenSerializer(
     override fun serialize(screen: Screen?, gen: JsonGenerator?, provider: SerializerProvider?) {
         if (screen != null && gen != null) {
             gen.writeStartObject()
-            gen.writeStringField(BEAGLE_TYPE, "$BEAGLE_NAMESPACE:$WIDGET_NAMESPACE:screenwidget")
+            gen.writeStringField(BEAGLE_TYPE, "$BEAGLE_NAMESPACE:$COMPONENT_NAMESPACE:$SCREEN_COMPONENT")
             objectFieldSerializer.serializeFields(screen, gen)
             gen.writeEndObject()
         }

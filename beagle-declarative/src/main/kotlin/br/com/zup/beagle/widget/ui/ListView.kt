@@ -1,6 +1,7 @@
 package br.com.zup.beagle.widget.ui
 
-import br.com.zup.beagle.widget.core.Widget
+import br.com.zup.beagle.core.ServerDrivenComponent
+import br.com.zup.beagle.widget.Widget
 
 enum class ListDirection {
     VERTICAL,
@@ -10,11 +11,11 @@ enum class ListDirection {
 typealias RowBuilder = (index: Int) -> Widget
 
 data class ListView(
-    val rows: List<Widget>,
+    val rows: List<ServerDrivenComponent>,
     val remoteDataSource: String? = null,
-    val loadingState: Widget? = null,
+    val loadingState: ServerDrivenComponent? = null,
     val direction: ListDirection = ListDirection.VERTICAL
-) : Widget {
+) : ServerDrivenComponent {
 
     companion object {
         @JvmStatic
@@ -30,7 +31,7 @@ data class ListView(
         private fun generateRows(size: Int, rowBuilder: RowBuilder): List<Widget> {
             val children = mutableListOf<Widget>()
 
-            for(i in 0 until size) {
+            for (i in 0 until size) {
                 children.add(rowBuilder(i))
             }
 

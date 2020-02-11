@@ -1,6 +1,6 @@
 package br.com.zup.beagle.widget.form
 
-import br.com.zup.beagle.widget.core.Widget
+import br.com.zup.beagle.core.ServerDrivenComponent
 
 data class FormInput(
     val name: String,
@@ -8,4 +8,4 @@ data class FormInput(
     val validator: String? = null,
     val errorMessage: String? = null,
     val child: InputWidget
-) : Widget
+) : ServerDrivenComponent

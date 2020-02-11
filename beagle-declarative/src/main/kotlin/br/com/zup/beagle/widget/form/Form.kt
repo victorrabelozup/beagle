@@ -1,6 +1,6 @@
 package br.com.zup.beagle.widget.form
 
-import br.com.zup.beagle.widget.core.Widget
+import br.com.zup.beagle.core.ServerDrivenComponent
 
 enum class FormMethodType {
     GET,
@@ -12,5 +12,5 @@ enum class FormMethodType {
 data class Form (
     val path: String,
     val method: FormMethodType,
-    val child: Widget
-) : Widget
+    val child: ServerDrivenComponent
+) : ServerDrivenComponent

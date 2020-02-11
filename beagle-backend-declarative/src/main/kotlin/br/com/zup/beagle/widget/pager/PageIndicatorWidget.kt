@@ -1,5 +1,5 @@
 package br.com.zup.beagle.widget.pager
 
-import br.com.zup.beagle.widget.core.Widget
+import br.com.zup.beagle.core.ServerDrivenComponent
 
-interface PageIndicatorWidget : Widget
+interface PageIndicatorWidget : ServerDrivenComponent

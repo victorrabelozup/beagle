@@ -1,21 +1,21 @@
 package br.com.zup.beagle.sample.widget
 
-import br.com.zup.beagle.widget.core.ComposeWidget
+import br.com.zup.beagle.widget.core.ComposeComponent
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.JustifyContent
-import br.com.zup.beagle.widget.core.Widget
+import br.com.zup.beagle.widget.Widget
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.Text
 
-class CustomWidget : ComposeWidget {
+class CustomComponent : ComposeComponent() {
     override fun build(): Widget = Container(
-        flex = Flex(
-            justifyContent = JustifyContent.CENTER
-        ),
         children = listOf(
             Button("Text 1"),
             Text("Text 1")
         )
+    ).applyFlex(flex = Flex(
+        justifyContent = JustifyContent.CENTER
+    )
     )
 }

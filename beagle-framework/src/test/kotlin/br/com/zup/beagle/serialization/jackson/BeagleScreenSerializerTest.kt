@@ -5,12 +5,9 @@ import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.SerializerProvider
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
-import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.*
 
 class BeagleScreenSerializerTest {
 
@@ -37,7 +34,7 @@ class BeagleScreenSerializerTest {
         beagleScreenSerializer.serialize(screen, jsonGenerator, serializerProvider)
 
         verify(exactly = 1) { jsonGenerator.writeStartObject() }
-        verify(exactly = 1) { jsonGenerator.writeStringField(BEAGLE_TYPE, "$BEAGLE_NAMESPACE:$WIDGET_NAMESPACE:screenwidget") }
+        verify(exactly = 1) { jsonGenerator.writeStringField(BEAGLE_TYPE, "$BEAGLE_NAMESPACE:$COMPONENT_NAMESPACE:screenwidget") }
         verify(exactly = 1) { objectFieldSerializer.serializeFields(screen, jsonGenerator) }
         verify(exactly = 1) { jsonGenerator.writeEndObject() }
     }

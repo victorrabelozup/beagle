@@ -14,6 +14,7 @@
     <modules>
         <module>android-core</module>
         <module>beagle-annotation</module>
+        <module>beagle-core</module>
         <module>beagle-backend-declarative</module>
         <module>beagle-android-declarative</module>
         <module>beagle-declarative</module>
@@ -35,6 +36,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>br.com.zup.beagle</groupId>
+                <artifactId>beagle-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>br.com.zup.beagle</groupId>
                 <artifactId>backend-declarative</artifactId>
@@ -136,7 +142,6 @@
         <connection>scm:git@github.com:ZupIT/darwin-beagle-framework.git</connection>
         <url>https://github.com/ZupIT/darwin-beagle-framework</url>
         <developerConnection>scm:git:git@github.com:ZupIT/darwin-beagle-framework.git</developerConnection>
-        <tag>0.0.32</tag>
     </scm>
 
 </project>

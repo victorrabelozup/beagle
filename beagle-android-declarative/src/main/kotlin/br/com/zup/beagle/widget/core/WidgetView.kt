@@ -1,8 +1,5 @@
 package br.com.zup.beagle.widget.core
 
-import android.content.Context
-import android.view.View
+import br.com.zup.beagle.widget.Widget
 
-interface WidgetView : Widget {
-    fun toView(context: Context): View
-}
+abstract class WidgetView : Widget(), ViewConvertable

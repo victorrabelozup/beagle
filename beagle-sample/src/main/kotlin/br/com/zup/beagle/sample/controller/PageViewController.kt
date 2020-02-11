@@ -3,8 +3,7 @@ package br.com.zup.beagle.sample.controller
 import br.com.zup.beagle.widget.core.Alignment
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.JustifyContent
-import br.com.zup.beagle.widget.core.Widget
-import br.com.zup.beagle.widget.layout.FlexSingleWidget
+import br.com.zup.beagle.widget.Widget
 import br.com.zup.beagle.widget.layout.PageView
 import br.com.zup.beagle.widget.pager.PageIndicator
 import br.com.zup.beagle.widget.ui.Text
@@ -22,40 +21,35 @@ class PageViewController {
                 unselectedColor = "#888888"
             ),
             pages = listOf(
-                FlexSingleWidget(
+                Text("Page 1").applyFlex(
                     flex = Flex(
                         justifyContent = JustifyContent.CENTER,
                         alignItems = Alignment.CENTER
-                    ),
-                    child = Text("Page 1")
+                    )
                 ),
-                FlexSingleWidget(
+                Text("Page 2").applyFlex(
                     flex = Flex(
                         justifyContent = JustifyContent.CENTER,
                         alignItems = Alignment.CENTER
-                    ),
-                    child = Text("Page 2")
+                    )
                 ),
-                FlexSingleWidget(
+                Text("Page 3").applyFlex(
                     flex = Flex(
                         justifyContent = JustifyContent.CENTER,
                         alignItems = Alignment.CENTER
-                    ),
-                    child = Text("Page 3")
+                    )
                 ),
-                FlexSingleWidget(
+                Text("Page 4").applyFlex(
                     flex = Flex(
                         justifyContent = JustifyContent.CENTER,
                         alignItems = Alignment.CENTER
-                    ),
-                    child = Text("Page 4")
+                    )
                 ),
-                FlexSingleWidget(
+                Text("Page 5").applyFlex(
                     flex = Flex(
                         justifyContent = JustifyContent.CENTER,
                         alignItems = Alignment.CENTER
-                    ),
-                    child = Text("Page 5")
+                    )
                 )
             )
         )

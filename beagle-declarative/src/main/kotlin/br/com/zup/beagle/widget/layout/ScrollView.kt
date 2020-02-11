@@ -1,15 +1,12 @@
 package br.com.zup.beagle.widget.layout
 
-import br.com.zup.beagle.widget.core.Appearance
-import br.com.zup.beagle.widget.core.AppearanceWidget
-import br.com.zup.beagle.widget.core.Widget
+import br.com.zup.beagle.core.ServerDrivenComponent
 
 data class ScrollView(
-    val children: List<Widget>,
+    val children: List<ServerDrivenComponent>,
     val scrollDirection: ScrollAxis? = null,
-    val scrollBarEnabled: Boolean? = null,
-    override val appearance: Appearance? = null
-) : Widget, AppearanceWidget
+    val scrollBarEnabled: Boolean? = null
+) : ServerDrivenComponent
 
 enum class ScrollAxis {
     VERTICAL,

@@ -1,4 +1,4 @@
-package br.com.zup.beagle.widget.core
+package br.com.zup.beagle.core
 
 data class Appearance(val backgroundColor: String? = null,
                       val cornerRadius: CornerRadius? = null)
