@@ -40,7 +40,7 @@ extension Form: Renderable {
         
         func registerFormSubmit(view: UIView) {
             if view.beagleFormElement is FormSubmit {
-                context.register(form: self, formView: childView, submitView: view, validator: dependencies.validatorProvider)
+                context.register(form: self, formView: childView, submitView: view, validatorHandler: dependencies.validatorProvider)
             }
             for subview in view.subviews {
                 registerFormSubmit(view: subview)

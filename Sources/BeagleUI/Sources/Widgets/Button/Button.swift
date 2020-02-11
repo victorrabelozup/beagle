@@ -7,7 +7,6 @@ import UIKit
 public struct Button: Widget {
     
     // MARK: - Public Properties
-    
     public let text: String
     public let style: String?
     public let action: Action?
@@ -33,16 +32,16 @@ extension Button: Renderable {
         if let prefechableData = (action as? Navigate)?.prefechableData {
             dependencies.preFetchHelper.prefetchWidget(path: prefechableData.path)
         }
-        
         if let style = style {
-            dependencies.theme.applyStyle(for: button, withId: style)
+            button.style = style
+            dependencies.theme.applyStyle(for: button as UIButton, withId: style)
         }
-        
         return button
     }
     
     final class BeagleUIButton: UIButton {
         
+        var style: String?
         private var action: Action?
         private weak var context: BeagleContext?
         

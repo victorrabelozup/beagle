@@ -57,8 +57,9 @@ final class ActionExecutorTests: XCTestCase {
         validationErrorListenerSpy.beagleFormElement = formInput
         let form = Form(action: "action", method: .post, child: FlexSingleWidget(child: formInput))
         let formView = UIView()
+        let formSubmitView = UIView()
         formView.addSubview(validationErrorListenerSpy)
-        let sender = SubmitFormGestureRecognizer(form: form, formView: formView, validator: nil)
+        let sender = SubmitFormGestureRecognizer(form: form, formView: formView, formSubmitView: formSubmitView, validator: nil)
         
         // When
         sut.doAction(action, sender: sender, context: BeagleContextDummy())
@@ -133,12 +134,14 @@ class ValidationErrorListenerSpy: UIView, ValidationErrorListener {
 }
 
 class BeagleContextStub: BeagleContext {
+    
     var screenController: UIViewController = UIViewController()
     
     func register(action: Action, inView view: UIView) {
     }
-    func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorProvider?) {
+    func register(form: Form, formView: UIView, submitView: UIView, validatorHandler validator: ValidatorProvider?) {
     }
+    func register(formSubmitEnabledWidget: Widget?, formSubmitDisabledWidget: Widget?) {}
     func lazyLoad(url: String, initialState: UIView) {
     }
     func doAction(_ action: Action, sender: Any) {

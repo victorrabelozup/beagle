@@ -11,10 +11,11 @@ import Foundation
 struct FormSubmitEntity: WidgetConvertibleEntity {
     
     let child: AnyDecodableContainer
+    let enabled: Bool?
     
     func mapToWidget() throws -> Widget {
         let widgetEntity = self.child.content as? WidgetConvertibleEntity
         let child = try widgetEntity?.mapToWidget() ?? AnyWidget(value: self.child.content)
-        return FormSubmit(child: child)
+        return FormSubmit(child: child, enabled: enabled)
     }
 }

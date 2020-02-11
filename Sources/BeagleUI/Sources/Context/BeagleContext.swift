@@ -6,8 +6,7 @@ public protocol BeagleContext: AnyObject {
     var screenController: UIViewController { get }
     
     func register(action: Action, inView view: UIView)
-    func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorProvider?)
-    
+    func register(form: Form, formView: UIView, submitView: UIView, validatorHandler: ValidatorProvider?)
     func lazyLoad(url: String, initialState: UIView)
     func doAction(_ action: Action, sender: Any)
 }
@@ -17,7 +16,7 @@ extension BeagleScreenViewController: BeagleContext {
     public var screenController: UIViewController {
         return self
     }
-        
+    
     public func register(action: Action, inView view: UIView) {
         let gestureRecognizer = ActionGestureRecognizer(
             action: action,
@@ -27,14 +26,23 @@ extension BeagleScreenViewController: BeagleContext {
         view.isUserInteractionEnabled = true
     }
     
-    public func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorProvider?) {
+    public func register(form: Form, formView: UIView, submitView: UIView, validatorHandler: ValidatorProvider?) {
         let gestureRecognizer = SubmitFormGestureRecognizer(
             form: form,
             formView: formView,
-            validator: validator,
+            formSubmitView: submitView,
+            validator: validatorHandler,
             target: self,
             action: #selector(handleSubmitFormGesture(_:))
         )
+        if let button = submitView.subviews.first as? Button.BeagleUIButton,
+            let formSubmit = submitView.beagleFormElement as? FormSubmit,
+            let enabled = formSubmit.enabled {
+            button.addGestureRecognizer(gestureRecognizer)
+            button.isEnabled = enabled
+            button.isUserInteractionEnabled = true
+        }
+        
         submitView.addGestureRecognizer(gestureRecognizer)
         submitView.isUserInteractionEnabled = true
     }
@@ -56,7 +64,7 @@ extension BeagleScreenViewController: BeagleContext {
     public func doAction(_ action: Action, sender: Any) {
         dependencies.actionExecutor.doAction(action, sender: sender, context: self)
     }
-        
+    
     // MARK: - Action
     
     @objc func handleActionGesture(_ sender: ActionGestureRecognizer) {
@@ -68,11 +76,9 @@ extension BeagleScreenViewController: BeagleContext {
     @objc func handleSubmitFormGesture(_ sender: SubmitFormGestureRecognizer) {
         let inputViews = sender.formInputViews()
         let values = inputViews.reduce(into: [:]) {
-            self.validate(formInput: $1, validatorHandler: sender.validator, result: &$0)
+            self.validate(formInput: $1, formSubmit: sender.formSubmitView, validatorHandler: sender.validator, result: &$0)
         }
-
         guard inputViews.count == values.count else { return }
-
         makeRequest(sender: sender, values: values)
     }
 
@@ -95,10 +101,11 @@ extension BeagleScreenViewController: BeagleContext {
         }
     }
     
-    private func validate(formInput view: UIView, validatorHandler: ValidatorProvider?, result: inout [String: String]) {
+    private func validate(formInput view: UIView, formSubmit submitView: UIView?, validatorHandler: ValidatorProvider?, result: inout [String: String]) {
         guard
             let formInput = view.beagleFormElement as? FormInput,
-            let inputValue = view as? InputValue else {
+            let inputValue = view as? InputValue,
+            var formSubmit = submitView?.beagleFormElement as? FormSubmit else {
                 return
         }
         if formInput.required ?? false {
@@ -109,7 +116,13 @@ extension BeagleScreenViewController: BeagleContext {
                     return
             }
             let value = inputValue.getValue()
-            if validator.isValid(input: value) {
+            let isValid = validator.isValid(input: value)
+            guard let submitObservable = submitView as? WidgetStateObservable else {
+                return
+            }
+            formSubmit.enabled = isValid
+            submitObservable.observable.value = WidgetState(value: formSubmit.enabled)
+            if isValid {
                 result[formInput.name] = String(describing: value)
             } else if let errorListener = inputValue as? ValidationErrorListener {
                 errorListener.onValidationError(message: formInput.errorMessage)
@@ -146,7 +159,7 @@ extension BeagleScreenViewController: BeagleContext {
     
     private func replaceView(_ view: UIView, with widget: Widget) {
         guard let superview = view.superview else { return }
-
+        
         let updatedView = widget.toView(context: self, dependencies: dependencies)
         updatedView.frame = view.frame
         superview.insertSubview(updatedView, belowSubview: view)

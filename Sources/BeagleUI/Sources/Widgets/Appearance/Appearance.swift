@@ -25,4 +25,10 @@ public protocol HasAppearance {
 
 public struct CornerRadius: Decodable {
     let radius: Double
+    
+    public init(
+        radius: Double
+    ) {
+        self.radius = radius
+    }
 }

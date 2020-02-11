@@ -204,7 +204,6 @@ class DeepLinkHandlerSpy: BeagleDeepLinkScreenManaging {
 }
 
 class DummyBeagleContext: BeagleContext {
-    
     let viewController: UIViewController
     
     init(viewController: UIViewController) {
@@ -214,7 +213,8 @@ class DummyBeagleContext: BeagleContext {
     var screenController: UIViewController { return viewController }
     
     func register(action: Action, inView view: UIView) {}
-    func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorProvider?) {}
+    func register(form: Form, formView: UIView, submitView: UIView, validatorHandler validator: ValidatorProvider?) {}
+    func register(formSubmitEnabledWidget: Widget?, formSubmitDisabledWidget: Widget?) {}
     func lazyLoad(url: String, initialState: UIView) {}
     func doAction(_ action: Action, sender: Any) {}
 }

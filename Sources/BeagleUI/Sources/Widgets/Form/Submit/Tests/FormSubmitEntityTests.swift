@@ -14,9 +14,7 @@ final class FormSubmitEntityTests: XCTestCase {
     func test_whenMapToWidgetIsCalled_thenItShouldReturnAFormEntity() {
         // Given
         let child = AnyDecodableContainer(content: TextEntity(text: "text"))
-        let sut = FormSubmitEntity(
-            child: child
-        )
+        let sut = FormSubmitEntity(child: child, enabled: false)
         // When
         let form = try? sut.mapToWidget()
         

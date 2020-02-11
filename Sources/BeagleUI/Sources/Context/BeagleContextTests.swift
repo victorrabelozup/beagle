@@ -88,7 +88,7 @@ final class BeagleContextTests: XCTestCase {
         let submitView = UILabel()
         
         // When
-        sut.register(form: form, formView: formView, submitView: submitView, validator: nil)
+        sut.register(form: form, formView: formView, submitView: submitView, validatorHandler: nil)
         
         // Then
         XCTAssertEqual(1, submitView.gestureRecognizers?.count)
@@ -123,12 +123,16 @@ final class BeagleContextTests: XCTestCase {
             name: "country", required: true, validator: "XYZ", child: WidgetDummy()
         ))
 
+        let formSubmit = FormSubmit(child: Button(text: "Add"), enabled: true)
+        let formSubmitView = FormSubmitViewStub(formSubmit)
+
         let formView = UIView()
         formView.addSubview(valid)
         formView.addSubview(invalid)
         formView.addSubview(optional)
         formView.addSubview(invalidValidator)
         formView.addSubview(otherView)
+        formView.addSubview(formSubmitView)
 
         let validator = ValidatorProviding()
         var validationCount = 0
@@ -140,9 +144,9 @@ final class BeagleContextTests: XCTestCase {
             validationCount += 1
             return false
         }
-        
-        sut.register(form: form, formView: formView, submitView: formView, validator: validator)
-        guard let gesture = formView.gestureRecognizers?.first as? SubmitFormGestureRecognizer else {
+    
+        sut.register(form: form, formView: formView, submitView: formSubmitView, validatorHandler: validator)
+        guard let gesture = formSubmitView.gestureRecognizers?.first as? SubmitFormGestureRecognizer else {
             XCTFail("Could not find `SubmitFormGestureRecognizer`.")
             return
         }
@@ -172,12 +176,15 @@ final class BeagleContextTests: XCTestCase {
         
         let form = Form(action: "submit", method: .post, child: WidgetDummy())
         let validInput = FormInput(name: "name", child: WidgetDummy())
+        let formSubmit = FormSubmit(child: Button(text: "Add"), enabled: true)
         let validInputView = FormInputViewStub(validInput, value: "John Doe")
+        let formSubmitView = FormSubmitViewStub(formSubmit)
         let formView = UIView()
         formView.addSubview(validInputView)
+        formView.addSubview(formSubmitView)
         
-        sut.register(form: form, formView: formView, submitView: formView, validator: nil)
-        guard let gesture = formView.gestureRecognizers?.first as? SubmitFormGestureRecognizer else {
+        sut.register(form: form, formView: formView, submitView: formSubmitView, validatorHandler: nil)
+        guard let gesture = formSubmitView.gestureRecognizers?.first as? SubmitFormGestureRecognizer else {
             XCTFail("Could not find `SubmitFormGestureRecognizer`.")
             return
         }
@@ -207,7 +214,7 @@ final class BeagleContextTests: XCTestCase {
         let form = Form(action: "delete", method: .delete, child: WidgetDummy())
         let formView = UIView()
         
-        sut.register(form: form, formView: formView, submitView: formView, validator: nil)
+        sut.register(form: form, formView: formView, submitView: formView, validatorHandler: nil)
         guard let gesture = formView.gestureRecognizers?.first as? SubmitFormGestureRecognizer else {
             XCTFail("Could not find `SubmitFormGestureRecognizer`.")
             return
@@ -279,7 +286,9 @@ class UINavigationControllerSpy: UINavigationController {
     }
 }
 
-class FormInputViewStub: UIView, InputValue, ValidationErrorListener {
+class FormInputViewStub: UIView, InputValue, ValidationErrorListener, WidgetStateObservable {
+    var observable = Observable<WidgetState>(value: WidgetState(value: false))
+    
     let value: String
 
     init(_ formInput: FormInput, value: String = "") {
@@ -296,6 +305,24 @@ class FormInputViewStub: UIView, InputValue, ValidationErrorListener {
         return value
     }
     func onValidationError(message: String?) {
+    }
+}
+
+private class FormSubmitViewStub: UIView, Observer, WidgetStateObservable {
+    var observable: Observable<WidgetState> = Observable<WidgetState>(value: WidgetState(value: false))
+    var didCallChangeValue = false
+    
+    init(_ formSubmit: FormSubmit) {
+        super.init(frame: .zero)
+        self.beagleFormElement = formSubmit
+    }
+    
+    required init?(coder: NSCoder) {
+        BeagleUI.fatalError("init(coder:) has not been implemented")
+    }
+    
+    func didChangeValue(_ value: Any?) {
+        didCallChangeValue = true
     }
 }
 

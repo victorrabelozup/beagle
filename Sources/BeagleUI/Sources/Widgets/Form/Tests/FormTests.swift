@@ -36,6 +36,7 @@ class BeagleContextSpy: BeagleContext {
     private(set) var didCallRegisterFormSubmit = false
     private(set) var didCallLazyLoad = false
     private(set) var didCallDoAction = false
+    private(set) var didCallRegisterEnabledWidget = false
     private(set) var actionCalled: Action?
     
     var screenController: UIViewController = UIViewController()
@@ -44,7 +45,11 @@ class BeagleContextSpy: BeagleContext {
         didCallRegisterAction = true
     }
     
-    func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorProvider?) {
+    func register(formSubmitEnabledWidget: Widget?, formSubmitDisabledWidget: Widget?) {
+        didCallRegisterEnabledWidget = true
+    }
+    
+    func register(form: Form, formView: UIView, submitView: UIView, validatorHandler validator: ValidatorProvider?) {
         didCallRegisterFormSubmit = true
     }
     

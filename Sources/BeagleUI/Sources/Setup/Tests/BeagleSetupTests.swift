@@ -74,10 +74,12 @@ final class DummyView: UIView {}
 struct ActionDummy: Action, Equatable {}
 
 class BeagleContextDummy: BeagleContext {
+    
     var screenController: UIViewController = UIViewController()
     
     func register(action: Action, inView view: UIView) {}
-    func register(form: Form, formView: UIView, submitView: UIView, validator: ValidatorProvider?) {}
+    func register(form: Form, formView: UIView, submitView: UIView, validatorHandler: ValidatorProvider?) {}
+    func register(formSubmitEnabledWidget: Widget?, formSubmitDisabledWidget: Widget?) {}
     func lazyLoad(url: String, initialState: UIView) {}
     func doAction(_ action: Action, sender: Any) {}
 }

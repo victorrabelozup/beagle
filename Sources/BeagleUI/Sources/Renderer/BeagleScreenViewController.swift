@@ -5,9 +5,8 @@
 import UIKit
 
 public class BeagleScreenViewController: UIViewController {
-
+    
     public let viewModel: BeagleScreenViewModel
-
     private var viewIsPresented = false
 
     private(set) var rootWidgetView: UIView = {
@@ -16,27 +15,27 @@ public class BeagleScreenViewController: UIViewController {
         root.translatesAutoresizingMaskIntoConstraints = false
         return root
     }()
-
+    
     private lazy var keyboardConstraint: NSLayoutConstraint = {
         view.bottomAnchor.constraint(greaterThanOrEqualTo: rootWidgetView.bottomAnchor)
     }()
-
+    
     private var safeAreaManager: SafeAreaManager?
     private var keyboardManager: KeyboardManager?
-
+    
     var dependencies: ViewModel.Dependencies {
         return viewModel.dependencies
     }
     
     // MARK: - Initialization
-
+    
     public init(
         viewModel: BeagleScreenViewModel
-    ) {
+        ) {
         self.viewModel = viewModel
-
+        
         super.init(nibName: nil, bundle: nil)
-
+        
         viewModel.stateObserver = self
     }
     
@@ -55,9 +54,9 @@ public class BeagleScreenViewController: UIViewController {
     public override func viewWillAppear(_ animated: Bool) {
         viewIsPresented = true
         renderWidgetIfNeeded()
-
+        
         super.viewWillAppear(animated)
-
+        
         updateNavigationBar(animated: animated)
         keyboardManager = KeyboardManager(
             bottomConstraint: keyboardConstraint,
@@ -81,9 +80,9 @@ public class BeagleScreenViewController: UIViewController {
         let screenNavigationBar = viewModel.screen?.navigationBar
         let hideNavBar = screenNavigationBar == nil
         navigationController?.setNavigationBarHidden(hideNavBar, animated: animated)
-        navigationItem.title = screenNavigationBar?.title
+        navigationItem.title = viewModel.screen?.navigationBar?.title
         navigationItem.backBarButtonItem = UIBarButtonItem(title: nil, style: .plain, target: nil, action: nil)
-        navigationItem.hidesBackButton = !(screenNavigationBar?.showBackButton ?? true)
+        navigationItem.hidesBackButton = !(viewModel.screen?.navigationBar?.showBackButton ?? true)
         
         navigationItem.rightBarButtonItems = screenNavigationBar?.navigationBarItems?.reversed().map {
             $0.toBarButtonItem(context: self, dependencies: viewModel.dependencies)
@@ -96,7 +95,7 @@ public class BeagleScreenViewController: UIViewController {
     }
     
     // MARK: -
-
+    
     fileprivate func updateView(state: ViewModel.State) {
         switch state {
         case .loading:
@@ -109,24 +108,24 @@ public class BeagleScreenViewController: UIViewController {
             break
         }
     }
-
+    
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-
+        
         keyboardManager = nil
     }
-
+    
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
+        
         guard let widgetView = rootWidgetView.subviews.first else { return }
-
+        
         widgetView.frame = rootWidgetView.bounds
         dependencies.flex.applyYogaLayout(to: widgetView, preservingOrigin: true)
     }
     
     // MARK: - View Setup
-
+    
     private func initView() {
         // TODO: uncomment this when using Xcode > 10.3 (which will support iOS 13)
         // if #available(iOS 13.0, *) {
@@ -142,12 +141,12 @@ public class BeagleScreenViewController: UIViewController {
         )
         keyboardConstraint.isActive = true
     }
-
+    
     private func buildViewFromWidget(_ widget: Widget) {
         let view = widget.toView(context: self, dependencies: viewModel.dependencies)
         setupWidgetView(view)
     }
-
+    
     private func setupWidgetView(_ widgetView: UIView) {
         rootWidgetView.addSubview(widgetView)
         widgetView.frame = rootWidgetView.bounds
@@ -158,7 +157,7 @@ public class BeagleScreenViewController: UIViewController {
 // MARK: - Observer
 
 extension BeagleScreenViewController: BeagleScreenStateObserver {
-
+    
     public func didChangeState(_ state: ViewModel.State) {
         updateView(state: state)
     }
