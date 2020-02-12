@@ -2,12 +2,12 @@
 //  Copyright © 10/02/20 Zup IT. All rights reserved.
 //
 
-protocol AppearanceComponent: ServerDrivenComponent {
+public protocol AppearanceComponent: ServerDrivenComponent {
     var appearance: Appearance? { get }
 }
 
-protocol FlexComponent: ServerDrivenComponent {
+public protocol FlexComponent: ServerDrivenComponent {
     var flex: Flex? { get }
 }
 
-protocol Widget: AppearanceComponent, FlexComponent {}
+public protocol Widget: AppearanceComponent, FlexComponent {}

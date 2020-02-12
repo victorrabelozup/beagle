@@ -20,14 +20,14 @@ struct LazyComponentScreen: DeeplinkScreen {
         return Screen(
             navigationBar: NavigationBar(title: "Form & LazyComponent"),
             content: Form(
-                action: "https://t001-2751a.firebaseapp.com/action/shownativedialog.json",
+                path: "https://t001-2751a.firebaseapp.com/action/shownativedialog.json",
                 method: .get,
                 child: Container(children: [
                     Text("Form & LazyComponent"),
                     FormInput(
                         name: "field",
                         child: LazyComponent(
-                            url: "http://www.mocky.io/v2/5de16c0a32000056638093da",
+                            path: "http://www.mocky.io/v2/5de16c0a32000056638093da",
                             initialState: Text("Loading...")
                         )
                     ),
