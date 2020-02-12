@@ -11,8 +11,8 @@ public class BeagleScreenViewModel {
     let screenType: ScreenType
 
     public enum ScreenType {
-        case remote(String)
-        case declarative(ScreenComponent)
+        case remote(String, fallback: Screen?)
+        case declarative(Screen)
     }
 
     // MARK: State
@@ -21,7 +21,7 @@ public class BeagleScreenViewModel {
         didSet { didChangeState() }
     }
     
-    private(set) var screen: ScreenComponent?
+    private(set) var screen: Screen?
 
     public enum State {
         case loading
@@ -62,7 +62,7 @@ public class BeagleScreenViewModel {
         case .declarative(let screen):
             self.screen = screen
             state = .success
-        case .remote(let url):
+        case .remote(let url, _):
             state = .loading
             loadScreenFromUrl(url)
         }
@@ -71,18 +71,21 @@ public class BeagleScreenViewModel {
     // MARK: Core
 
     func loadScreenFromUrl(_ url: String) {
+        if let preFetched = dependencies.preFetchHelper.dequeueComponent(path: url) {
+            handleSuccess(preFetched)
+            return
+        }
+        
         state = .loading
 
         dependencies.network.fetchComponent(url: url) {
             [weak self] result in guard let self = self else { return }
-
+            
             switch result {
             case .success(let component):
-                self.screen = component.toScreen()
-                self.state = .success
-
+                self.handleSuccess(component)
             case .failure(let error):
-                self.state = .failure(error)
+                self.handleFailure(error)
             }
         }
     }
@@ -93,6 +96,20 @@ public class BeagleScreenViewModel {
 
     func handleError(_ error: Request.Error) {
         delegate?.beagleScreen(viewModel: self, didFailToLoadWithError: error)
+    }
+    
+    // MARK: - Private
+    
+    private func handleSuccess(_ component: ServerDrivenComponent) {
+        screen = component.toScreen()
+        state = .success
+    }
+    
+    private func handleFailure(_ error: Request.Error) {
+        if case let .remote(_, screen) = self.screenType {
+            self.screen = screen
+        }
+        self.state = .failure(error)
     }
 
     private func didChangeState() {

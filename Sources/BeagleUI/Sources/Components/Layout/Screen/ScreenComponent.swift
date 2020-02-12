@@ -4,7 +4,7 @@
 
 import UIKit
 
-public struct ScreenComponent: ServerDrivenComponent {
+struct ScreenComponent: ServerDrivenComponent {
 
     // MARK: - Public Properties
     
@@ -43,7 +43,7 @@ extension ScreenComponent: Renderable {
         
         let contentController = BeagleScreenViewController(
             viewModel: .init(
-                screenType: .declarative(self),
+                screenType: .declarative(toScreen()),
                 dependencies: beagleController.viewModel.dependencies,
                 delegate: beagleController.viewModel.delegate
             )
@@ -63,7 +63,7 @@ extension ScreenComponent: Renderable {
         navigationBar?.navigationBarItems?
             .compactMap { $0.action as? Navigate }
             .compactMap { $0.newPath }
-            .forEach { dependencies.preFetchHelper.prefetchComponent(newPath: $0) }
+            .forEach { dependencies.preFetchHelper.prefetchComponent(newPath: $0, dependencies: dependencies) }
     }
     
     private func createComponentContentView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {

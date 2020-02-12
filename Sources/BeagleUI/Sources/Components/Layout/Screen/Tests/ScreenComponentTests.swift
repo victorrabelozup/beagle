@@ -51,7 +51,7 @@ final class ScreenComponentTests: XCTestCase {
     
     func test_contentShouldUseOnlyTheSpaceRequiredByFlexRules() {
         
-        let screen = ScreenComponent(
+        let component = ScreenComponent(
             safeArea: SafeArea.all,
             navigationBar: .init(title: "Test Flex"),
             content: Container(
@@ -67,7 +67,7 @@ final class ScreenComponentTests: XCTestCase {
             )
         )
         
-        let viewController = BeagleScreenViewController(viewModel: .init(screenType: .declarative(screen)))
+        let viewController = BeagleScreenViewController(viewModel: .init(screenType: .declarative(component.toScreen())))
         assertSnapshotImage(viewController)
     }
     
@@ -81,26 +81,26 @@ final class ScreenComponentTests: XCTestCase {
         
         let barItem = NavigationBarItem(image: "shuttle", text: "shuttle", action: ActionDummy())
         
-        let screen = ScreenComponent(
+        let component = ScreenComponent(
             safeArea: SafeArea.none,
             navigationBar: .init(title: "title", showBackButton: true, navigationBarItems: [barItem]),
             content: Text("")
         )
         
-        let viewController = BeagleScreenViewController(viewModel: .init(screenType: .declarative(screen)))
+        let viewController = BeagleScreenViewController(viewModel: .init(screenType: .declarative(component.toScreen())))
         assertSnapshotImage(viewController, size: CGSize(width: 300, height: 200))
     }
     
     func test_navigationBarButtonItemWithText() {
         let barItem = NavigationBarItem(text: "shuttle", action: ActionDummy())
         
-        let screen = ScreenComponent(
+        let component = ScreenComponent(
             safeArea: SafeArea.all,
             navigationBar: .init(title: "title", showBackButton: true, navigationBarItems: [barItem]),
             content: Text("test")
         )
         
-        let viewController = BeagleScreenViewController(viewModel: .init(screenType: .declarative(screen)))
+        let viewController = BeagleScreenViewController(viewModel: .init(screenType: .declarative(component.toScreen())))
         assertSnapshotImage(viewController, size: CGSize(width: 300, height: 200))
     }
     

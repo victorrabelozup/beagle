@@ -9,31 +9,27 @@ public protocol DependencyPreFetching {
 }
 
 public protocol BeaglePrefetchHelping {
-    func prefetchComponent(newPath: Navigate.NewPath)
-    func dequeueComponent(path: String) -> BeagleScreenViewController
+    func prefetchComponent(newPath: Navigate.NewPath, dependencies: DependencyNetwork)
+    func dequeueComponent(path: String) -> ServerDrivenComponent?
 }
 
 public class BeaglePreFetchHelper: BeaglePrefetchHelping {
     
-    private var screens = [String: BeagleScreenViewController]()
+    private var components = [String: ServerDrivenComponent]()
     
-    public func prefetchComponent(newPath: Navigate.NewPath) {
-        if newPath.shouldPrefetch {
-            guard screens[newPath.path] == nil else { return }
-
-            screens[newPath.path] = BeagleScreenViewController(
-                viewModel: .init(screenType: .remote(newPath.path))
-            )
+    public func prefetchComponent(newPath: Navigate.NewPath, dependencies: DependencyNetwork) {
+        guard newPath.shouldPrefetch, components[newPath.path] == nil else { return }
+        dependencies.network.fetchComponent(url: newPath.path) { [weak self] in
+            switch $0 {
+            case .success(let component):
+                self?.components[newPath.path] = component
+            case .failure:
+                break
+            }
         }
     }
     
-    public func dequeueComponent(path: String) -> BeagleScreenViewController {
-        if let screen = screens[path] {
-            return screen
-        } else {
-            return BeagleScreenViewController(
-                viewModel: .init(screenType: .remote(path))
-            )
-        }
+    public func dequeueComponent(path: String) -> ServerDrivenComponent? {
+        return components[path]
     }
 }

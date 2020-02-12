@@ -14,7 +14,7 @@ public protocol DependencyNavigation {
 
 class BeagleNavigator: BeagleNavigation {
     
-    typealias Dependencies = DependencyPreFetching
+    typealias Dependencies = DependencyDeepLinkScreenManaging
     
     private let dependencies: Dependencies
     
@@ -30,15 +30,23 @@ class BeagleNavigator: BeagleNavigation {
         case .openDeepLink(let deepLink):
             openDeepLink(path: deepLink.path, source: source, data: deepLink.data, animated: animated)
 
+        case .swapScreen(let screen):
+            swapTo(viewController(screen: screen), context: context, animated: animated)
+            
         case .swapView(let newPath):
-            swapView(url: newPath.path, context: context, animated: animated)
+            swapTo(viewController(newPath: newPath), context: context, animated: animated)
 
+        case .addScreen(let screen):
+            add(viewController(screen: screen), context: context, animated: animated)
+            
         case .addView(let newPath):
-            addView(url: newPath.path, context: context, animated: animated)
+            add(viewController(newPath: newPath), context: context, animated: animated)
+            
+        case .presentScreen(let screen):
+            present(viewController(screen: screen), context: context, animated: animated)
             
         case .presentView(let newPath):
-            presentView(url: newPath.path, context: context, animated: animated)
-        
+            present(viewController(newPath: newPath), context: context, animated: animated)
 
         case .finishView:
             finishView(source: source, animated: animated)
@@ -54,10 +62,10 @@ class BeagleNavigator: BeagleNavigation {
     // MARK: - Navigation Methods
         
     private func openDeepLink(path: String, source: UIViewController, data: [String: String]?, animated: Bool) {
-        guard let deepLinkHandler = Beagle.dependencies.deepLinkHandler else { return }
+        guard let deepLinkHandler = dependencies.deepLinkHandler else { return }
 
         do {
-            let viewController = try deepLinkHandler.getNaviteScreen(with: path, data: data)
+            let viewController = try deepLinkHandler.getNativeScreen(with: path, data: data)
             source.navigationController?.pushViewController(viewController, animated: animated)
         } catch {
             return
@@ -92,25 +100,32 @@ class BeagleNavigator: BeagleNavigation {
     ) -> Bool {
         guard
             let screen = viewController as? BeagleScreenViewController,
-            case .remote(let screenUrl) = screen.viewModel.screenType
+            case .remote(let screenUrl, _) = screen.viewModel.screenType
         else { return false }
-
         return screenUrl == url
     }
     
-    private func swapView(url: String, context: BeagleContext, animated: Bool) {
-        let viewController = dependencies.preFetchHelper.dequeueComponent(path: url)
+    private func swapTo(_ viewController: UIViewController, context: BeagleContext, animated: Bool) {
         context.screenController.navigationController?.setViewControllers([viewController], animated: animated)
     }
 
-    private func addView(url: String, context: BeagleContext, animated: Bool) {
-        let viewController = dependencies.preFetchHelper.dequeueComponent(path: url)
+    private func add(_ viewController: UIViewController, context: BeagleContext, animated: Bool) {
         context.screenController.navigationController?.pushViewController(viewController, animated: animated)
     }
 
-    private func presentView(url: String, context: BeagleContext, animated: Bool) {
-        let viewController = dependencies.preFetchHelper.dequeueComponent(path: url)
-        let navigationToPresent = UINavigationController(rootViewController: viewController)
-        context.screenController.navigationController?.present(navigationToPresent, animated: animated)
+    private func present(_ viewController: UIViewController, context: BeagleContext, animated: Bool) {
+        context.screenController.navigationController?.present(viewController, animated: animated)
+    }
+    
+    private func viewController(screen: Screen) -> UIViewController {
+        return BeagleScreenViewController(viewModel: .init(
+            screenType: .declarative(screen)
+        ))
+    }
+    
+    private func viewController(newPath: Navigate.NewPath) -> UIViewController {
+        return BeagleScreenViewController(viewModel: .init(
+            screenType: .remote(newPath.path, fallback: newPath.fallback)
+        ))
     }
 }

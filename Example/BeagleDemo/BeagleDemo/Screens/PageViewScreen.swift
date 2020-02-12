@@ -11,12 +11,12 @@ struct PageViewScreen: DeeplinkScreen {
     
     func screenController() -> UIViewController {
         return BeagleScreenViewController(
-            viewModel: .init(screenType: .declarative(component))
+            viewModel: .init(screenType: .declarative(screen))
         )
     }
     
-    var component: ScreenComponent {
-        return ScreenComponent(
+    var screen: Screen {
+        return Screen(
             navigationBar: NavigationBar(title: "PageView"),
             content: PageView(
                 pages: Array(repeating: Page(), count: 3).map { $0.content },

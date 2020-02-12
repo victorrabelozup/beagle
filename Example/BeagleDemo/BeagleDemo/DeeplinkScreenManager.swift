@@ -10,7 +10,7 @@ protocol DeeplinkScreen {
     func screenController() -> UIViewController
 }
 
-final class DeeplinkScreenManager: BeagleDeepLinkScreenManaging {
+final class DeeplinkScreenManager: DeepLinkScreenManaging {
     
     public static let shared = DeeplinkScreenManager()
     
@@ -25,7 +25,7 @@ final class DeeplinkScreenManager: BeagleDeepLinkScreenManaging {
         }
     }
     
-    func getNaviteScreen(with path: String, data: [String : String]?) throws -> UIViewController {
+    func getNativeScreen(with path: String, data: [String : String]?) throws -> UIViewController {
         guard let screenType = self[path] else {
             throw NSError(domain: "DeeplinkScreenManager", code: 1, userInfo: nil)
         }

@@ -70,8 +70,17 @@ public class BeagleScreenViewController: UIViewController {
     }
     
     private func renderComponentIfNeeded() {
-        guard viewIsPresented, let screen = viewModel.screen, case .success = viewModel.state else { return }
-        buildViewFromComponent(screen)
+        guard viewIsPresented, let screen = viewModel.screen else { return }
+        switch viewModel.state {
+        case .success, .failure:
+            renderScreen(screen)
+        case .loading, .rendered:
+            break
+        }
+    }
+    
+    private func renderScreen(_ screen: Screen) {
+        buildViewFromScreen(screen)
         safeAreaManager?.safeArea = screen.safeArea
         viewModel.didRenderComponent()
     }
@@ -141,9 +150,9 @@ public class BeagleScreenViewController: UIViewController {
         )
         keyboardConstraint.isActive = true
     }
-    
-    private func buildViewFromComponent(_ component: ServerDrivenComponent) {
-        let view = component.toView(context: self, dependencies: viewModel.dependencies)
+
+    private func buildViewFromScreen(_ screen: Screen) {
+        let view = screen.toView(context: self, dependencies: viewModel.dependencies)
         setupComponentView(view)
     }
     

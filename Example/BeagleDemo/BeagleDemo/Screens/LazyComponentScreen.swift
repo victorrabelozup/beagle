@@ -12,12 +12,12 @@ struct LazyComponentScreen: DeeplinkScreen {
     
     func screenController() -> UIViewController {
         return BeagleScreenViewController(
-            viewModel: .init(screenType: .declarative(component.toScreen()))
+            viewModel: .init(screenType: .declarative(screen))
         )
     }
     
-    var component: ScreenComponent {
-        return ScreenComponent(
+    var screen: Screen {
+        return Screen(
             navigationBar: NavigationBar(title: "Form & LazyComponent"),
             content: Form(
                 action: "https://t001-2751a.firebaseapp.com/action/shownativedialog.json",

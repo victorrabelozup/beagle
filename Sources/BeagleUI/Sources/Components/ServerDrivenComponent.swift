@@ -23,11 +23,22 @@ public protocol Renderable {
 }
 
 extension ServerDrivenComponent {
-    public func toScreen() -> ScreenComponent {
-        return (self as? ScreenComponent)
-        ?? ScreenComponent(
+    public func toScreen() -> Screen {
+        if let screenComponent = self as? ScreenComponent {
+            return Screen(
+                safeArea: screenComponent.safeArea,
+                navigationBar: screenComponent.navigationBar,
+                header: screenComponent.header,
+                content: screenComponent.content,
+                footer: screenComponent.footer
+            )
+        }
+        return Screen(
             safeArea: SafeArea(top: true, leading: true, bottom: true, trailing: true),
-            content: self
+            navigationBar: nil,
+            header: nil,
+            content: self,
+            footer: nil
         )
     }
 }

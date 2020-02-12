@@ -37,7 +37,7 @@ extension Button: Renderable {
         button.setTitle(text, for: .normal)
         
         if let newPath = (action as? Navigate)?.newPath {
-            dependencies.preFetchHelper.prefetchComponent(newPath: newPath)
+            dependencies.preFetchHelper.prefetchComponent(newPath: newPath, dependencies: dependencies)
         }
         if let style = style {
             button.style = style

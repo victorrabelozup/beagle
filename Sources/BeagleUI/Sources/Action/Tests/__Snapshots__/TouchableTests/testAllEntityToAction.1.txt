@@ -23,16 +23,16 @@ openDeepLink-noPath-noData ->
     ERROR
 
 swapView-withPath-withData ->
-    swapView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true))
+    swapView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true, fallback: nil))
 
 swapView-withPath-withData ->
-    swapView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false))
+    swapView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false, fallback: nil))
 
 swapView-withPath-noData ->
-    swapView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true))
+    swapView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true, fallback: nil))
 
 swapView-withPath-noData ->
-    swapView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false))
+    swapView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false, fallback: nil))
 
 swapView-noPath-withData ->
     ERROR
@@ -47,16 +47,16 @@ swapView-noPath-noData ->
     ERROR
 
 addView-withPath-withData ->
-    addView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true))
+    addView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true, fallback: nil))
 
 addView-withPath-withData ->
-    addView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false))
+    addView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false, fallback: nil))
 
 addView-withPath-noData ->
-    addView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true))
+    addView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true, fallback: nil))
 
 addView-withPath-noData ->
-    addView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false))
+    addView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false, fallback: nil))
 
 addView-noPath-withData ->
     ERROR
@@ -143,16 +143,16 @@ popToView-noPath-noData ->
     ERROR
 
 presentView-withPath-withData ->
-    presentView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true))
+    presentView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true, fallback: nil))
 
 presentView-withPath-withData ->
-    presentView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false))
+    presentView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false, fallback: nil))
 
 presentView-withPath-noData ->
-    presentView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true))
+    presentView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true, fallback: nil))
 
 presentView-withPath-noData ->
-    presentView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false))
+    presentView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false, fallback: nil))
 
 presentView-noPath-withData ->
     ERROR

@@ -12,12 +12,11 @@ public protocol BeagleDependenciesProtocol: DependencyFlexViewConfigurator,
     DependencyBaseURL,
     DependencyComponentDecoding,
     DependencyNetworkClient,
+    DependencyDeepLinkScreenManaging,
     DependencyCustomActionHandler,
     DependencyNavigation,
     DependencyPreFetching,
     DependencyAppBundle {
-
-    var deepLinkHandler: BeagleDeepLinkScreenManaging? { get }
 }
 
 open class BeagleDependencies: BeagleDependenciesProtocol {
@@ -28,7 +27,7 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
     public var appBundle: Bundle
     public var theme: Theme
     public var validatorProvider: ValidatorProvider?
-    public var deepLinkHandler: BeagleDeepLinkScreenManaging?
+    public var deepLinkHandler: DeepLinkScreenManaging?
     public var customActionHandler: CustomActionHandler?
     public var flex: FlexViewConfiguratorProtocol
     public var actionExecutor: ActionExecutor
@@ -64,7 +63,7 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
 /// - Example: see where `resolver` is being used in the `BeagleDependencies` `init`.
 private class InnerDependenciesResolver: NetworkDefault.Dependencies,
     ActionExecuting.Dependencies,
-    DependencyPreFetching,
+    DependencyDeepLinkScreenManaging,
     DependencyBaseURL {
 
     var container: () -> BeagleDependenciesProtocol = {
@@ -75,6 +74,6 @@ private class InnerDependenciesResolver: NetworkDefault.Dependencies,
     var decoder: ComponentDecoding { return container().decoder }
     var networkClient: NetworkClient { return container().networkClient }
     var navigation: BeagleNavigation { return container().navigation }
-    var preFetchHelper: BeaglePrefetchHelping { return container().preFetchHelper }
+    var deepLinkHandler: DeepLinkScreenManaging? { return container().deepLinkHandler }
     var customActionHandler: CustomActionHandler? { return container().customActionHandler }
 }

@@ -50,8 +50,8 @@ final class BeagleSetupTests: XCTestCase {
 
 // MARK: - Testing Helpers
 
-final class DeepLinkHandlerDummy: BeagleDeepLinkScreenManaging {
-    func getNaviteScreen(with path: String, data: [String: String]?) throws -> UIViewController {
+final class DeepLinkHandlerDummy: DeepLinkScreenManaging {
+    func getNativeScreen(with path: String, data: [String: String]?) throws -> UIViewController {
         return UIViewController()
     }
 }
@@ -63,7 +63,14 @@ final class ComponentDecodingDummy: ComponentDecoding {
     func decodeAction(from data: Data) throws -> Action { return ActionDummy() }
 }
 
-struct ComponentDummy: ServerDrivenComponent {
+struct ComponentDummy: ServerDrivenComponent, Equatable, CustomStringConvertible {
+    
+    private let uuid = UUID()
+    
+    var description: String {
+        return "ComponentDummy()"
+    }
+    
     func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
         return DummyView()
     }

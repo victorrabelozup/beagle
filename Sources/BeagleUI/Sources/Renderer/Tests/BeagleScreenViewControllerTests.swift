@@ -73,7 +73,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         let delegateSpy = BeagleScreenDelegateSpy()
         
         _ = BeagleScreenViewController(viewModel: .init(
-            screenType: .remote(url),
+            screenType: .remote(url, fallback: nil),
             dependencies: BeagleScreenDependencies(
                 network: networkStub
             ),
@@ -97,11 +97,58 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         dependencies.network = loaderStub
 
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .remote("www.something.com"),
+            screenType: .remote("www.something.com", fallback: nil),
             dependencies: dependencies
         ))
 
         assertSnapshotImage(sut)
+    }
+    
+    func test_loadPreFetchedScreen() {
+        
+        let url = "screen-url"
+        let prefetch = BeaglePrefetchHelpingStub()
+        prefetch[url] = Text("PreFetched Component", appearance: .init(backgroundColor: "#00FF00"))
+        let network = NetworkStub(componentResult: .success(Text("Remote Component", appearance: .init(backgroundColor: "#00FFFF"))))
+        let dependencies = BeagleDependencies()
+        dependencies.preFetchHelper = prefetch
+        dependencies.network = network
+        
+        let screen = BeagleScreenViewController(viewModel: .init(
+            screenType: .remote(url, fallback: nil),
+            dependencies: dependencies
+        ))
+        
+        assertSnapshotImage(screen, size: CGSize(width: 100, height: 75))
+    }
+    
+    func test_whenLoadScreenFails_itShouldRenderFallbackScreen() {
+        
+        final class Delegate: BeagleScreenDelegate {
+            var error: Request.Error?
+            
+            func beagleScreen(viewModel: Delegate.ViewModel, didFailToLoadWithError error: Request.Error) {
+                self.error = error
+            }
+        }
+        
+        let delegate = Delegate()
+        let error = Request.Error.networkError(NSError(domain: "test", code: 1, description: "Network Error"))
+        let network = NetworkStub(componentResult: .failure(error))
+        let fallback = Text(
+            "Fallback screen.\n\(error.localizedDescription)",
+            appearance: .init(backgroundColor: "#FF0000")
+        ).toScreen()
+        let dependencies = BeagleDependencies()
+        dependencies.network = network
+        
+        let screen = BeagleScreenViewController(viewModel: .init(
+            screenType: .remote("url", fallback: fallback),
+            dependencies: dependencies,
+            delegate: delegate
+        ))
+        XCTAssertNotNil(delegate.error)
+        assertSnapshotImage(screen, size: CGSize(width: 300, height: 100))
     }
 }
 
@@ -218,4 +265,23 @@ final class BeagleScreenDelegateSpy: BeagleScreenDelegate {
         self.viewModel = viewModel
         errorPassed = error
     }
+}
+
+final class BeaglePrefetchHelpingStub: BeaglePrefetchHelping {
+    
+    private var components = [String: ServerDrivenComponent]()
+    
+    func prefetchComponent(newPath: Navigate.NewPath, dependencies: DependencyNetwork) {
+        return
+    }
+    
+    func dequeueComponent(path: String) -> ServerDrivenComponent? {
+        return components[path]
+    }
+    
+    subscript(_ url: String) -> ServerDrivenComponent? {
+        get { return components[url] }
+        set { components[url] = newValue }
+    }
+    
 }

@@ -12,7 +12,7 @@ final class TouchableTests: XCTestCase {
         // Given
         let content = TextEntity(text: "text")
         let child = AnyDecodableContainer(content: content)
-        let action = AnyDecodableContainer(content: NavigateEntity(type: .addView, path: "", shouldPrefetch: true, data: nil))
+        let action = AnyDecodableContainer(content: NavigateEntity(type: .addView, path: "", shouldPrefetch: true, screen: nil, data: nil))
         let sut = TouchableEntity(action: action, child: child)
 
         // When
@@ -62,7 +62,7 @@ final class TouchableTests: XCTestCase {
         data: [String: String]?,
         shouldPrefetch: Bool
     ) -> String {
-        let entity = NavigateEntity(type: type, path: path, shouldPrefetch: shouldPrefetch, data: data)
+        let entity = NavigateEntity(type: type, path: path, shouldPrefetch: shouldPrefetch, screen: nil, data: data)
         let pathDescription = path == nil ? "noPath" : "withPath"
         let dataDescription = data == nil ? "noData" : "withData"
 

@@ -16,7 +16,7 @@
       - keyDecodingStrategy: KeyDecodingStrategy.useDefaultKeys
       - nonConformingFloatDecodingStrategy: NonConformingFloatDecodingStrategy.throw
       - userInfo: 0 key/value pairs
-  - deepLinkHandler: Optional<BeagleDeepLinkScreenManaging>.none
+  - deepLinkHandler: Optional<DeepLinkScreenManaging>.none
   ▿ flex: FlexViewConfigurator
     - yogaTranslator: YogaTranslating
   ▿ navigation: BeagleNavigator
@@ -33,7 +33,7 @@
     - session: <__NSURLSessionLocal>
     - urlBuilder: UrlRequestBuilder
   ▿ preFetchHelper: BeaglePreFetchHelper
-    - screens: 0 key/value pairs
+    - components: 0 key/value pairs
   ▿ resolver: InnerDependenciesResolver
     - container: (Function)
   ▿ theme: AppTheme

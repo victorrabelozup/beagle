@@ -18,10 +18,16 @@ struct NavigateEntity: Decodable {
     let type: NavigationType
     let path: String?
     let shouldPrefetch: Bool?
+    let screen: ScreenComponentEntity?
     let data: [String: String]?
 }
 
 extension NavigateEntity: UIModelConvertible {
+    
+    private enum Destination {
+        case declarative(Screen)
+        case remote(Navigate.NewPath)
+    }
 
     struct Error: Swift.Error {
         let reason: String
@@ -29,27 +35,43 @@ extension NavigateEntity: UIModelConvertible {
 
     func mapToUIModel() throws -> Navigate {
         switch type {
-        case .openDeepLink:
-            let path = try usePath()
-            return .openDeepLink(
-                .init(path: path, data: data)
-            )
-        case .swapView:
-            let path = try usePath()
-            return .swapView(.init(path: path, shouldPrefetch: shouldPrefetch ?? false))
-        case .addView:
-            let path = try usePath()
-            return .addView(.init(path: path, shouldPrefetch: shouldPrefetch ?? false))
-        case .presentView:
-            let path = try usePath()
-            return .presentView(.init(path: path, shouldPrefetch: shouldPrefetch ?? false))
-        case .finishView:
-            return .finishView
-        case .popView:
-            return .popView
         case .popToView:
             let path = try usePath()
             return .popToView(path)
+            
+        case .openDeepLink:
+            let path = try usePath()
+            return .openDeepLink(.init(path: path, data: data))
+            
+        case .swapView:
+            switch try destination() {
+            case .declarative(let screen):
+                return .swapScreen(screen)
+            case .remote(let newPath):
+                return .swapView(newPath)
+            }
+            
+        case .addView:
+            switch try destination() {
+            case .declarative(let screen):
+                return .addScreen(screen)
+            case .remote(let newPath):
+                return .addView(newPath)
+            }
+            
+        case .presentView:
+            switch try destination() {
+            case .declarative(let screen):
+                return .presentScreen(screen)
+            case .remote(let newPath):
+                return .presentView(newPath)
+            }
+
+        case .finishView:
+            return .finishView
+            
+        case .popView:
+            return .popView
         }
     }
 
@@ -58,6 +80,20 @@ extension NavigateEntity: UIModelConvertible {
             throw Error(reason: "Error: Navigate of `type` \(type), should have property `path`")
         }
         return path
+    }
+    
+    private func destination() throws -> Destination {
+        let screen = try self.screen?.mapToComponent().toScreen()
+        if let screen = screen, path == nil {
+            return .declarative(screen)
+        }
+        if let path = self.path {
+            return .remote(.init(
+                path: path,
+                shouldPrefetch: shouldPrefetch ?? false,
+                fallback: screen))
+        }
+        throw Error(reason: "Error: Navigate of `type` \(type), should have property `path` or `screen`")
     }
 }
 

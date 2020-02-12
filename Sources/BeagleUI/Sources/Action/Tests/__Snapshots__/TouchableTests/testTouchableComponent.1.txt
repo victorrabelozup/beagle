@@ -1,6 +1,7 @@
 ▿ Touchable
   ▿ action: Navigate
     ▿ addView: NewPath
+      - fallback: Optional<Screen>.none
       - path: ""
       - shouldPrefetch: true
   ▿ child: Text

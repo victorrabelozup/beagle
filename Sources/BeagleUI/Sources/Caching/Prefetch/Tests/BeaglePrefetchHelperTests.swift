@@ -8,31 +8,52 @@ import SnapshotTesting
 
 final class BeaglePrefetchHelperTests: XCTestCase {
 
+    struct Dependencies: DependencyNetwork {
+        let network: Network
+    }
+    
     func testPrefetchAndDequeue() {
+        let remoteComponent = ComponentDummy()
+        let dependencies = Dependencies(network: NetworkStub(componentResult: .success(remoteComponent)))
         let sut = BeaglePreFetchHelper()
         let url = "url-test"
 
-        sut.prefetchComponent(newPath: .init(path: url, shouldPrefetch: true))
+        sut.prefetchComponent(newPath: .init(path: url, shouldPrefetch: true), dependencies: dependencies)
         let result = sut.dequeueComponent(path: url)
-
-        switch result.viewModel.screenType {
-        case .remote(let path):
-            XCTAssert(path == url)
-        case .declarative:
-            XCTFail("Not the right type")
-        }
+        
+        XCTAssertEqual(remoteComponent, result as? ComponentDummy)
     }
     
     func testPrefetchTheSameScreenTwice() {
+        let remoteComponent = ComponentDummy()
+        let dependencies = Dependencies(network: NetworkStub(componentResult: .success(remoteComponent)))
         let sut = BeaglePreFetchHelper()
         let url = "url-test"
 
-        sut.prefetchComponent(newPath: .init(path: url, shouldPrefetch: true))
+        sut.prefetchComponent(newPath: .init(path: url, shouldPrefetch: true), dependencies: dependencies)
         let result1 = sut.dequeueComponent(path: url)
-        sut.prefetchComponent(newPath: .init(path: url, shouldPrefetch: true))
+        sut.prefetchComponent(newPath: .init(path: url, shouldPrefetch: true), dependencies: dependencies)
         let result2 = sut.dequeueComponent(path: url)
         
-        XCTAssert(result1 === result2)
+        XCTAssertEqual(remoteComponent, result1 as? ComponentDummy)
+        XCTAssertEqual(remoteComponent, result2 as? ComponentDummy)
+    }
+    
+    func testPrefetchFail() {
+        let dependencies = Dependencies(
+            network: NetworkStub(
+                componentResult: .failure(.networkError(
+                    NSError(domain: "test", code: 1, description: "forced"))
+                )
+            )
+        )
+        let sut = BeaglePreFetchHelper()
+        let url = "url-test"
+        
+        sut.prefetchComponent(newPath: .init(path: url, shouldPrefetch: true), dependencies: dependencies)
+        let result = sut.dequeueComponent(path: url)
+        
+        XCTAssertNil(result)
     }
 
     func testNavigationIsPrefetchable() {

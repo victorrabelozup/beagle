@@ -8,7 +8,7 @@
   ▿ customActionHandler: Optional<CustomActionHandler>
     - some: CustomActionHandlerDummy
   - decoder: ComponentDecodingDummy
-  ▿ deepLinkHandler: Optional<BeagleDeepLinkScreenManaging>
+  ▿ deepLinkHandler: Optional<DeepLinkScreenManaging>
     - some: DeepLinkHandlerDummy
   - flex: FlexViewConfiguratorDummy
   ▿ navigation: BeagleNavigator
@@ -19,7 +19,7 @@
       - container: (Function)
   - networkClient: NetworkClientDummy
   ▿ preFetchHelper: BeaglePreFetchHelper
-    - screens: 0 key/value pairs
+    - components: 0 key/value pairs
   ▿ resolver: InnerDependenciesResolver
     - container: (Function)
   - theme: AppThemeDummy

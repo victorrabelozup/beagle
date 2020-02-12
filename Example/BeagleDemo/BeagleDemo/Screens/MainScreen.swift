@@ -10,7 +10,7 @@ struct MainScreen: DeeplinkScreen {
     init(path: String, data: [String : String]?) {}
     
     func screenController() -> UIViewController {
-        let screen = ScreenComponent(
+        let screen = Screen(
             navigationBar: .init(title: "Beagle Demo"),
             content: ScrollView(children: [
                 Button(

@@ -7,18 +7,23 @@ public enum Navigate: Action {
     
     var newPath: NewPath? {
         switch self {
-        case .addView(let data), .swapView(let data), .presentView(let data):
-            return NewPath(path: data.path, shouldPrefetch: data.shouldPrefetch)
+        case .addView(let newPath), .swapView(let newPath), .presentView(let newPath):
+            return newPath
 
-        case .finishView, .popView, .popToView, .openDeepLink:
+        case .swapScreen, .addScreen, .presentScreen, .finishView, .popView, .popToView, .openDeepLink:
             return nil
         }
     }
     
     case openDeepLink(DeepLinkNavigation)
     
+    case swapScreen(Screen)
     case swapView(NewPath)
+    
+    case addScreen(Screen)
     case addView(NewPath)
+    
+    case presentScreen(Screen)
     case presentView(NewPath)
 
     case finishView
@@ -31,10 +36,12 @@ public enum Navigate: Action {
     public struct NewPath {
         public let path: Path
         public let shouldPrefetch: Bool
+        public let fallback: Screen?
         
-        public init(path: Path, shouldPrefetch: Bool = false) {
+        public init(path: Path, shouldPrefetch: Bool = false, fallback: Screen? = nil) {
             self.path = path
             self.shouldPrefetch = shouldPrefetch
+            self.fallback = fallback
         }
     }
     
