@@ -28,8 +28,7 @@ extension FormSubmit: Renderable {
         let view = FormSubmitView(enabled: enabled, frame: .zero, dependencies: dependencies)
         let childView = child.toView(context: context, dependencies: dependencies)
         view.addSubview(childView)
-        let flex = Flex(size: .init(width: 100%, height: 100%))
-        dependencies.flex.setupFlex(flex, for: childView)
+        dependencies.flex.enableYoga(true, for: childView)
         view.beagleFormElement = self
         return view
     }
