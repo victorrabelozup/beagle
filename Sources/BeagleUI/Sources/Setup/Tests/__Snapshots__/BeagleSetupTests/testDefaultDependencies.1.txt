@@ -4,9 +4,7 @@
       - container: (Function)
   - appBundle: NSBundle </Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Xcode/Agents> (loaded)
   - baseURL: Optional<URL>.none
-  ▿ customActionHandler: Optional<CustomActionHandler>
-    ▿ some: CustomActionHandling
-      - handlers: 0 key/value pairs
+  - customActionHandler: Optional<CustomActionHandler>.none
   ▿ decoder: ComponentDecoder
     - customNamespace: "TEST"
     - decoders: (0 elements)

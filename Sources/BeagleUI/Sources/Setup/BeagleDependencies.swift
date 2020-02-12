@@ -43,7 +43,7 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
 
         self.decoder = ComponentDecoder(namespace: appName)
         self.preFetchHelper = BeaglePreFetchHelper()
-        self.customActionHandler = CustomActionHandling()
+        self.customActionHandler = nil
         self.appBundle = Bundle.main
         self.theme = AppTheme(styles: [:])
         self.flex = FlexViewConfigurator()
