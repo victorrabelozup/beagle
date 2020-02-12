@@ -4,7 +4,7 @@
 
 struct FormEntity: ComponentConvertibleEntity {
     
-    let action: String
+    let path: String
     let method: MethodType
     let child: AnyDecodableContainer
     
@@ -13,7 +13,7 @@ struct FormEntity: ComponentConvertibleEntity {
         let child = try componentEntity?.mapToComponent() ?? AnyComponent(value: self.child.content)
         let method = try self.method.mapToUIModel(ofType: Form.MethodType.self)
         return Form(
-            action: action,
+            path: path,
             method: method,
             child: child
         )

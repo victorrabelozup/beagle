@@ -8,16 +8,16 @@ import UIKit
     
     // MARK: - Public Properties
     
-    public let url: String
+    public let path: String
     public let initialState: ServerDrivenComponent
         
     // MARK: - Initialization
     
     public init(
-        url: String,
+        path: String,
         initialState: ServerDrivenComponent
     ) {
-        self.url = url
+        self.path = path
         self.initialState = initialState
     }
 }
@@ -25,7 +25,7 @@ import UIKit
 extension LazyComponent: Renderable {
     public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
         let view = initialState.toView(context: context, dependencies: dependencies)
-        context.lazyLoad(url: url, initialState: view)
+        context.lazyLoad(url: path, initialState: view)
         return view
     }
 }

@@ -51,7 +51,7 @@ final class ActionExecutorTests: XCTestCase {
         let formInput = FormInput(name: inputName, child: ComponentDummy())
         let validationErrorListenerSpy = ValidationErrorListenerSpy()
         validationErrorListenerSpy.beagleFormElement = formInput
-        let form = Form(action: "action", method: .post, child: Container(children: [formInput]))
+        let form = Form(path: "path", method: .post, child: Container(children: [formInput]))
         let formView = UIView()
         let formSubmitView = UIView()
         formView.addSubview(validationErrorListenerSpy)

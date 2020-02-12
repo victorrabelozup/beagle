@@ -11,7 +11,7 @@ final class FormEntityTests: XCTestCase {
         // Given
         let childContainer = AnyDecodableContainer(content: TextEntity(text: "text"))
         let sut = FormEntity(
-            action: "action",
+            path: "action",
             method: .get,
             child: childContainer
         )

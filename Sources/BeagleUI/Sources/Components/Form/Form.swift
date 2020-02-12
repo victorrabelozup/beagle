@@ -8,18 +8,18 @@ public struct Form: ServerDrivenComponent {
     
     // MARK: - Public Properties
     
-    public let action: String
+    public let path: String
     public let method: MethodType
     public let child: ServerDrivenComponent
     
     // MARK: - Initialization
     
     public init(
-        action: String,
+        path: String,
         method: MethodType,
         child: ServerDrivenComponent
     ) {
-        self.action = action
+        self.path = path
         self.method = method
         self.child = child
     }

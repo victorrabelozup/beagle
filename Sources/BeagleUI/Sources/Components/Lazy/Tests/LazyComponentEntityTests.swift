@@ -15,7 +15,7 @@ final class LazyComponentEntityTests: XCTestCase {
         // Given
         let content = TextEntity(text: "text")
         let initialState = AnyDecodableContainer(content: content)
-        let sut = LazyComponentEntity(url: "content", initialState: initialState)
+        let sut = LazyComponentEntity(path: "content", initialState: initialState)
         
         // When
         let component = try? sut.mapToComponent()
@@ -28,7 +28,7 @@ final class LazyComponentEntityTests: XCTestCase {
     func test_whenInitialStateContentIsNotComponent_itShouldMapToAnyComponent() {
         // Given
         let initialState = AnyDecodableContainer(content: 0)
-        let sut = LazyComponentEntity(url: "content", initialState: initialState)
+        let sut = LazyComponentEntity(path: "content", initialState: initialState)
         
         // When
         let component = try? sut.mapToComponent() as? LazyComponent

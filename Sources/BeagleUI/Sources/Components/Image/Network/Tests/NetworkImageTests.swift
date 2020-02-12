@@ -11,7 +11,7 @@ final class NetworkImageTests: XCTestCase {
     
     func test_withInvalidURL_itShouldNotSetImage() throws {
         // Given
-        let component = NetworkImage(url: "www.com")
+        let component = NetworkImage(path: "www.com")
         
         // When
         guard let imageView = component.toView(context: BeagleContextDummy(), dependencies: RendererDependenciesContainer()) as? UIImageView else {

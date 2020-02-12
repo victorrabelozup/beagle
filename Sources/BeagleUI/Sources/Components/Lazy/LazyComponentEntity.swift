@@ -8,12 +8,12 @@
 
 struct LazyComponentEntity: ComponentConvertibleEntity {
     
-    let url: String
+    let path: String
     let initialState: AnyDecodableContainer
 
     func mapToComponent() throws -> ServerDrivenComponent {
         let initialStateEntity = initialState.content as? ComponentConvertibleEntity
         let initialComponent = try initialStateEntity?.mapToComponent() ?? AnyComponent(value: initialState.content)
-        return LazyComponent(url: url, initialState: initialComponent)
+        return LazyComponent(path: path, initialState: initialComponent)
     }
 }

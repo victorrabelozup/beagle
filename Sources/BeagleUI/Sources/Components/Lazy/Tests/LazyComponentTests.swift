@@ -10,18 +10,18 @@ final class LazyComponentTests: XCTestCase {
     func test_initWithInitialStateBuilder_shouldReturnExpectedInstance() {
         // Given / When
         let sut = LazyComponent(
-            url: "component",
+            path: "component",
             initialState: Text("text")
         )
 
         // Then
-        XCTAssert(sut.url == "component")
+        XCTAssert(sut.path == "component")
         XCTAssert(sut.initialState is Text)
     }
     
     func test_toView_shouldReturnTheExpectedView() {
         // Given
-        let lazyComponent = LazyComponent(url: "path", initialState: ComponentDummy())
+        let lazyComponent = LazyComponent(path: "path", initialState: ComponentDummy())
         let context = BeagleContextSpy()
         
         // When

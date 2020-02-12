@@ -6,18 +6,18 @@ import UIKit
 
 public struct NetworkImage: AppearanceComponent {
     
-    public let url: String
+    public let path: String
     public let contentMode: ImageContentMode?
     public let appearance: Appearance?
     
     // MARK: - Initialization
     
     public init(
-        url: String,
+        path: String,
         contentMode: ImageContentMode? = nil,
         appearance: Appearance? = nil
     ) {
-        self.url = url
+        self.path = path
         self.contentMode = contentMode
         self.appearance = appearance
     }
@@ -26,7 +26,7 @@ public struct NetworkImage: AppearanceComponent {
 
 extension NetworkImage: Renderable {
     public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
-        let imageView = NetworkUIImageView(network: dependencies.network, url: url)
+        let imageView = NetworkUIImageView(network: dependencies.network, url: path)
         imageView.contentMode = (contentMode ?? .fitCenter).toUIKit()
         imageView.applyAppearance(appearance)
         let flex = Flex(size: .init(width: 100%, height: 100%))

@@ -9,7 +9,7 @@ final class FormTests: XCTestCase {
     
     func test_initWithChild_shouldReturnValidForm() {
         // Given / When
-        let sut = Form(action: "action", method: .get, child:
+        let sut = Form(path: "path", method: .get, child:
             Text("Teste")
         )
         // Then
@@ -19,7 +19,7 @@ final class FormTests: XCTestCase {
     func test_buildView_shouldRegisterFormSubmit() throws {
         // Given
         let child = Container(children: [FormSubmit(child: Text("submit"))])
-        let form = Form(action: "/singup", method: .post, child: child)
+        let form = Form(path: "/singup", method: .post, child: child)
         let context = BeagleContextSpy()
                 
         // When

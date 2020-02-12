@@ -83,7 +83,7 @@ final class BeagleContextTests: XCTestCase {
             screenType: .declarative(component.content.toScreen()),
             dependencies: BeagleScreenDependencies()
         ))
-        let form = Form(action: "action", method: .put, child: ComponentDummy())
+        let form = Form(path: "path", method: .put, child: ComponentDummy())
         let formView = UIView()
         let submitView = UILabel()
         
@@ -103,7 +103,7 @@ final class BeagleContextTests: XCTestCase {
             dependencies: BeagleScreenDependencies()
         ))
         
-        let form = Form(action: "submit", method: .post, child: ComponentDummy())
+        let form = Form(path: "submit", method: .post, child: ComponentDummy())
 
         let otherView = UIView()
         otherView.beagleFormElement = FormInput(
@@ -174,7 +174,7 @@ final class BeagleContextTests: XCTestCase {
             )
         ))
         
-        let form = Form(action: "submit", method: .post, child: ComponentDummy())
+        let form = Form(path: "submit", method: .post, child: ComponentDummy())
         let validInput = FormInput(name: "name", child: ComponentDummy())
         let formSubmit = FormSubmit(child: Button(text: "Add"), enabled: true)
         let validInputView = FormInputViewStub(validInput, value: "John Doe")
@@ -211,7 +211,7 @@ final class BeagleContextTests: XCTestCase {
             )
         ))
         
-        let form = Form(action: "delete", method: .delete, child: ComponentDummy())
+        let form = Form(path: "delete", method: .delete, child: ComponentDummy())
         let formView = UIView()
         
         sut.register(form: form, formView: formView, submitView: formView, validatorHandler: nil)

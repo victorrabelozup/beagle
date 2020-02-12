@@ -3,13 +3,13 @@
 //
 
 struct NetworkImageEntity: ComponentConvertibleEntity {
-    let url: String
+    let path: String
     let contentMode: ImageEntityContentMode?
     let appearance: AppearanceEntity?
     
     func mapToComponent() throws -> ServerDrivenComponent {
         let contentMode = try self.contentMode?.mapToUIModel(ofType: ImageContentMode.self)
         let appearance = try self.appearance?.mapToUIModel()
-        return NetworkImage(url: url, contentMode: contentMode, appearance: appearance)
+        return NetworkImage(path: path, contentMode: contentMode, appearance: appearance)
     }
 }

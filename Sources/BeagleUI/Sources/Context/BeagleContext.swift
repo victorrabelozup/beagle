@@ -91,7 +91,7 @@ extension BeagleScreenViewController: BeagleContext {
         )
 
         dependencies.network.submitForm(
-            url: sender.form.action,
+            url: sender.form.path,
             data: data
         ) {
             [weak self] result in guard let self = self else { return }
