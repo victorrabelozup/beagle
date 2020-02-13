@@ -1,8 +1,8 @@
 package br.com.zup.beagle.widget.form
 
-import br.com.zup.beagle.widget.core.ViewConvertable
+import br.com.zup.beagle.widget.core.WidgetView
 
-interface InputWidget : ViewConvertable {
-    fun getValue(): Any
-    fun onErrorMessage(message: String)
+abstract class InputWidget : WidgetView() {
+    abstract fun getValue(): Any
+    abstract fun onErrorMessage(message: String)
 }
