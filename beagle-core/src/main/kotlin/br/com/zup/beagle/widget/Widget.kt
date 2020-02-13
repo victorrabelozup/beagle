@@ -16,13 +16,13 @@ abstract class Widget : FlexComponent, AppearanceComponent {
     override val flex: Flex?
         get() = mFlex
 
-    fun <T: Widget> applyFlex(flex: Flex): T {
+    open fun applyFlex(flex: Flex): Widget {
         this.mFlex = flex
-        return this as T
+        return this
     }
 
-    fun <T: Widget> applyAppearance(appearance: Appearance): T {
+    open fun applyAppearance(appearance: Appearance): Widget {
         this.mAppearance = appearance
-        return this as T
+        return this
     }
 }
