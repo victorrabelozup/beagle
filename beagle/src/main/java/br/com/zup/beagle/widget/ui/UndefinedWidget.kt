@@ -9,7 +9,7 @@ import br.com.zup.beagle.widget.form.InputWidget
 import br.com.zup.beagle.widget.pager.PageIndicatorOutput
 import br.com.zup.beagle.widget.pager.PageIndicatorWidget
 
-internal class UndefinedWidget : InputWidget, PageIndicatorWidget {
+internal class UndefinedWidget : InputWidget(), PageIndicatorWidget {
 
     override fun onErrorMessage(message: String) {}
 

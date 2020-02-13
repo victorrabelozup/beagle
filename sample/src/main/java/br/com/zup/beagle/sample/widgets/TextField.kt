@@ -1,17 +1,16 @@
 package br.com.zup.beagle.sample.widgets
 
-import br.com.zup.beagle.annotation.RegisterWidget
-import br.com.zup.beagle.widget.form.InputWidget
 import android.content.Context
 import android.graphics.Color
 import android.text.InputType
 import android.widget.EditText
 import androidx.core.widget.doOnTextChanged
+import br.com.zup.beagle.annotation.RegisterWidget
 import br.com.zup.beagle.interfaces.StateChangeable
 import br.com.zup.beagle.interfaces.WidgetState
 import br.com.zup.beagle.sample.utils.MaskApplier
-import br.com.zup.beagle.widget.core.WidgetView
 import br.com.zup.beagle.state.Observable
+import br.com.zup.beagle.widget.form.InputWidget
 
 enum class TextFieldInputType {
     NUMBER,
@@ -27,7 +26,7 @@ data class TextField(
     val color: String = "#000000",
     val mask: String? = null,
     val inputType: TextFieldInputType? = null
-) : WidgetView(),InputWidget , StateChangeable {
+) : InputWidget(), StateChangeable {
 
     private val stateObservable = Observable<WidgetState>()
 

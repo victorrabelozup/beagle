@@ -21,14 +21,14 @@ internal fun Messager.warning(message: String, vararg args: Any) {
 }
 
 private fun Messager.printMessage(kind: Diagnostic.Kind, element: Element?, message: String, vararg args: Any) {
-    var message = message
+    var msg = message
     if (args.isNotEmpty()) {
-        message = String.format(message, args)
+        msg = String.format(msg, args)
     }
 
     if (element == null) {
-        this.printMessage(kind, message)
+        this.printMessage(kind, msg)
     } else {
-        this.printMessage(kind, message, element)
+        this.printMessage(kind, msg, element)
     }
 }

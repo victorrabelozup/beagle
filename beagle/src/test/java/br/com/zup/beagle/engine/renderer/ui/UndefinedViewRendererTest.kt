@@ -15,6 +15,7 @@ import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.mockkObject
 import io.mockk.slot
@@ -34,9 +35,9 @@ class UndefinedViewRendererTest {
     private lateinit var context: Context
     @MockK
     private lateinit var rootView: RootView
-    @MockK
+    @RelaxedMockK
     private lateinit var textView: BeagleTextView
-    @MockK
+    @RelaxedMockK
     private lateinit var undefinedWidget: UndefinedWidget
 
     private val textSlot = slot<String>()

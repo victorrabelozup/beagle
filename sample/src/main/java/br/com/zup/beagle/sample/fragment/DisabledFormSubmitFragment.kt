@@ -80,7 +80,7 @@ class DisabledFormSubmitFragment : Fragment() {
             name = charade.name,
             child = TextField(
                 hint = "answer"
-            ).applyFlex<TextField>(
+            ).applyFlex(
                 Flex(
                     margin = EdgeValue(
                         top = UnitValue(10.0, UnitType.REAL)
