@@ -24,14 +24,14 @@ class ImageViewFragment : Fragment() {
             content =
             NetworkImage(
                 path = "https://cdn-images-1.medium.com/max/1200/1*kjiNJPB3Y-ZVmjxco_bORA.png"
-            ).applyFlex<NetworkImage>(
+            ).applyFlex(
                 Flex(
                     size = Size(
                         height = UnitValue(300.0, UnitType.REAL),
                         width = UnitValue(300.0, UnitType.REAL)
                     )
                 )
-            ).applyAppearance<NetworkImage>(
+            ).applyAppearance(
                 Appearance(
                     cornerRadius = CornerRadius(25.0)
                 )
