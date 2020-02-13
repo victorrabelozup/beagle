@@ -1,30 +1,30 @@
 package br.com.zup.beagle.data.cache
 
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.testutil.RandomData
-import br.com.zup.beagle.widget.core.Widget
 import io.mockk.mockk
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
-class BeagleWidgetCacheHelperTest {
+class BeagleCacheHelperTest {
 
-    private val subject = BeagleWidgetCacheHelper
+    private val subject = BeagleCacheHelper
 
     private val url = RandomData.httpUrl()
 
-    private val widget = mockk<Widget>(relaxUnitFun = true)
+    private val component = mockk<ServerDrivenComponent>(relaxUnitFun = true)
 
     @Test
     fun test_cache_should_return_get_cached_value() {
         //given
-        subject.cacheWidget(url, widget)
+        subject.cache(url, component)
 
         //when
-        val result = subject.getWidgetFromCache(url)
+        val result = subject.getFromCache(url)
 
         //then
-        assertEquals(widget, result)
+        assertEquals(component, result)
     }
 
     @Test
@@ -33,7 +33,7 @@ class BeagleWidgetCacheHelperTest {
         val expectedUrl = RandomData.httpUrl()
 
         //when
-        val result = subject.getWidgetFromCache(expectedUrl)
+        val result = subject.getFromCache(expectedUrl)
 
         //then
         assertNull(result)

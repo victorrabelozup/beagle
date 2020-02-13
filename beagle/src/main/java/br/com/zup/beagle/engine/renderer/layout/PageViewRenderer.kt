@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
@@ -11,12 +12,11 @@ import br.com.zup.beagle.view.BeaglePageView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
-import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.layout.PageView
 import br.com.zup.beagle.widget.pager.PageIndicatorWidget
 
 internal class PageViewRenderer(
-    override val widget: PageView,
+    override val component: PageView,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory()
 ) : LayoutViewRenderer<PageView>(viewRendererFactory, viewFactory) {
@@ -29,7 +29,7 @@ internal class PageViewRenderer(
         val container = viewFactory.makeBeagleFlexView(rootView.getContext(), containerFlex)
 
         val viewPager = viewFactory.makeViewPager(rootView.getContext()).apply {
-            adapter = PageViewAdapter(rootView, widget.pages)
+            adapter = PageViewAdapter(rootView, component.pages)
         }
 
         val pageIndicatorFlex = Flex(
@@ -41,9 +41,9 @@ internal class PageViewRenderer(
             }
         container.addView(containerViewPager)
 
-        widget.pageIndicator?.let {
+        component.pageIndicator?.let {
             val pageIndicatorView = it.toView(rootView.getContext())
-            setupPageIndicator(widget.pages.size, viewPager, widget.pageIndicator)
+            setupPageIndicator(component.pages.size, viewPager, component.pageIndicator)
             container.addView(pageIndicatorView)
         }
 
@@ -75,7 +75,7 @@ internal class PageViewRenderer(
 
 internal class PageViewAdapter(
     private val rootView: RootView,
-    private val pages: List<Widget>,
+    private val pages: List<ServerDrivenComponent>,
     private val viewRendererFactory: ViewRendererFactory = ViewRendererFactory()
 ) : PagerAdapter() {
 

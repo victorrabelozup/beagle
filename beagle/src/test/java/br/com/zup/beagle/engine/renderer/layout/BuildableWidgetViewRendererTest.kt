@@ -5,7 +5,7 @@ import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.view.ViewFactory
-import br.com.zup.beagle.widget.core.ComposeWidget
+import br.com.zup.beagle.widget.core.ComposeComponent
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -21,7 +21,7 @@ class BuildableWidgetViewRendererTest {
     @MockK
     private lateinit var viewFactory: ViewFactory
     @MockK
-    private lateinit var widget: ComposeWidget
+    private lateinit var component: ComposeComponent
     @MockK
     private lateinit var rootView: RootView
     @MockK
@@ -36,8 +36,8 @@ class BuildableWidgetViewRendererTest {
     fun setUp() {
         MockKAnnotations.init(this)
 
-        every { widget.build() } returns widget
-        every { viewRendererFactory.make(widget) } returns viewRendererMock
+        every { component.build() } returns component
+        every { viewRendererFactory.make(component) } returns viewRendererMock
         every { viewRendererMock.build(rootView) } returns view
     }
 

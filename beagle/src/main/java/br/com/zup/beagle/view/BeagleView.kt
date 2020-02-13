@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.data.BeagleViewModel
 import br.com.zup.beagle.data.ViewState
 import br.com.zup.beagle.engine.renderer.ActivityRootView
@@ -12,7 +13,6 @@ import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.interfaces.OnStateUpdatable
 import br.com.zup.beagle.utils.implementsGenericTypeOf
 import br.com.zup.beagle.utils.toView
-import br.com.zup.beagle.widget.core.Widget
 
 sealed class BeagleViewState {
     data class Error(val throwable: Throwable) : BeagleViewState()
@@ -48,7 +48,7 @@ internal class BeagleView(
             handleResponse(state, view)
         })
 
-        viewModel.fetchWidget(url)
+        viewModel.fetchComponent(url)
 
     }
 
@@ -57,7 +57,7 @@ internal class BeagleView(
         when (state) {
             is ViewState.Loading -> handleLoading(state.value)
             is ViewState.Error -> handleError(state.throwable)
-            is ViewState.Result<*> -> renderWidget(state.data as Widget, view)
+            is ViewState.Result<*> -> renderComponent(state.data as ServerDrivenComponent, view)
         }
     }
 
@@ -74,19 +74,19 @@ internal class BeagleView(
         stateChangedListener?.onStateChanged(BeagleViewState.Error(throwable))
     }
 
-    private fun renderWidget(widget: Widget, view: View? = null) {
+    private fun renderComponent(component: ServerDrivenComponent, view: View? = null) {
         if (view != null) {
-            if (widget.implementsGenericTypeOf(OnStateUpdatable::class.java, widget::class.java)) {
-                (widget as? OnStateUpdatable<Widget>)?.onUpdateState(widget)
+            if (component.implementsGenericTypeOf(OnStateUpdatable::class.java, component::class.java)) {
+                (component as? OnStateUpdatable<ServerDrivenComponent>)?.onUpdateState(component)
             } else {
-                val widgetView = widget.toView(rootView)
+                val componentView = component.toView(rootView)
                 removeView(view)
-                addView(widgetView)
+                addView(componentView)
             }
         } else {
-            val widgetView = widget.toView(rootView)
+            val componentView = component.toView(rootView)
             removeAllViewsInLayout()
-            addView(widgetView)
+            addView(componentView)
         }
     }
 

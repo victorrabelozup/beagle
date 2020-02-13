@@ -1,10 +1,10 @@
 package br.com.zup.beagle.utils
 
 import android.view.View
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
-import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.Screen
 import io.mockk.MockKAnnotations
@@ -33,14 +33,14 @@ class WidgetExtensionsKtTest {
     @Test
     fun toView() {
         // Given
-        val widget = mockk<Widget>()
+        val component = mockk<ServerDrivenComponent>()
         val viewRenderer = mockk<ViewRenderer<*>>()
         val view = mockk<View>()
-        every { viewRendererMock.make(widget) } returns viewRenderer
+        every { viewRendererMock.make(component) } returns viewRenderer
         every { viewRenderer.build(rootView) } returns view
 
         // When
-        val actual = widget.toView(rootView)
+        val actual = component.toView(rootView)
 
         // Then
         assertEquals(view, actual)
@@ -50,9 +50,9 @@ class WidgetExtensionsKtTest {
     fun toWidget_should_create_a_ScreenWidget() {
         // Given
         val navigationBar = mockk<NavigationBar>()
-        val header = mockk<Widget>()
-        val content = mockk<Widget>()
-        val footer = mockk<Widget>()
+        val header = mockk<ServerDrivenComponent>()
+        val content = mockk<ServerDrivenComponent>()
+        val footer = mockk<ServerDrivenComponent>()
         val screen = Screen(
             navigationBar = navigationBar,
             header = header,
@@ -61,7 +61,7 @@ class WidgetExtensionsKtTest {
         )
 
         // When
-        val actual = screen.toWidget()
+        val actual = screen.toComponent()
 
         // Then
         assertEquals(navigationBar, actual.navigationBar)

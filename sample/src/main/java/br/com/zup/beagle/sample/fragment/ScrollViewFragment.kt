@@ -29,9 +29,6 @@ class ScrollViewFragment : Fragment() {
                 scrollDirection = ScrollAxis.HORIZONTAL,
                 children = listOf(
                     Container(
-                        flex = Flex(
-                            flexDirection = FlexDirection.ROW
-                        ),
                         children = listOf(
                             Text("Texto"),
                             Text("Texto"),
@@ -54,6 +51,10 @@ class ScrollViewFragment : Fragment() {
                             Text("Texto"),
                             Text("Texto"),
                             Text("Texto")
+                        )
+                    ).applyFlex(
+                        Flex(
+                            flexDirection = FlexDirection.ROW
                         )
                     )
                 )

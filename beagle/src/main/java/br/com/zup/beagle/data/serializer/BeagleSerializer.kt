@@ -1,7 +1,7 @@
 package br.com.zup.beagle.data.serializer
 
 import br.com.zup.beagle.action.Action
-import br.com.zup.beagle.widget.core.Widget
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.exception.BeagleException
 import br.com.zup.beagle.logger.BeagleMessageLogs
 
@@ -12,22 +12,22 @@ internal class BeagleSerializer(
 ) {
 
     @Throws(BeagleException::class)
-    fun serializeWidget(widget: Widget): String {
+    fun serializeComponent(component: ServerDrivenComponent): String {
         try {
-            return beagleMoshiFactory.moshi.adapter(Widget::class.java).toJson(widget) ?:
+            return beagleMoshiFactory.moshi.adapter(ServerDrivenComponent::class.java).toJson(component) ?:
             throw NullPointerException()
         } catch (ex: Exception) {
             val message = """
-            Did you miss to serialize for Widget ${widget::class.java.simpleName}
+            Did you miss to serialize for Component ${component::class.java.simpleName}
         """.trimIndent()
            throw BeagleException("$EXCEPTION_MESSAGE$message")
         }
     }
 
     @Throws(BeagleException::class)
-    fun deserializeWidget(json: String): Widget {
+    fun deserializeComponent(json: String): ServerDrivenComponent {
         try {
-            return beagleMoshiFactory.moshi.adapter(Widget::class.java).fromJson(json) ?:
+            return beagleMoshiFactory.moshi.adapter(ServerDrivenComponent::class.java).fromJson(json) ?:
                 throw NullPointerException()
         } catch (ex: Exception) {
             BeagleMessageLogs.logDeserializationError(json, ex)

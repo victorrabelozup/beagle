@@ -10,20 +10,20 @@ import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.layout.Container
 
 internal class ContainerViewRenderer(
-    override val widget: Container,
+    override val component: Container,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory()
 ) : LayoutViewRenderer<Container>(viewRendererFactory, viewFactory) {
 
     override fun buildView(rootView: RootView): View {
-        return viewFactory.makeBeagleFlexView(rootView.getContext(), widget.flex ?: Flex())
+        return viewFactory.makeBeagleFlexView(rootView.getContext(), component.flex ?: Flex())
             .apply {
                 addChildren(rootView, this)
             }
     }
 
     private fun addChildren(rootView: RootView, beagleFlexView: BeagleFlexView) {
-        widget.children.forEach {
+        component.children.forEach {
             beagleFlexView.addView(viewRendererFactory.make(it).build(rootView))
         }
     }

@@ -56,7 +56,7 @@ class FormSubmitterTest {
         // Given
         val action = RandomData.string()
         val form = Form(
-            action = action,
+            path = action,
             method = FormMethodType.POST,
             child = mockk()
         )
@@ -80,7 +80,7 @@ class FormSubmitterTest {
     fun submitForm_should_create_requestData_with_PUT_httpMethod() {
         // Given
         val form = Form(
-            action = RandomData.string(),
+            path = RandomData.string(),
             method = FormMethodType.PUT,
             child = mockk()
         )
@@ -96,7 +96,7 @@ class FormSubmitterTest {
     fun submitForm_should_create_requestData_with_DELETE_httpMethod() {
         // Given
         val form = Form(
-            action = RandomData.string(),
+            path = RandomData.string(),
             method = FormMethodType.DELETE,
             child = mockk()
         )
@@ -112,7 +112,7 @@ class FormSubmitterTest {
     fun submitForm_should_create_requestData_with_GET_httpMethod() {
         // Given
         val form = Form(
-            action = RandomData.string(),
+            path = RandomData.string(),
             method = FormMethodType.GET,
             child = mockk()
         )
@@ -128,7 +128,7 @@ class FormSubmitterTest {
     fun submitForm_should_create_requestData_with_POST_httpMethod() {
         // Given
         val form = Form(
-            action = RandomData.string(),
+            path = RandomData.string(),
             method = FormMethodType.POST,
             child = mockk()
         )
@@ -145,7 +145,7 @@ class FormSubmitterTest {
         // Given
         val action = RandomData.string()
         val form = Form(
-            action = action,
+            path = action,
             method = FormMethodType.POST,
             child = mockk()
         )
@@ -166,7 +166,7 @@ class FormSubmitterTest {
         )
         val action = RandomData.string()
         val form = Form(
-            action = action,
+            path = action,
             method = FormMethodType.GET,
             child = mockk()
         )
@@ -191,7 +191,7 @@ class FormSubmitterTest {
         )
         val action = RandomData.string()
         val form = Form(
-            action = action,
+            path = action,
             method = FormMethodType.GET,
             child = mockk()
         )
@@ -216,7 +216,7 @@ class FormSubmitterTest {
         )
         val action = RandomData.string()
         val form = Form(
-            action = action,
+            path = action,
             method = FormMethodType.POST,
             child = mockk()
         )
@@ -242,7 +242,7 @@ class FormSubmitterTest {
         )
         val action = RandomData.string()
         val form = Form(
-            action = action,
+            path = action,
             method = FormMethodType.POST,
             child = mockk()
         )

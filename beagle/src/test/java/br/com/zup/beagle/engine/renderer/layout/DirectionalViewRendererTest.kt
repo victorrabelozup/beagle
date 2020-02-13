@@ -2,13 +2,13 @@ package br.com.zup.beagle.engine.renderer.layout
 
 import android.content.Context
 import android.view.View
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
-import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.ui.Button
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
@@ -22,15 +22,15 @@ import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 
-internal class DirectionalViewWidget(val children: List<Widget>) : Widget
+internal class DirectionalView(val children: List<ServerDrivenComponent>) : ServerDrivenComponent
 
 internal class DirectionalViewRendererImpl(
-    override val widget: DirectionalViewWidget,
+    override val component: DirectionalView,
     flex: Flex,
     viewRendererFactory: ViewRendererFactory,
     viewFactory: ViewFactory
-) : DirectionalViewRenderer<DirectionalViewWidget>(
-    widget.children,
+) : DirectionalViewRenderer<DirectionalView>(
+    component.children,
     flex,
     viewRendererFactory,
     viewFactory
@@ -47,7 +47,7 @@ class DirectionalViewRendererTest {
 
     private var viewFactory: ViewFactory = mockk()
 
-    private var directionalViewWidget: DirectionalViewWidget =
+    private var directionalView: DirectionalView =
         mockk(relaxUnitFun = true, relaxed = true)
 
     private var flex: Flex = mockk()
@@ -59,7 +59,7 @@ class DirectionalViewRendererTest {
 
     @Before
     fun setUp() {
-        every { directionalViewWidget.children } returns children
+        every { directionalView.children } returns children
         MockKAnnotations.init(this)
         every {
             flex.copy(

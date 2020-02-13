@@ -41,7 +41,7 @@ class ButtonViewRendererTest {
     private lateinit var context: Context
     @RelaxedMockK
     private lateinit var buttonView: BeagleButtonView
-    @MockK
+    @RelaxedMockK
     private lateinit var button: Button
     @MockK
     private lateinit var actionExecutor: ActionExecutor

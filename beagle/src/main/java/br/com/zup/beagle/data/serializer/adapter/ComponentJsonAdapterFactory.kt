@@ -1,23 +1,21 @@
 package br.com.zup.beagle.data.serializer.adapter
 
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.data.serializer.PolymorphicJsonAdapterFactory
 import br.com.zup.beagle.setup.BeagleEnvironment
-import br.com.zup.beagle.widget.layout.ScreenWidget
-import br.com.zup.beagle.widget.ui.UndefinedWidget
-import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormSubmit
 import br.com.zup.beagle.widget.form.InputWidget
-import br.com.zup.beagle.widget.layout.FlexSingleWidget
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.Horizontal
 import br.com.zup.beagle.widget.layout.PageView
+import br.com.zup.beagle.widget.layout.ScreenComponent
 import br.com.zup.beagle.widget.layout.ScrollView
 import br.com.zup.beagle.widget.layout.Spacer
 import br.com.zup.beagle.widget.layout.Stack
 import br.com.zup.beagle.widget.layout.Vertical
-import br.com.zup.beagle.widget.lazy.LazyWidget
+import br.com.zup.beagle.widget.lazy.LazyComponent
 import br.com.zup.beagle.widget.navigation.Touchable
 import br.com.zup.beagle.widget.pager.PageIndicator
 import br.com.zup.beagle.widget.pager.PageIndicatorWidget
@@ -25,18 +23,19 @@ import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.Image
 import br.com.zup.beagle.widget.ui.ListView
 import br.com.zup.beagle.widget.ui.NetworkImage
-import br.com.zup.beagle.widget.ui.Text
 import br.com.zup.beagle.widget.ui.TabView
+import br.com.zup.beagle.widget.ui.Text
+import br.com.zup.beagle.widget.ui.UndefinedWidget
 
 private const val BEAGLE_WIDGET_TYPE = "_beagleType_"
 private const val BEAGLE_NAMESPACE = "beagle"
-private const val WIDGET_NAMESPACE = "widget"
+private const val COMPONENT_NAMESPACE = "component"
 
-internal object WidgetJsonAdapterFactory {
+internal object ComponentJsonAdapterFactory {
 
-    fun make(): PolymorphicJsonAdapterFactory<Widget> {
+    fun make(): PolymorphicJsonAdapterFactory<ServerDrivenComponent> {
         var factory = PolymorphicJsonAdapterFactory.of(
-            Widget::class.java, BEAGLE_WIDGET_TYPE
+            ServerDrivenComponent::class.java, BEAGLE_WIDGET_TYPE
         )
 
         factory = registerBaseSubTypes(factory)
@@ -49,31 +48,30 @@ internal object WidgetJsonAdapterFactory {
     }
 
     private fun registerBaseSubTypes(
-        factory: PolymorphicJsonAdapterFactory<Widget>
-    ): PolymorphicJsonAdapterFactory<Widget> {
+        factory: PolymorphicJsonAdapterFactory<ServerDrivenComponent>
+    ): PolymorphicJsonAdapterFactory<ServerDrivenComponent> {
         return factory.withBaseSubType(PageIndicatorWidget::class.java)
             .withBaseSubType(InputWidget::class.java)
     }
 
     private fun registerLayoutClass(
-        factory: PolymorphicJsonAdapterFactory<Widget>
-    ): PolymorphicJsonAdapterFactory<Widget> {
-        return factory.withSubtype(ScreenWidget::class.java, createNamespaceFor<ScreenWidget>())
+        factory: PolymorphicJsonAdapterFactory<ServerDrivenComponent>
+    ): PolymorphicJsonAdapterFactory<ServerDrivenComponent> {
+        return factory.withSubtype(ScreenComponent::class.java, createNamespaceFor<ScreenComponent>())
             .withSubtype(Container::class.java, createNamespaceFor<Container>())
-            .withSubtype(FlexSingleWidget::class.java, createNamespaceFor<FlexSingleWidget>())
             .withSubtype(Vertical::class.java, createNamespaceFor<Vertical>())
             .withSubtype(Horizontal::class.java, createNamespaceFor<Horizontal>())
             .withSubtype(Stack::class.java, createNamespaceFor<Stack>())
             .withSubtype(Spacer::class.java, createNamespaceFor<Spacer>())
             .withSubtype(ScrollView::class.java, createNamespaceFor<ScrollView>())
-            .withSubtype(LazyWidget::class.java, createNamespaceFor<LazyWidget>())
+            .withSubtype(LazyComponent::class.java, createNamespaceFor<LazyComponent>())
             .withSubtype(PageView::class.java, createNamespaceFor<PageView>())
             .withSubtype(Form::class.java, createNamespaceFor<Form>())
     }
 
     private fun registerUIClass(
-        factory: PolymorphicJsonAdapterFactory<Widget>
-    ): PolymorphicJsonAdapterFactory<Widget> {
+        factory: PolymorphicJsonAdapterFactory<ServerDrivenComponent>
+    ): PolymorphicJsonAdapterFactory<ServerDrivenComponent> {
         return factory.withSubtype(Text::class.java, createNamespaceFor<Text>())
             .withSubtype(Image::class.java, createNamespaceFor<Image>())
             .withSubtype(NetworkImage::class.java, createNamespaceFor<NetworkImage>())
@@ -87,8 +85,8 @@ internal object WidgetJsonAdapterFactory {
     }
 
     private fun registerCustomWidget(
-        factory: PolymorphicJsonAdapterFactory<Widget>
-    ): PolymorphicJsonAdapterFactory<Widget> {
+        factory: PolymorphicJsonAdapterFactory<ServerDrivenComponent>
+    ): PolymorphicJsonAdapterFactory<ServerDrivenComponent> {
         val appName = "custom"
         val widgets = BeagleEnvironment.beagleSdk.registeredWidgets()
 
@@ -102,16 +100,16 @@ internal object WidgetJsonAdapterFactory {
     }
 
     private fun registerUndefinedWidget(
-        factory: PolymorphicJsonAdapterFactory<Widget>
-    ): PolymorphicJsonAdapterFactory<Widget> {
+        factory: PolymorphicJsonAdapterFactory<ServerDrivenComponent>
+    ): PolymorphicJsonAdapterFactory<ServerDrivenComponent> {
         return factory.withDefaultValue(UndefinedWidget())
     }
 
-    private inline fun <reified T : Widget> createNamespaceFor(): String {
+    private inline fun <reified T : ServerDrivenComponent> createNamespaceFor(): String {
         return createNamespace(BEAGLE_NAMESPACE, T::class.java)
     }
 
     private fun createNamespace(appNamespace: String, clazz: Class<*>): String {
-        return "$appNamespace:$WIDGET_NAMESPACE:${clazz.simpleName.toLowerCase()}"
+        return "$appNamespace:$COMPONENT_NAMESPACE:${clazz.simpleName.toLowerCase()}"
     }
 }

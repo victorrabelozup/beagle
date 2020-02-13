@@ -5,8 +5,8 @@ import br.com.zup.beagle.logger.BeagleMessageLogs
 import br.com.zup.beagle.action.Action
 import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.NavigationType
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.testutil.RandomData
-import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.ui.Button
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
@@ -31,7 +31,7 @@ class BeagleSerializerTest {
     @MockK
     private lateinit var moshi: Moshi
     @MockK
-    private lateinit var widgetJsonAdapter: JsonAdapter<Widget>
+    private lateinit var jsonAdapter: JsonAdapter<ServerDrivenComponent>
     @MockK
     private lateinit var actionJsonAdapter: JsonAdapter<Action>
 
@@ -48,7 +48,7 @@ class BeagleSerializerTest {
 
         every { BeagleMessageLogs.logDeserializationError(any(), any()) } just Runs
         every { BeagleMoshi.moshi } returns moshi
-        every { moshi.adapter(Widget::class.java) } returns widgetJsonAdapter
+        every { moshi.adapter(ServerDrivenComponent::class.java) } returns jsonAdapter
         every { moshi.adapter(Action::class.java) } returns actionJsonAdapter
     }
 
@@ -63,10 +63,10 @@ class BeagleSerializerTest {
         // Given
         val json = "{}"
         val button = Button(RandomData.string())
-        every { widgetJsonAdapter.toJson(button) } returns json
+        every { jsonAdapter.toJson(button) } returns json
 
         // When
-        val actual = beagleSerializer.serializeWidget(button)
+        val actual = beagleSerializer.serializeComponent(button)
 
         // Then
         assertEquals(json, actual)
@@ -76,10 +76,10 @@ class BeagleSerializerTest {
     fun serializeWidget_should_return_a_BeagleException_when_toJson_returns_null() {
         // Given
         val button = Button(RandomData.string())
-        every { widgetJsonAdapter.toJson(button) } returns null
+        every { jsonAdapter.toJson(button) } returns null
 
         // When
-        val actual = assertFails{ beagleSerializer.serializeWidget(button) }
+        val actual = assertFails{ beagleSerializer.serializeComponent(button) }
 
         // Then
         assertTrue(actual is BeagleException)
@@ -89,11 +89,11 @@ class BeagleSerializerTest {
     fun serializeWidget_should_return_a_BeagleException_when_toJson_throws_exception() {
         // Given
         val exception = IOException()
-        every { widgetJsonAdapter.toJson(any()) } throws exception
+        every { jsonAdapter.toJson(any()) } throws exception
 
         // When
         val button = Button(RandomData.string())
-        val actual = assertFails { beagleSerializer.serializeWidget(button) }
+        val actual = assertFails { beagleSerializer.serializeComponent(button) }
 
         // Then
         assertTrue(actual is BeagleException)
@@ -104,10 +104,10 @@ class BeagleSerializerTest {
         // Given
         val json = "{}"
         val button = Button(RandomData.string())
-        every { widgetJsonAdapter.fromJson(json) } returns button
+        every { jsonAdapter.fromJson(json) } returns button
 
         // When
-        val actual = beagleSerializer.deserializeWidget(json)
+        val actual = beagleSerializer.deserializeComponent(json)
 
         // Then
         assertEquals(button, actual)
@@ -117,10 +117,10 @@ class BeagleSerializerTest {
     fun deserializeWidget_should_return_a_BeagleDeserializationException_when_fromJson_returns_null() {
         // Given
         val json = "{}"
-        every { widgetJsonAdapter.fromJson(json) } returns null
+        every { jsonAdapter.fromJson(json) } returns null
 
         // When
-        val actual = assertFails{ beagleSerializer.deserializeWidget(json) }
+        val actual = assertFails{ beagleSerializer.deserializeComponent(json) }
 
         // Then
         assertTrue(actual is BeagleException)
@@ -130,10 +130,10 @@ class BeagleSerializerTest {
     fun deserializeWidget_should_return_a_BeagleDeserializationException_when_fromJson_throws_exception() {
         // Given
         val exception = IOException()
-        every { widgetJsonAdapter.fromJson(any<String>()) } throws exception
+        every { jsonAdapter.fromJson(any<String>()) } throws exception
 
         // When
-        val actual = assertFails { beagleSerializer.deserializeWidget(RandomData.string()) }
+        val actual = assertFails { beagleSerializer.deserializeComponent(RandomData.string()) }
 
         // Then
         assertTrue(actual is BeagleException)

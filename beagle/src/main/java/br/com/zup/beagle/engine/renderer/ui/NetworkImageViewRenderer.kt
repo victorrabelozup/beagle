@@ -16,21 +16,21 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 
 internal class NetworkImageViewRenderer(
-    override val widget: NetworkImage,
+    override val component: NetworkImage,
     private val viewFactory: ViewFactory = ViewFactory(),
     private val viewMapper: ViewMapper = ViewMapper()
 ) : UIViewRenderer<NetworkImage>() {
 
     override fun buildView(rootView: RootView): View {
         return viewFactory.makeImageView(rootView.getContext()).apply {
-            val contentMode = widget.contentMode ?: ImageContentMode.FIT_CENTER
+            val contentMode = component.contentMode ?: ImageContentMode.FIT_CENTER
             scaleType = viewMapper.toScaleType(contentMode)
             loadImage(this)
         }
     }
 
     private fun loadImage(imageView: ImageView) {
-        Glide.with(imageView).load(widget.url)
+        Glide.with(imageView).load(component.path)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?,

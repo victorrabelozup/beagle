@@ -1,15 +1,15 @@
 package br.com.zup.beagle.engine.renderer.layout
 
 import android.content.Context
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
-import br.com.zup.beagle.view.ViewFactory
+import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.view.BeagleFlexView
+import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.layout.Container
 import io.mockk.MockKAnnotations
-import br.com.zup.beagle.extensions.once
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -23,7 +23,7 @@ import org.junit.Test
 
 class ContainerViewRendererTest {
 
-    private val containerChildren = listOf<Widget>(mockk())
+    private val containerChildren = listOf<ServerDrivenComponent>(mockk())
 
     @RelaxedMockK
     private lateinit var container: Container

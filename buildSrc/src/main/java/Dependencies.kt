@@ -39,7 +39,7 @@ object Versions {
 
     const val soLoader = "0.5.1"
 
-    const val beagle = "0.0.30"
+    const val beagle = "0.0.32"
 
     const val glide = "4.9.0"
 

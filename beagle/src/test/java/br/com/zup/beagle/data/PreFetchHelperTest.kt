@@ -45,7 +45,7 @@ class PreFetchHelperTest {
         mockkStatic("br.com.zup.beagle.utils.ViewExtensionsKt")
 
         every { rootView.generateViewModelInstance() } returns beagleViewModel
-        coEvery { beagleViewModel.fetchWidgetForCache(any()) } returns mockk()
+        coEvery { beagleViewModel.fetchForCache(any()) } returns mockk()
     }
 
     @After
@@ -57,8 +57,8 @@ class PreFetchHelperTest {
     fun should_call_fetch_for_cache_test() {
         cachedTypes.forEach {
             val url = RandomData.string()
-            helper.handlePreFetchWidget(rootView, Navigate(type = it, href = url))
-            verify(exactly = once()) { beagleViewModel.fetchWidgetForCache(url) }
+            helper.handlePreFetch(rootView, Navigate(type = it, path = url))
+            verify(exactly = once()) { beagleViewModel.fetchForCache(url) }
         }
     }
 
@@ -66,8 +66,8 @@ class PreFetchHelperTest {
     fun should_not_call_fetch_for_cache_test() {
         cachedTypes.forEach {
             val url = RandomData.string()
-            helper.handlePreFetchWidget(rootView, Navigate(type = it, href = url))
-            verify { beagleViewModel.fetchWidgetForCache(url) wasNot called }
+            helper.handlePreFetch(rootView, Navigate(type = it, path = url))
+            verify { beagleViewModel.fetchForCache(url) wasNot called }
         }
     }
 }

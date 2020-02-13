@@ -5,11 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import br.com.zup.beagle.sample.widgets.TextField
 import br.com.zup.beagle.utils.toView
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.JustifyContent
 import br.com.zup.beagle.widget.layout.Container
-import br.com.zup.beagle.sample.widgets.TextField
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.Screen
 
@@ -33,14 +33,13 @@ class NavigationBarActivity : AppCompatActivity() {
                 style = "toolbar"
             ),
             content = Container(
-                flex = Flex(justifyContent = JustifyContent.CENTER),
                 children = listOf(
                     TextField(
                         hint = "this hint",
                         color = "#FFFFFF"
                     )
                 )
-            )
+            ).applyFlex(Flex(justifyContent = JustifyContent.CENTER))
         )
         return declarative.toView(this)
     }

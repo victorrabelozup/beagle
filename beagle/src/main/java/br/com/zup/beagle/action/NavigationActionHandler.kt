@@ -20,7 +20,7 @@ internal class NavigationActionHandler :
     }
 
     private fun openDeepLink(action: Navigate, context: Context) {
-        action.href?.let { path ->
+        action.path?.let { path ->
             BeagleEnvironment.beagleSdk.deepLinkHandler?.
                 getDeepLinkIntent(path, action.data)?.let { intent ->
                 context.startActivity(intent)
@@ -29,13 +29,13 @@ internal class NavigationActionHandler :
     }
 
     private fun swapView(action: Navigate, context: Context) {
-        action.href?.let { path ->
+        action.path?.let { path ->
             BeagleNavigator.swapScreen(context, path)
         }
     }
 
     private fun addView(action: Navigate, context: Context) {
-        action.href?.let { path ->
+        action.path?.let { path ->
             BeagleNavigator.addScreen(context, path)
         }
     }
@@ -49,13 +49,13 @@ internal class NavigationActionHandler :
     }
 
     private fun popToView(action: Navigate, context: Context) {
-        action.href?.let { path ->
+        action.path?.let { path ->
             BeagleNavigator.popToScreen(context, path)
         }
     }
 
     private fun presentView(action: Navigate, context: Context) {
-        action.href?.let { path ->
+        action.path?.let { path ->
             BeagleNavigator.presentScreen(context, path)
         }
     }

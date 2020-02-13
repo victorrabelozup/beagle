@@ -4,16 +4,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.UIViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.view.ViewFactory
-import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.ui.ListDirection
 import br.com.zup.beagle.widget.ui.ListView
 
 internal class ListViewRenderer(
-    override val widget: ListView,
+    override val component: ListView,
     private val viewFactory: ViewFactory = ViewFactory()
 ) : UIViewRenderer<ListView>() {
 
@@ -21,12 +21,12 @@ internal class ListViewRenderer(
         return viewFactory.makeRecyclerView(rootView.getContext()).apply {
             val direction = toRecyclerViewOrientation()
             layoutManager = LinearLayoutManager(context, direction, false)
-            adapter = ListViewRecyclerAdapter(rootView, widget.rows)
+            adapter = ListViewRecyclerAdapter(rootView, component.rows)
         }
     }
 
     private fun toRecyclerViewOrientation(): Int {
-        return if (widget.direction == ListDirection.VERTICAL) {
+        return if (component.direction == ListDirection.VERTICAL) {
             RecyclerView.VERTICAL
         } else {
             RecyclerView.HORIZONTAL
@@ -36,7 +36,7 @@ internal class ListViewRenderer(
 
 internal class ListViewRecyclerAdapter(
     private val rootView: RootView,
-    private val rows: List<Widget>,
+    private val rows: List<ServerDrivenComponent>,
     private val viewRendererFactory: ViewRendererFactory = ViewRendererFactory()
 ) : RecyclerView.Adapter<ViewHolder>() {
 

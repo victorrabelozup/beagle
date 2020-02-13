@@ -23,7 +23,7 @@ import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormSubmit
 
 internal class FormViewRenderer(
-    override val widget: Form,
+    override val component: Form,
     private val validatorHandler: ValidatorHandler? = BeagleEnvironment.beagleSdk.validatorHandler,
     private val formValidationActionHandler: FormValidationActionHandler = FormValidationActionHandler(),
     private val formSubmitter: FormSubmitter = FormSubmitter(),
@@ -39,18 +39,18 @@ internal class FormViewRenderer(
     private var formSubmitView: View? = null
 
     override fun buildView(rootView: RootView): View {
-        val view = viewRendererFactory.make(widget.child).build(rootView)
+        val view = viewRendererFactory.make(component.child).build(rootView)
 
         if (view is ViewGroup) {
             fetchFormViews(view)
         }
 
         if (formInputs.size == 0) {
-            BeagleMessageLogs.logFormInputsNotFound(widget.action)
+            BeagleMessageLogs.logFormInputsNotFound(component.path)
         }
 
         if (formSubmitView == null) {
-            BeagleMessageLogs.logFormSubmitNotFound(widget.action)
+            BeagleMessageLogs.logFormSubmitNotFound(component.path)
         }
 
         return view
@@ -96,7 +96,7 @@ internal class FormViewRenderer(
 
         if (formsValue.size == formInputs.size) {
             formSubmitView?.hideKeyboard()
-            formSubmitter.submitForm(widget, formsValue) {
+            formSubmitter.submitForm(component, formsValue) {
                 (context as AppCompatActivity).runOnUiThread {
                     handleFormResult(context, it)
                 }

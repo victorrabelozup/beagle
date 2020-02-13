@@ -19,6 +19,8 @@ import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import br.com.zup.beagle.R
+import br.com.zup.beagle.core.AppearanceComponent
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.data.BeagleViewModel
 import br.com.zup.beagle.engine.mapper.ViewMapper
 import br.com.zup.beagle.engine.renderer.ActivityRootView
@@ -31,9 +33,7 @@ import br.com.zup.beagle.view.BeagleTextView
 import br.com.zup.beagle.view.BeagleView
 import br.com.zup.beagle.view.StateChangedListener
 import br.com.zup.beagle.view.ViewFactory
-import br.com.zup.beagle.widget.core.AppearanceWidget
 import br.com.zup.beagle.widget.core.ImageContentMode
-import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.Image
 import br.com.zup.beagle.widget.ui.Text
@@ -164,21 +164,21 @@ internal fun RootView.generateViewModelInstance(): BeagleViewModel {
     }
 }
 
-internal fun View.applyAppearance(widget: Widget) {
-    (widget as? AppearanceWidget)?.let {
+internal fun View.applyAppearance(component: ServerDrivenComponent) {
+    (component as? AppearanceComponent)?.let {
         this.background = GradientDrawable()
         applyBackgroundColor(it)
         applyCornerRadius(it)
     }
 }
 
-internal fun View.applyBackgroundColor(appearanceWidget: AppearanceWidget) {
+internal fun View.applyBackgroundColor(appearanceWidget: AppearanceComponent) {
     appearanceWidget.appearance?.backgroundColor?.let {
         (this.background as? GradientDrawable)?.setColor(Color.parseColor(it))
     }
 }
 
-internal fun View.applyCornerRadius(appearanceWidget: AppearanceWidget) {
+internal fun View.applyCornerRadius(appearanceWidget: AppearanceComponent) {
     appearanceWidget.appearance?.cornerRadius?.let { cornerRadius ->
         if (cornerRadius.radius > FLOAT_ZERO) {
             (this.background as? GradientDrawable)?.cornerRadius = cornerRadius.radius.toFloat()

@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import br.com.zup.beagle.sample.activities.NavigationBarActivity
 import br.com.zup.beagle.sample.fragment.DisabledFormSubmitFragment
-import br.com.zup.beagle.sample.fragment.FlexSingleWidgetFragment
 import br.com.zup.beagle.sample.fragment.ImageViewFragment
 import br.com.zup.beagle.sample.fragment.LazyWidgetFragment
 import br.com.zup.beagle.sample.fragment.NavigationFragment
@@ -28,6 +27,7 @@ class MainActivity : AppCompatActivity() {
             title = "Beagle Sample"
             elevation = 4.0f.dp()
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity() {
             // Navigation Bar requires an activity without toolbar
             R.id.navigationBar -> startActivity(NavigationBarActivity.newIntent(this))
             R.id.navigationFragment -> goToFragment(NavigationFragment.newInstance())
-            R.id.flexSingleWidget -> goToFragment(FlexSingleWidgetFragment.newInstance())
             R.id.navigation -> startActivity(
                 BeagleUIActivity.newIntent(
                     this,

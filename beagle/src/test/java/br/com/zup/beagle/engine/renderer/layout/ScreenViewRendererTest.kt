@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.res.ResourcesCompat
 import br.com.zup.beagle.R
 import br.com.zup.beagle.action.Action
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
@@ -25,9 +26,9 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.JustifyContent
-import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.NavigationBarItem
+import br.com.zup.beagle.widget.layout.ScreenComponent
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
@@ -45,13 +46,13 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
-import br.com.zup.beagle.widget.layout.ScreenWidget
+
 private const val DEFAULT_COLOR = 0xFFFFFF
 
 class ScreenViewRendererTest {
 
     @MockK
-    private lateinit var screenWidget: ScreenWidget
+    private lateinit var screenComponent: ScreenComponent
     @MockK(relaxed = true)
     private lateinit var navigationBar: NavigationBar
     @MockK
@@ -60,15 +61,15 @@ class ScreenViewRendererTest {
     private lateinit var viewFactory: ViewFactory
     @MockK
     private lateinit var rootView: RootView
-    @MockK
+    @RelaxedMockK
     private lateinit var context: AppCompatActivity
-    @MockK
+    @RelaxedMockK
     private lateinit var beagleFlexView: BeagleFlexView
     @MockK
-    private lateinit var widget: Widget
+    private lateinit var component: ServerDrivenComponent
     @MockK
     private lateinit var viewRenderer: ViewRenderer<*>
-    @MockK
+    @RelaxedMockK
     private lateinit var view: View
     @MockK(relaxed = true)
     private lateinit var actionBar: ActionBar
@@ -109,10 +110,10 @@ class ScreenViewRendererTest {
         every { viewFactory.makeBeagleFlexView(any(), any()) } returns beagleFlexView
         every { beagleFlexView.addView(any()) } just Runs
         every { beagleFlexView.addView(any(), any<Flex>()) } just Runs
-        every { screenWidget.navigationBar } returns null
-        every { screenWidget.header } returns null
-        every { screenWidget.content } returns widget
-        every { screenWidget.footer } returns null
+        every { screenComponent.navigationBar } returns null
+        every { screenComponent.header } returns null
+        every { screenComponent.content } returns component
+        every { screenComponent.footer } returns null
         every { viewRendererFactory.make(any()) } returns viewRenderer
         every { viewRenderer.build(any()) } returns view
         every { Color.parseColor(any()) } returns DEFAULT_COLOR
@@ -133,7 +134,7 @@ class ScreenViewRendererTest {
         every { context.resources } returns resources
 
         screenViewRenderer = ScreenViewRenderer(
-            screenWidget,
+            screenComponent,
             viewRendererFactory,
             viewFactory
         )
@@ -163,14 +164,14 @@ class ScreenViewRendererTest {
     @Test
     fun build_should_call_header_builder_and_add_to_screenWidget_view() {
         // Given
-        every { screenWidget.header } returns widget
+        every { screenComponent.header } returns component
         every { context.supportActionBar } returns null
 
         // When
         screenViewRenderer.build(rootView)
 
         // Then
-        verify(atLeast = once()) { viewRendererFactory.make(widget) }
+        verify(atLeast = once()) { viewRendererFactory.make(component) }
         verify(atLeast = once()) { viewRenderer.build(rootView) }
         verify(atLeast = once()) { beagleFlexView.addView(view) }
     }
@@ -178,9 +179,9 @@ class ScreenViewRendererTest {
     @Test
     fun build_should_call_content_builder() {
         // Given
-        val content = mockk<Widget>()
+        val content = mockk<ServerDrivenComponent>()
         val flex = slot<Flex>()
-        every { screenWidget.content } returns content
+        every { screenComponent.content } returns content
         every { beagleFlexView.addView(view, capture(flex)) } just Runs
         every { context.supportActionBar } returns null
 
@@ -188,22 +189,20 @@ class ScreenViewRendererTest {
         screenViewRenderer.build(rootView)
 
         // Then
-        verify(atLeast = once()) { viewRenderer.build(rootView) }
-        verify(atLeast = once()) { beagleFlexView.addView(view, flex.captured) }
-        assertEquals(1.0, flex.captured.grow)
+        verify(atLeast = once()) { beagleFlexView.addServerDrivenComponent(content)}
     }
 
     @Test
     fun build_should_call_footer_builder_and_add_to_screenWidget_view() {
         // Given
-        every { screenWidget.footer } returns widget
+        every { screenComponent.footer } returns component
         every { context.supportActionBar } returns null
 
         // When
         screenViewRenderer.build(rootView)
 
         // Then
-        verify(atLeast = once()) { viewRendererFactory.make(widget) }
+        verify(atLeast = once()) { viewRendererFactory.make(component) }
         verify(atLeast = once()) { viewRenderer.build(rootView) }
         verify(atLeast = once()) { beagleFlexView.addView(view) }
     }
@@ -215,7 +214,7 @@ class ScreenViewRendererTest {
         val showBackButton = true
         every { navigationBar.title } returns title
         every { navigationBar.showBackButton } returns showBackButton
-        every { screenWidget.navigationBar } returns navigationBar
+        every { screenComponent.navigationBar } returns navigationBar
         every { context.supportActionBar } returns actionBar
         every { context.findViewById<Toolbar>(any()) } returns null
 
@@ -230,12 +229,26 @@ class ScreenViewRendererTest {
     }
 
     @Test
+    fun build_should_configure_toolbar_when_supportActionBar_is_not_null_and_toolbar_is_not_null() {
+        // Given
+        every { screenComponent.navigationBar } returns navigationBar
+        every { context.supportActionBar } returns actionBar
+        every { context.findViewById<Toolbar>(any()) } returns toolbar
+
+        // When
+        screenViewRenderer.build(rootView)
+
+        // Then
+        verify(atLeast = once()) { toolbar.visibility = View.VISIBLE }
+    }
+
+    @Test
     fun build_should_configure_toolbar_style_when_supportActionBar_is_not_null_and_toolbar_is_not_null() {
         // Given
         every { BeagleEnvironment.beagleSdk.designSystem } returns designSystemMock
         every { designSystemMock.toolbarStyle(style) } returns styleInt
         every { navigationBar.style } returns style
-        every { screenWidget.navigationBar } returns navigationBar
+        every { screenComponent.navigationBar } returns navigationBar
         every { context.supportActionBar } returns actionBar
         every { context.findViewById<Toolbar>(any()) } returns toolbar
 
@@ -253,8 +266,7 @@ class ScreenViewRendererTest {
     @Test
     fun build_should_configToolbarItems_when_navigationBarItems_is_not_null_and_image_is_null() {
         // GIVEN
-        every { BeagleEnvironment.beagleSdk.designSystem } returns null
-        every { screenWidget.navigationBar } returns navigationBar
+        every { screenComponent.navigationBar } returns navigationBar
         every { context.supportActionBar } returns null
         every { context.findViewById<Toolbar>(any()) } returns toolbar
         every { toolbar.menu } returns menu
@@ -281,7 +293,7 @@ class ScreenViewRendererTest {
         every { BeagleEnvironment.beagleSdk.designSystem } returns designSystemMock
         every { designSystemMock.toolbarStyle(any()) } returns styleInt
         every { designSystemMock.image(any()) } returns RandomData.int()
-        every { screenWidget.navigationBar } returns navigationBar
+        every { screenComponent.navigationBar } returns navigationBar
         every { context.supportActionBar } returns null
         every { context.findViewById<Toolbar>(any()) } returns toolbar
         every { toolbar.menu } returns menu

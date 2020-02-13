@@ -50,7 +50,7 @@ class NavigationActionHandlerTest {
         // Given
         val navigate = Navigate(
             type = NavigationType.OPEN_DEEP_LINK,
-            href = RandomData.httpUrl()
+            path = RandomData.httpUrl()
         )
         every { BeagleEnvironment.beagleSdk.deepLinkHandler } returns null
 
@@ -66,7 +66,7 @@ class NavigationActionHandlerTest {
         // Given
         val navigate = Navigate(
             type = NavigationType.OPEN_DEEP_LINK,
-            href = RandomData.httpUrl()
+            path = RandomData.httpUrl()
         )
         val intent = mockk<Intent>()
         every { context.startActivity(any()) } just Runs
@@ -100,7 +100,7 @@ class NavigationActionHandlerTest {
         val path = RandomData.httpUrl()
         val navigate = Navigate(
             type = NavigationType.SWAP_VIEW,
-            href = path
+            path = path
         )
         every { BeagleNavigator.swapScreen(any(), any()) } just Runs
 
@@ -131,7 +131,7 @@ class NavigationActionHandlerTest {
         val path = RandomData.httpUrl()
         val navigate = Navigate(
             type = NavigationType.ADD_VIEW,
-            href = path
+            path = path
         )
         every { BeagleNavigator.addScreen(any(), any()) } just Runs
 
@@ -192,7 +192,7 @@ class NavigationActionHandlerTest {
         val path = RandomData.httpUrl()
         val navigate = Navigate(
             type = NavigationType.POP_TO_VIEW,
-            href = path
+            path = path
         )
         every { BeagleNavigator.popToScreen(any(), any()) } just Runs
 
@@ -223,7 +223,7 @@ class NavigationActionHandlerTest {
         val path = RandomData.httpUrl()
         val navigate = Navigate(
             type = NavigationType.PRESENT_VIEW,
-            href = path
+            path = path
         )
         every { BeagleNavigator.presentScreen(any(), any()) } just Runs
 

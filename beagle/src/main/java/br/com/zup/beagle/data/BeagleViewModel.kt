@@ -2,10 +2,10 @@ package br.com.zup.beagle.data
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.exception.BeagleException
 import br.com.zup.beagle.logger.BeagleLogger
 import br.com.zup.beagle.utils.CoroutineDispatchers
-import br.com.zup.beagle.widget.core.Widget
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
@@ -29,14 +29,14 @@ internal class BeagleViewModel(
     val state = MutableLiveData<ViewState>()
     private val urlObservableReference = AtomicReference(UrlObservable())
 
-    fun fetchWidget(url: String) = launch {
+    fun fetchComponent(url: String) = launch {
         try {
             if (hasFetchInProgress(url)) {
                 waitFetchProcess(url)
             } else {
                 setLoading(url, true)
-                val widget = beagleService.fetchWidget(url)
-                state.value = ViewState.Result(widget)
+                val component = beagleService.fetchComponent(url)
+                state.value = ViewState.Result(component)
             }
         } catch (exception: BeagleException) {
             state.value = ViewState.Error(exception)
@@ -49,11 +49,11 @@ internal class BeagleViewModel(
         state.value = ViewState.Loading(loading)
     }
 
-    fun fetchWidgetForCache(url: String) = launch {
+    fun fetchForCache(url: String) = launch {
         try {
             urlObservableReference.get().setLoading(url, true)
-            val widget = beagleService.fetchWidget(url)
-            urlObservableReference.get().notifyLoaded(url, widget)
+            val component = beagleService.fetchComponent(url)
+            urlObservableReference.get().notifyLoaded(url, component)
         } catch (exception: BeagleException) {
             BeagleLogger.warning(exception.message)
         }
@@ -65,7 +65,7 @@ internal class BeagleViewModel(
     private fun waitFetchProcess(url: String) {
         urlObservableReference.get().deleteObservers()
         urlObservableReference.get().addObserver { _, arg ->
-            (arg as? Pair<String, Widget>)?.let {
+            (arg as? Pair<String, ServerDrivenComponent>)?.let {
                 urlObservableReference.get().setLoading(url, false)
                 if (url == it.first)
                     state.value = ViewState.Result(it)
@@ -106,9 +106,9 @@ internal class BeagleViewModel(
                 urlInLoadList.remove(url)
         }
 
-        fun notifyLoaded(url: String, widget: Widget) {
+        fun notifyLoaded(url: String, component: ServerDrivenComponent) {
             urlInLoadList.remove(url)
-            val pair = url to widget
+            val pair = url to component
             notifyObservers(pair)
         }
     }

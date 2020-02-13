@@ -1,15 +1,15 @@
 package br.com.zup.beagle.data
 
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.data.serializer.BeagleSerializer
-import br.com.zup.beagle.widget.core.Widget
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-interface FetchWidgetListener {
+interface FetchListener {
 
-    fun onSuccess(widget: Widget)
+    fun onSuccess(component: ServerDrivenComponent)
     fun onError(error: Throwable)
 }
 
@@ -25,21 +25,21 @@ class BeagleServiceWrapper {
         beagleSerialize = serialize
     }
 
-    fun fetchWidget(url: String, listener: FetchWidgetListener) {
+    fun fetchComponent(url: String, listener: FetchListener) {
         scope.launch {
             try {
-                listener.onSuccess(beagleService.fetchWidget(url))
+                listener.onSuccess(beagleService.fetchComponent(url))
             } catch (e: Throwable) {
                 listener.onError(e)
             }
         }
     }
 
-    fun serializeWidget(widget: Widget): String {
-        return beagleSerialize.serializeWidget(widget)
+    fun serializeComponent(component: ServerDrivenComponent): String {
+        return beagleSerialize.serializeComponent(component)
     }
 
-    fun deserializeWidget(response: String): Widget {
-        return beagleSerialize.deserializeWidget(response)
+    fun deserializeComponent(response: String): ServerDrivenComponent {
+        return beagleSerialize.deserializeComponent(response)
     }
 }

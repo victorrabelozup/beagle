@@ -3,10 +3,10 @@ package br.com.zup.beagle.engine.renderer.ui
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
-import br.com.zup.beagle.widget.core.Widget
 import io.mockk.Called
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -17,7 +17,7 @@ import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 
-private val ROWS = listOf<Widget>(mockk(), mockk())
+private val ROWS = listOf<ServerDrivenComponent>(mockk(), mockk())
 
 class ListViewRecyclerAdapterTest {
 

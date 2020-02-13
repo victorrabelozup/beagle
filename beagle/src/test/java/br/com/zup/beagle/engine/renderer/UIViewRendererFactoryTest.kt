@@ -9,9 +9,8 @@ import br.com.zup.beagle.engine.renderer.ui.ListViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.WidgetViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.NetworkImageViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.TextViewRenderer
+import br.com.zup.beagle.widget.core.ComposeComponent
 import br.com.zup.beagle.setup.BeagleEnvironment
-import br.com.zup.beagle.widget.core.ComposeWidget
-import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.core.WidgetView
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormSubmit
@@ -48,108 +47,108 @@ class UIViewRendererFactoryTest {
     }
 
     @Test
-    fun make_should_return_ButtonViewRenderer_when_widget_is_a_Button() {
+    fun make_should_return_ButtonViewRenderer_when_component_is_a_Button() {
         // Given
-        val widget = Button(text = "")
+        val component = Button(text = "")
 
         // When
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
         // Then
         assertTrue(actual is ButtonViewRenderer)
     }
 
     @Test
-    fun make_should_return_TextViewRenderer_when_widget_is_a_Text() {
+    fun make_should_return_TextViewRenderer_when_component_is_a_Text() {
         // Given
-        val widget = Text(text = "")
+        val component = Text(text = "")
 
         // When
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
         // Then
         assertTrue(actual is TextViewRenderer)
     }
 
     @Test
-    fun make_should_return_ImageViewRenderer_when_widget_is_a_Image() {
+    fun make_should_return_ImageViewRenderer_when_component_is_a_Image() {
         // Given
-        val widget = Image(name = "")
+        val component = Image(name = "")
 
         // When
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
         // Then
         assertTrue(actual is ImageViewRenderer)
     }
 
     @Test
-    fun make_should_return_NetworkImageViewRenderer_when_widget_is_a_NetworkImage() {
+    fun make_should_return_NetworkImageViewRenderer_when_component_is_a_NetworkImage() {
         // Given
-        val widget = NetworkImage(url = "")
+        val component = NetworkImage(path = "")
 
         // When
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
         // Then
         assertTrue(actual is NetworkImageViewRenderer)
     }
 
     @Test
-    fun make_should_return_ListViewRenderer_when_widget_is_a_ListView() {
+    fun make_should_return_ListViewRenderer_when_component_is_a_ListView() {
         // Given
-        val widget = mockk<ListView>()
+        val component = mockk<ListView>()
 
         // When
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
         // Then
         assertTrue(actual is ListViewRenderer)
     }
 
     @Test
-    fun make_should_return_CustomWidgetViewRenderer_when_widget_is_a_NativeWidget() {
+    fun make_should_return_CustomWidgetViewRenderer_when_component_is_a_NativeWidget() {
         // Given
-        val widget = mockk<WidgetView>()
+        val component = mockk<WidgetView>()
 
         // When
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
         // Then
         assertTrue(actual is WidgetViewRenderer)
     }
 
     @Test
-    fun make_should_return_BuildableWidgetViewRenderer_when_widget_is_not_a_ComposeWidget() {
+    fun make_should_return_BuildableWidgetViewRenderer_when_component_is_not_a_ComposeWidget() {
         // Given
-        val widget = mockk<ComposeWidget>()
+        val component = mockk<ComposeComponent>()
 
         // When
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
         // Then
         assertTrue(actual is BuildableWidgetViewRenderer)
     }
 
     @Test
-    fun make_should_return_FormInputViewRenderer_when_widget_is_a_FormInput() {
+    fun make_should_return_FormInputViewRenderer_when_component_is_a_FormInput() {
         // Given
-        val widget = mockk<FormInput>()
+        val component = mockk<FormInput>()
 
         // When
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
         // Then
         assertTrue(actual is FormInputViewRenderer)
     }
 
     @Test
-    fun make_should_return_FormSubmitViewRenderer_when_widget_is_a_FormSubmit() {
+    fun make_should_return_FormSubmitViewRenderer_when_component_is_a_FormSubmit() {
         // Given
-        val widget = mockk<FormSubmit>()
+        val component = mockk<FormSubmit>()
 
         // When
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
         // Then
         assertTrue(actual is FormSubmitViewRenderer)

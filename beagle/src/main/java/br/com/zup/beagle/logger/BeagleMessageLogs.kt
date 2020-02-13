@@ -1,8 +1,8 @@
 package br.com.zup.beagle.logger
 
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.networking.RequestData
 import br.com.zup.beagle.networking.ResponseData
-import br.com.zup.beagle.widget.core.Widget
 
 internal object BeagleMessageLogs {
 
@@ -35,9 +35,9 @@ internal object BeagleMessageLogs {
         BeagleLogger.error(message, ex)
     }
 
-    fun logViewFactoryNotFoundForWidget(widget: Widget) {
+    fun logViewFactoryNotFound(component: ServerDrivenComponent) {
         val message = """
-            Did you miss to create a WidgetViewFactory for Widget ${widget::class.java.simpleName}
+            Did you miss to create a WidgetViewFactory for Widget ${component::class.java.simpleName}
         """.trimIndent()
         BeagleLogger.warning(message)
     }
@@ -56,12 +56,12 @@ internal object BeagleMessageLogs {
     }
 
     fun logFormInputsNotFound(formActionName: String) {
-        BeagleLogger.warning("Are you missing to declare your FormInput widgets for " +
+        BeagleLogger.warning("Are you missing to declare your FormInput for " +
                 "form action '$formActionName'?")
     }
 
     fun logFormSubmitNotFound(formActionName: String) {
-        BeagleLogger.warning("Are you missing to declare your FormSubmit widget for " +
+        BeagleLogger.warning("Are you missing to declare your FormSubmit component for " +
                 "form action '$formActionName'?")
     }
 

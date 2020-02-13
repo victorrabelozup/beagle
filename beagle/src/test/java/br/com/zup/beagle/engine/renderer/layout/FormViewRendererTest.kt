@@ -29,6 +29,7 @@ import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkObject
@@ -48,7 +49,7 @@ private val INPUT_VALUE = RandomData.string()
 
 class FormViewRendererTest {
 
-    @MockK
+    @RelaxedMockK
     private lateinit var form: Form
     @MockK(relaxed = true)
     private lateinit var formInput: FormInput
@@ -76,11 +77,11 @@ class FormViewRendererTest {
     private lateinit var appCompatActivity: AppCompatActivity
     @MockK
     private lateinit var inputMethodManager: InputMethodManager
-    @MockK(relaxed = true)
+    @RelaxedMockK
     private lateinit var formInputView: View
     @MockK
     private lateinit var formSubmitView: View
-    @MockK
+    @RelaxedMockK
     private lateinit var viewGroup: ViewGroup
     @MockK
     private lateinit var rootView: RootView
@@ -114,7 +115,7 @@ class FormViewRendererTest {
         every { viewRendererFactory.make(form) } returns viewRenderer
         every { viewRenderer.build(rootView) } returns viewGroup
         every { form.child } returns form
-        every { form.action } returns RandomData.string()
+        every { form.path } returns RandomData.string()
         every { formInput.required } returns false
         every { formInput.child.getValue() } returns INPUT_VALUE
         every { formInputView.context } returns appCompatActivity

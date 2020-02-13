@@ -2,13 +2,13 @@ package br.com.zup.beagle.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import br.com.zup.beagle.action.Action
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.exception.BeagleException
+import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.utils.CoroutineDispatchers
-import br.com.zup.beagle.widget.core.Widget
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
-import br.com.zup.beagle.extensions.once
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -31,7 +31,7 @@ class BeagleViewModelTest {
     val rule = InstantTaskExecutorRule()
 
     @MockK
-    private lateinit var widget: Widget
+    private lateinit var component: ServerDrivenComponent
     @MockK
     private lateinit var action: Action
     @MockK
@@ -52,7 +52,7 @@ class BeagleViewModelTest {
 
         CoroutineDispatchers.Main = Dispatchers.Unconfined
 
-        coEvery { beagleService.fetchWidget(any()) } returns widget
+        coEvery { beagleService.fetchComponent(any()) } returns component
         coEvery { beagleService.fetchAction(any()) } returns action
 
         viewModelStates.clear()
@@ -67,28 +67,31 @@ class BeagleViewModelTest {
 
     @Test
     @Suppress("UNCHECKED_CAST")
-    fun fetchWidget_should_return_render_ViewState() {
+    fun fetch_should_return_render_ViewState() {
         // Given
         val url = RandomData.httpUrl()
 
         // When
-        beagleUIViewModel.fetchWidget(url)
+        beagleUIViewModel.fetchComponent(url)
 
         // Then
         assertLoading(viewModelStates[0], true)
-        assertEquals(widget, (viewModelStates[1] as ViewState.Result<Widget>).data)
+        assertEquals(
+            component,
+            (viewModelStates[1] as ViewState.Result<ServerDrivenComponent>).data
+        )
         assertLoading(viewModelStates[2], false)
     }
 
     @Test
-    fun fetchWidget_should_return_a_error_ViewState() {
+    fun fetch_should_return_a_error_ViewState() {
         // Given
         val url = RandomData.httpUrl()
         val exception = BeagleException("Error")
-        coEvery { beagleService.fetchWidget(any()) } throws exception
+        coEvery { beagleService.fetchComponent(any()) } throws exception
 
         // When
-        beagleUIViewModel.fetchWidget(url)
+        beagleUIViewModel.fetchComponent(url)
 
         // Then
         assertLoading(viewModelStates[0], true)

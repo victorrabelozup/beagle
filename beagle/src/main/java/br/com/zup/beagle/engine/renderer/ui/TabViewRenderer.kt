@@ -24,7 +24,7 @@ private val TABBAR_HEIGHT = 48.dp()
 private val DEFTYPE_DRAWABLE = "drawable"
 
 internal class TabViewRenderer(
-    override val widget: TabView,
+    override val component: TabView,
     private val viewFactory: ViewFactory = ViewFactory()
 ) : UIViewRenderer<TabView>() {
 
@@ -36,7 +36,7 @@ internal class TabViewRenderer(
         val tabLayout = makeTabLayout(rootView.getContext())
 
         val viewPager = viewFactory.makeViewPager(rootView.getContext()).apply {
-            adapter = ContentAdapter(rootView = rootView, tabList = widget.tabItems)
+            adapter = ContentAdapter(rootView = rootView, tabList = component.tabItems)
         }
 
         tabLayout.addOnTabSelectedListener(getTabSelectedListener(viewPager))
@@ -60,10 +60,10 @@ internal class TabViewRenderer(
     }
 
     private fun TabLayout.addTabs(context: Context) {
-        for (i in widget.tabItems.indices) {
+        for (i in component.tabItems.indices) {
             addTab(newTab().apply {
-                text = widget.tabItems[i].title
-                widget.tabItems[i].icon?.let {
+                text = component.tabItems[i].title
+                component.tabItems[i].icon?.let {
                     try {
                         icon = getIconFromResources(context, it)
                     } catch (e: Resources.NotFoundException) {

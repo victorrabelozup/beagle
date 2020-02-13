@@ -32,16 +32,20 @@ data class CustomPageIndicator(
         customPageIndicatorView = this
         setIndexChangedListener { index ->
             output.swapToPage(index)
-            setContinueButtonVisibility(if (showContinue) {
-                View.VISIBLE
-            } else {
-                View.INVISIBLE
-            })
-            setBackButtonVisibility(if (showSkip) {
-                View.VISIBLE
-            } else {
-                View.INVISIBLE
-            })
+            setContinueButtonVisibility(
+                if (showContinue) {
+                    View.VISIBLE
+                } else {
+                    View.INVISIBLE
+                }
+            )
+            setBackButtonVisibility(
+                if (showSkip) {
+                    View.VISIBLE
+                } else {
+                    View.INVISIBLE
+                }
+            )
         }
     }
 }

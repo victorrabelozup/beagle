@@ -9,6 +9,7 @@ import br.com.zup.beagle.widget.core.WidgetView
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import org.junit.After
@@ -18,11 +19,11 @@ import kotlin.test.assertEquals
 
 class WidgetViewRendererTest {
 
-    @MockK
+    @RelaxedMockK
     private lateinit var widget: WidgetView
     @MockK
     private lateinit var context: Context
-    @MockK
+    @RelaxedMockK
     private lateinit var view: View
     @MockK
     private lateinit var rootView: RootView

@@ -1,6 +1,7 @@
 package br.com.zup.beagle.engine.renderer.layout
 
 import android.view.View
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
@@ -8,10 +9,9 @@ import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
-import br.com.zup.beagle.widget.core.Widget
 
-internal abstract class DirectionalViewRenderer<T : Widget>(
-    private val children: List<Widget>,
+internal abstract class DirectionalViewRenderer<T : ServerDrivenComponent>(
+    private val children: List<ServerDrivenComponent>,
     private val flex: Flex,
     viewRendererFactory: ViewRendererFactory,
     viewFactory: ViewFactory
@@ -29,7 +29,7 @@ internal abstract class DirectionalViewRenderer<T : Widget>(
     }
 
     private fun addChildrenViews(
-        children: List<Widget>,
+        children: List<ServerDrivenComponent>,
         beagleFlexView: BeagleFlexView,
         rootView: RootView
     ) {

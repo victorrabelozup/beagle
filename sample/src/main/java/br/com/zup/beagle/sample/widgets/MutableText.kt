@@ -10,7 +10,7 @@ data class MutableText(
     val firstText: String = "",
     val secondText: String = "",
     val color: String = "#000000"
-) : WidgetView {
+): WidgetView() {
     override fun toView(context: Context) = TextView(context).apply {
         val color = Color.parseColor(color)
         text = firstText

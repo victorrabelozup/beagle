@@ -1,7 +1,8 @@
 package br.com.zup.beagle.data
 
 import br.com.zup.beagle.action.Action
-import br.com.zup.beagle.data.cache.BeagleWidgetCacheHelper
+import br.com.zup.beagle.core.ServerDrivenComponent
+import br.com.zup.beagle.data.cache.BeagleCacheHelper
 import br.com.zup.beagle.data.serializer.BeagleSerializer
 import br.com.zup.beagle.exception.BeagleException
 import br.com.zup.beagle.logger.BeagleMessageLogs
@@ -11,7 +12,6 @@ import br.com.zup.beagle.networking.RequestData
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.utils.CoroutineDispatchers
 import br.com.zup.beagle.utils.isValidUrl
-import br.com.zup.beagle.widget.core.Widget
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.resume
@@ -22,15 +22,15 @@ internal class BeagleService(
     private val httpClient: HttpClient = HttpClientFactory().make()
 ) {
     @Throws(BeagleException::class)
-    suspend fun fetchWidget(url: String): Widget {
+    suspend fun fetchComponent(url: String): ServerDrivenComponent {
         return run {
             withContext(CoroutineDispatchers.Default) {
-                BeagleWidgetCacheHelper.getWidgetFromCache(url)
+                BeagleCacheHelper.getFromCache(url)
             }
         } ?: run {
                 val jsonResponse = fetchData(url)
-                val widget = deserializeWidget(jsonResponse)
-                BeagleWidgetCacheHelper.cacheWidget(url, widget)
+                val widget = deserializeComponent(jsonResponse)
+                BeagleCacheHelper.cache(url, widget)
             }
         }
 
@@ -77,8 +77,8 @@ internal class BeagleService(
         return serializer.deserializeAction(response)
     }
 
-    private fun deserializeWidget(response: String): Widget {
-        return serializer.deserializeWidget(response)
+    private fun deserializeComponent(response: String): ServerDrivenComponent {
+        return serializer.deserializeComponent(response)
     }
 
     private fun genericErrorMessage(url: String)  = "fetchData error for url $url"

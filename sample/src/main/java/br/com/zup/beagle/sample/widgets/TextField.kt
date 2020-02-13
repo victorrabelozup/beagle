@@ -10,6 +10,7 @@ import androidx.core.widget.doOnTextChanged
 import br.com.zup.beagle.interfaces.StateChangeable
 import br.com.zup.beagle.interfaces.WidgetState
 import br.com.zup.beagle.sample.utils.MaskApplier
+import br.com.zup.beagle.widget.core.WidgetView
 import br.com.zup.beagle.state.Observable
 
 enum class TextFieldInputType {
@@ -26,7 +27,7 @@ data class TextField(
     val color: String = "#000000",
     val mask: String? = null,
     val inputType: TextFieldInputType? = null
-) : InputWidget, StateChangeable {
+) : WidgetView(),InputWidget , StateChangeable {
 
     private val stateObservable = Observable<WidgetState>()
 
@@ -60,10 +61,10 @@ data class TextField(
         inputType?.let {
             if (it == TextFieldInputType.NUMBER) {
                 textFieldView.inputType = InputType.TYPE_CLASS_NUMBER or
-                        InputType.TYPE_NUMBER_FLAG_SIGNED
+                    InputType.TYPE_NUMBER_FLAG_SIGNED
             } else if (it == TextFieldInputType.PASSWORD) {
                 textFieldView.inputType = InputType.TYPE_CLASS_TEXT or
-                        InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    InputType.TYPE_TEXT_VARIATION_PASSWORD
             }
         }
 

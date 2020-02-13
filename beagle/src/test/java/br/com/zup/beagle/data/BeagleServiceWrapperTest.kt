@@ -1,10 +1,10 @@
 package br.com.zup.beagle.data
 
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.data.serializer.BeagleSerializer
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.testutil.RandomData
-import br.com.zup.beagle.widget.core.Widget
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.coEvery
@@ -38,13 +38,13 @@ class BeagleServiceWrapperTest {
     private lateinit var beagleSerializer: BeagleSerializer
 
     @MockK
-    private lateinit var widget: Widget
+    private lateinit var component: ServerDrivenComponent
 
     @MockK
     private lateinit var throwable: Throwable
 
     @MockK
-    private lateinit var listener: FetchWidgetListener
+    private lateinit var listener: FetchListener
 
     private lateinit var subject: BeagleServiceWrapper
 
@@ -69,28 +69,28 @@ class BeagleServiceWrapperTest {
     }
 
     @Test
-    fun fetchWidget_when_success_should_call_onSuccess() = runBlockingTest {
+    fun fetch_when_success_should_call_onSuccess() = runBlockingTest {
         // GIVEN
         subject.init(beagleService,beagleSerializer)
-        coEvery { beagleService.fetchWidget(URL) } returns widget
+        coEvery { beagleService.fetchComponent(URL) } returns component
         every { listener.onSuccess(any()) } just Runs
 
         // WHEN
-        subject.fetchWidget(URL, listener)
+        subject.fetchComponent(URL, listener)
 
         // THEN
-        verify(exactly = once()) { listener.onSuccess(widget) }
+        verify(exactly = once()) { listener.onSuccess(component) }
     }
 
     @Test
-    fun fetchWidget_when_fail_should_call_onError() = runBlockingTest {
+    fun fetch_when_fail_should_call_onError() = runBlockingTest {
         // GIVEN
         subject.init(beagleService,beagleSerializer)
-        coEvery { beagleService.fetchWidget(URL) } throws throwable
+        coEvery { beagleService.fetchComponent(URL) } throws throwable
         every { listener.onError(any()) } just Runs
 
         // WHEN
-        subject.fetchWidget(URL, listener)
+        subject.fetchComponent(URL, listener)
 
         // THEN
         verify(exactly = once()) { listener.onError(throwable) }
@@ -101,13 +101,13 @@ class BeagleServiceWrapperTest {
         // GIVEN
         subject.init(beagleService,beagleSerializer)
         val randomString = RandomData.string()
-        every { beagleSerializer.deserializeWidget(randomString) } returns widget
+        every { beagleSerializer.deserializeComponent(randomString) } returns component
 
         // WHEN
-        subject.deserializeWidget(randomString)
+        subject.deserializeComponent(randomString)
 
         // THEN
-        assertEquals(beagleSerializer.deserializeWidget(randomString), widget)
+        assertEquals(beagleSerializer.deserializeComponent(randomString), component)
     }
 
     @Test
@@ -115,12 +115,12 @@ class BeagleServiceWrapperTest {
         // GIVEN
         subject.init(beagleService,beagleSerializer)
         val randomString = RandomData.string()
-        every { beagleSerializer.serializeWidget(widget) } returns randomString
+        every { beagleSerializer.serializeComponent(component) } returns randomString
 
         // WHEN
-        subject.serializeWidget(widget)
+        subject.serializeComponent(component)
 
         // THEN
-        assertEquals(beagleSerializer.serializeWidget(widget), randomString)
+        assertEquals(beagleSerializer.serializeComponent(component), randomString)
     }
 }

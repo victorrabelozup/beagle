@@ -1,16 +1,16 @@
 package br.com.zup.beagle.engine.renderer
 
 import android.view.View
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.utils.applyAppearance
 import br.com.zup.beagle.view.ViewFactory
-import br.com.zup.beagle.widget.core.Widget
 
-internal abstract class ViewRenderer<T : Widget> {
-    abstract val widget: T
+internal abstract class ViewRenderer<T : ServerDrivenComponent> {
+    abstract val component: T
 
     fun build(rootView: RootView): View {
         val builtView = buildView(rootView)
-        afterBuildView(builtView, widget)
+        afterBuildView(builtView, component)
         return builtView
     }
 
@@ -24,15 +24,15 @@ internal abstract class ViewRenderer<T : Widget> {
     }
 }
 
-internal abstract class LayoutViewRenderer<T : Widget>(
+internal abstract class LayoutViewRenderer<T : ServerDrivenComponent>(
     protected val viewRendererFactory: ViewRendererFactory,
     protected val viewFactory: ViewFactory
 ) : ViewRenderer<T>()
 
-internal abstract class UIViewRenderer<T : Widget> : ViewRenderer<T>()
+internal abstract class UIViewRenderer<T : ServerDrivenComponent> : ViewRenderer<T>()
 
 internal interface AbstractViewRendererFactory {
-    fun make(widget: Widget): ViewRenderer<*>
+    fun make(component: ServerDrivenComponent): ViewRenderer<*>
 }
 
 internal class ViewRendererFactory(
@@ -40,11 +40,11 @@ internal class ViewRendererFactory(
     private val ui: UIViewRendererFactory = UIViewRendererFactory()
 ) : AbstractViewRendererFactory {
 
-    override fun make(widget: Widget): ViewRenderer<*> {
+    override fun make(component: ServerDrivenComponent): ViewRenderer<*> {
         return try {
-            layout.make(widget)
+            layout.make(component)
         } catch (exception: IllegalArgumentException) {
-            ui.make(widget)
+            ui.make(component)
         }
     }
 }

@@ -1,6 +1,6 @@
 package br.com.zup.beagle.engine.renderer
 
-import br.com.zup.beagle.widget.core.Widget
+import br.com.zup.beagle.core.ServerDrivenComponent
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -17,7 +17,7 @@ class ViewRendererFactoryTest {
     private lateinit var uiViewRendererFactory: UIViewRendererFactory
 
     @MockK
-    private lateinit var widget: Widget
+    private lateinit var component: ServerDrivenComponent
 
     private lateinit var viewRendererFactory: ViewRendererFactory
 
@@ -33,7 +33,7 @@ class ViewRendererFactoryTest {
 
     @Test
     fun make_should_return_a_LayoutViewRenderer() {
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
         assertTrue(actual is LayoutViewRenderer)
     }
@@ -41,10 +41,10 @@ class ViewRendererFactoryTest {
     @Test
     fun make_should_return_a_UIViewRenderer() {
         // Given
-        every { viewRendererFactory.make(widget) } throws IllegalArgumentException()
+        every { viewRendererFactory.make(component) } throws IllegalArgumentException()
 
         // When
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
         // Then
         assertTrue(actual is UIViewRenderer)

@@ -1,9 +1,9 @@
 package br.com.zup.beagle.logger
 
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.mockdata.makeRequestData
 import br.com.zup.beagle.mockdata.makeResponseData
 import br.com.zup.beagle.testutil.RandomData
-import br.com.zup.beagle.widget.core.Widget
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
@@ -102,10 +102,10 @@ class BeagleMessageLogsTest {
     @Test
     fun logViewFactoryNotFoundForWidget_should_call_BeagleLogger_warning() {
         // Given
-        val widget = mockk<Widget>()
+        val widget = mockk<ServerDrivenComponent>()
 
         // When
-        BeagleMessageLogs.logViewFactoryNotFoundForWidget(widget)
+        BeagleMessageLogs.logViewFactoryNotFound(widget)
 
         // Then
         val message = """
@@ -147,7 +147,7 @@ class BeagleMessageLogsTest {
         BeagleMessageLogs.logFormInputsNotFound(formActionName)
 
         // Then
-        verify(exactly = 1) { BeagleLogger.warning("Are you missing to declare your FormInput widgets for " +
+        verify(exactly = 1) { BeagleLogger.warning("Are you missing to declare your FormInput for " +
                 "form action '$formActionName'?") }
     }
 
@@ -160,7 +160,7 @@ class BeagleMessageLogsTest {
         BeagleMessageLogs.logFormSubmitNotFound(formActionName)
 
         // Then
-        verify(exactly = 1) { BeagleLogger.warning("Are you missing to declare your FormSubmit widget for " +
+        verify(exactly = 1) { BeagleLogger.warning("Are you missing to declare your FormSubmit component for " +
                 "form action '$formActionName'?") }
     }
 }

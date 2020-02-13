@@ -1,29 +1,26 @@
 package br.com.zup.beagle.engine.renderer
 
-import br.com.zup.beagle.engine.renderer.layout.ScreenViewRenderer
-import br.com.zup.beagle.engine.renderer.layout.FlexSingleWidgetViewRenderer
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.layout.ContainerViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.FormViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.HorizontalViewRenderer
-import br.com.zup.beagle.engine.renderer.layout.LazyWidgetViewRenderer
-import br.com.zup.beagle.engine.renderer.layout.TouchableViewRenderer
+import br.com.zup.beagle.engine.renderer.layout.LazyComponentViewRenderer
+import br.com.zup.beagle.engine.renderer.layout.ScreenViewRenderer
+import br.com.zup.beagle.engine.renderer.layout.ScrollViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.SpacerViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.StackViewRenderer
+import br.com.zup.beagle.engine.renderer.layout.TouchableViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.VerticalViewRender
-import br.com.zup.beagle.engine.renderer.layout.*
 import br.com.zup.beagle.setup.BeagleEnvironment
-import br.com.zup.beagle.setup.BeagleSdk
-import br.com.zup.beagle.widget.layout.ScreenWidget
-import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.form.Form
-import br.com.zup.beagle.widget.layout.FlexSingleWidget
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.Horizontal
+import br.com.zup.beagle.widget.layout.ScreenComponent
 import br.com.zup.beagle.widget.layout.ScrollView
 import br.com.zup.beagle.widget.layout.Spacer
 import br.com.zup.beagle.widget.layout.Stack
 import br.com.zup.beagle.widget.layout.Vertical
-import br.com.zup.beagle.widget.lazy.LazyWidget
+import br.com.zup.beagle.widget.lazy.LazyComponent
 import br.com.zup.beagle.widget.navigation.Touchable
 import io.mockk.every
 import io.mockk.mockk
@@ -32,9 +29,8 @@ import io.mockk.unmockkObject
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.*
 import kotlin.test.assertFails
+import kotlin.test.assertTrue
 
 class LayoutViewRendererFactoryTest {
 
@@ -55,12 +51,12 @@ class LayoutViewRendererFactoryTest {
     }
 
     @Test
-    fun make_should_return_ContainerViewRenderer_when_widget_is_a_ScreenWidget() {
+    fun make_should_return_ContainerViewRenderer_when_component_is_a_Screen() {
         // Given
-        val widget = mockk<ScreenWidget>()
+        val component = mockk<ScreenComponent>()
 
         // When
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
         // Then
         assertTrue(actual is ScreenViewRenderer)
@@ -69,11 +65,11 @@ class LayoutViewRendererFactoryTest {
     @Test
     fun make_should_return_VerticalViewRender_when_widget_is_a_Vertical() {
         // Given
-        val widget = mockk<Vertical>()
-        every { widget.children } returns listOf()
+        val component = mockk<Vertical>()
+        every { component.children } returns listOf()
 
         // When
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
         // Then
         assertTrue(actual is VerticalViewRender)
@@ -82,11 +78,11 @@ class LayoutViewRendererFactoryTest {
     @Test
     fun make_should_return_HorizontalViewRenderer_when_widget_is_a_Horizontal() {
         // Given
-        val widget = mockk<Horizontal>()
-        every { widget.children } returns listOf()
+        val component = mockk<Horizontal>()
+        every { component.children } returns listOf()
 
         // When
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
         // Then
         assertTrue(actual is HorizontalViewRenderer)
@@ -95,10 +91,10 @@ class LayoutViewRendererFactoryTest {
     @Test
     fun make_should_return_StackViewRenderer_when_widget_is_a_Stack() {
         // Given
-        val widget = mockk<Stack>()
+        val component = mockk<Stack>()
 
         // When
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
         // Then
         assertTrue(actual is StackViewRenderer)
@@ -107,10 +103,10 @@ class LayoutViewRendererFactoryTest {
     @Test
     fun make_should_return_SpacerViewRenderer_when_widget_is_a_Spacer() {
         // Given
-        val widget = mockk<Spacer>()
+        val component = mockk<Spacer>()
 
         // When
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
         // Then
         assertTrue(actual is SpacerViewRenderer)
@@ -119,34 +115,22 @@ class LayoutViewRendererFactoryTest {
     @Test
     fun make_should_return_ContainerViewRenderer_when_widget_is_a_Container() {
         // Given
-        val widget = mockk<Container>()
+        val component = mockk<Container>()
 
         // When
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
         // Then
         assertTrue(actual is ContainerViewRenderer)
     }
 
     @Test
-    fun make_should_return_FlexSingleWidgetViewRenderer_when_widget_is_a_FlexSingleWidget() {
-        // Given
-        val widget = mockk<FlexSingleWidget>()
-
-        // When
-        val actual = viewRendererFactory.make(widget)
-
-        // Then
-        assertTrue(actual is FlexSingleWidgetViewRenderer)
-    }
-
-    @Test
     fun make_should_return_NavigatorViewRenderer_when_widget_is_a_Touchable() {
         // Given
-        val widget = mockk<Touchable>()
+        val component = mockk<Touchable>()
 
         // When
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
         // Then
         assertTrue(actual is TouchableViewRenderer)
@@ -155,10 +139,10 @@ class LayoutViewRendererFactoryTest {
     @Test
     fun make_should_return_a_FormViewRenderer_when_widget_is_a_layout_Form() {
         // Given
-        val widget = mockk<Form>()
+        val component = mockk<Form>()
 
         // When
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
         assertTrue(actual is FormViewRenderer)
     }
@@ -166,10 +150,10 @@ class LayoutViewRendererFactoryTest {
     @Test
     fun make_should_return_ScrollViewRenderer_when_widget_is_a_ScrollView() {
         // Given
-        val widget = mockk<ScrollView>()
+        val component = mockk<ScrollView>()
 
         // When
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
         // Then
         assertTrue(actual is ScrollViewRenderer)
@@ -178,22 +162,22 @@ class LayoutViewRendererFactoryTest {
     @Test
     fun make_should_return_a_LazyWidgetViewRenderer_when_widget_is_a_layout_LazyWidget() {
         // Given
-        val widget = mockk<LazyWidget>()
+        val component = mockk<LazyComponent>()
 
         // When
-        val actual = viewRendererFactory.make(widget)
+        val actual = viewRendererFactory.make(component)
 
-        assertTrue(actual is LazyWidgetViewRenderer)
+        assertTrue(actual is LazyComponentViewRenderer)
     }
 
     @Test
     fun make_should_throw_IllegalArgumentException_when_widget_is_not_a_layout_Widget() {
         // Given
-        val widget = mockk<Widget>()
+        val component = mockk<ServerDrivenComponent>()
 
         // When
-        val exception = assertFails("$widget is not a Layout Widget.") {
-            viewRendererFactory.make(widget)
+        val exception = assertFails("$component is not a Layout Widget.") {
+            viewRendererFactory.make(component)
         }
 
         assertTrue(exception is IllegalArgumentException)

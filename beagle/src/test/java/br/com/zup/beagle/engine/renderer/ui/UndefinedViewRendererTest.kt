@@ -70,7 +70,7 @@ class UndefinedViewRendererTest {
         val actual = undefinedViewRenderer.build(rootView)
 
         assertTrue(actual is TextView)
-        assertEquals("undefined widget", textSlot.captured)
+        assertEquals("undefined component", textSlot.captured)
     }
 
     @Test

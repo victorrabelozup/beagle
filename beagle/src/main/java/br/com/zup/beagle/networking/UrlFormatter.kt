@@ -13,7 +13,6 @@ internal class UrlFormatter {
 
         if (endpoint.isEmpty()) throw MalformedURLException("Invalid base url")
 
-        // endpoint should end with a '/' and ignore anything after it
         val url = URL(endpoint.substring(0, (endpoint.lastIndexOf("/") + 1)))
 
         // if path is an scheme, replace url's scheme

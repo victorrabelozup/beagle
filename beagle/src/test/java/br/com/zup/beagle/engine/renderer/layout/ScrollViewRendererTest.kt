@@ -3,12 +3,12 @@ package br.com.zup.beagle.engine.renderer.layout
 import android.content.Context
 import android.view.View
 import android.widget.HorizontalScrollView
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.view.ViewFactory
-import br.com.zup.beagle.widget.core.Widget
 import br.com.zup.beagle.widget.layout.ScrollAxis
 import br.com.zup.beagle.widget.layout.ScrollView
 import br.com.zup.beagle.widget.layout.Stack
@@ -21,9 +21,9 @@ import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.slot
 import io.mockk.verify
-import junit.framework.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import kotlin.test.assertEquals
 
 class ScrollViewRendererTest {
 
@@ -47,7 +47,7 @@ class ScrollViewRendererTest {
     @MockK
     private lateinit var view: View
     @MockK
-    private lateinit var widgets: List<Widget>
+    private lateinit var components: List<ServerDrivenComponent>
 
     private val scrollBarEnabled = slot<Boolean>()
     private val stack = slot<Stack>()
@@ -64,7 +64,7 @@ class ScrollViewRendererTest {
         every { viewRendererFactory.make(capture(stack)) } returns viewRenderer
         every { viewRenderer.build(any()) } returns view
         every { rootView.getContext() } returns context
-        every { scroll.children } returns widgets
+        every { scroll.children } returns components
         every { viewFactory.makeScrollView(any()) } returns scrollView
         every { viewFactory.makeHorizontalScrollView(any()) } returns horizontalScrollView
     }

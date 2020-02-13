@@ -15,19 +15,19 @@ import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.setup.DesignSystem
 import br.com.zup.beagle.view.ViewFactory
-import br.com.zup.beagle.widget.layout.ScreenWidget
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.JustifyContent
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.NavigationBarItem
+import br.com.zup.beagle.widget.layout.ScreenComponent
 
 internal class ScreenViewRenderer(
-    override val widget: ScreenWidget,
+    override val component: ScreenComponent,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory(),
     private val actionExecutor: ActionExecutor = ActionExecutor()
-) : LayoutViewRenderer<ScreenWidget>(viewRendererFactory, viewFactory) {
+) : LayoutViewRenderer<ScreenComponent>(viewRendererFactory, viewFactory) {
 
     override fun buildView(rootView: RootView): View {
         val flex = Flex(
@@ -36,19 +36,17 @@ internal class ScreenViewRenderer(
             justifyContent = JustifyContent.SPACE_BETWEEN
         )
 
-        addToolbarIfNecessary(rootView.getContext(), widget.navigationBar)
+        addToolbarIfNecessary(rootView.getContext(), component.navigationBar)
 
         val container = viewFactory.makeBeagleFlexView(rootView.getContext(), flex)
 
-        this.widget.header?.let {
+        this.component.header?.let {
             container.addView(viewRendererFactory.make(it).build(rootView))
         }
 
-        val contentView = viewRendererFactory.make(this.widget.content).build(rootView)
+        container.addServerDrivenComponent(this.component.content)
 
-        container.addView(contentView, Flex(grow = 1.0))
-
-        this.widget.footer?.let {
+        this.component.footer?.let {
             container.addView(viewRendererFactory.make(it).build(rootView))
         }
 

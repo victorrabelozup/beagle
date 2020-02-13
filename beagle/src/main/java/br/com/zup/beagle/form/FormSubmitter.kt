@@ -80,9 +80,9 @@ internal class FormSubmitter(
                 }
             }
 
-            "${form.action}$query"
+            "${form.path}$query"
         } else {
-            form.action
+            form.path
         }
     }
 }

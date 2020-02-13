@@ -5,13 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import br.com.zup.beagle.action.ShowNativeDialog
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.utils.toView
 import br.com.zup.beagle.widget.core.Alignment
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.JustifyContent
-import br.com.zup.beagle.widget.core.Widget
-import br.com.zup.beagle.widget.layout.FlexSingleWidget
 import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.TabItem
 import br.com.zup.beagle.widget.ui.TabView
@@ -29,47 +27,41 @@ class TabViewFragment : Fragment() {
                 buildTabView("Title 2", Button("button")),
                 buildTabView(
                     title = "Title 3",
-                    content = FlexSingleWidget(
-                        flex = Flex(
+                    content =
+                    Text("text").applyFlex(
+                        Flex(
                             justifyContent = JustifyContent.CENTER,
                             alignItems = Alignment.CENTER
-                        ),
-                        child = Text("text")
+                        )
                     )
                 ),
                 buildTabView(
                     title = "Title 4",
-                    content = FlexSingleWidget(
-                        flex = Flex(
+                    content =
+                    Text("text").applyFlex(
+                        Flex(
                             justifyContent = JustifyContent.CENTER,
                             alignItems = Alignment.CENTER
-                        ),
-                        child = Button(
-                            "button",
-                            action = ShowNativeDialog(
-                                "Test",
-                                "Body message",
-                                "Button"
-                            )
                         )
                     )
                 ),
                 buildTabView(
                     title = "Title 5",
-                    content = FlexSingleWidget(
-                        flex = Flex(
+                    content =
+                    Text("text").applyFlex(
+                        Flex(
                             justifyContent = JustifyContent.FLEX_START,
                             alignItems = Alignment.FLEX_END
-                        ),
-                        child = Text("text")
+                        )
                     )
                 )
             )
         )
+
         return context?.let { declarative.toView(this) }
     }
 
-    private fun buildTabView(title: String, content: Widget): TabItem {
+    private fun buildTabView(title: String, content: ServerDrivenComponent): TabItem {
         return TabItem(
             title = title,
             content = content,

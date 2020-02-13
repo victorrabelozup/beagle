@@ -54,7 +54,7 @@ class FormFragment : Fragment() {
                         )
                     ),
                     method = FormMethodType.POST,
-                    action = "endereco/endpoint"
+                    path = "endereco/endpoint"
                 )
             )
         )

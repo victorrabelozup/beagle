@@ -10,14 +10,14 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.ui.UndefinedWidget
 
 internal class UndefinedViewRenderer(
-    override val widget: UndefinedWidget,
+    override val component: UndefinedWidget,
     private val viewFactory: ViewFactory = ViewFactory()
 ) : UIViewRenderer<UndefinedWidget>() {
 
     override fun buildView(rootView: RootView): View {
         return if (BeagleEnvironment.beagleSdk.config.environment == Environment.DEBUG) {
             viewFactory.makeTextView(rootView.getContext()).apply {
-                text = "undefined widget"
+                text = "undefined component"
                 setTextColor(Color.RED)
                 setBackgroundColor(Color.YELLOW)
             }

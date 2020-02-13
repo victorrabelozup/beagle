@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.NavigationType
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.utils.toView
 import br.com.zup.beagle.widget.core.Alignment
 import br.com.zup.beagle.widget.core.Flex
@@ -15,8 +16,6 @@ import br.com.zup.beagle.widget.core.JustifyContent
 import br.com.zup.beagle.widget.core.Size
 import br.com.zup.beagle.widget.core.UnitType
 import br.com.zup.beagle.widget.core.UnitValue
-import br.com.zup.beagle.widget.core.Widget
-import br.com.zup.beagle.widget.layout.FlexSingleWidget
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.Screen
 import br.com.zup.beagle.widget.navigation.Touchable
@@ -30,31 +29,31 @@ class NavigationFragment : Fragment() {
         val declarative = Screen(
             content =
             Container(
-                flex = Flex(
+                children = buildChildren()
+            ).applyFlex(
+                Flex(
                     flexDirection = FlexDirection.COLUMN,
                     justifyContent = JustifyContent.CENTER,
                     alignItems = Alignment.CENTER,
                     alignContent = Alignment.SPACE_BETWEEN,
                     grow = 1.0
-                ),
-                children = buildChildren()
+                )
             )
         )
 
         return declarative.toView(this)
     }
 
-    private fun buildChildren(): List<Widget> {
+    private fun buildChildren(): List<ServerDrivenComponent> {
         return listOf(
-            FlexSingleWidget(
-                child = Touchable(
-                    child = Button(text = "Click to navigate"),
-                    action = Navigate(
-                        type = NavigationType.ADD_VIEW,
-                        href = "https://t001-2751a.firebaseapp.com/flow/step1.json"
-                    )
+            Touchable(
+                child = Button(text = "Click to navigate").applyFlex(
+                    Flex(size = Size(width = UnitValue(80.0, UnitType.PERCENT)))
                 ),
-                flex = Flex(size = Size(width = UnitValue(80.0, UnitType.PERCENT)))
+                action = Navigate(
+                    type = NavigationType.ADD_VIEW,
+                    path = "https://t001-2751a.firebaseapp.com/flow/step1.json"
+                )
             )
         )
     }

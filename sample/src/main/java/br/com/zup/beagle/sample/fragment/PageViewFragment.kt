@@ -9,7 +9,6 @@ import br.com.zup.beagle.utils.toView
 import br.com.zup.beagle.widget.core.Alignment
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.JustifyContent
-import br.com.zup.beagle.widget.layout.FlexSingleWidget
 import br.com.zup.beagle.widget.layout.PageView
 import br.com.zup.beagle.widget.pager.PageIndicator
 import br.com.zup.beagle.widget.ui.Text
@@ -26,40 +25,35 @@ class PageViewFragment : Fragment() {
                 unselectedColor = "#888888"
             ),
             pages = listOf(
-                FlexSingleWidget(
-                    flex = Flex(
+                Text("Page 1").applyFlex(
+                    Flex(
                         justifyContent = JustifyContent.CENTER,
                         alignItems = Alignment.CENTER
-                    ),
-                    child = Text("Page 1")
+                    )
                 ),
-                FlexSingleWidget(
-                    flex = Flex(
+                Text("Page 2").applyFlex(
+                    Flex(
                         justifyContent = JustifyContent.CENTER,
                         alignItems = Alignment.CENTER
-                    ),
-                    child = Text("Page 2")
+                    )
                 ),
-                FlexSingleWidget(
-                    flex = Flex(
+                Text("Page 3").applyFlex(
+                    Flex(
                         justifyContent = JustifyContent.CENTER,
                         alignItems = Alignment.CENTER
-                    ),
-                    child = Text("Page 3")
+                    )
                 ),
-                FlexSingleWidget(
-                    flex = Flex(
+                Text("Page 4").applyFlex(
+                    Flex(
                         justifyContent = JustifyContent.CENTER,
                         alignItems = Alignment.CENTER
-                    ),
-                    child = Text("Page 4")
+                    )
                 ),
-                FlexSingleWidget(
-                    flex = Flex(
+                Text("Page 5").applyFlex(
+                    Flex(
                         justifyContent = JustifyContent.CENTER,
                         alignItems = Alignment.CENTER
-                    ),
-                    child = Text("Page 5")
+                    )
                 )
             )
         )

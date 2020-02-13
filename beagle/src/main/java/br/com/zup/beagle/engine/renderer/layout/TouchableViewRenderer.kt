@@ -10,7 +10,7 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.navigation.Touchable
 
 internal class TouchableViewRenderer(
-    override val widget: Touchable,
+    override val component: Touchable,
     private val actionExecutor: ActionExecutor = ActionExecutor(),
     private val preFetchHelper: PreFetchHelper = PreFetchHelper(),
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
@@ -18,9 +18,9 @@ internal class TouchableViewRenderer(
 ) : LayoutViewRenderer<Touchable>(viewRendererFactory, viewFactory) {
 
     override fun buildView(rootView: RootView): View {
-        preFetchHelper.handlePreFetchWidget(rootView, widget.action)
-        return viewRendererFactory.make(widget.child).build(rootView).apply {
-            setOnClickListener { actionExecutor.doAction(context, widget.action) }
+        preFetchHelper.handlePreFetch(rootView, component.action)
+        return viewRendererFactory.make(component.child).build(rootView).apply {
+            setOnClickListener { actionExecutor.doAction(context, component.action) }
         }
     }
 }

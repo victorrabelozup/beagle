@@ -4,24 +4,6 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/stateful"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Stateful Static example"
-            tools:ignore="HardcodedText" />
-
-        <item
-            android:id="@+id/remote_stateful"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Remote Stateful example"
-            tools:ignore="HardcodedText" />
-
-        <item
-            android:id="@+id/stateful_dynamic"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Stateful Dynamic example"
-            tools:ignore="HardcodedText" />
-
-        <item
             android:id="@+id/textField"
             android:icon="@mipmap/ic_launcher"
             android:title="TextField Widget"
@@ -85,12 +67,6 @@
             android:id="@+id/form"
             android:icon="@mipmap/ic_launcher"
             android:title="Form"
-            tools:ignore="HardcodedText" />
-
-        <item
-            android:id="@+id/flexSingleWidget"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Flex Single Widget"
             tools:ignore="HardcodedText" />
 
         <item

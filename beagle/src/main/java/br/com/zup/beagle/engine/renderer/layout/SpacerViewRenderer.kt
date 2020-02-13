@@ -12,7 +12,7 @@ import br.com.zup.beagle.widget.core.UnitValue
 import br.com.zup.beagle.widget.layout.Spacer
 
 internal class SpacerViewRenderer(
-    override val widget: Spacer,
+    override val component: Spacer,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory()
 ) : LayoutViewRenderer<Spacer>(viewRendererFactory, viewFactory) {
@@ -20,8 +20,8 @@ internal class SpacerViewRenderer(
     override fun buildView(rootView: RootView): View {
         val flex = Flex(
             size = Size(
-                width = UnitValue(widget.size, UnitType.REAL),
-                height = UnitValue(widget.size, UnitType.REAL)
+                width = UnitValue(component.size, UnitType.REAL),
+                height = UnitValue(component.size, UnitType.REAL)
             )
         )
 
