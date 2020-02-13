@@ -11,13 +11,10 @@ import java.net.HttpURLConnection
 typealias OnSuccess = (responseData: ResponseData) -> Unit
 typealias OnError = (throwable: Throwable) -> Unit
 
-internal class HttpClientDefault(
-    private val urlFactory: URLFactory = URLFactory()
-) : HttpClient, CoroutineScope {
+internal class HttpClientDefault : HttpClient, CoroutineScope {
 
     private val job = Job()
     override val coroutineContext = job + CoroutineDispatchers.IO
-    private val urlFormatter = UrlFormatter()
 
     override fun execute(
         request: RequestData,
@@ -52,9 +49,7 @@ internal class HttpClientDefault(
     private fun doHttpRequest(
         request: RequestData
     ): ResponseData {
-        val urlConnection = urlFactory.make(
-            urlFormatter.format(request.endpoint ?: "", request.path ?: "")
-        ).openConnection() as HttpURLConnection
+        val urlConnection = request.uri.toURL().openConnection() as HttpURLConnection
 
         urlConnection.setRequestProperty("Content-Type", "application/json")
         request.headers.forEach {

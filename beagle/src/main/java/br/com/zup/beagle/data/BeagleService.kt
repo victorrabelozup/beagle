@@ -9,17 +9,19 @@ import br.com.zup.beagle.logger.BeagleMessageLogs
 import br.com.zup.beagle.networking.HttpClient
 import br.com.zup.beagle.networking.HttpClientFactory
 import br.com.zup.beagle.networking.RequestData
+import br.com.zup.beagle.networking.UrlFormatter
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.utils.CoroutineDispatchers
-import br.com.zup.beagle.utils.isValidUrl
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
+import java.net.URI
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
 internal class BeagleService(
     private val serializer: BeagleSerializer = BeagleSerializer(),
-    private val httpClient: HttpClient = HttpClientFactory().make()
+    private val httpClient: HttpClient = HttpClientFactory().make(),
+    private val urlFormatter: UrlFormatter = UrlFormatter()
 ) {
     @Throws(BeagleException::class)
     suspend fun fetchComponent(url: String): ServerDrivenComponent {
@@ -62,11 +64,9 @@ internal class BeagleService(
     }
 
     private fun makeRequestData(url: String): RequestData {
-        val request = if (url.isValidUrl()) {
-            RequestData(endpoint = url)
-        } else {
-            RequestData(endpoint = BeagleEnvironment.beagleSdk.config.baseUrl, path = url)
-        }
+        val newUrl = urlFormatter.format(BeagleEnvironment.beagleSdk.config.baseUrl, url)
+
+        val request = RequestData(URI(newUrl))
 
         BeagleMessageLogs.logHttpRequestData(request)
 

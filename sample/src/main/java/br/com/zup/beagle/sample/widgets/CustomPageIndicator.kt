@@ -14,6 +14,7 @@ data class CustomPageIndicator(
 ) : PageIndicatorWidget {
 
     private lateinit var customPageIndicatorView: CustomPageIndicatorView
+    @Transient
     private lateinit var output: PageIndicatorOutput
 
     override fun initPageView(pageIndicatorOutput: PageIndicatorOutput) {

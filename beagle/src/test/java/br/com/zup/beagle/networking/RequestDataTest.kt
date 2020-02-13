@@ -1,12 +1,13 @@
 package br.com.zup.beagle.networking
 
+import br.com.zup.beagle.testutil.RandomData
 import org.junit.Before
 
-import org.junit.Assert.*
 import org.junit.Test
-import br.com.zup.beagle.testutil.RandomData
-
-private val url = RandomData.httpUrl()
+import java.net.URI
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 class RequestDataTest {
 
@@ -14,7 +15,7 @@ class RequestDataTest {
 
     @Before
     fun setUp() {
-        requestData = RequestData(url)
+        requestData = RequestData(URI(RandomData.httpUrl()))
     }
 
     @Test

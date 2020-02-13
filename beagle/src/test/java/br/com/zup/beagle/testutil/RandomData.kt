@@ -15,7 +15,7 @@ object RandomData {
 
     fun email(): String = "${string(5)}@${string(3)}.com"
 
-    fun httpUrl(): String = "http://${string(5)}.com/"
+    fun httpUrl(): String = "http://${string(5)}.com"
 
-    fun httpsUrl(): String = "https://${string(5)}.com/"
+    fun httpsUrl(): String = "https://${string(5)}.com"
 }

@@ -22,13 +22,13 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.net.HttpURLConnection
+import java.net.URI
 import java.net.URL
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
 import kotlin.test.assertTrue
 import kotlin.test.fail
 
-private val REQUEST_DATA = RequestData(path = RandomData.httpUrl(), endpoint = RandomData.httpUrl())
 private val BYTE_ARRAY_DATA = byteArrayOf()
 private const val STATUS_CODE = 200
 
@@ -39,11 +39,11 @@ class HttpClientDefaultTest {
     val scope = CoroutineTestRule()
 
     @MockK
-    private lateinit var url: URL
-    @MockK
-    private lateinit var urlFactory: URLFactory
-    @MockK
     private lateinit var httpURLConnection: HttpURLConnection
+    @MockK
+    private lateinit var uri: URI
+    @MockK
+    private lateinit var url: URL
 
     @MockK
     private lateinit var inputStream: InputStream
@@ -55,11 +55,11 @@ class HttpClientDefaultTest {
         MockKAnnotations.init(this)
         mockkObject(BeagleEnvironment)
 
-        urlRequestDispatchingDefault = HttpClientDefault(urlFactory)
+        urlRequestDispatchingDefault = HttpClientDefault()
 
         mockkStatic("kotlin.io.ByteStreamsKt")
 
-        every { urlFactory.make(any()) } returns url
+        every { uri.toURL() } returns url
         every { url.openConnection() } returns httpURLConnection
         every { httpURLConnection.requestMethod = any() } just Runs
         every { httpURLConnection.setRequestProperty(any(), any()) } just Runs
@@ -79,7 +79,7 @@ class HttpClientDefaultTest {
         every { httpURLConnection.headerFields } returns headers
 
         lateinit var resultData: ResponseData
-        urlRequestDispatchingDefault.execute(REQUEST_DATA, onSuccess = {
+        urlRequestDispatchingDefault.execute(makeSimpleRequestData(), onSuccess = {
             resultData = it
         }, onError = {
             fail("Test failed, should execute successfully")
@@ -93,7 +93,7 @@ class HttpClientDefaultTest {
 
     @Test
     fun execute_should_disconnect_after_response() = runBlockingTest {
-        urlRequestDispatchingDefault.execute(REQUEST_DATA, onSuccess = {}, onError = {})
+        urlRequestDispatchingDefault.execute(makeSimpleRequestData(), onSuccess = {}, onError = {})
 
         verify(exactly = once()) { httpURLConnection.disconnect() }
     }
@@ -106,8 +106,7 @@ class HttpClientDefaultTest {
             Pair(RandomData.string(), RandomData.string())
         )
         val requestData = RequestData(
-            path = RandomData.httpUrl(),
-            endpoint = RandomData.httpUrl(),
+            uri = uri,
             headers = headers
         )
 
@@ -126,8 +125,7 @@ class HttpClientDefaultTest {
         val data = RandomData.string()
         val outputStream = mockk<OutputStream>()
         val requestData = RequestData(
-            path = RandomData.httpUrl(),
-            endpoint = RandomData.httpUrl(),
+            uri = uri,
             body = data,
             method = HttpMethod.POST
         )
@@ -153,8 +151,7 @@ class HttpClientDefaultTest {
             // Given
             val method = HttpMethod.GET
             val requestData = RequestData(
-                path = RandomData.httpUrl(),
-                endpoint = RandomData.httpUrl(),
+                uri = uri,
                 body = RandomData.string(),
                 method = method
             )
@@ -174,8 +171,7 @@ class HttpClientDefaultTest {
             // Given
             val method = HttpMethod.DELETE
             val requestData = RequestData(
-                path = RandomData.httpUrl(),
-                endpoint = RandomData.httpUrl(),
+                uri = uri,
                 body = RandomData.string(),
                 method = method
             )
@@ -195,8 +191,7 @@ class HttpClientDefaultTest {
             // Given
             val method = HttpMethod.HEAD
             val requestData = RequestData(
-                path = RandomData.httpUrl(),
-                endpoint = RandomData.httpUrl(),
+                uri = uri,
                 body = RandomData.string(),
                 method = method
             )
@@ -216,8 +211,7 @@ class HttpClientDefaultTest {
             // Given
             val method = HttpMethod.GET
             val requestData = RequestData(
-                path = RandomData.httpUrl(),
-                endpoint = RandomData.httpUrl(),
+                uri = uri,
                 body = RandomData.string(),
                 method = method
             )
@@ -235,8 +229,7 @@ class HttpClientDefaultTest {
     fun execute_should_set_HttpMethod_GET() = runBlockingTest {
         // Given
         val requestData = RequestData(
-            path = RandomData.httpUrl(),
-            endpoint = RandomData.httpUrl(),
+            uri = uri,
             method = HttpMethod.GET
         )
 
@@ -257,8 +250,7 @@ class HttpClientDefaultTest {
     fun execute_should_set_HttpMethod_POST() = runBlockingTest {
         // Given
         val requestData = RequestData(
-            path = RandomData.httpUrl(),
-            endpoint = RandomData.httpUrl(),
+            uri = uri,
             method = HttpMethod.POST
         )
 
@@ -279,8 +271,7 @@ class HttpClientDefaultTest {
     fun execute_should_set_HttpMethod_PUT() = runBlockingTest {
         // Given
         val requestData = RequestData(
-            path = RandomData.httpUrl(),
-            endpoint = RandomData.httpUrl(),
+            uri = uri,
             method = HttpMethod.PUT
         )
 
@@ -301,8 +292,7 @@ class HttpClientDefaultTest {
     fun execute_should_set_HttpMethod_DELETE() = runBlockingTest {
         // Given
         val requestData = RequestData(
-            path = RandomData.httpUrl(),
-            endpoint = RandomData.httpUrl(),
+            uri = uri,
             method = HttpMethod.DELETE
         )
 
@@ -323,8 +313,7 @@ class HttpClientDefaultTest {
     fun execute_should_set_HttpMethod_HEAD() = runBlockingTest {
         // Given
         val requestData = RequestData(
-            path = RandomData.httpUrl(),
-            endpoint = RandomData.httpUrl(),
+            uri = uri,
             method = HttpMethod.HEAD
         )
 
@@ -345,8 +334,7 @@ class HttpClientDefaultTest {
     fun execute_should_set_HttpMethod_PATCH() = runBlockingTest {
         // Given
         val requestData = RequestData(
-            path = RandomData.httpUrl(),
-            endpoint = RandomData.httpUrl(),
+            uri = uri,
             method = HttpMethod.PATCH
         )
 
@@ -371,7 +359,7 @@ class HttpClientDefaultTest {
 
         // When
         var errorResult: Throwable? = null
-        urlRequestDispatchingDefault.execute(REQUEST_DATA, onSuccess = {
+        urlRequestDispatchingDefault.execute(makeSimpleRequestData(), onSuccess = {
             fail("Test failed, should execute with error")
         }, onError = {
             errorResult = it
@@ -380,4 +368,6 @@ class HttpClientDefaultTest {
         // Then
         assertTrue { errorResult is IOException }
     }
+
+    private fun makeSimpleRequestData() = RequestData(uri)
 }

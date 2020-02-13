@@ -5,6 +5,7 @@ import br.com.zup.beagle.networking.HttpMethod
 import br.com.zup.beagle.networking.RequestData
 import br.com.zup.beagle.networking.ResponseData
 import br.com.zup.beagle.testutil.RandomData
+import java.net.URI
 
 fun makeResponseData() = ResponseData(
     statusCode = RandomData.int(),
@@ -13,8 +14,7 @@ fun makeResponseData() = ResponseData(
 )
 
 fun makeRequestData() = RequestData(
-    endpoint = RandomData.httpUrl(),
-    path = RandomData.string(),
+    uri = URI(RandomData.string()),
     method =  HttpMethod.GET,
     headers = mapOf("Authorization" to RandomData.string()),
     body = makeButtonJson()

@@ -15,9 +15,6 @@ import kotlin.test.assertTrue
 
 class HttpClientFactoryTest {
 
-    @MockK
-    private lateinit var urlFactory: URLFactory
-
     @InjectMockKs
     private lateinit var httpClientFactory: HttpClientFactory
 

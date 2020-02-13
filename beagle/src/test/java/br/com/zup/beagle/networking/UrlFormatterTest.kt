@@ -1,13 +1,15 @@
 package br.com.zup.beagle.networking
 
-import io.mockk.impl.annotations.MockK
+import br.com.zup.beagle.testutil.RandomData
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import java.net.MalformedURLException
+import kotlin.test.assertFails
 
 class UrlFormatterTest {
 
-    @MockK
     private lateinit var urlFormatter: UrlFormatter
 
     @Before
@@ -16,62 +18,110 @@ class UrlFormatterTest {
     }
 
     @Test
-    fun format_trailing_slash_should_ensure_path() {
+    fun format_should_remove_extra_slash_from_start_of_path() {
         // Given
-        val endpoint = "http://example.com/api/"
-        val path = "foo/bar/"
-
-        // Then
-        assertEquals("http://example.com/api/foo/bar/", urlFormatter.format(endpoint, path))
-    }
-
-    @Test
-    fun format_no_trailing_slash_should_be_ignored() {
-        // Given
-        val endpoint = "http://example.com/api"
-        val path = "foo/bar/"
-
-        // Then
-        assertEquals("http://example.com/foo/bar/", urlFormatter.format(endpoint, path))
-    }
-
-    @Test
-    fun format_should_retain_host() {
-        // Given
-        val endpoint = "http://example.com/"
+        val endpoint = RandomData.httpUrl() + "/"
         val path = "/foo/bar/"
 
+        // When
+        val actual = urlFormatter.format(endpoint, path)
+
         // Then
-        assertEquals("http://example.com/foo/bar/", urlFormatter.format(endpoint, path))
+        val expected = endpoint + "foo/bar/"
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun format_should_retain_host_without_specified_path() {
+    fun format_should_add_missing_slash() {
         // Given
-        val endpoint = "http://example.com/api/"
-        val path = "/foo/bar/"
+        val endpoint = RandomData.httpUrl()
+        val path = "foo/bar/"
+
+        // When
+        val actual = urlFormatter.format(endpoint, path)
 
         // Then
-        assertEquals("http://example.com/foo/bar/", urlFormatter.format(endpoint, path))
+        val expected = "$endpoint/foo/bar/"
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun format_should_replace_all() {
+    fun format_should_just_concat_endpoint_and_path() {
         // Given
-        val path = "https://github.com/square/retrofit/"
-        val endpoint = "http://example.com/"
+        val endpoint = RandomData.httpUrl() + "/"
+        val path = "foo/bar/"
+
+        // When
+        val actual = urlFormatter.format(endpoint, path)
 
         // Then
-        assertEquals("https://github.com/square/retrofit/", urlFormatter.format(endpoint, path))
+        val expected = "$endpoint$path"
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun format_should_replace_scheme() {
+    fun format_should_just_concat_endpoint_with_port_and_path() {
         // Given
-        val endpoint = "http://example.com/"
-        val path = "//github.com/square/retrofit/"
+        val endpoint = RandomData.httpUrl() + ":8080/"
+        val path = "foo/bar/"
+
+        // When
+        val actual = urlFormatter.format(endpoint, path)
 
         // Then
-        assertEquals("http://github.com/square/retrofit/", urlFormatter.format(endpoint, path))
+        val expected = "$endpoint$path"
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun format_should_return_path_as_valid_url() {
+        // Given
+        val endpoint = RandomData.httpUrl()
+        val path = "${RandomData.httpUrl()}/foo/bar/"
+
+        // When
+        val actual = urlFormatter.format(endpoint, path)
+
+        // Then
+        assertEquals(path, actual)
+    }
+
+    @Test
+    fun format_should_thrown_a_MalformedURLException_when_endpoint_is_empty() {
+        // Given
+        val endpoint = ""
+        val path = RandomData.string()
+
+        // When
+        val exception = assertFails("Invalid baseUrl: $endpoint") { urlFormatter.format(endpoint, path) }
+
+        // Then
+        assertTrue(exception is MalformedURLException)
+    }
+
+    @Test
+    fun format_should_thrown_a_MalformedURLException_when_endpoint_is_not_a_valid_url() {
+        // Given
+        val endpoint = "http:/10.0.13/"
+        val path = RandomData.string()
+
+        // When
+        val exception = assertFails("Invalid baseUrl: $endpoint") { urlFormatter.format(endpoint, path) }
+
+        // Then
+        assertTrue(exception is MalformedURLException)
+    }
+
+    @Test
+    fun format_should_thrown_a_MalformedURLException_when_path_is_a_empty_url() {
+        // Given
+        val endpoint = RandomData.httpUrl()
+        val path = ""
+
+        // When
+        val exception = assertFails("Invalid path: $path") { urlFormatter.format(endpoint, path) }
+
+        // Then
+        assertTrue(exception is MalformedURLException)
     }
 }

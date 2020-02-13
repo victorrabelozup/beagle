@@ -1,8 +1,9 @@
 package br.com.zup.beagle.networking
 
+import java.net.URI
+
 data class RequestData(
-    val endpoint: String? = null,
-    val path: String? = null,
+    val uri: URI,
     val method: HttpMethod = HttpMethod.GET,
     val headers: Map<String, String> = mapOf(),
     val body: String? = null

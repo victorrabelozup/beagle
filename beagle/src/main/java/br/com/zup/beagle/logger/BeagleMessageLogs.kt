@@ -9,8 +9,7 @@ internal object BeagleMessageLogs {
     fun logHttpRequestData(requestData: RequestData) {
         BeagleLogger.info("""
             *** HTTP REQUEST ***
-            Endpoint=${requestData.endpoint}
-            Path=${requestData.path}
+            Uri=${requestData.uri}
             Method=${requestData.method}
             Headers=${requestData.headers}
             Body=${requestData.body}

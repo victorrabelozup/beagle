@@ -48,8 +48,7 @@ class BeagleMessageLogsTest {
         // Then
         assertEquals("""
             *** HTTP REQUEST ***
-            Endpoint=${requestData.endpoint}
-            Path=${requestData.path}
+            Uri=${requestData.uri}
             Method=${requestData.method}
             Headers=${requestData.headers}
             Body=${requestData.body}

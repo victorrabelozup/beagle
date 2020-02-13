@@ -11,6 +11,7 @@ import br.com.zup.beagle.logger.BeagleMessageLogs
 import br.com.zup.beagle.networking.HttpClient
 import br.com.zup.beagle.networking.RequestCall
 import br.com.zup.beagle.networking.ResponseData
+import br.com.zup.beagle.networking.UrlFormatter
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.testutil.CoroutineTestRule
 import br.com.zup.beagle.testutil.RandomData
@@ -34,7 +35,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFails
 import kotlin.test.assertTrue
 
-
 private val URL = RandomData.httpUrl()
 private val JSON_SUCCESS = makeScreenJson()
 private const val JSON_ERROR = ""
@@ -47,6 +47,8 @@ class BeagleServiceTest {
 
     @MockK
     private lateinit var serializer: BeagleSerializer
+    @MockK
+    private lateinit var urlFormatter: UrlFormatter
     @MockK
     private lateinit var httpClient: HttpClient
     @MockK
@@ -82,6 +84,7 @@ class BeagleServiceTest {
         every { BeagleCacheHelper.cache(any(), any()) } returns component
         every { serializer.deserializeAction(any()) } returns action
         every { responseData.data } returns JSON_SUCCESS.toByteArray()
+        every { urlFormatter.format(any(), any()) } returns URL
     }
 
     @After

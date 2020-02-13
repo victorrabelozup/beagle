@@ -5,6 +5,7 @@ import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.networking.HttpClient
 import br.com.zup.beagle.networking.HttpMethod
 import br.com.zup.beagle.networking.RequestData
+import br.com.zup.beagle.networking.UrlFormatter
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.widget.form.Form
@@ -24,6 +25,7 @@ import org.junit.Before
 import org.junit.Test
 
 private val FORMS_VALUE = mapOf<String, String>()
+private val ACTION = RandomData.string()
 
 class FormSubmitterTest {
 
@@ -31,8 +33,11 @@ class FormSubmitterTest {
     private lateinit var httpClient: HttpClient
     @MockK
     private lateinit var beagleSerializer: BeagleSerializer
+    @MockK
+    private lateinit var urlFormatter: UrlFormatter
 
     private val requestDataSlot = slot<RequestData>()
+    private val urlSlot = slot<String>()
 
     @InjectMockKs
     private lateinit var formSubmitter: FormSubmitter
@@ -40,10 +45,12 @@ class FormSubmitterTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        mockkObject(BeagleEnvironment)
-        every { BeagleEnvironment.beagleSdk.config.baseUrl } returns RandomData.httpUrl()
 
+        mockkObject(BeagleEnvironment)
+
+        every { BeagleEnvironment.beagleSdk.config.baseUrl } returns RandomData.httpUrl()
         every { httpClient.execute(capture(requestDataSlot), any(), any()) } returns mockk()
+        every { urlFormatter.format(any(), capture(urlSlot)) } returns ACTION
     }
 
     @After
@@ -54,9 +61,8 @@ class FormSubmitterTest {
     @Test
     fun submitForm_should_create_requestData_correctly() {
         // Given
-        val action = RandomData.string()
         val form = Form(
-            path = action,
+            path = ACTION,
             method = FormMethodType.POST,
             child = mockk()
         )
@@ -73,14 +79,14 @@ class FormSubmitterTest {
         val requestData = requestDataSlot.captured
         assertEquals(HttpMethod.POST, requestData.method)
         assertEquals("""{"$inputName":"$inputValue"}""", requestData.body)
-        assertEquals(action, requestData.path)
+        assertEquals(ACTION, requestData.uri.toString())
     }
 
     @Test
     fun submitForm_should_create_requestData_with_PUT_httpMethod() {
         // Given
         val form = Form(
-            path = RandomData.string(),
+            path = ACTION,
             method = FormMethodType.PUT,
             child = mockk()
         )
@@ -96,7 +102,7 @@ class FormSubmitterTest {
     fun submitForm_should_create_requestData_with_DELETE_httpMethod() {
         // Given
         val form = Form(
-            path = RandomData.string(),
+            path = ACTION,
             method = FormMethodType.DELETE,
             child = mockk()
         )
@@ -112,7 +118,7 @@ class FormSubmitterTest {
     fun submitForm_should_create_requestData_with_GET_httpMethod() {
         // Given
         val form = Form(
-            path = RandomData.string(),
+            path = ACTION,
             method = FormMethodType.GET,
             child = mockk()
         )
@@ -128,7 +134,7 @@ class FormSubmitterTest {
     fun submitForm_should_create_requestData_with_POST_httpMethod() {
         // Given
         val form = Form(
-            path = RandomData.string(),
+            path = ACTION,
             method = FormMethodType.POST,
             child = mockk()
         )
@@ -143,9 +149,8 @@ class FormSubmitterTest {
     @Test
     fun submitForm_should_set_form_action_as_url_on_requestData() {
         // Given
-        val action = RandomData.string()
         val form = Form(
-            path = action,
+            path = ACTION,
             method = FormMethodType.POST,
             child = mockk()
         )
@@ -154,7 +159,7 @@ class FormSubmitterTest {
         formSubmitter.submitForm(form, FORMS_VALUE) {}
 
         // Then
-        assertEquals(action, requestDataSlot.captured.path)
+        assertEquals(ACTION, requestDataSlot.captured.uri.toString())
     }
 
     @Test
@@ -164,9 +169,8 @@ class FormSubmitterTest {
             RandomData.string(3) to RandomData.string(3),
             RandomData.string(3) to RandomData.string(3)
         )
-        val action = RandomData.string()
         val form = Form(
-            path = action,
+            path = ACTION,
             method = FormMethodType.GET,
             child = mockk()
         )
@@ -178,8 +182,8 @@ class FormSubmitterTest {
         val formElements = formsValue.entries
         val element0 = formElements.elementAt(0)
         val element1 = formElements.elementAt(1)
-        val expected = "$action?${element0.key}=${element0.value}&${element1.key}=${element1.value}"
-        assertEquals(expected, requestDataSlot.captured.path)
+        val expected = "$ACTION?${element0.key}=${element0.value}&${element1.key}=${element1.value}"
+        assertEquals(expected, urlSlot.captured)
     }
 
     @Test
@@ -189,9 +193,8 @@ class FormSubmitterTest {
             RandomData.string(3) to RandomData.string(3),
             RandomData.string(3) to RandomData.string(3)
         )
-        val action = RandomData.string()
         val form = Form(
-            path = action,
+            path = ACTION,
             method = FormMethodType.GET,
             child = mockk()
         )
@@ -203,8 +206,8 @@ class FormSubmitterTest {
         val formElements = formsValue.entries
         val element0 = formElements.elementAt(0)
         val element1 = formElements.elementAt(1)
-        val expected = "$action?${element0.key}=${element0.value}&${element1.key}=${element1.value}"
-        assertEquals(expected, requestDataSlot.captured.path)
+        val expected = "$ACTION?${element0.key}=${element0.value}&${element1.key}=${element1.value}"
+        assertEquals(expected, urlSlot.captured)
     }
 
     @Test
@@ -214,9 +217,8 @@ class FormSubmitterTest {
             RandomData.string(3) to RandomData.string(3),
             RandomData.string(3) to RandomData.string(3)
         )
-        val action = RandomData.string()
         val form = Form(
-            path = action,
+            path = ACTION,
             method = FormMethodType.POST,
             child = mockk()
         )
