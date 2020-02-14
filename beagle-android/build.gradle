@@ -1,0 +1,45 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
+        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.4'
+        classpath 'com.karumi:shot:3.1.0'
+
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
+        classpath 'org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.16'
+        classpath 'org.jetbrains.dokka:dokka-gradle-plugin:0.9.16'
+    }
+}
+
+plugins {
+    id "io.gitlab.arturbosch.detekt" version "1.0.1"
+}
+
+allprojects {
+    apply from: "$rootDir/detekt.gradle"
+
+    repositories {
+        google()
+        jcenter()
+        mavenLocal()
+
+        maven {
+            credentials {
+                // user@password with read only access
+                username "beagle"
+                password "Xq7wAh3xDkGN"
+            }
+            url "https://repo-iti.zup.com.br/repository/beagle-jars-all/"
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

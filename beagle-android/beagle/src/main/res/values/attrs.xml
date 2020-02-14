@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BeagleButtonStyle">
+        <attr name="android:background" />
+    </declare-styleable>
+
+    <declare-styleable name="BeagleToolbarStyle">
+        <attr name="titleTextAppearance" format="reference" />
+        <attr name="navigationIcon" format="reference" />
+        <attr name="android:background" format="color" />
+    </declare-styleable>
+</resources>
