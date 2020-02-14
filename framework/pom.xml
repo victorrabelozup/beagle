@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>br.com.zup.beagle</groupId>
+    <artifactId>beagle</artifactId>
+    <version>0.0.34-SNAPSHOT</version>
+
+    <name>beagle</name>
+    <description>Beagle is a SDK to deal with server driven UI</description>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>android-core</module>
+        <module>beagle-annotation</module>
+        <module>beagle-core</module>
+        <module>beagle-backend-declarative</module>
+        <module>beagle-android-declarative</module>
+        <module>beagle-declarative</module>
+        <module>beagle-framework</module>
+        <module>beagle-sample</module>
+    </modules>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
+        <kotlin.version>1.3.61</kotlin.version>
+        <springboot.version>2.2.2.RELEASE</springboot.version>
+        <jackson-kotlin.version>2.10.0</jackson-kotlin.version>
+        <httpclient.version>4.5.5</httpclient.version>
+        <junit.version>4.12</junit.version>
+        <mockk.version>1.9.3</mockk.version>
+        <reflections.version>0.9.12</reflections.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>br.com.zup.beagle</groupId>
+                <artifactId>beagle-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.zup.beagle</groupId>
+                <artifactId>backend-declarative</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.zup.beagle</groupId>
+                <artifactId>android-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.zup.beagle</groupId>
+                <artifactId>annotation</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.zup.beagle</groupId>
+                <artifactId>declarative</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.zup.beagle</groupId>
+                <artifactId>framework</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>${reflections.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${springboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-actuator</artifactId>
+                <version>${springboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.module</groupId>
+                <artifactId>jackson-module-kotlin</artifactId>
+                <version>${jackson-kotlin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.mockk</groupId>
+                <artifactId>mockk</artifactId>
+                <version>${mockk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-reflect</artifactId>
+                <version>${kotlin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-stdlib-jdk8</artifactId>
+                <version>${kotlin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-test</artifactId>
+                <version>${kotlin.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-test-junit</artifactId>
+                <version>${kotlin.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <distributionManagement>
+        <repository>
+            <id>beagle-nexus-release</id>
+            <name>Beagle Nexus Release Repository Admin</name>
+            <url>https://repo-iti.zup.com.br/repository/beagle-jars-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>beagle-nexus-snapshots</id>
+            <name>Beagle Nexus Snapshots Repository Admin</name>
+            <url>https://repo-iti.zup.com.br/repository/beagle-jars-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <scm>
+        <connection>scm:git@github.com:ZupIT/darwin-beagle-framework.git</connection>
+        <url>https://github.com/ZupIT/darwin-beagle-framework</url>
+        <developerConnection>scm:git:git@github.com:ZupIT/darwin-beagle-framework.git</developerConnection>
+      <tag>HEAD</tag>
+  </scm>
+
+</project>
