@@ -50,7 +50,7 @@ data class TextField(
     override fun getValue(): Any = textFieldView.text
 
     private fun bind() {
-        val color = Color.parseColor(color)
+        val color = Color.parseColor(getColorWithHashTag(color))
         textFieldView.setText(description)
         textFieldView.setTextColor(color)
         textFieldView.hint = hint
@@ -71,4 +71,6 @@ data class TextField(
             MaskApplier(textFieldView, it)
         }
     }
+
+    fun getColorWithHashTag(value: String): String = if (value.startsWith("#")) value else "#$value"
 }
