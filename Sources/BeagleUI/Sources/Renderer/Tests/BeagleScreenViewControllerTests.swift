@@ -93,7 +93,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
             componentResult: .success(SimpleComponent().content)
         )
 
-        let dependencies = BeagleDependencies(appName: "TEST")
+        let dependencies = BeagleDependencies()
         dependencies.network = loaderStub
 
         let sut = BeagleScreenViewController(viewModel: .init(

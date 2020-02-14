@@ -151,7 +151,7 @@ final class ListViewTests: XCTestCase {
     private func makeListUiView(_ listComponent: ListView) -> UIView {
         return listComponent.toView(
             context: BeagleContextDummy(),
-            dependencies: BeagleDependencies(appName: "Test")
+            dependencies: BeagleDependencies()
         )
     }
 

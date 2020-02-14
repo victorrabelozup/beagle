@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         deepLinkHandler["pageview"] = PageViewScreen.self
         deepLinkHandler["tabview"] = TabViewScreen.self
 
-        let dependencies = BeagleDependencies(appName: "BeagleDemo")
+        let dependencies = BeagleDependencies()
         dependencies.deepLinkHandler = deepLinkHandler
         Beagle.dependencies = dependencies
         

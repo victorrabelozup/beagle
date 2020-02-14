@@ -7,94 +7,83 @@ import XCTest
 import SnapshotTesting
 
 final class ComponentDecoderTests: XCTestCase {
-    
-    // MARK: - Properties
+    // swiftlint:disable force_unwrapping
     
     private lazy var sut = Beagle.dependencies.decoder
-    
-    // MARK: - Tests
 
     // TODO: remove this test when using newer versions of SnapshotTesting,
     // because this behaviour will be already tested on BeagleSetupTests.
     func testIfAllDecodersAreBeingRegistered() {
-        let decoder = ComponentDecoder(jsonDecoder: .init(), namespace: "TEST")
+        let decoder = ComponentDecoder()
         assertSnapshot(matching: decoder.decoders, as: .dump)
     }
     
-    func test_initWithCustomJsonDecoder_shouldSetupJsonDecoderCorrectly() {
+    func test_whenANewTypeIsRegistered_thenItShouldBeAbleToDecodeIt() throws {
         // Given
-        let customDecoder = JSONDecoder()
-        
-        // When
-        let sut = ComponentDecoder(jsonDecoder: customDecoder)
-        let custom = Mirror(reflecting: sut).firstChild(of: JSONDecoder.self)
-        
-        // Then
-        XCTAssertTrue(customDecoder === custom)
-    }
-    
-    func test_whenANewTypeIsRegistered_thenItShouldBeAbleToDecodeIt() {
-        // Given
-        guard let jsonData = """
+        let jsonData = """
         {
-            "_beagleType_": "beagle:component:newcomponent",
+            "_beagleType_": "custom:component:newcomponent",
             "something": "something"
         }
-        """.data(using: .utf8) else {
-            XCTFail("Could not create test data.")
-            return
-        }
+        """.data(using: .utf8)!
 
         // When
         sut.register(NewComponentEntity.self, for: "NewComponent")
 
         // Then
-        let component: ServerDrivenComponent? = try? sut.decodeComponent(from: jsonData)
-        let value = component as? Text
-        XCTAssertNotNil(value, "Expected a Text, but found nil.")
-        XCTAssertEqual("something", value?.text)
+        let text = try sut.decodeComponent(from: jsonData) as? Text
+        XCTAssert(text != nil)
+        XCTAssert(text?.text == "something")
     }
 
-    func test_whenADefaultTypeIsRequested_thenItShouldBeAbleToDecodeIt() {
+    func testDecodeDefaultType() throws {
         // Given
-        guard let jsonData = """
+        let expectedText = "some text"
+        let jsonData = """
         {
             "_beagleType_": "beagle:component:text",
-            "text": "some text"
+            "text": "\(expectedText)"
         }
-        """.data(using: .utf8) else {
-            XCTFail("Could not create test data.")
-            return
-        }
+        """.data(using: .utf8)!
 
         // When
-        let component: ServerDrivenComponent? = try? sut.decodeComponent(from: jsonData)
-        let value = component as? Text
+        let text = try sut.decodeComponent(from: jsonData) as? Text
 
         // Then
-        XCTAssertNotNil(value, "Expected a Text, but found nil.")
-        XCTAssertEqual("some text", value?.text)
+        XCTAssert(text != nil)
+        XCTAssert(text?.text == expectedText)
     }
 
-    func test_whenAnUnknwonTypeIsDecoded_thenItShouldReturnNil() {
+    func test_whenAnUnknwonTypeIsDecoded_thenItShouldReturnNil() throws {
         // Given
-        guard let jsonData = """
+        let jsonData = """
         {
             "_beagleType_": "beagle:component:unknown",
             "text": "some text"
         }
-        """.data(using: .utf8) else {
-            XCTFail("Could not create test data.")
-            return
-        }
+        """.data(using: .utf8)!
 
         // When
-        let component: ServerDrivenComponent? = try? sut.decodeComponent(from: jsonData)
-        let anyComponent = component as? AnyComponent
+        let anyComponent = try sut.decodeComponent(from: jsonData) as? AnyComponent
         let value = anyComponent?.value as? Unknown
 
         // Then
-        XCTAssertEqual("beagle:component:unknown", value?.type)
+        XCTAssert(value?.type == "beagle:component:unknown")
+    }
+
+    func testDecodeAction() throws {
+        let jsonData = """
+        {
+            "_beagleType_": "beagle:action:navigate",
+            "type": "FINISH_VIEW"
+        }
+        """.data(using: .utf8)!
+
+        let action = try sut.decodeAction(from: jsonData)
+
+        guard case Navigate.finishView = action else {
+            XCTFail("decoding failed"); return
+        }
     }
 }
 
@@ -106,7 +95,6 @@ private struct NewComponentEntity: ComponentEntity, ComponentConvertible {
     func mapToComponent() throws -> ServerDrivenComponent {
         return Text(something)
     }
-    
 }
 
 struct UnconvertibleComponent: ComponentEntity {

@@ -72,7 +72,7 @@
     ],
 
     "pageIndicator": {
-        "_beagleType_": "beagle:component:CustomPageIndicator",
+        "_beagleType_": "custom:component:CustomPageIndicator",
         "selectedColor": "selectedColor",
         "defaultColor": "defaultColor"
     }

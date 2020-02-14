@@ -228,7 +228,7 @@ final class BeagleContextTests: XCTestCase {
     }
     
     func test_lazyLoad_shouldReplaceTheInitialContent() {
-        let dependencies = BeagleDependencies(appName: "TEST")
+        let dependencies = BeagleDependencies()
         dependencies.network = NetworkStub(
             componentResult: .success(SimpleComponent().content)
         )

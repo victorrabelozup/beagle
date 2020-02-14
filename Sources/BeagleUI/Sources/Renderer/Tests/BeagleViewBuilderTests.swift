@@ -15,7 +15,7 @@ final class BeagleViewBuilderTests: XCTestCase {
         // When
         let rootView = component.toView(
             context: context,
-            dependencies: BeagleDependencies(appName: "TEST")
+            dependencies: BeagleDependencies()
         )
         
         // Then

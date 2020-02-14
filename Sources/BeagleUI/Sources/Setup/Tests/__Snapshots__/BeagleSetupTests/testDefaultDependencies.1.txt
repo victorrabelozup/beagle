@@ -6,7 +6,6 @@
   - baseURL: Optional<URL>.none
   - customActionHandler: Optional<CustomActionHandler>.none
   ▿ decoder: ComponentDecoder
-    - customNamespace: "TEST"
     - decoders: (0 elements)
     ▿ jsonDecoder: JSONDecoder
       - dataDecodingStrategy: DataDecodingStrategy.base64

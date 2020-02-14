@@ -37,11 +37,11 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
 
     private let resolver: InnerDependenciesResolver
     
-    public init(appName: String = "Beagle") {
+    public init() {
         let resolver = InnerDependenciesResolver()
         self.resolver = resolver
 
-        self.decoder = ComponentDecoder(namespace: appName)
+        self.decoder = ComponentDecoder()
         self.preFetchHelper = BeaglePreFetchHelper()
         self.customActionHandler = nil
         self.appBundle = Bundle.main

@@ -9,12 +9,12 @@ import SnapshotTesting
 final class BeagleSetupTests: XCTestCase {
 
     func testDefaultDependencies() {
-        let dependencies = BeagleDependencies(appName: "TEST")
+        let dependencies = BeagleDependencies()
         assertSnapshot(matching: dependencies, as: .dump)
     }
 
     func testChangedDependencies() {
-        let dep = BeagleDependencies(appName: "TEST")
+        let dep = BeagleDependencies()
         dep.appBundle = Bundle.main
         dep.deepLinkHandler = DeepLinkHandlerDummy()
         dep.theme = AppThemeDummy()
@@ -31,7 +31,7 @@ final class BeagleSetupTests: XCTestCase {
     }
 
     func test_ifChangingDependency_othersShouldUseNewInstance() {
-        let dependencies = BeagleDependencies(appName: "TEST")
+        let dependencies = BeagleDependencies()
 
         let actionSpy = CustomActionHandlerSpy()
         dependencies.customActionHandler = actionSpy
