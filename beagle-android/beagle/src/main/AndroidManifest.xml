@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="br.com.zup.beagle">
+
+    <application>
+        <activity
+            android:name="br.com.zup.beagle.view.BeagleUIActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+    </application>
+</manifest>
