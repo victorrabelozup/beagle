@@ -1,0 +1,13 @@
+apply plugin: 'kotlin'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+dependencies {
+    implementation GeneralLibraries.kotlin
+
+    implementation project(Modules.beagleCoreDeclarative)
+    compileOnly project(Modules.beagleBackendDeclarative)
+}
+
+apply from: rootProject.file('maven-publish.gradle')

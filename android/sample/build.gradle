@@ -40,8 +40,8 @@ dependencies {
     implementation GeneralLibraries.kotlin
     implementation AndroidxLibraries.coreKtx
 
-    implementation project(Modules.beagle)
-    kapt project(Modules.beagleCompiler)
+    implementation project(Modules.beagleAndroid)
+    kapt project(Modules.beagleAndroidProcessor)
 
     // Unit Testing
     testImplementation TestLibraries.junit
@@ -52,6 +52,5 @@ dependencies {
     androidTestImplementation TestLibraries.testRunner
     androidTestImplementation TestLibraries.testExt
     androidTestImplementation TestLibraries.espressoCore
-    // AndroidJUnitRunner and JUnit Rules
     androidTestImplementation TestLibraries.testRules
 }

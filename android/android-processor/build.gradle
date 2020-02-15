@@ -9,10 +9,9 @@ dependencies {
 
     implementation GeneralLibraries.kotlinPoet
 
-    implementation GeneralLibraries.beagleDeclarative
-    implementation GeneralLibraries.beagleAndroidDeclarative
-    implementation GeneralLibraries.beagleAnnotation
+    implementation project(Modules.beagleCoreDeclarative)
     implementation project(Modules.beagleAnnotation)
+    implementation project(Modules.beagleAndroidAnnotation)
 
     implementation GoogleLibraries.autoService
     kapt GoogleLibraries.autoService

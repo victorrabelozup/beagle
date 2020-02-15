@@ -1,0 +1,14 @@
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation GeneralLibraries.kotlin
+
+    implementation GeneralLibraries.jacksonKotlin
+
+    api project(Modules.beagleAnnotation)
+    api project(Modules.beagleAnnotation)
+    api project(Modules.beagleDeclarative)
+    api project(Modules.beagleBackendDeclarative)
+}
+
+apply from: rootProject.file('maven-publish.gradle')
