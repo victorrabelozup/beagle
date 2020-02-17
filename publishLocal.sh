@@ -1,2 +1,2 @@
 ./gradlew build
-./gradlew publishMavenPublicationToMavenLocal
+./gradlew publishToMavenLocal

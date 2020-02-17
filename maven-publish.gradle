@@ -13,6 +13,7 @@ ext {
     publishUsername = System.env.NX_USR_SNP != null ? System.env.NX_USR_SNP : localProp["publishUsername"] ?: ""
     publishPassword = System.env.NX_PSS_SNP != null ? System.env.NX_PSS_SNP : localProp["publishPassword"] ?: ""
     destinationRepoUrl = System.env.NX_REPO_URL != null ? System.env.NX_REPO_URL : localProp["destinationRepoUrl"] ?: ""
+    versionName = System.env.BITRISE_GIT_TAG != null ? System.env.BITRISE_GIT_TAG : VERSION_NAME ?: ""
 }
 
 install {
@@ -109,7 +110,7 @@ project.afterEvaluate {
             maven(MavenPublication) {
                 artifactId ARTIFACT_NAME
                 groupId GROUP_NAME
-                version VERSION_NAME
+                version versionName
 
                 if (project.hasProperty("android")) {
                     artifact bundleReleaseAar
