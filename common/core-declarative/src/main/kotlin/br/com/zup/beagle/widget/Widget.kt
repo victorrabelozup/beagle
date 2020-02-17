@@ -7,22 +7,18 @@ import br.com.zup.beagle.widget.core.Flex
 
 abstract class Widget : FlexComponent, AppearanceComponent {
 
-    private var mFlex: Flex? = null
-    private var mAppearance: Appearance? = null
-
-    override val appearance: Appearance?
-        get() = mAppearance
-
-    override val flex: Flex?
-        get() = mFlex
+    final override var flex: Flex? = null
+        private set
+    final override var appearance: Appearance? = null
+        private set
 
     open fun applyFlex(flex: Flex): Widget {
-        this.mFlex = flex
+        this.flex = flex
         return this
     }
 
     open fun applyAppearance(appearance: Appearance): Widget {
-        this.mAppearance = appearance
+        this.appearance = appearance
         return this
     }
 }
