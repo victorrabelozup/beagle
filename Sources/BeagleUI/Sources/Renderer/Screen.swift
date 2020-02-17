@@ -28,7 +28,7 @@ public struct Screen {
         self.footer = footer
     }
     
-    func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+    func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         return ScreenComponent(
             safeArea: safeArea,
             navigationBar: navigationBar,

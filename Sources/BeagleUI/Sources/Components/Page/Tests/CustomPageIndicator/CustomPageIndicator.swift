@@ -24,7 +24,7 @@ public struct CustomPageIndicator: PageIndicator {
         self.defaultColor = defaultColor
     }
     
-    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+    public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         return CustomPageIndicatorUIComponent()
     }
 }

@@ -19,7 +19,7 @@ public struct PageView: ServerDrivenComponent {
 }
 
 extension PageView: Renderable {
-    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+    public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let pagesControllers = pages.map {
             BeagleScreenViewController(
                 viewModel: .init(screenType: .declarative($0.toScreen()))

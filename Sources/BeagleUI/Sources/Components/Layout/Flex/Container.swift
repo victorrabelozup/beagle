@@ -32,7 +32,7 @@ public struct Container: Widget {
 }
 
 extension Container: Renderable {
-    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+    public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let containerView = UIView()
         
         children.forEach {

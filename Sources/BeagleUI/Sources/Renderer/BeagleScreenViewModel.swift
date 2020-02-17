@@ -37,7 +37,7 @@ public class BeagleScreenViewModel {
     public typealias Dependencies =
         DependencyActionExecutor
         & DependencyNetwork
-        & Renderable.Dependencies
+        & RenderableDependencies
 
     // MARK: Delegate and Observer
 

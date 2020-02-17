@@ -31,7 +31,7 @@ public struct Button: Widget {
 
 extension Button: Renderable {
     
-    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+    public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         
         let button = BeagleUIButton.button(context: context, action: action)
         button.setTitle(text, for: .normal)

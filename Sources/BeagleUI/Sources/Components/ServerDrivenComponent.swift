@@ -10,17 +10,22 @@ public protocol ComposeComponent: ServerDrivenComponent {
     func build() -> ServerDrivenComponent
 }
 
-public protocol Renderable {
-    typealias Dependencies =
-        DependencyFlexViewConfigurator
-        & DependencyTheme
-        & DependencyValidatorProvider
-        & DependencyPreFetching
-        & DependencyAppBundle
-        & DependencyNetwork
-    
-    func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView
+extension ComposeComponent {
+    public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
+        return build().toView(context: context, dependencies: dependencies)
+    }
 }
+
+public protocol Renderable {
+    func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView
+}
+
+public protocol RenderableDependencies: DependencyFlexViewConfigurator,
+    DependencyTheme,
+    DependencyValidatorProvider,
+    DependencyPreFetching,
+    DependencyAppBundle,
+    DependencyNetwork {}
 
 extension ServerDrivenComponent {
     public func toScreen() -> Screen {
@@ -53,7 +58,7 @@ public struct AnyComponent: ServerDrivenComponent {
 }
 
 extension AnyComponent: Renderable {
-    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+    public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let label = UILabel(frame: .zero)
         label.numberOfLines = 2
         label.text = "Unknown Component of type:\n \(String(describing: value))"

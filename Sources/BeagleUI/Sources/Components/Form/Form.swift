@@ -35,7 +35,7 @@ extension Form {
 }
 
 extension Form: Renderable {
-    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+    public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let childView = child.toView(context: context, dependencies: dependencies)
         
         func registerFormSubmit(view: UIView) {

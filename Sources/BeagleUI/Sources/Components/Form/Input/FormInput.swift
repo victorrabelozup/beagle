@@ -29,7 +29,7 @@ public struct FormInput: ServerDrivenComponent {
 }
 
 extension FormInput: Renderable {
-    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+    public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let childView = child.toView(context: context, dependencies: dependencies)
         childView.beagleFormElement = self
         return childView

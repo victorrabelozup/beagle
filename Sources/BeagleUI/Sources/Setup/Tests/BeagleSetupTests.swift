@@ -71,7 +71,7 @@ struct ComponentDummy: ServerDrivenComponent, Equatable, CustomStringConvertible
         return "ComponentDummy()"
     }
     
-    func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+    func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         return DummyView()
     }
 }
@@ -91,7 +91,7 @@ class BeagleContextDummy: BeagleContext {
     func doAction(_ action: Action, sender: Any) {}
 }
 
-struct RendererDependenciesContainer: Renderable.Dependencies {
+struct RendererDependenciesContainer: RenderableDependencies {
     var network: Network
     var flex: FlexViewConfiguratorProtocol
     var theme: Theme

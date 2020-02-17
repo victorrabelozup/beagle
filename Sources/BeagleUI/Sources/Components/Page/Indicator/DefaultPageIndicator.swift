@@ -18,7 +18,7 @@ extension DefaultPageIndicatorEntity: ComponentConvertible {
 class DefaultPageIndicator: PageIndicator {}
 
 extension DefaultPageIndicator: Renderable {
-    func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+    func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         return DefaultPageIndicatorUIComponent()
     }
 }

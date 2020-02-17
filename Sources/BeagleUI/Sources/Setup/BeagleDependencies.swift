@@ -4,19 +4,14 @@
 
 import UIKit
 
-public protocol BeagleDependenciesProtocol: DependencyFlexViewConfigurator,
-    DependencyTheme,
-    DependencyValidatorProvider,
-    DependencyActionExecutor,
-    DependencyNetwork,
+public protocol BeagleDependenciesProtocol: DependencyActionExecutor,
     DependencyBaseURL,
     DependencyComponentDecoding,
     DependencyNetworkClient,
     DependencyDeepLinkScreenManaging,
     DependencyCustomActionHandler,
     DependencyNavigation,
-    DependencyPreFetching,
-    DependencyAppBundle {
+    RenderableDependencies {
 }
 
 open class BeagleDependencies: BeagleDependenciesProtocol {

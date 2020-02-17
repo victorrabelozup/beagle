@@ -32,7 +32,7 @@ struct ScreenComponent: ServerDrivenComponent {
 }
 
 extension ScreenComponent: Renderable {
-    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+    public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
 
         prefetch(dependencies: dependencies)
         
@@ -59,14 +59,14 @@ extension ScreenComponent: Renderable {
 
     // MARK: - Private Functions
     
-    private func prefetch(dependencies: Renderable.Dependencies) {
+    private func prefetch(dependencies: RenderableDependencies) {
         navigationBar?.navigationBarItems?
             .compactMap { $0.action as? Navigate }
             .compactMap { $0.newPath }
             .forEach { dependencies.preFetchHelper.prefetchComponent(newPath: $0, dependencies: dependencies) }
     }
     
-    private func createComponentContentView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+    private func createComponentContentView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let headerView = header?.toView(context: context, dependencies: dependencies)
         let footerView = footer?.toView(context: context, dependencies: dependencies)
         let contentView = buildContentView(context: context, dependencies: dependencies)
@@ -93,7 +93,7 @@ extension ScreenComponent: Renderable {
         return container
     }
     
-    private func buildContentView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+    private func buildContentView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let contentHolder = UIView()
         let contentView = content.toView(context: context, dependencies: dependencies)
         
@@ -184,7 +184,7 @@ extension NavigationBarItem {
     
     public func toBarButtonItem(
         context: BeagleContext,
-        dependencies: Renderable.Dependencies
+        dependencies: RenderableDependencies
     ) -> UIBarButtonItem {
         return NavigationBarButtonItem(barItem: self, context: context, dependencies: dependencies)
     }
@@ -197,7 +197,7 @@ extension NavigationBarItem {
         init(
             barItem: NavigationBarItem,
             context: BeagleContext,
-            dependencies: Renderable.Dependencies
+            dependencies: RenderableDependencies
         ) {
             self.barItem = barItem
             self.context = context

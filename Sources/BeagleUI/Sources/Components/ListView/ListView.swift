@@ -77,7 +77,7 @@ extension ListView {
 }
 
 extension ListView: Renderable {
-    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+    public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let componentViews = rows?
             .compactMap {
                 $0.toView(context: context, dependencies: dependencies)

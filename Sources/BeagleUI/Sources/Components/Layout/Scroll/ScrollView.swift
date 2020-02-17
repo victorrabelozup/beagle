@@ -24,7 +24,7 @@ public struct ScrollView: AppearanceComponent {
 }
 
 extension ScrollView: Renderable {
-    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+    public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let scrollView = BeagleContainerScrollView()
         let contentView = UIView()
         

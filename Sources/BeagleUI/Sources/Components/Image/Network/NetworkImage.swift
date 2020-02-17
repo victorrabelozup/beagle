@@ -25,7 +25,7 @@ public struct NetworkImage: AppearanceComponent {
 }
 
 extension NetworkImage: Renderable {
-    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+    public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let imageView = NetworkUIImageView(network: dependencies.network, url: path)
         imageView.contentMode = (contentMode ?? .fitCenter).toUIKit()
         imageView.applyAppearance(appearance)

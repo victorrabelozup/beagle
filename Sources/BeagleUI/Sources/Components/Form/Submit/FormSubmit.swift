@@ -24,7 +24,7 @@ public struct FormSubmit: ServerDrivenComponent {
 
 extension FormSubmit: Renderable {
     
-    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+    public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let view = FormSubmitView(enabled: enabled, frame: .zero, dependencies: dependencies)
         let childView = child.toView(context: context, dependencies: dependencies)
         view.addSubview(childView)
@@ -35,12 +35,12 @@ extension FormSubmit: Renderable {
     
     final class FormSubmitView: UIView, Observer, WidgetStateObservable {
         var observable: Observable<WidgetState> = Observable<WidgetState>(value: WidgetState(value: nil))
-        private var dependencies: Renderable.Dependencies?
+        private var dependencies: RenderableDependencies?
         
         init(
             enabled: Bool?,
             frame: CGRect,
-            dependencies: Renderable.Dependencies?
+            dependencies: RenderableDependencies?
         ) {
             observable.value = WidgetState(value: enabled)
             self.dependencies = dependencies

@@ -30,7 +30,7 @@ public struct Text: Widget {
 }
 
 extension Text: Renderable {
-    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+    public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let label = UILabel(frame: .zero)
         label.text = text
         label.numberOfLines = 0

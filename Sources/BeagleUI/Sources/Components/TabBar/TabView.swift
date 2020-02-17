@@ -32,7 +32,7 @@ public struct TabView: ServerDrivenComponent {
 }
 
 extension TabView: Renderable {
-    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+    public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let model = TabViewUIComponent.Model(tabIndex: 0, tabViewItems: tabItems)
         let tabView = TabViewUIComponent(model: model)
         let flex = Flex(grow: 1)

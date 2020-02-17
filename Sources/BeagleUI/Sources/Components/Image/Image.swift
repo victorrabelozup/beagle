@@ -31,7 +31,7 @@ public struct Image: Widget {
 }
 
 extension Image: Renderable {
-    public func toView(context: BeagleContext, dependencies: Renderable.Dependencies) -> UIView {
+    public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let image = UIImageView(frame: .zero)
         image.contentMode = (contentMode ?? .fitCenter).toUIKit()
         image.setImageFromAsset(named: name, bundle: dependencies.appBundle)
