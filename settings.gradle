@@ -9,5 +9,3 @@ include Modules.beagleAnnotation
 include Modules.beagleDeclarative
 include Modules.beagleCoreDeclarative
 include Modules.beagleBackendDeclarative
-include Modules.libfb
-include Modules.yoga

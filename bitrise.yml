@@ -9,8 +9,6 @@ workflows:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
     - git-clone@4.0.14: {}
     - cache-pull@2.0.1: {}
-    - script@1.1.5:
-        title: Do anything with Script step
     - install-missing-android-tools@2.3.5:
         inputs:
         - gradlew_path: "$PROJECT_LOCATION/gradlew"
@@ -19,20 +17,19 @@ workflows:
         - gradle_task: detekt
         - gradlew_path: "./gradlew"
         - gradle_file: build.gradle
-    - android-lint@0.9.6:
-        inputs:
-        - project_location: "$PROJECT_LOCATION"
-        - module: "$MODULE"
-        - variant: "$VARIANT"
-    - android-unit-test@0.11.1:
-        inputs:
-        - project_location: "$PROJECT_LOCATION"
-        - module: "$MODULE"
-        - arguments: jacocoTestReport
-        - variant: "$VARIANT"
     - gradle-runner:
         inputs:
-          - gradle_task: sample:assembleDebug sample:assembleDebugAndroidTest
+        - gradle_task: testDebugUnitTest jacocoTestReport
+        - gradlew_path: "./gradlew"
+        - gradle_file: build.gradle
+    - gradle-runner:
+        inputs:
+        - gradle_task: lintDebug
+        - gradlew_path: "./gradlew"
+        - gradle_file: build.gradle
+    - gradle-runner:
+        inputs:
+          - gradle_task: android:sample:assembleDebug android:sample:assembleDebugAndroidTest
           - gradlew_path: "./gradlew"
           - gradle_file: build.gradle
     - virtual-device-testing-for-android@1.1.1:
@@ -49,7 +46,7 @@ workflows:
         inputs:
           - gradlew_path: "./gradlew"
           - gradle_file: build.gradle
-          - gradle_task: sample:copyVerificationFiles sample:executeScreenshotTests -PrunInstrumentation=false
+          - gradle_task: android:sample:copyVerificationFiles android:sample:executeScreenshotTests -PrunInstrumentation=false
     - codecov@1.1.6:
         run_if: true
         is_skippable: false

@@ -7,9 +7,9 @@ import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.view.BeagleFlexView
+import br.com.zup.beagle.view.YogaLayout
 import br.com.zup.beagle.widget.layout.Stack
 import br.com.zup.beagle.widget.ui.Button
-import com.facebook.yogalayout.YogaLayout
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every

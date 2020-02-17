@@ -8,7 +8,6 @@ import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.mapper.FlexMapper
 import br.com.zup.beagle.utils.toView
 import br.com.zup.beagle.widget.core.Flex
-import com.facebook.yogalayout.YogaLayout
 
 @SuppressLint("ViewConstructor")
 internal open class BeagleFlexView(

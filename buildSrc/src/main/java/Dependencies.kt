@@ -14,15 +14,12 @@ object Modules {
     const val beagleAnnotation = ":common:annotation"
     const val beagleBackendDeclarative = ":backend:backend-declarative"
     const val beagleBackendFramework = ":backend:framework"
-    const val libfb = ":android:libs:libfb"
-    const val yoga = ":android:libs:yoga"
 }
 
 object Releases {
     const val versionCode = 1
     const val versionName = "1.0"
     const val beagleVersionName = "0.0.16-alpha"
-    const val yogaVersionName = "0.0.1-alpha1"
 }
 
 object Versions {
@@ -52,10 +49,11 @@ object Versions {
 
     const val junit = "4.12"
 
+    const val yoga = "1.16.0"
+
     const val kotlinTest = "1.3.50"
     const val kotlinCoroutinesTest = "1.3.1"
 
-    const val findsBug = "3.0.1"
     const val materialDesign = "1.0.0"
     const val googleCompileTesting = "0.18"
     const val googleAutoService = "1.0-rc2"
@@ -92,14 +90,13 @@ object GeneralLibraries {
 
     const val soLoader = "com.facebook.soloader:soloader:${Versions.soLoader}"
 
-    const val yoga = "br.com.zup.beagle:yoga:${Releases.yogaVersionName}"
+    const val yoga = "com.facebook.yoga.android:yoga-layout:${Versions.yoga}"
 
     const val jacksonKotlin = "com.fasterxml.jackson.module:jackson-module-kotlin:${Versions.jacksonKotlin}"
 }
 
 object GoogleLibraries {
     const val autoService = "com.google.auto.service:auto-service:${Versions.googleAutoService}"
-    const val findsBug = "com.google.code.findbugs:jsr305:${Versions.findsBug}"
     const val materialDesign = "com.google.android.material:material:${Versions.materialDesign}"
 }
 
