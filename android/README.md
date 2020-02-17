@@ -103,7 +103,7 @@ In the Frontend, Beagle will deserialize this JSON into a widget and it will be 
 
 * [FAQ](https://docs.google.com/spreadsheets/d/1S3Xnwsnc9GnN6R6wSpSfPsFeoaovrRQ9hbl6CZ6ONZE/edit#gid=0)
 
-* [Detailed Guide](https://zupdocs.gitbook.io/beagle/)
+* [Detailed Guide](https://zup-products.gitbook.io/beagle/)
 
 * [Frontend example](https://github.com/ZupIT/beagle-tmdb)
 

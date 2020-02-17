@@ -19,7 +19,7 @@ class TextFieldFragment : Fragment() {
         val declarative = Screen(
             content = TextField(
                 hint = "Hint",
-                color = "#000000"
+                color = "FFB6C1"
             )
         )
         return declarative.toView(this)

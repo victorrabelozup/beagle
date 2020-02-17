@@ -174,9 +174,11 @@ internal fun View.applyAppearance(component: ServerDrivenComponent) {
 
 internal fun View.applyBackgroundColor(appearanceWidget: AppearanceComponent) {
     appearanceWidget.appearance?.backgroundColor?.let {
-        (this.background as? GradientDrawable)?.setColor(Color.parseColor(it))
+        (this.background as? GradientDrawable)?.setColor(Color.parseColor(it.getColorWithHashTag()))
     }
 }
+
+internal fun String.getColorWithHashTag(): String = if (this.startsWith("#")) this else "#$this"
 
 internal fun View.applyCornerRadius(appearanceWidget: AppearanceComponent) {
     appearanceWidget.appearance?.cornerRadius?.let { cornerRadius ->
