@@ -5,6 +5,9 @@
   - appBundle: NSBundle </Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Xcode/Agents> (loaded)
   ▿ baseURL: Optional<URL>
     - some: www.test.com
+  ▿ cacheManager: CacheManager
+    - components.storage: Optional<CacheLRU<String, ServerDrivenComponent>>.none
+    - maximumScreensCapacity: 10
   ▿ customActionHandler: Optional<CustomActionHandler>
     - some: CustomActionHandlerDummy
   - decoder: ComponentDecodingDummy
@@ -18,8 +21,7 @@
     ▿ dependencies: InnerDependenciesResolver
       - container: (Function)
   - networkClient: NetworkClientDummy
-  ▿ preFetchHelper: BeaglePreFetchHelper
-    - components: 0 key/value pairs
+  - preFetchHelper: BeaglePreFetchHelper
   ▿ resolver: InnerDependenciesResolver
     - container: (Function)
   - theme: AppThemeDummy

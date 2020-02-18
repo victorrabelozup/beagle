@@ -8,32 +8,35 @@ import SnapshotTesting
 
 final class BeaglePrefetchHelperTests: XCTestCase {
 
-    struct Dependencies: DependencyNetwork {
+    struct Dependencies: DependencyNetwork, DependencyCacheManager {
+        var cacheManager: CacheManagerProtocol
         let network: Network
     }
     
     func testPrefetchAndDequeue() {
         let remoteComponent = ComponentDummy()
-        let dependencies = Dependencies(network: NetworkStub(componentResult: .success(remoteComponent)))
+        let cacheManager = CacheManager(maximumScreensCapacity: 30)
+        let dependencies = Dependencies(cacheManager: cacheManager, network: NetworkStub(componentResult: .success(remoteComponent)))
         let sut = BeaglePreFetchHelper()
         let url = "url-test"
 
         sut.prefetchComponent(newPath: .init(path: url, shouldPrefetch: true), dependencies: dependencies)
-        let result = sut.dequeueComponent(path: url)
+        let result = dependencies.cacheManager.dequeueComponent(path: url)
         
         XCTAssertEqual(remoteComponent, result as? ComponentDummy)
     }
     
     func testPrefetchTheSameScreenTwice() {
         let remoteComponent = ComponentDummy()
-        let dependencies = Dependencies(network: NetworkStub(componentResult: .success(remoteComponent)))
+        let cacheManager = CacheManager(maximumScreensCapacity: 30)
+        let dependencies = Dependencies(cacheManager: cacheManager, network: NetworkStub(componentResult: .success(remoteComponent)))
         let sut = BeaglePreFetchHelper()
         let url = "url-test"
 
         sut.prefetchComponent(newPath: .init(path: url, shouldPrefetch: true), dependencies: dependencies)
-        let result1 = sut.dequeueComponent(path: url)
+        let result1 = dependencies.cacheManager.dequeueComponent(path: url)
         sut.prefetchComponent(newPath: .init(path: url, shouldPrefetch: true), dependencies: dependencies)
-        let result2 = sut.dequeueComponent(path: url)
+        let result2 = dependencies.cacheManager.dequeueComponent(path: url)
         
         XCTAssertEqual(remoteComponent, result1 as? ComponentDummy)
         XCTAssertEqual(remoteComponent, result2 as? ComponentDummy)
@@ -41,6 +44,9 @@ final class BeaglePrefetchHelperTests: XCTestCase {
     
     func testPrefetchFail() {
         let dependencies = Dependencies(
+            cacheManager: CacheManager(
+                maximumScreensCapacity: 30
+            ),
             network: NetworkStub(
                 componentResult: .failure(.networkError(
                     NSError(domain: "test", code: 1, description: "forced"))
@@ -51,7 +57,7 @@ final class BeaglePrefetchHelperTests: XCTestCase {
         let url = "url-test"
         
         sut.prefetchComponent(newPath: .init(path: url, shouldPrefetch: true), dependencies: dependencies)
-        let result = sut.dequeueComponent(path: url)
+        let result = dependencies.cacheManager.dequeueComponent(path: url)
         
         XCTAssertNil(result)
     }

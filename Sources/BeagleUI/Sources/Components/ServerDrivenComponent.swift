@@ -25,7 +25,8 @@ public protocol RenderableDependencies: DependencyFlexViewConfigurator,
     DependencyValidatorProvider,
     DependencyPreFetching,
     DependencyAppBundle,
-    DependencyNetwork {}
+    DependencyNetwork,
+    DependencyCacheManager {}
 
 extension ServerDrivenComponent {
     public func toScreen() -> Screen {

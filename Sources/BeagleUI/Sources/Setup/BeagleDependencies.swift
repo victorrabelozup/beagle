@@ -11,6 +11,9 @@ public protocol BeagleDependenciesProtocol: DependencyActionExecutor,
     DependencyDeepLinkScreenManaging,
     DependencyCustomActionHandler,
     DependencyNavigation,
+    DependencyPreFetching,
+    DependencyAppBundle,
+    DependencyCacheManager,
     RenderableDependencies {
 }
 
@@ -29,6 +32,7 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
     public var network: Network
     public var navigation: BeagleNavigation
     public var preFetchHelper: BeaglePrefetchHelping
+    public var cacheManager: CacheManagerProtocol
 
     private let resolver: InnerDependenciesResolver
     
@@ -47,6 +51,7 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
         self.navigation = BeagleNavigator(dependencies: resolver)
         self.actionExecutor = ActionExecuting(dependencies: resolver)
         self.network = NetworkDefault(dependencies: resolver)
+        self.cacheManager = CacheManager(maximumScreensCapacity: 30)
         
         self.resolver.container = { [unowned self] in self }
     }

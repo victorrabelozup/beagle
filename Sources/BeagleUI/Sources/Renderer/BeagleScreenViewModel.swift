@@ -71,8 +71,8 @@ public class BeagleScreenViewModel {
     // MARK: Core
 
     func loadScreenFromUrl(_ url: String) {
-        if let preFetched = dependencies.preFetchHelper.dequeueComponent(path: url) {
-            handleSuccess(preFetched)
+        if let cached = dependencies.cacheManager.dequeueComponent(path: url) {
+            handleSuccess(cached)
             return
         }
         

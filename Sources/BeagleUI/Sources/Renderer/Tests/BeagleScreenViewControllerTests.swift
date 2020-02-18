@@ -107,11 +107,11 @@ final class BeagleScreenViewControllerTests: XCTestCase {
     func test_loadPreFetchedScreen() {
         
         let url = "screen-url"
-        let prefetch = BeaglePrefetchHelpingStub()
-        prefetch[url] = Text("PreFetched Component", appearance: .init(backgroundColor: "#00FF00"))
+        let cache = CacheManager(maximumScreensCapacity: 30)
+        cache.saveComponent(Text("PreFetched Component", appearance: .init(backgroundColor: "#00FF00")), forPath: url)
         let network = NetworkStub(componentResult: .success(Text("Remote Component", appearance: .init(backgroundColor: "#00FFFF"))))
         let dependencies = BeagleDependencies()
-        dependencies.preFetchHelper = prefetch
+        dependencies.cacheManager = cache
         dependencies.network = network
         
         let screen = BeagleScreenViewController(viewModel: .init(
@@ -168,6 +168,7 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
     var validatorProvider: ValidatorProvider?
     var preFetchHelper: BeaglePrefetchHelping
     var appBundle: Bundle
+    var cacheManager: CacheManagerProtocol
 
     init(
         actionExecutor: ActionExecutor = ActionExecutorDummy(),
@@ -176,7 +177,8 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
         theme: Theme = AppThemeDummy(),
         validatorProvider: ValidatorProvider = ValidatorProviding(),
         preFetchHelper: BeaglePrefetchHelping = BeaglePreFetchHelper(),
-        appBundle: Bundle = Bundle(for: ImageTests.self)
+        appBundle: Bundle = Bundle(for: ImageTests.self),
+        cacheManager: CacheManagerProtocol = CacheManager(maximumScreensCapacity: 30)
     ) {
         self.actionExecutor = actionExecutor
         self.flex = flex
@@ -185,6 +187,7 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
         self.validatorProvider = validatorProvider
         self.preFetchHelper = preFetchHelper
         self.appBundle = appBundle
+        self.cacheManager = cacheManager
     }
 }
 
@@ -271,7 +274,7 @@ final class BeaglePrefetchHelpingStub: BeaglePrefetchHelping {
     
     private var components = [String: ServerDrivenComponent]()
     
-    func prefetchComponent(newPath: Navigate.NewPath, dependencies: DependencyNetwork) {
+    func prefetchComponent(newPath: Navigate.NewPath, dependencies: Dependencies) {
         return
     }
     

@@ -79,8 +79,10 @@ final class BeaglePrefetchHelpingSpy: BeaglePrefetchHelping {
     
     private(set) var prefetched: [String] = []
     private(set) var dequeued: [String] = []
+    var maximumScreensCapacity = 30
     
-    func prefetchComponent(newPath: Navigate.NewPath, dependencies: DependencyNetwork) {
+    func prefetchComponent(newPath: Navigate.NewPath, dependencies: Dependencies) {
+        
         prefetched.append(newPath.path)
     }
     

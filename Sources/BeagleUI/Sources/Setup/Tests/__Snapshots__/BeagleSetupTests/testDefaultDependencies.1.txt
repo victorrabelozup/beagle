@@ -4,6 +4,9 @@
       - container: (Function)
   - appBundle: NSBundle </Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Xcode/Agents> (loaded)
   - baseURL: Optional<URL>.none
+  ▿ cacheManager: CacheManager
+    - components.storage: Optional<CacheLRU<String, ServerDrivenComponent>>.none
+    - maximumScreensCapacity: 30
   - customActionHandler: Optional<CustomActionHandler>.none
   ▿ decoder: ComponentDecoder
     - decoders: (0 elements)
@@ -29,8 +32,7 @@
       - container: (Function)
     - session: <__NSURLSessionLocal>
     - urlBuilder: UrlRequestBuilder
-  ▿ preFetchHelper: BeaglePreFetchHelper
-    - components: 0 key/value pairs
+  - preFetchHelper: BeaglePreFetchHelper
   ▿ resolver: InnerDependenciesResolver
     - container: (Function)
   ▿ theme: AppTheme
