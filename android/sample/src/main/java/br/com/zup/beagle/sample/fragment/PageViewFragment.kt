@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment
 import br.com.zup.beagle.utils.toView
 import br.com.zup.beagle.widget.core.Alignment
 import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.core.JustifyContent
 import br.com.zup.beagle.widget.layout.PageView
 import br.com.zup.beagle.widget.pager.PageIndicator
 import br.com.zup.beagle.widget.ui.Text
+import br.com.zup.beagle.widget.ui.TextAlignment
 
 class PageViewFragment : Fragment() {
 
@@ -21,38 +21,26 @@ class PageViewFragment : Fragment() {
     ): View? {
         val declarative = PageView(
             pageIndicator = PageIndicator(
-                selectedColor = "#FFFFFF",
+                selectedColor = "#000000",
                 unselectedColor = "#888888"
             ),
             pages = listOf(
-                Text("Page 1").applyFlex(
+                Text("Page 1", alignment = TextAlignment.CENTER).applyFlex(
                     Flex(
-                        justifyContent = JustifyContent.CENTER,
-                        alignItems = Alignment.CENTER
+                        alignSelf = Alignment.CENTER,
+                        grow = 1.0
                     )
                 ),
-                Text("Page 2").applyFlex(
+                Text("Page 2", alignment = TextAlignment.CENTER).applyFlex(
                     Flex(
-                        justifyContent = JustifyContent.CENTER,
-                        alignItems = Alignment.CENTER
+                        alignSelf = Alignment.CENTER,
+                        grow = 1.0
                     )
                 ),
-                Text("Page 3").applyFlex(
+                Text("Page 3", alignment = TextAlignment.CENTER).applyFlex(
                     Flex(
-                        justifyContent = JustifyContent.CENTER,
-                        alignItems = Alignment.CENTER
-                    )
-                ),
-                Text("Page 4").applyFlex(
-                    Flex(
-                        justifyContent = JustifyContent.CENTER,
-                        alignItems = Alignment.CENTER
-                    )
-                ),
-                Text("Page 5").applyFlex(
-                    Flex(
-                        justifyContent = JustifyContent.CENTER,
-                        alignItems = Alignment.CENTER
+                        alignSelf = Alignment.CENTER,
+                        grow = 1.0
                     )
                 )
             )

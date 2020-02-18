@@ -9,6 +9,7 @@ import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.layout.Container
+import br.com.zup.beagle.widget.ui.Button
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
@@ -23,14 +24,14 @@ import org.junit.Test
 
 class ContainerViewRendererTest {
 
-    private val containerChildren = listOf<ServerDrivenComponent>(mockk())
-
-    @RelaxedMockK
+    @MockK
     private lateinit var container: Container
     @MockK
     private lateinit var viewRendererFactory: ViewRendererFactory
     @MockK
     private lateinit var viewFactory: ViewFactory
+    @InjectMockKs
+    private lateinit var renderer: ContainerViewRenderer
 
     @MockK
     private lateinit var flex: Flex
@@ -38,47 +39,37 @@ class ContainerViewRendererTest {
     private lateinit var context: Context
     @MockK
     private lateinit var rootView: RootView
-    @RelaxedMockK
-    private lateinit var beagleFlexView: BeagleFlexView
     @MockK
-    private lateinit var buttonViewRenderer: ContainerViewRenderer
+    private lateinit var beagleFlexView: BeagleFlexView
 
-    @InjectMockKs
-    private lateinit var containerViewRenderer: ContainerViewRenderer
+    private val containerChildren = listOf<ServerDrivenComponent>(Button(""))
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
 
+        every { viewFactory.makeBeagleFlexView(any(), any()) } returns beagleFlexView
         every { rootView.getContext() } returns context
         every { container.flex } returns flex
         every { container.children } returns containerChildren
-        every { viewFactory.makeBeagleFlexView(any(), any()) } returns beagleFlexView
-        every { beagleFlexView.addView(any()) } just Runs
-        every { beagleFlexView.context } returns context
-        every { viewRendererFactory.make(any()) } returns buttonViewRenderer
-        every { buttonViewRenderer.build(any()) } returns beagleFlexView
+        every { beagleFlexView.addServerDrivenComponent(any()) } just Runs
     }
 
     @Test
-    fun build_should_makeBeagleFlexView() {
-        containerViewRenderer.build(rootView)
+    fun buildView_should_makeBeagleFlexView() {
+        // WHEN
+        renderer.buildView(rootView)
 
+        // THEN
         verify(exactly = once()) { viewFactory.makeBeagleFlexView(context, flex) }
     }
 
     @Test
-    fun build_should_create_a_view_from_Container_children() {
-        containerViewRenderer.build(rootView)
+    fun buildView_should_addServerDrivenComponent() {
+        // WHEN
+        renderer.buildView(rootView)
 
-        verify(exactly = once()) { viewRendererFactory.make(containerChildren[0]) }
-        verify(exactly = once()) { buttonViewRenderer.build(rootView) }
-    }
-
-    @Test
-    fun build_should_addView_to_BeagleFlexView() {
-        containerViewRenderer.build(rootView)
-
-        verify(exactly = once()) { beagleFlexView.addView(beagleFlexView) }
+        // THEN
+        verify(exactly = once()) { beagleFlexView.addServerDrivenComponent(containerChildren[0]) }
     }
 }

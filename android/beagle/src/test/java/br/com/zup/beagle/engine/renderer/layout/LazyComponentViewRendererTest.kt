@@ -61,15 +61,15 @@ class LazyComponentViewRendererTest {
     }
 
     @Test
-    fun build_should_call_make_a_BeagleView() {
-        val actual = lazyComponentViewRenderer.build(rootView)
+    fun buildView_should_call_make_a_BeagleView() {
+        val actual = lazyComponentViewRenderer.buildView(rootView)
 
         assertTrue(actual is BeagleView)
     }
 
     @Test
-    fun build_should_add_initialState_and_trigger_updateView() {
-        lazyComponentViewRenderer.build(rootView)
+    fun buildView_should_add_initialState_and_trigger_updateView() {
+        lazyComponentViewRenderer.buildView(rootView)
 
         verify(exactly = once()) { beagleView.addView(initialStateView) }
         verify(exactly = once()) { beagleView.updateView(rootView, URL, initialStateView) }

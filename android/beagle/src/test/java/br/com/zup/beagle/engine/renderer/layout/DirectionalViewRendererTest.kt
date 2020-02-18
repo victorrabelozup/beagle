@@ -14,6 +14,7 @@ import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
+import io.mockk.impl.annotations.MockK
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.slot
@@ -54,6 +55,9 @@ class DirectionalViewRendererTest {
 
     private val children = listOf(Button(""), Button(""))
 
+    @MockK
+    private lateinit var beagleFlexView: BeagleFlexView
+
     @InjectMockKs
     private lateinit var directionalViewRenderer: DirectionalViewRendererImpl
 
@@ -67,30 +71,24 @@ class DirectionalViewRendererTest {
             )
         } returns flex
         every { flex.flexDirection } returns FlexDirection.COLUMN
-
     }
 
     @Test
-    fun build_should_add_flexDirection_as_COLUMN_and_addView_to_yogaLayout() {
+    fun buildView_should_add_flexDirection_as_COLUMN_and_addView_to_yogaLayout() {
         // Given
         val beagleFlexView = mockk<BeagleFlexView>()
         val context = mockk<Context>()
         val rootView = mockk<RootView>()
-        val containerViewRenderer = mockk<ScreenViewRenderer>()
-        val view = mockk<View>()
         val flexSlot = slot<Flex>()
         every { rootView.getContext() } returns context
-        every { beagleFlexView.context } returns context
-        every { beagleFlexView.addView(any()) } just Runs
         every { viewFactory.makeBeagleFlexView(any(), capture(flexSlot)) } returns beagleFlexView
-        every { viewRendererFactory.make(any()) } returns containerViewRenderer
-        every { containerViewRenderer.build(rootView) } returns view
+        every { beagleFlexView.addServerDrivenComponent(any()) } just Runs
 
         // When
-        directionalViewRenderer.build(rootView)
+        directionalViewRenderer.buildView(rootView)
 
         // Then
         assertEquals(FlexDirection.COLUMN, flexSlot.captured.flexDirection)
-        verify(exactly = 2) { beagleFlexView.addView(view) }
+        verify(exactly = 2) { beagleFlexView.addServerDrivenComponent(any()) }
     }
 }

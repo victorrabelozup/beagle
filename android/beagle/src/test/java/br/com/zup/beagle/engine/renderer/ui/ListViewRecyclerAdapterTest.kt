@@ -7,10 +7,13 @@ import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
+import br.com.zup.beagle.view.BeagleFlexView
+import br.com.zup.beagle.view.ViewFactory
 import io.mockk.Called
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Before
@@ -22,15 +25,15 @@ private val ROWS = listOf<ServerDrivenComponent>(mockk(), mockk())
 class ListViewRecyclerAdapterTest {
 
     @MockK
-    private lateinit var viewRendererFactory: ViewRendererFactory
+    private lateinit var viewFactory: ViewFactory
     @MockK
     private lateinit var viewRendererMock: ViewRenderer<*>
     @MockK
     private lateinit var rootView: RootView
     @MockK
     private lateinit var context: Context
-    @MockK
-    private lateinit var view: View
+    @RelaxedMockK
+    private lateinit var view: BeagleFlexView
 
     private lateinit var listViewRecyclerAdapter: ListViewRecyclerAdapter
 
@@ -38,10 +41,10 @@ class ListViewRecyclerAdapterTest {
     fun setUp() {
         MockKAnnotations.init(this)
 
-        listViewRecyclerAdapter = ListViewRecyclerAdapter(rootView, ROWS, viewRendererFactory)
+        listViewRecyclerAdapter = ListViewRecyclerAdapter(rootView, ROWS, viewFactory)
 
-        every { viewRendererFactory.make(any()) } returns viewRendererMock
-        every { viewRendererMock.build(rootView) } returns view
+        every { viewFactory.makeBeagleFlexView(any()) } returns view
+        every { rootView.getContext() } returns context
     }
 
     @Test
@@ -65,7 +68,6 @@ class ListViewRecyclerAdapterTest {
 
         // When
         val actual = listViewRecyclerAdapter.onCreateViewHolder(parent, position)
-
 
         // Then
         assertEquals(view, actual.itemView)

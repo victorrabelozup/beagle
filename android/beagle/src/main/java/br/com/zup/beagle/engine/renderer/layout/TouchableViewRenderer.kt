@@ -19,7 +19,8 @@ internal class TouchableViewRenderer(
 
     override fun buildView(rootView: RootView): View {
         preFetchHelper.handlePreFetch(rootView, component.action)
-        return viewRendererFactory.make(component.child).build(rootView).apply {
+        return viewFactory.makeBeagleFlexView(rootView.getContext()).apply {
+            addServerDrivenComponent(component.child)
             setOnClickListener { actionExecutor.doAction(context, component.action) }
         }
     }

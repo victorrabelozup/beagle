@@ -14,8 +14,8 @@ internal class BuildableWidgetViewRenderer(
 ) : LayoutViewRenderer<ComposeComponent>(viewRendererFactory, viewFactory) {
 
     override fun buildView(rootView: RootView): View {
-        val buildResult = component
-        return viewRendererFactory.make(buildResult).build(rootView)
+        return viewFactory.makeBeagleFlexView(rootView.getContext()).apply {
+            addServerDrivenComponent(component)
+        }
     }
-
 }

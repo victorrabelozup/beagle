@@ -1,79 +1,80 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="UnusedResources">
-    <group android:checkableBehavior="single">
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/textField"
+        android:icon="@mipmap/ic_launcher"
+        android:title="TextField"
+        tools:ignore="HardcodedText" />
 
-        <item
-            android:id="@+id/textField"
-            android:icon="@mipmap/ic_launcher"
-            android:title="TextField Widget"
-            tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/lazywidget"
+        android:icon="@mipmap/ic_launcher"
+        android:title="LazyWidget"
+        tools:ignore="HardcodedText" />
 
-        <item
-            android:id="@+id/lazywidget"
-            android:icon="@mipmap/ic_launcher"
-            android:title="LazyWidget"
-            tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/navigationBar"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Navigation Bar"
+        tools:ignore="HardcodedText" />
 
-        <item
-            android:id="@+id/navigationBar"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Navigation Bar"
-            tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/navigation"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Navigation"
+        tools:ignore="HardcodedText" />
 
-        <item
-            android:id="@+id/navigation"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Navigation"
-            tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/scroll"
+        android:icon="@mipmap/ic_launcher"
+        android:title="ScrollView"
+        tools:ignore="HardcodedText" />
 
-        <item
-            android:id="@+id/scroll"
-            android:icon="@mipmap/ic_launcher"
-            android:title="ScrollView Widget"
-            tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/image"
+        android:icon="@mipmap/ic_launcher"
+        android:title="ImageView"
+        tools:ignore="HardcodedText" />
 
-        <item
-            android:id="@+id/image"
-            android:icon="@mipmap/ic_launcher"
-            android:title="ImageView"
-            tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/pageView"
+        android:icon="@mipmap/ic_launcher"
+        android:title="PageView Declarative"
+        tools:ignore="HardcodedText" />
 
-        <item
-            android:id="@+id/pageView"
-            android:icon="@mipmap/ic_launcher"
-            android:title="PageView Declarative"
-            tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/pageView2"
+        android:icon="@mipmap/ic_launcher"
+        android:title="PageView Remote"
+        tools:ignore="HardcodedText" />
 
-        <item
-            android:id="@+id/pageView2"
-            android:icon="@mipmap/ic_launcher"
-            android:title="PageView Remote"
-            tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/tabBar"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Tab Bar"
+        tools:ignore="HardcodedText" />
 
-        <item
-            android:id="@+id/tabBar"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Tab Bar"
-            tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/navigationFragment"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Navigation"
+        tools:ignore="HardcodedText" />
 
-        <item
-            android:id="@+id/navigationFragment"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Navigation"
-            tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/form"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Form"
+        tools:ignore="HardcodedText" />
 
-        <item
-            android:id="@+id/form"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Form"
-            tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/disabledFormSubmit"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Disabled Form Submit"
+        tools:ignore="HardcodedText" />
 
-        <item
-            android:id="@+id/disabledFormSubmit"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Disabled Form Submit"
-            tools:ignore="HardcodedText" />
-
-    </group>
+    <item
+        android:id="@+id/stack"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Stack"
+        tools:ignore="HardcodedText" />
 </menu>

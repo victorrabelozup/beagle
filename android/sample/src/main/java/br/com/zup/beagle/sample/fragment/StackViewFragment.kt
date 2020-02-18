@@ -6,25 +6,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import br.com.zup.beagle.utils.toView
-import br.com.zup.beagle.widget.lazy.LazyComponent
+import br.com.zup.beagle.widget.layout.Stack
 import br.com.zup.beagle.widget.ui.Text
 
-class LazyWidgetFragment : Fragment() {
+class StackViewFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val declarative = LazyComponent(
-            path = "http://10.0.2.2:8080/scrollView",
-            initialState = Text("Loading...")
+        val declarative = Stack(
+            children = listOf(
+                Text("Text 1"),
+                Text("Text 2"),
+                Text("Text 3")
+            )
         )
-        return declarative.toView(this)
+
+        return context?.let { declarative.toView(this) }
     }
 
     companion object {
-        fun newInstance(): LazyWidgetFragment {
-            return LazyWidgetFragment()
+
+        fun newInstance(): StackViewFragment {
+            return StackViewFragment()
         }
     }
 }

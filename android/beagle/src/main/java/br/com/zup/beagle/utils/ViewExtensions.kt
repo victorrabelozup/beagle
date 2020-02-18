@@ -99,7 +99,7 @@ internal fun BeagleButtonView.setData(widget: Button) {
     if (designSystem != null) {
         val buttonStyle = designSystem.buttonStyle(style)
         val typedArray = context.obtainStyledAttributes(buttonStyle, R.styleable.BeagleButtonStyle)
-        setBackground(typedArray.getDrawable(R.styleable.BeagleButtonStyle_android_background))
+        background = typedArray.getDrawable(R.styleable.BeagleButtonStyle_android_background)
         typedArray.recycle()
         TextViewCompat.setTextAppearance(this, buttonStyle)
     }

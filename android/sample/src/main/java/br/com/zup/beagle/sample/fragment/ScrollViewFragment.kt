@@ -5,14 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import br.com.zup.beagle.core.Appearance
 import br.com.zup.beagle.utils.toView
+import br.com.zup.beagle.widget.core.EdgeValue
 import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.core.FlexDirection
-import br.com.zup.beagle.widget.layout.Container
+import br.com.zup.beagle.widget.core.UnitType
+import br.com.zup.beagle.widget.core.UnitValue
 import br.com.zup.beagle.widget.layout.Screen
 import br.com.zup.beagle.widget.layout.ScrollAxis
 import br.com.zup.beagle.widget.layout.ScrollView
-import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.Text
 
 class ScrollViewFragment : Fragment() {
@@ -21,42 +22,39 @@ class ScrollViewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val declarative = Screen(
-            header = Button(text = "Top"),
-            footer = Button(text = "Bottom"),
             content = ScrollView(
                 scrollDirection = ScrollAxis.HORIZONTAL,
                 children = listOf(
-                    Container(
-                        children = listOf(
-                            Text("Texto"),
-                            Text("Texto"),
-                            Text("Texto"),
-                            Text("Texto"),
-                            Text("Texto"),
-                            Text("Texto"),
-                            Text("Texto"),
-                            Text("Texto"),
-                            Text("Texto"),
-                            Text("Texto"),
-                            Text("Texto"),
-                            Text("Texto"),
-                            Text("Texto"),
-                            Text("Texto"),
-                            Text("Texto"),
-                            Text("Texto"),
-                            Text("Texto"),
-                            Text("Texto"),
-                            Text("Texto"),
-                            Text("Texto"),
-                            Text("Texto")
-                        )
-                    ).applyFlex(
-                        Flex(
-                            flexDirection = FlexDirection.ROW
-                        )
-                    )
+                    Text("Text")
+                        .applyAppearance(Appearance(backgroundColor = "#888888"))
+                        .applyFlex(
+                            Flex(
+                                margin = EdgeValue(
+                                    left = UnitValue(30.0, UnitType.REAL)
+                                )
+                            )
+                        ),
+                    Text("Text"),
+                    Text("Text"),
+                    Text("Text"),
+                    Text("Text"),
+                    Text("Text"),
+                    Text("Text"),
+                    Text("Text"),
+                    Text("Text"),
+                    Text("Text"),
+                    Text("Text"),
+                    Text("Text"),
+                    Text("Text"),
+                    Text("Text"),
+                    Text("Text"),
+                    Text("Text"),
+                    Text("Text"),
+                    Text("Text"),
+                    Text("Text"),
+                    Text("Text"),
+                    Text("Text")
                 )
             )
         )

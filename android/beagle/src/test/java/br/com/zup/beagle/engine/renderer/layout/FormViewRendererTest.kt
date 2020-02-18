@@ -13,9 +13,9 @@ import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.form.FormResult
 import br.com.zup.beagle.form.FormSubmitter
-import br.com.zup.beagle.form.ValidatorHandler
-import br.com.zup.beagle.form.Validator
 import br.com.zup.beagle.form.FormValidatorController
+import br.com.zup.beagle.form.Validator
+import br.com.zup.beagle.form.ValidatorHandler
 import br.com.zup.beagle.logger.BeagleLogger
 import br.com.zup.beagle.logger.BeagleMessageLogs
 import br.com.zup.beagle.testutil.RandomData
@@ -142,21 +142,22 @@ class FormViewRendererTest {
     }
 
     @Test
-    fun build_should_not_try_to_iterate_over_children_if_is_not_a_ViewGroup() {
+    fun buildView_should_not_try_to_iterate_over_children_if_is_not_a_ViewGroup() {
+
+        val viewNotViewGroup = mockk<View>()
         // Given
-        every { viewGroup.childCount } returns 0
-        every { viewRenderer.build(rootView) } returns formInputView
+        every { viewRenderer.build(rootView) } returns viewNotViewGroup
 
         // When
-        val actual = formViewRenderer.build(rootView)
+        val actual = formViewRenderer.buildView(rootView)
 
         // Then
-        assertEquals(formInputView, actual)
+        assertEquals(viewNotViewGroup, actual)
         verify(exactly = 0) { viewGroup.childCount }
     }
 
     @Test
-    fun build_should_try_to_iterate_over_all_viewGroups() {
+    fun buildView_should_try_to_iterate_over_all_viewGroups() {
         // Given
         val childViewGroup = mockk<ViewGroup>()
         every { childViewGroup.childCount } returns 0
@@ -165,14 +166,14 @@ class FormViewRendererTest {
         every { viewGroup.getChildAt(any()) } returns childViewGroup
 
         // When
-        formViewRenderer.build(rootView)
+        formViewRenderer.buildView(rootView)
 
         // Then
         verify(exactly = 1) { childViewGroup.childCount }
     }
 
     @Test
-    fun build_should_try_to_iterate_over_all_viewGroups_that_is_the_formInput() {
+    fun buildView_should_try_to_iterate_over_all_viewGroups_that_is_the_formInput() {
         // Given
         val childViewGroup = mockk<ViewGroup>()
         every { childViewGroup.childCount } returns 0
@@ -181,7 +182,7 @@ class FormViewRendererTest {
         every { viewGroup.getChildAt(any()) } returns childViewGroup
 
         // When
-        formViewRenderer.build(rootView)
+        formViewRenderer.buildView(rootView)
 
         // Then
         val views = formViewRenderer.getPrivateField<List<View>>(FORM_INPUT_VIEWS_FIELD_NAME)
@@ -189,18 +190,19 @@ class FormViewRendererTest {
     }
 
     @Test
-    fun build_should_group_formInput_views() {
-        formViewRenderer.build(rootView)
+    fun buildView_should_group_formInput_views() {
+        formViewRenderer.buildView(rootView)
 
-        val formInputs = formViewRenderer.getPrivateField<List<FormInput>>(FORM_INPUT_VIEWS_FIELD_NAME)
+        val formInputs =
+            formViewRenderer.getPrivateField<List<FormInput>>(FORM_INPUT_VIEWS_FIELD_NAME)
         assertEquals(1, formInputs.size)
         assertEquals(formInput, formInputs[0])
         verify { formValidatorController.formSubmitView = formSubmitView }
     }
 
     @Test
-    fun build_should_find_formSubmitView() {
-        formViewRenderer.build(rootView)
+    fun buildView_should_find_formSubmitView() {
+        formViewRenderer.buildView(rootView)
 
         val actual = formViewRenderer.getPrivateField<View>(FORM_SUBMIT_VIEW_FIELD_NAME)
         assertEquals(formSubmitView, actual)
@@ -209,8 +211,8 @@ class FormViewRendererTest {
     }
 
     @Test
-    fun build_should_call_configFormSubmit_on_fetchForms() {
-        formViewRenderer.build(rootView)
+    fun buildView_should_call_configFormSubmit_on_fetchForms() {
+        formViewRenderer.buildView(rootView)
 
         verify { formValidatorController.configFormSubmit() }
     }
@@ -306,7 +308,7 @@ class FormViewRendererTest {
     }
 
     private fun executeFormSubmitOnClickListener() {
-        formViewRenderer.build(rootView)
+        formViewRenderer.buildView(rootView)
         onClickListenerSlot.captured.onClick(formSubmitView)
     }
 }

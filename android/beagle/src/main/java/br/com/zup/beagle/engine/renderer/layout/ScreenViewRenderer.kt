@@ -16,7 +16,6 @@ import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.setup.DesignSystem
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.JustifyContent
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.NavigationBarItem
@@ -32,7 +31,6 @@ internal class ScreenViewRenderer(
     override fun buildView(rootView: RootView): View {
         val flex = Flex(
             grow = 1.0,
-            flexDirection = FlexDirection.COLUMN,
             justifyContent = JustifyContent.SPACE_BETWEEN
         )
 
@@ -40,14 +38,14 @@ internal class ScreenViewRenderer(
 
         val container = viewFactory.makeBeagleFlexView(rootView.getContext(), flex)
 
-        this.component.header?.let {
-            container.addView(viewRendererFactory.make(it).build(rootView))
+        component.header?.let { header ->
+            container.addServerDrivenComponent(header)
         }
 
         container.addServerDrivenComponent(this.component.content)
 
-        this.component.footer?.let {
-            container.addView(viewRendererFactory.make(it).build(rootView))
+        component.footer?.let { footer ->
+            container.addServerDrivenComponent(footer)
         }
 
         return container

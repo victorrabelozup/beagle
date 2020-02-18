@@ -1,13 +1,13 @@
 package br.com.zup.beagle.engine.renderer.layout
 
-import android.view.View
+import android.content.Context
 import br.com.zup.beagle.engine.renderer.RootView
-import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
+import br.com.zup.beagle.extensions.once
+import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.ComposeComponent
-import io.mockk.MockKAnnotations
-import io.mockk.every
+import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import org.junit.Before
@@ -17,34 +17,54 @@ import kotlin.test.assertEquals
 class BuildableWidgetViewRendererTest {
 
     @MockK
+    private lateinit var component: ComposeComponent
+    @MockK
     private lateinit var viewRendererFactory: ViewRendererFactory
     @MockK
     private lateinit var viewFactory: ViewFactory
-    @MockK
-    private lateinit var component: ComposeComponent
+    @InjectMockKs
+    private lateinit var viewRenderer: BuildableWidgetViewRenderer
+
     @MockK
     private lateinit var rootView: RootView
     @MockK
-    private lateinit var viewRendererMock: ViewRenderer<*>
+    private lateinit var beagleFlexView: BeagleFlexView
     @MockK
-    private lateinit var view: View
-
-    @InjectMockKs
-    private lateinit var viewRenderer: BuildableWidgetViewRenderer
+    private lateinit var context: Context
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
 
-        every { component.build() } returns component
-        every { viewRendererFactory.make(component) } returns viewRendererMock
-        every { viewRendererMock.build(rootView) } returns view
+        every { viewFactory.makeBeagleFlexView(any()) } returns beagleFlexView
+        every { rootView.getContext() } returns context
+        every { beagleFlexView.addServerDrivenComponent(any()) } just Runs
     }
 
     @Test
-    fun build() {
-        val actual = viewRenderer.build(rootView)
+    fun buildView_should_create_view() {
+        // WHEN
+        val actual = viewRenderer.buildView(rootView)
 
-        assertEquals(this.view, actual)
+        // THEN
+        assertEquals(beagleFlexView, actual)
+    }
+
+    @Test
+    fun buildView_should_makeBeagleFlexView() {
+        // WHEN
+        viewRenderer.buildView(rootView)
+
+        // THEN
+        verify(exactly = once()) { viewFactory.makeBeagleFlexView(context) }
+    }
+
+    @Test
+    fun buildView_should_addServerDrivenComponent() {
+        // WHEN
+        viewRenderer.buildView(rootView)
+
+        // THEN
+        verify(exactly = once()) { beagleFlexView.addServerDrivenComponent(component) }
     }
 }

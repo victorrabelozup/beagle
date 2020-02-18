@@ -7,8 +7,8 @@ import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.NavigationType
 import br.com.zup.beagle.data.PreFetchHelper
 import br.com.zup.beagle.engine.renderer.RootView
-import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
+import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.navigation.Touchable
 import io.mockk.MockKAnnotations
@@ -16,6 +16,7 @@ import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.slot
@@ -32,18 +33,18 @@ class TouchableViewRendererTest {
 
     @MockK
     private lateinit var viewRendererFactory: ViewRendererFactory
-    @MockK
+    @RelaxedMockK
     private lateinit var viewFactory: ViewFactory
     @MockK
     private lateinit var context: Context
-    @MockK
-    private lateinit var view: View
-    @MockK
+    @RelaxedMockK
+    private lateinit var view: BeagleFlexView
+    @RelaxedMockK
     private lateinit var rootView: RootView
-    @MockK
+    @RelaxedMockK
     private lateinit var actionExecutor: ActionExecutor
 
-    @MockK
+    @RelaxedMockK
     private lateinit var preFetchHelper: PreFetchHelper
 
     private val onClickListenerSlot = slot<View.OnClickListener>()
@@ -54,18 +55,15 @@ class TouchableViewRendererTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this, relaxUnitFun = true)
-
-        val viewRenderer = mockk<ViewRenderer<*>>()
-        every { viewRenderer.build(any()) } returns view
+        every { rootView.getContext() } returns context
+        every { viewFactory.makeBeagleFlexView(any()) } returns view
         every { view.setOnClickListener(capture(onClickListenerSlot)) } just Runs
-        every { viewRendererFactory.make(any()) } returns viewRenderer
-        every { context.startActivity(any()) } just Runs
         every { view.context } returns context
     }
 
     @Test
     fun build_should_make_child_view() {
-        val actual = touchableViewRenderer.build(rootView)
+        val actual = touchableViewRenderer.buildView(rootView)
 
         assertEquals(view, actual)
     }
@@ -84,7 +82,7 @@ class TouchableViewRendererTest {
     }
 
     private fun callBuildAndClick() {
-        touchableViewRenderer.build(rootView)
+        touchableViewRenderer.buildView(rootView)
         onClickListenerSlot.captured.onClick(view)
     }
 }
