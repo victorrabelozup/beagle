@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-struct FlexEntity: Decodable {
+public struct FlexEntity: Decodable {
     var flexDirection: FlexDirection?
     var direction: Direction?
     var flexWrap: FlexWrap?

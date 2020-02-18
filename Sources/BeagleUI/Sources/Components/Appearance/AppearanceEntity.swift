@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct AppearanceEntity: Decodable {
+public struct AppearanceEntity: Decodable {
     let backgroundColor: String?
     let cornerRadius: CornerRadius?
 }
