@@ -1,8 +1,9 @@
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'maven-publish'
 
+def versionName = System.env.BITRISE_GIT_TAG != null ? System.env.BITRISE_GIT_TAG : VERSION_NAME ?: ""
 group = GROUP_NAME
-version = VERSION_NAME
+version = versionName
 
 ext {
     localProp = new Properties()
@@ -13,7 +14,6 @@ ext {
     publishUsername = System.env.NX_USR_SNP != null ? System.env.NX_USR_SNP : localProp["publishUsername"] ?: ""
     publishPassword = System.env.NX_PSS_SNP != null ? System.env.NX_PSS_SNP : localProp["publishPassword"] ?: ""
     destinationRepoUrl = System.env.NX_REPO_URL != null ? System.env.NX_REPO_URL : localProp["destinationRepoUrl"] ?: ""
-    versionName = System.env.BITRISE_GIT_TAG != null ? System.env.BITRISE_GIT_TAG : VERSION_NAME ?: ""
 }
 
 install {
