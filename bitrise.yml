@@ -19,7 +19,7 @@ workflows:
         - gradle_file: build.gradle
     - gradle-runner:
         inputs:
-        - gradle_task: testDebugUnitTest jacocoTestReport
+        - gradle_task: test jacocoTestReport
         - gradlew_path: "./gradlew"
         - gradle_file: build.gradle
     - gradle-runner:

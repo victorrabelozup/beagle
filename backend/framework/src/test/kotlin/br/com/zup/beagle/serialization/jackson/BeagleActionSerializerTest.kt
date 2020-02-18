@@ -20,7 +20,7 @@ class BeagleActionSerializerTest {
     fun setUp() {
         MockKAnnotations.init(this)
 
-        beagleActionSerializer = BeagleActionSerializer()
+        beagleActionSerializer = BeagleActionSerializer(objectFieldSerializer)
 
         every { jsonGenerator.writeStartObject() } just Runs
         every { jsonGenerator.writeStringField(any(), any()) } just Runs
@@ -39,7 +39,7 @@ class BeagleActionSerializerTest {
 
         // Then
         verify(exactly = 1) { jsonGenerator.writeStartObject() }
-        verify(exactly = 1) { jsonGenerator.writeStringField("_beagleType_", "beagle:action:dumbaction") }
+        verify(exactly = 1) { jsonGenerator.writeStringField(BEAGLE_TYPE, "$BEAGLE_NAMESPACE:$ACTION_NAMESPACE:dumbaction") }
         verify(exactly = 1) { jsonGenerator.writeEndObject() }
     }
 

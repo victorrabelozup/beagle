@@ -26,7 +26,7 @@ class BeagleScreenSerializerTest {
     fun setUp() {
         MockKAnnotations.init(this, relaxed = true)
 
-        beagleScreenSerializer = BeagleScreenSerializer()
+        beagleScreenSerializer = BeagleScreenSerializer(objectFieldSerializer)
     }
 
     @Test
@@ -34,7 +34,7 @@ class BeagleScreenSerializerTest {
         beagleScreenSerializer.serialize(screen, jsonGenerator, serializerProvider)
 
         verify(exactly = 1) { jsonGenerator.writeStartObject() }
-        verify(exactly = 1) { jsonGenerator.writeStringField(BEAGLE_TYPE, "$BEAGLE_NAMESPACE:$COMPONENT_NAMESPACE:screenwidget") }
+        verify(exactly = 1) { jsonGenerator.writeStringField(BEAGLE_TYPE, "$BEAGLE_NAMESPACE:$COMPONENT_NAMESPACE:$SCREEN_COMPONENT") }
         verify(exactly = 1) { objectFieldSerializer.serializeFields(screen, jsonGenerator) }
         verify(exactly = 1) { jsonGenerator.writeEndObject() }
     }

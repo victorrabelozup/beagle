@@ -12,7 +12,6 @@ import org.junit.Before
 import org.junit.Test
 
 private const val TYPE = "_beagleType_"
-private const val APP_NAME = "Test"
 
 class BeagleComponentSerializerTest {
 
@@ -27,7 +26,7 @@ class BeagleComponentSerializerTest {
     fun setUp() {
         MockKAnnotations.init(this)
 
-        beagleComponentSerializer = BeagleComponentSerializer()
+        beagleComponentSerializer = BeagleComponentSerializer(objectFieldSerializer)
 
         every { jsonGenerator.writeStartObject() } just Runs
         every { jsonGenerator.writeStringField(any(), any()) } just Runs
@@ -79,7 +78,7 @@ class BeagleComponentSerializerTest {
 
         // Then
         verify(exactly = 1) { jsonGenerator.writeStartObject() }
-        verify(exactly = 1) { jsonGenerator.writeStringField(TYPE, "$APP_NAME:component:customnativewidget") }
+        verify(exactly = 1) { jsonGenerator.writeStringField(TYPE, "$CUSTOM_WIDGET_BEAGLE_NAMESPACE:$COMPONENT_NAMESPACE:customnativewidget") }
         verify(exactly = 1) { objectFieldSerializer.serializeFields(widget, jsonGenerator) }
         verify(exactly = 1) { jsonGenerator.writeEndObject() }
     }

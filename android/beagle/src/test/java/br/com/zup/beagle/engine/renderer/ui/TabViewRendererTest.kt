@@ -82,7 +82,7 @@ class TabViewRendererTest {
     @Test
     fun build_should_return_view_with_tablayout_and_viewpager() {
         // When
-        val view = tabViewRenderer.build(rootView)
+        tabViewRenderer.build(rootView)
 
         // Then
         verify(exactly = once()) { beagleFlexView.addView(tabLayout) }
@@ -92,7 +92,7 @@ class TabViewRendererTest {
     @Test
     fun build_should_add_listeners_to_tablayout_and_viewpager() {
         // When
-        val view = tabViewRenderer.build(rootView)
+        tabViewRenderer.build(rootView)
 
         // Then
         verify(exactly = once()) { tabLayout.addOnTabSelectedListener(any()) }
@@ -102,7 +102,7 @@ class TabViewRendererTest {
     @Test
     fun build_should_add_tabs() {
         // When
-        val view = tabViewRenderer.build(rootView)
+        tabViewRenderer.build(rootView)
 
         // Then
         verify { tabLayout.addTab(any()) }
