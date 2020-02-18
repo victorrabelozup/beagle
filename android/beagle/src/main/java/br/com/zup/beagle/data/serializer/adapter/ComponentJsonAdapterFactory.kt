@@ -3,6 +3,7 @@ package br.com.zup.beagle.data.serializer.adapter
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.data.serializer.PolymorphicJsonAdapterFactory
 import br.com.zup.beagle.setup.BeagleEnvironment
+import br.com.zup.beagle.widget.Widget
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormSubmit
@@ -52,6 +53,7 @@ internal object ComponentJsonAdapterFactory {
     ): PolymorphicJsonAdapterFactory<ServerDrivenComponent> {
         return factory.withBaseSubType(PageIndicatorWidget::class.java)
             .withBaseSubType(InputWidget::class.java)
+            .withBaseSubType(Widget::class.java)
     }
 
     private fun registerLayoutClass(
