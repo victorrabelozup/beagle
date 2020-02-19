@@ -23,8 +23,7 @@ final class ScreenComponentTests: XCTestCase {
     
     func test_buildView_shouldReturnTheExpectedView() {
         // Given
-        let flexSpy = FlexViewConfiguratorSpy()
-        let dependencies = RendererDependenciesContainer(flex: flexSpy)
+        let dependencies = RendererDependenciesContainer()
         let container = ScreenComponent(header: ComponentDummy(), content: ComponentDummy(), footer: ComponentDummy())
         let context = BeagleContextDummy()
         
@@ -32,7 +31,6 @@ final class ScreenComponentTests: XCTestCase {
         let resultingView = container.toView(context: context, dependencies: dependencies)
         
         // Then
-        XCTAssert(flexSpy.setupFlexCalled)
         XCTAssert(resultingView.subviews.count == 3)
     }
     
@@ -139,41 +137,41 @@ final class ScreenComponentTests: XCTestCase {
 // MARK: - Testing Helpers
 
 final class FlexViewConfiguratorSpy: FlexViewConfiguratorProtocol {
-    
+    var view: UIView
+
+    init(view: UIView) {
+        self.view = view
+    }
+
     private(set) var setupFlexCalled = false
     private(set) var flexPassed: Flex?
-    private(set) var viewPassedToSetupFlex: UIView?
     private(set) var timesPassed: Int = 0
 
-    func setupFlex(_ flex: Flex?, for view: UIView) {
+    func setupFlex(_ flex: Flex?) {
         setupFlexCalled = true
         flexPassed = flex
-        viewPassedToSetupFlex = view
         timesPassed += 1
     }
     
     private(set) var applyYogaLayoutCalled = false
-    private(set) var viewPassedToApplyYogaLayout: UIView?
-    private(set) var preservingOriginPassed: Bool?
     private(set) var applyYogaLayoutCallCount = 0
 
-    func applyYogaLayout(to view: UIView, preservingOrigin: Bool) {
+    func applyLayout() {
         applyYogaLayoutCallCount += 1
         applyYogaLayoutCalled = true
-        viewPassedToApplyYogaLayout = view
-        preservingOriginPassed = preservingOrigin
     }
     
     private(set) var enableYogaCalled = false
     private(set) var enablePassed: Bool?
-    private(set) var viewPassedToEnableYoga: UIView?
 
-    func enableYoga(_ enable: Bool, for view: UIView) {
-        enableYogaCalled = true
-        enablePassed = enable
-        viewPassedToEnableYoga = view
+    var isEnabled: Bool = false {
+        didSet {
+            enableYogaCalled = true
+            enablePassed = isEnabled
+        }
     }
-
+    
+    func markDirty() { }
 }
 
 final class ActionExecutorDummy: ActionExecutor {

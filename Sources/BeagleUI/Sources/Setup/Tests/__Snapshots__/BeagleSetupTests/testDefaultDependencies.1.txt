@@ -18,6 +18,7 @@
       - userInfo: 0 key/value pairs
   - deepLinkHandler: Optional<DeepLinkScreenManaging>.none
   ▿ flex: FlexViewConfigurator
+    - view: <UIView; frame = (0 0; 0 0); layer = <CALayer>>
     - yogaTranslator: YogaTranslating
   ▿ navigation: BeagleNavigator
     ▿ dependencies: InnerDependenciesResolver

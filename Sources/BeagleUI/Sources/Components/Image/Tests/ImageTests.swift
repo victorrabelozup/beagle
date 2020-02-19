@@ -5,7 +5,6 @@
 @testable import BeagleUI
 import XCTest
 import SnapshotTesting
-import YogaKit
 
 class ImageTests: XCTestCase {
     

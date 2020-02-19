@@ -1,5 +1,5 @@
 //
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 import UIKit
@@ -88,11 +88,8 @@ extension ListView: Renderable {
             componentViews: componentViews
         )
         
-        let listView = ListViewUIComponent(flexViewConfigurator: dependencies.flex, model: model)
-        
-        let flex = Flex(grow: 1)
-        dependencies.flex.setupFlex(flex, for: listView)
-        dependencies.flex.enableYoga(true, for: listView)
+        let listView = ListViewUIComponent(model: model)
+        listView.flex.setupFlex(Flex(grow: 1))
         
         return listView
     }

@@ -19,6 +19,7 @@ public struct Spacer: ServerDrivenComponent {
 }
 
 extension Spacer: Renderable {
+    
     public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let flex = Flex(
             size: Flex.Size(
@@ -31,8 +32,8 @@ extension Spacer: Renderable {
         view.isUserInteractionEnabled = false
         view.isAccessibilityElement = false
         view.backgroundColor = .clear
-        
-        dependencies.flex.setupFlex(flex, for: view)
+
+        view.flex.setupFlex(flex)
         return view
     }
 }

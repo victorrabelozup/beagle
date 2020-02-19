@@ -1,13 +1,8 @@
 //
-//  ListViewUIComponent.swift
-//  BeagleUI
-//
-//  Created by Eduardo Sanches Bocato on 07/11/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 import UIKit
-import YogaKit
 
 // MARK: - Model
 extension ListViewUIComponent {
@@ -33,18 +28,15 @@ final class ListViewUIComponent: UIView {
     }()
     
     // MARK: - Properties
-    
-    private let flexViewConfigurator: FlexViewConfiguratorProtocol
+
     private let model: Model
     
     // MARK: - Initialization
     
     init(
         frame: CGRect = .zero,
-        flexViewConfigurator: FlexViewConfiguratorProtocol,
         model: Model
     ) {
-        self.flexViewConfigurator = flexViewConfigurator
         self.model = model
         super.init(frame: frame)
         setup()

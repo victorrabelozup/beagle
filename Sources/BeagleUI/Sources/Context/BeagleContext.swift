@@ -146,24 +146,30 @@ extension BeagleScreenViewController: BeagleContext {
     private func update(initialView: UIView, lazyLoaded: ServerDrivenComponent) {
         let updatable = initialView as? OnStateUpdatable
         let updated = updatable?.onUpdateState(component: lazyLoaded) ?? false
-        if updated && initialView.isYogaEnabled {
-            initialView.yoga.markDirty()
+
+        if updated && initialView.flex.isEnabled {
+            initialView.flex.markDirty()
         } else if !updated {
             replaceView(initialView, with: lazyLoaded)
         }
+
         if let componentView = self.rootComponentView.subviews.first {
             componentView.frame = self.rootComponentView.bounds
-            dependencies.flex.applyYogaLayout(to: componentView, preservingOrigin: true)
+            componentView.flex.applyLayout()
         }
     }
     
-    private func replaceView(_ view: UIView, with component: ServerDrivenComponent) {
-        guard let superview = view.superview else { return }
+    private func replaceView(_ oldView: UIView, with component: ServerDrivenComponent) {
+        guard let superview = oldView.superview else { return }
         
-        let updatedView = component.toView(context: self, dependencies: dependencies)
-        updatedView.frame = view.frame
-        superview.insertSubview(updatedView, belowSubview: view)
-        view.removeFromSuperview()
+        let newView = component.toView(context: self, dependencies: dependencies)
+        newView.frame = oldView.frame
+        superview.insertSubview(newView, belowSubview: oldView)
+        oldView.removeFromSuperview()
+        
+        if oldView.flex.isEnabled && !newView.flex.isEnabled {
+            newView.flex.isEnabled = true
+        }
     }
     
 }

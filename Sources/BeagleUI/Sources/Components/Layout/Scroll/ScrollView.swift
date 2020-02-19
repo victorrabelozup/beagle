@@ -31,14 +31,14 @@ extension ScrollView: Renderable {
         children.forEach {
             let childView = $0.toView(context: context, dependencies: dependencies)
             contentView.addSubview(childView)
-            dependencies.flex.enableYoga(true, for: childView)
+            childView.flex.isEnabled = true
         }
         scrollView.addSubview(contentView)
         scrollView.applyAppearance(appearance)
-        dependencies.flex.setupFlex(Flex(grow: 1), for: scrollView)
+        scrollView.flex.setupFlex(Flex(grow: 1))
         
         let flexContent = Flex(grow: 0, shrink: 0)
-        dependencies.flex.setupFlex(flexContent, for: contentView)
+        contentView.flex.setupFlex(flexContent)
         
         return scrollView
     }

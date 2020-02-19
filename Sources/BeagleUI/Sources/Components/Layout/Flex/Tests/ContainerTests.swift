@@ -39,9 +39,7 @@ final class ContainerTests: XCTestCase {
     
     func test_toView_shouldReturnTheExpectedView() throws {
         //Given
-        let flexSpy = FlexViewConfiguratorSpy()
-        let dependencies = RendererDependenciesContainer(flex: flexSpy)
-
+        let dependencies = RendererDependenciesContainer()
         let numberOfChilds = 3
         let containerChilds = Array(repeating: ComponentDummy(), count: numberOfChilds)
         let container = Container(children: containerChilds)
@@ -50,11 +48,7 @@ final class ContainerTests: XCTestCase {
         let resultingView = container.toView(context: BeagleContextDummy(), dependencies: dependencies)
         
         //Then
-        XCTAssertTrue(flexSpy.setupFlexCalled)
-        XCTAssertEqual(resultingView, flexSpy.viewPassedToSetupFlex)
-        XCTAssertEqual(container.flex?.size?.height, flexSpy.flexPassed?.size?.height)
-        XCTAssertEqual(container.flex?.size?.width, flexSpy.flexPassed?.size?.width)
-        XCTAssertEqual(resultingView.subviews.count, numberOfChilds)
+        XCTAssert(resultingView.subviews.count == numberOfChilds)
     }
     
     func test_whenDecodingJson_shouldReturnAContainer() throws {

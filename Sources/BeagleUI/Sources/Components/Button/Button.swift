@@ -45,7 +45,7 @@ extension Button: Renderable {
         }
         
         button.applyAppearance(appearance)
-        dependencies.flex.setupFlex(flex, for: button)
+        button.flex.setupFlex(flex)
         
         return button
     }

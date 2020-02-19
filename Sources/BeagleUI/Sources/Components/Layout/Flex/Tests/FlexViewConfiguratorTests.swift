@@ -1,34 +1,33 @@
 //
-//  FlexViewConfiguratorTests.swift
-//  BeagleFrameworkTests
-//
-//  Created by Gabriela Coelho on 14/10/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 14/10/19 Zup IT. All rights reserved.
 //
 
 import XCTest
 import YogaKit
 @testable import BeagleUI
+import SnapshotTesting
 
 final class FlexViewConfiguratorTests: XCTestCase {
     
     func test_init_shouldReturnInstanceWithYogaTranslatorDependencySetProperly() {
         // Given
-        let sut = FlexViewConfigurator()
+        let sut = FlexViewConfigurator(view: UIView())
         let mirror = Mirror(reflecting: sut)
         // When
         let yogaTranslator = mirror.firstChild(of: YogaTranslating.self)
         // Then
-        XCTAssertNotNil(yogaTranslator, "Expected a valid instance of Yoga Translating type, but got nil.")
+        XCTAssert(yogaTranslator != nil)
     }
     
     func test_setupFlex_shouldApplyDefaultYogaPropertiesProperly() {
         // Given
-        let sut = FlexViewConfigurator()
         let flex = Flex()
         let view = UIView()
+        let sut = FlexViewConfigurator(view: view)
+
         // When
-        sut.setupFlex(flex, for: view)
+        sut.setupFlex(flex)
+
         // Then
         XCTAssertEqual(view.yoga.direction, .LTR)
         XCTAssertEqual(view.yoga.flexDirection, .column)
@@ -47,26 +46,26 @@ final class FlexViewConfiguratorTests: XCTestCase {
     
     func test_setupFlex_shouldApplyAllYogaPropertiesProperly() {
         // Given
-        let sut = FlexViewConfigurator()
+        let value = UnitValue(value: 1, type: .real)
         let size = Flex.Size(
-            width: UnitValue(value: 1, type: .real),
-            height: UnitValue(value: 1, type: .real),
-            maxWidth: UnitValue(value: 1, type: .real),
-            maxHeight: UnitValue(value: 1, type: .real),
-            minWidth: UnitValue(value: 1, type: .real),
-            minHeight: UnitValue(value: 1, type: .real),
+            width: value,
+            height: value,
+            maxWidth: value,
+            maxHeight: value,
+            minWidth: value,
+            minHeight: value,
             aspectRatio: 1
         )
         let edgeValue = Flex.EdgeValue(
-            left: UnitValue(value: 1, type: .real),
-            top: UnitValue(value: 1, type: .real),
-            right: UnitValue(value: 1, type: .real),
-            bottom: UnitValue(value: 1, type: .real),
-            start: UnitValue(value: 1, type: .real),
-            end: UnitValue(value: 1, type: .real),
-            horizontal: UnitValue(value: 1, type: .real),
-            vertical: UnitValue(value: 1, type: .real),
-            all: UnitValue(value: 1, type: .real)
+            left: value,
+            top: value,
+            right: value,
+            bottom: value,
+            start: value,
+            end: value,
+            horizontal: value,
+            vertical: value,
+            all: value
         )
         let flex = Flex(
             size: size,
@@ -76,8 +75,11 @@ final class FlexViewConfiguratorTests: XCTestCase {
         )
         let expectedYGValue = YGValue(value: 1, unit: .point)
         let view = UIView()
+        let sut = FlexViewConfigurator(view: view)
+
         // When
-        sut.setupFlex(flex, for: view)
+        sut.setupFlex(flex)
+
         // Then
         XCTAssertEqual(view.yoga.width, expectedYGValue)
         XCTAssertEqual(view.yoga.height, expectedYGValue)
@@ -117,28 +119,40 @@ final class FlexViewConfiguratorTests: XCTestCase {
     
     func test_applyYogaLayout_shouldEnableYoga_and_applyLayout() {
         // Given
-        let sut = FlexViewConfigurator()
         let expectedOrigin = CGPoint(x: 1, y: 1)
         let view = UIView(frame: .init(x: expectedOrigin.x, y: expectedOrigin.y, width: 1, height: 1))
+        let sut = FlexViewConfigurator(view: view)
         
         // When
-        sut.applyYogaLayout(to: view, preservingOrigin: true)
+        sut.applyLayout()
         
         // Then
-        XCTAssertTrue(view.yoga.isEnabled, "Yoga should be enabled.")
-        XCTAssertEqual(expectedOrigin, view.frame.origin, "Expected \(expectedOrigin) but got \(view.frame.origin).")
+        XCTAssert(view.yoga.isEnabled)
+        XCTAssert(expectedOrigin == view.frame.origin)
     }
     
     func test_enableYoga_shouldEnableIt() {
         // Given
-        let sut = FlexViewConfigurator()
         let view = UIView()
+        let sut = FlexViewConfigurator(view: view)
         
         // When
-        sut.enableYoga(true, for: view)
+        sut.isEnabled = true
         
         // Then
-        XCTAssertTrue(view.yoga.isEnabled, "Yoga should be enabled.")
+        XCTAssert(sut.isEnabled == true)
+    }
+
+    func test_disableYoga_shouldDisableIt() {
+        // Given
+        let view = UIView()
+        let sut = FlexViewConfigurator(view: view)
+
+        // When
+        sut.isEnabled = false
+
+        // Then
+        XCTAssert(sut.isEnabled == false)
     }
     
 }

@@ -55,6 +55,7 @@ extension Form: Renderable {
 extension UIView {
     private struct AssociatedKeys {
         static var FormElement = "beagleUI_FormElement"
+        static var flex = "beagleUI_flex_configurator"
     }
     
     private class ObjectWrapper<T> {

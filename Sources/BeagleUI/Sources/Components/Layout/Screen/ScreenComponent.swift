@@ -79,15 +79,15 @@ extension ScreenComponent: Renderable {
         
         if let headerView = headerView {
             container.addSubview(headerView)
-            dependencies.flex.enableYoga(true, for: headerView)
+            headerView.flex.isEnabled = true
         }
         
         container.addSubview(contentView)
-        dependencies.flex.enableYoga(true, for: contentView)
+        contentView.flex.isEnabled = true
         
         if let footerView = footerView {
             container.addSubview(footerView)
-            dependencies.flex.enableYoga(true, for: footerView)
+            footerView.flex.isEnabled = true
         }
         
         return container
@@ -98,8 +98,8 @@ extension ScreenComponent: Renderable {
         let contentView = content.toView(context: context, dependencies: dependencies)
         
         contentHolder.addSubview(contentView)
-        dependencies.flex.setupFlex(Flex(grow: 1), for: contentHolder)
-        dependencies.flex.enableYoga(true, for: contentView)
+        contentHolder.flex.setupFlex(Flex(grow: 1))
+        contentView.flex.isEnabled = true
         
         return contentHolder
     }

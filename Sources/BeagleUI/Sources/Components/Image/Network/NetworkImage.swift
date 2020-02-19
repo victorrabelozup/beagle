@@ -30,7 +30,7 @@ extension NetworkImage: Renderable {
         imageView.contentMode = (contentMode ?? .fitCenter).toUIKit()
         imageView.applyAppearance(appearance)
         let flex = Flex(size: .init(width: 100%, height: 100%))
-        dependencies.flex.setupFlex(flex, for: imageView)
+        imageView.flex.setupFlex(flex)
         return imageView
     }
 }

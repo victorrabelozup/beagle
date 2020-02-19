@@ -37,7 +37,7 @@ extension Image: Renderable {
         image.setImageFromAsset(named: name, bundle: dependencies.appBundle)
         
         image.applyAppearance(appearance)
-        dependencies.flex.setupFlex(flex, for: image)
+        image.flex.setupFlex(flex)
         
         return image
     }

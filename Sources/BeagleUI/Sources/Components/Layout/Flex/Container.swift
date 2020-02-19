@@ -38,11 +38,11 @@ extension Container: Renderable {
         children.forEach {
             let childView = $0.toView(context: context, dependencies: dependencies)
             containerView.addSubview(childView)
-            dependencies.flex.enableYoga(true, for: childView)
+            childView.flex.isEnabled = true
         }
         
         containerView.applyAppearance(appearance)
-        dependencies.flex.setupFlex(flex, for: containerView)
+        containerView.flex.setupFlex(flex)
         
         return containerView
     }

@@ -5,7 +5,7 @@
 import UIKit
 
 extension UIView {
-    func applyAppearance(_ appearance: Appearance?) {
+    public func applyAppearance(_ appearance: Appearance?) {
         if let hex = appearance?.backgroundColor {
             backgroundColor = .init(hex: hex)
         }

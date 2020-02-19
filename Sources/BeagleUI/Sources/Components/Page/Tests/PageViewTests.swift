@@ -5,7 +5,6 @@
 import XCTest
 @testable import BeagleUI
 import SnapshotTesting
-import YogaKit
 
 class PageViewTests: XCTestCase {
 

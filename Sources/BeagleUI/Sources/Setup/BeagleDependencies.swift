@@ -45,7 +45,7 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
         self.customActionHandler = nil
         self.appBundle = Bundle.main
         self.theme = AppTheme(styles: [:])
-        self.flex = FlexViewConfigurator()
+        self.flex = FlexViewConfigurator(view: UIView())
 
         self.networkClient = NetworkClientDefault(dependencies: resolver)
         self.navigation = BeagleNavigator(dependencies: resolver)

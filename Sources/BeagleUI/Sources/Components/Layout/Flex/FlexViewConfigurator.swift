@@ -1,53 +1,74 @@
 //
-//  FlexViewConfigurator.swift
-//  BeagleUI
-//
-//  Created by Eduardo Sanches Bocato on 09/10/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 09/10/19 Zup IT. All rights reserved.
 //
 
 import Foundation
 import YogaKit
 
-public protocol FlexViewConfiguratorProtocol {
-    func setupFlex(_ flex: Flex?, for view: UIView)
-    func applyYogaLayout(to view: UIView, preservingOrigin: Bool)
-    func enableYoga(_ enable: Bool, for view: UIView)
+public protocol FlexViewConfiguratorProtocol: AnyObject {
+    var view: UIView { get set }
+
+    func setupFlex(_ flex: Flex?)
+    
+    func applyLayout()
+    func markDirty()
+
+    var isEnabled: Bool { get set }
 }
 
 public protocol DependencyFlexViewConfigurator {
     var flex: FlexViewConfiguratorProtocol { get }
 }
 
+extension UIView {
+
+    var flex: FlexViewConfiguratorProtocol {
+        Beagle.dependencies.flex.view = self
+        return Beagle.dependencies.flex
+    }
+}
+
+// MARK: - Implementation
+
 final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
     
     // MARK: - Dependencies
-    
+
+    var view: UIView
+
     private let yogaTranslator: YogaTranslator
     
     // MARK: - Initialization
     
-    init(yogaTranslator: YogaTranslator = YogaTranslating()) {
+    init(
+        view: UIView,
+        yogaTranslator: YogaTranslator = YogaTranslating()
+    ) {
+        self.view = view
         self.yogaTranslator = yogaTranslator
     }
     
     // MARK: - Public Methods
     
-    func setupFlex(_ flex: Flex?, for view: UIView) {
-        guard let flex = flex else {
-            return
-        }
-        enableYoga(true, for: view)
+    func setupFlex(_ flex: Flex?) {
+        guard let flex = flex else { return }
+
+        isEnabled = true
         applyYogaProperties(from: flex, to: view.yoga)
     }
     
-    func applyYogaLayout(to view: UIView, preservingOrigin: Bool) {
-        enableYoga(true, for: view)
-        view.yoga.applyLayout(preservingOrigin: preservingOrigin)
+    func applyLayout() {
+        isEnabled = true
+        view.yoga.applyLayout(preservingOrigin: true)
+    }
+
+    var isEnabled: Bool {
+        get { return view.yoga.isEnabled }
+        set { view.yoga.isEnabled = newValue }
     }
     
-    func enableYoga(_ enable: Bool, for view: UIView) {
-        view.yoga.isEnabled = enable
+    func markDirty() {
+        view.yoga.markDirty()
     }
     
     // MARK: - Private Methods

@@ -40,7 +40,7 @@ extension Text: Renderable {
         }
         
         label.applyAppearance(appearance)
-        dependencies.flex.setupFlex(flex, for: label)
+        label.flex.setupFlex(flex)
         
         return label
     }

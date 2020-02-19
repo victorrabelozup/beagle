@@ -28,26 +28,6 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         // }
     }
     
-    func test_onViewDidLayoutSubviews_shouldApplyYogaLayout() {
-        // Given
-        let flexSpy = FlexViewConfiguratorSpy()
-
-        let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(ComponentDummy().toScreen()),
-            dependencies: BeagleScreenDependencies(
-                flex: flexSpy
-            )
-        ))
-        
-        // When
-        _ = sut.view
-        sut.viewWillAppear(false)
-        sut.viewDidLayoutSubviews()
-        
-        // Then
-        XCTAssertEqual(flexSpy.applyYogaLayoutCallCount, 2)
-    }
-    
     func test_onViewWillAppear_navigationBarShouldBeHidden() {
         // Given
         let component = SimpleComponent()
@@ -206,9 +186,12 @@ final class NetworkDummy: Network {
 }
 
 final class FlexViewConfiguratorDummy: FlexViewConfiguratorProtocol {
-    func setupFlex(_ flex: Flex?, for view: UIView) {}
-    func applyYogaLayout(to view: UIView, preservingOrigin: Bool) {}
-    func enableYoga(_ enable: Bool, for view: UIView) {}
+    var view = UIView()
+    var isEnabled = false
+    
+    func setupFlex(_ flex: Flex?) {}
+    func applyLayout() {}
+    func markDirty() {}
 }
 
 struct NetworkStub: Network {

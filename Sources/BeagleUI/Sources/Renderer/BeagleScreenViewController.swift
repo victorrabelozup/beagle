@@ -130,7 +130,7 @@ public class BeagleScreenViewController: UIViewController {
         guard let componentView = rootComponentView.subviews.first else { return }
         
         componentView.frame = rootComponentView.bounds
-        dependencies.flex.applyYogaLayout(to: componentView, preservingOrigin: true)
+        componentView.flex.applyLayout()
     }
     
     // MARK: - View Setup
@@ -159,7 +159,7 @@ public class BeagleScreenViewController: UIViewController {
     private func setupComponentView(_ componentView: UIView) {
         rootComponentView.addSubview(componentView)
         componentView.frame = rootComponentView.bounds
-        dependencies.flex.applyYogaLayout(to: componentView, preservingOrigin: true)
+        componentView.flex.applyLayout()
     }
 }
 

@@ -15,8 +15,8 @@ final class ScrollViewTests: XCTestCase {
         ])
         
         // Then
-        XCTAssertEqual(component.children.count, 1)
-        XCTAssertTrue(component.children[safe: 0] is Text)
+        XCTAssert(component.children.count == 1)
+        XCTAssert(component.children[safe: 0] is Text)
     }
     
     func test_initWithChildrenBuilder_shouldReturnExpectedInstance() {
@@ -34,8 +34,7 @@ final class ScrollViewTests: XCTestCase {
     
     func test_toView_shouldReturnTheExpectedView() {
         // Given
-        let flexSpy = FlexViewConfiguratorSpy()
-        let dependencies = RendererDependenciesContainer(flex: flexSpy)
+        let dependencies = RendererDependenciesContainer()
         
         let container = ScrollView(children: [
             ComponentDummy()
@@ -45,9 +44,7 @@ final class ScrollViewTests: XCTestCase {
         let resultingView = container.toView(context: BeagleContextDummy(), dependencies: dependencies)
         
         // Then
-        XCTAssert(flexSpy.setupFlexCalled)
-        XCTAssertEqual(resultingView.subviews.count, 1)
-        XCTAssertEqual(flexSpy.timesPassed, 2)
+        XCTAssert(resultingView.subviews.count == 1)
     }
     
     func test_whenLayoutSubViewsIsCalledOnBagleContainerScrollView_itShouldSetupTheContentSizeCorrectly() {

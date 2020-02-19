@@ -30,21 +30,16 @@ public protocol RenderableDependencies: DependencyFlexViewConfigurator,
 
 extension ServerDrivenComponent {
     public func toScreen() -> Screen {
-        if let screenComponent = self as? ScreenComponent {
-            return Screen(
-                safeArea: screenComponent.safeArea,
-                navigationBar: screenComponent.navigationBar,
-                header: screenComponent.header,
-                content: screenComponent.content,
-                footer: screenComponent.footer
-            )
-        }
+        let screen = self as? ScreenComponent
+        let safeArea = screen?.safeArea
+            ?? SafeArea(top: true, leading: true, bottom: true, trailing: true)
+
         return Screen(
-            safeArea: SafeArea(top: true, leading: true, bottom: true, trailing: true),
-            navigationBar: nil,
-            header: nil,
-            content: self,
-            footer: nil
+            safeArea: safeArea,
+            navigationBar: screen?.navigationBar,
+            header: screen?.header,
+            content: screen?.content ?? self,
+            footer: screen?.footer
         )
     }
 }

@@ -14,8 +14,8 @@ final class ComponentDecoderTests: XCTestCase {
     // TODO: remove this test when using newer versions of SnapshotTesting,
     // because this behaviour will be already tested on BeagleSetupTests.
     func testIfAllDecodersAreBeingRegistered() {
-        let decoder = ComponentDecoder()
-        assertSnapshot(matching: decoder.decoders, as: .dump)
+        let sut = ComponentDecoder()
+        assertSnapshot(matching: sut.decoders, as: .dump)
     }
     
     func test_whenANewTypeIsRegistered_thenItShouldBeAbleToDecodeIt() throws {
@@ -88,11 +88,11 @@ final class ComponentDecoderTests: XCTestCase {
 }
 
 // MARK: - Testing Helpers
-private struct NewComponentEntity: ComponentEntity, ComponentConvertible {
+public struct NewComponentEntity: ComponentEntity, ComponentConvertible {
     
     let something: String
     
-    func mapToComponent() throws -> ServerDrivenComponent {
+    public func mapToComponent() throws -> ServerDrivenComponent {
         return Text(something)
     }
 }

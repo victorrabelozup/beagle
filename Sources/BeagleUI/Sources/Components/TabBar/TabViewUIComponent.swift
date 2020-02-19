@@ -18,7 +18,6 @@ extension TabViewUIComponent {
 final class TabViewUIComponent: UIView {
     
     // MARK: - Properties
-    private let flexViewConfigurator: FlexViewConfiguratorProtocol
     private var containerWidthConstraint: NSLayoutConstraint?
     var model: Model
     
@@ -64,10 +63,8 @@ final class TabViewUIComponent: UIView {
     
     // MARK: - Initialization
     init(
-        flexViewConfigurator: FlexViewConfiguratorProtocol = FlexViewConfigurator(),
         model: Model
     ) {
-        self.flexViewConfigurator = flexViewConfigurator
         self.model = model
         super.init(frame: .zero)
         setupViews()

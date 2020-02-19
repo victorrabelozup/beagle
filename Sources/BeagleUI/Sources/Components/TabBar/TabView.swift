@@ -35,8 +35,7 @@ extension TabView: Renderable {
     public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let model = TabViewUIComponent.Model(tabIndex: 0, tabViewItems: tabItems)
         let tabView = TabViewUIComponent(model: model)
-        let flex = Flex(grow: 1)
-        dependencies.flex.setupFlex(flex, for: tabView)
+        tabView.flex.setupFlex(Flex(grow: 1))
         return tabView
     }
 }
