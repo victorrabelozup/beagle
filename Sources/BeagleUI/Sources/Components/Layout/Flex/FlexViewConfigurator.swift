@@ -20,7 +20,7 @@ public protocol DependencyFlexViewConfigurator {
     var flex: FlexViewConfiguratorProtocol { get }
 }
 
-extension UIView {
+public extension UIView {
 
     var flex: FlexViewConfiguratorProtocol {
         Beagle.dependencies.flex.view = self
