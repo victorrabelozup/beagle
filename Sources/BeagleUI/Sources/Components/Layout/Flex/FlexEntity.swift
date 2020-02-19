@@ -103,7 +103,7 @@ extension FlexEntity {
 extension FlexEntity.Size: UIModelConvertible {
     typealias UIModelType = Flex.Size
     
-    func mapToUIModel() throws -> Flex.Size {
+    public func mapToUIModel() throws -> Flex.Size {
         return Flex.Size(
             width: try self.width?.mapToUIModel(),
             height: try self.height?.mapToUIModel(),
@@ -119,7 +119,7 @@ extension FlexEntity.Size: UIModelConvertible {
 extension FlexEntity.EdgeValue: UIModelConvertible {
     typealias UIModelType = Flex.EdgeValue
     
-    func mapToUIModel() throws -> Flex.EdgeValue {
+    public func mapToUIModel() throws -> Flex.EdgeValue {
         return Flex.EdgeValue(
             left: try self.left?.mapToUIModel(),
             top: try self.top?.mapToUIModel(),
@@ -137,7 +137,7 @@ extension FlexEntity.EdgeValue: UIModelConvertible {
 extension FlexEntity: UIModelConvertible {
     typealias UIModelType = Flex
 
-    func mapToUIModel() throws -> Flex {
+    public func mapToUIModel() throws -> Flex {
         return Flex(
             direction: try self.direction?.mapToUIModel(ofType: Flex.Direction.self),
             flexDirection: try self.flexDirection?.mapToUIModel(ofType: Flex.FlexDirection.self),

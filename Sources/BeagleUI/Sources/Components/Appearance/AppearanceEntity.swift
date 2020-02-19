@@ -10,7 +10,7 @@ public struct AppearanceEntity: Decodable {
 }
 
 extension AppearanceEntity: UIModelConvertible {
-    func mapToUIModel() throws -> Appearance {
+    public func mapToUIModel() throws -> Appearance {
         return Appearance(backgroundColor: backgroundColor, cornerRadius: cornerRadius)
     }
 }
