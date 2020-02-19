@@ -2,10 +2,13 @@ package br.com.zup.beagle.engine.renderer
 
 import android.view.View
 import br.com.zup.beagle.core.ServerDrivenComponent
+import br.com.zup.beagle.utils.AccessibilitySetup
 import br.com.zup.beagle.utils.applyAppearance
 import br.com.zup.beagle.view.ViewFactory
 
-internal abstract class ViewRenderer<T : ServerDrivenComponent> {
+internal abstract class ViewRenderer<T : ServerDrivenComponent>(
+    private val accessibilitySetup: AccessibilitySetup = AccessibilitySetup()
+) {
     abstract val component: T
 
     fun build(rootView: RootView): View {
@@ -21,6 +24,7 @@ internal abstract class ViewRenderer<T : ServerDrivenComponent> {
         widget: T
     ) {
         view.applyAppearance(widget)
+        accessibilitySetup.applyAccessibility(view, widget)
     }
 }
 

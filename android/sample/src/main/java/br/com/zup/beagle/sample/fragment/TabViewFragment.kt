@@ -10,10 +10,12 @@ import br.com.zup.beagle.utils.toView
 import br.com.zup.beagle.widget.core.Alignment
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.JustifyContent
+import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.TabItem
 import br.com.zup.beagle.widget.ui.TabView
 import br.com.zup.beagle.widget.ui.Text
+import br.com.zup.beagle.widget.ui.TextAlignment
 
 class TabViewFragment : Fragment() {
     override fun onCreateView(
@@ -27,11 +29,9 @@ class TabViewFragment : Fragment() {
                 buildTabView("Title 2", Button("button")),
                 buildTabView(
                     title = "Title 3",
-                    content =
-                    Text("text").applyFlex(
-                        Flex(
-                            justifyContent = JustifyContent.CENTER,
-                            alignItems = Alignment.CENTER
+                    content = Container(
+                        children = listOf(
+                            Text("text tab 3", alignment = TextAlignment.CENTER)
                         )
                     )
                 ),

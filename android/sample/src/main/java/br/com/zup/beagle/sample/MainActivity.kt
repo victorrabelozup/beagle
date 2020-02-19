@@ -68,6 +68,10 @@ class MainActivity : AppCompatActivity() {
             R.id.stack -> goToFragment(StackViewFragment.newInstance())
             R.id.tabBar -> goToFragment(TabViewFragment.newInstance())
             R.id.disabledFormSubmit -> goToFragment(DisabledFormSubmitFragment.newInstance())
+            R.id.accessibility -> startActivity(BeagleUIActivity.newIntent(
+                this,
+                "http://www.mocky.io/v2/5e4d46952d0000339ec0dce1"
+            ))
         }
     }
 
