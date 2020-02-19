@@ -4,11 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import br.com.zup.beagle.R
 import br.com.zup.beagle.extensions.once
+import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.testutil.RandomData
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
@@ -24,7 +24,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
-
 
 private val URL = RandomData.httpUrl()
 
@@ -42,6 +41,9 @@ class BeagleNavigatorTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
+        mockkObject(BeagleEnvironment)
+
+        every { BeagleEnvironment.beagleSdk.config.baseUrl } returns RandomData.httpUrl()
 
         mockkObject(BeagleUIFragment.Companion)
         mockkObject(BeagleUIActivity.Companion)
@@ -70,6 +72,7 @@ class BeagleNavigatorTest {
     fun tearDown() {
         unmockkObject(BeagleUIFragment.Companion)
         unmockkObject(BeagleUIActivity.Companion)
+        unmockkObject(BeagleEnvironment)
     }
 
     @Test

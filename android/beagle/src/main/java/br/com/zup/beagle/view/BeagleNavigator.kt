@@ -7,8 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import br.com.zup.beagle.R
+import br.com.zup.beagle.networking.UrlFormatter
+import br.com.zup.beagle.setup.BeagleEnvironment
 
 internal object BeagleNavigator {
+
+    private val urlFormatter by lazy { UrlFormatter() }
 
     fun finish(context: Context) {
         if (context is Activity) {
@@ -47,7 +51,8 @@ internal object BeagleNavigator {
             )
             .replace(R.id.beagle_content, BeagleUIFragment.newInstance(url))
 
-        transaction.addToBackStack(url)
+        val absoluteUrl = urlFormatter.format(BeagleEnvironment.beagleSdk.config.baseUrl, url)
+        transaction.addToBackStack(absoluteUrl)
         transaction.commit()
     }
 
