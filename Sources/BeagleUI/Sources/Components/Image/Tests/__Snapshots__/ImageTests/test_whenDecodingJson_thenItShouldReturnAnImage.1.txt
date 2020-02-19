@@ -1,4 +1,5 @@
 ▿ Image
+  - accessibility: Optional<Accessibility>.none
   ▿ appearance: Optional<Appearance>
     ▿ some: Appearance
       ▿ backgroundColor: Optional<String>

@@ -28,10 +28,6 @@ struct MainScreen: DeeplinkScreen {
                 Button(
                     text: "Tab View",
                     action: Navigate.openDeepLink(.init(path: "tabview"))
-                ),
-                Button(
-                    text: "Navigator",
-                    action: Navigate.addView(.init(path: "http://localhost:8080/cash-withdrawal/home", shouldPrefetch: false))
                 )
             ])
         )

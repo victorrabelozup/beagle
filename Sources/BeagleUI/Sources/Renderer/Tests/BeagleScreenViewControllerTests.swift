@@ -148,6 +148,7 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
     var validatorProvider: ValidatorProvider?
     var preFetchHelper: BeaglePrefetchHelping
     var appBundle: Bundle
+    var accessibility: AccessibilityConfiguratorProtocol
     var cacheManager: CacheManagerProtocol
 
     init(
@@ -158,6 +159,7 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
         validatorProvider: ValidatorProvider = ValidatorProviding(),
         preFetchHelper: BeaglePrefetchHelping = BeaglePreFetchHelper(),
         appBundle: Bundle = Bundle(for: ImageTests.self),
+        accessibility: AccessibilityConfiguratorProtocol = AccessibilityConfigurator(),
         cacheManager: CacheManagerProtocol = CacheManager(maximumScreensCapacity: 30)
     ) {
         self.actionExecutor = actionExecutor
@@ -167,6 +169,7 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
         self.validatorProvider = validatorProvider
         self.preFetchHelper = preFetchHelper
         self.appBundle = appBundle
+        self.accessibility = accessibility
         self.cacheManager = cacheManager
     }
 }

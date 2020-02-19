@@ -1,4 +1,5 @@
 ▿ Container
+  - accessibility: Optional<Accessibility>.none
   ▿ appearance: Optional<Appearance>
     ▿ some: Appearance
       ▿ backgroundColor: Optional<String>
@@ -8,18 +9,21 @@
           - radius: 30.0
   ▿ children: 3 elements
     ▿ Text
+      - accessibility: Optional<Accessibility>.none
       - alignment: Optional<Alignment>.none
       - appearance: Optional<Appearance>.none
       - flex: Optional<Flex>.none
       - style: Optional<String>.none
       - text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum et felis tortor. Maecenas laoreet metus in augue mattis, quis imperdiet urna ornare. Sed commodo fringilla massa, sit amet molestie nunc. Quisque euismod eros felis. Nam dapibus venenatis consequat."
     ▿ Text
+      - accessibility: Optional<Accessibility>.none
       - alignment: Optional<Alignment>.none
       - appearance: Optional<Appearance>.none
       - flex: Optional<Flex>.none
       - style: Optional<String>.none
       - text: "Donec orci elit, scelerisque vel mattis at, ornare in libero. Cras vestibulum justo et lacus accumsan malesuada. Pellentesque gravida risus tincidunt sapien commodo iaculis. Praesent eget consectetur ligula, vitae fringilla urna. Donec erat arcu, fermentum sed orci in, euismod dictum augue. Aenean ac ullamcorper ante, sit amet commodo elit. Mauris et nibh ac ante luctus fermentum varius nec mauris."
     ▿ Text
+      - accessibility: Optional<Accessibility>.none
       - alignment: Optional<Alignment>.none
       - appearance: Optional<Appearance>.none
       - flex: Optional<Flex>.none

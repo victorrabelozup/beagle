@@ -2,6 +2,7 @@
   ▿ action: AnyAction
     - value: UnknownActionEntity
   ▿ child: Text
+    - accessibility: Optional<Accessibility>.none
     - alignment: Optional<Alignment>.none
     - appearance: Optional<Appearance>.none
     - flex: Optional<Flex>.none

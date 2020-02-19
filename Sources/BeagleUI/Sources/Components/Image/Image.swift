@@ -13,6 +13,7 @@ public struct Image: Widget {
     
     public let appearance: Appearance?
     public let flex: Flex?
+    public let accessibility: Accessibility?
     
     // MARK: - Initialization
     
@@ -20,12 +21,14 @@ public struct Image: Widget {
         name: String,
         contentMode: ImageContentMode? = nil,
         appearance: Appearance? = nil,
-        flex: Flex? = nil
+        flex: Flex? = nil,
+        accessibility: Accessibility? = nil
     ) {
         self.name = name
         self.contentMode = contentMode
         self.appearance = appearance
         self.flex = flex
+        self.accessibility = accessibility
     }
     
 }
@@ -38,6 +41,7 @@ extension Image: Renderable {
         
         image.applyAppearance(appearance)
         image.flex.setupFlex(flex)
+        dependencies.accessibility.applyAccessibilityAttributes(accessibility, to: image)
         
         return image
     }

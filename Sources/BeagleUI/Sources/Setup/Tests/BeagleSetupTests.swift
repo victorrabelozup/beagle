@@ -27,7 +27,8 @@ final class BeagleSetupTests: XCTestCase {
         dep.flex = FlexViewConfiguratorDummy()
         dep.decoder = ComponentDecodingDummy()
         dep.cacheManager = CacheManager(maximumScreensCapacity: 10)
-
+        dep.accessibility = AccessibilityConfigurator()
+        
         assertSnapshot(matching: dep, as: .dump)
     }
 
@@ -99,6 +100,7 @@ struct RendererDependenciesContainer: RenderableDependencies {
     var validatorProvider: ValidatorProvider?
     var preFetchHelper: BeaglePrefetchHelping
     var appBundle: Bundle
+    var accessibility: AccessibilityConfiguratorProtocol
     var cacheManager: CacheManagerProtocol
 
     init(
@@ -108,6 +110,7 @@ struct RendererDependenciesContainer: RenderableDependencies {
         validatorProvider: ValidatorProvider? = ValidatorProviding(),
         preFetchHelper: BeaglePrefetchHelping = BeaglePreFetchHelper(),
         appBundle: Bundle = Bundle(for: ImageTests.self),
+        accessibility: AccessibilityConfiguratorProtocol = AccessibilityConfigurator(),
         cacheManager: CacheManagerProtocol = CacheManager(maximumScreensCapacity: 30)
     ) {
         self.network = network
@@ -116,6 +119,7 @@ struct RendererDependenciesContainer: RenderableDependencies {
         self.validatorProvider = validatorProvider
         self.preFetchHelper = preFetchHelper
         self.appBundle = appBundle
+        self.accessibility = accessibility
         self.cacheManager = cacheManager
     }
 }

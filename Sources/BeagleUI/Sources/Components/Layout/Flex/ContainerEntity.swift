@@ -2,20 +2,23 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-struct ContainerEntity: ComponentConvertibleEntity {
-    
+struct ContainerEntity: WidgetEntity {
+
     var children: [AnyDecodableContainer] = []
     var flex: FlexEntity?
     var appearance: AppearanceEntity?
-
+    let accessibility: AccessibilityEntity?
+    
     init(
         children: [AnyDecodableContainer] = [],
         flex: FlexEntity? = nil,
-        appearance: AppearanceEntity? = nil
+        appearance: AppearanceEntity? = nil,
+        accessibility: AccessibilityEntity? = nil
     ) {
         self.children = children
         self.flex = flex
         self.appearance = appearance
+        self.accessibility = accessibility
     }
     
     func mapToComponent() throws -> ServerDrivenComponent {
@@ -24,11 +27,13 @@ struct ContainerEntity: ComponentConvertibleEntity {
         }
         let flex = try self.flex?.mapToUIModel() ?? Flex()
         let appearance = try self.appearance?.mapToUIModel()
+        let accessibility = try self.accessibility?.mapToUIModel()
         
         return Container(
             children: children,
             flex: flex,
-            appearance: appearance
+            appearance: appearance,
+            accessibility: accessibility
         )
     }
 }

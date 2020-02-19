@@ -10,4 +10,8 @@ public protocol FlexComponent: ServerDrivenComponent {
     var flex: Flex? { get }
 }
 
-public protocol Widget: AppearanceComponent, FlexComponent {}
+public protocol AccessibilityComponent: ServerDrivenComponent {
+    var accessibility: Accessibility? { get }
+}
+
+public protocol Widget: AppearanceComponent, FlexComponent, AccessibilityComponent {}

@@ -11,17 +11,20 @@ public struct Container: Widget {
     
     public let flex: Flex?
     public let appearance: Appearance?
+    public let accessibility: Accessibility?
     
     // MARK: - Initialization
     
     public init(
         children: [ServerDrivenComponent],
         flex: Flex? = nil,
-        appearance: Appearance? = nil
+        appearance: Appearance? = nil,
+        accessibility: Accessibility? = nil
     ) {
         self.children = children
         self.flex = flex
         self.appearance = appearance
+        self.accessibility = accessibility
     }
     
    // MARK: - Configuration
@@ -43,6 +46,7 @@ extension Container: Renderable {
         
         containerView.applyAppearance(appearance)
         containerView.flex.setupFlex(flex)
+        dependencies.accessibility.applyAccessibilityAttributes(accessibility, to: containerView)
         
         return containerView
     }

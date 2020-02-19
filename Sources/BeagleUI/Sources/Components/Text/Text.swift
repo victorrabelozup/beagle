@@ -13,19 +13,22 @@ public struct Text: Widget {
     public let alignment: Alignment?
     public let appearance: Appearance?
     public let flex: Flex?
+    public let accessibility: Accessibility?
     
     public init(
         _ text: String,
         style: String? = nil,
         alignment: Alignment? = nil,
         appearance: Appearance? = nil,
-        flex: Flex? = nil
+        flex: Flex? = nil,
+        accessibility: Accessibility? = nil
     ) {
         self.text = text
         self.style = style
         self.alignment = alignment
         self.appearance = appearance
         self.flex = flex
+        self.accessibility = accessibility
     }
 }
 
@@ -41,6 +44,7 @@ extension Text: Renderable {
         
         label.applyAppearance(appearance)
         label.flex.setupFlex(flex)
+        dependencies.accessibility.applyAccessibilityAttributes(accessibility, to: label)
         
         return label
     }

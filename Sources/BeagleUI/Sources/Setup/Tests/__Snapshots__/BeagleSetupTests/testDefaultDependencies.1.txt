@@ -1,4 +1,5 @@
 ▿ BeagleDependencies
+  - accessibility: AccessibilityConfigurator
   ▿ actionExecutor: ActionExecuting
     ▿ dependencies: InnerDependenciesResolver
       - container: (Function)

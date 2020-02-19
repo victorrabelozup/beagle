@@ -85,6 +85,9 @@
 		A0FBC1AE238F1C9A005C5E67 /* LazyComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FBC1AD238F1C9A005C5E67 /* LazyComponentTests.swift */; };
 		A0FBC1B2238F1D8B005C5E67 /* LazyComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FBC1B1238F1D8B005C5E67 /* LazyComponent.swift */; };
 		A0FBC1B4238F1DE3005C5E67 /* LazyComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FBC1B3238F1DE3005C5E67 /* LazyComponentEntity.swift */; };
+		C06B1E2E23FAC85E003912CF /* AccessibilityTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06B1E2C23F729E0003912CF /* AccessibilityTest.swift */; };
+		C0B1AAB223F2EE9300F94ECA /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1AAB123F2EE9300F94ECA /* Accessibility.swift */; };
+		C0B1AAB923F5D49C00F94ECA /* AccessibilityEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1AAB823F5D49C00F94ECA /* AccessibilityEntity.swift */; };
 		C62E8EAC2373581200FF1497 /* ScrollViewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62E8EAB2373581200FF1497 /* ScrollViewEntity.swift */; };
 		C62E8EAE2373588900FF1497 /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62E8EAD2373588900FF1497 /* ScrollView.swift */; };
 		C65F25372375E6C2007670EC /* ScrollViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65F25362375E6C2007670EC /* ScrollViewTests.swift */; };
@@ -328,6 +331,9 @@
 		A0FBC1AF238F1D09005C5E67 /* LazyComponentEntityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyComponentEntityTests.swift; sourceTree = "<group>"; };
 		A0FBC1B1238F1D8B005C5E67 /* LazyComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LazyComponent.swift; path = Sources/Components/Lazy/LazyComponent.swift; sourceTree = SOURCE_ROOT; };
 		A0FBC1B3238F1DE3005C5E67 /* LazyComponentEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyComponentEntity.swift; sourceTree = "<group>"; };
+		C06B1E2C23F729E0003912CF /* AccessibilityTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityTest.swift; sourceTree = "<group>"; };
+		C0B1AAB123F2EE9300F94ECA /* Accessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accessibility.swift; sourceTree = "<group>"; };
+		C0B1AAB823F5D49C00F94ECA /* AccessibilityEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityEntity.swift; sourceTree = "<group>"; };
 		C62E8EAB2373581200FF1497 /* ScrollViewEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewEntity.swift; sourceTree = "<group>"; };
 		C62E8EAD2373588900FF1497 /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 		C65F25342375DAE9007670EC /* ScrollViewEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewEntityTests.swift; sourceTree = "<group>"; };
@@ -560,6 +566,7 @@
 		939CE4C4232996FD00EEEDFC /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				C0B1AAB023F2EE6D00F94ECA /* Accessibility */,
 				A06823512384863400CEE57A /* Action */,
 				93B9741D23A282C700B0D1CF /* Caching */,
 				E5A6F4A62358A530008906F8 /* Common */,
@@ -693,6 +700,24 @@
 				C829CEAA23B15F12001B7225 /* Tests */,
 			);
 			path = Action;
+			sourceTree = "<group>";
+		};
+		C0B1AAB023F2EE6D00F94ECA /* Accessibility */ = {
+			isa = PBXGroup;
+			children = (
+				C0B1AABA23F6E10400F94ECA /* Tests */,
+				C0B1AAB123F2EE9300F94ECA /* Accessibility.swift */,
+				C0B1AAB823F5D49C00F94ECA /* AccessibilityEntity.swift */,
+			);
+			path = Accessibility;
+			sourceTree = "<group>";
+		};
+		C0B1AABA23F6E10400F94ECA /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C06B1E2C23F729E0003912CF /* AccessibilityTest.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		C829CE9823B12D13001B7225 /* Flex */ = {
@@ -1563,6 +1588,7 @@
 				A0EF0AD8238DA38C0019BE83 /* ActionEntity.swift in Sources */,
 				E522375F237C3B8600E555BB /* FormInputEntity.swift in Sources */,
 				C62E8EAE2373588900FF1497 /* ScrollView.swift in Sources */,
+				C0B1AAB923F5D49C00F94ECA /* AccessibilityEntity.swift in Sources */,
 				C89E80A72397FFFD00C2D0ED /* DefaultPageIndicator.swift in Sources */,
 				A0EF0AAA23880D5A0019BE83 /* CustomAction.swift in Sources */,
 				A0451C6423BA69D600F77398 /* AppearanceEntity.swift in Sources */,
@@ -1583,6 +1609,7 @@
 				E5CE41A32331D55000295277 /* ComponentDecoder.swift in Sources */,
 				E5CE41C623325E4500295277 /* UnitValueEntity.swift in Sources */,
 				93681805232A886C00E6E724 /* ScreenComponent.swift in Sources */,
+				C0B1AAB223F2EE9300F94ECA /* Accessibility.swift in Sources */,
 				C86F894723B28FAE00287D5D /* ImageEntityContentMode.swift in Sources */,
 				E5CB5D65234E7CF6009783A7 /* BeagleScreenViewController.swift in Sources */,
 				A0EF0AC9238D6E900019BE83 /* FormValidationEntity.swift in Sources */,
@@ -1632,6 +1659,7 @@
 				A0EF0AD1238D94580019BE83 /* ShowNativeDialogEntityTests.swift in Sources */,
 				E5A6F4AD2358A76F008906F8 /* XCTestCase+FatalError.swift in Sources */,
 				C86E7C172395602400D6FEDB /* ComponentFromJsonFile.swift in Sources */,
+				C06B1E2E23FAC85E003912CF /* AccessibilityTest.swift in Sources */,
 				A0451C7B23BE205000F77398 /* UIView+AppearanceTests.swift in Sources */,
 				C829CF0723B195A0001B7225 /* ContainerTests.swift in Sources */,
 				C86D0CC323B25AE3009CE0EB /* LoadingViewTests.swift in Sources */,
@@ -1826,9 +1854,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = R87629W9A8;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1842,6 +1871,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.zup.BeagleUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -1855,9 +1885,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = R87629W9A8;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1871,6 +1902,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = br.com.zup.BeagleUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "";

@@ -10,8 +10,8 @@ public struct Button: Widget {
     public let text: String
     public let style: String?
     public let action: Action?
-    
     public let appearance: Appearance?
+    public var accessibility: Accessibility?
     public let flex: Flex?
     
     public init(
@@ -19,13 +19,15 @@ public struct Button: Widget {
         style: String? = nil,
         action: Action? = nil,
         appearance: Appearance? = nil,
-        flex: Flex? = nil
+        flex: Flex? = nil,
+        accessibility: Accessibility? = nil
     ) {
         self.text = text
         self.style = style
         self.action = action
         self.appearance = appearance
         self.flex = flex
+        self.accessibility = accessibility
     }
 }
 
@@ -45,6 +47,7 @@ extension Button: Renderable {
         }
         
         button.applyAppearance(appearance)
+        dependencies.accessibility.applyAccessibilityAttributes(accessibility, to: button)
         button.flex.setupFlex(flex)
         
         return button

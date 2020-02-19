@@ -5,3 +5,9 @@
 public protocol ComponentEntity: Decodable {}
 
 public typealias ComponentConvertibleEntity = ComponentEntity & ComponentConvertible
+
+public protocol WidgetEntity: ComponentConvertibleEntity {
+    var flex: FlexEntity? { get }
+    var appearance: AppearanceEntity? { get }
+    var accessibility: AccessibilityEntity? { get }
+}
