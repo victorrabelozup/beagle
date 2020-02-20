@@ -23,7 +23,6 @@ public func <> <A: AnyObject>(f: @escaping (A?) -> Void, g: @escaping (A?) -> Vo
   }
 }
 
-
 public func descriptionWithoutOptional(_ obj: Any?) -> String {
     if let obj = obj {
         return "\(obj)"

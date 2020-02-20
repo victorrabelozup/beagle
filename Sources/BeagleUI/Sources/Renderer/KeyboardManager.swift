@@ -59,7 +59,8 @@ class KeyboardManager {
         let curve = (notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber)?.uintValue
         let duration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue
         let options = UIView.AnimationOptions(rawValue: (curve ?? 0) << 16)
-        
+    
+        // swiftlint:disable trailing_closure
         UIView.animate(
             withDuration: duration ?? 0,
             delay: 0,

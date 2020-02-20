@@ -2,6 +2,8 @@
 //  Copyright © 2019 Zup IT. All rights reserved.
 //
 
+// swiftlint:disable force_unwrapping
+
 import XCTest
 import SnapshotTesting
 @testable import BeagleUI

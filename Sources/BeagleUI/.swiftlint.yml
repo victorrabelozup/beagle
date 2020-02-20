@@ -14,6 +14,8 @@ disabled_rules:
   - type_body_length
   - function_body_length
   - static_operator
+  - implicit_return
+  - closure_parameter_position
 
 opt_in_rules:
   - force_unwrapping

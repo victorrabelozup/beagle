@@ -49,6 +49,8 @@ final class TouchableTests: XCTestCase {
         let datas = [ ["data": ""], nil]
         let shouldPrefetch = [true, false]
         var str = ""
+        
+        // swiftlint:disable closure_end_indentation
         types.forEach { t in paths.forEach { p in datas.forEach { d in shouldPrefetch.forEach { s in
             str += mapEntityToActionDescription(type: t, path: p, data: d, shouldPrefetch: s)
         }}}}

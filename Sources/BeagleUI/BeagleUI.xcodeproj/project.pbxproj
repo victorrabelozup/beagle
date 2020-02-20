@@ -77,7 +77,6 @@
 		A0EF0AD7238DA3760019BE83 /* ActionConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0AD6238DA3760019BE83 /* ActionConvertible.swift */; };
 		A0EF0AD8238DA38C0019BE83 /* ActionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF0AD4238DA2F80019BE83 /* ActionEntity.swift */; };
 		A0F454832379701800B146A1 /* TouchableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F454822379701800B146A1 /* TouchableTests.swift */; };
-		A0F4548A23798E7200B146A1 /* TouchableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F454842379869A00B146A1 /* TouchableEntity.swift */; };
 		A0F4548B23798E7C00B146A1 /* NavigateEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F454862379882D00B146A1 /* NavigateEntity.swift */; };
 		A0F45496237AF16800B146A1 /* BeagleContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F45495237AF16800B146A1 /* BeagleContext.swift */; };
 		A0F45498237B87E900B146A1 /* BeagleNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F45497237B87E800B146A1 /* BeagleNavigator.swift */; };
@@ -86,6 +85,7 @@
 		A0FBC1B2238F1D8B005C5E67 /* LazyComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FBC1B1238F1D8B005C5E67 /* LazyComponent.swift */; };
 		A0FBC1B4238F1DE3005C5E67 /* LazyComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FBC1B3238F1DE3005C5E67 /* LazyComponentEntity.swift */; };
 		C06B1E2E23FAC85E003912CF /* AccessibilityTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06B1E2C23F729E0003912CF /* AccessibilityTest.swift */; };
+		C07E40D423FDADC0008A8E45 /* TouchableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F454842379869A00B146A1 /* TouchableEntity.swift */; };
 		C0B1AAB223F2EE9300F94ECA /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1AAB123F2EE9300F94ECA /* Accessibility.swift */; };
 		C0B1AAB923F5D49C00F94ECA /* AccessibilityEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1AAB823F5D49C00F94ECA /* AccessibilityEntity.swift */; };
 		C62E8EAC2373581200FF1497 /* ScrollViewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62E8EAB2373581200FF1497 /* ScrollViewEntity.swift */; };
@@ -1513,6 +1513,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C07E40D423FDADC0008A8E45 /* TouchableEntity.swift in Sources */,
 				A0FBC1B4238F1DE3005C5E67 /* LazyComponentEntity.swift in Sources */,
 				A0EF0AAC238811AA0019BE83 /* CustomActionHandler.swift in Sources */,
 				C62E8EAC2373581200FF1497 /* ScrollViewEntity.swift in Sources */,
@@ -1543,8 +1544,6 @@
 				E5CE41C223325E2100295277 /* FlexEntity.swift in Sources */,
 				A0642DCF23969BDE0028AFF3 /* OnStateUpdatable.swift in Sources */,
 				E5CE41A52331D59E00295277 /* AnyDecodableContainer.swift in Sources */,
-				A0F4548A23798E7200B146A1 /* TouchableEntity.swift in Sources */,
-				A0F4548A23798E7200B146A1 /* TouchableEntity.swift in Sources */,
 				931B6E32237610B300DE73FD /* FunctiontalUtils.swift in Sources */,
 				C85E1CD123EB49C000C1E323 /* UrlRequestBuilder.swift in Sources */,
 				C86F894923B28FAE00287D5D /* ImageContentMode.swift in Sources */,

@@ -38,7 +38,7 @@ class LRUCacheTests: XCTestCase {
         sut.setValue(val2, for: key2)
         sut.setValue(val3, for: key3)
         
-        XCTAssert(sut.count ==  2)
+        XCTAssert(sut.count == 2)
         XCTAssert(sut.getValue(for: key1) == nil)
         XCTAssert(sut.getValue(for: key2) == val2)
         XCTAssert(sut.getValue(for: key3) == val3)
@@ -51,7 +51,7 @@ class LRUCacheTests: XCTestCase {
         
         sut.setValue(val11, for: key1)
         
-        XCTAssert(sut.count ==  2)
+        XCTAssert(sut.count == 2)
         XCTAssert(sut.getValue(for: key1) == val11)
         XCTAssert(sut.getValue(for: key2) == val2)
     }
@@ -64,7 +64,7 @@ class LRUCacheTests: XCTestCase {
         sut.setValue(val11, for: key1)
         sut.setValue(val3, for: key3)
         
-        XCTAssert(sut.count ==  2)
+        XCTAssert(sut.count == 2)
         XCTAssert(sut.getValue(for: key1) == val11)
         XCTAssert(sut.getValue(for: key2) == nil)
         XCTAssert(sut.getValue(for: key3) == val3)
