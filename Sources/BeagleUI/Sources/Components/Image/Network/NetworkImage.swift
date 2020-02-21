@@ -4,33 +4,51 @@
 
 import UIKit
 
-public struct NetworkImage: AppearanceComponent {
+public struct NetworkImage: Widget {
     
     public let path: String
     public let contentMode: ImageContentMode?
+    
     public let appearance: Appearance?
+    public let flex: Flex?
+    public let accessibility: Accessibility?
     
     // MARK: - Initialization
     
     public init(
         path: String,
         contentMode: ImageContentMode? = nil,
-        appearance: Appearance? = nil
+        appearance: Appearance? = nil,
+        flex: Flex? = nil,
+        accessibility: Accessibility? = nil
     ) {
         self.path = path
         self.contentMode = contentMode
         self.appearance = appearance
+        self.flex = flex
+        self.accessibility = accessibility
     }
     
 }
 
 extension NetworkImage: Renderable {
     public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
-        let imageView = NetworkUIImageView(network: dependencies.network, url: path)
+        let imageView = UIImageView()
         imageView.contentMode = (contentMode ?? .fitCenter).toUIKit()
         imageView.applyAppearance(appearance)
-        let flex = Flex(size: .init(width: 100%, height: 100%))
         imageView.flex.setupFlex(flex)
+        
+        dependencies.network.fetchImage(url: path) { [weak imageView, weak context] result in
+            guard let imageView = imageView else { return }
+            guard case .success(let data) = result else { return }
+            let image = UIImage(data: data)
+            DispatchQueue.main.async {
+                imageView.image = image
+                imageView.flex.markDirty()
+                context?.applyLayout()
+            }
+        }
+                
         return imageView
     }
 }

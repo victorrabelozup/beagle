@@ -5,6 +5,7 @@ public protocol BeagleContext: AnyObject {
     
     var screenController: UIViewController { get }
     
+    func applyLayout()
     func register(action: Action, inView view: UIView)
     func register(form: Form, formView: UIView, submitView: UIView, validatorHandler: ValidatorProvider?)
     func lazyLoad(url: String, initialState: UIView)
@@ -18,12 +19,19 @@ extension BeagleScreenViewController: BeagleContext {
     }
     
     public func register(action: Action, inView view: UIView) {
+        
         let gestureRecognizer = ActionGestureRecognizer(
             action: action,
             target: self,
             selector: #selector(handleActionGesture(_:)))
         view.addGestureRecognizer(gestureRecognizer)
         view.isUserInteractionEnabled = true
+    }
+    
+    public func applyLayout() {
+        guard let componentView = self.rootComponentView.subviews.first else { return }
+        componentView.frame = self.rootComponentView.bounds
+        componentView.flex.applyLayout()
     }
     
     public func register(form: Form, formView: UIView, submitView: UIView, validatorHandler: ValidatorProvider?) {
@@ -152,11 +160,7 @@ extension BeagleScreenViewController: BeagleContext {
         } else if !updated {
             replaceView(initialView, with: lazyLoaded)
         }
-
-        if let componentView = self.rootComponentView.subviews.first {
-            componentView.frame = self.rootComponentView.bounds
-            componentView.flex.applyLayout()
-        }
+        applyLayout()
     }
     
     private func replaceView(_ oldView: UIView, with component: ServerDrivenComponent) {

@@ -67,9 +67,9 @@ final class ActionExecutorTests: XCTestCase {
             title: "Title",
             message: "Message",
             buttonText: "Button")
-        let context = BeagleContextStub()
+        
         let viewControllerSpy = UINavigationControllerSpy()
-        context.screenController = viewControllerSpy
+        let context = BeagleContextDummy(viewController: viewControllerSpy)
         
         // When
         sut.doAction(action, sender: self, context: context)
@@ -122,20 +122,5 @@ class ValidationErrorListenerSpy: UIView, ValidationErrorListener {
 
     func onValidationError(message: String?) {
         validationErrorMessage = message
-    }
-}
-
-class BeagleContextStub: BeagleContext {
-    
-    var screenController: UIViewController = UIViewController()
-    
-    func register(action: Action, inView view: UIView) {
-    }
-    func register(form: Form, formView: UIView, submitView: UIView, validatorHandler validator: ValidatorProvider?) {
-    }
-    func register(formSubmitEnabledWidget: Widget?, formSubmitDisabledWidget: Widget?) {}
-    func lazyLoad(url: String, initialState: UIView) {
-    }
-    func doAction(_ action: Action, sender: Any) {
     }
 }

@@ -14,7 +14,7 @@ final class BeagleNavigatorTests: XCTestCase {
             path: "https://example.com/screen.json"
         ))
         let firstViewController = UIViewController()
-        let context = DummyBeagleContext(viewController: firstViewController)
+        let context = BeagleContextDummy(viewController: firstViewController)
         let navigation = UINavigationController(rootViewController: firstViewController)
         
         // When
@@ -36,7 +36,7 @@ final class BeagleNavigatorTests: XCTestCase {
         let sut = BeagleNavigator(dependencies: NavigatorDependencies())
         let firstViewController = UIViewController()
         let secondViewController = UIViewController()
-        let context = DummyBeagleContext(viewController: secondViewController)
+        let context = BeagleContextDummy(viewController: secondViewController)
         let navigation = UINavigationController()
         navigation.viewControllers = [firstViewController, secondViewController]
         
@@ -57,7 +57,7 @@ final class BeagleNavigatorTests: XCTestCase {
     private func addViewTest(_ navigate: Navigate) {
         let sut = BeagleNavigator(dependencies: NavigatorDependencies())
         let firstViewController = UIViewController()
-        let context = DummyBeagleContext(viewController: firstViewController)
+        let context = BeagleContextDummy(viewController: firstViewController)
         let navigation = UINavigationController(rootViewController: firstViewController)
         
         sut.navigate(action: navigate, context: context)
@@ -71,7 +71,7 @@ final class BeagleNavigatorTests: XCTestCase {
         let sut = BeagleNavigator(dependencies: NavigatorDependencies())
         let action = Navigate.finishView
         let firstViewController = UIViewController()
-        let context = DummyBeagleContext(viewController: firstViewController)
+        let context = BeagleContextDummy(viewController: firstViewController)
         let navigationSpy = UINavigationControllerSpy(rootViewController: firstViewController)
 
         // When
@@ -88,7 +88,7 @@ final class BeagleNavigatorTests: XCTestCase {
         let firstViewController = UIViewController()
         let secondViewController = UIViewController()
         let thirdViewController = UIViewController()
-        let context = DummyBeagleContext(viewController: thirdViewController)
+        let context = BeagleContextDummy(viewController: thirdViewController)
         let navigation = UINavigationController()
         navigation.viewControllers = [firstViewController, secondViewController, thirdViewController]
 
@@ -111,7 +111,7 @@ final class BeagleNavigatorTests: XCTestCase {
         let vc2 = beagleViewController(screen: .remote(screenURL2, fallback: nil))
         let vc3 = beagleViewController(screen: .remote(screenURL3, fallback: nil))
         let vc4 = UIViewController()
-        let context = DummyBeagleContext(viewController: vc4)
+        let context = BeagleContextDummy(viewController: vc4)
         let navigation = UINavigationController()
         navigation.viewControllers = [vc1, vc2, vc3, vc4]
 
@@ -134,7 +134,7 @@ final class BeagleNavigatorTests: XCTestCase {
         let vc2 = beagleViewController(screen: .remote(screenURL2, fallback: nil))
         let vc3 = beagleViewController(screen: .remote(screenURL3, fallback: nil))
         let vc4 = UIViewController()
-        let context = DummyBeagleContext(viewController: vc4)
+        let context = BeagleContextDummy(viewController: vc4)
         let navigation = UINavigationController()
         navigation.viewControllers = [vc1, vc2, vc3, vc4]
 
@@ -157,7 +157,7 @@ final class BeagleNavigatorTests: XCTestCase {
     private func presentViewTest(_ navigate: Navigate) {
         let sut = BeagleNavigator(dependencies: NavigatorDependencies())
         let firstViewController = UIViewController()
-        let context = DummyBeagleContext(viewController: firstViewController)
+        let context = BeagleContextDummy(viewController: firstViewController)
         let navigationSpy = UINavigationControllerSpy(rootViewController: firstViewController)
         
         sut.navigate(action: navigate, context: context)
@@ -175,7 +175,7 @@ final class BeagleNavigatorTests: XCTestCase {
         let path = "https://example.com/screen.json"
         let action = Navigate.openDeepLink(.init(path: path, data: data))
         let firstViewController = UIViewController()
-        let context = DummyBeagleContext(viewController: firstViewController)
+        let context = BeagleContextDummy(viewController: firstViewController)
         let navigation = UINavigationController(rootViewController: firstViewController)
         
         // When
@@ -206,8 +206,12 @@ class DeepLinkHandlerSpy: DeepLinkScreenManaging {
     }
 }
 
-class DummyBeagleContext: BeagleContext {
+class BeagleContextDummy: BeagleContext {
     let viewController: UIViewController
+    
+    init() {
+        self.viewController = UIViewController()
+    }
     
     init(viewController: UIViewController) {
         self.viewController = viewController
@@ -220,6 +224,7 @@ class DummyBeagleContext: BeagleContext {
     func register(formSubmitEnabledWidget: Widget?, formSubmitDisabledWidget: Widget?) {}
     func lazyLoad(url: String, initialState: UIView) {}
     func doAction(_ action: Action, sender: Any) {}
+    func applyLayout() {}
 }
 
 struct NavigatorDependencies: BeagleNavigator.Dependencies {
