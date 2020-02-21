@@ -27,7 +27,7 @@ struct LazyComponentScreen: DeeplinkScreen {
                     FormInput(
                         name: "field",
                         child: LazyComponent(
-                            path: "http://www.mocky.io/v2/5de16c0a32000056638093da",
+                            path: "http://www.mocky.io/v2/5e4e91c02f00001f2016a8f2",
                             initialState: Text("Loading...")
                         )
                     ),

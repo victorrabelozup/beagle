@@ -35,7 +35,8 @@ extension PageView: Renderable {
             model: .init(pages: pagesControllers),
             indicatorView: indicatorView
         )
-
+        
+        view.flex.setupFlex(Flex(grow: 1.0))
         return view
     }
 }

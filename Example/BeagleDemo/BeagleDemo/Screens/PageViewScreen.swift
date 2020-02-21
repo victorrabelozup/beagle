@@ -29,11 +29,10 @@ struct PageViewScreen: DeeplinkScreen {
 struct Page {
     var content: Container {
         return Container(children: [
-            Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj",alignment: .center),
-            Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj",alignment: .right),
-            Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj",alignment: .left),
+            Text("Text with alignment atribute set to center",alignment: .center),
+            Text("Text with alignment atribute set to right",alignment: .right),
+            Text("Text with alignment atribute set to left",alignment: .left),
             NetworkImage(path: "https://is5-ssl.mzstatic.com/image/thumb/Purple123/v4/47/b9/9b/47b99ba2-8b0e-9b08-96f6-70cc8a22d773/source/256x256bb.jpg"),
-            Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj")
         ])
     }
 }
