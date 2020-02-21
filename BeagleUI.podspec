@@ -7,9 +7,11 @@ Pod::Spec.new do |spec|
   spec.version = "0.1.0"
   spec.summary = "This is the Beagle framework for iOS"
   spec.description = <<-DESC
-    Use Beagle framework to help your project to achieve Backend Driven UI
+    We encourage you to use Beagle from Carthage, since it is the preferred
+    way of using it. But if you are willing to just test Beagle, you can use this 
+    pod instead.
   DESC
-  spec.homepage = "https://www.zup.com.br"
+  spec.homepage = "https://zup-products.gitbook.io/beagle/"
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
@@ -22,7 +24,6 @@ Pod::Spec.new do |spec|
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
   spec.platform = :ios, "10.0"
-  spec.swift_version = "4.1"
   
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
@@ -41,10 +42,10 @@ Pod::Spec.new do |spec|
     "Sources/BeagleUI/Sources/**/*Test.swift"
 
   # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-
+  
   # make sure to declare YogaKit on your Podfile as:
-  # pod 'YogaKit', :git => 'git@github.com:facebook/yoga.git', :tag => '1.17.0'
-  # this will make it use the proper version of the dependency
-  spec.dependency 'YogaKit', '1.17.0'
+  # pod 'YogaKit', :git => 'git@github.com:lucasaraujo/yoga.git'
+  # We need this because we fixed an issue in the original repository and our PR was not merged yet.
+  spec.dependency 'YogaKit'
 
 end
