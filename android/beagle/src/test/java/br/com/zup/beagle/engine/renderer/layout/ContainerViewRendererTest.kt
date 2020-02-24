@@ -17,14 +17,13 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
-import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 
 class ContainerViewRendererTest {
 
-    @MockK
+    @RelaxedMockK
     private lateinit var container: Container
     @MockK
     private lateinit var viewRendererFactory: ViewRendererFactory
@@ -39,7 +38,7 @@ class ContainerViewRendererTest {
     private lateinit var context: Context
     @MockK
     private lateinit var rootView: RootView
-    @MockK
+    @RelaxedMockK
     private lateinit var beagleFlexView: BeagleFlexView
 
     private val containerChildren = listOf<ServerDrivenComponent>(Button(""))
@@ -52,24 +51,24 @@ class ContainerViewRendererTest {
         every { rootView.getContext() } returns context
         every { container.flex } returns flex
         every { container.children } returns containerChildren
-        every { beagleFlexView.addServerDrivenComponent(any()) } just Runs
+        every { beagleFlexView.addServerDrivenComponent(any(), any()) } just Runs
     }
 
     @Test
-    fun buildView_should_makeBeagleFlexView() {
+    fun build_should_makeBeagleFlexView() {
         // WHEN
-        renderer.buildView(rootView)
+        renderer.build(rootView)
 
         // THEN
         verify(exactly = once()) { viewFactory.makeBeagleFlexView(context, flex) }
     }
 
     @Test
-    fun buildView_should_addServerDrivenComponent() {
+    fun build_should_addServerDrivenComponent() {
         // WHEN
-        renderer.buildView(rootView)
+        renderer.build(rootView)
 
         // THEN
-        verify(exactly = once()) { beagleFlexView.addServerDrivenComponent(containerChildren[0]) }
+        verify(exactly = once()) { beagleFlexView.addServerDrivenComponent(containerChildren[0], rootView) }
     }
 }

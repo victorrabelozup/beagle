@@ -63,7 +63,7 @@ class TouchableViewRendererTest {
 
     @Test
     fun build_should_make_child_view() {
-        val actual = touchableViewRenderer.buildView(rootView)
+        val actual = touchableViewRenderer.build(rootView)
 
         assertEquals(view, actual)
     }
@@ -82,7 +82,7 @@ class TouchableViewRendererTest {
     }
 
     private fun callBuildAndClick() {
-        touchableViewRenderer.buildView(rootView)
+        touchableViewRenderer.build(rootView)
         onClickListenerSlot.captured.onClick(view)
     }
 }

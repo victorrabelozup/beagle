@@ -1,7 +1,6 @@
 package br.com.zup.beagle.engine.renderer.layout
 
 import android.content.Context
-import android.view.View
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
@@ -74,7 +73,7 @@ class DirectionalViewRendererTest {
     }
 
     @Test
-    fun buildView_should_add_flexDirection_as_COLUMN_and_addView_to_yogaLayout() {
+    fun build_should_add_flexDirection_as_COLUMN_and_addView_to_yogaLayout() {
         // Given
         val beagleFlexView = mockk<BeagleFlexView>()
         val context = mockk<Context>()
@@ -82,13 +81,13 @@ class DirectionalViewRendererTest {
         val flexSlot = slot<Flex>()
         every { rootView.getContext() } returns context
         every { viewFactory.makeBeagleFlexView(any(), capture(flexSlot)) } returns beagleFlexView
-        every { beagleFlexView.addServerDrivenComponent(any()) } just Runs
+        every { beagleFlexView.addServerDrivenComponent(any(), any()) } just Runs
 
         // When
-        directionalViewRenderer.buildView(rootView)
+        directionalViewRenderer.build(rootView)
 
         // Then
         assertEquals(FlexDirection.COLUMN, flexSlot.captured.flexDirection)
-        verify(exactly = 2) { beagleFlexView.addServerDrivenComponent(any()) }
+        verify(exactly = 2) { beagleFlexView.addServerDrivenComponent(any(), rootView) }
     }
 }

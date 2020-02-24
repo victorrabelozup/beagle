@@ -15,7 +15,7 @@ internal class FormInputViewRenderer(
 
     override fun buildView(rootView: RootView): View {
         return viewFactory.makeBeagleFlexView(rootView.getContext()).apply {
-            addServerDrivenComponent(component.child)
+            addServerDrivenComponent(component.child, rootView)
             tag = component
         }
     }

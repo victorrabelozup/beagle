@@ -8,7 +8,6 @@ import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
-import br.com.zup.beagle.utils.toView
 import br.com.zup.beagle.view.BeaglePageView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.layout.PageView
@@ -35,7 +34,7 @@ internal class PageViewRenderer(
         container.addView(containerViewPager)
 
         component.pageIndicator?.let {
-            val pageIndicatorView = it.toView(rootView.getContext())
+            val pageIndicatorView = viewRendererFactory.make(it).build(rootView)
             setupPageIndicator(component.pages.size, viewPager, component.pageIndicator)
             container.addView(pageIndicatorView)
         }
@@ -73,8 +72,8 @@ internal class PageViewAdapter(
 ) : PagerAdapter() {
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val view = viewFactory.makeBeagleFlexView(rootView.getContext()).apply {
-            addServerDrivenComponent(pages[position])
+        val view = viewFactory.makeBeagleFlexView(rootView.getContext()).also {
+            it.addServerDrivenComponent(pages[position], rootView)
         }
         container.addView(view)
         return view

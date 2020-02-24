@@ -10,7 +10,6 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.UIViewRenderer
-import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.logger.BeagleMessageLogs
 import br.com.zup.beagle.utils.dp
 import br.com.zup.beagle.view.ViewFactory
@@ -36,14 +35,19 @@ internal class TabViewRenderer(
         val tabLayout = makeTabLayout(rootView.getContext())
 
         val viewPager = viewFactory.makeViewPager(rootView.getContext()).apply {
-            adapter = ContentAdapter(rootView = rootView, tabList = component.tabItems)
+            adapter = ContentAdapter(rootView = rootView, viewFactory = viewFactory, tabList = component.tabItems)
         }
+
+        val containerViewPager =
+            viewFactory.makeBeagleFlexView(rootView.getContext()).apply {
+                addView(viewPager)
+            }
 
         tabLayout.addOnTabSelectedListener(getTabSelectedListener(viewPager))
         viewPager.addOnPageChangeListener(getViewPagerChangePageListener(tabLayout))
 
         container.addView(tabLayout)
-        container.addView(viewPager)
+        container.addView(containerViewPager)
         return container
     }
 
@@ -115,7 +119,7 @@ internal class TabViewRenderer(
 
 internal class ContentAdapter(
     private val tabList: List<TabItem>,
-    private val viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
+    private val viewFactory: ViewFactory,
     private val rootView: RootView
 ) : PagerAdapter() {
     override fun isViewFromObject(view: View, `object`: Any): Boolean = view === `object`
@@ -123,7 +127,9 @@ internal class ContentAdapter(
     override fun getCount(): Int = tabList.size
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val view = viewRendererFactory.make(tabList[position].content).build(rootView)
+        val view = viewFactory.makeBeagleFlexView(rootView.getContext()).also {
+            it.addServerDrivenComponent(tabList[position].content, rootView)
+        }
         container.addView(view)
         return view
     }

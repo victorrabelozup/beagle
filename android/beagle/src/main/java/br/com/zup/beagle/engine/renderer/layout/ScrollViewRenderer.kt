@@ -51,11 +51,7 @@ internal class ScrollViewRenderer(
     ) {
         val viewGroup = viewFactory.makeBeagleFlexView(rootView.getContext(), flex)
         children.forEach { component ->
-            viewGroup.addView(
-                viewFactory.makeBeagleFlexView(rootView.getContext()).apply {
-                    addServerDrivenComponent(component)
-                }
-            )
+            viewGroup.addServerDrivenComponent(component, rootView)
         }
         scrollView.addView(viewGroup)
     }

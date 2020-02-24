@@ -3,11 +3,13 @@ package br.com.zup.beagle.utils
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import br.com.zup.beagle.core.LayoutComponent
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.ActivityRootView
 import br.com.zup.beagle.engine.renderer.FragmentRootView
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
+import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.Screen
 import br.com.zup.beagle.widget.layout.ScreenComponent
 
@@ -32,4 +34,9 @@ internal fun Screen.toComponent() = ScreenComponent(
 )
 
 internal fun ServerDrivenComponent.toView(rootView: RootView) =
-    viewRenderer.make(this).build(rootView)
+    if (this is LayoutComponent) {
+        viewRenderer.make(this).build(rootView)
+    } else {
+        val container = Container(listOf(this))
+        viewRenderer.make(container).build(rootView)
+    }

@@ -12,7 +12,6 @@ import br.com.zup.beagle.engine.renderer.FragmentRootView
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.interfaces.OnStateUpdatable
 import br.com.zup.beagle.utils.implementsGenericTypeOf
-import br.com.zup.beagle.utils.toView
 
 sealed class BeagleViewState {
     data class Error(val throwable: Throwable) : BeagleViewState()
@@ -79,14 +78,12 @@ internal class BeagleView(
             if (component.implementsGenericTypeOf(OnStateUpdatable::class.java, component::class.java)) {
                 (component as? OnStateUpdatable<ServerDrivenComponent>)?.onUpdateState(component)
             } else {
-                val componentView = component.toView(rootView)
                 removeView(view)
-                addView(componentView)
+                addServerDrivenComponent(component, rootView)
             }
         } else {
-            val componentView = component.toView(rootView)
             removeAllViewsInLayout()
-            addView(componentView)
+            addServerDrivenComponent(component, rootView)
         }
     }
 

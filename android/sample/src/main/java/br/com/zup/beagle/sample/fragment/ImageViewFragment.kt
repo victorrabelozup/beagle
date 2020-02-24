@@ -12,7 +12,6 @@ import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.Size
 import br.com.zup.beagle.widget.core.UnitType
 import br.com.zup.beagle.widget.core.UnitValue
-import br.com.zup.beagle.widget.layout.Screen
 import br.com.zup.beagle.widget.ui.NetworkImage
 
 class ImageViewFragment : Fragment() {
@@ -20,9 +19,7 @@ class ImageViewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val declarative = Screen(
-            content =
-            NetworkImage(
+        val declarative = NetworkImage(
                 path = "https://cdn-images-1.medium.com/max/1200/1*kjiNJPB3Y-ZVmjxco_bORA.png"
             ).applyFlex(
                 Flex(
@@ -36,7 +33,7 @@ class ImageViewFragment : Fragment() {
                     cornerRadius = CornerRadius(25.0)
                 )
             )
-        )
+
         return declarative.toView(this)
     }
 

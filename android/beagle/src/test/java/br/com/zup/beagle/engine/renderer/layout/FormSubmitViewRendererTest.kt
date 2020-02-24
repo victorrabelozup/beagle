@@ -3,12 +3,10 @@ package br.com.zup.beagle.engine.renderer.layout
 import android.content.Context
 import android.view.View
 import br.com.zup.beagle.engine.renderer.RootView
-import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
-import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormSubmit
 import br.com.zup.beagle.widget.form.InputWidget
 import io.mockk.MockKAnnotations
@@ -16,6 +14,7 @@ import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.verify
 import org.junit.Assert.assertEquals
@@ -35,12 +34,14 @@ class FormSubmitViewRendererTest {
 
     @MockK
     private lateinit var rootView: RootView
-    @MockK
+    @RelaxedMockK
     private lateinit var beagleFlexView: BeagleFlexView
     @MockK
     private lateinit var inputWidget: InputWidget
     @MockK
     private lateinit var context: Context
+    @MockK
+    private lateinit var view: View
 
     @Before
     fun setUp() {
@@ -48,15 +49,16 @@ class FormSubmitViewRendererTest {
 
         every { viewFactory.makeBeagleFlexView(any()) } returns beagleFlexView
         every { rootView.getContext() } returns context
-        every { beagleFlexView.addServerDrivenComponent(any()) } just Runs
-        every { beagleFlexView.tag = any() } just Runs
+        every { beagleFlexView.addServerDrivenComponent(any(), any()) } just Runs
         every { formSubmit.child } returns inputWidget
+        every { view.tag = any() } just Runs
+        every { beagleFlexView.getChildAt(any()) } returns view
     }
 
     @Test
     fun build_should_make_child() {
         // WHEN
-        val actual = formSubmitViewRenderer.buildView(rootView)
+        val actual = formSubmitViewRenderer.build(rootView)
 
         // THEN
         assertEquals(beagleFlexView, actual)
@@ -65,18 +67,18 @@ class FormSubmitViewRendererTest {
     @Test
     fun build_should_set_widget_on_tag() {
         // WHEN
-        formSubmitViewRenderer.buildView(rootView)
+        formSubmitViewRenderer.build(rootView)
 
         // THEN
-        verify(exactly = once()) { beagleFlexView.tag = formSubmit }
+        verify(exactly = once()) { view.tag = formSubmit }
     }
 
     @Test
     fun build_should_addServerDrivenComponent() {
         // WHEN
-        formSubmitViewRenderer.buildView(rootView)
+        formSubmitViewRenderer.build(rootView)
 
         // THEN
-        verify(exactly = once()) { beagleFlexView.addServerDrivenComponent(inputWidget) }
+        verify(exactly = once()) { beagleFlexView.addServerDrivenComponent(inputWidget, rootView) }
     }
 }

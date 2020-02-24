@@ -54,7 +54,7 @@ class TabViewRendererTest {
         MockKAnnotations.init(this)
         mockkObject(BeagleEnvironment)
         every { BeagleEnvironment.application } returns mockk {
-            every { resources.displayMetrics } returns mockk() {
+            every { resources.displayMetrics } returns mockk {
                 density = 10f
             }
         }
@@ -62,11 +62,12 @@ class TabViewRendererTest {
         every { rootView.getContext() } returns context
 
         every { viewFactory.makeBeagleFlexView(context, any()) } returns beagleFlexView
+        every { viewFactory.makeBeagleFlexView(context) } returns beagleFlexView
         every { viewFactory.makeViewPager(context) } returns viewPager
         every { viewFactory.makeTabView(context) } returns tabLayout
         every { viewFactory.makeFrameLayoutParams(any(), any()) } returns frameLayoutParams
 
-        every { viewPager.setAdapter(any()) } just runs
+        every { viewPager.adapter = any() } just runs
         every { viewPager.addOnPageChangeListener(any()) } just runs
 
         every { beagleFlexView.addView(any()) } just runs

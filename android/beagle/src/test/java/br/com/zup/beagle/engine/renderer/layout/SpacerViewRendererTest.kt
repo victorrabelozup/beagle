@@ -3,8 +3,8 @@ package br.com.zup.beagle.engine.renderer.layout
 import android.content.Context
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
-import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.view.BeagleFlexView
+import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.layout.Spacer
 import io.mockk.MockKAnnotations
@@ -12,10 +12,10 @@ import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import io.mockk.slot
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.*
 
 class SpacerViewRendererTest {
 

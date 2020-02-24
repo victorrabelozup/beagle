@@ -39,13 +39,13 @@ internal class ScreenViewRenderer(
         val container = viewFactory.makeBeagleFlexView(rootView.getContext(), flex)
 
         component.header?.let { header ->
-            container.addServerDrivenComponent(header)
+            container.addServerDrivenComponent(header, rootView)
         }
 
-        container.addServerDrivenComponent(this.component.content)
+        container.addServerDrivenComponent(component.content, rootView)
 
         component.footer?.let { footer ->
-            container.addServerDrivenComponent(footer)
+            container.addServerDrivenComponent(footer, rootView)
         }
 
         return container

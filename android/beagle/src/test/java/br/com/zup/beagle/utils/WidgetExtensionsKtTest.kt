@@ -36,7 +36,7 @@ class WidgetExtensionsKtTest {
         val component = mockk<ServerDrivenComponent>()
         val viewRenderer = mockk<ViewRenderer<*>>()
         val view = mockk<View>()
-        every { viewRendererMock.make(component) } returns viewRenderer
+        every { viewRendererMock.make(any()) } returns viewRenderer
         every { viewRenderer.build(rootView) } returns view
 
         // When

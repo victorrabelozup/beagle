@@ -7,9 +7,13 @@ import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.ComposeComponent
-import io.mockk.*
+import io.mockk.MockKAnnotations
+import io.mockk.Runs
+import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.just
+import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
@@ -38,33 +42,33 @@ class BuildableWidgetViewRendererTest {
 
         every { viewFactory.makeBeagleFlexView(any()) } returns beagleFlexView
         every { rootView.getContext() } returns context
-        every { beagleFlexView.addServerDrivenComponent(any()) } just Runs
+        every { beagleFlexView.addServerDrivenComponent(any(), any()) } just Runs
     }
 
     @Test
-    fun buildView_should_create_view() {
+    fun build_should_create_view() {
         // WHEN
-        val actual = viewRenderer.buildView(rootView)
+        val actual = viewRenderer.build(rootView)
 
         // THEN
         assertEquals(beagleFlexView, actual)
     }
 
     @Test
-    fun buildView_should_makeBeagleFlexView() {
+    fun build_should_makeBeagleFlexView() {
         // WHEN
-        viewRenderer.buildView(rootView)
+        viewRenderer.build(rootView)
 
         // THEN
         verify(exactly = once()) { viewFactory.makeBeagleFlexView(context) }
     }
 
     @Test
-    fun buildView_should_addServerDrivenComponent() {
+    fun build_should_addServerDrivenComponent() {
         // WHEN
-        viewRenderer.buildView(rootView)
+        viewRenderer.build(rootView)
 
         // THEN
-        verify(exactly = once()) { beagleFlexView.addServerDrivenComponent(component) }
+        verify(exactly = once()) { beagleFlexView.addServerDrivenComponent(component, rootView) }
     }
 }

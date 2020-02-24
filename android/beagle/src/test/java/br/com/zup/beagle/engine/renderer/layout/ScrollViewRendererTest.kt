@@ -1,11 +1,9 @@
 package br.com.zup.beagle.engine.renderer.layout
 
 import android.content.Context
-import android.view.View
 import android.widget.HorizontalScrollView
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
-import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.view.BeagleFlexView
@@ -14,7 +12,6 @@ import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.layout.ScrollAxis
 import br.com.zup.beagle.widget.layout.ScrollView
-import br.com.zup.beagle.widget.layout.Stack
 import br.com.zup.beagle.widget.ui.Button
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
@@ -65,7 +62,7 @@ class ScrollViewRendererTest {
         every { horizontalScrollView.addView(any()) } just Runs
         every { viewFactory.makeBeagleFlexView(any(), capture(flex)) } returns beagleFlexView
         every { viewFactory.makeBeagleFlexView(any()) } returns beagleFlexView
-        every { beagleFlexView.addServerDrivenComponent(any()) } just Runs
+        every { beagleFlexView.addServerDrivenComponent(any(), any()) } just Runs
         every { rootView.getContext() } returns context
         every { scroll.children } returns components
         every { viewFactory.makeScrollView(any()) } returns scrollView
@@ -80,12 +77,11 @@ class ScrollViewRendererTest {
         every { scrollView.isVerticalScrollBarEnabled = capture(scrollBarEnabled) } just Runs
 
         // When
-        scrollViewRenderer.buildView(rootView)
+        scrollViewRenderer.build(rootView)
 
         // Then
         verify(exactly = once()) { viewFactory.makeScrollView(context) }
         verify(exactly = once()) { viewFactory.makeBeagleFlexView(context, flex.captured) }
-        verify(exactly = once()) { viewFactory.makeBeagleFlexView(context) }
         verify(exactly = once()) { scrollView.addView(beagleFlexView) }
         assertEquals(true, scrollBarEnabled.captured)
         assertEquals(FlexDirection.COLUMN, flex.captured.flexDirection)
@@ -101,11 +97,11 @@ class ScrollViewRendererTest {
         } just Runs
 
         // When
-        scrollViewRenderer.buildView(rootView)
+        scrollViewRenderer.build(rootView)
 
         // Then
         verify(exactly = once()) { viewFactory.makeHorizontalScrollView(context) }
-        verify(exactly = once()) { beagleFlexView.addServerDrivenComponent(components[0]) }
+        verify(exactly = once()) { beagleFlexView.addServerDrivenComponent(components[0], rootView) }
         assertEquals(false, scrollBarEnabled.captured)
         assertEquals(FlexDirection.ROW, flex.captured.flexDirection)
     }

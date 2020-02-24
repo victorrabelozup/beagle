@@ -8,8 +8,11 @@ import androidx.fragment.app.Fragment
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.utils.toView
 import br.com.zup.beagle.widget.core.Alignment
+import br.com.zup.beagle.widget.core.EdgeValue
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.JustifyContent
+import br.com.zup.beagle.widget.core.UnitType
+import br.com.zup.beagle.widget.core.UnitValue
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.TabItem
@@ -25,8 +28,20 @@ class TabViewFragment : Fragment() {
     ): View? {
         val declarative = TabView(
             listOf(
-                buildTabView("Title 1", Text("Content")),
-                buildTabView("Title 2", Button("button")),
+                buildTabView(
+                    title = "Title 1",
+                    content = Text("Content").applyFlex(
+                        Flex(
+                            margin = EdgeValue(
+                                top = UnitValue(
+                                    10.0,
+                                    UnitType.REAL
+                                )
+                            )
+                        )
+                    )
+                ),
+                buildTabView(title = "Title 2", content = Button("button")),
                 buildTabView(
                     title = "Title 3",
                     content = Container(

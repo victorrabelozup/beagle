@@ -2,7 +2,6 @@ package br.com.zup.beagle.sample.widgets
 
 import android.content.Context
 import android.graphics.Color
-import android.view.Gravity
 import android.widget.TextView
 import br.com.zup.beagle.widget.core.WidgetView
 
@@ -15,7 +14,6 @@ data class MutableText(
         val color = Color.parseColor(color)
         text = firstText
         setTextColor(color)
-        gravity = Gravity.CENTER
         setOnClickListener {
             text = if (text == firstText)
                 secondText

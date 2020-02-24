@@ -18,13 +18,13 @@ internal class ContainerViewRenderer(
     override fun buildView(rootView: RootView): View {
         return viewFactory.makeBeagleFlexView(rootView.getContext(), component.flex ?: Flex())
             .apply {
-                addChildren(this)
+                addChildren(this, rootView)
             }
     }
 
-    private fun addChildren(beagleFlexView: BeagleFlexView) {
+    private fun addChildren(beagleFlexView: BeagleFlexView, rootView: RootView) {
         component.children.forEach { child ->
-            beagleFlexView.addServerDrivenComponent(child)
+            beagleFlexView.addServerDrivenComponent(child, rootView)
         }
     }
 }

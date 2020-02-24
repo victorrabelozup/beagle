@@ -142,14 +142,14 @@ class FormViewRendererTest {
     }
 
     @Test
-    fun buildView_should_not_try_to_iterate_over_children_if_is_not_a_ViewGroup() {
+    fun build_should_not_try_to_iterate_over_children_if_is_not_a_ViewGroup() {
 
         val viewNotViewGroup = mockk<View>()
         // Given
         every { viewRenderer.build(rootView) } returns viewNotViewGroup
 
         // When
-        val actual = formViewRenderer.buildView(rootView)
+        val actual = formViewRenderer.build(rootView)
 
         // Then
         assertEquals(viewNotViewGroup, actual)
@@ -157,7 +157,7 @@ class FormViewRendererTest {
     }
 
     @Test
-    fun buildView_should_try_to_iterate_over_all_viewGroups() {
+    fun build_should_try_to_iterate_over_all_viewGroups() {
         // Given
         val childViewGroup = mockk<ViewGroup>()
         every { childViewGroup.childCount } returns 0
@@ -166,14 +166,14 @@ class FormViewRendererTest {
         every { viewGroup.getChildAt(any()) } returns childViewGroup
 
         // When
-        formViewRenderer.buildView(rootView)
+        formViewRenderer.build(rootView)
 
         // Then
         verify(exactly = 1) { childViewGroup.childCount }
     }
 
     @Test
-    fun buildView_should_try_to_iterate_over_all_viewGroups_that_is_the_formInput() {
+    fun build_should_try_to_iterate_over_all_viewGroups_that_is_the_formInput() {
         // Given
         val childViewGroup = mockk<ViewGroup>()
         every { childViewGroup.childCount } returns 0
@@ -182,7 +182,7 @@ class FormViewRendererTest {
         every { viewGroup.getChildAt(any()) } returns childViewGroup
 
         // When
-        formViewRenderer.buildView(rootView)
+        formViewRenderer.build(rootView)
 
         // Then
         val views = formViewRenderer.getPrivateField<List<View>>(FORM_INPUT_VIEWS_FIELD_NAME)
@@ -190,8 +190,8 @@ class FormViewRendererTest {
     }
 
     @Test
-    fun buildView_should_group_formInput_views() {
-        formViewRenderer.buildView(rootView)
+    fun build_should_group_formInput_views() {
+        formViewRenderer.build(rootView)
 
         val formInputs =
             formViewRenderer.getPrivateField<List<FormInput>>(FORM_INPUT_VIEWS_FIELD_NAME)
@@ -201,8 +201,8 @@ class FormViewRendererTest {
     }
 
     @Test
-    fun buildView_should_find_formSubmitView() {
-        formViewRenderer.buildView(rootView)
+    fun build_should_find_formSubmitView() {
+        formViewRenderer.build(rootView)
 
         val actual = formViewRenderer.getPrivateField<View>(FORM_SUBMIT_VIEW_FIELD_NAME)
         assertEquals(formSubmitView, actual)
@@ -211,8 +211,8 @@ class FormViewRendererTest {
     }
 
     @Test
-    fun buildView_should_call_configFormSubmit_on_fetchForms() {
-        formViewRenderer.buildView(rootView)
+    fun build_should_call_configFormSubmit_on_fetchForms() {
+        formViewRenderer.build(rootView)
 
         verify { formValidatorController.configFormSubmit() }
     }
@@ -308,7 +308,7 @@ class FormViewRendererTest {
     }
 
     private fun executeFormSubmitOnClickListener() {
-        formViewRenderer.buildView(rootView)
+        formViewRenderer.build(rootView)
         onClickListenerSlot.captured.onClick(formSubmitView)
     }
 }

@@ -6,7 +6,6 @@ import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
-import br.com.zup.beagle.utils.toView
 import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
@@ -36,7 +35,7 @@ internal class StackViewRenderer(
                 (component as? FlexComponent)?.flex?.copy(positionType = FlexPositionType.ABSOLUTE)
 
             beagleFlexView.addView(
-                component.toView(rootView.getContext()),
+                viewRendererFactory.make(component).build(rootView),
                 absoluteFlex ?: Flex(positionType = FlexPositionType.ABSOLUTE)
             )
         }

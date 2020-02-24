@@ -24,7 +24,6 @@ import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.JustifyContent
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.NavigationBarItem
@@ -108,7 +107,7 @@ class ScreenViewRendererTest {
         every { BeagleEnvironment.beagleSdk } returns mockk(relaxed = true)
         every { viewFactory.makeBeagleFlexView(any()) } returns beagleFlexView
         every { viewFactory.makeBeagleFlexView(any(), any()) } returns beagleFlexView
-        every { beagleFlexView.addView(any()) } just Runs
+        every { beagleFlexView.addServerDrivenComponent(any(), any()) } just Runs
         every { beagleFlexView.addView(any(), any<Flex>()) } just Runs
         every { screenComponent.navigationBar } returns null
         every { screenComponent.header } returns null
@@ -146,14 +145,14 @@ class ScreenViewRendererTest {
     }
 
     @Test
-    fun buildView_should_create_a_screenWidget_with_grow_1_and_justifyContent_SPACE_BETWEEN() {
+    fun build_should_create_a_screenWidget_with_grow_1_and_justifyContent_SPACE_BETWEEN() {
         // Given
         val flex = slot<Flex>()
         every { viewFactory.makeBeagleFlexView(any(), capture(flex)) } returns beagleFlexView
         every { context.supportActionBar } returns null
 
         // When
-        screenViewRenderer.buildView(rootView)
+        screenViewRenderer.build(rootView)
 
 
         // Then
@@ -162,20 +161,20 @@ class ScreenViewRendererTest {
     }
 
     @Test
-    fun buildView_should_call_header_builder_and_add_to_screenWidget_view() {
+    fun build_should_call_header_builder_and_add_to_screenWidget_view() {
         // Given
         every { screenComponent.header } returns component
         every { context.supportActionBar } returns null
 
         // When
-        screenViewRenderer.buildView(rootView)
+        screenViewRenderer.build(rootView)
 
         // Then
-        verify(atLeast = once()) {beagleFlexView.addServerDrivenComponent(component) }
+        verify(atLeast = once()) {beagleFlexView.addServerDrivenComponent(component, rootView) }
     }
 
     @Test
-    fun buildView_should_call_content_builder() {
+    fun build_should_call_content_builder() {
         // Given
         val content = mockk<ServerDrivenComponent>()
         val flex = slot<Flex>()
@@ -184,27 +183,27 @@ class ScreenViewRendererTest {
         every { context.supportActionBar } returns null
 
         // When
-        screenViewRenderer.buildView(rootView)
+        screenViewRenderer.build(rootView)
 
         // Then
-        verify(atLeast = once()) { beagleFlexView.addServerDrivenComponent(content)}
+        verify(atLeast = once()) { beagleFlexView.addServerDrivenComponent(content, rootView)}
     }
 
     @Test
-    fun buildView_should_call_footer_builder_and_add_to_screenWidget_view() {
+    fun build_should_call_footer_builder_and_add_to_screenWidget_view() {
         // Given
         every { screenComponent.footer } returns component
         every { context.supportActionBar } returns null
 
         // When
-        screenViewRenderer.buildView(rootView)
+        screenViewRenderer.build(rootView)
 
         // Then
-        verify(atLeast = once()) {beagleFlexView.addServerDrivenComponent(component) }
+        verify(atLeast = once()) {beagleFlexView.addServerDrivenComponent(component, rootView) }
     }
 
     @Test
-    fun buildView_should_configure_toolbar_when_supportActionBar_is_not_null_and_toolbar_is_null() {
+    fun build_should_configure_toolbar_when_supportActionBar_is_not_null_and_toolbar_is_null() {
         // Given
         val title = RandomData.string()
         val showBackButton = true
@@ -215,7 +214,7 @@ class ScreenViewRendererTest {
         every { context.findViewById<Toolbar>(any()) } returns null
 
         // When
-        screenViewRenderer.buildView(rootView)
+        screenViewRenderer.build(rootView)
 
         // Then
         verify(atLeast = once()) { actionBar.title = title }
@@ -225,21 +224,21 @@ class ScreenViewRendererTest {
     }
 
     @Test
-    fun buildView_should_configure_toolbar_when_supportActionBar_is_not_null_and_toolbar_is_not_null() {
+    fun build_should_configure_toolbar_when_supportActionBar_is_not_null_and_toolbar_is_not_null() {
         // Given
         every { screenComponent.navigationBar } returns navigationBar
         every { context.supportActionBar } returns actionBar
         every { context.findViewById<Toolbar>(any()) } returns toolbar
 
         // When
-        screenViewRenderer.buildView(rootView)
+        screenViewRenderer.build(rootView)
 
         // Then
         verify(atLeast = once()) { toolbar.visibility = View.VISIBLE }
     }
 
     @Test
-    fun buildView_should_configure_toolbar_style_when_supportActionBar_is_not_null_and_toolbar_is_not_null() {
+    fun build_should_configure_toolbar_style_when_supportActionBar_is_not_null_and_toolbar_is_not_null() {
         // Given
         every { BeagleEnvironment.beagleSdk.designSystem } returns designSystemMock
         every { designSystemMock.toolbarStyle(style) } returns styleInt
@@ -249,7 +248,7 @@ class ScreenViewRendererTest {
         every { context.findViewById<Toolbar>(any()) } returns toolbar
 
         // When
-        screenViewRenderer.buildView(rootView)
+        screenViewRenderer.build(rootView)
 
         // Then
         verify(atLeast = once()) { toolbar.navigationIcon = navigationIcon }
@@ -260,7 +259,7 @@ class ScreenViewRendererTest {
     }
 
     @Test
-    fun buildView_should_configToolbarItems_when_navigationBarItems_is_not_null_and_image_is_null() {
+    fun build_should_configToolbarItems_when_navigationBarItems_is_not_null_and_image_is_null() {
         // GIVEN
         every { screenComponent.navigationBar } returns navigationBar
         every { context.supportActionBar } returns null
@@ -274,7 +273,7 @@ class ScreenViewRendererTest {
         every { menu.add(any(), any(), any(), any<String>()) } returns menuItem
 
         // WHEN
-        screenViewRenderer.buildView(rootView)
+        screenViewRenderer.build(rootView)
 
         // THEN
         assertEquals(View.VISIBLE, toolbar.visibility)
@@ -284,7 +283,7 @@ class ScreenViewRendererTest {
     }
 
     @Test
-    fun buildView_should_configToolbarItems_when_navigationBarItems_is_not_null_and_image_is_not_null() {
+    fun build_should_configToolbarItems_when_navigationBarItems_is_not_null_and_image_is_not_null() {
         // GIVEN
         every { BeagleEnvironment.beagleSdk.designSystem } returns designSystemMock
         every { designSystemMock.toolbarStyle(any()) } returns styleInt
@@ -302,7 +301,7 @@ class ScreenViewRendererTest {
         every { ResourcesCompat.getDrawable(any(), any(), any()) } returns icon
 
         // WHEN
-        screenViewRenderer.buildView(rootView)
+        screenViewRenderer.build(rootView)
 
         // THEN
         verify(exactly = once()) { menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS) }
@@ -310,7 +309,7 @@ class ScreenViewRendererTest {
     }
 
     @Test
-    fun buildView_should_hideNavigationBar_when_navigationBar_is_null() {
+    fun build_should_hideNavigationBar_when_navigationBar_is_null() {
         // GIVEN
         every { context.supportActionBar } returns actionBar
         every { context.findViewById<Toolbar>(any()) } returns toolbar
@@ -319,7 +318,7 @@ class ScreenViewRendererTest {
         every { toolbar.visibility } returns expected
 
         // WHEN
-        screenViewRenderer.buildView(rootView)
+        screenViewRenderer.build(rootView)
 
         // THEN
         assertEquals(expected, toolbar.visibility)

@@ -6,10 +6,9 @@ import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.layout.Horizontal
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
+import org.junit.Test
 
 class HorizontalViewRendererTest {
 

@@ -15,7 +15,7 @@ internal class BuildableWidgetViewRenderer(
 
     override fun buildView(rootView: RootView): View {
         return viewFactory.makeBeagleFlexView(rootView.getContext()).apply {
-            addServerDrivenComponent(component)
+            addServerDrivenComponent(component, rootView)
         }
     }
 }

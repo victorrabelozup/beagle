@@ -24,16 +24,17 @@ internal abstract class DirectionalViewRenderer<T : ServerDrivenComponent>(
             flexDirection = getYogaFlexDirection()
         )
         return viewFactory.makeBeagleFlexView(rootView.getContext(), flexCopy).apply {
-            addChildrenViews(children, this)
+            addChildrenViews(children, this, rootView)
         }
     }
 
     private fun addChildrenViews(
         children: List<ServerDrivenComponent>,
-        beagleFlexView: BeagleFlexView
+        beagleFlexView: BeagleFlexView,
+        rootView: RootView
     ) {
         children.forEach { child ->
-            beagleFlexView.addServerDrivenComponent(child)
+            beagleFlexView.addServerDrivenComponent(child, rootView)
         }
     }
 }

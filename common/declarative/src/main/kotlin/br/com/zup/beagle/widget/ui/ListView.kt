@@ -1,5 +1,6 @@
 package br.com.zup.beagle.widget.ui
 
+import br.com.zup.beagle.core.LayoutComponent
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.widget.Widget
 
@@ -15,7 +16,7 @@ data class ListView(
     val remoteDataSource: String? = null,
     val loadingState: ServerDrivenComponent? = null,
     val direction: ListDirection = ListDirection.VERTICAL
-) : ServerDrivenComponent {
+) : ServerDrivenComponent, LayoutComponent {
 
     companion object {
         @JvmStatic

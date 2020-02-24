@@ -42,8 +42,8 @@ internal class ListViewRecyclerAdapter(
     override fun getItemViewType(position: Int): Int = position
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ViewHolder {
-        val view = viewFactory.makeBeagleFlexView(rootView.getContext()).apply {
-            addServerDrivenComponent(rows[position])
+        val view = viewFactory.makeBeagleFlexView(rootView.getContext()).also {
+            it.addServerDrivenComponent(rows[position], rootView)
         }
         return ViewHolder(view)
     }

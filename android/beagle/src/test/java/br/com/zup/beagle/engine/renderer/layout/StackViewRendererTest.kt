@@ -1,29 +1,24 @@
 package br.com.zup.beagle.engine.renderer.layout
 
 import android.content.Context
-import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
-import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
-import br.com.zup.beagle.extensions.once
-import br.com.zup.beagle.utils.toView
-import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.view.BeagleFlexView
-import br.com.zup.beagle.view.YogaLayout
+import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.core.FlexPositionType
 import br.com.zup.beagle.widget.layout.Stack
-import br.com.zup.beagle.widget.ui.Button
-import io.mockk.*
+import io.mockk.MockKAnnotations
+import io.mockk.Runs
+import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
+import io.mockk.just
+import io.mockk.slot
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class StackViewRendererTest {
 
@@ -57,7 +52,7 @@ class StackViewRendererTest {
     }
 
     @Test
-    fun buildView() {
+    fun build() {
         // Given
         every { viewFactory.makeBeagleFlexView(any()) } returns beagleFlexView
         every { rootView.getContext() } returns context
@@ -66,7 +61,7 @@ class StackViewRendererTest {
         every { stack.children } returns children
 
         // When
-        stackViewRenderer.buildView(rootView)
+        stackViewRenderer.build(rootView)
 
         // Then
         assertEquals(false, clipChildren.captured)
