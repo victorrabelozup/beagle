@@ -8,30 +8,29 @@ import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.ComposeComponent
 import io.mockk.MockKAnnotations
-import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import io.mockk.just
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class BuildableViewConvertableRendererTest {
+class ComposeComponentViewRendererTest {
 
-    @MockK
+    @RelaxedMockK
     private lateinit var component: ComposeComponent
     @MockK
     private lateinit var viewRendererFactory: ViewRendererFactory
     @MockK
     private lateinit var viewFactory: ViewFactory
     @InjectMockKs
-    private lateinit var viewRenderer: BuildableWidgetViewRenderer
+    private lateinit var viewRenderer: ComposeComponentViewRenderer
 
     @MockK
     private lateinit var rootView: RootView
-    @MockK
+    @RelaxedMockK
     private lateinit var beagleFlexView: BeagleFlexView
     @MockK
     private lateinit var context: Context
@@ -42,7 +41,6 @@ class BuildableViewConvertableRendererTest {
 
         every { viewFactory.makeBeagleFlexView(any()) } returns beagleFlexView
         every { rootView.getContext() } returns context
-        every { beagleFlexView.addServerDrivenComponent(any(), any()) } just Runs
     }
 
     @Test
@@ -69,6 +67,6 @@ class BuildableViewConvertableRendererTest {
         viewRenderer.build(rootView)
 
         // THEN
-        verify(exactly = once()) { beagleFlexView.addServerDrivenComponent(component, rootView) }
+        verify(exactly = once()) { component.build() }
     }
 }

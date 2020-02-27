@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import br.com.zup.beagle.sample.activities.NavigationBarActivity
+import br.com.zup.beagle.sample.fragment.ComposeComponentFragment
 import br.com.zup.beagle.sample.fragment.DisabledFormSubmitFragment
 import br.com.zup.beagle.sample.fragment.FormFragment
 import br.com.zup.beagle.sample.fragment.ImageViewFragment
@@ -74,6 +75,7 @@ class MainActivity : AppCompatActivity() {
                 "http://www.mocky.io/v2/5e4d46952d0000339ec0dce1"
             ))
             R.id.listView -> goToFragment(ListViewFragment.newInstance())
+            R.id.composeComponent -> goToFragment(ComposeComponentFragment.newInstance())
         }
     }
 

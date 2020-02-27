@@ -1,6 +1,6 @@
 package br.com.zup.beagle.engine.renderer
 
-import br.com.zup.beagle.engine.renderer.layout.BuildableWidgetViewRenderer
+import br.com.zup.beagle.engine.renderer.layout.ComposeComponentViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.FormInputViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.FormSubmitViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.ButtonViewRenderer
@@ -127,7 +127,7 @@ class UIViewRendererFactoryTest {
         val actual = viewRendererFactory.make(component)
 
         // Then
-        assertTrue(actual is BuildableWidgetViewRenderer)
+        assertTrue(actual is ComposeComponentViewRenderer)
     }
 
     @Test

@@ -90,4 +90,10 @@
         android:title="ListView"
         tools:ignore="HardcodedText" />
 
+    <item
+        android:id="@+id/composeComponent"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Compose Component"
+        tools:ignore="HardcodedText" />
+
 </menu>

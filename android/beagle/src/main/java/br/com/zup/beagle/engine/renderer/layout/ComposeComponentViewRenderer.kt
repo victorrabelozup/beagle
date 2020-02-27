@@ -7,7 +7,7 @@ import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.ComposeComponent
 
-internal class BuildableWidgetViewRenderer(
+internal class ComposeComponentViewRenderer(
     override val component: ComposeComponent,
     viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
     viewFactory: ViewFactory = ViewFactory()
@@ -15,7 +15,7 @@ internal class BuildableWidgetViewRenderer(
 
     override fun buildView(rootView: RootView): View {
         return viewFactory.makeBeagleFlexView(rootView.getContext()).apply {
-            addServerDrivenComponent(component, rootView)
+            addServerDrivenComponent(component.build(), rootView)
         }
     }
 }

@@ -1,7 +1,7 @@
 package br.com.zup.beagle.engine.renderer
 
 import br.com.zup.beagle.core.ServerDrivenComponent
-import br.com.zup.beagle.engine.renderer.layout.BuildableWidgetViewRenderer
+import br.com.zup.beagle.engine.renderer.layout.ComposeComponentViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.FormInputViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.FormSubmitViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.ButtonViewRenderer
@@ -28,7 +28,7 @@ internal class UIViewRendererFactory : AbstractViewRendererFactory {
 
     override fun make(component: ServerDrivenComponent): ViewRenderer<*> {
         return if (component is ComposeComponent) {
-            BuildableWidgetViewRenderer(component)
+            ComposeComponentViewRenderer(component)
         } else {
             when (component) {
                 is Button -> ButtonViewRenderer(component)
