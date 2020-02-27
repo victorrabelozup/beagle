@@ -60,7 +60,7 @@ class DisabledFormSubmitFragment : Fragment() {
 
     private fun makeCharadeFormSubmit(): ServerDrivenComponent {
         return FormSubmit(
-            child = Button(text = "flag").applyFlex(
+            child = Button(text = "Flag").applyFlex(
                 flex = Flex(
                     alignSelf = Alignment.CENTER,
                     size = Size(

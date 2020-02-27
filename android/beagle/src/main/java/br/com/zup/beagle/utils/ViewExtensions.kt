@@ -5,7 +5,6 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Path
 import android.graphics.RectF
-import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.view.Gravity
 import android.view.View
@@ -26,9 +25,9 @@ import br.com.zup.beagle.engine.mapper.ViewMapper
 import br.com.zup.beagle.engine.renderer.ActivityRootView
 import br.com.zup.beagle.engine.renderer.FragmentRootView
 import br.com.zup.beagle.engine.renderer.RootView
-import br.com.zup.beagle.logger.BeagleLogger
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.view.BeagleButtonView
+import br.com.zup.beagle.view.BeagleImageView
 import br.com.zup.beagle.view.BeagleTextView
 import br.com.zup.beagle.view.BeagleView
 import br.com.zup.beagle.view.StateChangedListener
@@ -96,12 +95,18 @@ internal fun BeagleButtonView.setData(widget: Button) {
     text = widget.text
     val style = widget.style ?: ""
     val designSystem = BeagleEnvironment.beagleSdk.designSystem
-    if (designSystem != null) {
-        val buttonStyle = designSystem.buttonStyle(style)
-        val typedArray = context.obtainStyledAttributes(buttonStyle, R.styleable.BeagleButtonStyle)
+    val buttonStyle = designSystem?.buttonStyle(style)
+    val typedArray =
+        StyleManager().getTypedArray(
+            context,
+            designSystem?.buttonStyle(style),
+            R.styleable.BeagleButtonStyle
+        )
+    if (buttonStyle != null && typedArray != null) {
         background = typedArray.getDrawable(R.styleable.BeagleButtonStyle_android_background)
-        typedArray.recycle()
+        isAllCaps = typedArray.getBoolean(R.styleable.BeagleButtonStyle_android_textAllCaps, true)
         TextViewCompat.setTextAppearance(this, buttonStyle)
+        typedArray.recycle()
     }
 }
 
@@ -166,9 +171,26 @@ internal fun RootView.generateViewModelInstance(): BeagleViewModel {
 
 internal fun View.applyAppearance(component: ServerDrivenComponent) {
     (component as? AppearanceComponent)?.let {
-        this.background = GradientDrawable()
-        applyBackgroundColor(it)
-        applyCornerRadius(it)
+        if (it.appearance?.backgroundColor != null) {
+            this.background = GradientDrawable()
+            applyBackgroundColor(it)
+            applyCornerRadius(it)
+        } else {
+            val backgroundColor: Int? = StyleManager().getBackgroundColor(
+                context = context,
+                component = component,
+                view = this
+            )
+
+            if (backgroundColor != null) {
+                this.background = GradientDrawable(
+                    GradientDrawable.Orientation.TOP_BOTTOM,
+                    intArrayOf(backgroundColor, backgroundColor)
+                )
+
+                applyCornerRadius(it)
+            }
+        }
     }
 }
 
@@ -183,27 +205,10 @@ internal fun String.getColorWithHashTag(): String = if (this.startsWith("#")) th
 internal fun View.applyCornerRadius(appearanceWidget: AppearanceComponent) {
     appearanceWidget.appearance?.cornerRadius?.let { cornerRadius ->
         if (cornerRadius.radius > FLOAT_ZERO) {
+            (this as? BeagleImageView)?.cornerRadius = cornerRadius.radius.toFloat()
             (this.background as? GradientDrawable)?.cornerRadius = cornerRadius.radius.toFloat()
         }
     }
-}
-
-internal fun Drawable.getGradientDrawableRadius(): Float {
-    try {
-        if (this is GradientDrawable) {
-            val mGradientStateField =
-                this.javaClass.getDeclaredField("mGradientState")
-            mGradientStateField.setNotFinalAndAccessible()
-            val gradientState = mGradientStateField.get(this)
-            val mRadiusField = gradientState.javaClass.getDeclaredField("mRadius")
-            mRadiusField.setNotFinalAndAccessible()
-            return mRadiusField.get(gradientState) as Float
-        }
-    } catch (e: Throwable) {
-        BeagleLogger.warning("Could not get corner radius, returning $FLOAT_ZERO")
-    }
-
-    return FLOAT_ZERO
 }
 
 internal fun Canvas.applyRadius(radius: Float) {

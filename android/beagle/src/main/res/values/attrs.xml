@@ -2,11 +2,16 @@
 <resources>
     <declare-styleable name="BeagleButtonStyle">
         <attr name="android:background" />
+        <attr name="android:textAllCaps" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="BeagleToolbarStyle">
         <attr name="titleTextAppearance" format="reference" />
         <attr name="navigationIcon" format="reference" />
         <attr name="android:background" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="BackgroundStyle">
+        <attr name="android:background" />
     </declare-styleable>
 </resources>

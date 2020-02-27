@@ -111,6 +111,7 @@ class ViewExtensionsKtTest {
         every { beagleTextView.gravity = capture(textAlignment) } just Runs
         every { beagleButton.text = capture(textValueSlot) } just Runs
         every { beagleButton.setBackgroundResource(any()) } just Runs
+        every { beagleButton.setAllCaps(any())} just Runs
         every { TextViewCompat.setTextAppearance(any(), any()) } just Runs
         every { imageView.scaleType = any() } just Runs
         every { imageView.setImageResource(any()) } just Runs
@@ -118,6 +119,7 @@ class ViewExtensionsKtTest {
         every { beagleButton.setBackground(any()) } just Runs
         every { activity.obtainStyledAttributes(any<Int>(), any()) } returns typedArray
         every { typedArray.getDrawable(any()) } returns drawable
+        every { typedArray.getBoolean(any(), any()) } returns true
         every { typedArray.recycle() } just Runs
     }
 
@@ -328,7 +330,7 @@ class ViewExtensionsKtTest {
         beagleButton.setData(button)
 
         // Then
-        verify(exactly = 1) { designSystem.buttonStyle("") }
+        verify(exactly = 2) { designSystem.buttonStyle("") }
     }
 
     @Test

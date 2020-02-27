@@ -7,6 +7,7 @@ import android.widget.ImageView
 import br.com.zup.beagle.engine.mapper.ViewMapper
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.extensions.once
+import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.view.BeagleImageView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.ui.NetworkImage
@@ -22,9 +23,12 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.mockk
+import io.mockk.mockkObject
 import io.mockk.mockkStatic
 import io.mockk.slot
+import io.mockk.unmockkAll
 import io.mockk.verify
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -61,9 +65,12 @@ class NetworkImageViewRendererTest {
     fun setUp() {
         MockKAnnotations.init(this)
 
+
+        mockkObject(BeagleEnvironment)
         mockkStatic(Glide::class)
 
         every { Glide.with(any<View>()) } returns requestManager
+        every { BeagleEnvironment.beagleSdk.designSystem } returns mockk()
         every { requestManager.load(any<String>()) } returns requestBuilder
         every { requestBuilder.into(any()) } returns mockk()
         every { requestBuilder.listener(capture(onRequestListenerSlot)) } returns requestBuilder
@@ -72,6 +79,11 @@ class NetworkImageViewRendererTest {
         every { imageView.scaleType = any() } just Runs
         every { rootView.getContext() } returns context
 
+    }
+
+    @After
+    fun tearDown() {
+        unmockkAll()
     }
 
     @Test

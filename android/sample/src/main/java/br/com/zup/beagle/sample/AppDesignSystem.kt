@@ -12,6 +12,7 @@ class AppDesignSystem : DesignSystem {
     override fun image(name: String): Int {
         return when (name) {
             "delete" -> android.R.drawable.ic_delete
+            "TestImage" -> android.R.drawable.editbox_dropdown_dark_frame
             else -> android.R.drawable.ic_menu_help
         }
     }
@@ -32,6 +33,7 @@ class AppDesignSystem : DesignSystem {
         return when (name) {
             "DesignSystem.Button.White" -> R.style.DesignSystem_Button_White
             "DesignSystem.Button.Text" -> R.style.DesignSystem_Button_Text
+            "DesignSystem.Button.Black" -> R.style.DesignSystem_Button_Black
             else -> R.style.DesignSystem_Button_Default
         }
     }

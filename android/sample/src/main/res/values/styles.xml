@@ -36,6 +36,11 @@
         <item name="android:background">@drawable/bg_white_button</item>
     </style>
 
+    <style name="DesignSystem.Button.Black" parent="DesignSystem.Button.Default">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:background">@color/colorBlack</item>
+    </style>
+
     <style name="DesignSystem.Button.Text" parent="Widget.AppCompat.Button">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textStyle">bold</item>
