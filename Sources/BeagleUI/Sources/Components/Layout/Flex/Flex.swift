@@ -1,13 +1,9 @@
 //
-//  Flex.swift
-//  BeagleUI
-//
-//  Created by Daniel Tes on 12/09/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 12/09/19 Zup IT. All rights reserved.
 //
 
 public struct Flex {
-    // MARK: - Public Properties
+
     public let direction: Direction?
     public let flexDirection: FlexDirection?
     public let flexWrap: Wrap?

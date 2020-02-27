@@ -10,8 +10,10 @@ public struct AccessibilityEntity: Decodable {
 }
 
 extension AccessibilityEntity: UIModelConvertible {
-    func mapToUIModel() throws -> Accessibility {
-        return Accessibility(accessibilityLabel: accessibilityLabel,
-                             accessible: accessible ?? true)
+    public func mapToUIModel() throws -> Accessibility {
+        return Accessibility(
+            accessibilityLabel: accessibilityLabel,
+            accessible: accessible ?? true
+        )
     }
 }

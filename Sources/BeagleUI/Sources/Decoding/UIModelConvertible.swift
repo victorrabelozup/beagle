@@ -49,7 +49,7 @@ extension UIEnumModelConvertible {
 }
 
 /// Markup to define that this type can be converted to a UIModel
-protocol UIModelConvertible {
+public protocol UIModelConvertible {
     
     associatedtype UIModelType
     

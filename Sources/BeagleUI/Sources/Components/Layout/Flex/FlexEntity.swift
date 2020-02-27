@@ -1,34 +1,30 @@
 //
-//  Flex.swift
-//  BeagleUI
-//
-//  Created by Eduardo Sanches Bocato on 18/09/19.
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 18/09/19 Zup IT. All rights reserved.
 //
 
 public struct FlexEntity: Decodable {
-    var flexDirection: FlexDirection?
-    var direction: Direction?
-    var flexWrap: FlexWrap?
-    var justifyContent: JustifyContent?
-    var alignItems: Alignment?
-    var alignSelf: Alignment?
-    var alignContent: Alignment?
-    var positionType: PositionType?
-    var basis: UnitValueEntity?
-    var flex: Double?
-    var grow: Double?
-    var shrink: Double?
-    var display: Display?
-    var size: Size?
-    var margin: EdgeValue?
-    var padding: EdgeValue?
-    var position: EdgeValue?
+    public var flexDirection: FlexDirection?
+    public var direction: Direction?
+    public var flexWrap: FlexWrap?
+    public var justifyContent: JustifyContent?
+    public var alignItems: Alignment?
+    public var alignSelf: Alignment?
+    public var alignContent: Alignment?
+    public var positionType: PositionType?
+    public var basis: UnitValueEntity?
+    public var flex: Double?
+    public var grow: Double?
+    public var shrink: Double?
+    public var display: Display?
+    public var size: Size?
+    public var margin: EdgeValue?
+    public var padding: EdgeValue?
+    public var position: EdgeValue?
 }
 
 extension FlexEntity {
     
-    struct Size: Decodable {
+    public struct Size: Decodable {
         var width: UnitValueEntity?
         var height: UnitValueEntity?
         var maxWidth: UnitValueEntity?
@@ -38,7 +34,7 @@ extension FlexEntity {
         var aspectRatio: Double?
     }
     
-    struct EdgeValue: Decodable {
+    public struct EdgeValue: Decodable {
         var left: UnitValueEntity?
         var top: UnitValueEntity?
         var right: UnitValueEntity?
@@ -50,26 +46,26 @@ extension FlexEntity {
         var all: UnitValueEntity?
     }
     
-    enum FlexDirection: String, Decodable, UIEnumModelConvertible {
+    public enum FlexDirection: String, Decodable, UIEnumModelConvertible {
         case row = "ROW"
         case rowReverse = "ROW_REVERSE"
         case column = "COLUMN"
         case columnReverse = "COLUMN_REVERSE"
     }
     
-    enum Direction: String, Decodable, UIEnumModelConvertible {
+    public enum Direction: String, Decodable, UIEnumModelConvertible {
         case inherit = "INHERIT"
         case ltr = "LTR"
         case rtl = "RTL"
     }
     
-    enum FlexWrap: String, Decodable, UIEnumModelConvertible {
+    public enum FlexWrap: String, Decodable, UIEnumModelConvertible {
         case noWrap = "NO_WRAP"
         case wrap = "WRAP"
         case wrapReverse = "WRAP_REVERSE"
     }
     
-    enum JustifyContent: String, Decodable, UIEnumModelConvertible {
+    public enum JustifyContent: String, Decodable, UIEnumModelConvertible {
         case flexStart = "FLEX_START"
         case center = "CENTER"
         case flexEnd = "FLEX_END"
@@ -78,7 +74,7 @@ extension FlexEntity {
         case spaceEvenly = "SPACE_EVENLY"
     }
     
-    enum Alignment: String, Decodable, UIEnumModelConvertible {
+    public enum Alignment: String, Decodable, UIEnumModelConvertible {
         case flexStart = "FLEX_START"
         case center = "CENTER"
         case flexEnd = "FLEX_END"
@@ -89,20 +85,19 @@ extension FlexEntity {
         case stretch = "STRETCH"
     }
     
-    enum PositionType: String, Decodable, UIEnumModelConvertible {
+    public enum PositionType: String, Decodable, UIEnumModelConvertible {
         case relative = "RELATIVE"
         case absolute = "ABSOLUTE"
     }
     
-    enum Display: String, Decodable, UIEnumModelConvertible {
+    public enum Display: String, Decodable, UIEnumModelConvertible {
         case flex = "FLEX"
         case none = "NONE"
     }
 }
 
 extension FlexEntity.Size: UIModelConvertible {
-    typealias UIModelType = Flex.Size
-    
+
     public func mapToUIModel() throws -> Flex.Size {
         return Flex.Size(
             width: try self.width?.mapToUIModel(),
@@ -117,7 +112,6 @@ extension FlexEntity.Size: UIModelConvertible {
 }
 
 extension FlexEntity.EdgeValue: UIModelConvertible {
-    typealias UIModelType = Flex.EdgeValue
     
     public func mapToUIModel() throws -> Flex.EdgeValue {
         return Flex.EdgeValue(
@@ -135,7 +129,6 @@ extension FlexEntity.EdgeValue: UIModelConvertible {
 }
 
 extension FlexEntity: UIModelConvertible {
-    typealias UIModelType = Flex
 
     public func mapToUIModel() throws -> Flex {
         return Flex(
