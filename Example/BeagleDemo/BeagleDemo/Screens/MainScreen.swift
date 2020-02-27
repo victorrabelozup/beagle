@@ -32,6 +32,10 @@ struct MainScreen: DeeplinkScreen {
                 Button(
                     text: "Form",
                     action: Navigate.openDeepLink(.init(path: "form"))
+                ),
+                Button(
+                    text: "Custom Component",
+                    action: Navigate.openDeepLink(.init(path: "customComponent"))
                 )
             ])
         )

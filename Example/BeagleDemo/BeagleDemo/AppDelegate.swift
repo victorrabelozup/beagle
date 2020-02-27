@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         deepLinkHandler["pageview"] = PageViewScreen.self
         deepLinkHandler["tabview"] = TabViewScreen.self
         deepLinkHandler["form"] = FormScreen.self
+        deepLinkHandler["customComponent"] = CustomComponentScreen.self
 
         let validator = ValidatorProviding()
         validator[FormScreen.textValidatorName] = FormScreen.textValidator
@@ -26,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         dependencies.theme = Style.theme
         dependencies.validatorProvider = validator
         Beagle.dependencies = dependencies
+        
+        Beagle.registerCustomComponent("DSCollection", componentType: DSCollection.self, entityType: DSCollectionEntity.self)
         
         let rootViewController = MainScreen().screenController()
         window?.rootViewController = rootViewController

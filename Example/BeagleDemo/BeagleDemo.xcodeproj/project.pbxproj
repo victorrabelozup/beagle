@@ -21,6 +21,10 @@
 		C0B1AAB423F326A100F94ECA /* BeagleUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9313EB9223A2B388003BC24C /* BeagleUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C0B1AAB623F326BB00F94ECA /* YogaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B1AAB523F326BB00F94ECA /* YogaKit.framework */; };
 		C0B1AAB723F326BB00F94ECA /* YogaKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C0B1AAB523F326BB00F94ECA /* YogaKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E75619892408365B0025E0A9 /* DSCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75619882408365B0025E0A9 /* DSCollection.swift */; };
+		E756198D240865150025E0A9 /* DSCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E756198C240865150025E0A9 /* DSCollectionViewCell.swift */; };
+		E756198F2408691A0025E0A9 /* CustomComponentScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E756198E2408691A0025E0A9 /* CustomComponentScreen.swift */; };
+		E756199124086AA20025E0A9 /* DSCollectionUIComponnent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E756199024086AA20025E0A9 /* DSCollectionUIComponnent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,6 +57,10 @@
 		A0642DCC23968B500028AFF3 /* LazyComponentScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyComponentScreen.swift; sourceTree = "<group>"; };
 		A0642DD02396EC670028AFF3 /* PageViewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewScreen.swift; sourceTree = "<group>"; };
 		C0B1AAB523F326BB00F94ECA /* YogaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = YogaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E75619882408365B0025E0A9 /* DSCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCollection.swift; sourceTree = "<group>"; };
+		E756198C240865150025E0A9 /* DSCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSCollectionViewCell.swift; sourceTree = "<group>"; };
+		E756198E2408691A0025E0A9 /* CustomComponentScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomComponentScreen.swift; sourceTree = "<group>"; };
+		E756199024086AA20025E0A9 /* DSCollectionUIComponnent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DSCollectionUIComponnent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +96,7 @@
 		932925B02327E0E400A61F01 /* BeagleDemo */ = {
 			isa = PBXGroup;
 			children = (
+				E75619862408363E0025E0A9 /* DesignSystem */,
 				A0642DC9239689E60028AFF3 /* Screens */,
 				932925B12327E0E400A61F01 /* AppDelegate.swift */,
 				A0642DC72395A1840028AFF3 /* DeeplinkScreenManager.swift */,
@@ -116,8 +125,27 @@
 				A0642DD02396EC670028AFF3 /* PageViewScreen.swift */,
 				98A7F36B23A926C600E88C70 /* TabViewScreen.swift */,
 				A038C8FC2407073D001164B1 /* FormScreen.swift */,
+				E756198E2408691A0025E0A9 /* CustomComponentScreen.swift */,
 			);
 			path = Screens;
+			sourceTree = "<group>";
+		};
+		E75619862408363E0025E0A9 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				E75619872408364A0025E0A9 /* DSCollection */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		E75619872408364A0025E0A9 /* DSCollection */ = {
+			isa = PBXGroup;
+			children = (
+				E756199024086AA20025E0A9 /* DSCollectionUIComponnent.swift */,
+				E75619882408365B0025E0A9 /* DSCollection.swift */,
+				E756198C240865150025E0A9 /* DSCollectionViewCell.swift */,
+			);
+			path = DSCollection;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,9 +224,13 @@
 				932925B22327E0E400A61F01 /* AppDelegate.swift in Sources */,
 				98A7F36C23A926C600E88C70 /* TabViewScreen.swift in Sources */,
 				A0642DC82395A1840028AFF3 /* DeeplinkScreenManager.swift in Sources */,
+				E756198D240865150025E0A9 /* DSCollectionViewCell.swift in Sources */,
 				A0642DCD23968B500028AFF3 /* LazyComponentScreen.swift in Sources */,
+				E75619892408365B0025E0A9 /* DSCollection.swift in Sources */,
 				A0642DD12396EC670028AFF3 /* PageViewScreen.swift in Sources */,
 				A038C8FD2407073D001164B1 /* FormScreen.swift in Sources */,
+				E756199124086AA20025E0A9 /* DSCollectionUIComponnent.swift in Sources */,
+				E756198F2408691A0025E0A9 /* CustomComponentScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
