@@ -43,16 +43,15 @@ extension BeagleScreenViewController: BeagleContext {
             target: self,
             action: #selector(handleSubmitFormGesture(_:))
         )
-        if let button = submitView.subviews.first as? Button.BeagleUIButton,
-            let formSubmit = submitView.beagleFormElement as? FormSubmit,
-            let enabled = formSubmit.enabled {
-            button.addGestureRecognizer(gestureRecognizer)
-            button.isEnabled = enabled
-            button.isUserInteractionEnabled = true
+        if let control = submitView as? UIControl,
+           let formSubmit = submitView.beagleFormElement as? FormSubmit,
+           let enabled = formSubmit.enabled {
+            control.isEnabled = enabled
         }
         
         submitView.addGestureRecognizer(gestureRecognizer)
         submitView.isUserInteractionEnabled = true
+        gestureRecognizer.updateSubmitView()
     }
     
     public func lazyLoad(url: String, initialState: UIView) {
@@ -82,6 +81,9 @@ extension BeagleScreenViewController: BeagleContext {
     // MARK: - Form
     
     @objc func handleSubmitFormGesture(_ sender: SubmitFormGestureRecognizer) {
+        if let control = sender.formSubmitView as? UIControl, !control.isEnabled {
+            return
+        }
         let inputViews = sender.formInputViews()
         let values = inputViews.reduce(into: [:]) {
             self.validate(formInput: $1, formSubmit: sender.formSubmitView, validatorHandler: sender.validator, result: &$0)
@@ -112,8 +114,7 @@ extension BeagleScreenViewController: BeagleContext {
     private func validate(formInput view: UIView, formSubmit submitView: UIView?, validatorHandler: ValidatorProvider?, result: inout [String: String]) {
         guard
             let formInput = view.beagleFormElement as? FormInput,
-            let inputValue = view as? InputValue,
-            var formSubmit = submitView?.beagleFormElement as? FormSubmit else {
+            let inputValue = view as? InputValue else {
                 return
         }
         if formInput.required ?? false {
@@ -125,11 +126,7 @@ extension BeagleScreenViewController: BeagleContext {
             }
             let value = inputValue.getValue()
             let isValid = validator.isValid(input: value)
-            guard let submitObservable = submitView as? WidgetStateObservable else {
-                return
-            }
-            formSubmit.enabled = isValid
-            submitObservable.observable.value = WidgetState(value: formSubmit.enabled)
+                        
             if isValid {
                 result[formInput.name] = String(describing: value)
             } else if let errorListener = inputValue as? ValidationErrorListener {

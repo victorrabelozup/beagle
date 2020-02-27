@@ -13,7 +13,7 @@ public struct WidgetState {
 }
 
 public protocol WidgetStateObservable {
-    var observable: Observable<WidgetState> { get set }
+    var observable: Observable<WidgetState> { get }
 }
 
 public struct ObserverWrapper {

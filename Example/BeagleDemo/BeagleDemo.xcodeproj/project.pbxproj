@@ -12,6 +12,7 @@
 		932925BB2327E0E500A61F01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 932925BA2327E0E500A61F01 /* Assets.xcassets */; };
 		932925BE2327E0E500A61F01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 932925BC2327E0E500A61F01 /* LaunchScreen.storyboard */; };
 		98A7F36C23A926C600E88C70 /* TabViewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A7F36B23A926C600E88C70 /* TabViewScreen.swift */; };
+		A038C8FD2407073D001164B1 /* FormScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A038C8FC2407073D001164B1 /* FormScreen.swift */; };
 		A0642DC82395A1840028AFF3 /* DeeplinkScreenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0642DC72395A1840028AFF3 /* DeeplinkScreenManager.swift */; };
 		A0642DCB23968A020028AFF3 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0642DCA23968A020028AFF3 /* MainScreen.swift */; };
 		A0642DCD23968B500028AFF3 /* LazyComponentScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0642DCC23968B500028AFF3 /* LazyComponentScreen.swift */; };
@@ -46,6 +47,7 @@
 		932925BD2327E0E500A61F01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		932925BF2327E0E500A61F01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98A7F36B23A926C600E88C70 /* TabViewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewScreen.swift; sourceTree = "<group>"; };
+		A038C8FC2407073D001164B1 /* FormScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormScreen.swift; sourceTree = "<group>"; };
 		A0642DC72395A1840028AFF3 /* DeeplinkScreenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkScreenManager.swift; sourceTree = "<group>"; };
 		A0642DCA23968A020028AFF3 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		A0642DCC23968B500028AFF3 /* LazyComponentScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyComponentScreen.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				A0642DCC23968B500028AFF3 /* LazyComponentScreen.swift */,
 				A0642DD02396EC670028AFF3 /* PageViewScreen.swift */,
 				98A7F36B23A926C600E88C70 /* TabViewScreen.swift */,
+				A038C8FC2407073D001164B1 /* FormScreen.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -195,6 +198,7 @@
 				A0642DC82395A1840028AFF3 /* DeeplinkScreenManager.swift in Sources */,
 				A0642DCD23968B500028AFF3 /* LazyComponentScreen.swift in Sources */,
 				A0642DD12396EC670028AFF3 /* PageViewScreen.swift in Sources */,
+				A038C8FD2407073D001164B1 /* FormScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

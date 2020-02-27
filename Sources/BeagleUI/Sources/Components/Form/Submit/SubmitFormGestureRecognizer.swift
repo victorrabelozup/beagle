@@ -21,15 +21,10 @@ final class SubmitFormGestureRecognizer: UITapGestureRecognizer {
     }
     
     private func setupFormObservables() {
-        formView?.allSubviews.forEach { subview in
-            guard let widgetStateObservable = subview as? WidgetStateObservable,
-                let formSubmitStateObservable = formSubmitView as? WidgetStateObservable,
-                let observer = formSubmitView as? Observer else {
-                    return
-            }
-            formSubmitStateObservable.observable.addObserver(observer)
-            widgetStateObservable.observable.addObserver(observer)
-        }
+        guard let observer = formSubmitView?.superview as? Observer else { return }
+        formView?.allSubviews
+            .compactMap { $0 as? WidgetStateObservable }
+            .forEach { $0.observable.addObserver(observer) }
     }
     
     func formInputViews() -> [UIView] {
@@ -46,6 +41,32 @@ final class SubmitFormGestureRecognizer: UITapGestureRecognizer {
             }
         }
         return inputViews
+    }
+    
+    func updateSubmitView() {
+        guard let control = formSubmitView as? UIControl else { return }
+        let formSubmitEnabled = (formSubmitView?.beagleFormElement as? FormSubmit)?.enabled ?? true
+        control.isEnabled = formSubmitEnabled || formIsValid()
+    }
+    
+    private func formIsValid() -> Bool {
+        for inputView in formInputViews() {
+            guard
+                let formInput = inputView.beagleFormElement as? FormInput,
+                let inputValue = inputView as? InputValue else {
+                    return false
+            }
+            if formInput.required ?? false {
+                guard
+                    let validatorName = formInput.validator,
+                    let validatorProvider = validator,
+                    let validator = validatorProvider.getValidator(name: validatorName),
+                    validator.isValid(input: inputValue.getValue()) else {
+                        return false
+                }
+            }
+        }
+        return true
     }
     
 }

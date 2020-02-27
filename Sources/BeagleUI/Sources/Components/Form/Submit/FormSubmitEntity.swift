@@ -16,6 +16,6 @@ struct FormSubmitEntity: ComponentConvertibleEntity {
     func mapToComponent() throws -> ServerDrivenComponent {
         let componentEntity = self.child.content as? ComponentConvertibleEntity
         let child = try componentEntity?.mapToComponent() ?? AnyComponent(value: self.child.content)
-        return FormSubmit(child: child)
+        return FormSubmit(child: child, enabled: enabled)
     }
 }

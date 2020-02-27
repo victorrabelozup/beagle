@@ -24,7 +24,7 @@ final class FormSubmitTests: XCTestCase {
         let view = formSubmit.toView(context: BeagleContextDummy(), dependencies: RendererDependenciesContainer())
         
         // Then
-        XCTAssertTrue(view.beagleFormElement is FormSubmit)
+        XCTAssertTrue(view.subviews.first?.beagleFormElement is FormSubmit)
     }
     
 }

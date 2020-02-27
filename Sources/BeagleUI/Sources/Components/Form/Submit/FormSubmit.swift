@@ -1,5 +1,5 @@
 //
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 import UIKit
@@ -25,26 +25,30 @@ public struct FormSubmit: ServerDrivenComponent {
 extension FormSubmit: Renderable {
     
     public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
-        let view = FormSubmitView(enabled: enabled, frame: .zero, dependencies: dependencies)
         let childView = child.toView(context: context, dependencies: dependencies)
-        view.addSubview(childView)
         childView.flex.isEnabled = true
-        view.beagleFormElement = self
+        childView.beagleFormElement = self
+        
+        let view = FormSubmitView(childView: childView, enabled: enabled, dependencies: dependencies)
         return view
     }
     
     final class FormSubmitView: UIView, Observer, WidgetStateObservable {
-        var observable: Observable<WidgetState> = Observable<WidgetState>(value: WidgetState(value: nil))
+        
+        let childView: UIView
+        let observable: Observable<WidgetState>
         private var dependencies: RenderableDependencies?
         
         init(
+            childView: UIView,
             enabled: Bool?,
-            frame: CGRect,
             dependencies: RenderableDependencies?
         ) {
-            observable.value = WidgetState(value: enabled)
+            self.childView = childView
+            self.observable = Observable(value: WidgetState(value: enabled))
             self.dependencies = dependencies
             super.init(frame: .zero)
+            addSubview(childView)
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -52,16 +56,9 @@ extension FormSubmit: Renderable {
         }
         
         func didChangeValue(_ value: Any?) {
-            guard let button = self.subviews.first as? Button.BeagleUIButton,
-                let state = value as? WidgetState,
-                let enabled = state.value as? Bool else {
-                return
-            }
-            button.isEnabled = enabled ? true : false
-            if let style = button.style {
-                dependencies?.theme.applyStyle(for: button as UIButton, withId: style)
-            }
-            
+            childView.gestureRecognizers?
+                .compactMap { $0 as? SubmitFormGestureRecognizer }
+                .forEach { $0.updateSubmitView() }
         }
     }
 }
