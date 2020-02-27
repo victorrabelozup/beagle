@@ -10,6 +10,7 @@ import br.com.zup.beagle.sample.fragment.DisabledFormSubmitFragment
 import br.com.zup.beagle.sample.fragment.FormFragment
 import br.com.zup.beagle.sample.fragment.ImageViewFragment
 import br.com.zup.beagle.sample.fragment.LazyWidgetFragment
+import br.com.zup.beagle.sample.fragment.ListViewFragment
 import br.com.zup.beagle.sample.fragment.NavigationFragment
 import br.com.zup.beagle.sample.fragment.PageViewFragment
 import br.com.zup.beagle.sample.fragment.ScrollViewFragment
@@ -72,6 +73,7 @@ class MainActivity : AppCompatActivity() {
                 this,
                 "http://www.mocky.io/v2/5e4d46952d0000339ec0dce1"
             ))
+            R.id.listView -> goToFragment(ListViewFragment.newInstance())
         }
     }
 

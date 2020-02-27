@@ -84,4 +84,10 @@
         android:title="Accessibility Screen"
         tools:ignore="HardcodedText" />
 
+    <item
+        android:id="@+id/listView"
+        android:icon="@mipmap/ic_launcher"
+        android:title="ListView"
+        tools:ignore="HardcodedText" />
+
 </menu>

@@ -8,6 +8,7 @@ import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.UIViewRenderer
 import br.com.zup.beagle.view.ViewFactory
+import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.ui.ListDirection
 import br.com.zup.beagle.widget.ui.ListView
 
@@ -17,19 +18,18 @@ internal class ListViewRenderer(
 ) : UIViewRenderer<ListView>() {
 
     override fun buildView(rootView: RootView): View {
-        return viewFactory.makeRecyclerView(rootView.getContext()).apply {
-            val direction = toRecyclerViewOrientation()
-            layoutManager = LinearLayoutManager(context, direction, false)
-            adapter = ListViewRecyclerAdapter(rootView, component.rows, viewFactory)
+        return viewFactory.makeBeagleFlexView(rootView.getContext(), Flex(grow = 1.0)).apply {
+            addView(viewFactory.makeRecyclerView(rootView.getContext()).apply {
+                layoutManager = LinearLayoutManager(context, toRecyclerViewOrientation(), false)
+                adapter = ListViewRecyclerAdapter(rootView, component.rows, viewFactory)
+            })
         }
     }
 
-    private fun toRecyclerViewOrientation(): Int {
-        return if (component.direction == ListDirection.VERTICAL) {
-            RecyclerView.VERTICAL
-        } else {
-            RecyclerView.HORIZONTAL
-        }
+    private fun toRecyclerViewOrientation() = if (component.direction == ListDirection.VERTICAL) {
+        RecyclerView.VERTICAL
+    } else {
+        RecyclerView.HORIZONTAL
     }
 }
 

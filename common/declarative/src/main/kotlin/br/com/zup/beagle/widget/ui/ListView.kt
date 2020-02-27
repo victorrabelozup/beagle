@@ -13,8 +13,6 @@ typealias RowBuilder = (index: Int) -> Widget
 
 data class ListView(
     val rows: List<ServerDrivenComponent>,
-    val remoteDataSource: String? = null,
-    val loadingState: ServerDrivenComponent? = null,
     val direction: ListDirection = ListDirection.VERTICAL
 ) : ServerDrivenComponent, LayoutComponent {
 
