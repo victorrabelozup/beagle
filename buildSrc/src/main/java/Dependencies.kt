@@ -41,7 +41,7 @@ object Versions {
 
     const val moshi = "1.9.1"
 
-    const val soLoader = "0.5.1"
+    const val soLoader = "0.8.1"
 
     const val beagle = "0.0.34"
 

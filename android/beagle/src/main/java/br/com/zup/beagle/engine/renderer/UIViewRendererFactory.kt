@@ -11,9 +11,9 @@ import br.com.zup.beagle.engine.renderer.ui.NetworkImageViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.TabViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.TextViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.UndefinedViewRenderer
-import br.com.zup.beagle.engine.renderer.ui.WidgetViewRenderer
+import br.com.zup.beagle.engine.renderer.ui.ViewConvertableRenderer
 import br.com.zup.beagle.widget.core.ComposeComponent
-import br.com.zup.beagle.widget.core.WidgetView
+import br.com.zup.beagle.widget.core.ViewConvertable
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormSubmit
 import br.com.zup.beagle.widget.ui.Button
@@ -39,7 +39,7 @@ internal class UIViewRendererFactory : AbstractViewRendererFactory {
                 is FormInput -> FormInputViewRenderer(component)
                 is FormSubmit -> FormSubmitViewRenderer(component)
                 is TabView -> TabViewRenderer(component)
-                is WidgetView, !is UndefinedWidget -> WidgetViewRenderer(component as WidgetView)
+                is ViewConvertable, !is UndefinedWidget -> ViewConvertableRenderer(component as ViewConvertable)
                 else -> UndefinedViewRenderer(component)
             }
         }

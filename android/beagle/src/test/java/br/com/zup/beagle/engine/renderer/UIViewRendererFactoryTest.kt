@@ -6,7 +6,7 @@ import br.com.zup.beagle.engine.renderer.layout.FormSubmitViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.ButtonViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.ImageViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.ListViewRenderer
-import br.com.zup.beagle.engine.renderer.ui.WidgetViewRenderer
+import br.com.zup.beagle.engine.renderer.ui.ViewConvertableRenderer
 import br.com.zup.beagle.engine.renderer.ui.NetworkImageViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.TextViewRenderer
 import br.com.zup.beagle.widget.core.ComposeComponent
@@ -115,7 +115,7 @@ class UIViewRendererFactoryTest {
         val actual = viewRendererFactory.make(component)
 
         // Then
-        assertTrue(actual is WidgetViewRenderer)
+        assertTrue(actual is ViewConvertableRenderer)
     }
 
     @Test

@@ -18,7 +18,7 @@ import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class BuildableWidgetViewRendererTest {
+class BuildableViewConvertableRendererTest {
 
     @MockK
     private lateinit var component: ComposeComponent

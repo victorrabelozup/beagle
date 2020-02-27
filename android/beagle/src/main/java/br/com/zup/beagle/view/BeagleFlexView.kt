@@ -23,14 +23,6 @@ internal open class BeagleFlexView(
         flexMapper: FlexMapper = FlexMapper()
     ) : this(context, Flex(), flexMapper)
 
-//    @Deprecated(
-//        message = "Use addServerDrivenComponent instead",
-//        replaceWith = ReplaceWith("addServerDrivenComponent")
-//    )
-//    override fun addView(child: View) {
-//        throw IllegalStateException("Illegal call to addView, use addServerDrivenComponent instead")
-//    }
-
     fun addView(child: View, flex: Flex) {
         super.addView(child, flexMapper.makeYogaNode(flex))
     }

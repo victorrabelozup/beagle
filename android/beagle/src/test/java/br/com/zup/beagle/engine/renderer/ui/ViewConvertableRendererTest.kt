@@ -17,7 +17,7 @@ import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class WidgetViewRendererTest {
+class ViewConvertableRendererTest {
 
     @RelaxedMockK
     private lateinit var widget: WidgetView
@@ -28,7 +28,7 @@ class WidgetViewRendererTest {
     @MockK
     private lateinit var rootView: RootView
 
-    private lateinit var widgetViewRenderer: WidgetViewRenderer
+    private lateinit var viewConvertableRenderer: ViewConvertableRenderer
 
     @Before
     fun setUp() {
@@ -38,7 +38,7 @@ class WidgetViewRendererTest {
 
         every { rootView.getContext() } returns context
 
-        widgetViewRenderer = WidgetViewRenderer(widget)
+        viewConvertableRenderer = ViewConvertableRenderer(widget)
 
         mockkObject(BeagleEnvironment)
     }
@@ -55,7 +55,7 @@ class WidgetViewRendererTest {
         every { widget.toView(rootView.getContext()) } returns view
 
         // When
-        val actual = widgetViewRenderer.build(rootView)
+        val actual = viewConvertableRenderer.build(rootView)
 
         // Then
         assertEquals(view, actual)
