@@ -14,23 +14,15 @@ workflows:
         - gradlew_path: "$PROJECT_LOCATION/gradlew"
     - gradle-runner:
         inputs:
-        - gradle_task: detekt
+        - gradle_task: detekt lintDebug jacocoTestReport
         - gradlew_path: "./gradlew"
-        - gradle_file: build.gradle
-    - gradle-runner:
-        inputs:
-        - gradle_task: test jacocoTestReport
-        - gradlew_path: "./gradlew"
-        - gradle_file: build.gradle
-    - gradle-runner:
-        inputs:
-        - gradle_task: lintDebug
-        - gradlew_path: "./gradlew"
+        - gradle_options: "--stacktrace --daemon"
         - gradle_file: build.gradle
     - gradle-runner:
         inputs:
           - gradle_task: android:sample:assembleDebug android:sample:assembleDebugAndroidTest
           - gradlew_path: "./gradlew"
+          - gradle_options: "--stacktrace --daemon"
           - gradle_file: build.gradle
     - virtual-device-testing-for-android@1.1.1:
         inputs:
@@ -46,6 +38,7 @@ workflows:
         inputs:
           - gradlew_path: "./gradlew"
           - gradle_file: build.gradle
+          - gradle_options: "--stacktrace --daemon"
           - gradle_task: android:sample:copyVerificationFiles android:sample:executeScreenshotTests -PrunInstrumentation=false
     - codecov@1.1.6:
         run_if: true
