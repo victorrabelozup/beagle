@@ -20,7 +20,7 @@ final class UrlRequestBuilderTest: XCTestCase {
     // swiftlint:disable force_unwrapping
     private func buildAllUrls() -> [TestData] {
         let requests = createAllRequests()
-        let baseUrls = [URL(string: "baseUrl/")!, nil]
+        let baseUrls = [URL(string: "scheme://baseUrl/")!, nil]
 
         var builders = [TestData]()
         var count = 0
@@ -40,7 +40,7 @@ final class UrlRequestBuilderTest: XCTestCase {
     }
 
     private func createAllRequests() -> [Request] {
-        let paths = ["path", ""]
+        let paths = ["scheme://absolute-path/test", "/relative-path", ""]
         let forms = createAllForms().map { Request.RequestType.submitForm($0) }
 
         var types: [Request.RequestType] = [

@@ -10,10 +10,8 @@ class UrlRequestBuilder {
         request: Request,
         baseUrl: URL?
     ) -> Result<URLRequest, NetworkClientDefault.ClientError> {
-        guard
-            let url = baseUrl?.appendingPathComponent(request.url)
-                ?? URL(string: request.url)
-        else {
+        
+        guard let url = URL(string: request.url, relativeTo: baseUrl) else {
             return .failure(.invalidUrl)
         }
 

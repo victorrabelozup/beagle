@@ -34,6 +34,7 @@ public struct NetworkImage: Widget {
 extension NetworkImage: Renderable {
     public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let imageView = UIImageView()
+        imageView.clipsToBounds = true
         imageView.contentMode = (contentMode ?? .fitCenter).toUIKit()
         imageView.applyAppearance(appearance)
         imageView.flex.setupFlex(flex)
