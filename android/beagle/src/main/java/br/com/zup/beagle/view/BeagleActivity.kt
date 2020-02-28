@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
-import android.view.View
 import android.view.WindowManager
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
@@ -88,15 +87,14 @@ abstract class BeagleActivity : AppCompatActivity() {
             }
         }
 
-        supportActionBar.takeIf { it == null }.apply {
+        if (supportActionBar == null) {
             val toolbar = getToolbar()
+            setSupportActionBar(toolbar)
+            supportActionBar?.hide()
             toolbar.setNavigationOnClickListener {
-                it.visibility = View.GONE
                 BeagleNavigator.pop(this@BeagleActivity)
             }
-            setSupportActionBar(toolbar)
         }
-        supportActionBar?.hide()
     }
 
     override fun onBackPressed() {

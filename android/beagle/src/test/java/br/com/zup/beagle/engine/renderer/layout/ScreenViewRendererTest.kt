@@ -21,6 +21,7 @@ import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.setup.DesignSystem
 import br.com.zup.beagle.testutil.RandomData
+import br.com.zup.beagle.view.BeagleActivity
 import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
@@ -61,7 +62,7 @@ class ScreenViewRendererTest {
     @MockK
     private lateinit var rootView: RootView
     @RelaxedMockK
-    private lateinit var context: AppCompatActivity
+    private lateinit var context: BeagleActivity
     @RelaxedMockK
     private lateinit var beagleFlexView: BeagleFlexView
     @MockK
@@ -211,7 +212,6 @@ class ScreenViewRendererTest {
         every { navigationBar.showBackButton } returns showBackButton
         every { screenComponent.navigationBar } returns navigationBar
         every { context.supportActionBar } returns actionBar
-        every { context.findViewById<Toolbar>(any()) } returns null
 
         // When
         screenViewRenderer.build(rootView)
@@ -228,7 +228,7 @@ class ScreenViewRendererTest {
         // Given
         every { screenComponent.navigationBar } returns navigationBar
         every { context.supportActionBar } returns actionBar
-        every { context.findViewById<Toolbar>(any()) } returns toolbar
+        every { context.getToolbar() } returns toolbar
 
         // When
         screenViewRenderer.build(rootView)
@@ -245,7 +245,7 @@ class ScreenViewRendererTest {
         every { navigationBar.style } returns style
         every { screenComponent.navigationBar } returns navigationBar
         every { context.supportActionBar } returns actionBar
-        every { context.findViewById<Toolbar>(any()) } returns toolbar
+        every { context.getToolbar() } returns toolbar
 
         // When
         screenViewRenderer.build(rootView)
@@ -263,7 +263,7 @@ class ScreenViewRendererTest {
         // GIVEN
         every { screenComponent.navigationBar } returns navigationBar
         every { context.supportActionBar } returns null
-        every { context.findViewById<Toolbar>(any()) } returns toolbar
+        every { context.getToolbar() } returns toolbar
         every { toolbar.menu } returns menu
         val navigationBarItems = listOf(
             NavigationBarItem(text = "Stub", action = action)
@@ -289,8 +289,7 @@ class ScreenViewRendererTest {
         every { designSystemMock.toolbarStyle(any()) } returns styleInt
         every { designSystemMock.image(any()) } returns RandomData.int()
         every { screenComponent.navigationBar } returns navigationBar
-        every { context.supportActionBar } returns null
-        every { context.findViewById<Toolbar>(any()) } returns toolbar
+        every { context.getToolbar() } returns toolbar
         every { toolbar.menu } returns menu
         val navigationBarItems = listOf(
             NavigationBarItem(text = "Stub", image = "image", action = action)
@@ -312,7 +311,7 @@ class ScreenViewRendererTest {
     fun build_should_hideNavigationBar_when_navigationBar_is_null() {
         // GIVEN
         every { context.supportActionBar } returns actionBar
-        every { context.findViewById<Toolbar>(any()) } returns toolbar
+        every { context.getToolbar() } returns toolbar
         val expected = View.GONE
         every { toolbar.visibility = any() } just Runs
         every { toolbar.visibility } returns expected

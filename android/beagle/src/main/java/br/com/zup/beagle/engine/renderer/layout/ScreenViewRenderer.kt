@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.res.ResourcesCompat
 import br.com.zup.beagle.R
@@ -14,6 +13,7 @@ import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.setup.DesignSystem
+import br.com.zup.beagle.view.BeagleActivity
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.JustifyContent
@@ -52,7 +52,7 @@ internal class ScreenViewRenderer(
     }
 
     private fun addToolbarIfNecessary(context: Context, navigationBar: NavigationBar?) {
-        if (context is AppCompatActivity) {
+        if (context is BeagleActivity) {
             if (navigationBar != null) {
                 configNavigationBar(context, navigationBar)
             } else {
@@ -61,17 +61,15 @@ internal class ScreenViewRenderer(
         }
     }
 
-    private fun hideNavigationBar(context: AppCompatActivity) {
+    private fun hideNavigationBar(context: BeagleActivity) {
         context.supportActionBar?.apply {
-            context.findViewById<Toolbar>(R.id.beagle_toolbar)?.let {
-                it.visibility = View.GONE
-            }
+            context.getToolbar().visibility = View.GONE
             hide()
         }
     }
 
     private fun configNavigationBar(
-        context: AppCompatActivity,
+        context: BeagleActivity,
         navigationBar: NavigationBar
     ) {
         context.supportActionBar?.apply {
@@ -81,12 +79,13 @@ internal class ScreenViewRenderer(
             setDisplayShowHomeEnabled(showBackButton)
             show()
         }
-        context.findViewById<Toolbar>(R.id.beagle_toolbar)?.let { toolbar ->
-            toolbar.visibility = View.VISIBLE
-            toolbar.menu.clear()
-            configToolbarStyle(context, toolbar, navigationBar.style ?: "")
+
+        context.getToolbar().apply {
+            visibility = View.VISIBLE
+            menu.clear()
+            configToolbarStyle(context, this, navigationBar.style ?: "")
             navigationBar.navigationBarItems?.let { items ->
-                configToolbarItems(context, toolbar, items)
+                configToolbarItems(context, this, items)
             }
         }
     }
