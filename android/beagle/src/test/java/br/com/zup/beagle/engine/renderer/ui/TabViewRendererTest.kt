@@ -7,10 +7,10 @@ import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.BeaglePageView
+import br.com.zup.beagle.view.BeagleTabLayout
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.ui.TabItem
 import br.com.zup.beagle.widget.ui.TabView
-import com.google.android.material.tabs.TabLayout
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -37,7 +37,7 @@ class TabViewRendererTest {
     @MockK
     private lateinit var viewFactory: ViewFactory
     @MockK(relaxed = true)
-    private lateinit var tabLayout: TabLayout
+    private lateinit var tabLayout: BeagleTabLayout
     @MockK
     private lateinit var viewPager: BeaglePageView
     @MockK
@@ -58,6 +58,7 @@ class TabViewRendererTest {
                 density = 10f
             }
         }
+        every { BeagleEnvironment.beagleSdk.designSystem?.image(any()) } returns 10
 
         every { rootView.getContext() } returns context
 

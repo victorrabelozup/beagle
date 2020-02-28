@@ -1,16 +1,16 @@
 package br.com.zup.beagle.engine.renderer.ui
 
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.UIViewRenderer
-import br.com.zup.beagle.logger.BeagleMessageLogs
+import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.utils.dp
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
@@ -20,7 +20,6 @@ import br.com.zup.beagle.widget.ui.TabView
 import com.google.android.material.tabs.TabLayout
 
 private val TABBAR_HEIGHT = 48.dp()
-private val DEFTYPE_DRAWABLE = "drawable"
 
 internal class TabViewRenderer(
     override val component: TabView,
@@ -58,7 +57,9 @@ internal class TabViewRenderer(
                     FrameLayout.LayoutParams.MATCH_PARENT,
                     TABBAR_HEIGHT
                 )
+
             tabMode = TabLayout.MODE_SCROLLABLE
+            tabGravity = TabLayout.GRAVITY_FILL
             addTabs(context)
         }
     }
@@ -68,20 +69,16 @@ internal class TabViewRenderer(
             addTab(newTab().apply {
                 text = component.tabItems[i].title
                 component.tabItems[i].icon?.let {
-                    try {
-                        icon = getIconFromResources(context, it)
-                    } catch (e: Resources.NotFoundException) {
-                        BeagleMessageLogs.logIconResourceNotFound(it, e)
-                    }
+                    icon = getIconFromResources(context, it)
                 }
             })
         }
     }
 
-    private fun getIconFromResources(context: Context, icon: String): Drawable {
-        return context.resources.getDrawable(
-            context.resources.getIdentifier(icon, DEFTYPE_DRAWABLE, context.packageName)
-        )
+    private fun getIconFromResources(context: Context, icon: String): Drawable? {
+        return BeagleEnvironment.beagleSdk.designSystem?.image(icon)?.let {
+            ContextCompat.getDrawable(context, it)
+        }
     }
 
     private fun getTabSelectedListener(viewPager: ViewPager): TabLayout.OnTabSelectedListener {

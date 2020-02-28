@@ -8,7 +8,6 @@ import android.widget.ScrollView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import br.com.zup.beagle.widget.core.Flex
-import com.google.android.material.tabs.TabLayout
 
 internal class ViewFactory {
 
@@ -49,5 +48,5 @@ internal class ViewFactory {
 
     fun makePageIndicator(context: Context) = BeaglePageIndicatorView(context)
 
-    fun makeTabView(context: Context) = TabLayout(context)
+    fun makeTabView(context: Context) = BeagleTabLayout(context)
 }
