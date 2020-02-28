@@ -64,10 +64,16 @@ if (project.hasProperty("android")) { // Android libraries
         classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     }
 
-    apply plugin: "org.jetbrains.dokka-android"
+    apply plugin: "org.jetbrains.dokka"
     task dokkaJavadoc(type: dokka.getClass()) {
-        outputFormat = 'javadoc'
+        outputFormat = 'markdown'
         outputDirectory = "$buildDir/javadoc"
+        configuration{
+            includeNonPublic = false
+            skipDeprecated = false
+            reportUndocumented = true
+            skipEmptyPackages = true
+        }
     }
 
     task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
@@ -82,8 +88,14 @@ if (project.hasProperty("android")) { // Android libraries
 
     apply plugin: "org.jetbrains.dokka"
     task dokkaJavadoc(type: dokka.getClass()) {
-        outputFormat = 'javadoc'
+        outputFormat = 'markdown'
         outputDirectory = "$buildDir/javadoc"
+        configuration{
+            includeNonPublic = false
+            skipDeprecated = false
+            reportUndocumented = true
+            skipEmptyPackages = true
+        }
     }
 
     task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
