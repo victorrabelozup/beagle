@@ -7,9 +7,9 @@
         tools:ignore="HardcodedText" />
 
     <item
-        android:id="@+id/lazywidget"
+        android:id="@+id/lazycomponent"
         android:icon="@mipmap/ic_launcher"
-        android:title="LazyWidget"
+        android:title="LazyComponent"
         tools:ignore="HardcodedText" />
 
     <item

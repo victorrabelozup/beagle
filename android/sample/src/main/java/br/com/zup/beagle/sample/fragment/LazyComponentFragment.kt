@@ -9,22 +9,22 @@ import br.com.zup.beagle.utils.toView
 import br.com.zup.beagle.widget.lazy.LazyComponent
 import br.com.zup.beagle.widget.ui.Text
 
-class LazyWidgetFragment : Fragment() {
+class LazyComponentFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val declarative = LazyComponent(
-            path = "http://10.0.2.2:8080/scrollView",
+            path = "http://www.mocky.io/v2/5e4e91c02f00001f2016a8f2",
             initialState = Text("Loading...")
         )
         return declarative.toView(this)
     }
 
     companion object {
-        fun newInstance(): LazyWidgetFragment {
-            return LazyWidgetFragment()
+        fun newInstance(): LazyComponentFragment {
+            return LazyComponentFragment()
         }
     }
 }

@@ -10,7 +10,7 @@ import br.com.zup.beagle.sample.fragment.ComposeComponentFragment
 import br.com.zup.beagle.sample.fragment.DisabledFormSubmitFragment
 import br.com.zup.beagle.sample.fragment.FormFragment
 import br.com.zup.beagle.sample.fragment.ImageViewFragment
-import br.com.zup.beagle.sample.fragment.LazyWidgetFragment
+import br.com.zup.beagle.sample.fragment.LazyComponentFragment
 import br.com.zup.beagle.sample.fragment.ListViewFragment
 import br.com.zup.beagle.sample.fragment.NavigationFragment
 import br.com.zup.beagle.sample.fragment.PageViewFragment
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         when (itemSelected) {
             R.id.textField -> goToFragment(TextFieldFragment.newInstance())
             R.id.scroll -> goToFragment(ScrollViewFragment.newInstance())
-            R.id.lazywidget -> goToFragment(LazyWidgetFragment.newInstance())
+            R.id.lazycomponent -> goToFragment(LazyComponentFragment.newInstance())
             R.id.image -> goToFragment(ImageViewFragment.newInstance())
             R.id.pageView -> goToFragment(PageViewFragment.newInstance())
             // Navigation Bar requires an activity without toolbar

@@ -59,7 +59,7 @@ class ListViewRendererTest {
     }
 
     @Test
-    fun build_should_return_a_RecyclerView_instance() {
+    fun build_should_return_a_BeagleFlexView_instance() {
         val view = listViewRenderer.build(rootView)
 
         assertTrue(view is BeagleFlexView)
