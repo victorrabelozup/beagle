@@ -20,7 +20,6 @@ enum class TextFieldInputType {
 
 @RegisterWidget
 data class TextField(
-    val id: String? = null,
     val description: String = "",
     val hint: String = "",
     val color: String = "#000000",
