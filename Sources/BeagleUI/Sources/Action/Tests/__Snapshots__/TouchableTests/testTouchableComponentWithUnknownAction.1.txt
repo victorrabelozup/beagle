@@ -8,3 +8,4 @@
     - flex: Optional<Flex>.none
     - style: Optional<String>.none
     - text: "text"
+    - textColor: Optional<String>.none

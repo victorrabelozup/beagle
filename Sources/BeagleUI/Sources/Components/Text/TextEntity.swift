@@ -7,6 +7,7 @@ struct TextEntity: WidgetEntity {
     let text: String
     var style: String?
     let alignment: AlignmentEntity?
+    let textColor: String?
     let appearance: AppearanceEntity?
     let flex: FlexEntity?
     let accessibility: AccessibilityEntity?
@@ -15,6 +16,7 @@ struct TextEntity: WidgetEntity {
         text: String,
         style: String? = nil,
         alignment: AlignmentEntity? = nil,
+        textColor: String? = nil,
         appearance: AppearanceEntity? = nil,
         flex: FlexEntity? = nil,
         accessibility: AccessibilityEntity? = nil
@@ -22,6 +24,7 @@ struct TextEntity: WidgetEntity {
         self.text = text
         self.style = style
         self.alignment = alignment
+        self.textColor = textColor
         self.appearance = appearance
         self.flex = flex
         self.accessibility = accessibility
@@ -50,6 +53,7 @@ struct TextEntity: WidgetEntity {
             text,
             style: style,
             alignment: try alignment?.mapToUIModel(ofType: Text.Alignment.self),
+            textColor: textColor,
             appearance: try appearance?.mapToUIModel(),
             flex: try flex?.mapToUIModel(),
             accessibility: try accessibility?.mapToUIModel()

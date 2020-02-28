@@ -11,6 +11,7 @@ public struct Text: Widget {
     public let text: String
     public let style: String?
     public let alignment: Alignment?
+    public let textColor: String?
     public let appearance: Appearance?
     public let flex: Flex?
     public let accessibility: Accessibility?
@@ -19,6 +20,7 @@ public struct Text: Widget {
         _ text: String,
         style: String? = nil,
         alignment: Alignment? = nil,
+        textColor: String? = nil,
         appearance: Appearance? = nil,
         flex: Flex? = nil,
         accessibility: Accessibility? = nil
@@ -26,6 +28,7 @@ public struct Text: Widget {
         self.text = text
         self.style = style
         self.alignment = alignment
+        self.textColor = textColor
         self.appearance = appearance
         self.flex = flex
         self.accessibility = accessibility
@@ -41,7 +44,10 @@ extension Text: Renderable {
         if let style = style {
             dependencies.theme.applyStyle(for: label, withId: style)
         }
-        
+        if let color = textColor {
+            label.textColor = UIColor(hex: color)
+        }
+
         label.applyAppearance(appearance)
         label.flex.setupFlex(flex)
         dependencies.accessibility.applyAccessibilityAttributes(accessibility, to: label)

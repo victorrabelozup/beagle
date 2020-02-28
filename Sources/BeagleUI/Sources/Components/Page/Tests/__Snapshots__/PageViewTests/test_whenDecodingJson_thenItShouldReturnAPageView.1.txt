@@ -12,6 +12,7 @@
           - flex: Optional<Flex>.none
           - style: Optional<String>.none
           - text: "1 This is a text"
+          - textColor: Optional<String>.none
         ▿ Text
           - accessibility: Optional<Accessibility>.none
           - alignment: Optional<Alignment>.none
@@ -19,6 +20,7 @@
           - flex: Optional<Flex>.none
           - style: Optional<String>.none
           - text: "This is a text"
+          - textColor: Optional<String>.none
         ▿ Text
           - accessibility: Optional<Accessibility>.none
           - alignment: Optional<Alignment>.none
@@ -26,6 +28,7 @@
           - flex: Optional<Flex>.none
           - style: Optional<String>.none
           - text: "This is a text"
+          - textColor: Optional<String>.none
       ▿ flex: Optional<Flex>
         ▿ some: Flex
           - alignContent: Optional<Alignment>.none
@@ -59,6 +62,7 @@
           - flex: Optional<Flex>.none
           - style: Optional<String>.none
           - text: "2 This is a text"
+          - textColor: Optional<String>.none
         ▿ Text
           - accessibility: Optional<Accessibility>.none
           - alignment: Optional<Alignment>.none
@@ -66,6 +70,7 @@
           - flex: Optional<Flex>.none
           - style: Optional<String>.none
           - text: "This is a text"
+          - textColor: Optional<String>.none
         ▿ Text
           - accessibility: Optional<Accessibility>.none
           - alignment: Optional<Alignment>.none
@@ -73,6 +78,7 @@
           - flex: Optional<Flex>.none
           - style: Optional<String>.none
           - text: "This is a text"
+          - textColor: Optional<String>.none
       ▿ flex: Optional<Flex>
         ▿ some: Flex
           - alignContent: Optional<Alignment>.none
@@ -106,6 +112,7 @@
           - flex: Optional<Flex>.none
           - style: Optional<String>.none
           - text: "3 This is a text"
+          - textColor: Optional<String>.none
         ▿ Text
           - accessibility: Optional<Accessibility>.none
           - alignment: Optional<Alignment>.none
@@ -113,6 +120,7 @@
           - flex: Optional<Flex>.none
           - style: Optional<String>.none
           - text: "This is a text"
+          - textColor: Optional<String>.none
         ▿ Text
           - accessibility: Optional<Accessibility>.none
           - alignment: Optional<Alignment>.none
@@ -120,6 +128,7 @@
           - flex: Optional<Flex>.none
           - style: Optional<String>.none
           - text: "This is a text"
+          - textColor: Optional<String>.none
       ▿ flex: Optional<Flex>
         ▿ some: Flex
           - alignContent: Optional<Alignment>.none
