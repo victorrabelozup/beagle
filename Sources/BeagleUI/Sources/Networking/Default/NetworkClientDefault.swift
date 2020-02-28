@@ -55,6 +55,7 @@ public class NetworkClientDefault: NetworkClient {
         case .success(let url):
             let task = session.dataTask(with: url) { [weak self] data, response, error in
                 guard let self = self else { return }
+                self.saveDataToCacheIfNeeded(data: data, request: request)
                 completion(self.handleResponse(data: data, response: response, error: error))
             }
 
@@ -81,6 +82,11 @@ public class NetworkClientDefault: NetworkClient {
         }
 
         return .success(data)
+    }
+
+    private func saveDataToCacheIfNeeded(data: Data?, request: Request) {
+        guard case .fetchImage = request.type, let data = data else { return }
+        cacheService.save(data: data, key: request.url)
     }
 }
 
