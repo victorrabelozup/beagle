@@ -3,6 +3,7 @@ package br.com.zup.beagle.sample.configuration
 import br.com.zup.beagle.serialization.jackson.BeagleActionSerializer
 import br.com.zup.beagle.serialization.jackson.BeagleScreenSerializer
 import br.com.zup.beagle.serialization.jackson.BeagleComponentSerializer
+import br.com.zup.beagle.serialization.jackson.BeagleScreenBuilderSerializer
 import com.fasterxml.jackson.annotation.JsonInclude
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -18,5 +19,6 @@ open class JacksonConfig {
             .serializers(BeagleComponentSerializer())
             .serializers(BeagleActionSerializer())
             .serializers(BeagleScreenSerializer())
+            .serializers(BeagleScreenBuilderSerializer())
     }
 }
