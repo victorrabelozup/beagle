@@ -5,6 +5,7 @@ import br.com.zup.beagle.action.CustomActionHandler
 import br.com.zup.beagle.form.ValidatorHandler
 import br.com.zup.beagle.navigation.DeepLinkHandler
 import br.com.zup.beagle.networking.HttpClient
+import br.com.zup.beagle.view.BeagleActivity
 import br.com.zup.beagle.widget.core.WidgetView
 import com.facebook.soloader.SoLoader
 
@@ -25,6 +26,7 @@ interface BeagleSdk {
     val validatorHandler: ValidatorHandler?
     val httpClient: HttpClient?
     val designSystem: DesignSystem?
+    val serverDrivenActivity: Class<BeagleActivity>
 
     fun registeredWidgets(): List<Class<WidgetView>>
 

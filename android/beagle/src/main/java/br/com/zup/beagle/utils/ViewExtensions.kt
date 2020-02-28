@@ -30,6 +30,7 @@ import br.com.zup.beagle.view.BeagleButtonView
 import br.com.zup.beagle.view.BeagleImageView
 import br.com.zup.beagle.view.BeagleTextView
 import br.com.zup.beagle.view.BeagleView
+import br.com.zup.beagle.view.ScreenRequest
 import br.com.zup.beagle.view.StateChangedListener
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.ImageContentMode
@@ -41,18 +42,18 @@ import br.com.zup.beagle.widget.ui.TextAlignment
 internal var viewExtensionsViewFactory = ViewFactory()
 const val FLOAT_ZERO = 0.0f
 
-fun ViewGroup.loadView(activity: AppCompatActivity, url: String) {
-    loadView(this, ActivityRootView(activity), url)
+fun ViewGroup.loadView(activity: AppCompatActivity, screenRequest: ScreenRequest) {
+    loadView(this, ActivityRootView(activity), screenRequest)
 }
 
-fun ViewGroup.loadView(fragment: Fragment, url: String) {
-    loadView(this, FragmentRootView(fragment), url)
+fun ViewGroup.loadView(fragment: Fragment, screenRequest: ScreenRequest) {
+    loadView(this, FragmentRootView(fragment), screenRequest)
 }
 
-private fun loadView(viewGroup: ViewGroup, rootView: RootView, url: String) {
+private fun loadView(viewGroup: ViewGroup, rootView: RootView, screenRequest: ScreenRequest) {
     viewGroup.addView(
         viewExtensionsViewFactory.makeBeagleView(viewGroup.context).apply {
-            this.loadView(rootView, url)
+            this.loadView(rootView, screenRequest)
         }
     )
 }

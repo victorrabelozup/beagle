@@ -24,6 +24,11 @@
         <activity
             android:name=".activities.NavigationBarActivity"
             android:theme="@style/AppTheme.NoToolbar" />
+
+        <activity
+            android:name=".activities.SampleServerDrivenActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/AppTheme.NoToolbar" />
     </application>
 
 </manifest>

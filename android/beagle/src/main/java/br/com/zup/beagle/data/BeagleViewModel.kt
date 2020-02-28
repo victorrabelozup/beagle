@@ -2,10 +2,12 @@ package br.com.zup.beagle.data
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import br.com.zup.beagle.action.Action
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.exception.BeagleException
 import br.com.zup.beagle.logger.BeagleLogger
 import br.com.zup.beagle.utils.CoroutineDispatchers
+import br.com.zup.beagle.view.ScreenRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
@@ -13,10 +15,11 @@ import kotlinx.coroutines.launch
 import java.util.Observable
 import java.util.concurrent.atomic.AtomicReference
 
-internal sealed class ViewState {
+sealed class ViewState {
     data class Error(val throwable: Throwable) : ViewState()
     class Loading(val value: Boolean) : ViewState()
-    class Result<T>(val data: T) : ViewState()
+    class DoRender(val screenUrl: String, val component: ServerDrivenComponent) : ViewState()
+    class DoAction(val action: Action) : ViewState()
 }
 
 internal class BeagleViewModel(
@@ -29,19 +32,19 @@ internal class BeagleViewModel(
     val state = MutableLiveData<ViewState>()
     private val urlObservableReference = AtomicReference(UrlObservable())
 
-    fun fetchComponent(url: String) = launch {
+    fun fetchComponent(screenRequest: ScreenRequest) = launch {
         try {
-            if (hasFetchInProgress(url)) {
-                waitFetchProcess(url)
+            if (hasFetchInProgress(screenRequest.url)) {
+                waitFetchProcess(screenRequest.url)
             } else {
-                setLoading(url, true)
-                val component = beagleService.fetchComponent(url)
-                state.value = ViewState.Result(component)
+                setLoading(screenRequest.url, true)
+                val component = beagleService.fetchComponent(screenRequest)
+                state.value = ViewState.DoRender(screenRequest.url, component)
             }
         } catch (exception: BeagleException) {
             state.value = ViewState.Error(exception)
         }
-        setLoading(url, false)
+        setLoading(screenRequest.url, false)
     }
 
     private fun setLoading(url: String, loading: Boolean) {
@@ -52,7 +55,7 @@ internal class BeagleViewModel(
     fun fetchForCache(url: String) = launch {
         try {
             urlObservableReference.get().setLoading(url, true)
-            val component = beagleService.fetchComponent(url)
+            val component = beagleService.fetchComponent(ScreenRequest(url))
             urlObservableReference.get().notifyLoaded(url, component)
         } catch (exception: BeagleException) {
             BeagleLogger.warning(exception.message)
@@ -68,7 +71,7 @@ internal class BeagleViewModel(
             (arg as? Pair<String, ServerDrivenComponent>)?.let {
                 urlObservableReference.get().setLoading(url, false)
                 if (url == it.first)
-                    state.value = ViewState.Result(it)
+                    state.value = ViewState.DoRender(url, it.second)
             }
         }
     }
@@ -81,7 +84,7 @@ internal class BeagleViewModel(
 
         try {
             val action = beagleService.fetchAction(url)
-            state.value = ViewState.Result(action)
+            state.value = ViewState.DoAction(action)
         } catch (exception: BeagleException) {
             state.value = ViewState.Error(exception)
         }

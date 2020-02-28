@@ -12,3 +12,11 @@ fun TypeElement.implementsInterface(interfaceName: String): Boolean {
     }
     return false
 }
+
+fun TypeElement.extendsFromClass(className: String): Boolean {
+    val typeMirror = ((this.superclass as DeclaredType)).asElement()
+    if (typeMirror.toString() == className) {
+        return true
+    }
+    return false
+}

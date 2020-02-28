@@ -65,10 +65,10 @@ complexity:
     threshold: 600
   LongMethod:
     active: true
-    threshold: 60
+    threshold: 70
   LongParameterList:
     active: true
-    threshold: 6
+    threshold: 7
     ignoreDefaultParameters: false
   MethodOverloading:
     active: false

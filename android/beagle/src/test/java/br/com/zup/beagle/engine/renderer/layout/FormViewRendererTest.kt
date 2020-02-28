@@ -21,6 +21,8 @@ import br.com.zup.beagle.logger.BeagleMessageLogs
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.testutil.getPrivateField
 import br.com.zup.beagle.utils.hideKeyboard
+import br.com.zup.beagle.view.BeagleActivity
+import br.com.zup.beagle.view.ServerDrivenState
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
@@ -35,6 +37,7 @@ import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.mockkStatic
 import io.mockk.slot
+import io.mockk.unmockkAll
 import io.mockk.unmockkObject
 import io.mockk.unmockkStatic
 import io.mockk.verify
@@ -74,7 +77,7 @@ class FormViewRendererTest {
     @MockK
     private lateinit var viewFactory: ViewFactory
     @MockK
-    private lateinit var appCompatActivity: AppCompatActivity
+    private lateinit var beagleActivity: BeagleActivity
     @MockK
     private lateinit var inputMethodManager: InputMethodManager
     @RelaxedMockK
@@ -118,27 +121,25 @@ class FormViewRendererTest {
         every { form.path } returns RandomData.string()
         every { formInput.required } returns false
         every { formInput.child.getValue() } returns INPUT_VALUE
-        every { formInputView.context } returns appCompatActivity
+        every { formInputView.context } returns beagleActivity
         every { formInputView.tag } returns formInput
         every { formSubmitView.hideKeyboard() } just Runs
         every { formSubmitView.tag } returns formSubmit
-        every { formSubmitView.context } returns appCompatActivity
+        every { formSubmitView.context } returns beagleActivity
         every { formSubmitView.setOnClickListener(capture(onClickListenerSlot)) } just Runs
         every { viewGroup.childCount } returns 2
         every { viewGroup.getChildAt(0) } returns formInputView
         every { viewGroup.getChildAt(1) } returns formSubmitView
         every { formValidationActionHandler.formInputs = any() } just Runs
-        every { appCompatActivity.getSystemService(any()) } returns inputMethodManager
-        every { appCompatActivity.runOnUiThread(capture(runnableSlot)) } just Runs
+        every { beagleActivity.getSystemService(any()) } returns inputMethodManager
+        every { beagleActivity.runOnUiThread(capture(runnableSlot)) } just Runs
         every { formSubmitter.submitForm(any(), any(), capture(formResultCallbackSlot)) } just Runs
         every { validatorHandler.getValidator(any()) } returns validator
     }
 
     @After
     fun tearDown() {
-        unmockkStatic("br.com.zup.beagle.utils.ViewExtensionsKt")
-        unmockkObject(BeagleLogger)
-        unmockkObject(BeagleMessageLogs)
+        unmockkAll()
     }
 
     @Test
@@ -276,25 +277,14 @@ class FormViewRendererTest {
         runnableSlot.captured.run()
 
         // Then
-        verify(exactly = once()) { actionExecutor.doAction(appCompatActivity, formResult.action) }
+        verify(exactly = once()) { actionExecutor.doAction(beagleActivity, formResult.action) }
     }
 
     @Test
     fun onClick_of_formSubmit_should_handleFormSubmit_and_call_showError() {
         // Given
+        every { beagleActivity.onServerDrivenContainerStateChanged(any()) } just Runs
         val formResult = FormResult.Error(mockk())
-        val alertDialogBuilder = mockk<AlertDialog.Builder>()
-        every { alertDialogBuilder.setTitle(any<String>()) } returns alertDialogBuilder
-        every { alertDialogBuilder.setMessage(any<String>()) } returns alertDialogBuilder
-        every {
-            alertDialogBuilder.setPositiveButton(
-                any<String>(),
-                any()
-            )
-        } returns alertDialogBuilder
-        every { alertDialogBuilder.show() } returns mockk()
-        every { viewFactory.makeAlertDialogBuilder(appCompatActivity) } returns alertDialogBuilder
-
 
         // When
         executeFormSubmitOnClickListener()
@@ -302,9 +292,9 @@ class FormViewRendererTest {
         runnableSlot.captured.run()
 
         // Then
-        verify(exactly = once()) { alertDialogBuilder.setTitle("Error!") }
-        verify(exactly = once()) { alertDialogBuilder.setMessage("Something went wrong!") }
-        verify(exactly = once()) { alertDialogBuilder.show() }
+        verify(exactly = once()) {
+            beagleActivity.onServerDrivenContainerStateChanged(ServerDrivenState.Error(formResult.throwable))
+        }
     }
 
     private fun executeFormSubmitOnClickListener() {

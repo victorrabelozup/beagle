@@ -15,6 +15,7 @@ import br.com.zup.beagle.networking.UrlFormatter
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.testutil.CoroutineTestRule
 import br.com.zup.beagle.testutil.RandomData
+import br.com.zup.beagle.view.ScreenRequest
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
@@ -38,6 +39,8 @@ import kotlin.test.assertTrue
 private val URL = RandomData.httpUrl()
 private val JSON_SUCCESS = makeScreenJson()
 private const val JSON_ERROR = ""
+private val screenRequest = ScreenRequest(URL)
+private val screenError = ScreenRequest(JSON_ERROR)
 
 @ExperimentalCoroutinesApi
 class BeagleServiceTest {
@@ -109,7 +112,7 @@ class BeagleServiceTest {
 
     @Test
     fun fetch_should_deserialize_a_component_response() = runBlockingTest {
-        val result = beagleService.fetchComponent(URL)
+        val result = beagleService.fetchComponent(screenRequest)
 
         verify(exactly = once()) { serializer.deserializeComponent(JSON_SUCCESS) }
         assertEquals(component, result)
@@ -124,7 +127,7 @@ class BeagleServiceTest {
 
         // When
         val exceptionResponse = assertFails(message) {
-            beagleService.fetchComponent(JSON_ERROR)
+            beagleService.fetchComponent(screenError)
         }
 
         // Then
@@ -139,7 +142,7 @@ class BeagleServiceTest {
 
         // When
         val exceptionResponse = assertFails {
-            beagleService.fetchComponent(JSON_ERROR)
+            beagleService.fetchComponent(screenError)
         }
 
         // Then
@@ -155,7 +158,7 @@ class BeagleServiceTest {
         // When
         val exceptionResponse =
             assertFails("Widget deserializer error with respective json: $JSON_ERROR") {
-                beagleService.fetchComponent(JSON_ERROR)
+                beagleService.fetchComponent(screenError)
             }
 
         // Then

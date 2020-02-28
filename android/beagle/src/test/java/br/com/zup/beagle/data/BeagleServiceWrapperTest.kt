@@ -5,6 +5,7 @@ import br.com.zup.beagle.data.serializer.BeagleSerializer
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.testutil.RandomData
+import br.com.zup.beagle.view.ScreenRequest
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.coEvery
@@ -27,6 +28,7 @@ import org.junit.Test
 import kotlin.test.assertEquals
 
 private val URL = RandomData.httpUrl()
+private val screenRequest = ScreenRequest(URL)
 
 @ExperimentalCoroutinesApi
 class BeagleServiceWrapperTest {
@@ -72,11 +74,11 @@ class BeagleServiceWrapperTest {
     fun fetch_when_success_should_call_onSuccess() = runBlockingTest {
         // GIVEN
         subject.init(beagleService,beagleSerializer)
-        coEvery { beagleService.fetchComponent(URL) } returns component
+        coEvery { beagleService.fetchComponent(screenRequest) } returns component
         every { listener.onSuccess(any()) } just Runs
 
         // WHEN
-        subject.fetchComponent(URL, listener)
+        subject.fetchComponent(screenRequest, listener)
 
         // THEN
         verify(exactly = once()) { listener.onSuccess(component) }
@@ -86,11 +88,11 @@ class BeagleServiceWrapperTest {
     fun fetch_when_fail_should_call_onError() = runBlockingTest {
         // GIVEN
         subject.init(beagleService,beagleSerializer)
-        coEvery { beagleService.fetchComponent(URL) } throws throwable
+        coEvery { beagleService.fetchComponent(screenRequest) } throws throwable
         every { listener.onError(any()) } just Runs
 
         // WHEN
-        subject.fetchComponent(URL, listener)
+        subject.fetchComponent(screenRequest, listener)
 
         // THEN
         verify(exactly = once()) { listener.onError(throwable) }

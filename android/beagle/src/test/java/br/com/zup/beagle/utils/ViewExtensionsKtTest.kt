@@ -22,6 +22,7 @@ import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.view.BeagleButtonView
 import br.com.zup.beagle.view.BeagleTextView
 import br.com.zup.beagle.view.BeagleView
+import br.com.zup.beagle.view.ScreenRequest
 import br.com.zup.beagle.view.StateChangedListener
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.ImageContentMode
@@ -50,6 +51,7 @@ private val URL = RandomData.httpUrl()
 private val STYLE_RES = RandomData.int()
 private val IMAGE_RES = RandomData.int()
 private const val ERROR_MESSAGE = "Did you miss to call loadView()?"
+private val screenRequest = ScreenRequest(URL)
 
 class ViewExtensionsKtTest {
 
@@ -130,20 +132,20 @@ class ViewExtensionsKtTest {
 
     @Test
     fun loadView_should_create_BeagleView_and_call_loadView_with_fragment() {
-        viewGroup.loadView(fragment, URL)
+        viewGroup.loadView(fragment, screenRequest)
 
         assertEquals(beagleView, viewSlot.captured)
         verify { viewFactory.makeBeagleView(activity) }
-        verify { beagleView.loadView(any<FragmentRootView>(), URL) }
+        verify { beagleView.loadView(any<FragmentRootView>(), screenRequest) }
     }
 
     @Test
     fun loadView_should_create_BeagleView_and_call_loadView_with_activity() {
-        viewGroup.loadView(activity, URL)
+        viewGroup.loadView(activity, screenRequest)
 
         assertEquals(beagleView, viewSlot.captured)
         verify { viewFactory.makeBeagleView(activity) }
-        verify { beagleView.loadView(any<ActivityRootView>(), URL) }
+        verify { beagleView.loadView(any<ActivityRootView>(), screenRequest) }
     }
 
     @Test

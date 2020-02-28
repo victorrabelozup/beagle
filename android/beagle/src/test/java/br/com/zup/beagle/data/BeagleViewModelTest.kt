@@ -7,6 +7,7 @@ import br.com.zup.beagle.exception.BeagleException
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.utils.CoroutineDispatchers
+import br.com.zup.beagle.view.ScreenRequest
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.coEvery
@@ -69,16 +70,16 @@ class BeagleViewModelTest {
     @Suppress("UNCHECKED_CAST")
     fun fetch_should_return_render_ViewState() {
         // Given
-        val url = RandomData.httpUrl()
+        val screenRequest = ScreenRequest(RandomData.httpUrl())
 
         // When
-        beagleUIViewModel.fetchComponent(url)
+        beagleUIViewModel.fetchComponent(screenRequest)
 
         // Then
         assertLoading(viewModelStates[0], true)
         assertEquals(
             component,
-            (viewModelStates[1] as ViewState.Result<ServerDrivenComponent>).data
+            (viewModelStates[1] as ViewState.DoRender).component
         )
         assertLoading(viewModelStates[2], false)
     }
@@ -86,12 +87,12 @@ class BeagleViewModelTest {
     @Test
     fun fetch_should_return_a_error_ViewState() {
         // Given
-        val url = RandomData.httpUrl()
+        val screenRequest = ScreenRequest(RandomData.httpUrl())
         val exception = BeagleException("Error")
         coEvery { beagleService.fetchComponent(any()) } throws exception
 
         // When
-        beagleUIViewModel.fetchComponent(url)
+        beagleUIViewModel.fetchComponent(screenRequest)
 
         // Then
         assertLoading(viewModelStates[0], true)
@@ -110,7 +111,7 @@ class BeagleViewModelTest {
 
         // Then
         assertLoading(viewModelStates[0], true)
-        assertEquals(action, (viewModelStates[1] as ViewState.Result<Action>).data)
+        assertEquals(action, (viewModelStates[1] as ViewState.DoAction).action)
         assertLoading(viewModelStates[2], false)
     }
 

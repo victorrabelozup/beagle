@@ -2,6 +2,7 @@ package br.com.zup.beagle.data
 
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.data.serializer.BeagleSerializer
+import br.com.zup.beagle.view.ScreenRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -25,10 +26,10 @@ class BeagleServiceWrapper {
         beagleSerialize = serialize
     }
 
-    fun fetchComponent(url: String, listener: FetchListener) {
+    fun fetchComponent(screenRequest: ScreenRequest, listener: FetchListener) {
         scope.launch {
             try {
-                listener.onSuccess(beagleService.fetchComponent(url))
+                listener.onSuccess(beagleService.fetchComponent(screenRequest))
             } catch (e: Throwable) {
                 listener.onError(e)
             }

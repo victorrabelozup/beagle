@@ -35,10 +35,10 @@ internal object BeagleNavigator {
     }
 
     fun addScreen(context: Context, url: String) {
-        if (context is BeagleUIActivity) {
-            showScreen(context, url)
+        if (context is BeagleActivity) {
+            context.navigateTo(ScreenRequest(url))
         } else {
-            context.startActivity(BeagleUIActivity.newIntent(context, url))
+            context.startActivity(BeagleActivity.newIntent(context, ScreenRequest(url)))
         }
     }
 
@@ -49,7 +49,7 @@ internal object BeagleNavigator {
                 R.anim.slide_from_right, R.anim.none_animation,
                 R.anim.none_animation, R.anim.slide_to_right
             )
-            .replace(R.id.beagle_content, BeagleUIFragment.newInstance(url))
+            .replace(R.id.beagle_content, BeagleFragment.newInstance(url))
 
         val absoluteUrl = urlFormatter.format(BeagleEnvironment.beagleSdk.config.baseUrl, url)
         transaction.addToBackStack(absoluteUrl)
@@ -57,7 +57,7 @@ internal object BeagleNavigator {
     }
 
     fun swapScreen(context: Context, url: String) {
-        context.startActivity(BeagleUIActivity.newIntent(context, url).apply {
+        context.startActivity(BeagleActivity.newIntent(context, ScreenRequest(url)).apply {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         })
     }
@@ -70,6 +70,6 @@ internal object BeagleNavigator {
     }
 
     fun presentScreen(context: Context, url: String) {
-        context.startActivity(BeagleUIActivity.newIntent(context, url))
+        context.startActivity(BeagleActivity.newIntent(context, ScreenRequest(url)))
     }
 }

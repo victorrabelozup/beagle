@@ -30,11 +30,11 @@ private val URL = RandomData.httpUrl()
 class BeagleNavigatorTest {
 
     @MockK
-    private lateinit var context: BeagleUIActivity
+    private lateinit var context: BeagleActivity
     @MockK
     private lateinit var fragmentTransaction: FragmentTransaction
     @MockK
-    private lateinit var fragment: BeagleUIFragment
+    private lateinit var fragment: BeagleFragment
     @MockK(relaxed = true)
     private lateinit var intent: Intent
 
@@ -45,15 +45,14 @@ class BeagleNavigatorTest {
 
         every { BeagleEnvironment.beagleSdk.config.baseUrl } returns RandomData.httpUrl()
 
-        mockkObject(BeagleUIFragment.Companion)
-        mockkObject(BeagleUIActivity.Companion)
+        mockkObject(BeagleFragment.Companion)
+        mockkObject(BeagleActivity.Companion)
 
-        every { BeagleUIFragment.newInstance(any()) } returns fragment
-        every { BeagleUIActivity.newIntent(any(), any()) } returns intent
+        every { BeagleActivity.newIntent(any(), any()) } returns intent
 
         val supportFragmentManager = mockk<FragmentManager>()
         every { context.supportFragmentManager } returns supportFragmentManager
-        every { supportFragmentManager.getFragments() } returns mutableListOf<Fragment>()
+        every { supportFragmentManager.fragments } returns mutableListOf<Fragment>()
         every { supportFragmentManager.beginTransaction() } returns fragmentTransaction
         every {
             fragmentTransaction.setCustomAnimations(
@@ -70,8 +69,8 @@ class BeagleNavigatorTest {
 
     @After
     fun tearDown() {
-        unmockkObject(BeagleUIFragment.Companion)
-        unmockkObject(BeagleUIActivity.Companion)
+        unmockkObject(BeagleFragment.Companion)
+        unmockkObject(BeagleActivity.Companion)
         unmockkObject(BeagleEnvironment)
     }
 
@@ -100,19 +99,20 @@ class BeagleNavigatorTest {
     }
 
     @Test
-    fun addScreen_should_set_customAnimations() {
+    fun addScreen_should_call_BeagleActivity_navigateTo() {
+        // Given
+        val screenRequest = ScreenRequest(URL)
+        every { context.navigateTo(screenRequest) } just Runs
+
+        // When
         BeagleNavigator.addScreen(context, URL)
 
-        verify(exactly = once()) {
-            fragmentTransaction.setCustomAnimations(
-                R.anim.slide_from_right, R.anim.none_animation,
-                R.anim.none_animation, R.anim.slide_to_right
-            )
-        }
+        // Then
+        verify(exactly = once()) { context.navigateTo(screenRequest) }
     }
 
     @Test
-    fun addScreen_should_start_BeagleUIActivity() {
+    fun addScreen_should_start_BeagleActivity() {
         // Given
         val context = mockk<Activity>()
         every { context.startActivity(any()) } just Runs
@@ -125,31 +125,7 @@ class BeagleNavigatorTest {
     }
 
     @Test
-    fun addScreen_should_replace_fragment_with_beagle_content() {
-        BeagleNavigator.addScreen(context, URL)
-
-        verify(exactly = once()) {
-            fragmentTransaction.replace(R.id.beagle_content, fragment)
-        }
-        verify(exactly = once()) { BeagleUIFragment.newInstance(URL) }
-    }
-
-    @Test
-    fun addScreen_should_addToBackStack_with_given_url() {
-        BeagleNavigator.addScreen(context, URL)
-
-        verify(exactly = once()) { fragmentTransaction.addToBackStack(URL) }
-    }
-
-    @Test
-    fun addScreen_should_commit_transaction() {
-        BeagleNavigator.addScreen(context, URL)
-
-        verify(exactly = once()) { fragmentTransaction.commit() }
-    }
-
-    @Test
-    fun swapScreen_should_start_BeagleUIActivity_and_clear_stack() {
+    fun swapScreen_should_start_BeagleActivity_and_clear_stack() {
         // Given
         every { context.startActivity(any()) } just Runs
         val flagSlot = slot<Int>()
@@ -179,7 +155,7 @@ class BeagleNavigatorTest {
     }
 
     @Test
-    fun presentScreen_should_start_BeagleUIActivity() {
+    fun presentScreen_should_start_BeagleActivity() {
         // Given
         val context = mockk<Activity>()
         every { context.startActivity(any()) } just Runs

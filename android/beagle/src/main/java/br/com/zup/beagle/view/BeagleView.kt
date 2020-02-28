@@ -3,12 +3,9 @@ package br.com.zup.beagle.view
 import android.content.Context
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.data.BeagleViewModel
 import br.com.zup.beagle.data.ViewState
-import br.com.zup.beagle.engine.renderer.ActivityRootView
-import br.com.zup.beagle.engine.renderer.FragmentRootView
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.interfaces.OnStateUpdatable
 import br.com.zup.beagle.utils.implementsGenericTypeOf
@@ -33,22 +30,21 @@ internal class BeagleView(
 
     private val viewModel by lazy { BeagleViewModel() }
 
-    fun loadView(rootView: RootView, url: String) {
-        loadView(rootView, url, null)
+    fun loadView(rootView: RootView, screenRequest: ScreenRequest) {
+        loadView(rootView, screenRequest, null)
     }
 
     fun updateView(rootView: RootView, url: String, view: View) {
-        loadView(rootView, url, view)
+        loadView(rootView, ScreenRequest(url), view)
     }
 
-    private fun loadView(rootView: RootView, url: String, view: View?) {
+    private fun loadView(rootView: RootView, screenRequest: ScreenRequest, view: View?) {
         this.rootView = rootView
         viewModel.state.observe(rootView.getLifecycleOwner(), Observer<ViewState> { state ->
             handleResponse(state, view)
         })
 
-        viewModel.fetchComponent(url)
-
+        viewModel.fetchComponent(screenRequest)
     }
 
     private fun handleResponse(
@@ -56,7 +52,7 @@ internal class BeagleView(
         when (state) {
             is ViewState.Loading -> handleLoading(state.value)
             is ViewState.Error -> handleError(state.throwable)
-            is ViewState.Result<*> -> renderComponent(state.data as ServerDrivenComponent, view)
+            is ViewState.DoRender -> renderComponent(state.component, view)
         }
     }
 
@@ -84,18 +80,6 @@ internal class BeagleView(
         } else {
             removeAllViewsInLayout()
             addServerDrivenComponent(component, rootView)
-        }
-    }
-
-    private fun generateViewModelInstance(): BeagleViewModel {
-        return when (rootView) {
-            is ActivityRootView -> {
-                val activity = (rootView as ActivityRootView).activity
-                ViewModelProviders.of(activity)[BeagleViewModel::class.java]
-            } else -> {
-                val fragment = (rootView as FragmentRootView).fragment
-                ViewModelProviders.of(fragment)[BeagleViewModel::class.java]
-            }
         }
     }
 }

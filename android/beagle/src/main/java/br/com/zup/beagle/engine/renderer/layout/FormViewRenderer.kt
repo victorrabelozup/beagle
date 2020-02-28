@@ -3,7 +3,6 @@ package br.com.zup.beagle.engine.renderer.layout
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import br.com.zup.beagle.action.ActionExecutor
 import br.com.zup.beagle.action.FormValidationActionHandler
@@ -17,6 +16,8 @@ import br.com.zup.beagle.form.ValidatorHandler
 import br.com.zup.beagle.logger.BeagleMessageLogs
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.utils.hideKeyboard
+import br.com.zup.beagle.view.BeagleActivity
+import br.com.zup.beagle.view.ServerDrivenState
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
@@ -97,7 +98,7 @@ internal class FormViewRenderer(
         if (formsValue.size == formInputs.size) {
             formSubmitView?.hideKeyboard()
             formSubmitter.submitForm(component, formsValue) {
-                (context as AppCompatActivity).runOnUiThread {
+                (context as BeagleActivity).runOnUiThread {
                     handleFormResult(context, it)
                 }
             }
@@ -125,21 +126,13 @@ internal class FormViewRenderer(
         }
     }
 
-    private fun handleFormResult(context: Context, formResult: FormResult) {
+    private fun handleFormResult(beagleActivity: BeagleActivity, formResult: FormResult) {
         when (formResult) {
-            is FormResult.Success -> actionExecutor.doAction(context, formResult.action)
-            is FormResult.Error -> showError(context)
+            is FormResult.Success -> actionExecutor.doAction(beagleActivity, formResult.action)
+            is FormResult.Error -> beagleActivity.onServerDrivenContainerStateChanged(
+                ServerDrivenState.Error(formResult.throwable)
+            )
         }
-    }
-
-    private fun showError(context: Context) {
-        viewFactory.makeAlertDialogBuilder(context)
-            .setTitle("Error!")
-            .setMessage("Something went wrong!")
-            .setPositiveButton("OK") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
     }
 }
 

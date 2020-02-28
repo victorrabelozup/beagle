@@ -43,12 +43,6 @@
         tools:ignore="HardcodedText" />
 
     <item
-        android:id="@+id/pageView2"
-        android:icon="@mipmap/ic_launcher"
-        android:title="PageView Remote"
-        tools:ignore="HardcodedText" />
-
-    <item
         android:id="@+id/tabBar"
         android:icon="@mipmap/ic_launcher"
         android:title="Tab Bar"

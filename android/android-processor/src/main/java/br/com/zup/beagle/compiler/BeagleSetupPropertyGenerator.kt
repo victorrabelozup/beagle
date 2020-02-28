@@ -1,6 +1,7 @@
 package br.com.zup.beagle.compiler
 
 import br.com.zup.beagle.annotation.BeagleComponent
+import br.com.zup.beagle.compiler.util.BEAGLE_ACTIVITY
 import br.com.zup.beagle.compiler.util.BeagleClass
 import br.com.zup.beagle.compiler.util.CUSTOM_ACTION_HANDLER
 import br.com.zup.beagle.compiler.util.DEEP_LINK_HANDLER
@@ -8,10 +9,13 @@ import br.com.zup.beagle.compiler.util.DESIGN_SYSTEM
 import br.com.zup.beagle.compiler.util.HTTP_CLIENT_HANDLER
 import br.com.zup.beagle.compiler.util.VALIDATOR_HANDLER
 import br.com.zup.beagle.compiler.util.error
+import br.com.zup.beagle.compiler.util.extendsFromClass
 import br.com.zup.beagle.compiler.util.implementsInterface
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.KModifier
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.asClassName
 import javax.annotation.processing.ProcessingEnvironment
 import javax.annotation.processing.RoundEnvironment
 import javax.lang.model.element.TypeElement
@@ -26,6 +30,7 @@ class BeagleSetupPropertyGenerator(private val processingEnv: ProcessingEnvironm
         var customActionHandler: TypeElement? = null
         var httpClient: TypeElement? = null
         var designSystem: TypeElement? = null
+        var beagleActivity: TypeElement? = null
 
         roundEnvironment.getElementsAnnotatedWith(BeagleComponent::class.java).forEach { element ->
             val typeElement = element as TypeElement
@@ -63,7 +68,21 @@ class BeagleSetupPropertyGenerator(private val processingEnv: ProcessingEnvironm
                                 "remove one implementation from the application.")
                     }
                 }
+                typeElement.extendsFromClass(BEAGLE_ACTIVITY.toString()) -> {
+                    if (beagleActivity == null) {
+                        beagleActivity = typeElement
+                    } else {
+                        processingEnv.messager.error(typeElement, "BeagleActivity already defined, " +
+                            "remove one implementation from the application.")
+                    }
+                }
             }
+        }
+
+        if (beagleActivity == null) {
+            processingEnv.messager.error("BeagleActivity were not defined. " +
+                "Did you miss to create your own Activity that extends from BeagleActivity " +
+                "and annotate it with @BeagleComponent?")
         }
 
         return createListOfPropertySpec(
@@ -71,16 +90,18 @@ class BeagleSetupPropertyGenerator(private val processingEnv: ProcessingEnvironm
             deepLinkHandler,
             customActionHandler,
             httpClient,
-            designSystem
+            designSystem,
+            beagleActivity
         )
     }
 
     private fun createListOfPropertySpec(
         basePackageName: String,
-        deepLinkHandler: TypeElement? = null,
-        customActionHandler: TypeElement? = null,
-        httpClient: TypeElement? = null,
-        designSystem: TypeElement? = null
+        deepLinkHandler: TypeElement?,
+        customActionHandler: TypeElement?,
+        httpClient: TypeElement?,
+        designSystem: TypeElement?,
+        beagleActivity: TypeElement?
     ): List<PropertySpec> {
         return listOf(
             implementProperty(
@@ -107,7 +128,8 @@ class BeagleSetupPropertyGenerator(private val processingEnv: ProcessingEnvironm
                 "$basePackageName.$VALIDATOR_HANDLER_IMPL_NAME",
                 "validatorHandler",
                 VALIDATOR_HANDLER
-            )
+            ),
+            implementServerDrivenActivityProperty(beagleActivity)
         )
     }
 
@@ -136,5 +158,15 @@ class BeagleSetupPropertyGenerator(private val processingEnv: ProcessingEnvironm
         property.initializer(value)
 
         return property.build()
+    }
+
+    private fun implementServerDrivenActivityProperty(typeElement: TypeElement?): PropertySpec {
+        return PropertySpec.builder(
+            "serverDrivenActivity",
+            Class::class.asClassName().parameterizedBy(
+                ClassName(BEAGLE_ACTIVITY.packageName, BEAGLE_ACTIVITY.className)
+            ),
+            KModifier.OVERRIDE
+        ).initializer("$typeElement::class.java as Class<BeagleActivity>").build()
     }
 }

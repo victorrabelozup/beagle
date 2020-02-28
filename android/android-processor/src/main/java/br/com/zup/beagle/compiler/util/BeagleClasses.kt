@@ -36,3 +36,7 @@ val WIDGET_VIEW = BeagleClass(
     "br.com.zup.beagle.widget.core",
     "WidgetView"
 )
+val BEAGLE_ACTIVITY = BeagleClass(
+    "br.com.zup.beagle.view",
+    "BeagleActivity"
+)
