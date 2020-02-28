@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.Path
 import android.graphics.RectF
 import android.graphics.drawable.GradientDrawable
-import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
@@ -28,7 +27,6 @@ import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.view.BeagleButtonView
 import br.com.zup.beagle.view.BeagleImageView
-import br.com.zup.beagle.view.BeagleTextView
 import br.com.zup.beagle.view.BeagleView
 import br.com.zup.beagle.view.ScreenRequest
 import br.com.zup.beagle.view.StateChangedListener
@@ -36,8 +34,6 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.ImageContentMode
 import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.Image
-import br.com.zup.beagle.widget.ui.Text
-import br.com.zup.beagle.widget.ui.TextAlignment
 
 internal var viewExtensionsViewFactory = ViewFactory()
 const val FLOAT_ZERO = 0.0f
@@ -75,21 +71,6 @@ internal fun View.hideKeyboard() {
     val view = activity.currentFocus ?: viewExtensionsViewFactory.makeView(activity)
     val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(view.windowToken, 0)
-}
-
-internal fun BeagleTextView.setData(widget: Text) {
-    this.text = widget.text
-    val style = widget.style ?: ""
-    val designSystem = BeagleEnvironment.beagleSdk.designSystem
-    if (designSystem != null) {
-        val styleRes = designSystem.textAppearance(style)
-        TextViewCompat.setTextAppearance(this, styleRes)
-    }
-    when (widget.alignment) {
-        TextAlignment.CENTER -> this.gravity = Gravity.CENTER
-        TextAlignment.RIGHT -> this.gravity = Gravity.END
-        else -> this.gravity = Gravity.START
-    }
 }
 
 internal fun BeagleButtonView.setData(widget: Button) {
@@ -197,11 +178,14 @@ internal fun View.applyAppearance(component: ServerDrivenComponent) {
 
 internal fun View.applyBackgroundColor(appearanceWidget: AppearanceComponent) {
     appearanceWidget.appearance?.backgroundColor?.let {
-        (this.background as? GradientDrawable)?.setColor(Color.parseColor(it.getColorWithHashTag()))
+        (this.background as? GradientDrawable)?.setColor(it.toAndroidColor())
     }
 }
 
-internal fun String.getColorWithHashTag(): String = if (this.startsWith("#")) this else "#$this"
+internal fun String.toAndroidColor(): Int {
+    val hexColor = if (this.startsWith("#")) this else "#$this"
+    return Color.parseColor(hexColor)
+}
 
 internal fun View.applyCornerRadius(appearanceWidget: AppearanceComponent) {
     appearanceWidget.appearance?.cornerRadius?.let { cornerRadius ->

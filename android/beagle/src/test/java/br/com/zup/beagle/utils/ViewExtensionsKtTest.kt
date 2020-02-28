@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.res.TypedArray
 import android.graphics.drawable.Drawable
 import android.os.IBinder
-import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
@@ -20,7 +19,6 @@ import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.setup.DesignSystem
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.view.BeagleButtonView
-import br.com.zup.beagle.view.BeagleTextView
 import br.com.zup.beagle.view.BeagleView
 import br.com.zup.beagle.view.ScreenRequest
 import br.com.zup.beagle.view.StateChangedListener
@@ -28,8 +26,6 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.ImageContentMode
 import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.Image
-import br.com.zup.beagle.widget.ui.Text
-import br.com.zup.beagle.widget.ui.TextAlignment
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
@@ -74,8 +70,6 @@ class ViewExtensionsKtTest {
     @MockK
     private lateinit var designSystem: DesignSystem
     @MockK
-    private lateinit var beagleTextView: BeagleTextView
-    @MockK
     private lateinit var beagleButton: BeagleButtonView
     @MockK
     private lateinit var imageView: ImageView
@@ -109,8 +103,6 @@ class ViewExtensionsKtTest {
         every { designSystem.textAppearance(any()) } returns STYLE_RES
         every { designSystem.buttonStyle(any()) } returns STYLE_RES
         every { designSystem.image(any()) } returns IMAGE_RES
-        every { beagleTextView.text = capture(textValueSlot) } just Runs
-        every { beagleTextView.gravity = capture(textAlignment) } just Runs
         every { beagleButton.text = capture(textValueSlot) } just Runs
         every { beagleButton.setBackgroundResource(any()) } just Runs
         every { beagleButton.setAllCaps(any())} just Runs
@@ -200,105 +192,6 @@ class ViewExtensionsKtTest {
 
         // Then
         verify(exactly = once()) { inputMethodManager.hideSoftInputFromWindow(iBinder, 0) }
-    }
-
-    @Test
-    fun setData_with_text_should_call_TextViewCompat_setTextAppearance() {
-        // Given
-        val text = mockk<Text>()
-        val textValue = RandomData.string()
-        val style = RandomData.string()
-        every { text.text } returns textValue
-        every { text.style } returns style
-        every { text.alignment } returns null
-
-        // When
-        beagleTextView.setData(text)
-
-        // Then
-        assertEquals(textValue, textValueSlot.captured)
-        verify(exactly = 1) { TextViewCompat.setTextAppearance(beagleTextView, STYLE_RES) }
-    }
-
-    @Test
-    fun setData_with_text_should_not_call_TextViewCompat_setTextAppearance_when_style_is_null() {
-        // Given
-        val text = mockk<Text>()
-        val textValue = RandomData.string()
-        every { text.text } returns textValue
-        every { text.style } returns null
-        every { text.alignment } returns null
-
-        // When
-        beagleTextView.setData(text)
-
-        // Then
-        verify(exactly = 1) { designSystem.textAppearance("") }
-    }
-
-    @Test
-    fun setData_with_text_should_set_alignment_when_is_center() {
-        // Given
-        val text = mockk<Text>()
-        val textValue = RandomData.string()
-        every { text.text } returns textValue
-        every { text.style } returns null
-        every { text.alignment } returns TextAlignment.CENTER
-
-        // When
-        beagleTextView.setData(text)
-
-        // Then
-        assertEquals(Gravity.CENTER, textAlignment.captured)
-    }
-
-    @Test
-    fun setData_with_text_should_set_alignment_when_is_right() {
-        // Given
-        val text = mockk<Text>()
-        val textValue = RandomData.string()
-        every { text.text } returns textValue
-        every { text.style } returns null
-        every { text.alignment } returns TextAlignment.RIGHT
-
-        // When
-        beagleTextView.setData(text)
-
-        // Then
-        assertEquals(Gravity.END, textAlignment.captured)
-    }
-
-    @Test
-    fun setData_with_text_should_set_alignment_when_is_left() {
-        // Given
-        val text = mockk<Text>()
-        val textValue = RandomData.string()
-        every { text.text } returns textValue
-        every { text.style } returns null
-        every { text.alignment } returns TextAlignment.LEFT
-
-        // When
-        beagleTextView.setData(text)
-
-        // Then
-        assertEquals(Gravity.START, textAlignment.captured)
-    }
-
-    @Test
-    fun setData_with_text_should_not_call_TextViewCompat_setTextAppearance_when_designSystem_is_null() {
-        // Given
-        val text = mockk<Text>()
-        val textValue = RandomData.string()
-        every { text.text } returns textValue
-        every { text.style } returns RandomData.string()
-        every { BeagleEnvironment.beagleSdk.designSystem } returns null
-        every { text.alignment } returns null
-
-        // When
-        beagleTextView.setData(text)
-
-        // Then
-        verify(exactly = 0) { TextViewCompat.setTextAppearance(beagleTextView, STYLE_RES) }
     }
 
     @Test

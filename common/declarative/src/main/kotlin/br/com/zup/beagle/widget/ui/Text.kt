@@ -5,6 +5,7 @@ import br.com.zup.beagle.widget.Widget
 data class Text(
     val text: String,
     val style: String? = null,
+    val textColor: String? = null,
     val alignment: TextAlignment? = null
 ) : Widget()
 

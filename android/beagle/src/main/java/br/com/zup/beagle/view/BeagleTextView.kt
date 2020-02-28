@@ -1,13 +1,46 @@
 package br.com.zup.beagle.view
 
 import android.content.Context
+import android.view.Gravity
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.widget.TextViewCompat
 import br.com.zup.beagle.interfaces.OnStateUpdatable
-import br.com.zup.beagle.utils.setData
+import br.com.zup.beagle.setup.BeagleEnvironment
+import br.com.zup.beagle.utils.toAndroidColor
 import br.com.zup.beagle.widget.ui.Text
+import br.com.zup.beagle.widget.ui.TextAlignment
 
 internal class BeagleTextView(context: Context) : AppCompatTextView(context), OnStateUpdatable<Text> {
     override fun onUpdateState(widget: Text) {
-        this.setData(widget)
+        this.setTextWidget(widget)
+    }
+}
+
+internal fun BeagleTextView.setTextWidget(text: Text) {
+    this.text = text.text
+    this.setTextColor(text.textColor)
+    this.setStyle(text.style ?: "")
+    this.setAlignment(text.alignment)
+}
+
+private fun BeagleTextView.setAlignment(alignment: TextAlignment?) {
+    when (alignment) {
+        TextAlignment.CENTER -> this.gravity = Gravity.CENTER
+        TextAlignment.RIGHT -> this.gravity = Gravity.END
+        else -> this.gravity = Gravity.START
+    }
+}
+
+private fun BeagleTextView.setStyle(style: String) {
+    val designSystem = BeagleEnvironment.beagleSdk.designSystem
+    if (designSystem != null) {
+        val styleRes = designSystem.textAppearance(style)
+        TextViewCompat.setTextAppearance(this, styleRes)
+    }
+}
+
+private fun BeagleTextView.setTextColor(color: String?) {
+    color?.let {
+        this.setTextColor(color.toAndroidColor())
     }
 }
