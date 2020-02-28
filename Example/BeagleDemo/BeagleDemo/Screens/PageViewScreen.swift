@@ -20,7 +20,7 @@ struct PageViewScreen: DeeplinkScreen {
             navigationBar: NavigationBar(title: "PageView"),
             content: PageView(
                 pages: Array(repeating: Page(), count: 3).map { $0.content },
-                pageIndicator: nil
+                pageIndicator: DefaultPageIndicator()
             )
         )
     }
@@ -33,6 +33,8 @@ struct Page {
             Text("Text with alignment atribute set to right",alignment: .right),
             Text("Text with alignment atribute set to left",alignment: .left),
             NetworkImage(path: "https://www.petlove.com.br/images/breeds/193436/profile/original/beagle-p.jpg?1532538271"),
-        ])
+        ],
+            flex: Flex(justifyContent: .spaceBetween, grow: 1)
+        )
     }
 }

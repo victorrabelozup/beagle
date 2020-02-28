@@ -77,7 +77,7 @@ class DSCollectionUIComponent: UIView {
 
 extension DSCollectionUIComponent: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        dataSource.cards.count
+        return dataSource.cards.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -90,6 +90,6 @@ extension DSCollectionUIComponent: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: bounds.height / 2, height: bounds.height)
+        return CGSize(width: bounds.height / 2, height: bounds.height)
     }
 }

@@ -24,6 +24,18 @@ struct DSCollection: Widget {
     var flex: Flex?
     var accessibility: Accessibility?
     let dataSource: DSCollectionDataSource
+
+    init(
+        appearance: Appearance? = nil,
+        flex: Flex? = nil,
+        accessibility: Accessibility? = nil,
+        dataSource: DSCollectionDataSource
+    ) {
+        self.appearance = appearance
+        self.flex = flex
+        self.accessibility = accessibility
+        self.dataSource = dataSource
+    }
 }
 
 struct DSCollectionEntity: WidgetEntity {
@@ -40,6 +52,7 @@ struct DSCollectionEntity: WidgetEntity {
 }
 
 extension DSCollection: Renderable {
+
     func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let view = DSCollectionUIComponent(dataSource: dataSource)
         view.flex.setupFlex(flex)

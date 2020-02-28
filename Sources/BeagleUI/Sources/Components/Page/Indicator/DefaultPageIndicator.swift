@@ -5,21 +5,44 @@
 import Foundation
 import UIKit
 
-struct DefaultPageIndicatorEntity: ComponentEntity {
-}
+public struct DefaultPageIndicatorEntity: WidgetEntity {
 
-extension DefaultPageIndicatorEntity: ComponentConvertible {
+    public var flex: FlexEntity?
+    public var appearance: AppearanceEntity?
+    public var accessibility: AccessibilityEntity?
 
-    func mapToComponent() throws -> ServerDrivenComponent {
-        return DefaultPageIndicator()
+    public func mapToComponent() throws -> ServerDrivenComponent {
+        return DefaultPageIndicator(
+            flex: try flex?.mapToUIModel(),
+            appearance: try appearance?.mapToUIModel(),
+            accessibility: try accessibility?.mapToUIModel()
+        )
     }
 }
 
-class DefaultPageIndicator: PageIndicator {}
+public class DefaultPageIndicator: Widget, PageIndicator {
 
-extension DefaultPageIndicator: Renderable {
-    func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
-        return DefaultPageIndicatorUIComponent()
+    public var flex: Flex?
+    public var appearance: Appearance?
+    public var accessibility: Accessibility?
+
+    public init(
+        flex: Flex? = nil,
+        appearance: Appearance? = nil,
+        accessibility: Accessibility? = nil
+    ) {
+        self.flex = flex
+        self.appearance = appearance
+        self.accessibility = accessibility
+    }
+
+    public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
+        let view = DefaultPageIndicatorUIComponent()
+
+        view.flex.setupFlex(flex)
+        view.applyAppearance(appearance)
+        dependencies.accessibility.applyAccessibilityAttributes(accessibility, to: view)
+        return view
     }
 }
 

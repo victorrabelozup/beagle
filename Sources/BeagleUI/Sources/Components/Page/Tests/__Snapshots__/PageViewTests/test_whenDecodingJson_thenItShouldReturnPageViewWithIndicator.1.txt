@@ -1,6 +1,9 @@
 ▿ PageView
   ▿ pageIndicator: Optional<PageIndicator>
-    - some: DefaultPageIndicator
+    ▿ some: DefaultPageIndicator
+      - accessibility: Optional<Accessibility>.none
+      - appearance: Optional<Appearance>.none
+      - flex: Optional<Flex>.none
   ▿ pages: 3 elements
     ▿ Container
       - accessibility: Optional<Accessibility>.none
