@@ -14,7 +14,7 @@ enum class NavigationType {
 
 data class Navigate(
     val type: NavigationType,
-    val shouldPrefetch: Boolean? = false,
+    val shouldPrefetch: Boolean = false,
     val path: String? = null,
     val data: Map<String, String>? = null,
     val screen: Screen? = null

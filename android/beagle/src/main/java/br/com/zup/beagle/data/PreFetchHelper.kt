@@ -9,7 +9,7 @@ import br.com.zup.beagle.utils.generateViewModelInstance
 internal class PreFetchHelper {
 
     fun handlePreFetch(rootView: RootView, action: Action) {
-        if (action is Navigate) {
+        if (action is Navigate && action.shouldPrefetch) {
             when (action.type) {
                 NavigationType.SWAP_VIEW -> preFetch(rootView, action)
                 NavigationType.ADD_VIEW -> preFetch(rootView, action)

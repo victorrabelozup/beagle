@@ -34,8 +34,6 @@ class PreFetchHelperTest {
             PRESENT_VIEW
         )
 
-    private val anyNavigationType = mockk<NavigationType>()
-
     @MockK
     private lateinit var beagleViewModel: BeagleViewModel
 
@@ -57,7 +55,7 @@ class PreFetchHelperTest {
     fun should_call_fetch_for_cache_test() {
         cachedTypes.forEach {
             val url = RandomData.string()
-            helper.handlePreFetch(rootView, Navigate(type = it, path = url))
+            helper.handlePreFetch(rootView, Navigate(type = it, path = url, shouldPrefetch = true))
             verify(exactly = once()) { beagleViewModel.fetchForCache(url) }
         }
     }
