@@ -39,15 +39,12 @@ class ListViewRendererTest {
 
     private lateinit var listViewRenderer: ListViewRenderer
 
-    private val flexSlot = slot<Flex>()
-
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
 
         listViewRenderer = ListViewRenderer(widget, viewFactory)
 
-        every { viewFactory.makeBeagleFlexView(context, capture(flexSlot)) } returns beagleFlexView
         every { beagleFlexView.addView(any()) } just Runs
         every { viewFactory.makeRecyclerView(context) } returns recyclerView
         every { recyclerView.layoutManager = capture(layoutManagerSlot) } just Runs
@@ -62,7 +59,7 @@ class ListViewRendererTest {
     fun build_should_return_a_BeagleFlexView_instance() {
         val view = listViewRenderer.build(rootView)
 
-        assertTrue(view is BeagleFlexView)
+        assertTrue(view is RecyclerView)
     }
 
     @Test
@@ -75,7 +72,6 @@ class ListViewRendererTest {
 
         // Then
         assertEquals(RecyclerView.VERTICAL, layoutManagerSlot.captured.orientation)
-        assertEquals(1.0, flexSlot.captured.grow)
     }
 
     @Test
