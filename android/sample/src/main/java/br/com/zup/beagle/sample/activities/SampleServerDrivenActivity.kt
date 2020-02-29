@@ -30,7 +30,8 @@ class SampleServerDrivenActivity : BeagleActivity() {
         if (state is ServerDrivenState.Loading) {
             progressBar.visibility = if (state.loading) View.VISIBLE else View.GONE
         } else if (state is ServerDrivenState.Error) {
-            Snackbar.make(window.decorView, "Error", Snackbar.LENGTH_LONG).show()
+            progressBar.visibility = View.GONE
+            Snackbar.make(findViewById(android.R.id.content), "Error", Snackbar.LENGTH_LONG).show()
         }
     }
 }

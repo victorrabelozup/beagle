@@ -63,9 +63,10 @@ internal class ScreenViewRenderer(
 
     private fun hideNavigationBar(context: BeagleActivity) {
         context.supportActionBar?.apply {
-            context.getToolbar().visibility = View.GONE
             hide()
         }
+
+        context.getToolbar().visibility = View.GONE
     }
 
     private fun configNavigationBar(
@@ -74,7 +75,7 @@ internal class ScreenViewRenderer(
     ) {
         context.supportActionBar?.apply {
             title = navigationBar.title
-            val showBackButton = navigationBar.showBackButton ?: true
+            val showBackButton = navigationBar.showBackButton
             setDisplayHomeAsUpEnabled(showBackButton)
             setDisplayShowHomeEnabled(showBackButton)
             show()
@@ -83,7 +84,7 @@ internal class ScreenViewRenderer(
         context.getToolbar().apply {
             visibility = View.VISIBLE
             menu.clear()
-            configToolbarStyle(context, this, navigationBar.style ?: "")
+            configToolbarStyle(context, this, navigationBar)
             navigationBar.navigationBarItems?.let { items ->
                 configToolbarItems(context, this, items)
             }
@@ -93,18 +94,23 @@ internal class ScreenViewRenderer(
     private fun configToolbarStyle(
         context: Context,
         toolbar: Toolbar,
-        style: String
+        navigationBar: NavigationBar
     ) {
         val designSystem = BeagleEnvironment.beagleSdk.designSystem
+        val style = navigationBar.style ?: ""
         if (designSystem != null) {
             val toolbarStyle = designSystem.toolbarStyle(style)
             val typedArray = context.obtainStyledAttributes(
                 toolbarStyle,
                 R.styleable.BeagleToolbarStyle
             )
-            toolbar.navigationIcon = typedArray.getDrawable(
-                R.styleable.BeagleToolbarStyle_navigationIcon
-            )
+            if (navigationBar.showBackButton) {
+                typedArray.getDrawable(R.styleable.BeagleToolbarStyle_navigationIcon)?.let {
+                    toolbar.navigationIcon = it
+                }
+            } else {
+                toolbar.navigationIcon = null
+            }
             val textAppearance = typedArray.getResourceId(
                 R.styleable.BeagleToolbarStyle_titleTextAppearance, 0
             )

@@ -246,6 +246,7 @@ class ScreenViewRendererTest {
         every { screenComponent.navigationBar } returns navigationBar
         every { context.supportActionBar } returns actionBar
         every { context.getToolbar() } returns toolbar
+        every { navigationBar.showBackButton } returns true
 
         // When
         screenViewRenderer.build(rootView)
@@ -256,6 +257,24 @@ class ScreenViewRendererTest {
         verify(atLeast = once()) { toolbar.setBackgroundColor(backgroundColorInt) }
         verify(atLeast = once()) { typedArray.recycle() }
         verify(atLeast = once()) { toolbar.visibility = View.VISIBLE }
+    }
+
+    @Test
+    fun build_should_not_set_toolbar_navigationIcon_when_showBackButton_is_false() {
+        // Given
+        every { BeagleEnvironment.beagleSdk.designSystem } returns designSystemMock
+        every { designSystemMock.toolbarStyle(style) } returns styleInt
+        every { navigationBar.style } returns style
+        every { screenComponent.navigationBar } returns navigationBar
+        every { context.supportActionBar } returns actionBar
+        every { context.getToolbar() } returns toolbar
+        every { navigationBar.showBackButton } returns false
+
+        // When
+        screenViewRenderer.build(rootView)
+
+        // Then
+        verify(atLeast = once()) { toolbar.navigationIcon = null }
     }
 
     @Test

@@ -18,7 +18,7 @@ data class NavigationBarItem(
 
 data class NavigationBar(
     val title: String,
-    val showBackButton: Boolean? = null,
+    val showBackButton: Boolean = true,
     val style: String? = null,
     val navigationBarItems: List<NavigationBarItem>? = null
 )
