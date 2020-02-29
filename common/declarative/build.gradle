@@ -8,6 +8,10 @@ dependencies {
 
     implementation project(Modules.beagleCoreDeclarative)
     compileOnly project(Modules.beagleBackendDeclarative)
+
+    testImplementation TestLibraries.junit
+    testImplementation TestLibraries.kotlinTest
+    testImplementation TestLibraries.mockk
 }
 
 apply from: rootProject.file('maven-publish.gradle')
