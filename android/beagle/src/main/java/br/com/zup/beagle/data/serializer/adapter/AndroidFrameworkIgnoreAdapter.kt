@@ -18,7 +18,7 @@ internal class AndroidFrameworkIgnoreAdapterFactory : JsonAdapter.Factory {
         moshi: Moshi
     ): JsonAdapter<*>? {
         return if (isTypeFromAndroid(type)) {
-            AndroidFrameworkIgnoreAdapter(moshi.adapter(type, annotations))
+            AndroidFrameworkIgnoreAdapter()
         } else {
             null
         }
@@ -45,9 +45,7 @@ internal class AndroidFrameworkIgnoreAdapterFactory : JsonAdapter.Factory {
     }
 }
 
-internal class AndroidFrameworkIgnoreAdapter(
-    private val delegate: JsonAdapter<Any>
-) : JsonAdapter<Any>() {
+internal class AndroidFrameworkIgnoreAdapter : JsonAdapter<Any>() {
 
     override fun fromJson(reader: JsonReader): Any? {
         reader.skipValue()
@@ -55,6 +53,6 @@ internal class AndroidFrameworkIgnoreAdapter(
     }
 
     override fun toJson(writer: JsonWriter, value: Any?) {
-        delegate.toJson(writer, null)
+        writer.nullValue()
     }
 }
