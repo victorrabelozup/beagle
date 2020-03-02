@@ -65,10 +65,12 @@ final class BeaglePrefetchHelperTests: XCTestCase {
     func testNavigationIsPrefetchable() {
         let path = "path"
         let data = ["data": "value"]
+        let screen = Container(children: [])
 
         let actions: [Navigate] = [
             .openDeepLink(.init(path: path, data: nil)),
             .openDeepLink(.init(path: path, data: data)),
+            .openDeepLink(.init(path: path, component: screen)),
 
             .addView(.init(path: path, shouldPrefetch: true)),
             .addView(.init(path: path, shouldPrefetch: false)),

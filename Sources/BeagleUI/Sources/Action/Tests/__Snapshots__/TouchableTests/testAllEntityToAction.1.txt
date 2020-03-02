@@ -1,14 +1,14 @@
 openDeepLink-withPath-withData ->
-    openDeepLink(BeagleUI.Navigate.DeepLinkNavigation(path: "path", data: Optional(["data": ""])))
+    openDeepLink(BeagleUI.Navigate.DeepLinkNavigation(path: "path", data: Optional(["data": ""]), component: nil))
 
 openDeepLink-withPath-withData ->
-    openDeepLink(BeagleUI.Navigate.DeepLinkNavigation(path: "path", data: Optional(["data": ""])))
+    openDeepLink(BeagleUI.Navigate.DeepLinkNavigation(path: "path", data: Optional(["data": ""]), component: nil))
 
 openDeepLink-withPath-noData ->
-    openDeepLink(BeagleUI.Navigate.DeepLinkNavigation(path: "path", data: nil))
+    openDeepLink(BeagleUI.Navigate.DeepLinkNavigation(path: "path", data: nil, component: nil))
 
 openDeepLink-withPath-noData ->
-    openDeepLink(BeagleUI.Navigate.DeepLinkNavigation(path: "path", data: nil))
+    openDeepLink(BeagleUI.Navigate.DeepLinkNavigation(path: "path", data: nil, component: nil))
 
 openDeepLink-noPath-withData ->
     ERROR

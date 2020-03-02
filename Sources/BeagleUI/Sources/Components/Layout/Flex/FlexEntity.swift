@@ -22,7 +22,7 @@ public struct FlexEntity: Decodable {
     public var position: EdgeValue?
 }
 
-extension FlexEntity {
+public extension FlexEntity {
     
     public struct Size: Decodable {
         var width: UnitValueEntity?

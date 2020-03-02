@@ -46,12 +46,15 @@ public enum Navigate: Action {
     }
     
     public struct DeepLinkNavigation {
+
         public let path: Path
         public let data: Data?
+        public let component: ServerDrivenComponent?
 
-        public init(path: Path, data: Data? = nil) {
+        public init(path: Path, data: Data? = nil, component: ServerDrivenComponent? = nil) {
             self.path = path
             self.data = data
+            self.component = component
         }
     }
 }

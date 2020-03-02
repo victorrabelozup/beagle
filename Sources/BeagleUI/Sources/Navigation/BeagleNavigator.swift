@@ -28,7 +28,11 @@ class BeagleNavigator: BeagleNavigation {
         let source = context.screenController
         switch action {
         case .openDeepLink(let deepLink):
-            openDeepLink(path: deepLink.path, source: source, data: deepLink.data, animated: animated)
+            if let component = deepLink.component {
+                openDeepLink(component: component, source: source, data: deepLink.data, animated: animated)
+            } else {
+                openDeepLink(path: deepLink.path, source: source, data: deepLink.data, animated: animated)
+            }
 
         case .swapScreen(let screen):
             swapTo(viewController(screen: screen), context: context, animated: animated)
@@ -70,6 +74,12 @@ class BeagleNavigator: BeagleNavigation {
         } catch {
             return
         }
+    }
+
+    private func openDeepLink(component: ServerDrivenComponent, source: UIViewController, data: [String: String]?, animated: Bool) {
+        let viewController = BeagleScreenViewController(viewModel: .init(screenType: .declarative(Screen(content: component))))
+        let navigationToPresent = UINavigationController(rootViewController: viewController)
+        source.navigationController?.present(navigationToPresent, animated: animated, completion: nil)
     }
     
     private func finishView(source: UIViewController, animated: Bool) {

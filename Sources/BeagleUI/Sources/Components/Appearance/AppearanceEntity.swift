@@ -5,8 +5,8 @@
 import Foundation
 
 public struct AppearanceEntity: Decodable {
-    let backgroundColor: String?
-    let cornerRadius: CornerRadius?
+    public let backgroundColor: String?
+    public let cornerRadius: CornerRadius?
 }
 
 extension AppearanceEntity: UIModelConvertible {
