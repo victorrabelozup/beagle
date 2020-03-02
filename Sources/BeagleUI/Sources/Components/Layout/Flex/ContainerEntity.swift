@@ -5,17 +5,21 @@
 struct ContainerEntity: WidgetEntity {
 
     var children: [AnyDecodableContainer] = []
+    
+    var id: String?
     var flex: FlexEntity?
     var appearance: AppearanceEntity?
     let accessibility: AccessibilityEntity?
     
     init(
         children: [AnyDecodableContainer] = [],
+        id: String? = nil,
         flex: FlexEntity? = nil,
         appearance: AppearanceEntity? = nil,
         accessibility: AccessibilityEntity? = nil
     ) {
         self.children = children
+        self.id = id
         self.flex = flex
         self.appearance = appearance
         self.accessibility = accessibility
@@ -31,6 +35,7 @@ struct ContainerEntity: WidgetEntity {
         
         return Container(
             children: children,
+            id: id,
             flex: flex,
             appearance: appearance,
             accessibility: accessibility

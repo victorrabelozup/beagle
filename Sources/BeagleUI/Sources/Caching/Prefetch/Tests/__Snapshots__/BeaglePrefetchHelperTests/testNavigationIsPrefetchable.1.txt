@@ -2,7 +2,7 @@
 
   openDeepLink(BeagleUI.Navigate.DeepLinkNavigation(path: "path", data: Optional(["data": "value"]), component: nil))  -->  NULL 
 
-  openDeepLink(BeagleUI.Navigate.DeepLinkNavigation(path: "path", data: nil, component: Optional(BeagleUI.Container(children: [], flex: nil, appearance: nil, accessibility: nil))))  -->  NULL 
+  openDeepLink(BeagleUI.Navigate.DeepLinkNavigation(path: "path", data: nil, component: Optional(BeagleUI.Container(children: [], id: nil, flex: nil, appearance: nil, accessibility: nil))))  -->  NULL 
 
   addView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true, fallback: nil))  -->  NewPath(path: "path", shouldPrefetch: true, fallback: nil) 
 

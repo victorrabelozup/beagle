@@ -11,6 +11,8 @@
 		5754314923F207F000EF0E5A /* CacheLRU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5754314823F207F000EF0E5A /* CacheLRU.swift */; };
 		5754314B23F2080B00EF0E5A /* DoublyLinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5754314A23F2080B00EF0E5A /* DoublyLinkedList.swift */; };
 		5754315023F2108400EF0E5A /* LRUCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5754314F23F2108400EF0E5A /* LRUCacheTests.swift */; };
+		7C43976F240D7A0C00442965 /* IdentifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C43976D240D79D800442965 /* IdentifierTests.swift */; };
+		7CA1AE8A2409DC0A003EDDCE /* UIView+Id.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA1AE892409DC0A003EDDCE /* UIView+Id.swift */; };
 		9317CBB523872E170015B4CB /* ComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9317CBB423872E170015B4CB /* ComponentEntity.swift */; };
 		931B6E302375BA7400DE73FD /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931B6E2F2375BA7400DE73FD /* Theme.swift */; };
 		931B6E32237610B300DE73FD /* FunctiontalUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931B6E31237610B300DE73FD /* FunctiontalUtils.swift */; };
@@ -240,6 +242,8 @@
 		5754314823F207F000EF0E5A /* CacheLRU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheLRU.swift; sourceTree = "<group>"; };
 		5754314A23F2080B00EF0E5A /* DoublyLinkedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoublyLinkedList.swift; sourceTree = "<group>"; };
 		5754314F23F2108400EF0E5A /* LRUCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRUCacheTests.swift; sourceTree = "<group>"; };
+		7C43976D240D79D800442965 /* IdentifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifierTests.swift; sourceTree = "<group>"; };
+		7CA1AE892409DC0A003EDDCE /* UIView+Id.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Id.swift"; sourceTree = "<group>"; };
 		9317CBB423872E170015B4CB /* ComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentEntity.swift; sourceTree = "<group>"; };
 		931B6E2F2375BA7400DE73FD /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		931B6E31237610B300DE73FD /* FunctiontalUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctiontalUtils.swift; sourceTree = "<group>"; };
@@ -506,6 +510,23 @@
 				5754314F23F2108400EF0E5A /* LRUCacheTests.swift */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		7C43976C240D79BF00442965 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				7C43976D240D79D800442965 /* IdentifierTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		7CA1AE882409DBF5003EDDCE /* Id */ = {
+			isa = PBXGroup;
+			children = (
+				7C43976C240D79BF00442965 /* Tests */,
+				7CA1AE892409DC0A003EDDCE /* UIView+Id.swift */,
+			);
+			path = Id;
 			sourceTree = "<group>";
 		};
 		931B6E0C2374A9BB00DE73FD /* Theme */ = {
@@ -1131,6 +1152,7 @@
 		C87622D823903FD1006F1361 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				7CA1AE882409DBF5003EDDCE /* Id */,
 				E5CE41BA2331DFF100295277 /* ComponentConvertible.swift */,
 				9317CBB423872E170015B4CB /* ComponentEntity.swift */,
 				E5223777237C3C5500E555BB /* ServerDrivenComponent.swift */,
@@ -1554,6 +1576,7 @@
 				5754314923F207F000EF0E5A /* CacheLRU.swift in Sources */,
 				A0F4548B23798E7C00B146A1 /* NavigateEntity.swift in Sources */,
 				A0451C6123BA3AC300F77398 /* Appearance.swift in Sources */,
+				7CA1AE8A2409DC0A003EDDCE /* UIView+Id.swift in Sources */,
 				E7DA3EE023872426000F065E /* PageViewEntity.swift in Sources */,
 				E73107BC23A971B000188B3D /* BeaglePrefetchHelper.swift in Sources */,
 				C831ADF82385A282009D72D9 /* PageView.swift in Sources */,
@@ -1660,6 +1683,7 @@
 				C829CF1423B19729001B7225 /* ThemeTests.swift in Sources */,
 				E5A7763F237DA1F3002F5515 /* FormTests.swift in Sources */,
 				93ADB87923FAD31D005B7CD2 /* ComposeComponentTests.swift in Sources */,
+				7C43976F240D7A0C00442965 /* IdentifierTests.swift in Sources */,
 				C86F894F23B28FCE00287D5D /* NetworkImageEntityTests.swift in Sources */,
 				C829CEFE23B19557001B7225 /* ScrollViewEntityTests.swift in Sources */,
 				93932F4C23E1CF1800F41905 /* NetworkImageTests.swift in Sources */,

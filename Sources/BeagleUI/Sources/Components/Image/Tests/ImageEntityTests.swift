@@ -9,7 +9,7 @@ final class ImageEntityTests: XCTestCase {
 
     func test_whenMapToComponentIsCalled_thenItShouldReturnAImage() {
         // Given
-        let sut = ImageEntity(name: "Beagle", contentMode: .fitXY, accessibility: nil, appearance: nil, flex: nil)
+        let sut = ImageEntity(name: "Beagle", contentMode: .fitXY, id: nil, accessibility: nil, appearance: nil, flex: nil)
         
         // When
         let image = try? sut.mapToComponent()

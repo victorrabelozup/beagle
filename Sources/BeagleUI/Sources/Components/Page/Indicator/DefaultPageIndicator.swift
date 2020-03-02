@@ -6,7 +6,8 @@ import Foundation
 import UIKit
 
 public struct DefaultPageIndicatorEntity: WidgetEntity {
-
+    
+    public var id: String?
     public var flex: FlexEntity?
     public var appearance: AppearanceEntity?
     public var accessibility: AccessibilityEntity?
@@ -21,16 +22,19 @@ public struct DefaultPageIndicatorEntity: WidgetEntity {
 }
 
 public class DefaultPageIndicator: Widget, PageIndicator {
-
+    
+    public var id: String?
     public var flex: Flex?
     public var appearance: Appearance?
     public var accessibility: Accessibility?
 
     public init(
+        id: String? = nil,
         flex: Flex? = nil,
         appearance: Appearance? = nil,
         accessibility: Accessibility? = nil
     ) {
+        self.id = id
         self.flex = flex
         self.appearance = appearance
         self.accessibility = accessibility
@@ -40,6 +44,7 @@ public class DefaultPageIndicator: Widget, PageIndicator {
         let view = DefaultPageIndicatorUIComponent()
 
         view.flex.setupFlex(flex)
+        view.applyAccessibilityIdentifier(id)
         view.applyAppearance(appearance)
         dependencies.accessibility.applyAccessibilityAttributes(accessibility, to: view)
         return view

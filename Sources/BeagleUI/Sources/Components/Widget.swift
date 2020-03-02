@@ -14,4 +14,8 @@ public protocol AccessibilityComponent: ServerDrivenComponent {
     var accessibility: Accessibility? { get }
 }
 
-public protocol Widget: AppearanceComponent, FlexComponent, AccessibilityComponent {}
+public protocol IdentifiableComponent: ServerDrivenComponent {
+    var id: String? { get }
+}
+
+public protocol Widget: AppearanceComponent, FlexComponent, AccessibilityComponent, IdentifiableComponent { }

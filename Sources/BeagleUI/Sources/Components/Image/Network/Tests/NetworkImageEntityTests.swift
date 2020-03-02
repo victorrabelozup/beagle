@@ -13,7 +13,8 @@ final class NetworkImageEntityTests: XCTestCase {
 
     func test_whenMapToComponentIsCalled_thenItShouldReturnANetworkImage() {
         // Given
-        let sut = NetworkImageEntity(path: "https://teste.com", contentMode: .center, appearance: nil)
+        //let sut = NetworkImageEntity()
+        let sut = NetworkImageEntity(id: nil, path: "https://teste.com", contentMode: ImageEntityContentMode.center, appearance: nil, flex: nil, accessibility: nil)
         
         // When
         let networkImage = try? sut.mapToComponent()

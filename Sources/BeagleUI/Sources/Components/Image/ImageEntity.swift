@@ -6,6 +6,7 @@ struct ImageEntity: WidgetEntity {
     let name: String
     let contentMode: ImageEntityContentMode?
     
+    var id: String?
     let accessibility: AccessibilityEntity?
     var appearance: AppearanceEntity?
     var flex: FlexEntity?
@@ -15,6 +16,6 @@ struct ImageEntity: WidgetEntity {
         let appearance = try self.appearance?.mapToUIModel()
         let accessibility = try self.accessibility?.mapToUIModel()
         let flex = try self.flex?.mapToUIModel()
-        return Image(name: name, contentMode: contentMode, appearance: appearance, flex: flex, accessibility: accessibility)
+        return Image(name: name, contentMode: contentMode, id: id, appearance: appearance, flex: flex, accessibility: accessibility)
     }
 }

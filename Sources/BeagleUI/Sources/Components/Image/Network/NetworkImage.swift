@@ -9,6 +9,7 @@ public struct NetworkImage: Widget {
     public let path: String
     public let contentMode: ImageContentMode?
     
+    public var id: String?
     public let appearance: Appearance?
     public let flex: Flex?
     public let accessibility: Accessibility?
@@ -18,12 +19,14 @@ public struct NetworkImage: Widget {
     public init(
         path: String,
         contentMode: ImageContentMode? = nil,
+        id: String? = nil,
         appearance: Appearance? = nil,
         flex: Flex? = nil,
         accessibility: Accessibility? = nil
     ) {
         self.path = path
         self.contentMode = contentMode
+        self.id = id
         self.appearance = appearance
         self.flex = flex
         self.accessibility = accessibility
@@ -37,6 +40,7 @@ extension NetworkImage: Renderable {
         imageView.clipsToBounds = true
         imageView.contentMode = (contentMode ?? .fitCenter).toUIKit()
         imageView.applyAppearance(appearance)
+        imageView.applyAccessibilityIdentifier(id)
         imageView.flex.setupFlex(flex)
         
         dependencies.network.fetchImage(url: path) { [weak imageView, weak context] result in

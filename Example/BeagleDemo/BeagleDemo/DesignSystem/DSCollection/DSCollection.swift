@@ -20,6 +20,8 @@ struct DSCollectionDataSource : Decodable{
 }
 
 struct DSCollection: Widget {
+    var id: String?
+    
     var appearance: Appearance?
     var flex: Flex?
     var accessibility: Accessibility?

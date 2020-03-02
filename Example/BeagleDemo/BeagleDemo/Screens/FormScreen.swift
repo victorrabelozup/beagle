@@ -29,6 +29,7 @@ struct FormScreen: DeeplinkScreen {
                     FormInput(
                         name: "optional-field",
                         child: DemoTextField(
+                            id: nil,
                             placeholder: "Optional field",
                             appearance: nil,
                             flex: flexHorizontalMargin,
@@ -40,6 +41,7 @@ struct FormScreen: DeeplinkScreen {
                         required: true,
                         validator: FormScreen.textValidatorName,
                         child: DemoTextField(
+                            id: nil,
                             placeholder: "Required field",
                             appearance: nil,
                             flex: flexHorizontalMargin,
@@ -51,6 +53,7 @@ struct FormScreen: DeeplinkScreen {
                         required: true,
                         validator: FormScreen.textValidatorName,
                         child: DemoTextField(
+                            id: nil,
                             placeholder: "Another required field",
                             appearance: nil,
                             flex: flexHorizontalMargin,
@@ -77,6 +80,8 @@ struct FormScreen: DeeplinkScreen {
 }
 
 struct DemoTextField: Widget {
+    var id: String?
+    
     
     var placeholder: String
     

@@ -7,6 +7,7 @@ struct ButtonEntity: WidgetEntity {
     let text: String
     var style: String?
     let action: AnyDecodableContainer?
+    var id: String?
     var appearance: AppearanceEntity?
     var flex: FlexEntity?
     let accessibility: AccessibilityEntity?
@@ -15,12 +16,14 @@ struct ButtonEntity: WidgetEntity {
         text: String,
         style: String? = nil,
         appearance: AppearanceEntity? = nil,
+        id: String? = nil,
         flex: FlexEntity? = nil,
         accessibility: AccessibilityEntity? = nil,
         action: AnyDecodableContainer? = nil
     ) {
         self.text = text
         self.style = style
+        self.id = id
         self.appearance = appearance
         self.flex = flex
         self.accessibility = accessibility
@@ -35,6 +38,6 @@ struct ButtonEntity: WidgetEntity {
         let accessibility = try self.accessibility?.mapToUIModel()
         let action = try actionEntity?.mapToAction()
         
-        return Button(text: text, style: style, action: action, appearance: appearance, flex: flex, accessibility: accessibility)
+        return Button(text: text, style: style, action: action, id: id, appearance: appearance, flex: flex, accessibility: accessibility)
     }
 }

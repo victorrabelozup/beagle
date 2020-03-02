@@ -5,7 +5,7 @@
 import XCTest
 import BeagleUI
 
-final class ComposeComponentTests: XCTestCase {
+final class ComposeComponentTests: XCTestCase { 
 
     private let imageSize = CGSize(width: 300, height: 200)
 
