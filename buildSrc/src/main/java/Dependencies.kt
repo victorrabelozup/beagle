@@ -45,7 +45,7 @@ object Versions {
 
     const val beagle = "0.0.34"
 
-    const val glide = "4.9.0"
+    const val glide = "4.11.0"
 
     const val junit = "4.12"
 

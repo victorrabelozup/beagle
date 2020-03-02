@@ -1,20 +1,26 @@
 package br.com.zup.beagle.engine.renderer.ui
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import br.com.zup.beagle.engine.mapper.ViewMapper
 import br.com.zup.beagle.engine.renderer.RootView
+import br.com.zup.beagle.ext.unitReal
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.setup.BeagleEnvironment
+import br.com.zup.beagle.utils.ComponentStylization
+import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.BeagleImageView
 import br.com.zup.beagle.view.ViewFactory
+import br.com.zup.beagle.widget.core.Flex
+import br.com.zup.beagle.widget.core.Size
 import br.com.zup.beagle.widget.ui.NetworkImage
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.RequestManager
-import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.CustomTarget
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
@@ -49,36 +55,51 @@ class NetworkImageViewRendererTest {
     @MockK
     private lateinit var requestManager: RequestManager
     @MockK
-    private lateinit var requestBuilder: RequestBuilder<Drawable>
+    private lateinit var requestBuilder: RequestBuilder<Bitmap>
+    @MockK
+    private lateinit var requestBuilderDrawable: RequestBuilder<Drawable>
     @MockK
     private lateinit var rootView: RootView
+    @RelaxedMockK
+    private lateinit var networkImage: NetworkImage
+    @RelaxedMockK
+    private lateinit var beagleFlexView: BeagleFlexView
+    @MockK
+    private lateinit var bitmap: Bitmap
+    @MockK
+    private lateinit var componentStylization: ComponentStylization<NetworkImage>
 
     private val scaleType = ImageView.ScaleType.FIT_CENTER
-    private val networkImage = NetworkImage(DEFAULT_URL)
+    private val flex = Flex(size = Size(width = 100.unitReal(), height = 100.unitReal()))
 
     @InjectMockKs
     private lateinit var networkImageViewRenderer: NetworkImageViewRenderer
 
-    private val onRequestListenerSlot = slot<RequestListener<Drawable>>()
+    private val onRequestListenerSlot = slot<CustomTarget<Bitmap>>()
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
 
-
         mockkObject(BeagleEnvironment)
         mockkStatic(Glide::class)
 
         every { Glide.with(any<View>()) } returns requestManager
+        every { requestManager.asBitmap() } returns requestBuilder
+        every { requestBuilder.load(any<String>()) } returns requestBuilder
+        every { requestManager.load(any<String>()) } returns requestBuilderDrawable
+        every { requestBuilderDrawable.into(any()) } returns mockk()
+        every { requestBuilder.into(capture(onRequestListenerSlot)) } returns mockk()
         every { BeagleEnvironment.beagleSdk.designSystem } returns mockk()
-        every { requestManager.load(any<String>()) } returns requestBuilder
-        every { requestBuilder.into(any()) } returns mockk()
-        every { requestBuilder.listener(capture(onRequestListenerSlot)) } returns requestBuilder
+        every { rootView.getContext() } returns context
+        every { context.applicationContext } returns mockk()
         every { viewFactory.makeImageView(context) } returns imageView
+        every { viewFactory.makeBeagleFlexView(context) } returns beagleFlexView
         every { viewMapper.toScaleType(any()) } returns scaleType
         every { imageView.scaleType = any() } just Runs
-        every { rootView.getContext() } returns context
-
+        every { networkImage.path } returns DEFAULT_URL
+        every { networkImage.flex } returns flex
+        every { componentStylization.apply(any(), any()) } just Runs
     }
 
     @After
@@ -106,20 +127,43 @@ class NetworkImageViewRendererTest {
 
         verify(exactly = once()) { Glide.with(imageView) }
         verify(exactly = once()) { requestManager.load(DEFAULT_URL) }
-        verify(exactly = once()) { requestBuilder.into(imageView) }
+        verify(exactly = once()) { requestBuilderDrawable.into(imageView) }
     }
 
     @Test
-    fun build_should_call_request_layout() {
+    fun build_should_call_makeBeagleFlexView_when_component_has_not_flex() {
+        // Given
+        every { networkImage.flex } returns null
+
+        // When
+        val view = networkImageViewRenderer.build(rootView)
+
+        // Then
+        assertTrue(view is BeagleFlexView)
+        verify(exactly = once()) { viewFactory.makeBeagleFlexView(context) }
+        verify(exactly = once()) { beagleFlexView.addView(any(), any<Flex>()) }
+    }
+
+    @Test
+    fun build_should_call_setImageBitmap_reloadNetworkImageView_when_component_has_not_flex() {
+        // Given
+        val width = 100
+        val height = 100
+        every { networkImage.flex } returns null
+        every { bitmap.width } returns width
+        every { bitmap.height } returns height
+
         // When
         callBuildAndRequest()
 
         // Then
-        verify(exactly = once()) { imageView.requestLayout() }
+        verify(exactly = once()) { imageView.setImageBitmap(bitmap) }
+        verify(exactly = once()) { beagleFlexView.reloadNetworkImageView(imageView, width, height) }
+        verify(exactly = once()) { componentStylization.apply(imageView, networkImage) }
     }
 
     private fun callBuildAndRequest() {
         networkImageViewRenderer.build(rootView)
-        onRequestListenerSlot.captured.onResourceReady(mockk(), mockk(), mockk(), mockk(), false)
+        onRequestListenerSlot.captured.onResourceReady(bitmap, mockk())
     }
 }

@@ -182,6 +182,13 @@ public class YogaLayout extends ViewGroup {
         invalidate();
     }
 
+    public void reloadNetworkImageView(View view, int width, int height) {
+        if (mYogaNodes.containsKey(view)) {
+            mYogaNodes.get(view).setWidth(width);
+            mYogaNodes.get(view).setHeight(height);
+        }
+    }
+
     private void removeViewFromYogaTree(View view, boolean inLayout) {
         final YogaNode node = mYogaNodes.get(view);
         if (node == null) {
@@ -300,7 +307,7 @@ public class YogaLayout extends ViewGroup {
     /**
      * Wrapper around measure function for yoga leaves.
      */
-    private class ViewMeasureFunction implements YogaMeasureFunction {
+    private static class ViewMeasureFunction implements YogaMeasureFunction {
 
         /**
          * A function to measure leaves of the Yoga tree.  Yoga needs some way to know how large

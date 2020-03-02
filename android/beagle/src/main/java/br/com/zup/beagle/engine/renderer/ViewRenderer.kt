@@ -2,35 +2,21 @@ package br.com.zup.beagle.engine.renderer
 
 import android.view.View
 import br.com.zup.beagle.core.ServerDrivenComponent
-import br.com.zup.beagle.utils.AccessibilitySetup
-import br.com.zup.beagle.utils.applyAppearance
-import br.com.zup.beagle.utils.toAndroidId
+import br.com.zup.beagle.utils.ComponentStylization
 import br.com.zup.beagle.view.ViewFactory
-import br.com.zup.beagle.widget.Widget
 
 internal abstract class ViewRenderer<T : ServerDrivenComponent>(
-    private val accessibilitySetup: AccessibilitySetup = AccessibilitySetup()
+    private val componentStylization: ComponentStylization<T> = ComponentStylization()
 ) {
     abstract val component: T
 
     fun build(rootView: RootView): View {
         val builtView = buildView(rootView)
-        afterBuildView(builtView, component)
+        componentStylization.apply(builtView, component)
         return builtView
     }
 
     abstract fun buildView(rootView: RootView): View
-
-    private fun afterBuildView(
-        view: View,
-        widget: T
-    ) {
-        view.applyAppearance(widget)
-        (widget as? Widget)?.id?.let {
-            view.id = it.toAndroidId()
-        }
-        accessibilitySetup.applyAccessibility(view, widget)
-    }
 }
 
 internal abstract class LayoutViewRenderer<T : ServerDrivenComponent>(
