@@ -233,3 +233,9 @@ fun makeFormJson() = """
         "child": ${makeButtonJson()}
     }
 """
+
+fun makeUndefinedComponentJson() = """
+    {
+        "_beagleType_": "custom:component:new"
+    }
+"""

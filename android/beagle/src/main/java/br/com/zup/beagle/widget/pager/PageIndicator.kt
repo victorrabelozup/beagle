@@ -10,8 +10,9 @@ data class PageIndicator(
     val unselectedColor: String
 ) : PageIndicatorWidget {
 
+    @Transient
     private var viewFactory: ViewFactory = ViewFactory()
-
+    @Transient
     private lateinit var pageIndicator: BeaglePageIndicatorView
 
     internal constructor(

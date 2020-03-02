@@ -13,6 +13,7 @@ data class CustomPageIndicator(
     val showSkip: Boolean
 ) : PageIndicatorWidget {
 
+    @Transient
     private lateinit var customPageIndicatorView: CustomPageIndicatorView
     @Transient
     private lateinit var output: PageIndicatorOutput

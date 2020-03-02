@@ -84,6 +84,7 @@ internal object ComponentJsonAdapterFactory {
             .withSubtype(PageIndicator::class.java, createNamespaceFor<PageIndicator>())
             .withSubtype(FormInput::class.java, createNamespaceFor<FormInput>())
             .withSubtype(FormSubmit::class.java, createNamespaceFor<FormSubmit>())
+            .withSubtype(UndefinedWidget::class.java, createNamespaceFor<UndefinedWidget>())
     }
 
     private fun registerCustomWidget(
