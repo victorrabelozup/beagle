@@ -3,6 +3,7 @@ package br.com.zup.beagle.engine.renderer.ui
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
@@ -41,7 +42,7 @@ class ListViewRecyclerAdapterTest {
     fun setUp() {
         MockKAnnotations.init(this)
 
-        listViewRecyclerAdapter = ListViewRecyclerAdapter(rootView, ROWS, viewFactory)
+        listViewRecyclerAdapter = ListViewRecyclerAdapter(rootView, ROWS, viewFactory, RecyclerView.VERTICAL)
 
         every { viewFactory.makeBeagleFlexView(any()) } returns view
         every { rootView.getContext() } returns context

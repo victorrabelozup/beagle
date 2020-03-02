@@ -13,6 +13,7 @@ class AppDesignSystem : DesignSystem {
         return when (name) {
             "delete" -> android.R.drawable.ic_delete
             "TestImage" -> android.R.drawable.editbox_dropdown_dark_frame
+            "beagle" -> R.drawable.beagle
             else -> android.R.drawable.ic_menu_help
         }
     }

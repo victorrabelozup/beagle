@@ -18,8 +18,9 @@ internal class ListViewRenderer(
 
     override fun buildView(rootView: RootView): View {
         return viewFactory.makeRecyclerView(rootView.getContext()).apply {
-            layoutManager = LinearLayoutManager(context, toRecyclerViewOrientation(), false)
-            adapter = ListViewRecyclerAdapter(rootView, component.rows, viewFactory)
+            val orientation = toRecyclerViewOrientation()
+            layoutManager = LinearLayoutManager(context, orientation, false)
+            adapter = ListViewRecyclerAdapter(rootView, component.rows, viewFactory, orientation)
         }
     }
 
@@ -33,23 +34,27 @@ internal class ListViewRenderer(
 internal class ListViewRecyclerAdapter(
     private val rootView: RootView,
     private val rows: List<ServerDrivenComponent>,
-    private val viewFactory: ViewFactory
+    private val viewFactory: ViewFactory,
+    private val orientation: Int
 ) : RecyclerView.Adapter<ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int = position
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ViewHolder {
         val view = viewFactory.makeBeagleFlexView(rootView.getContext()).also {
-            it.layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
+            val width = if (orientation == RecyclerView.VERTICAL)
+                ViewGroup.LayoutParams.MATCH_PARENT else
                 ViewGroup.LayoutParams.WRAP_CONTENT
-            )
+            val layoutParams = ViewGroup.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT)
+            it.layoutParams = layoutParams
             it.addServerDrivenComponent(rows[position], rootView)
         }
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {}
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+    }
 
     override fun getItemCount(): Int = rows.size
 }
