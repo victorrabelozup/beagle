@@ -5,8 +5,10 @@ import android.view.View
 import br.com.zup.beagle.action.ActionExecutor
 import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.NavigationType
+import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.data.PreFetchHelper
 import br.com.zup.beagle.engine.renderer.RootView
+import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
@@ -34,6 +36,8 @@ class TouchableViewRendererTest {
     @MockK
     private lateinit var viewRendererFactory: ViewRendererFactory
     @RelaxedMockK
+    private lateinit var component: ServerDrivenComponent
+    @RelaxedMockK
     private lateinit var viewFactory: ViewFactory
     @MockK
     private lateinit var context: Context
@@ -43,7 +47,8 @@ class TouchableViewRendererTest {
     private lateinit var rootView: RootView
     @RelaxedMockK
     private lateinit var actionExecutor: ActionExecutor
-
+    @RelaxedMockK
+    private lateinit var viewRenderer: ViewRenderer<ServerDrivenComponent>
     @RelaxedMockK
     private lateinit var preFetchHelper: PreFetchHelper
 
@@ -57,6 +62,8 @@ class TouchableViewRendererTest {
         MockKAnnotations.init(this, relaxUnitFun = true)
         every { rootView.getContext() } returns context
         every { viewFactory.makeBeagleFlexView(any()) } returns view
+        every { viewRendererFactory.make(any()) } returns viewRenderer
+        every { viewRenderer.build(any()) } returns view
         every { view.setOnClickListener(capture(onClickListenerSlot)) } just Runs
         every { view.context } returns context
     }
