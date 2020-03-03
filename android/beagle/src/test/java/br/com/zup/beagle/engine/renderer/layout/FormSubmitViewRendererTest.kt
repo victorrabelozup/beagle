@@ -5,7 +5,6 @@ import android.view.View
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.extensions.once
-import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.form.FormSubmit
 import br.com.zup.beagle.widget.form.InputWidget
@@ -14,7 +13,6 @@ import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.verify
 import org.junit.Assert.assertEquals
@@ -45,7 +43,7 @@ class FormSubmitViewRendererTest {
     fun setUp() {
         MockKAnnotations.init(this)
 
-        every { viewRendererFactory.make(any()).buildView(any()) } returns view
+        every { viewRendererFactory.make(any()).build(any()) } returns view
         every { rootView.getContext() } returns context
         every { formSubmit.child } returns inputWidget
         every { view.tag = any() } just Runs

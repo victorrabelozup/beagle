@@ -43,7 +43,7 @@ class FormInputViewRendererTest {
     fun setUp() {
         MockKAnnotations.init(this)
 
-        every { viewRendererFactory.make(any()).buildView(any()) } returns view
+        every { viewRendererFactory.make(any()).build(any()) } returns view
         every { rootView.getContext() } returns context
         every { view.tag = any() } just Runs
         every { formInput.child } returns inputWidget

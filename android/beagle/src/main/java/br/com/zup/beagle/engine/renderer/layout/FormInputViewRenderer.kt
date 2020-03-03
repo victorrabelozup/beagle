@@ -14,7 +14,7 @@ internal class FormInputViewRenderer(
 ) : LayoutViewRenderer<FormInput>(viewRendererFactory, viewFactory) {
 
     override fun buildView(rootView: RootView): View {
-        return viewRendererFactory.make(component).buildView(rootView).apply {
+        return viewRendererFactory.make(component.child).build(rootView).apply {
             tag = component
         }
     }
