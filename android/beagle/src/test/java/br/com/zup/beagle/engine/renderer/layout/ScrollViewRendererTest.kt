@@ -25,6 +25,7 @@ import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class ScrollViewRendererTest {
 
@@ -77,7 +78,7 @@ class ScrollViewRendererTest {
         every { scrollView.isVerticalScrollBarEnabled = capture(scrollBarEnabled) } just Runs
 
         // When
-        scrollViewRenderer.build(rootView)
+        val view = scrollViewRenderer.build(rootView)
 
         // Then
         verify(exactly = once()) { viewFactory.makeScrollView(context) }
@@ -85,6 +86,7 @@ class ScrollViewRendererTest {
         verify(exactly = once()) { scrollView.addView(beagleFlexView) }
         assertEquals(true, scrollBarEnabled.captured)
         assertEquals(FlexDirection.COLUMN, flex.captured.flexDirection)
+        assertTrue(view is BeagleFlexView)
     }
 
     @Test

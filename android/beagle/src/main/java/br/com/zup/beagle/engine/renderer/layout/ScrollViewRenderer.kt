@@ -28,18 +28,21 @@ internal class ScrollViewRenderer(
             FlexDirection.ROW
         }
 
-        val flex = Flex(flexDirection = flexDirection)
+        val flexChild = Flex(flexDirection = flexDirection)
+        val flexParent = Flex(grow = 1.0)
 
-        return if (scrollDirection == ScrollAxis.HORIZONTAL) {
-            viewFactory.makeHorizontalScrollView(rootView.getContext()).apply {
-                isHorizontalScrollBarEnabled = scrollBarEnabled
-                addChildrenViews(this, component.children, rootView, flex)
-            }
-        } else {
-            viewFactory.makeScrollView(rootView.getContext()).apply {
-                isVerticalScrollBarEnabled = scrollBarEnabled
-                addChildrenViews(this, component.children, rootView, flex)
-            }
+        return viewFactory.makeBeagleFlexView(rootView.getContext(), flexParent).apply {
+            addView(if (scrollDirection == ScrollAxis.HORIZONTAL) {
+                viewFactory.makeHorizontalScrollView(rootView.getContext()).apply {
+                    isHorizontalScrollBarEnabled = scrollBarEnabled
+                    addChildrenViews(this, component.children, rootView, flexChild)
+                }
+            } else {
+                viewFactory.makeScrollView(rootView.getContext()).apply {
+                    isVerticalScrollBarEnabled = scrollBarEnabled
+                    addChildrenViews(this, component.children, rootView, flexChild)
+                }
+            }, flexParent)
         }
     }
 
@@ -47,9 +50,9 @@ internal class ScrollViewRenderer(
         scrollView: ViewGroup,
         children: List<ServerDrivenComponent>,
         rootView: RootView,
-        flex: Flex
+        flexChild: Flex
     ) {
-        val viewGroup = viewFactory.makeBeagleFlexView(rootView.getContext(), flex)
+        val viewGroup = viewFactory.makeBeagleFlexView(rootView.getContext(), flexChild)
         children.forEach { component ->
             viewGroup.addServerDrivenComponent(component, rootView)
         }
