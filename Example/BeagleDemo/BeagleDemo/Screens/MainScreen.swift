@@ -30,6 +30,10 @@ struct MainScreen: DeeplinkScreen {
                     action: Navigate.openDeepLink(.init(path: "tabview"))
                 ),
                 Button(
+                    text: "List View",
+                    action: Navigate.openDeepLink(.init(path: "listview"))
+                ),
+                Button(
                     text: "Form",
                     action: Navigate.openDeepLink(.init(path: "form"))
                 ),

@@ -9,58 +9,22 @@ public struct ListView: ServerDrivenComponent {
     // MARK: - Public Properties
     
     public let rows: [ServerDrivenComponent]?
-    public let remoteDataSource: String?
-    public let loadingState: ServerDrivenComponent?
     public let direction: Direction
     
     // MARK: - Initialization
     
     public init(
         rows: [ServerDrivenComponent]? = nil,
-        remoteDataSource: String? = nil,
-        loadingState: ServerDrivenComponent? = nil,
         direction: Direction = .vertical
     ) {
         self.rows = rows
-        self.remoteDataSource = remoteDataSource
-        self.loadingState = loadingState
         self.direction = direction
-    }
-    
-    // MARK: - Configuration
-    
-    public func remoteDataSource(_ remoteDataSource: String) -> ListView {
-        return ListView(
-            rows: rows,
-            remoteDataSource: remoteDataSource,
-            loadingState: loadingState,
-            direction: direction
-        )
-    }
-    
-    public func loadingState(_ loadingStateBuilder: () -> ServerDrivenComponent) -> ListView {
-        let loadingState = loadingStateBuilder()
-        return ListView(
-            rows: rows,
-            remoteDataSource: remoteDataSource,
-            loadingState: loadingState,
-            direction: direction
-        )
-    }
-    
-    public func direction(_ direction: Direction) -> ListView {
-        return ListView(
-            rows: rows,
-            remoteDataSource: remoteDataSource,
-            loadingState: loadingState,
-            direction: direction
-        )
     }
 }
 
 extension ListView {
     
-    public enum Direction {
+    public enum Direction: String, StringRawRepresentable {
         
         case vertical
         case horizontal
@@ -78,19 +42,24 @@ extension ListView {
 
 extension ListView: Renderable {
     public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
-        let componentViews = rows?
-            .compactMap {
-                $0.toView(context: context, dependencies: dependencies)
-            } ?? []
+        let componentViews: [(view: UIView, size: CGSize)] = rows?.compactMap {
+            let container = Container(children: [$0], flex: Flex(positionType: .absolute))
+            let containerView = container.toView(context: context, dependencies: dependencies)
+            let view = UIView()
+            view.addSubview(containerView)
+            view.flex.applyLayout()
+            if let view = containerView.subviews.first {
+                view.removeFromSuperview()
+                return (view: view, size: view.bounds.size)
+            }
+            return nil
+        } ?? []
     
         let model = ListViewUIComponent.Model(
             component: self,
             componentViews: componentViews
         )
         
-        let listView = ListViewUIComponent(model: model)
-        listView.flex.setupFlex(Flex(grow: 1))
-        
-        return listView
+        return ListViewUIComponent(model: model)
     }
 }

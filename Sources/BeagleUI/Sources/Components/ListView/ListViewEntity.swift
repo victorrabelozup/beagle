@@ -5,10 +5,9 @@
 struct ListViewEntity: ComponentConvertibleEntity {
     
     let rows: [AnyDecodableContainer]
-    let remoteDataSource: String?
-    let loadingState: AnyDecodableContainer?
+    let direction: Direction?
     
-    enum Direction: String, ComponentEntity {
+    enum Direction: String, Decodable, UIEnumModelConvertible {
         case vertical
         case horizontal
     }
@@ -18,17 +17,11 @@ struct ListViewEntity: ComponentConvertibleEntity {
         let rows = try self.rows.compactMap {
             try ($0.content as? ComponentConvertibleEntity)?.mapToComponent()
         }
-        
-        let componentEntity = self.loadingState?.content as? ComponentConvertibleEntity
-        let loadingState = try componentEntity?.mapToComponent()
-        
-        let direction = ListView.Direction.vertical
+        let direction = try self.direction?.mapToUIModel(ofType: ListView.Direction.self)
         
         return ListView(
             rows: rows,
-            remoteDataSource: remoteDataSource,
-            loadingState: loadingState,
-            direction: direction
+            direction: direction ?? .vertical
         )
     }
 }

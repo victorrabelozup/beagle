@@ -32,42 +32,6 @@ final class ListViewInitTests: XCTestCase {
         XCTAssert(component.rows?[safe: 1] is Button)
     }
     
-    func test_callingRemoteDataSource_shouldChangeItsValue() {
-        // Given
-        let component = listWithOneRow
-        
-        // When
-        let updatedComponent = listWithOneRow.remoteDataSource("someSource")
-        
-        // Then
-        XCTAssert(component.remoteDataSource != updatedComponent.remoteDataSource)
-    }
-    
-    func test_callingLoadingState_shouldChangeItsValue() {
-        // Given
-        let component = listWithOneRow
-
-        // When
-        let updatedComponent = component.loadingState {
-            Text("something")
-        }
-
-        // Then
-        XCTAssertNotNil(updatedComponent.loadingState)
-        XCTAssertTrue(updatedComponent.loadingState is Text)
-    }
-    
-    func test_callingDirection_shouldChangeItsValue() {
-        // Given
-        let component = listWithOneRow
-
-        // When
-        let updatedComponent = component.direction(.horizontal)
-
-        // Then
-        XCTAssert(component.direction != updatedComponent.direction)
-    }
-    
     func test_toUIKit_shouldConvertDirectionProperly() {
         // Given
         let expectedConversions: [UICollectionView.ScrollDirection] = [.horizontal, .vertical]

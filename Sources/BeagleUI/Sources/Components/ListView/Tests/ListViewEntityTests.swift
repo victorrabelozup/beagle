@@ -11,7 +11,7 @@ final class ListViewEntityTests: XCTestCase {
         // Given
         let textEntity = TextEntity(text: "text")
         let rows = [AnyDecodableContainer(content: textEntity)]
-        let sut = ListViewEntity(rows: rows, remoteDataSource: nil, loadingState: nil)
+        let sut = ListViewEntity(rows: rows, direction: .vertical)
         
         // When
         let listView = try? sut.mapToComponent()

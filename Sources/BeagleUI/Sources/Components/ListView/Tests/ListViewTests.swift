@@ -124,28 +124,6 @@ final class ListViewTests: XCTestCase {
         assertSnapshotImage(view, size: imageSize)
     }
 
-    // MARK: - Cells
-
-    func testCell_prepareForReuse_shouldCancelHTTPRequest_andRemoveComponentView() {
-        // Given
-        let componentWithRequestViewSpy = ComponentWithRequestViewSpy()
-        componentWithRequestViewSpy.tag = 123
-        let sut = ListItemCollectionViewCell()
-        sut.setup(with: componentWithRequestViewSpy)
-
-        // When
-        sut.prepareForReuse()
-        let innerComponentView = Mirror(reflecting: sut).children.first {
-            $0.label == "componentView"
-        }?.value as? UIView
-
-        // Then
-        XCTAssert(componentWithRequestViewSpy.cancelHTTPRequestCalled)
-        XCTAssert(sut.contentView.subviews.isEmpty)
-        XCTAssert(sut.contentView.viewWithTag(componentWithRequestViewSpy.tag) == nil)
-        XCTAssert(innerComponentView == nil)
-    }
-
     // MARK: - Helper
 
     private func makeListUiView(_ listComponent: ListView) -> UIView {

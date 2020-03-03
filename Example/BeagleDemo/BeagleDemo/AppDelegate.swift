@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         deepLinkHandler["tabview"] = TabViewScreen.self
         deepLinkHandler["form"] = FormScreen.self
         deepLinkHandler["customComponent"] = CustomComponentScreen.self
+        deepLinkHandler["listview"] = ListViewScreen.self
 
         let validator = ValidatorProviding()
         validator[FormScreen.textValidatorName] = FormScreen.textValidator
