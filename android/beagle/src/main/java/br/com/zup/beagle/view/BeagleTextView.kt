@@ -18,8 +18,8 @@ internal class BeagleTextView(context: Context) : AppCompatTextView(context), On
 
 internal fun BeagleTextView.setTextWidget(text: Text) {
     this.text = text.text
-    this.setTextColor(text.textColor)
     this.setStyle(text.style ?: "")
+    this.setTextColor(text.textColor)
     this.setAlignment(text.alignment)
 }
 
