@@ -1,10 +1,10 @@
 package br.com.zup.beagle.engine.renderer.layout
 
 import android.content.Context
+import android.view.View
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.extensions.once
-import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.InputWidget
@@ -33,7 +33,7 @@ class FormInputViewRendererTest {
     @MockK
     private lateinit var rootView: RootView
     @MockK
-    private lateinit var beagleFlexView: BeagleFlexView
+    private lateinit var view: View
     @MockK
     private lateinit var inputWidget: InputWidget
     @MockK
@@ -43,10 +43,9 @@ class FormInputViewRendererTest {
     fun setUp() {
         MockKAnnotations.init(this)
 
-        every { viewFactory.makeBeagleFlexView(any()) } returns beagleFlexView
+        every { viewRendererFactory.make(any()).buildView(any()) } returns view
         every { rootView.getContext() } returns context
-        every { beagleFlexView.addServerDrivenComponent(any(), any()) } just Runs
-        every { beagleFlexView.tag = any() } just Runs
+        every { view.tag = any() } just Runs
         every { formInput.child } returns inputWidget
     }
 
@@ -56,7 +55,7 @@ class FormInputViewRendererTest {
         val actual = formInputViewRenderer.build(rootView)
 
         // THEN
-        assertEquals(beagleFlexView, actual)
+        assertEquals(view, actual)
     }
 
     @Test
@@ -65,15 +64,6 @@ class FormInputViewRendererTest {
         formInputViewRenderer.build(rootView)
 
         // THEN
-        verify(exactly = once()) { beagleFlexView.tag = formInput }
-    }
-
-    @Test
-    fun build_should_addServerDrivenComponent() {
-        // WHEN
-        formInputViewRenderer.build(rootView)
-
-        // THEN
-        verify(exactly = once()) { beagleFlexView.addServerDrivenComponent(inputWidget, rootView) }
+        verify(exactly = once()) { view.tag = formInput }
     }
 }

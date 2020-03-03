@@ -34,8 +34,6 @@ class FormSubmitViewRendererTest {
 
     @MockK
     private lateinit var rootView: RootView
-    @RelaxedMockK
-    private lateinit var beagleFlexView: BeagleFlexView
     @MockK
     private lateinit var inputWidget: InputWidget
     @MockK
@@ -47,12 +45,10 @@ class FormSubmitViewRendererTest {
     fun setUp() {
         MockKAnnotations.init(this)
 
-        every { viewFactory.makeBeagleFlexView(any()) } returns beagleFlexView
+        every { viewRendererFactory.make(any()).buildView(any()) } returns view
         every { rootView.getContext() } returns context
-        every { beagleFlexView.addServerDrivenComponent(any(), any()) } just Runs
         every { formSubmit.child } returns inputWidget
         every { view.tag = any() } just Runs
-        every { beagleFlexView.getChildAt(any()) } returns view
     }
 
     @Test
@@ -61,7 +57,7 @@ class FormSubmitViewRendererTest {
         val actual = formSubmitViewRenderer.build(rootView)
 
         // THEN
-        assertEquals(beagleFlexView, actual)
+        assertEquals(view, actual)
     }
 
     @Test
@@ -71,14 +67,5 @@ class FormSubmitViewRendererTest {
 
         // THEN
         verify(exactly = once()) { view.tag = formSubmit }
-    }
-
-    @Test
-    fun build_should_addServerDrivenComponent() {
-        // WHEN
-        formSubmitViewRenderer.build(rootView)
-
-        // THEN
-        verify(exactly = once()) { beagleFlexView.addServerDrivenComponent(inputWidget, rootView) }
     }
 }

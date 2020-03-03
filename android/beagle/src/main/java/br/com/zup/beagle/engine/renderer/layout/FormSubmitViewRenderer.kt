@@ -1,7 +1,6 @@
 package br.com.zup.beagle.engine.renderer.layout
 
 import android.view.View
-import androidx.core.view.get
 import br.com.zup.beagle.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
@@ -15,10 +14,8 @@ internal class FormSubmitViewRenderer(
 ) : LayoutViewRenderer<FormSubmit>(viewRendererFactory, viewFactory) {
 
     override fun buildView(rootView: RootView): View {
-        val view = viewFactory.makeBeagleFlexView(rootView.getContext()).apply {
-            addServerDrivenComponent(component.child, rootView)
+        return viewRendererFactory.make(component).buildView(rootView).apply {
+            tag = component
         }
-        view[0].tag = component
-        return view
     }
 }

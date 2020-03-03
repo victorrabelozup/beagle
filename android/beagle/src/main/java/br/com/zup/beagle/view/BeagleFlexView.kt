@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import br.com.zup.beagle.core.FlexComponent
+import br.com.zup.beagle.core.GhostComponent
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.mapper.FlexMapper
 import br.com.zup.beagle.engine.renderer.RootView
@@ -28,7 +29,12 @@ internal open class BeagleFlexView(
     }
 
     fun addServerDrivenComponent(serverDrivenComponent: ServerDrivenComponent, rootView: RootView) {
-        val flex = (serverDrivenComponent as? FlexComponent)?.flex ?: Flex()
+        val component = if (serverDrivenComponent is GhostComponent) {
+            serverDrivenComponent.child
+        } else {
+            serverDrivenComponent
+        }
+        val flex = (component as? FlexComponent)?.flex ?: Flex()
         super.addView(
             viewRendererFactory.make(serverDrivenComponent).build(rootView),
             flexMapper.makeYogaNode(flex)
