@@ -3,6 +3,7 @@ package br.com.zup.beagle.engine.renderer.layout
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import br.com.zup.beagle.action.ActionExecutor
 import br.com.zup.beagle.action.FormValidationActionHandler
@@ -98,7 +99,7 @@ internal class FormViewRenderer(
         if (formsValue.size == formInputs.size) {
             formSubmitView?.hideKeyboard()
             formSubmitter.submitForm(component, formsValue) {
-                (context as BeagleActivity).runOnUiThread {
+                (context as AppCompatActivity).runOnUiThread {
                     handleFormResult(context, it)
                 }
             }
@@ -126,10 +127,10 @@ internal class FormViewRenderer(
         }
     }
 
-    private fun handleFormResult(beagleActivity: BeagleActivity, formResult: FormResult) {
+    private fun handleFormResult(context: Context, formResult: FormResult) {
         when (formResult) {
-            is FormResult.Success -> actionExecutor.doAction(beagleActivity, formResult.action)
-            is FormResult.Error -> beagleActivity.onServerDrivenContainerStateChanged(
+            is FormResult.Success -> actionExecutor.doAction(context, formResult.action)
+            is FormResult.Error -> (context as? BeagleActivity)?.onServerDrivenContainerStateChanged(
                 ServerDrivenState.Error(formResult.throwable)
             )
         }
