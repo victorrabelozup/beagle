@@ -10,4 +10,5 @@ public protocol WidgetEntity: ComponentConvertibleEntity {
     var flex: FlexEntity? { get }
     var appearance: AppearanceEntity? { get }
     var accessibility: AccessibilityEntity? { get }
+    var id: String? { get }
 }

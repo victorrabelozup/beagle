@@ -49,7 +49,6 @@ struct TextEntity: WidgetEntity {
                 return .center
             }
         }
-        
     }
     
     func mapToComponent() throws -> ServerDrivenComponent {

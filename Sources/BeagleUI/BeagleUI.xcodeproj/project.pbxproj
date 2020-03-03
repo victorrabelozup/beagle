@@ -1152,7 +1152,6 @@
 		C87622D823903FD1006F1361 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				7CA1AE882409DBF5003EDDCE /* Id */,
 				E5CE41BA2331DFF100295277 /* ComponentConvertible.swift */,
 				9317CBB423872E170015B4CB /* ComponentEntity.swift */,
 				E5223777237C3C5500E555BB /* ServerDrivenComponent.swift */,
@@ -1160,14 +1159,15 @@
 				A0451C6223BA69C100F77398 /* Appearance */,
 				C829CE9923B12D43001B7225 /* Button */,
 				E522377F237C3C8600E555BB /* Form */,
+				7CA1AE882409DBF5003EDDCE /* Id */,
 				C86F892423B28FAE00287D5D /* Image */,
 				936817FA232A881600E6E724 /* Layout */,
 				C829CE9F23B158F5001B7225 /* Lazy */,
 				C829CE9C23B12EDB001B7225 /* ListView */,
 				C85D9B9D238701450075B6C0 /* Page */,
 				983E8C842396C7440018C6CA /* TabBar */,
-				C829CE9B23B12D93001B7225 /* Text */,
 				93ADB87723FAD2E5005B7CD2 /* Tests */,
+				C829CE9B23B12D93001B7225 /* Text */,
 			);
 			path = Components;
 			sourceTree = "<group>";

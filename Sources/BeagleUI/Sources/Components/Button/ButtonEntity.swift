@@ -7,6 +7,7 @@ struct ButtonEntity: WidgetEntity {
     let text: String
     var style: String?
     let action: AnyDecodableContainer?
+    
     var id: String?
     var appearance: AppearanceEntity?
     var flex: FlexEntity?
