@@ -1,6 +1,5 @@
 package br.com.zup.beagle.view
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +8,7 @@ import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.data.serializer.BeagleSerializer
+import br.com.zup.beagle.utils.applyBackgroundFromWindowBackgroundTheme
 import br.com.zup.beagle.utils.toView
 import br.com.zup.beagle.widget.ui.UndefinedWidget
 
@@ -43,7 +43,7 @@ internal class BeagleFragment : Fragment() {
     ): View? {
         return context?.let {
             FrameLayout(it).apply {
-                setBackgroundColor(Color.TRANSPARENT)
+                applyBackgroundFromWindowBackgroundTheme(it, activity?.theme)
                 addView(screen.toView(context))
             }
         }

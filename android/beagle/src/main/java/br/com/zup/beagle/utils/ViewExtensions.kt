@@ -1,16 +1,20 @@
 package br.com.zup.beagle.utils
 
 import android.app.Activity
+import android.content.Context
+import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Path
 import android.graphics.RectF
 import android.graphics.drawable.GradientDrawable
+import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.size
 import androidx.core.widget.TextViewCompat
@@ -202,5 +206,20 @@ internal fun Canvas.applyRadius(radius: Float) {
         val rect = RectF(FLOAT_ZERO, FLOAT_ZERO, this.width.toFloat(), this.height.toFloat())
         path.addRoundRect(rect, radius, radius, Path.Direction.CW)
         this.clipPath(path)
+    }
+}
+
+internal fun View.applyBackgroundFromWindowBackgroundTheme(
+    context: Context,
+    theme: Resources.Theme?
+) {
+    val typedValue = TypedValue()
+    theme?.resolveAttribute(android.R.attr.windowBackground, typedValue, true)
+    if (typedValue.type >= TypedValue.TYPE_FIRST_COLOR_INT &&
+        typedValue.type <= TypedValue.TYPE_LAST_COLOR_INT
+    ) {
+        setBackgroundColor(typedValue.data)
+    } else {
+        background = ContextCompat.getDrawable(context, typedValue.resourceId)
     }
 }
