@@ -8,7 +8,7 @@ import br.com.zup.beagle.view.ViewFactory
 data class PageIndicator(
     val selectedColor: String,
     val unselectedColor: String
-) : PageIndicatorWidget {
+) : PageIndicatorComponent {
 
     @Transient
     private var viewFactory: ViewFactory = ViewFactory()

@@ -19,7 +19,7 @@ import br.com.zup.beagle.widget.layout.Vertical
 import br.com.zup.beagle.widget.lazy.LazyComponent
 import br.com.zup.beagle.widget.navigation.Touchable
 import br.com.zup.beagle.widget.pager.PageIndicator
-import br.com.zup.beagle.widget.pager.PageIndicatorWidget
+import br.com.zup.beagle.widget.pager.PageIndicatorComponent
 import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.Image
 import br.com.zup.beagle.widget.ui.ListView
@@ -51,7 +51,7 @@ internal object ComponentJsonAdapterFactory {
     private fun registerBaseSubTypes(
         factory: PolymorphicJsonAdapterFactory<ServerDrivenComponent>
     ): PolymorphicJsonAdapterFactory<ServerDrivenComponent> {
-        return factory.withBaseSubType(PageIndicatorWidget::class.java)
+        return factory.withBaseSubType(PageIndicatorComponent::class.java)
             .withBaseSubType(InputWidget::class.java)
             .withBaseSubType(Widget::class.java)
     }

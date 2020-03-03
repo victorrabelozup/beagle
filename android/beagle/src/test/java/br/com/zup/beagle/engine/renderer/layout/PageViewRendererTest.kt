@@ -12,7 +12,7 @@ import br.com.zup.beagle.view.BeaglePageIndicatorView
 import br.com.zup.beagle.view.BeaglePageView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.layout.PageView
-import br.com.zup.beagle.widget.pager.PageIndicatorWidget
+import br.com.zup.beagle.widget.pager.PageIndicatorComponent
 import br.com.zup.beagle.widget.ui.Button
 import io.mockk.MockKAnnotations
 import io.mockk.Runs
@@ -44,7 +44,7 @@ class PageViewRendererTest {
 
     private var pageViewPages = listOf<ServerDrivenComponent>(Button(""))
     @MockK
-    private lateinit var pageIndicatorWidget: PageIndicatorWidget
+    private lateinit var pageIndicatorComponent: PageIndicatorComponent
     @MockK
     private lateinit var pageIndicatorView: BeaglePageIndicatorView
     @MockK
@@ -85,8 +85,8 @@ class PageViewRendererTest {
     @Test
     fun build_when_page_indicator_is_not_null() {
         // GIVEN
-        every { pageView.pageIndicator } returns pageIndicatorWidget
-        every { pageIndicatorWidget.toView(any()) } returns pageIndicatorView
+        every { pageView.pageIndicator } returns pageIndicatorComponent
+        every { pageIndicatorComponent.toView(any()) } returns pageIndicatorView
 
         // WHEN
         pageViewRenderer.build(rootView)

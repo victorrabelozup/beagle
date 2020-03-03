@@ -7,9 +7,9 @@ import br.com.zup.beagle.engine.renderer.ActivityRootView
 import br.com.zup.beagle.engine.renderer.ui.UndefinedViewRenderer
 import br.com.zup.beagle.widget.form.InputWidget
 import br.com.zup.beagle.widget.pager.PageIndicatorOutput
-import br.com.zup.beagle.widget.pager.PageIndicatorWidget
+import br.com.zup.beagle.widget.pager.PageIndicatorComponent
 
-internal class UndefinedWidget : InputWidget(), PageIndicatorWidget {
+internal class UndefinedWidget : InputWidget(), PageIndicatorComponent {
 
     override fun onErrorMessage(message: String) {}
 
