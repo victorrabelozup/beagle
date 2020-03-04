@@ -70,6 +70,10 @@ class MainActivity : AppCompatActivity() {
             ))
             R.id.listView -> goToFragment(ListViewFragment.newInstance())
             R.id.composeComponent -> goToFragment(ComposeComponentFragment.newInstance())
+            R.id.sampleBff -> startActivity(BeagleActivity.newIntent(
+                this,
+                ScreenRequest("http://10.0.2.2:8080/sampleComponents")
+            ))
         }
     }
 

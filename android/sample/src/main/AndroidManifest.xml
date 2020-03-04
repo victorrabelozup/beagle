@@ -13,7 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".activities.DeepLinkActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="screenDeepLink" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -23,12 +34,13 @@
         </activity>
         <activity
             android:name=".activities.NavigationBarActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoToolbar" />
-
         <activity
             android:name=".activities.SampleServerDrivenActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/AppTheme.NoToolbar" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoToolbar"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

@@ -10,9 +10,10 @@ class LayoutController(
     private val pageViewService: PageViewService,
     private val scrollViewService: ScrollViewService
 ) {
-    @GetMapping("/pageView")
+    @GetMapping("/pageViewSample")
     fun getPageView() = this.pageViewService.createPageView()
 
     @GetMapping("/scrollView")
     fun getScrollView() = this.scrollViewService.createScrollView()
+
 }

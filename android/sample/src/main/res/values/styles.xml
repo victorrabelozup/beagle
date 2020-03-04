@@ -3,6 +3,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorWhite</item>
     </style>
 
     <style name="AppTheme.NoToolbar" parent="Theme.AppCompat.NoActionBar">
@@ -10,11 +11,18 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/colorWhite</item>
+        <item name="colorControlNormal">@color/colorWhite</item>
     </style>
 
     <style name="DesignSystem.Toolbar" parent="Widget.AppCompat.Toolbar">
         <item name="titleTextAppearance">@style/DesignSystem.Toolbar.TextAppearance</item>
         <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="DesignSystem.Navigationbar.Style" parent="Widget.AppCompat.Toolbar">
+        <item name="titleTextAppearance">@style/DesignSystem.Toolbar.TextAppearance</item>
+        <item name="android:background">@color/colorGreen</item>
+        <item name="navigationIcon">?attr/homeAsUpIndicator</item>
     </style>
 
     <style name="DesignSystem.Toolbar.TextAppearance" parent="TextAppearance.AppCompat">
@@ -61,4 +69,39 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="DesignSystem.Text.helloWord" parent="DesignSystem.Text.Default">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DesignSystem.Text.NetworkImage" parent="DesignSystem.Text.Default">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="DesignSystem.Button.Style" parent="DesignSystem.Text.Default">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="DesignSystem.Stylish.Button" parent="DesignSystem.Text.Default">
+        <item name="android:textColor">@color/colorGray</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="DesignSystem.Stylish.ButtonAndAppearance" parent="DesignSystem.Text.Default">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DesignSystem.Text.Action.Click" parent="DesignSystem.Text.Default">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DesignSystem.Form.Submit" parent="DesignSystem.Text.Default">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:background">@drawable/bg_form_button</item>
+    </style>
 </resources>

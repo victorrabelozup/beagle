@@ -90,4 +90,10 @@
         android:title="Compose Component"
         tools:ignore="HardcodedText" />
 
+    <item
+        android:id="@+id/sampleBff"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Sample BFF"
+        tools:ignore="HardcodedText" />
+
 </menu>
