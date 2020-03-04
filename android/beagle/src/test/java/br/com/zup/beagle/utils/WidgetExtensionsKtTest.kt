@@ -1,6 +1,7 @@
 package br.com.zup.beagle.utils
 
 import android.view.View
+import br.com.zup.beagle.core.Appearance
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
@@ -53,11 +54,13 @@ class WidgetExtensionsKtTest {
         val header = mockk<ServerDrivenComponent>()
         val content = mockk<ServerDrivenComponent>()
         val footer = mockk<ServerDrivenComponent>()
+        val appearance = mockk<Appearance>()
         val screen = Screen(
             navigationBar = navigationBar,
             header = header,
             content = content,
-            footer = footer
+            footer = footer,
+            appearance = appearance
         )
 
         // When
@@ -68,5 +71,6 @@ class WidgetExtensionsKtTest {
         assertEquals(header, actual.header)
         assertEquals(content, actual.content)
         assertEquals(footer, actual.footer)
+        assertEquals(appearance, actual.appearance)
     }
 }

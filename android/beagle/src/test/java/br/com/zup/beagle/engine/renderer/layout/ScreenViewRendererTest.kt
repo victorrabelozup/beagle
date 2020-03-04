@@ -114,6 +114,7 @@ class ScreenViewRendererTest {
         every { screenComponent.header } returns null
         every { screenComponent.content } returns component
         every { screenComponent.footer } returns null
+        every { screenComponent.appearance } returns null
         every { viewRendererFactory.make(any()) } returns viewRenderer
         every { viewRenderer.build(any()) } returns view
         every { Color.parseColor(any()) } returns DEFAULT_COLOR
