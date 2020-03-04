@@ -4,6 +4,7 @@
 
 struct ScreenComponentEntity: ComponentConvertibleEntity {
     
+    let appearance: AppearanceEntity?
     let safeArea: SafeAreaEntity?
     let navigationBar: NavigationBarEntity?
     let header: AnyDecodableContainer?
@@ -12,6 +13,7 @@ struct ScreenComponentEntity: ComponentConvertibleEntity {
     
     func mapToComponent() throws -> ServerDrivenComponent {
     
+        let appearance = try self.appearance?.mapToUIModel()
         let safeArea = self.safeArea?.toSafeArea()
         let navigationBar = self.navigationBar?.toNavigationBar()
         
@@ -25,6 +27,7 @@ struct ScreenComponentEntity: ComponentConvertibleEntity {
         let footer = try footerEntity?.mapToComponent()
 
         return ScreenComponent(
+            appearance: appearance,
             safeArea: safeArea,
             navigationBar: navigationBar,
             header: header,

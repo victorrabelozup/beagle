@@ -4,10 +4,11 @@
 
 import UIKit
 
-struct ScreenComponent: ServerDrivenComponent {
+struct ScreenComponent: AppearanceComponent {
 
     // MARK: - Public Properties
     
+    public let appearance: Appearance?
     public let safeArea: SafeArea?
     public let navigationBar: NavigationBar?
     public let header: ServerDrivenComponent?
@@ -17,12 +18,14 @@ struct ScreenComponent: ServerDrivenComponent {
     // MARK: - Initialization
     
     public init(
+        appearance: Appearance? = nil,
         safeArea: SafeArea? = nil,
         navigationBar: NavigationBar? = nil,
         header: ServerDrivenComponent? = nil,
         content: ServerDrivenComponent,
         footer: ServerDrivenComponent? = nil
     ) {
+        self.appearance = appearance
         self.safeArea = safeArea
         self.navigationBar = navigationBar
         self.header = header
@@ -38,7 +41,9 @@ extension ScreenComponent: Renderable {
         
         guard let beagleController = context as? BeagleScreenViewController,
             beagleController.screenController.navigationController == nil else {
-                return createComponentContentView(context: context, dependencies: dependencies)
+                let contentView = createComponentContentView(context: context, dependencies: dependencies)
+                contentView.applyAppearance(appearance)
+                return contentView
         }
         
         let contentController = BeagleScreenViewController(

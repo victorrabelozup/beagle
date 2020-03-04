@@ -29,8 +29,8 @@ extension BeagleScreenViewController: BeagleContext {
     }
     
     public func applyLayout() {
-        guard let componentView = self.rootComponentView.subviews.first else { return }
-        componentView.frame = self.rootComponentView.bounds
+        guard let componentView = componentView else { return }
+        componentView.frame = view.bounds
         componentView.flex.applyLayout()
     }
     

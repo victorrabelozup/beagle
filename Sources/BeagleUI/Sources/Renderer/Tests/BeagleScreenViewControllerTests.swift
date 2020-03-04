@@ -64,6 +64,90 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         XCTAssertTrue(delegateSpy.didFailToLoadWithErrorCalled)
     }
     
+    func test_handleSafeArea() {
+        let sut = safeAreaController(content: Text(""))
+        assertSnapshotImage(sut, size: CGSize(width: 200, height: 200))
+    }
+    
+    func test_handleKeyboard() {
+        let sut = safeAreaController(
+            content: Text(
+                "My Content",
+                alignment: .center,
+                appearance: .init(backgroundColor: "#00FFFF"),
+                flex: Flex(grow: 1)
+            )
+        )
+        
+        let image = UIImage(named: "keybaord", in: Bundle(for: BeagleScreenViewControllerTests.self), compatibleWith: nil)
+        let keyboard = UIImageView(image: image)
+        keyboard.translatesAutoresizingMaskIntoConstraints = false
+        keyboard.sizeToFit()
+        keyboard.backgroundColor = .black
+        keyboard.alpha = 0.8
+        
+        sut.view.addSubview(keyboard)
+        NSLayoutConstraint.activate([
+            keyboard.leadingAnchor.constraint(equalTo: sut.view.leadingAnchor),
+            keyboard.trailingAnchor.constraint(equalTo: sut.view.trailingAnchor),
+            keyboard.bottomAnchor.constraint(equalTo: sut.view.bottomAnchor)
+        ])
+        
+        postKeyboardNotification()
+        assertSnapshotImage(sut, size: CGSize(width: 414, height: 896))
+    }
+    
+    private func safeAreaController(content: ServerDrivenComponent) -> UIViewController {
+        let screen = Screen(
+            appearance: Appearance(backgroundColor: "#0000FF"),
+            navigationBar: NavigationBar(title: "Test Safe Area"),
+            content: Container(
+                children: [content],
+                flex: Flex(grow: 1, margin: .init(all: .init(value: 10, type: .real))),
+                appearance: Appearance(backgroundColor: "#00FF00")
+            )
+        )
+        let screenController = BeagleScreenViewController(viewModel: .init(screenType: .declarative(screen)))
+        screenController.additionalSafeAreaInsets = UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40)
+        let navigation = UINavigationController(rootViewController: screenController)
+        navigation.navigationBar.barTintColor = .white
+        navigation.navigationBar.isTranslucent = true
+        screenController.viewWillAppear(false)
+        
+        let label = UILabel()
+        label.text = "Safe Area"
+        label.textAlignment = .center
+        label.backgroundColor = UIColor.yellow.withAlphaComponent(0.4)
+        label.layer.borderWidth = 2
+        label.layer.borderColor = UIColor.red.cgColor
+        label.translatesAutoresizingMaskIntoConstraints = false
+        screenController.view.addSubview(label)
+        
+        let guide = screenController.view.safeAreaLayoutGuide
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: guide.topAnchor),
+            label.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            label.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+            label.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
+        ])
+        return navigation
+    }
+    
+    func postKeyboardNotification() {
+        let notification = Notification(
+            name: NSNotification.Name.UIKeyboardWillChangeFrame,
+            object: nil,
+            userInfo: [
+                UIKeyboardAnimationDurationUserInfoKey: 0,
+                UIKeyboardIsLocalUserInfoKey: 1,
+                UIKeyboardAnimationCurveUserInfoKey: 7,
+                UIKeyboardFrameBeginUserInfoKey: CGRect(x: 0, y: 896, width: 414, height: 346),
+                UIKeyboardFrameEndUserInfoKey: CGRect(x: 0, y: 550, width: 414, height: 346)
+            ]
+        )
+        NotificationCenter.default.post(notification)
+    }
+    
     func test_whenLoadScreenSucceeds_itShouldSetupTheViewWithTheResult() {
         // Given
         let viewToReturn = UIView()
@@ -81,7 +165,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
             dependencies: dependencies
         ))
 
-        assertSnapshotImage(sut)
+        assertSnapshotImage(sut, size: CGSize(width: 50, height: 25))
     }
     
     func test_loadPreFetchedScreen() {

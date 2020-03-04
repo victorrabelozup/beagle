@@ -8,6 +8,7 @@ public struct Screen {
     
     // MARK: - Public Properties
     
+    public let appearance: Appearance?
     public let safeArea: SafeArea?
     public let navigationBar: NavigationBar?
     public let header: ServerDrivenComponent?
@@ -15,6 +16,7 @@ public struct Screen {
     public let footer: ServerDrivenComponent?
     
     public init(
+        appearance: Appearance? = nil,
         safeArea: SafeArea? = nil,
         navigationBar: NavigationBar? = nil,
         header: ServerDrivenComponent? = nil,
@@ -26,10 +28,12 @@ public struct Screen {
         self.header = header
         self.content = content
         self.footer = footer
+        self.appearance = appearance
     }
     
     func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         return ScreenComponent(
+            appearance: appearance,
             safeArea: safeArea,
             navigationBar: navigationBar,
             header: header,

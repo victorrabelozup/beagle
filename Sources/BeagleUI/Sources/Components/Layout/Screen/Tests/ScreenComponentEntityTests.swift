@@ -12,6 +12,7 @@ final class ScreenComponentEntityTests: XCTestCase {
         let innerContent = TextEntity(text: "text")
         let containerMock = AnyDecodableContainer(content: innerContent)
         let sut = ScreenComponentEntity(
+            appearance: nil,
             safeArea: nil,
             navigationBar: nil,
             header: containerMock,

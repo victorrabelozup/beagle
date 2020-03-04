@@ -7,21 +7,10 @@ import UIKit
 public class BeagleScreenViewController: UIViewController {
     
     public let viewModel: BeagleScreenViewModel
+    
     private var viewIsPresented = false
-    
-    private(set) var rootComponentView: UIView = {
-        let root = UIView()
-        root.backgroundColor = .clear
-        root.translatesAutoresizingMaskIntoConstraints = false
-        return root
-    }()
-    
-    private lazy var keyboardConstraint: NSLayoutConstraint = {
-        view.bottomAnchor.constraint(greaterThanOrEqualTo: rootComponentView.bottomAnchor)
-    }()
-    
-    private var safeAreaManager: SafeAreaManager?
-    private var keyboardManager: KeyboardManager?
+    private var layoutManager: LayoutManager?
+    private(set) var componentView: UIView?
     
     var dependencies: ViewModel.Dependencies {
         return viewModel.dependencies
@@ -29,13 +18,9 @@ public class BeagleScreenViewController: UIViewController {
     
     // MARK: - Initialization
     
-    public init(
-        viewModel: BeagleScreenViewModel
-    ) {
+    public init(viewModel: BeagleScreenViewModel) {
         self.viewModel = viewModel
-        
         super.init(nibName: nil, bundle: nil)
-        
         viewModel.stateObserver = self
     }
     
@@ -55,14 +40,7 @@ public class BeagleScreenViewController: UIViewController {
         viewIsPresented = true
         renderComponentIfNeeded()
         super.viewWillAppear(animated)
-        
         updateNavigationBar(animated: animated)
-
-// TODO: remove this comment when #184 gets fixed
-//        keyboardManager = KeyboardManager(
-//            bottomConstraint: keyboardConstraint,
-//            view: view
-//        )
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
@@ -82,24 +60,24 @@ public class BeagleScreenViewController: UIViewController {
     
     private func renderScreen(_ screen: Screen) {
         buildViewFromScreen(screen)
-        safeAreaManager?.safeArea = screen.safeArea
         viewModel.didRenderComponent()
     }
     
     private func updateNavigationBar(animated: Bool) {
-        let screenNavigationBar = viewModel.screen?.navigationBar
+        guard let screen = viewModel.screen else { return }
+        let screenNavigationBar = screen.navigationBar
         let hideNavBar = screenNavigationBar == nil
         navigationController?.setNavigationBarHidden(hideNavBar, animated: animated)
-        navigationItem.title = viewModel.screen?.navigationBar?.title
+        navigationItem.title = screen.navigationBar?.title
         navigationItem.backBarButtonItem = UIBarButtonItem(title: nil, style: .plain, target: nil, action: nil)
-        navigationItem.hidesBackButton = !(viewModel.screen?.navigationBar?.showBackButton ?? true)
+        navigationItem.hidesBackButton = !(screen.navigationBar?.showBackButton ?? true)
         
         navigationItem.rightBarButtonItems = screenNavigationBar?.navigationBarItems?.reversed().map {
             $0.toBarButtonItem(context: self, dependencies: viewModel.dependencies)
         }
         
-        if let style = viewModel.screen?.navigationBar?.style,
-            let navigationBar = navigationController?.navigationBar {
+        if let style = screen.navigationBar?.style,
+           let navigationBar = navigationController?.navigationBar {
             viewModel.dependencies.theme.applyStyle(for: navigationBar, withId: style)
         }
         
@@ -113,9 +91,9 @@ public class BeagleScreenViewController: UIViewController {
     fileprivate func updateView(state: ViewModel.State) {
         switch state {
         case .loading:
-            view.showLoading(.whiteLarge)
+            viewIfLoaded?.showLoading(.whiteLarge)
         case .success, .failure:
-            view.hideLoading()
+            viewIfLoaded?.hideLoading()
             renderComponentIfNeeded()
             updateNavigationBar(animated: viewIsPresented)
         case .rendered:
@@ -123,19 +101,9 @@ public class BeagleScreenViewController: UIViewController {
         }
     }
     
-    public override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        keyboardManager = nil
-    }
-    
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        guard let componentView = rootComponentView.subviews.first else { return }
-        
-        componentView.frame = rootComponentView.bounds
-        componentView.flex.applyLayout()
+        layoutManager?.applyLayout()
     }
     
     // MARK: - View Setup
@@ -147,13 +115,7 @@ public class BeagleScreenViewController: UIViewController {
         // } else {
         view.backgroundColor = .white
         // }
-        view.addSubview(rootComponentView)
-        safeAreaManager = SafeAreaManager(
-            viewController: self,
-            view: rootComponentView,
-            safeArea: viewModel.screen?.safeArea
-        )
-        keyboardConstraint.isActive = true
+        updateView(state: viewModel.state)
     }
     
     private func buildViewFromScreen(_ screen: Screen) {
@@ -162,9 +124,14 @@ public class BeagleScreenViewController: UIViewController {
     }
     
     private func setupComponentView(_ componentView: UIView) {
-        rootComponentView.addSubview(componentView)
-        componentView.frame = rootComponentView.bounds
-        componentView.flex.applyLayout()
+        view.addSubview(componentView)
+        self.componentView = componentView
+        layoutManager = LayoutManager(
+            context: self,
+            componentView: componentView,
+            safeArea: viewModel.screen?.safeArea
+        )
+        layoutManager?.applyLayout()
     }
 }
 

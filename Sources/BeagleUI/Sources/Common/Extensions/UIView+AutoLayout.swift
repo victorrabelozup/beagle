@@ -67,8 +67,7 @@ extension UIView {
             anchors.append(heightAnchor.constraint(equalToConstant: heightConstant))
         }
         
-        // swiftlint:disable trailing_closure
-        anchors.forEach({ $0.isActive = true })
+        NSLayoutConstraint.activate(anchors)
         
         return anchors
     }
