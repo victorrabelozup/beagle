@@ -167,8 +167,8 @@ When deserializing, Beagle turns a `widget` into a `view` applying the styles im
 
 ![](https://blobs.gitbook.com/assets%2F-M-Qy7jZbUpzGRP5GbCZ%2F-M-WAWIJGEgjFTyn57to%2F-M-WE7CKoTKbtxvMCMLt%2Fyoga.gif?alt=media&token=070dba81-176f-451f-b82e-cf3589c6e2f8)
 
-#### Saiba como:
+#### Learn how to:
 
-- [Criar um projeto Backend](https://zup-products.gitbook.io/beagle/introducing/beagle-backend)
-- [Criar um projeto Android](https://zup-products.gitbook.io/beagle/introducing/android)
-- [Criar um projeto iOS](https://zup-products.gitbook.io/beagle/introducing/ios)
+- [Create a Backend project](https://zup-products.gitbook.io/beagle/introducing/beagle-backend)
+- [Create an Android project](https://zup-products.gitbook.io/beagle/introducing/android)
+- [Create an iOS project](https://zup-products.gitbook.io/beagle/introducing/ios)
