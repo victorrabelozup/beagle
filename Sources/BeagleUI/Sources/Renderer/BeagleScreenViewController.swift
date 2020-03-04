@@ -21,6 +21,7 @@ public class BeagleScreenViewController: UIViewController {
     public init(viewModel: BeagleScreenViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        extendedLayoutIncludesOpaqueBars = true
         viewModel.stateObserver = self
     }
     

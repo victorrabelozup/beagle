@@ -139,6 +139,7 @@ struct DemoTextFieldEntity: WidgetEntity {
     
     func mapToComponent() throws -> ServerDrivenComponent {
         return DemoTextField(
+            id: nil,
             placeholder: placeholder,
             appearance: try appearance?.mapToUIModel(),
             flex: try flex?.mapToUIModel(),
