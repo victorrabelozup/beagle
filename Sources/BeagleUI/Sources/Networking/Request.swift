@@ -23,8 +23,8 @@ public struct Request {
     }
 
     public struct FormData {
-        let method: Form.MethodType
-        let values: [String: String]
+        public let method: Form.MethodType
+        public let values: [String: String]
 
         public init(
             method: Form.MethodType,
