@@ -58,10 +58,12 @@ public class BeagleScreenViewController: UIViewController {
         super.viewWillAppear(animated)
         
         updateNavigationBar(animated: animated)
-        keyboardManager = KeyboardManager(
-            bottomConstraint: keyboardConstraint,
-            view: view
-        )
+
+// TODO: remove this comment when #184 gets fixed
+//        keyboardManager = KeyboardManager(
+//            bottomConstraint: keyboardConstraint,
+//            view: view
+//        )
     }
     
     public override func viewWillDisappear(_ animated: Bool) {

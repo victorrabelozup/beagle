@@ -93,6 +93,7 @@ struct DemoTextField: Widget {
         let textField = View()
         textField.borderStyle = .roundedRect
         textField.placeholder = placeholder
+
         textField.applyAppearance(appearance)
         textField.flex.setupFlex(flex)
         dependencies.accessibility.applyAccessibilityAttributes(accessibility, to: textField)
@@ -108,10 +109,10 @@ struct DemoTextField: Widget {
             delegate = self
             addTarget(self, action: #selector(textChanged), for: .editingChanged)
         }
-        
+
+        @available(*, unavailable)
         required init?(coder aDecoder: NSCoder) {
-            super.init(coder: aDecoder)
-            delegate = self
+            fatalError("init(coder:) has not been implemented")
         }
         
         func getValue() -> Any {
@@ -122,7 +123,7 @@ struct DemoTextField: Widget {
             endEditing(true)
             return true
         }
-        
+
         @objc private func textChanged() {
             observable.value.value = text
         }

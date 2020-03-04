@@ -113,6 +113,7 @@
 		C829CF2323B197CF001B7225 /* FormInputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A77640237DC140002F5515 /* FormInputTests.swift */; };
 		C829CF2523B197E2001B7225 /* TextEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CE42102334007D00295277 /* TextEntityTests.swift */; };
 		C829CF2A23B197FB001B7225 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B2840236350B9005E2E6D /* NetworkTests.swift */; };
+		C8311A6924099A8700E95C15 /* WidgetStateObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8311A6824099A8700E95C15 /* WidgetStateObservable.swift */; };
 		C831ADF82385A282009D72D9 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C831ADF72385A282009D72D9 /* PageView.swift */; };
 		C85D9BA1238701E60075B6C0 /* PageViewUIComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85D9BA0238701E60075B6C0 /* PageViewUIComponent.swift */; };
 		C85D9BA8238858B40075B6C0 /* PageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85D9BA7238858B40075B6C0 /* PageViewTests.swift */; };
@@ -341,6 +342,7 @@
 		C81EAB4923C8BFD70074B9D2 /* Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshot.swift; sourceTree = "<group>"; };
 		C829CF1123B1967D001B7225 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		C829CF1323B196C1001B7225 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
+		C8311A6824099A8700E95C15 /* WidgetStateObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetStateObservable.swift; sourceTree = "<group>"; };
 		C831ADF72385A282009D72D9 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PageView.swift; path = Sources/Components/Page/PageView.swift; sourceTree = SOURCE_ROOT; };
 		C85D9BA0238701E60075B6C0 /* PageViewUIComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewUIComponent.swift; sourceTree = "<group>"; };
 		C85D9BA7238858B40075B6C0 /* PageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewTests.swift; sourceTree = "<group>"; };
@@ -1051,6 +1053,16 @@
 			path = Context;
 			sourceTree = "<group>";
 		};
+		C8311A67240999CF00E95C15 /* Observable */ = {
+			isa = PBXGroup;
+			children = (
+				98B7D95523DB2722002622AC /* Observable.swift */,
+				C8311A6824099A8700E95C15 /* WidgetStateObservable.swift */,
+				98FC964A23EA516A00A8CEC8 /* Tests */,
+			);
+			path = Observable;
+			sourceTree = "<group>";
+		};
 		C85D9B9D238701450075B6C0 /* Page */ = {
 			isa = PBXGroup;
 			children = (
@@ -1240,9 +1252,7 @@
 		E52236C723745D5400E555BB /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				98B7D95523DB2722002622AC /* Observable.swift */,
 				E52236CA23745DED00E555BB /* HTTPRequestCanceling.swift */,
-				98FC964A23EA516A00A8CEC8 /* Tests */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1301,6 +1311,7 @@
 			children = (
 				E531D6B22359FE09007EEBA7 /* Extensions */,
 				E531D6AF2359FD0E007EEBA7 /* Loading */,
+				C8311A67240999CF00E95C15 /* Observable */,
 				E52236C723745D5400E555BB /* Protocols */,
 				E5A6F4A72358A53B008906F8 /* Util */,
 			);
@@ -1539,6 +1550,7 @@
 				A0EF0AA62386BD960019BE83 /* FormValidation.swift in Sources */,
 				988F81FB23E24ECA008562BE /* UIView+Subviews.swift in Sources */,
 				E531D6BA2359FEE1007EEBA7 /* UIView+Loading.swift in Sources */,
+				C8311A6924099A8700E95C15 /* WidgetStateObservable.swift in Sources */,
 				A0EF0AA82388030A0019BE83 /* ShowNativeDialog.swift in Sources */,
 				A068234E2384320000CEE57A /* Validator.swift in Sources */,
 				9368180B232A889100E6E724 /* Spacer.swift in Sources */,
