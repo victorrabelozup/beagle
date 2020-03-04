@@ -72,6 +72,6 @@
     ],
 
     "pageIndicator": {
-        "_beagleType_": "beagle:component:DefaultPageIndicator"
+        "_beagleType_": "beagle:component:PageIndicator"
     }
 }

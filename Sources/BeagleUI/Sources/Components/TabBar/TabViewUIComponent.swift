@@ -147,9 +147,17 @@ extension TabViewUIComponent: UICollectionViewDataSource, UICollectionViewDelega
         guard let title = item.title else {
             return CGSize(width: frame.width / CGFloat(model.tabViewItems.count), height: 55)
         }
+        
         let newTitle = NSAttributedString(string: title, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30)])
         let stringWidth = newTitle.boundingRect(with: CGSize(width: 300, height: 20), options: [.usesFontLeading, .usesLineFragmentOrigin], context: nil).size.width
-        return model.tabViewItems.count <= 2 ? CGSize(width: frame.width / CGFloat(model.tabViewItems.count), height: 55) : CGSize(width: stringWidth, height: 55)
+        
+        let allStringsWidth = model.tabViewItems.compactMap { item in
+            return item.title?.boundingRect(with: CGSize(width: 300, height: 20), options: [.usesFontLeading, .usesLineFragmentOrigin], context: nil).size.width
+        }
+        
+        let width = allStringsWidth.reduce(0, +)
+        
+        return width * 2.5 < frame.width ? CGSize(width: frame.width / CGFloat(model.tabViewItems.count), height: 55) : CGSize(width: stringWidth, height: 55)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

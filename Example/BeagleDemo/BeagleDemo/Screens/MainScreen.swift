@@ -40,10 +40,14 @@ struct MainScreen: DeeplinkScreen {
                 Button(
                     text: "Custom Component",
                     action: Navigate.openDeepLink(.init(path: "customComponent"))
+                ),
+                Button(
+                    text: "Sample BFF",
+                    action: Navigate.addView(.init(path: "/sampleComponents", shouldPrefetch: true))
                 )
             ])
         )
-
+        
         return BeagleScreenViewController(
             viewModel: .init(screenType: .declarative(screen))
         )

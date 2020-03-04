@@ -203,7 +203,7 @@ extension NavigationBarItem {
             self.context = context
             super.init()
             if let imageName = barItem.image {
-                image = UIImage(named: imageName, in: dependencies.appBundle, compatibleWith: nil)
+                image = UIImage(named: imageName, in: dependencies.appBundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
                 accessibilityHint = barItem.text
             } else {
                 title = barItem.text

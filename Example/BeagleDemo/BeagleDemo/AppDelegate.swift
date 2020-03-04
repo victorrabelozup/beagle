@@ -18,18 +18,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         deepLinkHandler["tabview"] = TabViewScreen.self
         deepLinkHandler["form"] = FormScreen.self
         deepLinkHandler["customComponent"] = CustomComponentScreen.self
+        deepLinkHandler["screenDeepLink"] = ScreenDeepLink.self
         deepLinkHandler["listview"] = ListViewScreen.self
 
         let validator = ValidatorProviding()
         validator[FormScreen.textValidatorName] = FormScreen.textValidator
         
         let dependencies = BeagleDependencies()
-        dependencies.deepLinkHandler = deepLinkHandler
         dependencies.theme = Style.theme
+        dependencies.baseURL = URL(string: "http://localhost:8080/")
+        dependencies.deepLinkHandler = deepLinkHandler
         dependencies.validatorProvider = validator
         Beagle.dependencies = dependencies
         
-        Beagle.registerCustomComponent("DSCollection", componentType: DSCollection.self, entityType: DSCollectionEntity.self)
+        registerCustomComponents()
         
         let rootViewController = MainScreen().screenController()
         window?.rootViewController = rootViewController
@@ -37,23 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-}
-
-public struct Style {
-    
-    static var theme: AppTheme {
-        return AppTheme(
-            styles: ["form-button": Style.formButton]
-        )
-    }
-    
-    static func formButton() -> (UIButton?) -> Void {
-        return {
-            $0?.layer.cornerRadius = 4
-            $0?.setTitleColor(.white, for: .normal)
-            $0?.backgroundColor = $0?.isEnabled ?? false ? #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1) : #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-            $0?.alpha = $0?.isHighlighted ?? false ? 0.7 : 1
-        }
+    private func registerCustomComponents() {
+        Beagle.registerCustomComponent("DSCollection", componentType: DSCollection.self, entityType: DSCollectionEntity.self)
+        Beagle.registerCustomComponent("SampleTextField", componentType: DemoTextField.self, entityType: DemoTextFieldEntity.self)
     }
 }
-

@@ -129,7 +129,7 @@ final class ComponentDecoder: ComponentDecoding {
         registerEntity(TextEntity.self, key: key(name: "Text", content: .component, namespace: .beagle))
         registerEntity(PageViewEntity.self, key: key(name: "PageView", content: .component, namespace: .beagle))
         registerEntity(TabViewEntity.self, key: key(name: "TabView", content: .component, namespace: .beagle))
-        registerEntity(DefaultPageIndicatorEntity.self, key: key(name: "DefaultPageIndicator", content: .component, namespace: .beagle))
+        registerEntity(DefaultPageIndicatorEntity.self, key: key(name: "PageIndicator", content: .component, namespace: .beagle))
         registerEntity(LazyComponentEntity.self, key: key(name: "LazyComponent", content: .component, namespace: .beagle))
     }
         

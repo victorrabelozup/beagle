@@ -18,9 +18,6 @@
     - key: "beagle:component:container"
     - value: ContainerEntity
   ▿ (2 elements)
-    - key: "beagle:component:defaultpageindicator"
-    - value: DefaultPageIndicatorEntity
-  ▿ (2 elements)
     - key: "beagle:component:form"
     - value: FormEntity
   ▿ (2 elements)
@@ -41,6 +38,9 @@
   ▿ (2 elements)
     - key: "beagle:component:networkimage"
     - value: NetworkImageEntity
+  ▿ (2 elements)
+    - key: "beagle:component:pageindicator"
+    - value: DefaultPageIndicatorEntity
   ▿ (2 elements)
     - key: "beagle:component:pageview"
     - value: PageViewEntity

@@ -8,7 +8,7 @@ public class BeagleScreenViewController: UIViewController {
     
     public let viewModel: BeagleScreenViewModel
     private var viewIsPresented = false
-
+    
     private(set) var rootComponentView: UIView = {
         let root = UIView()
         root.backgroundColor = .clear
@@ -31,7 +31,7 @@ public class BeagleScreenViewController: UIViewController {
     
     public init(
         viewModel: BeagleScreenViewModel
-        ) {
+    ) {
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
@@ -54,7 +54,6 @@ public class BeagleScreenViewController: UIViewController {
     public override func viewWillAppear(_ animated: Bool) {
         viewIsPresented = true
         renderComponentIfNeeded()
-        
         super.viewWillAppear(animated)
         
         updateNavigationBar(animated: animated)
@@ -100,9 +99,13 @@ public class BeagleScreenViewController: UIViewController {
         }
         
         if let style = viewModel.screen?.navigationBar?.style,
-           let navigationBar = navigationController?.navigationBar {
+            let navigationBar = navigationController?.navigationBar {
             viewModel.dependencies.theme.applyStyle(for: navigationBar, withId: style)
         }
+        
+        guard let isTranslucent = navigationController?.navigationBar.isTranslucent
+            else { return }
+        extendedLayoutIncludesOpaqueBars = isTranslucent ? false : true
     }
     
     // MARK: -
@@ -152,7 +155,7 @@ public class BeagleScreenViewController: UIViewController {
         )
         keyboardConstraint.isActive = true
     }
-
+    
     private func buildViewFromScreen(_ screen: Screen) {
         let view = screen.toView(context: self, dependencies: viewModel.dependencies)
         setupComponentView(view)

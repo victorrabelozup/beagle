@@ -7,7 +7,7 @@ import BeagleUI
 
 struct FormScreen: DeeplinkScreen {
     
-    static var textValidatorName: String { return "form.text-is-not-blank" }
+    static var textValidatorName: String { return "text-is-not-blank" }
     static var textValidator: (Any) -> Bool {
         return {
             let trimmed = ($0 as? String)?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
@@ -62,7 +62,7 @@ struct FormScreen: DeeplinkScreen {
                     ),
                     Container(children: [], flex: Flex(grow: 1)),
                     FormSubmit(
-                        child: Button(text: "Submit Form", style: "form-button", flex: flexHorizontalMargin),
+                        child: Button(text: "Submit Form", style: "DesignSystem.Form.Submit", flex: flexHorizontalMargin),
                         enabled: false
                     )
                 ],
@@ -127,5 +127,22 @@ struct DemoTextField: Widget {
         @objc private func textChanged() {
             observable.value.value = text
         }
+    }
+}
+
+struct DemoTextFieldEntity: WidgetEntity {
+    var id: String?
+    var placeholder: String
+    var flex: FlexEntity?
+    var appearance: AppearanceEntity?
+    var accessibility: AccessibilityEntity?
+    
+    func mapToComponent() throws -> ServerDrivenComponent {
+        return DemoTextField(
+            placeholder: placeholder,
+            appearance: try appearance?.mapToUIModel(),
+            flex: try flex?.mapToUIModel(),
+            accessibility: try accessibility?.mapToUIModel()
+        )
     }
 }
