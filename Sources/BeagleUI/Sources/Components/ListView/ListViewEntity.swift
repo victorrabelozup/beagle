@@ -7,9 +7,9 @@ struct ListViewEntity: ComponentConvertibleEntity {
     let rows: [AnyDecodableContainer]
     let direction: Direction?
     
-    enum Direction: String, Decodable, UIEnumModelConvertible {
-        case vertical
-        case horizontal
+    enum Direction: String, ComponentEntity, UIEnumModelConvertible {
+        case vertical = "VERTICAL"
+        case horizontal = "HORIZONTAL"
     }
     
     func mapToComponent() throws -> ServerDrivenComponent {

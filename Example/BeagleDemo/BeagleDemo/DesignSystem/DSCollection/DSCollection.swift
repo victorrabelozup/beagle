@@ -21,7 +21,6 @@ struct DSCollectionDataSource : Decodable{
 
 struct DSCollection: Widget {
     var id: String?
-    
     var appearance: Appearance?
     var flex: Flex?
     var accessibility: Accessibility?
@@ -41,6 +40,7 @@ struct DSCollection: Widget {
 }
 
 struct DSCollectionEntity: WidgetEntity {
+    var id: String?
     var flex: FlexEntity?
     var appearance: AppearanceEntity?
     var accessibility: AccessibilityEntity?

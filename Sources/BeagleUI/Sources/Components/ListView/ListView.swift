@@ -26,9 +26,9 @@ extension ListView {
     
     public enum Direction: String, StringRawRepresentable {
         
-        case vertical
-        case horizontal
-        
+        case vertical = "VERTICAL"
+        case horizontal = "HORIZONTAL"
+
         func toUIKit() -> UICollectionView.ScrollDirection {
             switch self {
             case .horizontal:
