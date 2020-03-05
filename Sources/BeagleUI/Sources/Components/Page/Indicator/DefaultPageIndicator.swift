@@ -5,90 +5,93 @@
 import Foundation
 import UIKit
 
-public struct DefaultPageIndicatorEntity: WidgetEntity {
-    
-    public var id: String?
-    public var flex: FlexEntity?
-    public var appearance: AppearanceEntity?
-    public var accessibility: AccessibilityEntity?
+public struct PageIndicatorEntity: ComponentConvertibleEntity {
 
+    public var selectedColor: String?
+    public var unselectedColor: String?
+    
     public func mapToComponent() throws -> ServerDrivenComponent {
-        return DefaultPageIndicator(
-            flex: try flex?.mapToUIModel(),
-            appearance: try appearance?.mapToUIModel(),
-            accessibility: try accessibility?.mapToUIModel()
+        return PageIndicator(
+            selectedColor: selectedColor,
+            unselectedColor: unselectedColor
         )
     }
 }
 
-public class DefaultPageIndicator: Widget, PageIndicator {
+public class PageIndicator: PageIndicatorComponent {
     
-    public var id: String?
-    public var flex: Flex?
-    public var appearance: Appearance?
-    public var accessibility: Accessibility?
-
+    public var selectedColor: String?
+    public var unselectedColor: String?
+    
     public init(
-        id: String? = nil,
-        flex: Flex? = nil,
-        appearance: Appearance? = nil,
-        accessibility: Accessibility? = nil
+        selectedColor: String? = nil,
+        unselectedColor: String? = nil
+        
     ) {
-        self.id = id
-        self.flex = flex
-        self.appearance = appearance
-        self.accessibility = accessibility
+        self.selectedColor = selectedColor
+        self.unselectedColor = unselectedColor
+        
     }
-
+    
     public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
-        let view = DefaultPageIndicatorUIComponent()
-
-        view.flex.setupFlex(flex)
-        view.applyAccessibilityIdentifier(id)
-        view.applyAppearance(appearance)
-        dependencies.accessibility.applyAccessibilityAttributes(accessibility, to: view)
+        let view = PageIndicatorUIComponent(selectedColor: selectedColor, unselectedColor: unselectedColor)
         return view
     }
 }
 
-class DefaultPageIndicatorUIComponent: UIView, PageIndicatorUIView {
-
+class PageIndicatorUIComponent: UIView, PageIndicatorUIView {
+    
     weak var outputReceiver: PageIndicatorOutput?
-
+    
     typealias Model = PageIndicatorUIViewModel
-
+    
+    private let selectedColor: UIColor
+    private let unselectedColor: UIColor
+    
     var model: Model? { didSet {
         guard let model = model else { return }
         updateView(model: model)
-    }}
-
+        }}
+    
     private lazy var pageControl: UIPageControl = {
         let indicator = UIPageControl()
+        indicator.currentPageIndicatorTintColor = selectedColor
+        indicator.pageIndicatorTintColor = unselectedColor
         indicator.currentPage = 0
-        indicator.pageIndicatorTintColor = .gray
-        indicator.currentPageIndicatorTintColor = .white
         return indicator
     }()
-
+    
     // MARK: - Init
-
-    required init() {
+    
+    required init(selectedColor: String? = nil, unselectedColor: String? = nil) {
+        if let selected = selectedColor, !selected.isEmpty {
+            self.selectedColor = UIColor(hex: selected)
+        } else {
+            self.selectedColor = UIColor(hex: "#808080")
+        }
+        
+        if let unselected = unselectedColor, !unselected.isEmpty {
+            self.unselectedColor = UIColor(hex: unselected)
+        } else {
+            self.unselectedColor = UIColor(hex: "#d3d3d3")
+        }
+        
         super.init(frame: .zero)
-
+        
         addSubview(pageControl)
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.anchor(
             top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor
         )
     }
-
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - Update
-
+    
     private func updateView(model: Model) {
         pageControl.currentPage = model.currentPage
         pageControl.numberOfPages = model.numberOfPages

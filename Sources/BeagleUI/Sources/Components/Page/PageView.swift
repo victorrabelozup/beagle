@@ -7,11 +7,11 @@ import UIKit
 public struct PageView: ServerDrivenComponent {
 
     public let pages: [ServerDrivenComponent]
-    public let pageIndicator: PageIndicator?
+    public let pageIndicator: PageIndicatorComponent?
 
     public init(
         pages: [ServerDrivenComponent],
-        pageIndicator: PageIndicator?
+        pageIndicator: PageIndicatorComponent?
     ) {
         self.pages = pages
         self.pageIndicator = pageIndicator
@@ -41,4 +41,5 @@ extension PageView: Renderable {
     }
 }
 
-public protocol PageIndicator: ServerDrivenComponent {}
+public protocol PageIndicatorComponent: ServerDrivenComponent {
+}

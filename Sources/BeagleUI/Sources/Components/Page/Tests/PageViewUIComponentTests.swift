@@ -13,7 +13,7 @@ class PageViewUIComponentTests: XCTestCase {
 
     private lazy var pageView = PageViewUIComponent(
         model: .init(pages: pages),
-        indicatorView: DefaultPageIndicatorUIComponent()
+        indicatorView: PageIndicatorUIComponent(selectedColor: nil, unselectedColor: nil)
     )
 
     private lazy var pages: [BeagleScreenViewController] = [

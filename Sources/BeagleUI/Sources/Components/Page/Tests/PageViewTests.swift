@@ -45,7 +45,7 @@ class PageViewTests: XCTestCase {
     func test_viewWithPagesAndIndicator() {
         let pageView = PageView(
             pages: Array(repeating: page, count: 5),
-            pageIndicator: DefaultPageIndicator()
+            pageIndicator: PageIndicator(selectedColor: "#d1cebd", unselectedColor: "#f6eedf")
         )
 
         let screen = BeagleScreenViewController(

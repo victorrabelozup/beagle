@@ -7,12 +7,12 @@ import YogaKit
 
 public protocol FlexViewConfiguratorProtocol: AnyObject {
     var view: UIView { get set }
-
+    
     func setupFlex(_ flex: Flex?)
     
     func applyLayout()
     func markDirty()
-
+    
     var isEnabled: Bool { get set }
 }
 
@@ -21,7 +21,7 @@ public protocol DependencyFlexViewConfigurator {
 }
 
 public extension UIView {
-
+    
     public var flex: FlexViewConfiguratorProtocol {
         Beagle.dependencies.flex.view = self
         return Beagle.dependencies.flex
@@ -33,9 +33,9 @@ public extension UIView {
 final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
     
     // MARK: - Dependencies
-
+    
     var view: UIView
-
+    
     private let yogaTranslator: YogaTranslator
     
     // MARK: - Initialization
@@ -52,7 +52,7 @@ final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
     
     func setupFlex(_ flex: Flex?) {
         guard let flex = flex else { return }
-
+        
         isEnabled = true
         applyYogaProperties(from: flex, to: view.yoga)
     }
@@ -61,7 +61,7 @@ final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
         isEnabled = true
         view.yoga.applyLayout(preservingOrigin: true)
     }
-
+    
     var isEnabled: Bool {
         get { return view.yoga.isEnabled }
         set { view.yoga.isEnabled = newValue }

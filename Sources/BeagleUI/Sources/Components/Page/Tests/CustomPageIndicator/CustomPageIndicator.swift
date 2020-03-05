@@ -7,7 +7,7 @@ import UIKit
 
 // MARK: - CustomPageIndicator Component
 
-public struct CustomPageIndicator: PageIndicator {
+public struct CustomPageIndicator: PageIndicatorComponent {
 
     // MARK: - Public Properties
 

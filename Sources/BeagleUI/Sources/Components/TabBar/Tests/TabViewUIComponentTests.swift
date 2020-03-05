@@ -86,7 +86,7 @@ final class TabViewUIComponentTests: XCTestCase {
         
         let pageView = PageViewUIComponent(
             model: .init(pages: pages),
-            indicatorView: DefaultPageIndicatorUIComponent()
+            indicatorView: PageIndicatorUIComponent(selectedColor: "", unselectedColor: "")
         )
         
         // When

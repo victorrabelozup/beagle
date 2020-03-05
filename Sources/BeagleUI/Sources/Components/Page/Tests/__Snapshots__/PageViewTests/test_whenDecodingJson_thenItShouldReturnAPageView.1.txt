@@ -1,5 +1,5 @@
 ▿ PageView
-  - pageIndicator: Optional<PageIndicator>.none
+  - pageIndicator: Optional<PageIndicatorComponent>.none
   ▿ pages: 3 elements
     ▿ Container
       - accessibility: Optional<Accessibility>.none

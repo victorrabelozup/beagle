@@ -19,4 +19,3 @@ final class IdentifierTests: XCTestCase {
         XCTAssert(view.accessibilityIdentifier == id)
     }
 }
-

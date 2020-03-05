@@ -1,10 +1,8 @@
 ▿ PageView
-  ▿ pageIndicator: Optional<PageIndicator>
-    ▿ some: DefaultPageIndicator
-      - accessibility: Optional<Accessibility>.none
-      - appearance: Optional<Appearance>.none
-      - flex: Optional<Flex>.none
-      - id: Optional<String>.none
+  ▿ pageIndicator: Optional<PageIndicatorComponent>
+    ▿ some: PageIndicator
+      - selectedColor: Optional<String>.none
+      - unselectedColor: Optional<String>.none
   ▿ pages: 3 elements
     ▿ Container
       - accessibility: Optional<Accessibility>.none

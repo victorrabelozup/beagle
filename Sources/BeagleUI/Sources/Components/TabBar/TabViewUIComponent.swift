@@ -157,7 +157,7 @@ extension TabViewUIComponent: UICollectionViewDataSource, UICollectionViewDelega
         
         let width = allStringsWidth.reduce(0, +)
         
-        return width * 2.5 < frame.width ? CGSize(width: frame.width / CGFloat(model.tabViewItems.count), height: 55) : CGSize(width: stringWidth, height: 55)
+        return width * 3 < frame.width ? CGSize(width: frame.width / CGFloat(model.tabViewItems.count), height: 55) : CGSize(width: stringWidth, height: 55)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

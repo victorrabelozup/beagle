@@ -20,7 +20,7 @@ struct PageViewScreen: DeeplinkScreen {
             navigationBar: NavigationBar(title: "PageView"),
             content: PageView(
                 pages: Array(repeating: Page(), count: 3).map { $0.content },
-                pageIndicator: DefaultPageIndicator()
+                pageIndicator: PageIndicator()
             )
         )
     }

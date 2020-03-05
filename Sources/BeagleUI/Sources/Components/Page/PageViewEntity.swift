@@ -30,11 +30,11 @@ extension PageViewEntity: ComponentConvertible {
         )
     }
 
-    private func getPageIndicatorComponent() throws -> PageIndicator? {
+    private func getPageIndicatorComponent() throws -> PageIndicatorComponent? {
         guard let indicator = pageIndicator else { return nil }
 
         let component = try (indicator.content as? ComponentConvertibleEntity)?.mapToComponent()
-        if let typed = component as? PageIndicator {
+        if let typed = component as? PageIndicatorComponent {
             return typed
         } else {
             throw ComponentConvertibleError.invalidType

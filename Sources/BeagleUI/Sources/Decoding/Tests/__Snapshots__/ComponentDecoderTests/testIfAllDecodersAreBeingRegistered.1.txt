@@ -40,7 +40,7 @@
     - value: NetworkImageEntity
   ▿ (2 elements)
     - key: "beagle:component:pageindicator"
-    - value: DefaultPageIndicatorEntity
+    - value: PageIndicatorEntity
   ▿ (2 elements)
     - key: "beagle:component:pageview"
     - value: PageViewEntity
