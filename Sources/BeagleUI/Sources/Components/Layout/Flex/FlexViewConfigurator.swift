@@ -20,8 +20,7 @@ public protocol DependencyFlexViewConfigurator {
     var flex: FlexViewConfiguratorProtocol { get }
 }
 
-public extension UIView {
-    
+extension UIView {
     public var flex: FlexViewConfiguratorProtocol {
         Beagle.dependencies.flex.view = self
         return Beagle.dependencies.flex
@@ -51,10 +50,8 @@ final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
     // MARK: - Public Methods
     
     func setupFlex(_ flex: Flex?) {
-        guard let flex = flex else { return }
-        
         isEnabled = true
-        applyYogaProperties(from: flex, to: view.yoga)
+        applyYogaProperties(from: flex ?? Flex(), to: view.yoga)
     }
     
     func applyLayout() {

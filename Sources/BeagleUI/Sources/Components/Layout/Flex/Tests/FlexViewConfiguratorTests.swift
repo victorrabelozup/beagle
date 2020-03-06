@@ -21,12 +21,11 @@ final class FlexViewConfiguratorTests: XCTestCase {
     
     func test_setupFlex_shouldApplyDefaultYogaPropertiesProperly() {
         // Given
-        let flex = Flex()
         let view = UIView()
         let sut = FlexViewConfigurator(view: view)
 
         // When
-        sut.setupFlex(flex)
+        sut.setupFlex(nil)
 
         // Then
         XCTAssertEqual(view.yoga.direction, .LTR)
