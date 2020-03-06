@@ -8,6 +8,7 @@ struct ScreenComponent: AppearanceComponent {
 
     // MARK: - Public Properties
     
+    public let identifier: String?
     public let appearance: Appearance?
     public let safeArea: SafeArea?
     public let navigationBar: NavigationBar?
@@ -18,6 +19,7 @@ struct ScreenComponent: AppearanceComponent {
     // MARK: - Initialization
     
     public init(
+        identifier: String? = nil,
         appearance: Appearance? = nil,
         safeArea: SafeArea? = nil,
         navigationBar: NavigationBar? = nil,
@@ -25,6 +27,7 @@ struct ScreenComponent: AppearanceComponent {
         content: ServerDrivenComponent,
         footer: ServerDrivenComponent? = nil
     ) {
+        self.identifier = identifier
         self.appearance = appearance
         self.safeArea = safeArea
         self.navigationBar = navigationBar

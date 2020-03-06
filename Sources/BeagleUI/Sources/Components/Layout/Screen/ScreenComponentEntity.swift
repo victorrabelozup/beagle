@@ -4,6 +4,7 @@
 
 struct ScreenComponentEntity: ComponentConvertibleEntity {
     
+    let identifier: String?
     let appearance: AppearanceEntity?
     let safeArea: SafeAreaEntity?
     let navigationBar: NavigationBarEntity?
@@ -27,6 +28,7 @@ struct ScreenComponentEntity: ComponentConvertibleEntity {
         let footer = try footerEntity?.mapToComponent()
 
         return ScreenComponent(
+            identifier: identifier,
             appearance: appearance,
             safeArea: safeArea,
             navigationBar: navigationBar,

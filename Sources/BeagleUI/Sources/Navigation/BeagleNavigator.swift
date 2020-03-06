@@ -14,7 +14,7 @@ public protocol DependencyNavigation {
 
 class BeagleNavigator: BeagleNavigation {
     
-    typealias Dependencies = DependencyDeepLinkScreenManaging
+    typealias Dependencies = DependencyDeepLinkScreenManaging & DependencyBaseURL
     
     private let dependencies: Dependencies
     
@@ -59,7 +59,7 @@ class BeagleNavigator: BeagleNavigation {
             popView(source: source, animated: animated)
 
         case .popToView(let path):
-            popToView(url: path, source: source, animated: animated)
+            popToView(identifier: path, source: source, animated: animated)
         }
     }
     
@@ -90,13 +90,13 @@ class BeagleNavigator: BeagleNavigation {
         source.navigationController?.popViewController(animated: animated)
     }
     
-    private func popToView(url: String, source: UIViewController, animated: Bool) {
+    private func popToView(identifier: String, source: UIViewController, animated: Bool) {
         guard let viewControllers = source.navigationController?.viewControllers else {
             assertionFailure("Trying to pop when there is nothing to pop"); return
         }
 
         let last = viewControllers.last {
-            isViewController($0, identifiedBy: url)
+            isViewController($0, identifiedBy: identifier)
         }
 
         guard let target = last else { return }
@@ -106,13 +106,31 @@ class BeagleNavigator: BeagleNavigation {
 
     private func isViewController(
         _ viewController: UIViewController,
-        identifiedBy url: String
+        identifiedBy identifier: String
     ) -> Bool {
-        guard
-            let screen = viewController as? BeagleScreenViewController,
-            case .remote(let screenUrl, _) = screen.viewModel.screenType
-        else { return false }
-        return screenUrl == url
+        let screenController = viewController as? BeagleScreenViewController
+        guard let screenType = screenController?.viewModel.screenType else {
+            return false
+        }
+        switch screenType {
+        case .remote(let path, _):
+            return absoluteURL(for: path) == absoluteURL(for: identifier)
+        case .declarative(let screen):
+            return screen.identifier == identifier
+        }
+    }
+    
+    private func absoluteURL(for path: String) -> String? {
+        let urlResult = UrlRequestBuilder().buildUrlRequest(
+            request: .init(url: path, type: .fetchComponent),
+            baseUrl: dependencies.baseURL
+        )
+        switch urlResult {
+        case .success(let urlRequest):
+            return urlRequest.url?.absoluteString
+        case .failure:
+            return nil
+        }
     }
     
     private func swapTo(_ viewController: UIViewController, context: BeagleContext, animated: Bool) {

@@ -145,6 +145,56 @@ final class BeagleNavigatorTests: XCTestCase {
         XCTAssert(navigation.viewControllers.count == 2)
         XCTAssert(navigation.viewControllers.last == vc2)
     }
+    
+    func test_popToView_absoluteURL() {
+        let dependecies = BeagleDependencies()
+        dependecies.baseURL = URL(string: "https://server.com/path/")
+        let sut = BeagleNavigator(dependencies: dependecies)
+        let screen = BeagleScreenViewController(
+            viewModel: .init(
+                screenType: .remote("screen", fallback: nil),
+                dependencies: dependecies,
+                delegate: nil
+            )
+        )
+        let navigation = UINavigationController()
+        let stack = [screen, UIViewController(), UIViewController()]
+        navigation.viewControllers = stack
+        
+        sut.navigate(
+            action: Navigate.popToView("https://server.com/path/screen"),
+            context: BeagleContextDummy(viewController: stack[2])
+        )
+        XCTAssert(navigation.viewControllers.last == screen)
+        
+        navigation.viewControllers = stack
+        sut.navigate(
+            action: Navigate.popToView("/path/screen"),
+            context: BeagleContextDummy(viewController: stack[2])
+        )
+        XCTAssert(navigation.viewControllers.last == screen)
+    }
+    
+    func test_popToView_byIdentifier() {
+        // Given
+        let sut = BeagleNavigator(dependencies: NavigatorDependencies())
+        let vc1 = beagleViewController(screen: .declarative(Screen(identifier: "1", content: Text("Screen 1"))))
+        let vc2 = beagleViewController(screen: .declarative(Screen(identifier: "2", content: Text("Screen 2"))))
+        let vc3 = UIViewController()
+        let vc4 = beagleViewController(screen: .declarative(Screen(identifier: "4", content: Text("Screen 4"))))
+        let action = Navigate.popToView("2")
+        
+        let context = BeagleContextDummy(viewController: vc4)
+        let navigation = UINavigationController()
+        navigation.viewControllers = [vc1, vc2, vc3, vc4]
+        
+        // When
+        sut.navigate(action: action, context: context)
+        
+        // Then
+        XCTAssert(navigation.viewControllers.count == 2)
+        XCTAssert(navigation.viewControllers.last == vc2)
+    }
 
     func test_presentView_shouldPresentTheScreen() {
         let presentViewRemote = Navigate.presentView(.init(path: "https://example.com/screen.json"))
@@ -168,7 +218,7 @@ final class BeagleNavigatorTests: XCTestCase {
     func test_openDeepLink_shouldPushANativeScreenWithData() {
         // Given
         let deepLinkSpy = DeepLinkHandlerSpy()
-        let dependencies = NavigatorDependencies(deepLinkHandler: deepLinkSpy)
+        let dependencies = NavigatorDependencies(deepLinkHandler: deepLinkSpy, baseURL: nil)
         let sut = BeagleNavigator(dependencies: dependencies)
         
         let data = ["uma": "uma", "dois": "duas"]
@@ -229,4 +279,5 @@ class BeagleContextDummy: BeagleContext {
 
 struct NavigatorDependencies: BeagleNavigator.Dependencies {
     var deepLinkHandler: DeepLinkScreenManaging?
+    var baseURL: URL?
 }
