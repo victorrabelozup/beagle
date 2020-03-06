@@ -13,6 +13,7 @@ import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.setup.DesignSystem
+import br.com.zup.beagle.utils.configureSupportActionBar
 import br.com.zup.beagle.view.BeagleActivity
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
@@ -73,14 +74,15 @@ internal class ScreenViewRenderer(
         context: BeagleActivity,
         navigationBar: NavigationBar
     ) {
-        context.supportActionBar?.apply {
-            title = navigationBar.title
-            val showBackButton = navigationBar.showBackButton
-            setDisplayHomeAsUpEnabled(showBackButton)
-            setDisplayShowHomeEnabled(showBackButton)
-            show()
-        }
+        context.configureSupportActionBar()
+        configureNavigationBarForScreen(context, navigationBar)
+        configureToolbarStyle(context, navigationBar)
+    }
 
+    private fun configureToolbarStyle(
+        context: BeagleActivity,
+        navigationBar: NavigationBar
+    ) {
         context.getToolbar().apply {
             visibility = View.VISIBLE
             menu.clear()
@@ -88,6 +90,19 @@ internal class ScreenViewRenderer(
             navigationBar.navigationBarItems?.let { items ->
                 configToolbarItems(context, this, items)
             }
+        }
+    }
+
+    private fun configureNavigationBarForScreen(
+        context: BeagleActivity,
+        navigationBar: NavigationBar
+    ) {
+        context.supportActionBar?.apply {
+            title = navigationBar.title
+            val showBackButton = navigationBar.showBackButton
+            setDisplayHomeAsUpEnabled(showBackButton)
+            setDisplayShowHomeEnabled(showBackButton)
+            show()
         }
     }
 

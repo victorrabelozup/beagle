@@ -15,6 +15,7 @@ import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.data.BeagleViewModel
 import br.com.zup.beagle.data.ViewState
 import br.com.zup.beagle.setup.BeagleEnvironment
+import br.com.zup.beagle.utils.configureSupportActionBar
 import kotlinx.android.parcel.Parcelize
 
 sealed class ServerDrivenState {
@@ -88,12 +89,7 @@ abstract class BeagleActivity : AppCompatActivity() {
         }
 
         if (supportActionBar == null) {
-            val toolbar = getToolbar()
-            setSupportActionBar(toolbar)
-            supportActionBar?.hide()
-            toolbar.setNavigationOnClickListener {
-                BeagleNavigator.pop(this@BeagleActivity)
-            }
+            configureSupportActionBar()
         }
     }
 
