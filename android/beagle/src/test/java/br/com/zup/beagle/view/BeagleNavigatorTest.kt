@@ -102,13 +102,13 @@ class BeagleNavigatorTest {
     fun addScreen_should_call_BeagleActivity_navigateTo() {
         // Given
         val screenRequest = ScreenRequest(URL)
-        every { context.navigateTo(screenRequest) } just Runs
+        every { context.navigateTo(screenRequest, null) } just Runs
 
         // When
         BeagleNavigator.addScreen(context, URL)
 
         // Then
-        verify(exactly = once()) { context.navigateTo(screenRequest) }
+        verify(exactly = once()) { context.navigateTo(screenRequest, null) }
     }
 
     @Test

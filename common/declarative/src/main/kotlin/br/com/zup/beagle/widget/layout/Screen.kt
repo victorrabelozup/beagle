@@ -25,6 +25,7 @@ data class NavigationBar(
 )
 
 data class Screen(
+    val identifier: String? = null,
     val safeArea: SafeArea? = null,
     val navigationBar: NavigationBar? = null,
     val header: ServerDrivenComponent? = null,

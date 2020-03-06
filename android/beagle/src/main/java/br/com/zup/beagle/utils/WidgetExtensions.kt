@@ -28,6 +28,7 @@ fun Screen.toView(activity: AppCompatActivity) = this.toComponent().toView(activ
 fun Screen.toView(fragment: Fragment) = this.toComponent().toView(fragment)
 
 internal fun Screen.toComponent() = ScreenComponent(
+    identifier = this.identifier,
     navigationBar = this.navigationBar,
     header = this.header,
     content = this.content,

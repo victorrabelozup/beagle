@@ -112,20 +112,6 @@ class NavigationActionHandlerTest {
     }
 
     @Test
-    fun handle_should_call_swapView_with_null_eventData() {
-        // Given
-        val navigate = Navigate(
-            type = NavigationType.SWAP_VIEW
-        )
-
-        // When
-        navigationActionHandler.handle(context, navigate)
-
-        // Then
-        verify(exactly = 0) { BeagleNavigator.swapScreen(any(), any()) }
-    }
-
-    @Test
     fun handle_should_call__addView() {
         // Given
         val path = RandomData.httpUrl()
@@ -140,20 +126,6 @@ class NavigationActionHandlerTest {
 
         // Then
         verify(exactly = once()) { BeagleNavigator.addScreen(context, path) }
-    }
-
-    @Test
-    fun handle_should_call_addView_with_null_eventData() {
-        // Given
-        val navigate = Navigate(
-            type = NavigationType.ADD_VIEW
-        )
-
-        // When
-        navigationActionHandler.handle(context, navigate)
-
-        // Then
-        verify(exactly = 0) { BeagleNavigator.addScreen(any(), any()) }
     }
 
     @Test
@@ -232,19 +204,5 @@ class NavigationActionHandlerTest {
 
         // Then
         verify(exactly = 1) { BeagleNavigator.presentScreen(context, path) }
-    }
-
-    @Test
-    fun handle_should_call_presentView_with_null_eventData() {
-        // Given
-        val navigate = Navigate(
-            type = NavigationType.PRESENT_VIEW
-        )
-
-        // When
-        navigationActionHandler.handle(context, navigate)
-
-        // Then
-        verify(exactly = 0) { BeagleNavigator.presentScreen(any(), any()) }
     }
 }

@@ -6,13 +6,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
-import br.com.zup.beagle.R
-import br.com.zup.beagle.networking.UrlFormatter
-import br.com.zup.beagle.setup.BeagleEnvironment
+import br.com.zup.beagle.widget.layout.Screen
 
 internal object BeagleNavigator {
-
-    private val urlFormatter by lazy { UrlFormatter() }
 
     fun finish(context: Context) {
         if (context is Activity) {
@@ -23,7 +19,8 @@ internal object BeagleNavigator {
     fun pop(context: Context) {
         val f =
             (context as? FragmentActivity)?.supportFragmentManager?.fragments?.lastOrNull {
-                it is DialogFragment } as DialogFragment?
+                it is DialogFragment
+            } as DialogFragment?
         if (f != null) {
             f.dismiss()
             return
@@ -34,30 +31,16 @@ internal object BeagleNavigator {
         }
     }
 
-    fun addScreen(context: Context, url: String) {
+    fun addScreen(context: Context, url: String?, screen: Screen? = null) {
         if (context is BeagleActivity) {
-            context.navigateTo(ScreenRequest(url))
+            context.navigateTo(ScreenRequest(url ?: ""), screen)
         } else {
-            context.startActivity(BeagleActivity.newIntent(context, ScreenRequest(url)))
+            context.startActivity(BeagleActivity.newIntent(context, ScreenRequest(url ?: ""), screen))
         }
     }
 
-    private fun showScreen(activity: AppCompatActivity, url: String) {
-        val transaction = activity.supportFragmentManager
-            .beginTransaction()
-            .setCustomAnimations(
-                R.anim.slide_from_right, R.anim.none_animation,
-                R.anim.none_animation, R.anim.slide_to_right
-            )
-            .replace(R.id.beagle_content, BeagleFragment.newInstance(url))
-
-        val absoluteUrl = urlFormatter.format(BeagleEnvironment.beagleSdk.config.baseUrl, url)
-        transaction.addToBackStack(absoluteUrl)
-        transaction.commit()
-    }
-
-    fun swapScreen(context: Context, url: String) {
-        context.startActivity(BeagleActivity.newIntent(context, ScreenRequest(url)).apply {
+    fun swapScreen(context: Context, url: String?, screen: Screen? = null) {
+        context.startActivity(BeagleActivity.newIntent(context, ScreenRequest(url ?: ""), screen).apply {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         })
     }
@@ -69,7 +52,7 @@ internal object BeagleNavigator {
         }
     }
 
-    fun presentScreen(context: Context, url: String) {
-        context.startActivity(BeagleActivity.newIntent(context, ScreenRequest(url)))
+    fun presentScreen(context: Context, url: String?, screen: Screen? = null) {
+        context.startActivity(BeagleActivity.newIntent(context, ScreenRequest(url ?: ""), screen))
     }
 }
