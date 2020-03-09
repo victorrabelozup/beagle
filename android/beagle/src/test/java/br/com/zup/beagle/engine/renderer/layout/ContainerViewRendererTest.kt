@@ -1,6 +1,7 @@
 package br.com.zup.beagle.engine.renderer.layout
 
 import android.content.Context
+import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
@@ -10,7 +11,6 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.ui.Button
-import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -18,10 +18,9 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.verify
-import org.junit.Before
 import org.junit.Test
 
-class ContainerViewRendererTest {
+class ContainerViewRendererTest : BaseTest() {
 
     @RelaxedMockK
     private lateinit var container: Container
@@ -43,9 +42,8 @@ class ContainerViewRendererTest {
 
     private val containerChildren = listOf<ServerDrivenComponent>(Button(""))
 
-    @Before
-    fun setUp() {
-        MockKAnnotations.init(this)
+    override fun setUp() {
+        super.setUp()
 
         every { viewFactory.makeBeagleFlexView(any(), any()) } returns beagleFlexView
         every { rootView.getContext() } returns context

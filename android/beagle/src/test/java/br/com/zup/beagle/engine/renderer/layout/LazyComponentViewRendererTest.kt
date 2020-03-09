@@ -3,6 +3,7 @@ package br.com.zup.beagle.engine.renderer.layout
 import android.content.Context
 import android.view.View
 import androidx.core.view.get
+import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
@@ -12,7 +13,6 @@ import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.view.BeagleView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.lazy.LazyComponent
-import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -20,13 +20,12 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.verify
-import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertTrue
 
 private val URL = RandomData.httpUrl()
 
-class LazyComponentViewRendererTest {
+class LazyComponentViewRendererTest : BaseTest() {
 
     @MockK
     private lateinit var lazyComponent: LazyComponent
@@ -50,9 +49,8 @@ class LazyComponentViewRendererTest {
     @InjectMockKs
     private lateinit var lazyComponentViewRenderer: LazyComponentViewRenderer
 
-    @Before
-    fun setUp() {
-        MockKAnnotations.init(this)
+    override fun setUp() {
+        super.setUp()
 
         every { viewFactory.makeBeagleView(any()) } returns beagleView
         every { rootView.getContext() } returns context

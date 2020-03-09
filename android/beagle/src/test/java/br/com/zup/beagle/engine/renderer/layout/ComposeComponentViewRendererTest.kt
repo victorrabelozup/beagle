@@ -1,6 +1,7 @@
 package br.com.zup.beagle.engine.renderer.layout
 
 import android.content.Context
+import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.extensions.once
@@ -17,7 +18,7 @@ import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class ComposeComponentViewRendererTest {
+class ComposeComponentViewRendererTest : BaseTest() {
 
     @RelaxedMockK
     private lateinit var component: ComposeComponent
@@ -35,9 +36,8 @@ class ComposeComponentViewRendererTest {
     @MockK
     private lateinit var context: Context
 
-    @Before
-    fun setUp() {
-        MockKAnnotations.init(this)
+    override fun setUp() {
+        super.setUp()
 
         every { viewFactory.makeBeagleFlexView(any()) } returns beagleFlexView
         every { rootView.getContext() } returns context

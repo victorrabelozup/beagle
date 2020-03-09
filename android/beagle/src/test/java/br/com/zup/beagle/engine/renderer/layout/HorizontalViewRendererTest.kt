@@ -1,26 +1,20 @@
 package br.com.zup.beagle.engine.renderer.layout
 
+import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.layout.Horizontal
-import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Test
 
-class HorizontalViewRendererTest {
+class HorizontalViewRendererTest : BaseTest() {
 
     @MockK
     private lateinit var viewRendererFactory: ViewRendererFactory
     @MockK
     private lateinit var viewFactory: ViewFactory
-
-    @Before
-    fun setUp() {
-        MockKAnnotations.init(this)
-    }
 
     @Test
     fun getYogaFlexDirection_should_return_ROW_REVERSE_when_reversed_is_true() {

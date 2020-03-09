@@ -2,6 +2,7 @@ package br.com.zup.beagle.engine.renderer.layout
 
 import android.content.Context
 import android.widget.HorizontalScrollView
+import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
@@ -13,7 +14,6 @@ import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.layout.ScrollAxis
 import br.com.zup.beagle.widget.layout.ScrollView
 import br.com.zup.beagle.widget.ui.Button
-import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -22,12 +22,11 @@ import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.slot
 import io.mockk.verify
-import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class ScrollViewRendererTest {
+class ScrollViewRendererTest : BaseTest() {
 
     @RelaxedMockK
     private lateinit var scroll: ScrollView
@@ -55,9 +54,8 @@ class ScrollViewRendererTest {
     @InjectMockKs
     private lateinit var scrollViewRenderer: ScrollViewRenderer
 
-    @Before
-    fun setUp() {
-        MockKAnnotations.init(this)
+    override fun setUp() {
+        super.setUp()
 
         every { scrollView.addView(any()) } just Runs
         every { horizontalScrollView.addView(any()) } just Runs

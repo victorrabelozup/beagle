@@ -2,6 +2,7 @@ package br.com.zup.beagle.engine.renderer.layout
 
 import android.content.Context
 import android.view.View
+import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
@@ -14,7 +15,6 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.layout.PageView
 import br.com.zup.beagle.widget.pager.PageIndicatorComponent
 import br.com.zup.beagle.widget.ui.Button
-import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -22,10 +22,9 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.verify
-import org.junit.Before
 import org.junit.Test
 
-class PageViewRendererTest {
+class PageViewRendererTest : BaseTest() {
 
     @RelaxedMockK
     private lateinit var pageView: PageView
@@ -39,11 +38,11 @@ class PageViewRendererTest {
     private lateinit var context: Context
     @RelaxedMockK
     private lateinit var beagleFlexView: BeagleFlexView
-    @MockK
+    @RelaxedMockK
     private lateinit var beaglePageView: BeaglePageView
 
     private var pageViewPages = listOf<ServerDrivenComponent>(Button(""))
-    @MockK
+    @RelaxedMockK
     private lateinit var pageIndicatorComponent: PageIndicatorComponent
     @MockK
     private lateinit var pageIndicatorView: BeaglePageIndicatorView
@@ -55,9 +54,8 @@ class PageViewRendererTest {
     @InjectMockKs
     private lateinit var pageViewRenderer: PageViewRenderer
 
-    @Before
-    fun setUp() {
-        MockKAnnotations.init(this, relaxUnitFun = true)
+    override fun setUp() {
+        super.setUp()
 
         every { rootView.getContext() } returns context
         every { viewFactory.makeBeagleFlexView(any()) } returns beagleFlexView

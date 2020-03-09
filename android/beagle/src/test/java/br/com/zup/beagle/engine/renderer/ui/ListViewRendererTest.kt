@@ -3,24 +3,22 @@ package br.com.zup.beagle.engine.renderer.ui
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
-import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.ui.ListDirection
 import br.com.zup.beagle.widget.ui.ListView
-import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
 import io.mockk.slot
-import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class ListViewRendererTest {
+class ListViewRendererTest : BaseTest() {
 
     @MockK
     private lateinit var context: Context
@@ -39,9 +37,8 @@ class ListViewRendererTest {
 
     private lateinit var listViewRenderer: ListViewRenderer
 
-    @Before
-    fun setUp() {
-        MockKAnnotations.init(this)
+    override fun setUp() {
+        super.setUp()
 
         listViewRenderer = ListViewRenderer(widget, viewFactory)
 

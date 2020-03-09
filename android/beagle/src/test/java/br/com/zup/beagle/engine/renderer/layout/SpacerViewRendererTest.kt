@@ -1,23 +1,22 @@
 package br.com.zup.beagle.engine.renderer.layout
 
 import android.content.Context
+import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.layout.Spacer
-import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import io.mockk.slot
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
-import org.junit.Before
 import org.junit.Test
 
-class SpacerViewRendererTest {
+class SpacerViewRendererTest : BaseTest() {
 
     @MockK
     private lateinit var viewRendererFactory: ViewRendererFactory
@@ -30,9 +29,8 @@ class SpacerViewRendererTest {
 
     private lateinit var spacerViewRenderer: SpacerViewRenderer
 
-    @Before
-    fun setUp() {
-        MockKAnnotations.init(this)
+    override fun setUp() {
+        super.setUp()
 
         spacerViewRenderer = SpacerViewRenderer(
             Spacer(10.0),

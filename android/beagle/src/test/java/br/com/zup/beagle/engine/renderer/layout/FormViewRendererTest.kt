@@ -3,8 +3,7 @@ package br.com.zup.beagle.engine.renderer.layout
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
+import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.action.ActionExecutor
 import br.com.zup.beagle.action.FormValidationActionHandler
 import br.com.zup.beagle.engine.renderer.RootView
@@ -16,7 +15,6 @@ import br.com.zup.beagle.form.FormSubmitter
 import br.com.zup.beagle.form.FormValidatorController
 import br.com.zup.beagle.form.Validator
 import br.com.zup.beagle.form.ValidatorHandler
-import br.com.zup.beagle.logger.BeagleLogger
 import br.com.zup.beagle.logger.BeagleMessageLogs
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.testutil.getPrivateField
@@ -27,7 +25,6 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormSubmit
-import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -37,20 +34,15 @@ import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.mockkStatic
 import io.mockk.slot
-import io.mockk.unmockkAll
-import io.mockk.unmockkObject
-import io.mockk.unmockkStatic
 import io.mockk.verify
-import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Test
 
 private const val FORM_INPUT_VIEWS_FIELD_NAME = "formInputs"
 private const val FORM_SUBMIT_VIEW_FIELD_NAME = "formSubmitView"
 private val INPUT_VALUE = RandomData.string()
 
-class FormViewRendererTest {
+class FormViewRendererTest : BaseTest() {
 
     @RelaxedMockK
     private lateinit var form: Form
@@ -95,9 +87,8 @@ class FormViewRendererTest {
 
     private lateinit var formViewRenderer: FormViewRenderer
 
-    @Before
-    fun setUp() {
-        MockKAnnotations.init(this)
+    override fun setUp() {
+        super.setUp()
 
         formViewRenderer = FormViewRenderer(
             form,
@@ -135,11 +126,6 @@ class FormViewRendererTest {
         every { beagleActivity.runOnUiThread(capture(runnableSlot)) } just Runs
         every { formSubmitter.submitForm(any(), any(), capture(formResultCallbackSlot)) } just Runs
         every { validatorHandler.getValidator(any()) } returns validator
-    }
-
-    @After
-    fun tearDown() {
-        unmockkAll()
     }
 
     @Test

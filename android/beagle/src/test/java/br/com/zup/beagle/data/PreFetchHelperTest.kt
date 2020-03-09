@@ -1,7 +1,7 @@
 package br.com.zup.beagle.data
 
+import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.action.Navigate
-import br.com.zup.beagle.action.NavigationType
 import br.com.zup.beagle.action.NavigationType.ADD_VIEW
 import br.com.zup.beagle.action.NavigationType.PRESENT_VIEW
 import br.com.zup.beagle.action.NavigationType.SWAP_VIEW
@@ -9,7 +9,6 @@ import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.utils.generateViewModelInstance
-import io.mockk.MockKAnnotations
 import io.mockk.called
 import io.mockk.coEvery
 import io.mockk.every
@@ -18,11 +17,9 @@ import io.mockk.mockk
 import io.mockk.mockkStatic
 import io.mockk.unmockkStatic
 import io.mockk.verify
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 
-class PreFetchHelperTest {
+class PreFetchHelperTest : BaseTest() {
 
     private val helper = PreFetchHelper()
     @MockK
@@ -37,17 +34,16 @@ class PreFetchHelperTest {
     @MockK
     private lateinit var beagleViewModel: BeagleViewModel
 
-    @Before
-    fun setup() {
-        MockKAnnotations.init(this, relaxUnitFun = true)
-        mockkStatic("br.com.zup.beagle.utils.ViewExtensionsKt")
+    override fun setUp() {
+        super.setUp()
 
+        mockkStatic("br.com.zup.beagle.utils.ViewExtensionsKt")
         every { rootView.generateViewModelInstance() } returns beagleViewModel
         coEvery { beagleViewModel.fetchForCache(any()) } returns mockk()
     }
 
-    @After
-    fun tearDown() {
+    override fun tearDown() {
+        super.tearDown()
         unmockkStatic("br.com.zup.beagle.utils.ViewExtensionsKt")
     }
 

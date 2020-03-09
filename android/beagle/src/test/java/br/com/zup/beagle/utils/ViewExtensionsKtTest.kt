@@ -11,6 +11,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
+import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.engine.mapper.ViewMapper
 import br.com.zup.beagle.engine.renderer.ActivityRootView
 import br.com.zup.beagle.engine.renderer.FragmentRootView
@@ -26,20 +27,15 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.ImageContentMode
 import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.Image
-import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
 import io.mockk.mockk
-import io.mockk.mockkObject
 import io.mockk.mockkStatic
 import io.mockk.slot
-import io.mockk.unmockkObject
 import io.mockk.verify
-import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertFails
 
@@ -49,7 +45,7 @@ private val IMAGE_RES = RandomData.int()
 private const val ERROR_MESSAGE = "Did you miss to call loadView()?"
 private val screenRequest = ScreenRequest(URL)
 
-class ViewExtensionsKtTest {
+class ViewExtensionsKtTest : BaseTest() {
 
     @MockK
     private lateinit var viewGroup: ViewGroup
@@ -84,10 +80,9 @@ class ViewExtensionsKtTest {
     private val viewSlot = slot<View>()
     private val textAlignment = slot<Int>()
 
-    @Before
-    fun setUp() {
-        MockKAnnotations.init(this)
-        mockkObject(BeagleEnvironment)
+    override fun setUp() {
+        super.setUp()
+
         mockkStatic(TextViewCompat::class)
 
         viewExtensionsViewFactory = viewFactory
@@ -105,21 +100,16 @@ class ViewExtensionsKtTest {
         every { designSystem.image(any()) } returns IMAGE_RES
         every { beagleButton.text = capture(textValueSlot) } just Runs
         every { beagleButton.setBackgroundResource(any()) } just Runs
-        every { beagleButton.setAllCaps(any())} just Runs
+        every { beagleButton.isAllCaps = any() } just Runs
         every { TextViewCompat.setTextAppearance(any(), any()) } just Runs
         every { imageView.scaleType = any() } just Runs
         every { imageView.setImageResource(any()) } just Runs
         every { beagleButton.context } returns activity
-        every { beagleButton.setBackground(any()) } just Runs
+        every { beagleButton.background = any() } just Runs
         every { activity.obtainStyledAttributes(any<Int>(), any()) } returns typedArray
         every { typedArray.getDrawable(any()) } returns drawable
         every { typedArray.getBoolean(any(), any()) } returns true
         every { typedArray.recycle() } just Runs
-    }
-
-    @After
-    fun tearDown() {
-        unmockkObject(BeagleEnvironment)
     }
 
     @Test

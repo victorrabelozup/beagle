@@ -1,9 +1,9 @@
 package br.com.zup.beagle.utils
 
 import android.view.View
+import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.widget.ui.Text
-import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -11,11 +11,10 @@ import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.slot
 import io.mockk.verify
-import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class ComponentStylizationTest {
+class ComponentStylizationTest : BaseTest() {
 
     @RelaxedMockK
     private lateinit var accessibilitySetup: AccessibilitySetup
@@ -26,11 +25,6 @@ class ComponentStylizationTest {
 
     @InjectMockKs
     private lateinit var componentStylization: ComponentStylization<Text>
-
-    @Before
-    fun setUp() {
-        MockKAnnotations.init(this)
-    }
 
     @Test
     fun afterBuildView_when_is_widget() {

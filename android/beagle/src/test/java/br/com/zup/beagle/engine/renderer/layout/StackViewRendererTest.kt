@@ -1,6 +1,7 @@
 package br.com.zup.beagle.engine.renderer.layout
 
 import android.content.Context
+import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
@@ -20,7 +21,7 @@ import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class StackViewRendererTest {
+class StackViewRendererTest : BaseTest() {
 
     @MockK
     private lateinit var viewRendererFactory: ViewRendererFactory
@@ -45,11 +46,6 @@ class StackViewRendererTest {
 
     private val clipChildren = slot<Boolean>()
     private val flex = slot<Flex>()
-
-    @Before
-    fun setUp() {
-        MockKAnnotations.init(this)
-    }
 
     @Test
     fun build() {

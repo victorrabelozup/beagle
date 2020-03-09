@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
+import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.engine.mapper.ViewMapper
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.ext.unitReal
@@ -21,7 +22,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.target.CustomTarget
-import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -29,20 +29,17 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.mockk
-import io.mockk.mockkObject
 import io.mockk.mockkStatic
 import io.mockk.slot
 import io.mockk.unmockkAll
 import io.mockk.verify
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
-import org.junit.Before
 import org.junit.Test
 
 private const val DEFAULT_URL = "http://teste.com/test.png"
 
-class NetworkImageViewRendererTest {
+class NetworkImageViewRendererTest : BaseTest() {
 
     @MockK
     private lateinit var viewFactory: ViewFactory
@@ -77,11 +74,9 @@ class NetworkImageViewRendererTest {
 
     private val onRequestListenerSlot = slot<CustomTarget<Bitmap>>()
 
-    @Before
-    fun setUp() {
-        MockKAnnotations.init(this)
+    override fun setUp() {
+        super.setUp()
 
-        mockkObject(BeagleEnvironment)
         mockkStatic(Glide::class)
 
         every { Glide.with(any<View>()) } returns requestManager
@@ -102,8 +97,8 @@ class NetworkImageViewRendererTest {
         every { componentStylization.apply(any(), any()) } just Runs
     }
 
-    @After
-    fun tearDown() {
+    override fun tearDown() {
+        super.tearDown()
         unmockkAll()
     }
 

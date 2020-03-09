@@ -1,6 +1,7 @@
 package br.com.zup.beagle.engine.renderer.layout
 
 import android.content.Context
+import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
@@ -9,16 +10,15 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.ui.Button
-import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.slot
 import io.mockk.verify
-import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -41,35 +41,29 @@ internal class DirectionalViewRendererImpl(
     }
 }
 
-class DirectionalViewRendererTest {
+class DirectionalViewRendererTest : BaseTest() {
 
-    private var viewRendererFactory: ViewRendererFactory = mockk()
-
-    private var viewFactory: ViewFactory = mockk()
-
-    private var directionalView: DirectionalView =
-        mockk(relaxUnitFun = true, relaxed = true)
-
-    private var flex: Flex = mockk()
+    @RelaxedMockK
+    private lateinit var directionalView: DirectionalView
+    @MockK
+    private lateinit var flex: Flex
+    @MockK
+    private lateinit var viewRendererFactory: ViewRendererFactory
+    @MockK
+    private lateinit var viewFactory: ViewFactory
 
     private val children = listOf(Button(""), Button(""))
 
-    @MockK
-    private lateinit var beagleFlexView: BeagleFlexView
-
-    @InjectMockKs
     private lateinit var directionalViewRenderer: DirectionalViewRendererImpl
 
-    @Before
-    fun setUp() {
+    override fun setUp() {
+        super.setUp()
+
         every { directionalView.children } returns children
-        MockKAnnotations.init(this)
-        every {
-            flex.copy(
-                flexDirection = any()
-            )
-        } returns flex
+        every { flex.copy(flexDirection = any()) } returns flex
         every { flex.flexDirection } returns FlexDirection.COLUMN
+        directionalViewRenderer =
+            DirectionalViewRendererImpl(directionalView, flex, viewRendererFactory, viewFactory)
     }
 
     @Test

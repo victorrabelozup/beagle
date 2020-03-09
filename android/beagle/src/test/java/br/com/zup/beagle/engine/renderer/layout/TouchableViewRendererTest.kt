@@ -2,6 +2,7 @@ package br.com.zup.beagle.engine.renderer.layout
 
 import android.content.Context
 import android.view.View
+import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.action.ActionExecutor
 import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.NavigationType
@@ -13,7 +14,6 @@ import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.navigation.Touchable
-import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -22,11 +22,10 @@ import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.slot
-import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class TouchableViewRendererTest {
+class TouchableViewRendererTest : BaseTest() {
 
     private val touchable = Touchable(
         action = Navigate(NavigationType.ADD_VIEW),
@@ -57,9 +56,9 @@ class TouchableViewRendererTest {
     @InjectMockKs
     private lateinit var touchableViewRenderer: TouchableViewRenderer
 
-    @Before
-    fun setUp() {
-        MockKAnnotations.init(this, relaxUnitFun = true)
+    override fun setUp() {
+        super.setUp()
+
         every { rootView.getContext() } returns context
         every { viewFactory.makeBeagleFlexView(any()) } returns view
         every { viewRendererFactory.make(any()) } returns viewRenderer

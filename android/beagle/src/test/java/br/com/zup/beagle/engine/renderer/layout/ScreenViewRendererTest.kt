@@ -8,9 +8,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.res.ResourcesCompat
+import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.R
 import br.com.zup.beagle.action.Action
 import br.com.zup.beagle.core.ServerDrivenComponent
@@ -29,7 +29,6 @@ import br.com.zup.beagle.widget.core.JustifyContent
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.NavigationBarItem
 import br.com.zup.beagle.widget.layout.ScreenComponent
-import io.mockk.MockKAnnotations
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -42,14 +41,12 @@ import io.mockk.slot
 import io.mockk.spyk
 import io.mockk.unmockkAll
 import io.mockk.verify
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 import kotlin.test.assertEquals
 
 private const val DEFAULT_COLOR = 0xFFFFFF
 
-class ScreenViewRendererTest {
+class ScreenViewRendererTest : BaseTest() {
 
     @MockK
     private lateinit var screenComponent: ScreenComponent
@@ -97,9 +94,8 @@ class ScreenViewRendererTest {
     private val titleTextAppearance = RandomData.int()
     private val backgroundColorInt = RandomData.int()
 
-    @Before
-    fun setUp() {
-        MockKAnnotations.init(this)
+    override fun setUp() {
+        super.setUp()
 
         mockkStatic(Color::class)
         mockkObject(BeagleEnvironment)
@@ -141,8 +137,8 @@ class ScreenViewRendererTest {
         )
     }
 
-    @After
-    fun tearDown() {
+    override fun tearDown() {
+        super.tearDown()
         unmockkAll()
     }
 

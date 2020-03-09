@@ -2,6 +2,7 @@ package br.com.zup.beagle.engine.renderer.ui
 
 import android.content.Context
 import android.widget.FrameLayout
+import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.setup.BeagleEnvironment
@@ -11,21 +12,17 @@ import br.com.zup.beagle.view.BeagleTabLayout
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.ui.TabItem
 import br.com.zup.beagle.widget.ui.TabView
-import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.just
 import io.mockk.mockk
-import io.mockk.mockkObject
 import io.mockk.runs
-import io.mockk.unmockkObject
+import io.mockk.unmockkAll
 import io.mockk.verify
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 
-class TabViewRendererTest {
+class TabViewRendererTest : BaseTest() {
 
     @InjectMockKs
     private lateinit var tabViewRenderer: TabViewRenderer
@@ -49,10 +46,9 @@ class TabViewRendererTest {
     @MockK(relaxed = true)
     private lateinit var tabItem: TabItem
 
-    @Before
-    fun setUp() {
-        MockKAnnotations.init(this)
-        mockkObject(BeagleEnvironment)
+    override fun setUp() {
+        super.setUp()
+
         every { BeagleEnvironment.application } returns mockk {
             every { resources.displayMetrics } returns mockk {
                 density = 10f
@@ -76,9 +72,9 @@ class TabViewRendererTest {
         every { tabView.tabItems } returns listOf(tabItem)
     }
 
-    @After
-    fun after() {
-        unmockkObject(BeagleEnvironment)
+    override fun tearDown() {
+        super.tearDown()
+        unmockkAll()
     }
 
     @Test
