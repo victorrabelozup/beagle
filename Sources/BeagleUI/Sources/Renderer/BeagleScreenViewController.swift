@@ -68,7 +68,7 @@ public class BeagleScreenViewController: UIViewController {
         guard let screen = viewModel.screen else { return }
         let screenNavigationBar = screen.navigationBar
         let hideNavBar = screenNavigationBar == nil
-        navigationController?.setNavigationBarHidden(hideNavBar, animated: false)
+        navigationController?.setNavigationBarHidden(hideNavBar, animated: animated)
         navigationItem.title = screen.navigationBar?.title
         navigationItem.backBarButtonItem = UIBarButtonItem(title: nil, style: .plain, target: nil, action: nil)
         navigationItem.hidesBackButton = !(screen.navigationBar?.showBackButton ?? true)
