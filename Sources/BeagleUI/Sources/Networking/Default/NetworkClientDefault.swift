@@ -6,12 +6,12 @@ import Foundation
 
 public class NetworkClientDefault: NetworkClient {
 
-    typealias Dependencies = DependencyBaseURL
+    typealias Dependencies = DependencyUrlBuilder
 
     let session = URLSession.shared
     let dependencies: Dependencies
 
-    private let urlBuilder = UrlRequestBuilder()
+    private let httpRequestBuilder = HttpRequestBuilder()
     private let cacheService = MemoryCacheService()
 
     init(dependencies: Dependencies) {
@@ -43,25 +43,29 @@ public class NetworkClientDefault: NetworkClient {
     }
 
     @discardableResult
-    public func doRequest(
+    private func doRequest(
         _ request: Request,
         completion: @escaping RequestCompletion
     ) -> RequestToken? {
-        switch urlBuilder.buildUrlRequest(request: request, baseUrl: dependencies.baseURL) {
-        case .failure(let error):
-            completion(.failure(.init(error: error)))
+        guard let url = dependencies.urlBuilder.build(path: request.url) else {
+            completion(.failure(.init(error: ClientError.invalidUrl)))
             return nil
-
-        case .success(let url):
-            let task = session.dataTask(with: url) { [weak self] data, response, error in
-                guard let self = self else { return }
-                self.saveDataToCacheIfNeeded(data: data, request: request)
-                completion(self.handleResponse(data: data, response: response, error: error))
-            }
-
-            task.resume()
-            return task
         }
+
+        let build = httpRequestBuilder.build(
+            url: url,
+            requestType: request.type,
+            additionalData: request.additionalData as? HttpAdditionalData
+        )
+
+        let task = session.dataTask(with: build.toUrlRequest()) { [weak self] data, response, error in
+            guard let self = self else { return }
+            self.saveDataToCacheIfNeeded(data: data, request: request)
+            completion(self.handleResponse(data: data, response: response, error: error))
+        }
+
+        task.resume()
+        return task
     }
 
     private func handleResponse(

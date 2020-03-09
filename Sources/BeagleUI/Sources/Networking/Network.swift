@@ -9,12 +9,14 @@ public protocol Network {
     @discardableResult
     func fetchComponent(
         url: String,
+        additionalData: RemoteScreenAdditionalData?,
         completion: @escaping (Result<ServerDrivenComponent, Request.Error>) -> Void
     ) -> RequestToken?
 
     @discardableResult
     func submitForm(
         url: String,
+        additionalData: RemoteScreenAdditionalData?,
         data: Request.FormData,
         completion: @escaping (Result<Action, Request.Error>) -> Void
     ) -> RequestToken?
@@ -22,16 +24,13 @@ public protocol Network {
     @discardableResult
     func fetchImage(
         url: String,
+        additionalData: RemoteScreenAdditionalData?,
         completion: @escaping (Result<Data, Request.Error>) -> Void
     ) -> RequestToken?
 }
 
 public protocol DependencyNetwork {
     var network: Network { get }
-}
-
-public protocol DependencyBaseURL {
-    var baseURL: URL? { get }
 }
 
 // MARK: - Default
@@ -57,9 +56,10 @@ public final class NetworkDefault: Network {
     @discardableResult
     public func fetchComponent(
         url: String,
+        additionalData: RemoteScreenAdditionalData?,
         completion: @escaping (Result<ServerDrivenComponent, Request.Error>) -> Void
     ) -> RequestToken? {
-        let request = Request(url: url, type: .fetchComponent)
+        let request = Request(url: url, type: .fetchComponent, additionalData: additionalData)
         return dependencies.networkClient.executeRequest(request) { [weak self] result in
             guard let self = self else { return }
 
@@ -74,10 +74,11 @@ public final class NetworkDefault: Network {
     @discardableResult
     public func submitForm(
         url: String,
+        additionalData: RemoteScreenAdditionalData?,
         data: Request.FormData,
         completion: @escaping (Result<Action, Request.Error>) -> Void
     ) -> RequestToken? {
-        let request = Request(url: url, type: .submitForm(data))
+        let request = Request(url: url, type: .submitForm(data), additionalData: additionalData)
         return dependencies.networkClient.executeRequest(request) { [weak self] result in
             guard let self = self else { return }
 
@@ -92,9 +93,10 @@ public final class NetworkDefault: Network {
     @discardableResult
     public func fetchImage(
         url: String,
+        additionalData: RemoteScreenAdditionalData?,
         completion: @escaping (Result<Data, Request.Error>) -> Void
     ) -> RequestToken? {
-        let request = Request(url: url, type: .fetchImage)
+        let request = Request(url: url, type: .fetchImage, additionalData: additionalData)
         return dependencies.networkClient.executeRequest(request) { result in
             let mapped = result
                 .flatMapError { .failure(Request.Error.networkError($0)) }

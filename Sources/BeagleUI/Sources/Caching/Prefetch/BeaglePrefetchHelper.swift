@@ -20,7 +20,7 @@ public class BeaglePreFetchHelper: BeaglePrefetchHelping {
     
     public func prefetchComponent(newPath: Navigate.NewPath, dependencies: Dependencies) {
         guard newPath.shouldPrefetch, dependencies.cacheManager.dequeueComponent(path: newPath.path) == nil else { return }
-        dependencies.network.fetchComponent(url: newPath.path) {
+        dependencies.network.fetchComponent(url: newPath.path, additionalData: nil) {
             switch $0 {
             case .success(let component):
                 dependencies.cacheManager.saveComponent(component, forPath: newPath.path)

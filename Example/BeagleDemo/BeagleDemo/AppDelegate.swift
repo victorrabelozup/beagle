@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let dependencies = BeagleDependencies()
         dependencies.theme = Style.theme
-        dependencies.baseURL = URL(string: "http://localhost:8080/")
+        dependencies.urlBuilder = UrlBuilder(baseUrl: URL(string: "http://localhost:8080/")) 
         dependencies.deepLinkHandler = deepLinkHandler
         dependencies.validatorProvider = validator
         Beagle.dependencies = dependencies

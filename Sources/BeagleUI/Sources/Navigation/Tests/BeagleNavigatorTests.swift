@@ -108,8 +108,8 @@ final class BeagleNavigatorTests: XCTestCase {
         let component = SimpleComponent()
         let action = Navigate.popToView(screenURL1)
         let vc1 = beagleViewController(screen: .declarative(component.content.toScreen()))
-        let vc2 = beagleViewController(screen: .remote(screenURL2, fallback: nil))
-        let vc3 = beagleViewController(screen: .remote(screenURL3, fallback: nil))
+        let vc2 = beagleViewController(screen: .remote(.init(url: screenURL2)))
+        let vc3 = beagleViewController(screen: .remote(.init(url: screenURL3)))
         let vc4 = UIViewController()
         let context = BeagleContextDummy(viewController: vc4)
         let navigation = UINavigationController()
@@ -130,9 +130,9 @@ final class BeagleNavigatorTests: XCTestCase {
         let screenURL3 = "https://example.com/screen3.json"
         let sut = BeagleNavigator(dependencies: NavigatorDependencies())
         let action = Navigate.popToView(screenURL2)
-        let vc1 = beagleViewController(screen: .remote(screenURL1, fallback: nil))
-        let vc2 = beagleViewController(screen: .remote(screenURL2, fallback: nil))
-        let vc3 = beagleViewController(screen: .remote(screenURL3, fallback: nil))
+        let vc1 = beagleViewController(screen: .remote(.init(url: screenURL1)))
+        let vc2 = beagleViewController(screen: .remote(.init(url: screenURL2)))
+        let vc3 = beagleViewController(screen: .remote(.init(url: screenURL3)))
         let vc4 = UIViewController()
         let context = BeagleContextDummy(viewController: vc4)
         let navigation = UINavigationController()
@@ -148,15 +148,10 @@ final class BeagleNavigatorTests: XCTestCase {
     
     func test_popToView_absoluteURL() {
         let dependecies = BeagleDependencies()
-        dependecies.baseURL = URL(string: "https://server.com/path/")
+        dependecies.urlBuilder.baseUrl = URL(string: "https://server.com/path/")
         let sut = BeagleNavigator(dependencies: dependecies)
-        let screen = BeagleScreenViewController(
-            viewModel: .init(
-                screenType: .remote("screen", fallback: nil),
-                dependencies: dependecies,
-                delegate: nil
-            )
-        )
+        let screen = beagleViewController(screen: .remote(.init(url: "screen")))
+
         let navigation = UINavigationController()
         let stack = [screen, UIViewController(), UIViewController()]
         navigation.viewControllers = stack
@@ -218,7 +213,7 @@ final class BeagleNavigatorTests: XCTestCase {
     func test_openDeepLink_shouldPushANativeScreenWithData() {
         // Given
         let deepLinkSpy = DeepLinkHandlerSpy()
-        let dependencies = NavigatorDependencies(deepLinkHandler: deepLinkSpy, baseURL: nil)
+        let dependencies = NavigatorDependencies(deepLinkHandler: deepLinkSpy, urlBuilder: UrlBuilder())
         let sut = BeagleNavigator(dependencies: dependencies)
         
         let data = ["uma": "uma", "dois": "duas"]
@@ -279,5 +274,5 @@ class BeagleContextDummy: BeagleContext {
 
 struct NavigatorDependencies: BeagleNavigator.Dependencies {
     var deepLinkHandler: DeepLinkScreenManaging?
-    var baseURL: URL?
+    var urlBuilder: UrlBuilderProtocol = UrlBuilder()
 }

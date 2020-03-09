@@ -10,7 +10,7 @@ import SnapshotTesting
 
 final class UrlRequestBuilderTest: XCTestCase {
 
-    let sut = UrlRequestBuilder()
+    let sut = HttpRequestBuilder()
 
     func testBuilder() {
         let builders = buildAllUrls()
@@ -19,43 +19,43 @@ final class UrlRequestBuilderTest: XCTestCase {
 
     // swiftlint:disable force_unwrapping
     private func buildAllUrls() -> [TestData] {
-        let requests = createAllRequests()
-        let baseUrls = [URL(string: "scheme://baseUrl/")!, nil]
+        let requests = createAllPossibleRequests()
+
+        let httpData = HttpAdditionalData(
+            httpData: .init(method: .POST, body: Data()),
+            headers: ["header": "header"]
+        )
+        let datas = [nil, httpData]
+
+        let url = URL(string: "scheme://baseUrl/")!
 
         var builders = [TestData]()
         var count = 0
         requests.forEach { request in
-            baseUrls.forEach { baseUrl in
+            datas.forEach { data in
                 count += 1
+                let result = sut.build(url: url, requestType: request, additionalData: data)
 
-                let result = sut.buildUrlRequest(request: request, baseUrl: baseUrl)
-                let str = """
-                  \(descriptionWithoutOptional(baseUrl))  +  \(request)
-                """
-                builders += [TestData(testNumber: count, parameters: str, result: result)]
+                builders.append(TestData(
+                    testNumber: count,
+                    parameters: .init(url: url, requestType: request, data: data),
+                    result: result
+                ))
             }
         }
 
         return builders
     }
 
-    private func createAllRequests() -> [Request] {
-        let paths = ["scheme://absolute-path/test", "/relative-path", ""]
+    private func createAllPossibleRequests() -> [Request.RequestType] {
         let forms = createAllForms().map { Request.RequestType.submitForm($0) }
 
         var types: [Request.RequestType] = [
             .fetchComponent, .fetchImage
         ]
+
         types.append(contentsOf: forms)
-
-        var requests = [Request]()
-        paths.forEach { p in
-            types.forEach { t in
-                requests.append(Request(url: p, type: t))
-            }
-        }
-
-        return requests
+        return types
     }
 
     private func createAllForms() -> [Request.FormData] {
@@ -70,28 +70,22 @@ final class UrlRequestBuilderTest: XCTestCase {
         }
         return forms
     }
-}
 
-private struct TestData: AnySnapshotStringConvertible {
+    private struct TestData: AnySnapshotStringConvertible {
 
-    static var renderChildren = true
+        static var renderChildren = true
+        var snapshotDescription: String { return "" }
 
-    private let testNumber: Int
+        let testNumber: Int
+        let parameters: Parameters
+        let result: HttpRequestBuilder.Result
 
-    var snapshotDescription: String {
-        return ""
-    }
-
-    let parameters: String
-    let result: Result<URLRequest, NetworkClientDefault.ClientError>
-
-    init(
-        testNumber: Int,
-        parameters: String,
-        result: Result<URLRequest, NetworkClientDefault.ClientError>
-    ) {
-        self.testNumber = testNumber
-        self.parameters = parameters
-        self.result = result
+        struct Parameters {
+            let url: URL
+            let requestType: Request.RequestType
+            let data: RemoteScreenAdditionalData?
+        }
     }
 }
+
+extension String: RemoteScreenAdditionalData { }

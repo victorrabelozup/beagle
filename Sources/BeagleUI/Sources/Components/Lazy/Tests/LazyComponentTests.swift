@@ -33,6 +33,7 @@ final class LazyComponentTests: XCTestCase {
     
     func test_loadUnknowComponent_shouldRenderTheError() {
         let lazyComponent = LazyComponent(path: "unknow-widget", initialState: Text("Loading..."))
+        let size = CGSize(width: 300, height: 75)
         let network = LazyNetworkStub()
         let dependecies = BeagleDependencies()
         dependecies.network = network
@@ -44,30 +45,31 @@ final class LazyComponentTests: XCTestCase {
             )
         )
         
-        assertSnapshotImage(screen, size: CGSize(width: 300, height: 75))
+        assertSnapshotImage(screen, size: size)
+
         network.componentCompletion?(.success(AnyComponent(value: "LazyError")))
         
-        assertSnapshotImage(screen, size: CGSize(width: 300, height: 75))
+        assertSnapshotImage(screen, size: size)
     }
 }
 
 class LazyNetworkStub: Network {
-    
+
     var componentCompletion: ((Result<ServerDrivenComponent, Request.Error>) -> Void)?
     var formCompletion: ((Result<Action, Request.Error>) -> Void)?
     var imageCompletion: ((Result<Data, Request.Error>) -> Void)?
-    
-    func fetchComponent(url: String, completion: @escaping (Result<ServerDrivenComponent, Request.Error>) -> Void) -> RequestToken? {
+
+    func fetchComponent(url: String, additionalData: RemoteScreenAdditionalData?, completion: @escaping (Result<ServerDrivenComponent, Request.Error>) -> Void) -> RequestToken? {
         componentCompletion = completion
         return nil
     }
-    
-    func submitForm(url: String, data: Request.FormData, completion: @escaping (Result<Action, Request.Error>) -> Void) -> RequestToken? {
+
+    func submitForm(url: String, additionalData: RemoteScreenAdditionalData?, data: Request.FormData, completion: @escaping (Result<Action, Request.Error>) -> Void) -> RequestToken? {
         formCompletion = completion
         return nil
     }
-    
-    func fetchImage(url: String, completion: @escaping (Result<Data, Request.Error>) -> Void) -> RequestToken? {
+
+    func fetchImage(url: String, additionalData: RemoteScreenAdditionalData?, completion: @escaping (Result<Data, Request.Error>) -> Void) -> RequestToken? {
         imageCompletion = completion
         return nil
     }

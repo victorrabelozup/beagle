@@ -49,7 +49,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         let delegateSpy = BeagleScreenDelegateSpy()
         
         _ = BeagleScreenViewController(viewModel: .init(
-            screenType: .remote(url, fallback: nil),
+            screenType: .remote(.init(url: url)),
             dependencies: BeagleScreenDependencies(
                 network: networkStub
             ),
@@ -157,7 +157,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         dependencies.network = loaderStub
 
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .remote("www.something.com", fallback: nil),
+            screenType: .remote(.init(url: "www.something.com")),
             dependencies: dependencies
         ))
 
@@ -175,7 +175,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         dependencies.network = network
         
         let screen = BeagleScreenViewController(viewModel: .init(
-            screenType: .remote(url, fallback: nil),
+            screenType: .remote(.init(url: url, fallback: nil)),
             dependencies: dependencies
         ))
         
@@ -203,7 +203,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         dependencies.network = network
         
         let screen = BeagleScreenViewController(viewModel: .init(
-            screenType: .remote("url", fallback: fallback),
+            screenType: .remote(.init(url: "url", fallback: fallback)),
             dependencies: dependencies,
             delegate: delegate
         ))
@@ -219,7 +219,6 @@ struct SimpleComponent {
         [Text("Mock")]
     )
 }
-
 final class BeagleScreenDelegateSpy: BeagleScreenDelegate {
     
     private(set) var didFailToLoadWithErrorCalled = false

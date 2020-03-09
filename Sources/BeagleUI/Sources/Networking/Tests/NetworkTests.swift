@@ -31,7 +31,7 @@ final class NetworkTests: XCTestCase {
         let fetchComponentExpectation = expectation(description: "fetchComponent")
         var fetchError: Request.Error?
 
-        sut.fetchComponent(url: invalidURL) {
+        sut.fetchComponent(url: invalidURL, additionalData: nil) {
             if case let .failure(error) = $0 {
                 fetchError = error
             }
@@ -44,7 +44,7 @@ final class NetworkTests: XCTestCase {
             method: .post, values: [:]
         )
 
-        sut.submitForm(url: invalidURL, data: formData) {
+        sut.submitForm(url: invalidURL, additionalData: nil, data: formData) {
             if case let .failure(error) = $0 {
                 formError = error
             }
@@ -83,7 +83,7 @@ final class NetworkTests: XCTestCase {
         // When
         var componentReturned: ServerDrivenComponent?
         let expec = expectation(description: "fetchComponentExpectation")
-        sut.fetchComponent(url: url) { result in
+        sut.fetchComponent(url: url, additionalData: nil) { result in
             if case .success(let component) = result {
                 componentReturned = component
             }
@@ -111,7 +111,7 @@ final class NetworkTests: XCTestCase {
         // When
         var errorThrown: Request.Error?
         let expec = expectation(description: "fetchComponentExpectation")
-        sut.fetchComponent(url: url) { result in
+        sut.fetchComponent(url: url, additionalData: nil) { result in
             if case let .failure(error) = result {
                 errorThrown = error
             }
@@ -186,7 +186,7 @@ class NetworkStub: Network {
         self.imageResult = imageResult
     }
 
-    func fetchComponent(url: String, completion: @escaping (Result<ServerDrivenComponent, Request.Error>) -> Void) -> RequestToken? {
+    func fetchComponent(url: String, additionalData: RemoteScreenAdditionalData?, completion: @escaping (Result<ServerDrivenComponent, Request.Error>) -> Void) -> RequestToken? {
         didCallDispatch = true
         if let result = componentResult {
             completion(result)
@@ -194,7 +194,7 @@ class NetworkStub: Network {
         return token
     }
 
-    func submitForm(url: String, data: Request.FormData, completion: @escaping (Result<Action, Request.Error>) -> Void) -> RequestToken? {
+    func submitForm(url: String, additionalData: RemoteScreenAdditionalData?, data: Request.FormData, completion: @escaping (Result<Action, Request.Error>) -> Void) -> RequestToken? {
         didCallDispatch = true
         if let result = formResult {
             completion(result)
@@ -202,7 +202,7 @@ class NetworkStub: Network {
         return token
     }
 
-    func fetchImage(url: String, completion: @escaping (Result<Data, Request.Error>) -> Void) -> RequestToken? {
+    func fetchImage(url: String, additionalData: RemoteScreenAdditionalData?, completion: @escaping (Result<Data, Request.Error>) -> Void) -> RequestToken? {
         didCallDispatch = true
         if let result = imageResult {
             completion(result)

@@ -1,1037 +1,487 @@
-▿ 60 elements
+▿ 20 elements
   ▿ 
     - testNumber: 1
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"scheme://absolute-path/test\", type: BeagleUI.Request.RequestType.fetchComponent)"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://absolute-path/test
-        ▿ url: Optional<URL>
-          - some: scheme://absolute-path/test
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "GET"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
+    ▿ parameters: Parameters
+      - data: Optional<RemoteScreenAdditionalData>.none
+      - requestType: RequestType.fetchComponent
+      - url: scheme://baseUrl/
+    ▿ result: Result
+      - body: Optional<Data>.none
+      ▿ headers: 1 key/value pair
+        ▿ (2 elements)
+          - key: "Content-Type"
+          - value: "application/json"
+      - method: "GET"
+      - url: scheme://baseUrl/
   ▿ 
     - testNumber: 2
-    - parameters: "  NULL  +  Request(url: \"scheme://absolute-path/test\", type: BeagleUI.Request.RequestType.fetchComponent)"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://absolute-path/test
-        ▿ url: Optional<URL>
-          - some: scheme://absolute-path/test
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "GET"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
+    ▿ parameters: Parameters
+      ▿ data: Optional<RemoteScreenAdditionalData>
+        ▿ some: HttpAdditionalData
+          ▿ headers: 1 key/value pair
             ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
+              - key: "header"
+              - value: "header"
+          ▿ httpData: Optional<HttpData>
+            ▿ some: HttpData
+              - body: 0 bytes
+              - method: Method.POST
+      - requestType: RequestType.fetchComponent
+      - url: scheme://baseUrl/
+    ▿ result: Result
+      ▿ body: Optional<Data>
+        - some: 0 bytes
+      ▿ headers: 2 key/value pairs
+        ▿ (2 elements)
+          - key: "Content-Type"
+          - value: "application/json"
+        ▿ (2 elements)
+          - key: "header"
+          - value: "header"
+      - method: "POST"
+      - url: scheme://baseUrl/
   ▿ 
     - testNumber: 3
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"scheme://absolute-path/test\", type: BeagleUI.Request.RequestType.fetchImage)"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://absolute-path/test
-        ▿ url: Optional<URL>
-          - some: scheme://absolute-path/test
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "GET"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
+    ▿ parameters: Parameters
+      - data: Optional<RemoteScreenAdditionalData>.none
+      - requestType: RequestType.fetchImage
+      - url: scheme://baseUrl/
+    ▿ result: Result
+      - body: Optional<Data>.none
+      ▿ headers: 1 key/value pair
+        ▿ (2 elements)
+          - key: "Content-Type"
+          - value: "application/json"
+      - method: "GET"
+      - url: scheme://baseUrl/
   ▿ 
     - testNumber: 4
-    - parameters: "  NULL  +  Request(url: \"scheme://absolute-path/test\", type: BeagleUI.Request.RequestType.fetchImage)"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://absolute-path/test
-        ▿ url: Optional<URL>
-          - some: scheme://absolute-path/test
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "GET"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
+    ▿ parameters: Parameters
+      ▿ data: Optional<RemoteScreenAdditionalData>
+        ▿ some: HttpAdditionalData
+          ▿ headers: 1 key/value pair
             ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
+              - key: "header"
+              - value: "header"
+          ▿ httpData: Optional<HttpData>
+            ▿ some: HttpData
+              - body: 0 bytes
+              - method: Method.POST
+      - requestType: RequestType.fetchImage
+      - url: scheme://baseUrl/
+    ▿ result: Result
+      ▿ body: Optional<Data>
+        - some: 0 bytes
+      ▿ headers: 2 key/value pairs
+        ▿ (2 elements)
+          - key: "Content-Type"
+          - value: "application/json"
+        ▿ (2 elements)
+          - key: "header"
+          - value: "header"
+      - method: "POST"
+      - url: scheme://baseUrl/
   ▿ 
     - testNumber: 5
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"scheme://absolute-path/test\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.get, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://absolute-path/test?key=value
-        ▿ url: Optional<URL>
-          - some: scheme://absolute-path/test?key=value
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "GET"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
+    ▿ parameters: Parameters
+      - data: Optional<RemoteScreenAdditionalData>.none
+      ▿ requestType: RequestType
+        ▿ submitForm: FormData
+          - method: MethodType.get
+          ▿ values: 1 key/value pair
             ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
+              - key: "key"
+              - value: "value"
+      - url: scheme://baseUrl/
+    ▿ result: Result
+      - body: Optional<Data>.none
+      ▿ headers: 1 key/value pair
+        ▿ (2 elements)
+          - key: "Content-Type"
+          - value: "application/json"
+      - method: "GET"
+      - url: scheme://baseUrl/?key=value
   ▿ 
     - testNumber: 6
-    - parameters: "  NULL  +  Request(url: \"scheme://absolute-path/test\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.get, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://absolute-path/test?key=value
-        ▿ url: Optional<URL>
-          - some: scheme://absolute-path/test?key=value
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "GET"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
+    ▿ parameters: Parameters
+      ▿ data: Optional<RemoteScreenAdditionalData>
+        ▿ some: HttpAdditionalData
+          ▿ headers: 1 key/value pair
             ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
+              - key: "header"
+              - value: "header"
+          ▿ httpData: Optional<HttpData>
+            ▿ some: HttpData
+              - body: 0 bytes
+              - method: Method.POST
+      ▿ requestType: RequestType
+        ▿ submitForm: FormData
+          - method: MethodType.get
+          ▿ values: 1 key/value pair
+            ▿ (2 elements)
+              - key: "key"
+              - value: "value"
+      - url: scheme://baseUrl/
+    ▿ result: Result
+      ▿ body: Optional<Data>
+        - some: 0 bytes
+      ▿ headers: 2 key/value pairs
+        ▿ (2 elements)
+          - key: "Content-Type"
+          - value: "application/json"
+        ▿ (2 elements)
+          - key: "header"
+          - value: "header"
+      - method: "GET"
+      - url: scheme://baseUrl/?key=value
   ▿ 
     - testNumber: 7
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"scheme://absolute-path/test\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.get, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://absolute-path/test?
-        ▿ url: Optional<URL>
-          - some: scheme://absolute-path/test?
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "GET"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
+    ▿ parameters: Parameters
+      - data: Optional<RemoteScreenAdditionalData>.none
+      ▿ requestType: RequestType
+        ▿ submitForm: FormData
+          - method: MethodType.get
+          - values: 0 key/value pairs
+      - url: scheme://baseUrl/
+    ▿ result: Result
+      - body: Optional<Data>.none
+      ▿ headers: 1 key/value pair
+        ▿ (2 elements)
+          - key: "Content-Type"
+          - value: "application/json"
+      - method: "GET"
+      - url: scheme://baseUrl/?
   ▿ 
     - testNumber: 8
-    - parameters: "  NULL  +  Request(url: \"scheme://absolute-path/test\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.get, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://absolute-path/test?
-        ▿ url: Optional<URL>
-          - some: scheme://absolute-path/test?
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "GET"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
+    ▿ parameters: Parameters
+      ▿ data: Optional<RemoteScreenAdditionalData>
+        ▿ some: HttpAdditionalData
+          ▿ headers: 1 key/value pair
             ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
+              - key: "header"
+              - value: "header"
+          ▿ httpData: Optional<HttpData>
+            ▿ some: HttpData
+              - body: 0 bytes
+              - method: Method.POST
+      ▿ requestType: RequestType
+        ▿ submitForm: FormData
+          - method: MethodType.get
+          - values: 0 key/value pairs
+      - url: scheme://baseUrl/
+    ▿ result: Result
+      ▿ body: Optional<Data>
+        - some: 0 bytes
+      ▿ headers: 2 key/value pairs
+        ▿ (2 elements)
+          - key: "Content-Type"
+          - value: "application/json"
+        ▿ (2 elements)
+          - key: "header"
+          - value: "header"
+      - method: "GET"
+      - url: scheme://baseUrl/?
   ▿ 
     - testNumber: 9
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"scheme://absolute-path/test\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.post, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://absolute-path/test
-        ▿ url: Optional<URL>
-          - some: scheme://absolute-path/test
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "POST"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
+    ▿ parameters: Parameters
+      - data: Optional<RemoteScreenAdditionalData>.none
+      ▿ requestType: RequestType
+        ▿ submitForm: FormData
+          - method: MethodType.post
+          ▿ values: 1 key/value pair
             ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        ▿ httpBody: Optional<Data>
-          - some: 15 bytes
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
+              - key: "key"
+              - value: "value"
+      - url: scheme://baseUrl/
+    ▿ result: Result
+      ▿ body: Optional<Data>
+        - some: 15 bytes
+      ▿ headers: 1 key/value pair
+        ▿ (2 elements)
+          - key: "Content-Type"
+          - value: "application/json"
+      - method: "POST"
+      - url: scheme://baseUrl/
   ▿ 
     - testNumber: 10
-    - parameters: "  NULL  +  Request(url: \"scheme://absolute-path/test\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.post, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://absolute-path/test
-        ▿ url: Optional<URL>
-          - some: scheme://absolute-path/test
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "POST"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
+    ▿ parameters: Parameters
+      ▿ data: Optional<RemoteScreenAdditionalData>
+        ▿ some: HttpAdditionalData
+          ▿ headers: 1 key/value pair
             ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        ▿ httpBody: Optional<Data>
-          - some: 15 bytes
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
+              - key: "header"
+              - value: "header"
+          ▿ httpData: Optional<HttpData>
+            ▿ some: HttpData
+              - body: 0 bytes
+              - method: Method.POST
+      ▿ requestType: RequestType
+        ▿ submitForm: FormData
+          - method: MethodType.post
+          ▿ values: 1 key/value pair
+            ▿ (2 elements)
+              - key: "key"
+              - value: "value"
+      - url: scheme://baseUrl/
+    ▿ result: Result
+      ▿ body: Optional<Data>
+        - some: 15 bytes
+      ▿ headers: 2 key/value pairs
+        ▿ (2 elements)
+          - key: "Content-Type"
+          - value: "application/json"
+        ▿ (2 elements)
+          - key: "header"
+          - value: "header"
+      - method: "POST"
+      - url: scheme://baseUrl/
   ▿ 
     - testNumber: 11
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"scheme://absolute-path/test\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.post, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://absolute-path/test
-        ▿ url: Optional<URL>
-          - some: scheme://absolute-path/test
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "POST"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        ▿ httpBody: Optional<Data>
-          - some: 2 bytes
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
+    ▿ parameters: Parameters
+      - data: Optional<RemoteScreenAdditionalData>.none
+      ▿ requestType: RequestType
+        ▿ submitForm: FormData
+          - method: MethodType.post
+          - values: 0 key/value pairs
+      - url: scheme://baseUrl/
+    ▿ result: Result
+      ▿ body: Optional<Data>
+        - some: 2 bytes
+      ▿ headers: 1 key/value pair
+        ▿ (2 elements)
+          - key: "Content-Type"
+          - value: "application/json"
+      - method: "POST"
+      - url: scheme://baseUrl/
   ▿ 
     - testNumber: 12
-    - parameters: "  NULL  +  Request(url: \"scheme://absolute-path/test\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.post, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://absolute-path/test
-        ▿ url: Optional<URL>
-          - some: scheme://absolute-path/test
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "POST"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
+    ▿ parameters: Parameters
+      ▿ data: Optional<RemoteScreenAdditionalData>
+        ▿ some: HttpAdditionalData
+          ▿ headers: 1 key/value pair
             ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        ▿ httpBody: Optional<Data>
-          - some: 2 bytes
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
+              - key: "header"
+              - value: "header"
+          ▿ httpData: Optional<HttpData>
+            ▿ some: HttpData
+              - body: 0 bytes
+              - method: Method.POST
+      ▿ requestType: RequestType
+        ▿ submitForm: FormData
+          - method: MethodType.post
+          - values: 0 key/value pairs
+      - url: scheme://baseUrl/
+    ▿ result: Result
+      ▿ body: Optional<Data>
+        - some: 2 bytes
+      ▿ headers: 2 key/value pairs
+        ▿ (2 elements)
+          - key: "Content-Type"
+          - value: "application/json"
+        ▿ (2 elements)
+          - key: "header"
+          - value: "header"
+      - method: "POST"
+      - url: scheme://baseUrl/
   ▿ 
     - testNumber: 13
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"scheme://absolute-path/test\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.put, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://absolute-path/test
-        ▿ url: Optional<URL>
-          - some: scheme://absolute-path/test
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "PUT"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
+    ▿ parameters: Parameters
+      - data: Optional<RemoteScreenAdditionalData>.none
+      ▿ requestType: RequestType
+        ▿ submitForm: FormData
+          - method: MethodType.put
+          ▿ values: 1 key/value pair
             ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        ▿ httpBody: Optional<Data>
-          - some: 15 bytes
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
+              - key: "key"
+              - value: "value"
+      - url: scheme://baseUrl/
+    ▿ result: Result
+      ▿ body: Optional<Data>
+        - some: 15 bytes
+      ▿ headers: 1 key/value pair
+        ▿ (2 elements)
+          - key: "Content-Type"
+          - value: "application/json"
+      - method: "PUT"
+      - url: scheme://baseUrl/
   ▿ 
     - testNumber: 14
-    - parameters: "  NULL  +  Request(url: \"scheme://absolute-path/test\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.put, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://absolute-path/test
-        ▿ url: Optional<URL>
-          - some: scheme://absolute-path/test
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "PUT"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
+    ▿ parameters: Parameters
+      ▿ data: Optional<RemoteScreenAdditionalData>
+        ▿ some: HttpAdditionalData
+          ▿ headers: 1 key/value pair
             ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        ▿ httpBody: Optional<Data>
-          - some: 15 bytes
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
+              - key: "header"
+              - value: "header"
+          ▿ httpData: Optional<HttpData>
+            ▿ some: HttpData
+              - body: 0 bytes
+              - method: Method.POST
+      ▿ requestType: RequestType
+        ▿ submitForm: FormData
+          - method: MethodType.put
+          ▿ values: 1 key/value pair
+            ▿ (2 elements)
+              - key: "key"
+              - value: "value"
+      - url: scheme://baseUrl/
+    ▿ result: Result
+      ▿ body: Optional<Data>
+        - some: 15 bytes
+      ▿ headers: 2 key/value pairs
+        ▿ (2 elements)
+          - key: "Content-Type"
+          - value: "application/json"
+        ▿ (2 elements)
+          - key: "header"
+          - value: "header"
+      - method: "PUT"
+      - url: scheme://baseUrl/
   ▿ 
     - testNumber: 15
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"scheme://absolute-path/test\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.put, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://absolute-path/test
-        ▿ url: Optional<URL>
-          - some: scheme://absolute-path/test
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "PUT"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        ▿ httpBody: Optional<Data>
-          - some: 2 bytes
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
+    ▿ parameters: Parameters
+      - data: Optional<RemoteScreenAdditionalData>.none
+      ▿ requestType: RequestType
+        ▿ submitForm: FormData
+          - method: MethodType.put
+          - values: 0 key/value pairs
+      - url: scheme://baseUrl/
+    ▿ result: Result
+      ▿ body: Optional<Data>
+        - some: 2 bytes
+      ▿ headers: 1 key/value pair
+        ▿ (2 elements)
+          - key: "Content-Type"
+          - value: "application/json"
+      - method: "PUT"
+      - url: scheme://baseUrl/
   ▿ 
     - testNumber: 16
-    - parameters: "  NULL  +  Request(url: \"scheme://absolute-path/test\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.put, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://absolute-path/test
-        ▿ url: Optional<URL>
-          - some: scheme://absolute-path/test
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "PUT"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
+    ▿ parameters: Parameters
+      ▿ data: Optional<RemoteScreenAdditionalData>
+        ▿ some: HttpAdditionalData
+          ▿ headers: 1 key/value pair
             ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        ▿ httpBody: Optional<Data>
-          - some: 2 bytes
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
+              - key: "header"
+              - value: "header"
+          ▿ httpData: Optional<HttpData>
+            ▿ some: HttpData
+              - body: 0 bytes
+              - method: Method.POST
+      ▿ requestType: RequestType
+        ▿ submitForm: FormData
+          - method: MethodType.put
+          - values: 0 key/value pairs
+      - url: scheme://baseUrl/
+    ▿ result: Result
+      ▿ body: Optional<Data>
+        - some: 2 bytes
+      ▿ headers: 2 key/value pairs
+        ▿ (2 elements)
+          - key: "Content-Type"
+          - value: "application/json"
+        ▿ (2 elements)
+          - key: "header"
+          - value: "header"
+      - method: "PUT"
+      - url: scheme://baseUrl/
   ▿ 
     - testNumber: 17
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"scheme://absolute-path/test\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.delete, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://absolute-path/test?key=value
-        ▿ url: Optional<URL>
-          - some: scheme://absolute-path/test?key=value
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "DELETE"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
+    ▿ parameters: Parameters
+      - data: Optional<RemoteScreenAdditionalData>.none
+      ▿ requestType: RequestType
+        ▿ submitForm: FormData
+          - method: MethodType.delete
+          ▿ values: 1 key/value pair
             ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
+              - key: "key"
+              - value: "value"
+      - url: scheme://baseUrl/
+    ▿ result: Result
+      - body: Optional<Data>.none
+      ▿ headers: 1 key/value pair
+        ▿ (2 elements)
+          - key: "Content-Type"
+          - value: "application/json"
+      - method: "DELETE"
+      - url: scheme://baseUrl/?key=value
   ▿ 
     - testNumber: 18
-    - parameters: "  NULL  +  Request(url: \"scheme://absolute-path/test\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.delete, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://absolute-path/test?key=value
-        ▿ url: Optional<URL>
-          - some: scheme://absolute-path/test?key=value
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "DELETE"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
+    ▿ parameters: Parameters
+      ▿ data: Optional<RemoteScreenAdditionalData>
+        ▿ some: HttpAdditionalData
+          ▿ headers: 1 key/value pair
             ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
+              - key: "header"
+              - value: "header"
+          ▿ httpData: Optional<HttpData>
+            ▿ some: HttpData
+              - body: 0 bytes
+              - method: Method.POST
+      ▿ requestType: RequestType
+        ▿ submitForm: FormData
+          - method: MethodType.delete
+          ▿ values: 1 key/value pair
+            ▿ (2 elements)
+              - key: "key"
+              - value: "value"
+      - url: scheme://baseUrl/
+    ▿ result: Result
+      ▿ body: Optional<Data>
+        - some: 0 bytes
+      ▿ headers: 2 key/value pairs
+        ▿ (2 elements)
+          - key: "Content-Type"
+          - value: "application/json"
+        ▿ (2 elements)
+          - key: "header"
+          - value: "header"
+      - method: "DELETE"
+      - url: scheme://baseUrl/?key=value
   ▿ 
     - testNumber: 19
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"scheme://absolute-path/test\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.delete, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://absolute-path/test?
-        ▿ url: Optional<URL>
-          - some: scheme://absolute-path/test?
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "DELETE"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
+    ▿ parameters: Parameters
+      - data: Optional<RemoteScreenAdditionalData>.none
+      ▿ requestType: RequestType
+        ▿ submitForm: FormData
+          - method: MethodType.delete
+          - values: 0 key/value pairs
+      - url: scheme://baseUrl/
+    ▿ result: Result
+      - body: Optional<Data>.none
+      ▿ headers: 1 key/value pair
+        ▿ (2 elements)
+          - key: "Content-Type"
+          - value: "application/json"
+      - method: "DELETE"
+      - url: scheme://baseUrl/?
   ▿ 
     - testNumber: 20
-    - parameters: "  NULL  +  Request(url: \"scheme://absolute-path/test\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.delete, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://absolute-path/test?
-        ▿ url: Optional<URL>
-          - some: scheme://absolute-path/test?
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "DELETE"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
+    ▿ parameters: Parameters
+      ▿ data: Optional<RemoteScreenAdditionalData>
+        ▿ some: HttpAdditionalData
+          ▿ headers: 1 key/value pair
             ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 21
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"/relative-path\", type: BeagleUI.Request.RequestType.fetchComponent)"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://baseUrl/relative-path
-        ▿ url: Optional<URL>
-          - some: scheme://baseUrl/relative-path
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "GET"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 22
-    - parameters: "  NULL  +  Request(url: \"/relative-path\", type: BeagleUI.Request.RequestType.fetchComponent)"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: /relative-path
-        ▿ url: Optional<URL>
-          - some: /relative-path
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "GET"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 23
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"/relative-path\", type: BeagleUI.Request.RequestType.fetchImage)"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://baseUrl/relative-path
-        ▿ url: Optional<URL>
-          - some: scheme://baseUrl/relative-path
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "GET"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 24
-    - parameters: "  NULL  +  Request(url: \"/relative-path\", type: BeagleUI.Request.RequestType.fetchImage)"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: /relative-path
-        ▿ url: Optional<URL>
-          - some: /relative-path
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "GET"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 25
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"/relative-path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.get, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://baseUrl/relative-path?key=value
-        ▿ url: Optional<URL>
-          - some: scheme://baseUrl/relative-path?key=value
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "GET"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 26
-    - parameters: "  NULL  +  Request(url: \"/relative-path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.get, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: /relative-path?key=value
-        ▿ url: Optional<URL>
-          - some: /relative-path?key=value
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "GET"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 27
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"/relative-path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.get, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://baseUrl/relative-path?
-        ▿ url: Optional<URL>
-          - some: scheme://baseUrl/relative-path?
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "GET"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 28
-    - parameters: "  NULL  +  Request(url: \"/relative-path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.get, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: /relative-path?
-        ▿ url: Optional<URL>
-          - some: /relative-path?
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "GET"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 29
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"/relative-path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.post, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://baseUrl/relative-path
-        ▿ url: Optional<URL>
-          - some: scheme://baseUrl/relative-path
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "POST"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        ▿ httpBody: Optional<Data>
-          - some: 15 bytes
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 30
-    - parameters: "  NULL  +  Request(url: \"/relative-path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.post, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: /relative-path
-        ▿ url: Optional<URL>
-          - some: /relative-path
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "POST"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        ▿ httpBody: Optional<Data>
-          - some: 15 bytes
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 31
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"/relative-path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.post, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://baseUrl/relative-path
-        ▿ url: Optional<URL>
-          - some: scheme://baseUrl/relative-path
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "POST"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        ▿ httpBody: Optional<Data>
-          - some: 2 bytes
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 32
-    - parameters: "  NULL  +  Request(url: \"/relative-path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.post, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: /relative-path
-        ▿ url: Optional<URL>
-          - some: /relative-path
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "POST"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        ▿ httpBody: Optional<Data>
-          - some: 2 bytes
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 33
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"/relative-path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.put, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://baseUrl/relative-path
-        ▿ url: Optional<URL>
-          - some: scheme://baseUrl/relative-path
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "PUT"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        ▿ httpBody: Optional<Data>
-          - some: 15 bytes
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 34
-    - parameters: "  NULL  +  Request(url: \"/relative-path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.put, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: /relative-path
-        ▿ url: Optional<URL>
-          - some: /relative-path
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "PUT"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        ▿ httpBody: Optional<Data>
-          - some: 15 bytes
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 35
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"/relative-path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.put, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://baseUrl/relative-path
-        ▿ url: Optional<URL>
-          - some: scheme://baseUrl/relative-path
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "PUT"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        ▿ httpBody: Optional<Data>
-          - some: 2 bytes
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 36
-    - parameters: "  NULL  +  Request(url: \"/relative-path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.put, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: /relative-path
-        ▿ url: Optional<URL>
-          - some: /relative-path
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "PUT"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        ▿ httpBody: Optional<Data>
-          - some: 2 bytes
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 37
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"/relative-path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.delete, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://baseUrl/relative-path?key=value
-        ▿ url: Optional<URL>
-          - some: scheme://baseUrl/relative-path?key=value
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "DELETE"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 38
-    - parameters: "  NULL  +  Request(url: \"/relative-path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.delete, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: /relative-path?key=value
-        ▿ url: Optional<URL>
-          - some: /relative-path?key=value
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "DELETE"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 39
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"/relative-path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.delete, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: scheme://baseUrl/relative-path?
-        ▿ url: Optional<URL>
-          - some: scheme://baseUrl/relative-path?
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "DELETE"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 40
-    - parameters: "  NULL  +  Request(url: \"/relative-path\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.delete, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      ▿ success: /relative-path?
-        ▿ url: Optional<URL>
-          - some: /relative-path?
-        - cachePolicy: 1
-        - timeoutInterval: 100.0
-        - mainDocumentURL: Optional<URL>.none
-        - networkServiceType: NSURLRequestNetworkServiceType.NSURLRequestNetworkServiceType
-        - allowsCellularAccess: true
-        ▿ httpMethod: Optional<String>
-          - some: "DELETE"
-        ▿ allHTTPHeaderFields: Optional<Dictionary<String, String>>
-          ▿ some: 1 key/value pair
-            ▿ (2 elements)
-              - key: "Content-Type"
-              - value: "application/json"
-        - httpBody: Optional<Data>.none
-        - httpBodyStream: Optional<NSInputStream>.none
-        - httpShouldHandleCookies: true
-        - httpShouldUsePipelining: false
-  ▿ 
-    - testNumber: 41
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.fetchComponent)"
-    ▿ result: Result<URLRequest, ClientError>
-      - failure: ClientError.invalidUrl
-  ▿ 
-    - testNumber: 42
-    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.fetchComponent)"
-    ▿ result: Result<URLRequest, ClientError>
-      - failure: ClientError.invalidUrl
-  ▿ 
-    - testNumber: 43
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.fetchImage)"
-    ▿ result: Result<URLRequest, ClientError>
-      - failure: ClientError.invalidUrl
-  ▿ 
-    - testNumber: 44
-    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.fetchImage)"
-    ▿ result: Result<URLRequest, ClientError>
-      - failure: ClientError.invalidUrl
-  ▿ 
-    - testNumber: 45
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.get, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      - failure: ClientError.invalidUrl
-  ▿ 
-    - testNumber: 46
-    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.get, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      - failure: ClientError.invalidUrl
-  ▿ 
-    - testNumber: 47
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.get, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      - failure: ClientError.invalidUrl
-  ▿ 
-    - testNumber: 48
-    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.get, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      - failure: ClientError.invalidUrl
-  ▿ 
-    - testNumber: 49
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.post, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      - failure: ClientError.invalidUrl
-  ▿ 
-    - testNumber: 50
-    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.post, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      - failure: ClientError.invalidUrl
-  ▿ 
-    - testNumber: 51
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.post, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      - failure: ClientError.invalidUrl
-  ▿ 
-    - testNumber: 52
-    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.post, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      - failure: ClientError.invalidUrl
-  ▿ 
-    - testNumber: 53
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.put, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      - failure: ClientError.invalidUrl
-  ▿ 
-    - testNumber: 54
-    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.put, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      - failure: ClientError.invalidUrl
-  ▿ 
-    - testNumber: 55
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.put, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      - failure: ClientError.invalidUrl
-  ▿ 
-    - testNumber: 56
-    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.put, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      - failure: ClientError.invalidUrl
-  ▿ 
-    - testNumber: 57
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.delete, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      - failure: ClientError.invalidUrl
-  ▿ 
-    - testNumber: 58
-    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.delete, values: [\"key\": \"value\"])))"
-    ▿ result: Result<URLRequest, ClientError>
-      - failure: ClientError.invalidUrl
-  ▿ 
-    - testNumber: 59
-    - parameters: "  scheme://baseUrl/  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.delete, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      - failure: ClientError.invalidUrl
-  ▿ 
-    - testNumber: 60
-    - parameters: "  NULL  +  Request(url: \"\", type: BeagleUI.Request.RequestType.submitForm(BeagleUI.Request.FormData(method: BeagleUI.Form.MethodType.delete, values: [:])))"
-    ▿ result: Result<URLRequest, ClientError>
-      - failure: ClientError.invalidUrl
+              - key: "header"
+              - value: "header"
+          ▿ httpData: Optional<HttpData>
+            ▿ some: HttpData
+              - body: 0 bytes
+              - method: Method.POST
+      ▿ requestType: RequestType
+        ▿ submitForm: FormData
+          - method: MethodType.delete
+          - values: 0 key/value pairs
+      - url: scheme://baseUrl/
+    ▿ result: Result
+      ▿ body: Optional<Data>
+        - some: 0 bytes
+      ▿ headers: 2 key/value pairs
+        ▿ (2 elements)
+          - key: "Content-Type"
+          - value: "application/json"
+        ▿ (2 elements)
+          - key: "header"
+          - value: "header"
+      - method: "DELETE"
+      - url: scheme://baseUrl/?

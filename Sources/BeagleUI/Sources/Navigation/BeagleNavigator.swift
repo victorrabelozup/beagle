@@ -14,7 +14,7 @@ public protocol DependencyNavigation {
 
 class BeagleNavigator: BeagleNavigation {
     
-    typealias Dependencies = DependencyDeepLinkScreenManaging & DependencyBaseURL
+    typealias Dependencies = DependencyDeepLinkScreenManaging & DependencyUrlBuilder
     
     private let dependencies: Dependencies
     
@@ -113,24 +113,15 @@ class BeagleNavigator: BeagleNavigation {
             return false
         }
         switch screenType {
-        case .remote(let path, _):
-            return absoluteURL(for: path) == absoluteURL(for: identifier)
+        case .remote(let remote):
+            return absoluteURL(for: remote.url) == absoluteURL(for: identifier)
         case .declarative(let screen):
             return screen.identifier == identifier
         }
     }
     
     private func absoluteURL(for path: String) -> String? {
-        let urlResult = UrlRequestBuilder().buildUrlRequest(
-            request: .init(url: path, type: .fetchComponent),
-            baseUrl: dependencies.baseURL
-        )
-        switch urlResult {
-        case .success(let urlRequest):
-            return urlRequest.url?.absoluteString
-        case .failure:
-            return nil
-        }
+        return dependencies.urlBuilder.build(path: path)?.absoluteString
     }
     
     private func swapTo(_ viewController: UIViewController, context: BeagleContext, animated: Bool) {
@@ -153,7 +144,10 @@ class BeagleNavigator: BeagleNavigation {
     
     private func viewController(newPath: Navigate.NewPath) -> UIViewController {
         return BeagleScreenViewController(viewModel: .init(
-            screenType: .remote(newPath.path, fallback: newPath.fallback)
+            screenType: .remote(.init(
+                url: newPath.path,
+                fallback: newPath.fallback
+            ))
         ))
     }
 }

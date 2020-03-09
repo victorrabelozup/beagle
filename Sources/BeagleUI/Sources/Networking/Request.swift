@@ -7,13 +7,16 @@ import Foundation
 public struct Request {
     public let url: String
     public let type: RequestType
+    public let additionalData: RemoteScreenAdditionalData?
 
     public init(
         url: String,
-        type: RequestType
+        type: RequestType,
+        additionalData: RemoteScreenAdditionalData?
     ) {
         self.url = url
         self.type = type
+        self.additionalData = additionalData
     }
 
     public enum RequestType {

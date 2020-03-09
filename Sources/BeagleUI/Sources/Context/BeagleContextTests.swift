@@ -234,7 +234,7 @@ final class BeagleContextTests: XCTestCase {
         )
 
         let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .remote("", fallback: nil),
+            screenType: .remote(.init(url: "")),
             dependencies: dependencies
         ))
 

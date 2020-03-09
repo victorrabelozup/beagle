@@ -4,6 +4,11 @@
 
 import UIKit
 
+public protocol RemoteScreenAdditionalData {
+    typealias Http = HttpAdditionalData
+
+}
+
 public class BeagleScreenViewModel {
 
     // MARK: ScreenType
@@ -11,8 +16,24 @@ public class BeagleScreenViewModel {
     let screenType: ScreenType
     
     public enum ScreenType {
-        case remote(String, fallback: Screen?)
+        case remote(Remote)
         case declarative(Screen)
+
+        public struct Remote {
+            let url: String
+            let fallback: Screen?
+            let additionalData: RemoteScreenAdditionalData?
+
+            public init(
+                url: String,
+                fallback: Screen? = nil,
+                additionalData: RemoteScreenAdditionalData? = nil
+            ) {
+                self.url = url
+                self.fallback = fallback
+                self.additionalData = additionalData
+            }
+        }
     }
 
     // MARK: State
@@ -62,23 +83,26 @@ public class BeagleScreenViewModel {
         case .declarative(let screen):
             self.screen = screen
             state = .success
-        case .remote(let url, _):
+        case .remote(let remote):
             state = .loading
-            loadScreenFromUrl(url)
+            loadRemoteScreen(remote)
         }
     }
 
     // MARK: Core
 
-    func loadScreenFromUrl(_ url: String) {
-        if let cached = dependencies.cacheManager.dequeueComponent(path: url) {
+    func loadRemoteScreen(_ remote: ScreenType.Remote) {
+        if let cached = dependencies.cacheManager.dequeueComponent(path: remote.url) {
             handleSuccess(cached)
             return
         }
         
         state = .loading
 
-        dependencies.network.fetchComponent(url: url) {
+        dependencies.network.fetchComponent(
+            url: remote.url,
+            additionalData: remote.additionalData
+        ) {
             [weak self] result in guard let self = self else { return }
             
             switch result {
@@ -106,7 +130,7 @@ public class BeagleScreenViewModel {
     }
     
     private func handleFailure(_ error: Request.Error) {
-        if case let .remote(_, screen) = self.screenType {
+        if case let .remote(remote) = self.screenType, let screen = remote.fallback {
             self.screen = screen
         }
         self.state = .failure(error)

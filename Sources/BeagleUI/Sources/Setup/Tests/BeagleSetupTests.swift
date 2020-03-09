@@ -21,7 +21,7 @@ final class BeagleSetupTests: XCTestCase {
         dep.validatorProvider = ValidatorProviding()
         dep.customActionHandler = CustomActionHandlerDummy()
         if let url = URL(string: "www.test.com") {
-            dep.baseURL = url
+            dep.urlBuilder.baseUrl = url
         }
         dep.networkClient = NetworkClientDummy()
         dep.flex = { _ in return FlexViewConfiguratorDummy() }
