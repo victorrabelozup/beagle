@@ -13,7 +13,7 @@ final class AnyComponentTests: XCTestCase {
         let component = AnyComponent(value: ComponentDummy())
         
         // When
-        let view = component.toView(context: BeagleContextDummy(), dependencies: RendererDependenciesContainer())
+        let view = component.toView(context: BeagleContextDummy(), dependencies: BeagleScreenDependencies())
         
         // Then
         XCTAssertTrue(view is UILabel)

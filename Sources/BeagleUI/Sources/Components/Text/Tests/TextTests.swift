@@ -17,7 +17,7 @@ final class TextTests: XCTestCase {
             <> BeagleStyle.backgroundColor(withColor: .black)
     }
 
-    private lazy var dependencies = RendererDependenciesContainer(
+    private lazy var dependencies = BeagleScreenDependencies(
         theme: theme
     )
     

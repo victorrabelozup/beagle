@@ -20,4 +20,8 @@ public class Beagle {
     ) {
         dependencies.decoder.register(entityType, for: name)
     }
+
+    public static func screen(_ type: BeagleScreenViewModel.ScreenType) -> BeagleScreenViewController {
+        return BeagleScreenViewController(viewModel: .init(screenType: type))
+    }
 }

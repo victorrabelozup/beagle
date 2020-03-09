@@ -33,7 +33,7 @@ extension Spacer: Renderable {
         view.isAccessibilityElement = false
         view.backgroundColor = .clear
 
-        view.flex.setupFlex(flex)
+        view.flex.setup(flex)
         return view
     }
 }

@@ -6,7 +6,7 @@ import UIKit
 
 final class LayoutManager {
 
-    private weak var context: BeagleContext?
+    private unowned var context: BeagleContext
     private let componentView: UIView
     private let safeArea: SafeArea?
     
@@ -26,8 +26,8 @@ final class LayoutManager {
     
     public func applyLayout() {
         let flex = Flex(padding: contentPadding)
-        componentView.flex.setupFlex(flex)
-        context?.applyLayout()
+        componentView.flex.setup(flex)
+        context.applyLayout()
     }
     
     // MARK: - Private
@@ -53,14 +53,14 @@ final class LayoutManager {
     }
     
     private var contentInsets: UIEdgeInsets {
-        let viewController = context?.screenController
+        let viewController = context.screenController
         if #available(iOS 11.0, *) {
-            return viewController?.viewIfLoaded?.safeAreaInsets ?? .zero
+            return viewController.viewIfLoaded?.safeAreaInsets ?? .zero
         }
         return UIEdgeInsets(
-            top: viewController?.topLayoutGuide.length ?? 0,
+            top: viewController.topLayoutGuide.length,
             left: 0,
-            bottom: viewController?.bottomLayoutGuide.length ?? 0,
+            bottom: viewController.bottomLayoutGuide.length,
             right: 0
         )
     }
@@ -83,7 +83,8 @@ final class LayoutManager {
     // MARK: - Keyboard
     
     @objc private func handleKeyboardChangeNotification(_ notification: Notification) {
-        guard let view = context?.screenController.view else { return }
+        guard let view = context.screenController.view else { return }
+
         let keyboardFrame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
         let viewFrame = view.convert(view.bounds, to: nil)
         let keyboardRect = keyboardFrame?.intersection(viewFrame)

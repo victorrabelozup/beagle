@@ -9,7 +9,7 @@ public class BeagleScreenViewModel {
     // MARK: ScreenType
 
     let screenType: ScreenType
-
+    
     public enum ScreenType {
         case remote(String, fallback: Screen?)
         case declarative(Screen)

@@ -36,9 +36,7 @@ class PageViewTests: XCTestCase {
             pageIndicator: nil
         )
 
-        let screen = BeagleScreenViewController(
-            viewModel: .init(screenType: .declarative(pageView.toScreen()))
-        )
+        let screen = Beagle.screen(.declarative(pageView.toScreen()))
         assertSnapshotImage(screen)
     }
 
@@ -48,9 +46,7 @@ class PageViewTests: XCTestCase {
             pageIndicator: PageIndicator(selectedColor: "#d1cebd", unselectedColor: "#f6eedf")
         )
 
-        let screen = BeagleScreenViewController(
-            viewModel: .init(screenType: .declarative(pageView.toScreen()))
-        )
+        let screen = Beagle.screen(.declarative(pageView.toScreen()))
         assertSnapshotImage(screen)
     }
 

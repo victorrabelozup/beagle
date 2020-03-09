@@ -37,16 +37,14 @@ public struct Image: Widget {
 }
 
 extension Image: Renderable {
+
     public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let image = UIImageView(frame: .zero)
         image.clipsToBounds = true
         image.contentMode = (contentMode ?? .fitCenter).toUIKit()
         image.setImageFromAsset(named: name, bundle: dependencies.appBundle)
         
-        image.applyAccessibilityIdentifier(id)
-        image.applyAppearance(appearance)
-        image.flex.setupFlex(flex)
-        dependencies.accessibility.applyAccessibilityAttributes(accessibility, to: image)
+        image.beagle.setup(self)
         
         return image
     }

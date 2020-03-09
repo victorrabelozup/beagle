@@ -23,7 +23,7 @@ final class FormTests: XCTestCase {
         let context = BeagleContextSpy()
                 
         // When
-        _ = form.toView(context: context, dependencies: RendererDependenciesContainer())
+        _ = form.toView(context: context, dependencies: BeagleScreenDependencies())
         
         // Then
         XCTAssertTrue(context.didCallRegisterFormSubmit)

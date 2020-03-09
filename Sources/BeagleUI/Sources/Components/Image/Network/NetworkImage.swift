@@ -39,9 +39,8 @@ extension NetworkImage: Renderable {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = (contentMode ?? .fitCenter).toUIKit()
-        imageView.applyAppearance(appearance)
-        imageView.applyAccessibilityIdentifier(id)
-        imageView.flex.setupFlex(flex)
+
+        imageView.beagle.setup(self)
         
         dependencies.network.fetchImage(url: path) { [weak imageView, weak context] result in
             guard let imageView = imageView else { return }

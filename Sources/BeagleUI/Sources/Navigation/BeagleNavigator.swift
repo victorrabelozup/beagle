@@ -77,7 +77,7 @@ class BeagleNavigator: BeagleNavigation {
     }
 
     private func openDeepLink(component: ServerDrivenComponent, source: UIViewController, data: [String: String]?, animated: Bool) {
-        let viewController = BeagleScreenViewController(viewModel: .init(screenType: .declarative(Screen(content: component))))
+        let viewController = Beagle.screen(.declarative(Screen(content: component)))
         let navigationToPresent = UINavigationController(rootViewController: viewController)
         source.navigationController?.present(navigationToPresent, animated: animated, completion: nil)
     }

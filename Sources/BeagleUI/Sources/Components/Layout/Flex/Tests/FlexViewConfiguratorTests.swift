@@ -25,7 +25,7 @@ final class FlexViewConfiguratorTests: XCTestCase {
         let sut = FlexViewConfigurator(view: view)
 
         // When
-        sut.setupFlex(nil)
+        sut.setup(nil)
 
         // Then
         XCTAssertEqual(view.yoga.direction, .LTR)
@@ -77,7 +77,7 @@ final class FlexViewConfiguratorTests: XCTestCase {
         let sut = FlexViewConfigurator(view: view)
 
         // When
-        sut.setupFlex(flex)
+        sut.setup(flex)
 
         // Then
         XCTAssertEqual(view.yoga.width, expectedYGValue)
@@ -154,4 +154,13 @@ final class FlexViewConfiguratorTests: XCTestCase {
         XCTAssert(sut.isEnabled == false)
     }
     
+}
+
+final class FlexViewConfiguratorDummy: FlexViewConfiguratorProtocol {
+    var view: UIView? = UIView()
+    var isEnabled = false
+
+    func setup(_ flex: Flex?) {}
+    func applyLayout() {}
+    func markDirty() {}
 }

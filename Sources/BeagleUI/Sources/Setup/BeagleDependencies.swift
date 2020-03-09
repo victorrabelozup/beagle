@@ -11,11 +11,13 @@ public protocol BeagleDependenciesProtocol: DependencyActionExecutor,
     DependencyDeepLinkScreenManaging,
     DependencyCustomActionHandler,
     DependencyNavigation,
+    DependencyViewConfigurator,
+    DependencyFlexConfigurator,
     RenderableDependencies {
 }
 
 open class BeagleDependencies: BeagleDependenciesProtocol {
-    
+
     public var baseURL: URL?
     public var networkClient: NetworkClient
     public var decoder: ComponentDecoding
@@ -24,17 +26,22 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
     public var validatorProvider: ValidatorProvider?
     public var deepLinkHandler: DeepLinkScreenManaging?
     public var customActionHandler: CustomActionHandler?
-    public var flex: FlexViewConfiguratorProtocol
     public var actionExecutor: ActionExecutor
     public var network: Network
     public var navigation: BeagleNavigation
     public var preFetchHelper: BeaglePrefetchHelping
-    public var accessibility: AccessibilityConfiguratorProtocol
-    
     public var cacheManager: CacheManagerProtocol
 
+    public var flex: (UIView) -> FlexViewConfiguratorProtocol = {
+        return FlexViewConfigurator(view: $0)
+    }
+
+    public var viewConfigurator: (UIView) -> ViewConfiguratorProtocol = {
+        return ViewConfigurator(view: $0)
+    }
+
     private let resolver: InnerDependenciesResolver
-    
+
     public init() {
         let resolver = InnerDependenciesResolver()
         self.resolver = resolver
@@ -44,15 +51,13 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
         self.customActionHandler = nil
         self.appBundle = Bundle.main
         self.theme = AppTheme(styles: [:])
-        self.flex = FlexViewConfigurator(view: UIView())
 
         self.networkClient = NetworkClientDefault(dependencies: resolver)
         self.navigation = BeagleNavigator(dependencies: resolver)
         self.actionExecutor = ActionExecuting(dependencies: resolver)
         self.network = NetworkDefault(dependencies: resolver)
-        self.accessibility = AccessibilityConfigurator()
         self.cacheManager = CacheManager(maximumScreensCapacity: 30)
-        
+
         self.resolver.container = { [unowned self] in self }
     }
 }

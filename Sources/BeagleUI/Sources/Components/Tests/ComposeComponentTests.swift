@@ -12,7 +12,7 @@ final class ComposeComponentTests: XCTestCase {
     func testComposeComponent() throws {
         let component = ComposeText(title: "TITLE", subtitle: "subtitle")
 
-        let vc = BeagleScreenViewController(viewModel: .init(screenType: .declarative(component.toScreen())))
+        let vc = Beagle.screen(.declarative(component.toScreen()))
 
         assertSnapshotImage(vc, size: imageSize)
     }

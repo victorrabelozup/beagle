@@ -36,7 +36,7 @@ extension PageView: Renderable {
             indicatorView: indicatorView
         )
         
-        view.flex.setupFlex(Flex(grow: 1.0))
+        view.flex.setup(Flex(grow: 1.0))
         return view
     }
 }

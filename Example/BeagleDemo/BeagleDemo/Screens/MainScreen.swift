@@ -48,9 +48,7 @@ struct MainScreen: DeeplinkScreen {
             ])
         )
         
-        return BeagleScreenViewController(
-            viewModel: .init(screenType: .declarative(screen))
-        )
+        return Beagle.screen(.declarative(screen))
     }
     
 }

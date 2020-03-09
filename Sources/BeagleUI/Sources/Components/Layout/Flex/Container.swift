@@ -46,11 +46,8 @@ extension Container: Renderable {
             containerView.addSubview(childView)
             childView.flex.isEnabled = true
         }
-        
-        containerView.applyAccessibilityIdentifier(id)
-        containerView.applyAppearance(appearance)
-        containerView.flex.setupFlex(flex)
-        dependencies.accessibility.applyAccessibilityAttributes(accessibility, to: containerView)
+
+        containerView.beagle.setup(self)
         
         return containerView
     }

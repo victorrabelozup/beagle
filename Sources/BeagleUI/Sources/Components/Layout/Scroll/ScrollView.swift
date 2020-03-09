@@ -34,11 +34,11 @@ extension ScrollView: Renderable {
             childView.flex.isEnabled = true
         }
         scrollView.addSubview(contentView)
-        scrollView.applyAppearance(appearance)
-        scrollView.flex.setupFlex(Flex(grow: 1))
+        scrollView.beagle.setup(appearance: appearance)
+        scrollView.flex.setup(Flex(grow: 1))
         
         let flexContent = Flex(grow: 0, shrink: 0)
-        contentView.flex.setupFlex(flexContent)
+        contentView.flex.setup(flexContent)
         
         return scrollView
     }

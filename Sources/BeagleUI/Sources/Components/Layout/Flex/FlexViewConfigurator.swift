@@ -6,9 +6,9 @@ import Foundation
 import YogaKit
 
 public protocol FlexViewConfiguratorProtocol: AnyObject {
-    var view: UIView { get set }
-    
-    func setupFlex(_ flex: Flex?)
+    var view: UIView? { get set }
+
+    func setup(_ flex: Flex?)
     
     func applyLayout()
     func markDirty()
@@ -16,14 +16,13 @@ public protocol FlexViewConfiguratorProtocol: AnyObject {
     var isEnabled: Bool { get set }
 }
 
-public protocol DependencyFlexViewConfigurator {
-    var flex: FlexViewConfiguratorProtocol { get }
+public protocol DependencyFlexConfigurator {
+    var flex: (UIView) -> FlexViewConfiguratorProtocol { get }
 }
 
 extension UIView {
     public var flex: FlexViewConfiguratorProtocol {
-        Beagle.dependencies.flex.view = self
-        return Beagle.dependencies.flex
+        return Beagle.dependencies.flex(self)
     }
 }
 
@@ -32,9 +31,9 @@ extension UIView {
 final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
     
     // MARK: - Dependencies
-    
-    var view: UIView
-    
+
+    weak var view: UIView?
+
     private let yogaTranslator: YogaTranslator
     
     // MARK: - Initialization
@@ -48,24 +47,26 @@ final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
     }
     
     // MARK: - Public Methods
-    
-    func setupFlex(_ flex: Flex?) {
+
+    func setup(_ flex: Flex?) {
+        guard let yoga = view?.yoga else { return }
+
         isEnabled = true
-        applyYogaProperties(from: flex ?? Flex(), to: view.yoga)
+        applyYogaProperties(from: flex ?? Flex(), to: yoga)
     }
     
     func applyLayout() {
         isEnabled = true
-        view.yoga.applyLayout(preservingOrigin: true)
+        view?.yoga.applyLayout(preservingOrigin: true)
     }
     
     var isEnabled: Bool {
-        get { return view.yoga.isEnabled }
-        set { view.yoga.isEnabled = newValue }
+        get { return view?.yoga.isEnabled ?? false }
+        set { view?.yoga.isEnabled = newValue }
     }
     
     func markDirty() {
-        view.yoga.markDirty()
+        view?.yoga.markDirty()
     }
     
     // MARK: - Private Methods

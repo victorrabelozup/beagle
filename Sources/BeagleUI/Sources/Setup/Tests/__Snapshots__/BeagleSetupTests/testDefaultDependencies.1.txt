@@ -1,5 +1,4 @@
 ▿ BeagleDependencies
-  - accessibility: AccessibilityConfigurator
   ▿ actionExecutor: ActionExecuting
     ▿ dependencies: InnerDependenciesResolver
       - container: (Function)
@@ -18,9 +17,7 @@
       - nonConformingFloatDecodingStrategy: NonConformingFloatDecodingStrategy.throw
       - userInfo: 0 key/value pairs
   - deepLinkHandler: Optional<DeepLinkScreenManaging>.none
-  ▿ flex: FlexViewConfigurator
-    - view: <UIView; frame = (0 0; 0 0); layer = <CALayer>>
-    - yogaTranslator: YogaTranslating
+  - flex: (Function)
   ▿ navigation: BeagleNavigator
     ▿ dependencies: InnerDependenciesResolver
       - container: (Function)
@@ -40,3 +37,4 @@
   ▿ theme: AppTheme
     - styles: 0 key/value pairs
   - validatorProvider: Optional<ValidatorProvider>.none
+  - viewConfigurator: (Function)

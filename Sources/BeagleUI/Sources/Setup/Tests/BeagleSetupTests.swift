@@ -24,10 +24,9 @@ final class BeagleSetupTests: XCTestCase {
             dep.baseURL = url
         }
         dep.networkClient = NetworkClientDummy()
-        dep.flex = FlexViewConfiguratorDummy()
+        dep.flex = { _ in return FlexViewConfiguratorDummy() }
         dep.decoder = ComponentDecodingDummy()
         dep.cacheManager = CacheManager(maximumScreensCapacity: 10)
-        dep.accessibility = AccessibilityConfigurator()
         
         assertSnapshot(matching: dep, as: .dump)
     }
@@ -82,33 +81,33 @@ final class DummyView: UIView {}
 
 struct ActionDummy: Action, Equatable {}
 
-struct RendererDependenciesContainer: RenderableDependencies {
-    var network: Network
+struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
+    var actionExecutor: ActionExecutor
     var flex: FlexViewConfiguratorProtocol
+    var network: Network
     var theme: Theme
     var validatorProvider: ValidatorProvider?
     var preFetchHelper: BeaglePrefetchHelping
     var appBundle: Bundle
-    var accessibility: AccessibilityConfiguratorProtocol
     var cacheManager: CacheManagerProtocol
 
     init(
-        network: Network = NetworkDummy(),
+        actionExecutor: ActionExecutor = ActionExecutorDummy(),
         flex: FlexViewConfiguratorProtocol = FlexViewConfiguratorDummy(),
+        network: Network = NetworkStub(),
         theme: Theme = AppThemeDummy(),
-        validatorProvider: ValidatorProvider? = ValidatorProviding(),
+        validatorProvider: ValidatorProvider = ValidatorProviding(),
         preFetchHelper: BeaglePrefetchHelping = BeaglePreFetchHelper(),
         appBundle: Bundle = Bundle(for: ImageTests.self),
-        accessibility: AccessibilityConfiguratorProtocol = AccessibilityConfigurator(),
         cacheManager: CacheManagerProtocol = CacheManager(maximumScreensCapacity: 30)
     ) {
-        self.network = network
+        self.actionExecutor = actionExecutor
         self.flex = flex
+        self.network = network
         self.theme = theme
         self.validatorProvider = validatorProvider
         self.preFetchHelper = preFetchHelper
         self.appBundle = appBundle
-        self.accessibility = accessibility
         self.cacheManager = cacheManager
     }
 }

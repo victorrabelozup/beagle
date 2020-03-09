@@ -7,7 +7,7 @@ import XCTest
 
 final class ButtonTests: XCTestCase {
 
-    private let dependencies = RendererDependenciesContainer()
+    private let dependencies = BeagleScreenDependencies()
     
     func test_toView_shouldSetRightButtonTitle() {
         //Given
@@ -28,7 +28,7 @@ final class ButtonTests: XCTestCase {
     func test_toView_shouldApplyButtonStyle() {
         
         let theme = ThemeSpy()
-        let dependencies = RendererDependenciesContainer(theme: theme)
+        let dependencies = BeagleScreenDependencies(theme: theme)
         
         let style = "test.button.style"
         let button = Button(text: "apply style", style: style)
@@ -41,7 +41,7 @@ final class ButtonTests: XCTestCase {
     
     func test_toView_shouldPrefetchNavigateAction() {
         let prefetch = BeaglePrefetchHelpingSpy()
-        let dependencies = RendererDependenciesContainer(preFetchHelper: prefetch)
+        let dependencies = BeagleScreenDependencies(preFetchHelper: prefetch)
         
         let navigatePath = "path-to-prefetch"
         let navigate = Navigate.presentView(.init(path: navigatePath))

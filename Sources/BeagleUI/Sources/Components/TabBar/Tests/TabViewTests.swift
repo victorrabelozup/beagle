@@ -19,9 +19,7 @@ final class TabViewTests: XCTestCase {
             tabItem(index: 2, flex: Flex(justifyContent: .center, alignContent: .center))
         ])
         
-        let screen = BeagleScreenViewController(
-            viewModel: .init(screenType: .declarative(tabView.toScreen()))
-        )
+        let screen = Beagle.screen(.declarative(tabView.toScreen()))
         assertSnapshotImage(screen)
     }
     
@@ -55,7 +53,7 @@ final class TabViewTests: XCTestCase {
         ])
         
         // When
-        let resultingView = component.toView(context: BeagleContextDummy(), dependencies: RendererDependenciesContainer())
+        let resultingView = component.toView(context: BeagleContextDummy(), dependencies: BeagleScreenDependencies())
         guard let tabViewUIComponent = resultingView as? TabViewUIComponent else {
             XCTFail("Expected `TabViewUIComponent`, but got \(String(describing: resultingView)).")
             return

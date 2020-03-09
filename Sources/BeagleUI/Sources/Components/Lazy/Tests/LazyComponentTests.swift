@@ -25,7 +25,7 @@ final class LazyComponentTests: XCTestCase {
         let context = BeagleContextSpy()
         
         // When
-        _ = lazyComponent.toView(context: context, dependencies: RendererDependenciesContainer())
+        _ = lazyComponent.toView(context: context, dependencies: BeagleScreenDependencies())
         
         // Then
         XCTAssertTrue(context.didCallLazyLoad)

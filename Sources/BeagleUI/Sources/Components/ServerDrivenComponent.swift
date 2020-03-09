@@ -1,5 +1,5 @@
 //
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 import UIKit
@@ -20,14 +20,14 @@ public protocol Renderable {
     func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView
 }
 
-public protocol RenderableDependencies: DependencyFlexViewConfigurator,
+public protocol RenderableDependencies:
     DependencyTheme,
     DependencyValidatorProvider,
     DependencyPreFetching,
     DependencyAppBundle,
     DependencyNetwork,
-    DependencyCacheManager,
-    DependencyAccessibilityConfigurator {}
+    DependencyCacheManager {
+}
 
 extension ServerDrivenComponent {
     public func toScreen() -> Screen {

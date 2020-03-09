@@ -43,10 +43,11 @@ extension ScreenComponent: Renderable {
         prefetch(dependencies: dependencies)
         
         guard let beagleController = context as? BeagleScreenViewController,
-            beagleController.screenController.navigationController == nil else {
-                let contentView = createComponentContentView(context: context, dependencies: dependencies)
-                contentView.applyAppearance(appearance)
-                return contentView
+            beagleController.screenController.navigationController == nil
+        else {
+            let contentView = createComponentContentView(context: context, dependencies: dependencies)
+            contentView.beagle.setup(appearance: appearance)
+            return contentView
         }
         
         let contentController = BeagleScreenViewController(
@@ -106,7 +107,7 @@ extension ScreenComponent: Renderable {
         let contentView = content.toView(context: context, dependencies: dependencies)
         
         contentHolder.addSubview(contentView)
-        contentHolder.flex.setupFlex(Flex(grow: 1))
+        contentHolder.flex.setup(Flex(grow: 1))
         contentView.flex.isEnabled = true
         
         return contentHolder
@@ -142,90 +143,5 @@ public struct SafeArea: Equatable {
     
     public static var none: SafeArea {
         return SafeArea(top: false, leading: false, bottom: false, trailing: false)
-    }
-}
-
-public struct NavigationBar {
-
-    // MARK: - Public Properties
-
-    public let title: String
-    public let style: String?
-    public let showBackButton: Bool?
-    public let navigationBarItems: [NavigationBarItem]?
-
-    // MARK: - Initialization
-
-    public init(
-        title: String,
-        style: String? = nil,
-        showBackButton: Bool? = nil,
-        navigationBarItems: [NavigationBarItem]? = nil
-    ) {
-        self.title = title
-        self.style = style
-        self.showBackButton = showBackButton
-        self.navigationBarItems = navigationBarItems
-    }
-}
-
-public struct NavigationBarItem {
-    
-    // MARK: - Public Properties
-    
-    public let image: String?
-    public let text: String
-    public let action: Action
-    
-    public init(
-        image: String? = nil,
-        text: String,
-        action: Action
-    ) {
-        self.image = image
-        self.text = text
-        self.action = action
-    }
-}
-
-extension NavigationBarItem {
-    
-    public func toBarButtonItem(
-        context: BeagleContext,
-        dependencies: RenderableDependencies
-    ) -> UIBarButtonItem {
-        return NavigationBarButtonItem(barItem: self, context: context, dependencies: dependencies)
-    }
-    
-    final private class NavigationBarButtonItem: UIBarButtonItem {
-        
-        private let barItem: NavigationBarItem
-        private weak var context: BeagleContext?
-        
-        init(
-            barItem: NavigationBarItem,
-            context: BeagleContext,
-            dependencies: RenderableDependencies
-        ) {
-            self.barItem = barItem
-            self.context = context
-            super.init()
-            if let imageName = barItem.image {
-                image = UIImage(named: imageName, in: dependencies.appBundle, compatibleWith: nil)?.withRenderingMode(.alwaysOriginal)
-                accessibilityHint = barItem.text
-            } else {
-                title = barItem.text
-            }
-            target = self
-            action = #selector(triggerAction)
-        }
-        
-        required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        @objc private func triggerAction() {
-            context?.doAction(barItem.action, sender: self)
-        }
     }
 }

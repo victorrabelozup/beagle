@@ -4,18 +4,6 @@
 
 import UIKit
 
-extension UIView {
-    public func applyAppearance(_ appearance: Appearance?) {
-        if let hex = appearance?.backgroundColor {
-            backgroundColor = .init(hex: hex)
-        }
-        if let cornerRadius = appearance?.cornerRadius {
-            layer.masksToBounds = true
-            layer.cornerRadius = CGFloat(cornerRadius.radius)
-        }
-    }
-}
-
 extension UIColor {
     
     /// Create a color from hex String.

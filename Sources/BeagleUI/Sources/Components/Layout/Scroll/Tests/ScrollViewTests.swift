@@ -34,7 +34,7 @@ final class ScrollViewTests: XCTestCase {
     
     func test_toView_shouldReturnTheExpectedView() {
         // Given
-        let dependencies = RendererDependenciesContainer()
+        let dependencies = BeagleScreenDependencies()
         
         let container = ScrollView(children: [
             ComponentDummy()
@@ -68,9 +68,7 @@ final class ScrollViewTests: XCTestCase {
     
     func test_renderScrollView() throws {
         let component: ScrollView = try componentFromJsonFile(fileName: "ScrollViewComponent")
-        let screen = BeagleScreenViewController(
-            viewModel: .init(screenType: .declarative(component.toScreen()))
-        )
+        let screen = Beagle.screen(.declarative(component.toScreen()))
         assertSnapshotImage(screen)
     }
 

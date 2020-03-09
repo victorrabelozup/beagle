@@ -57,7 +57,7 @@ extension DSCollection: Renderable {
 
     func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let view = DSCollectionUIComponent(dataSource: dataSource)
-        view.flex.setupFlex(flex)
+        view.flex.setup(flex)
         return view
     }
 }

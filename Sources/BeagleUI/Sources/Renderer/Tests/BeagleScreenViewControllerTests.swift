@@ -11,9 +11,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
     func test_onViewDidLoad_backGroundColorShouldBeSetToWhite() {
         // Given
         let component = SimpleComponent()
-        let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(component.content.toScreen())
-        ))
+        let sut = Beagle.screen(.declarative(component.content.toScreen()))
         
         // When
         sut.viewDidLoad()
@@ -31,9 +29,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
     func test_onViewWillAppear_navigationBarShouldBeHidden() {
         // Given
         let component = SimpleComponent()
-        let sut = BeagleScreenViewController(viewModel: .init(
-            screenType: .declarative(component.content.toScreen())
-        ))
+        let sut = Beagle.screen(.declarative(component.content.toScreen()))
         let navigation = UINavigationController(rootViewController: sut)
         
         // When
@@ -107,7 +103,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
                 appearance: Appearance(backgroundColor: "#00FF00")
             )
         )
-        let screenController = BeagleScreenViewController(viewModel: .init(screenType: .declarative(screen)))
+        let screenController = Beagle.screen(.declarative(screen))
         screenController.additionalSafeAreaInsets = UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40)
         let navigation = UINavigationController(rootViewController: screenController)
         navigation.navigationBar.barTintColor = .white
@@ -224,109 +220,6 @@ struct SimpleComponent {
     )
 }
 
-struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
-    var actionExecutor: ActionExecutor
-    var flex: FlexViewConfiguratorProtocol
-    var network: Network
-    var theme: Theme
-    var validatorProvider: ValidatorProvider?
-    var preFetchHelper: BeaglePrefetchHelping
-    var appBundle: Bundle
-    var accessibility: AccessibilityConfiguratorProtocol
-    var cacheManager: CacheManagerProtocol
-
-    init(
-        actionExecutor: ActionExecutor = ActionExecutorDummy(),
-        flex: FlexViewConfiguratorProtocol = FlexViewConfiguratorDummy(),
-        network: Network = NetworkDummy(),
-        theme: Theme = AppThemeDummy(),
-        validatorProvider: ValidatorProvider = ValidatorProviding(),
-        preFetchHelper: BeaglePrefetchHelping = BeaglePreFetchHelper(),
-        appBundle: Bundle = Bundle(for: ImageTests.self),
-        accessibility: AccessibilityConfiguratorProtocol = AccessibilityConfigurator(),
-        cacheManager: CacheManagerProtocol = CacheManager(maximumScreensCapacity: 30)
-    ) {
-        self.actionExecutor = actionExecutor
-        self.flex = flex
-        self.network = network
-        self.theme = theme
-        self.validatorProvider = validatorProvider
-        self.preFetchHelper = preFetchHelper
-        self.appBundle = appBundle
-        self.accessibility = accessibility
-        self.cacheManager = cacheManager
-    }
-}
-
-final class NetworkDummy: Network {
-    func fetchComponent(url: String, completion: @escaping (Result<ServerDrivenComponent, Request.Error>) -> Void) -> RequestToken? {
-        return nil
-    }
-
-    func submitForm(url: String, data: Request.FormData, completion: @escaping (Result<Action, Request.Error>) -> Void) -> RequestToken? {
-        return nil
-    }
-
-    func fetchImage(url: String, completion: @escaping (Result<Data, Request.Error>) -> Void) -> RequestToken? {
-        return nil
-    }
-}
-
-final class FlexViewConfiguratorDummy: FlexViewConfiguratorProtocol {
-    var view = UIView()
-    var isEnabled = false
-    
-    func setupFlex(_ flex: Flex?) {}
-    func applyLayout() {}
-    func markDirty() {}
-}
-
-struct NetworkStub: Network {
-    let componentResult: Result<ServerDrivenComponent, Request.Error>?
-    let formResult: Result<Action, Request.Error>?
-    let imageResult: Result<Data, Request.Error>?
-
-    init(
-        componentResult: Result<ServerDrivenComponent, Request.Error>? = nil,
-        formResult: Result<Action, Request.Error>? = nil,
-        imageResult: Result<Data, Request.Error>? = nil
-    ) {
-        self.componentResult = componentResult
-        self.formResult = formResult
-        self.imageResult = imageResult
-    }
-
-    func fetchComponent(url: String, completion: @escaping (Result<ServerDrivenComponent, Request.Error>) -> Void) -> RequestToken? {
-        if let result = componentResult {
-            completion(result)
-        }
-        return nil
-    }
-
-    func submitForm(url: String, data: Request.FormData, completion: @escaping (Result<Action, Request.Error>) -> Void) -> RequestToken? {
-        if let result = formResult {
-            completion(result)
-        }
-        return nil
-    }
-
-    func fetchImage(url: String, completion: @escaping (Result<Data, Request.Error>) -> Void) -> RequestToken? {
-        if let result = imageResult {
-            completion(result)
-        }
-        return nil
-    }
-}
-
-struct NetworkDispatcherStub: NetworkClient {
-    let result: NetworkClient.Result
-
-    func executeRequest(_ request: Request, completion: @escaping RequestCompletion) -> RequestToken? {
-        completion(result)
-        return nil
-    }
-}
-
 final class BeagleScreenDelegateSpy: BeagleScreenDelegate {
     
     private(set) var didFailToLoadWithErrorCalled = false
@@ -338,23 +231,4 @@ final class BeagleScreenDelegateSpy: BeagleScreenDelegate {
         self.viewModel = viewModel
         errorPassed = error
     }
-}
-
-final class BeaglePrefetchHelpingStub: BeaglePrefetchHelping {
-    
-    private var components = [String: ServerDrivenComponent]()
-    
-    func prefetchComponent(newPath: Navigate.NewPath, dependencies: Dependencies) {
-        return
-    }
-    
-    func dequeueComponent(path: String) -> ServerDrivenComponent? {
-        return components[path]
-    }
-    
-    subscript(_ url: String) -> ServerDrivenComponent? {
-        get { return components[url] }
-        set { components[url] = newValue }
-    }
-    
 }

@@ -9,7 +9,7 @@ final class SpacerTests: XCTestCase {
     
     func test_toView_shouldReturnTheExpectedView() {
         // Given
-        let dependencies = RendererDependenciesContainer()
+        let dependencies = BeagleScreenDependencies()
         let spacer = Spacer(1.0)
     
         // When

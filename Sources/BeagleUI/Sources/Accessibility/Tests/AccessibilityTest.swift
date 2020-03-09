@@ -7,43 +7,54 @@ import XCTest
 
 class AccessibilityTest: XCTestCase {
 
-    let configurator: AccessibilityConfiguratorProtocol = AccessibilityConfigurator()
+    private lazy var configurator: ViewConfiguratorProtocol = ViewConfigurator(view: testView)
+    private lazy var testView = UIView()
+    private let label = "test label"
 
     func testIfAttributesWereAplliedToView() {
         //given
-        let accessibility = Accessibility(accessibilityLabel: "test label", accessible: true)
-        let testView = UIView()
+        let accessibility = Accessibility(accessibilityLabel: label, accessible: true)
         
         //when
-        configurator.applyAccessibilityAttributes(accessibility, to: testView)
+        configurator.setup(accessibility: accessibility)
         
         //then
-        XCTAssertEqual(testView.accessibilityLabel, "test label")
-        XCTAssertEqual(testView.isAccessibilityElement, true)
+        XCTAssert(testView.accessibilityLabel == label)
+        XCTAssert(testView.isAccessibilityElement)
     }
     
     func testIfViewIsNotAccessible() {
         //given
         let accessibility = Accessibility(accessible: false)
-        let testView = UIView()
         
         //when
-        configurator.applyAccessibilityAttributes(accessibility, to: testView)
+        configurator.setup(accessibility: accessibility)
         
         //then
-        XCTAssertEqual(testView.isAccessibilityElement, false)
+        XCTAssert(testView.isAccessibilityElement == false)
     }
     
     func testIfMapToModelWereSuccessful() {
         //given
-        let entity = AccessibilityEntity(accessibilityLabel: "test label", accessible: true)
+        let entity = AccessibilityEntity(accessibilityLabel: label, accessible: true)
         
         //when
         let accessibility = try? entity.mapToUIModel()
         
         //then
-        XCTAssertNotNil(accessibility)
-        XCTAssertEqual(accessibility?.accessibilityLabel, "test label")
-        XCTAssertEqual(accessibility?.accessible, true)
+        XCTAssert(accessibility != nil)
+        XCTAssert(accessibility?.accessibilityLabel == label)
+        XCTAssert(accessibility?.accessible == true)
+    }
+
+    func testApplyAccessibilityIdentifier() {
+        //Given
+        let id = "identifier"
+
+        //When
+        configurator.setup(id: id)
+
+        //Then
+        XCTAssert(testView.accessibilityIdentifier == id)
     }
 }

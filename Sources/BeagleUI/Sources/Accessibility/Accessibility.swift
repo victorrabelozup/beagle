@@ -4,14 +4,6 @@
 
 import UIKit
 
-public protocol AccessibilityConfiguratorProtocol {
-    func applyAccessibilityAttributes(_ accessibility: Accessibility?, to view: UIView)
-}
-
-public protocol DependencyAccessibilityConfigurator {
-    var accessibility: AccessibilityConfiguratorProtocol { get }
-}
-
 public struct Accessibility {
     /// The value of the accessibility element, in a localized string.
     //public var accessibilityValue: String?
@@ -41,16 +33,5 @@ public struct Accessibility {
     ) {
         self.accessibilityLabel = accessibilityLabel
         self.accessible = accessible
-    }
-}
-
-final class AccessibilityConfigurator: AccessibilityConfiguratorProtocol {
-    
-    public func applyAccessibilityAttributes(_ accessibility: Accessibility?, to view: UIView) {
-        guard let accessibility = accessibility else { return }
-        if let label = accessibility.accessibilityLabel {
-            view.accessibilityLabel = label
-        }
-        view.isAccessibilityElement = accessibility.accessible
     }
 }

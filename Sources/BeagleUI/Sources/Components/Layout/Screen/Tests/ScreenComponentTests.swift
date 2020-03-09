@@ -23,7 +23,7 @@ final class ScreenComponentTests: XCTestCase {
     
     func test_buildView_shouldReturnTheExpectedView() {
         // Given
-        let dependencies = RendererDependenciesContainer()
+        let dependencies = BeagleScreenDependencies()
         let container = ScreenComponent(header: ComponentDummy(), content: ComponentDummy(), footer: ComponentDummy())
         let context = BeagleContextDummy()
         
@@ -65,7 +65,7 @@ final class ScreenComponentTests: XCTestCase {
             )
         )
         
-        let viewController = BeagleScreenViewController(viewModel: .init(screenType: .declarative(component.toScreen())))
+        let viewController = Beagle.screen(.declarative(component.toScreen()))
         assertSnapshotImage(viewController)
     }
     
@@ -85,7 +85,7 @@ final class ScreenComponentTests: XCTestCase {
             content: Text("")
         )
         
-        let viewController = BeagleScreenViewController(viewModel: .init(screenType: .declarative(component.toScreen())))
+        let viewController = Beagle.screen(.declarative(component.toScreen()))
         assertSnapshotImage(viewController, size: CGSize(width: 300, height: 200))
     }
     
@@ -98,7 +98,7 @@ final class ScreenComponentTests: XCTestCase {
             content: Text("test")
         )
         
-        let viewController = BeagleScreenViewController(viewModel: .init(screenType: .declarative(component.toScreen())))
+        let viewController = Beagle.screen(.declarative(component.toScreen()))
         assertSnapshotImage(viewController, size: CGSize(width: 300, height: 200))
     }
     
@@ -109,7 +109,7 @@ final class ScreenComponentTests: XCTestCase {
         let context = BeagleContextSpy()
         
         // When
-        let resultingView = barItem.toBarButtonItem(context: context, dependencies: RendererDependenciesContainer())
+        let resultingView = barItem.toBarButtonItem(context: context, dependencies: BeagleScreenDependencies())
         _ = resultingView.target?.perform(resultingView.action)
         
         // Then
@@ -119,7 +119,7 @@ final class ScreenComponentTests: XCTestCase {
     
     func test_shouldPrefetchNavigateAction() {
         let prefetch = BeaglePrefetchHelpingSpy()
-        let dependencies = RendererDependenciesContainer(preFetchHelper: prefetch)
+        let dependencies = BeagleScreenDependencies(preFetchHelper: prefetch)
         
         let navigatePath = "button-item-prefetch"
         let navigate = Navigate.addView(.init(path: navigatePath, shouldPrefetch: true))
@@ -135,44 +135,6 @@ final class ScreenComponentTests: XCTestCase {
 }
 
 // MARK: - Testing Helpers
-
-final class FlexViewConfiguratorSpy: FlexViewConfiguratorProtocol {
-    var view: UIView
-
-    init(view: UIView) {
-        self.view = view
-    }
-
-    private(set) var setupFlexCalled = false
-    private(set) var flexPassed: Flex?
-    private(set) var timesPassed: Int = 0
-
-    func setupFlex(_ flex: Flex?) {
-        setupFlexCalled = true
-        flexPassed = flex
-        timesPassed += 1
-    }
-    
-    private(set) var applyYogaLayoutCalled = false
-    private(set) var applyYogaLayoutCallCount = 0
-
-    func applyLayout() {
-        applyYogaLayoutCallCount += 1
-        applyYogaLayoutCalled = true
-    }
-    
-    private(set) var enableYogaCalled = false
-    private(set) var enablePassed: Bool?
-
-    var isEnabled: Bool = false {
-        didSet {
-            enableYogaCalled = true
-            enablePassed = isEnabled
-        }
-    }
-    
-    func markDirty() { }
-}
 
 final class ActionExecutorDummy: ActionExecutor {
     func doAction(_ action: Action, sender: Any, context: BeagleContext) {

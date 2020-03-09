@@ -73,7 +73,7 @@ final class NetworkTests: XCTestCase {
             XCTFail("Could not create test data.")
             return
         }
-        let clientStub = NetworkDispatcherStub(result: .success(jsonData))
+        let clientStub = NetworkClientStub(result: .success(jsonData))
         let sut = NetworkDefault(dependencies: Dependencies(
             networkClient: clientStub,
             decoder: ComponentDecoder()
@@ -98,7 +98,7 @@ final class NetworkTests: XCTestCase {
 
     func test_whenRequestSucceeds_butTheDecodingFailsWithAnError_itShouldThrowDecodingError() {
         // Given
-        let clientStub = NetworkDispatcherStub(result: .success(Data()))
+        let clientStub = NetworkClientStub(result: .success(Data()))
         let decoderStub = ComponentDecodingStub()
         decoderStub.errorToThrowOnDecode = NSError(domain: "Mock", code: 1, description: "Mock")
         let sut = NetworkDefault(dependencies: Dependencies(
@@ -130,15 +130,6 @@ final class NetworkTests: XCTestCase {
 
 // MARK: - Testing Helpers
 
-final class NetworkClientSpy: NetworkClient {
-    private(set) var executedRequest: Request?
-
-    func executeRequest(_ request: Request, completion: @escaping RequestCompletion) -> RequestToken? {
-        executedRequest = request
-        return nil
-    }
-}
-
 final class ComponentDecodingStub: ComponentDecoding {
     
     func register<T>(_ type: T.Type, for typeName: String) where T: ComponentEntity {}
@@ -168,7 +159,12 @@ private struct MappingFailureComponent: ComponentEntity, ComponentConvertible {
     }
 }
 
-final class NetworkSpy: Network {
+class NetworkStub: Network {
+
+    let componentResult: Result<ServerDrivenComponent, Request.Error>?
+    let formResult: Result<Action, Request.Error>?
+    let imageResult: Result<Data, Request.Error>?
+
     private(set) var didCallDispatch = false
     private(set) var token = Token()
 
@@ -180,18 +176,54 @@ final class NetworkSpy: Network {
         }
     }
 
+    init(
+        componentResult: Result<ServerDrivenComponent, Request.Error>? = nil,
+        formResult: Result<Action, Request.Error>? = nil,
+        imageResult: Result<Data, Request.Error>? = nil
+    ) {
+        self.componentResult = componentResult
+        self.formResult = formResult
+        self.imageResult = imageResult
+    }
+
     func fetchComponent(url: String, completion: @escaping (Result<ServerDrivenComponent, Request.Error>) -> Void) -> RequestToken? {
         didCallDispatch = true
+        if let result = componentResult {
+            completion(result)
+        }
         return token
     }
 
     func submitForm(url: String, data: Request.FormData, completion: @escaping (Result<Action, Request.Error>) -> Void) -> RequestToken? {
         didCallDispatch = true
+        if let result = formResult {
+            completion(result)
+        }
         return token
     }
 
     func fetchImage(url: String, completion: @escaping (Result<Data, Request.Error>) -> Void) -> RequestToken? {
         didCallDispatch = true
+        if let result = imageResult {
+            completion(result)
+        }
         return token
+    }
+}
+
+class NetworkClientStub: NetworkClient {
+
+    let result: NetworkClient.Result
+
+    private(set) var executedRequest: Request?
+
+    init(result: NetworkClient.Result) {
+        self.result = result
+    }
+
+    func executeRequest(_ request: Request, completion: @escaping RequestCompletion) -> RequestToken? {
+        executedRequest = request
+        completion(result)
+        return nil
     }
 }

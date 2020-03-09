@@ -41,7 +41,7 @@ final class ContainerTests: XCTestCase {
     
     func test_toView_shouldReturnTheExpectedView() throws {
         //Given
-        let dependencies = RendererDependenciesContainer()
+        let dependencies = BeagleScreenDependencies()
         let numberOfChilds = 3
         let containerChilds = Array(repeating: ComponentDummy(), count: numberOfChilds)
         let container = Container(children: containerChilds)
@@ -60,9 +60,7 @@ final class ContainerTests: XCTestCase {
     
     func test_renderContainer() throws {
         let component: Container = try componentFromJsonFile(fileName: "Container")
-        let screen = BeagleScreenViewController(
-            viewModel: .init(screenType: .declarative(component.toScreen()))
-        )
+        let screen = Beagle.screen(.declarative(component.toScreen()))
         assertSnapshotImage(screen, size: ViewImageConfig.iPhoneXr.size!)
     }
 }

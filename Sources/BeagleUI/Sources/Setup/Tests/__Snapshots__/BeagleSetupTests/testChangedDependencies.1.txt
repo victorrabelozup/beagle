@@ -1,5 +1,4 @@
 ▿ BeagleDependencies
-  - accessibility: AccessibilityConfigurator
   ▿ actionExecutor: ActionExecuting
     ▿ dependencies: InnerDependenciesResolver
       - container: (Function)
@@ -14,9 +13,7 @@
   - decoder: ComponentDecodingDummy
   ▿ deepLinkHandler: Optional<DeepLinkScreenManaging>
     - some: DeepLinkHandlerDummy
-  ▿ flex: FlexViewConfiguratorDummy
-    - isEnabled: false
-    - view: <UIView; frame = (0 0; 0 0); layer = <CALayer>>
+  - flex: (Function)
   ▿ navigation: BeagleNavigator
     ▿ dependencies: InnerDependenciesResolver
       - container: (Function)
@@ -31,3 +28,4 @@
   ▿ validatorProvider: Optional<ValidatorProvider>
     ▿ some: ValidatorProviding
       - handlers: 0 key/value pairs
+  - viewConfigurator: (Function)

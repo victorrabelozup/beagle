@@ -11,9 +11,7 @@ struct ListViewScreen: DeeplinkScreen {
     }
     
     func screenController() -> UIViewController {
-        return BeagleScreenViewController(
-            viewModel: .init(screenType: .declarative(screen))
-        )
+        return Beagle.screen(.declarative(screen))
     }
     
     var screen: Screen {

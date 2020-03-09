@@ -29,8 +29,8 @@ struct FormScreen: DeeplinkScreen {
                     FormInput(
                         name: "optional-field",
                         child: DemoTextField(
-                            id: nil,
                             placeholder: "Optional field",
+                            id: nil,
                             appearance: nil,
                             flex: flexHorizontalMargin,
                             accessibility: nil
@@ -41,8 +41,8 @@ struct FormScreen: DeeplinkScreen {
                         required: true,
                         validator: FormScreen.textValidatorName,
                         child: DemoTextField(
-                            id: nil,
                             placeholder: "Required field",
+                            id: nil,
                             appearance: nil,
                             flex: flexHorizontalMargin,
                             accessibility: nil
@@ -53,8 +53,8 @@ struct FormScreen: DeeplinkScreen {
                         required: true,
                         validator: FormScreen.textValidatorName,
                         child: DemoTextField(
-                            id: nil,
                             placeholder: "Another required field",
+                            id: nil,
                             appearance: nil,
                             flex: flexHorizontalMargin,
                             accessibility: nil
@@ -74,17 +74,16 @@ struct FormScreen: DeeplinkScreen {
             navigationBar: NavigationBar(title: "Form"),
             content: form
         )
-        return BeagleScreenViewController(viewModel: .init(screenType: .declarative(screen)))
+        return Beagle.screen(.declarative(screen))
     }
     
 }
 
 struct DemoTextField: Widget {
-    var id: String?
-    
-    
+
     var placeholder: String
-    
+
+    var id: String?
     var appearance: Appearance?
     var flex: Flex?
     var accessibility: Accessibility?
@@ -94,9 +93,8 @@ struct DemoTextField: Widget {
         textField.borderStyle = .roundedRect
         textField.placeholder = placeholder
 
-        textField.applyAppearance(appearance)
-        textField.flex.setupFlex(flex)
-        dependencies.accessibility.applyAccessibilityAttributes(accessibility, to: textField)
+        textField.beagle.setup(self)
+
         return textField
     }
     
@@ -139,8 +137,8 @@ struct DemoTextFieldEntity: WidgetEntity {
     
     func mapToComponent() throws -> ServerDrivenComponent {
         return DemoTextField(
-            id: nil,
             placeholder: placeholder,
+            id: nil,
             appearance: try appearance?.mapToUIModel(),
             flex: try flex?.mapToUIModel(),
             accessibility: try accessibility?.mapToUIModel()

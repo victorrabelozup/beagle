@@ -8,7 +8,7 @@ import SnapshotTesting
 
 class ImageTests: XCTestCase {
     
-    private let dependencies = RendererDependenciesContainer()
+    private let dependencies = BeagleScreenDependencies()
     
     func test_toView_shouldReturnTheExpectedView() throws {
         //Given

@@ -39,6 +39,7 @@ public struct Text: Widget {
 }
 
 extension Text: Renderable {
+
     public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let label = UILabel(frame: .zero)
         label.text = text
@@ -51,10 +52,7 @@ extension Text: Renderable {
             label.textColor = UIColor(hex: color)
         }
 
-        label.applyAccessibilityIdentifier(id)
-        label.applyAppearance(appearance)
-        label.flex.setupFlex(flex)
-        dependencies.accessibility.applyAccessibilityAttributes(accessibility, to: label)
+        label.beagle.setup(self)
         
         return label
     }

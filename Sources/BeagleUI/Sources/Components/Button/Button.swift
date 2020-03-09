@@ -1,5 +1,5 @@
 //
-//  Copyright © 2019 Daniel Tes. All rights reserved.
+//  Copyright © 2019 Zup IT. All rights reserved.
 //
 
 import UIKit
@@ -46,10 +46,8 @@ extension Button: Renderable {
         }
 
         button.style = style
-        button.applyAppearance(appearance)
-        button.applyAccessibilityIdentifier(id)
-        dependencies.accessibility.applyAccessibilityAttributes(accessibility, to: button)
-        button.flex.setupFlex(flex)
+
+        button.beagle.setup(self)
         
         return button
     }
