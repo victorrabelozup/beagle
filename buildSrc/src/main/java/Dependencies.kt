@@ -19,7 +19,7 @@ object Modules {
 object Releases {
     const val versionCode = 1
     const val versionName = "1.0"
-    const val beagleVersionName = "0.0.16-alpha"
+    const val beagleVersionName = "0.0.1-SNAPSHOT"
 }
 
 object Versions {
@@ -48,6 +48,7 @@ object Versions {
     const val glide = "4.11.0"
 
     const val junit = "4.12"
+    const val junit5 = "5.6.0"
 
     const val yoga = "1.16.0"
 
@@ -116,6 +117,8 @@ object MoshiLibraries {
 
 object TestLibraries {
     const val junit = "junit:junit:${Versions.junit}"
+    const val junit5Api = "org.junit.jupiter:junit-jupiter-api:${Versions.junit5}"
+    const val junit5Engine = "org.junit.jupiter:junit-jupiter-engine:${Versions.junit5}"
     const val mockk = "io.mockk:mockk:${Versions.mockk}"
     const val kotlinTest = "org.jetbrains.kotlin:kotlin-test:${Versions.kotlinTest}"
     const val kotlinCoroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlinCoroutinesTest}"

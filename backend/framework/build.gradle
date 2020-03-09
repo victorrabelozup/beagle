@@ -11,8 +11,14 @@ dependencies {
     api project(Modules.beagleDeclarative)
     api project(Modules.beagleBackendDeclarative)
 
-    testImplementation TestLibraries.junit
     testImplementation TestLibraries.mockk
+    testImplementation TestLibraries.kotlinTest
+    testImplementation TestLibraries.junit5Api
+    testRuntimeOnly TestLibraries.junit5Engine
+}
+
+test {
+    useJUnitPlatform()
 }
 
 apply from: rootProject.file('maven-publish.gradle')
