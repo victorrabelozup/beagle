@@ -41,7 +41,7 @@ class SampleTouchableService {
                     )
                 )
             ),
-            content = Container(
+            child = Container(
                 children = listOf(
                     touchableCustom(title = "Text with Touchable", item = Text("Click Aqui!")),
                     touchableCustom(title = "Image with Touchable", item = Image("imageBeagle")),

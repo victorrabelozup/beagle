@@ -32,7 +32,7 @@ class SampleListViewService {
                     )
                 )
             ),
-            content = Container(
+            child = Container(
                 children = listOf(
                     getStaticVerticalListView(),
                     Spacer(20.0),

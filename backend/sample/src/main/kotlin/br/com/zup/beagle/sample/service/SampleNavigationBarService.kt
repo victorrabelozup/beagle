@@ -37,7 +37,7 @@ class SampleNavigationBarService {
                     )
                 )
             ),
-            content = Container(
+            child = Container(
                 children = listOf(
                     createMenu(text = "NavigationBar", path = "/navigationbar"),
                     createMenu(text = "NavigationBar with Style", path = "/navigationbar/style"),
@@ -119,7 +119,7 @@ class SampleNavigationBarService {
                 showBackButton = true,
                 navigationBarItems = navigationBarItems
             ),
-            content = Container(
+            child = Container(
                 children = listOf(
                     createBeagleText(text)
                 )

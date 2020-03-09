@@ -32,7 +32,7 @@ class SampleImageService {
                     )
                 )
             ),
-            content = ScrollView(
+            child = ScrollView(
                 scrollDirection = ScrollAxis.VERTICAL,
                 children = listOf(
                     Text(text = "Image", style = "DesignSystem.Text.Image"),

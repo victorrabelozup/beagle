@@ -22,7 +22,7 @@ class ImageViewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val declarative = Screen(
-            content = Container(
+            child = Container(
                 children = listOf(
                     NetworkImage(
                         path = "https://cdn-images-1.medium.com/max/1200/1*kjiNJPB3Y-ZVmjxco_bORA.png"

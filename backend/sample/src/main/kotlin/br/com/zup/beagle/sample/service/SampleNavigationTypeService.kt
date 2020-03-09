@@ -50,7 +50,7 @@ class SampleNavigationTypeService {
                     )
                 )
             ),
-            content = Container(
+            child = Container(
                 children = listOf(
                     buttonPopView,
                     createButton(
@@ -72,7 +72,7 @@ class SampleNavigationTypeService {
                 title = "Step 2",
                 showBackButton = true
             ),
-            content = Container(
+            child = Container(
                 children = listOf(
                     buttonPopView,
                     createButton(
@@ -100,7 +100,7 @@ class SampleNavigationTypeService {
                 title = "Present",
                 showBackButton = true
             ),
-            content = Container(
+            child = Container(
                 children = listOf(
                     buttonPopView,
                     buttonAddViewStep1,
@@ -122,7 +122,7 @@ class SampleNavigationTypeService {
                 title = "Step 3",
                 showBackButton = true
             ),
-            content = Container(
+            child = Container(
                 children = listOf(
                     buttonPopView,
                     createButton(

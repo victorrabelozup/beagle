@@ -32,7 +32,7 @@ class NavigationBarActivity : AppCompatActivity() {
                 showBackButton = true,
                 style = "toolbar"
             ),
-            content = Container(
+            child = Container(
                 children = listOf(
                     TextField(
                         hint = "this hint",

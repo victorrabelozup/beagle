@@ -27,7 +27,7 @@ class NavigationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val declarative = Screen(
-            content = Container(children = buildChildren()).applyFlex(
+            child = Container(children = buildChildren()).applyFlex(
                 Flex(
                     flexDirection = FlexDirection.COLUMN,
                     justifyContent = JustifyContent.CENTER,

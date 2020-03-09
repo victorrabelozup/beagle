@@ -76,7 +76,7 @@ class SampleTabViewService {
                     )
                 )
             ),
-            content = TabView(
+            child = TabView(
                 tabItems = listOf(tab1, tab2, tab3, tab4)
             )
         )

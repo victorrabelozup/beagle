@@ -17,7 +17,7 @@ class SampleActionClickService {
                 "Action Click",
                 showBackButton = true
             ),
-            content = Container(
+            child = Container(
                 children = listOf(
                     Text(
                         text = "You clicked right",

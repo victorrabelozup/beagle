@@ -8,9 +8,7 @@ import br.com.zup.beagle.core.ServerDrivenComponent
 internal data class ScreenComponent(
     val identifier: String? = null,
     val navigationBar: NavigationBar? = null,
-    val header: ServerDrivenComponent? = null,
-    val content: ServerDrivenComponent,
-    val footer: ServerDrivenComponent? = null
+    val child: ServerDrivenComponent
 ) : AppearanceComponent, LayoutComponent {
 
     override var appearance: Appearance? = null

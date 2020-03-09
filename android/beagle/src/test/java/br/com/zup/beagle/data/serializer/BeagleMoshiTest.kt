@@ -70,7 +70,7 @@ class BeagleMoshiTest {
     @Test
     fun make_should_return_moshi_to_serialize_a_ScreenWidget() {
         // Given
-        val component = ScreenComponent(content = UndefinedWidget())
+        val component = ScreenComponent(child = UndefinedWidget())
 
         // When
         val actual =

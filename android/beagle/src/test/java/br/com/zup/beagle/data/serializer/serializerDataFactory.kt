@@ -30,9 +30,7 @@ fun makeScreenJson() = """
             "title": "${RandomData.string()}",
             "showBackButton": true
         },
-        "header": ${makeButtonJson()},
-        "content": ${makeVerticalJson()},
-        "footer": ${makeButtonJson()}
+        "child": ${makeVerticalJson()}
     }
 """
 

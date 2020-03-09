@@ -38,7 +38,7 @@ class SampleNetworkImageService {
                     )
                 )
             ),
-            content = ScrollView(
+            child = ScrollView(
                 scrollDirection = ScrollAxis.VERTICAL,
                 children = listOf(
                     buildImage(title = "NetworkImage"),

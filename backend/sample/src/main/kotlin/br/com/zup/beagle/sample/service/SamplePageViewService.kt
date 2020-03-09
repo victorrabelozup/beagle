@@ -32,7 +32,7 @@ class SamplePageViewService {
                     )
                 )
             ),
-            content = PageView(
+            child = PageView(
                 pageIndicator = PageIndicator(
                     selectedColor = "#000000",
                     unselectedColor = "#888888"

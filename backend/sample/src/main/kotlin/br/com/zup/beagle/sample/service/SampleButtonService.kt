@@ -38,7 +38,7 @@ class SampleButtonService {
                     )
                 )
             ),
-            content = Container(
+            child = Container(
                 children = listOf(
                     createButton(
                         text = "Button",

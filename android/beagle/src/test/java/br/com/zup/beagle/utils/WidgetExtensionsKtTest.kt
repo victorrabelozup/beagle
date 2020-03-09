@@ -51,15 +51,11 @@ class WidgetExtensionsKtTest {
     fun toWidget_should_create_a_ScreenWidget() {
         // Given
         val navigationBar = mockk<NavigationBar>()
-        val header = mockk<ServerDrivenComponent>()
-        val content = mockk<ServerDrivenComponent>()
-        val footer = mockk<ServerDrivenComponent>()
+        val child = mockk<ServerDrivenComponent>()
         val appearance = mockk<Appearance>()
         val screen = Screen(
             navigationBar = navigationBar,
-            header = header,
-            content = content,
-            footer = footer,
+            child = child,
             appearance = appearance
         )
 
@@ -68,9 +64,7 @@ class WidgetExtensionsKtTest {
 
         // Then
         assertEquals(navigationBar, actual.navigationBar)
-        assertEquals(header, actual.header)
-        assertEquals(content, actual.content)
-        assertEquals(footer, actual.footer)
+        assertEquals(child, actual.child)
         assertEquals(appearance, actual.appearance)
     }
 }

@@ -29,7 +29,7 @@ class ListViewFragment : Fragment() {
     ): View? {
         val declarative = Screen(
             navigationBar = NavigationBar(title = "List"),
-            content = Container(children = listOf(buildListView()))
+            child = Container(children = listOf(buildListView()))
         )
         return context?.let { declarative.toView(this) }
     }

@@ -28,8 +28,6 @@ data class Screen(
     val identifier: String? = null,
     val safeArea: SafeArea? = null,
     val navigationBar: NavigationBar? = null,
-    val header: ServerDrivenComponent? = null,
-    val content: ServerDrivenComponent,
-    val footer: ServerDrivenComponent? = null,
+    val child: ServerDrivenComponent,
     val appearance: Appearance? = null
 )

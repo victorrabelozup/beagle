@@ -31,7 +31,7 @@ class SampleStackService {
                     )
                 )
             ),
-            content = Stack(
+            child = Stack(
                 children = listOf(
                     Text(
                         "Text 1",

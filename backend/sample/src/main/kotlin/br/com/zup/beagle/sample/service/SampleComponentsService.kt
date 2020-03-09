@@ -22,7 +22,7 @@ class SampleComponentsService {
                 "Choose a Component",
                 showBackButton = true
             ),
-            content = ScrollView(
+            child = ScrollView(
                 scrollDirection = ScrollAxis.VERTICAL,
                 children = listOf(
                     createMenu("Button", "/sampleButton"),

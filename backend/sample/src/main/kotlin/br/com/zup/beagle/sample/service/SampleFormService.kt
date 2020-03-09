@@ -40,7 +40,7 @@ class SampleFormService {
                     )
                 )
             ),
-            content = Form(
+            child = Form(
                 path = "/sample/form",
                 method = FormMethodType.POST,
                 child = Container(

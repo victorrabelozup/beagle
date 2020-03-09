@@ -17,7 +17,7 @@ class TextFieldFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val declarative = Screen(
-            content = TextField(
+            child = TextField(
                 hint = "Hint",
                 color = "FFB6C1"
             )

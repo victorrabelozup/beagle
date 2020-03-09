@@ -107,9 +107,7 @@ class ScreenViewRendererTest : BaseTest() {
         every { beagleFlexView.addServerDrivenComponent(any(), any()) } just Runs
         every { beagleFlexView.addView(any(), any<Flex>()) } just Runs
         every { screenComponent.navigationBar } returns null
-        every { screenComponent.header } returns null
-        every { screenComponent.content } returns component
-        every { screenComponent.footer } returns null
+        every { screenComponent.child } returns component
         every { screenComponent.appearance } returns null
         every { viewRendererFactory.make(any()) } returns viewRenderer
         every { viewRenderer.build(any()) } returns view
@@ -159,24 +157,11 @@ class ScreenViewRendererTest : BaseTest() {
     }
 
     @Test
-    fun build_should_call_header_builder_and_add_to_screenWidget_view() {
-        // Given
-        every { screenComponent.header } returns component
-        every { context.supportActionBar } returns null
-
-        // When
-        screenViewRenderer.build(rootView)
-
-        // Then
-        verify(atLeast = once()) {beagleFlexView.addServerDrivenComponent(component, rootView) }
-    }
-
-    @Test
     fun build_should_call_content_builder() {
         // Given
         val content = mockk<ServerDrivenComponent>()
         val flex = slot<Flex>()
-        every { screenComponent.content } returns content
+        every { screenComponent.child } returns content
         every { beagleFlexView.addView(view, capture(flex)) } just Runs
         every { context.supportActionBar } returns null
 
@@ -185,19 +170,6 @@ class ScreenViewRendererTest : BaseTest() {
 
         // Then
         verify(atLeast = once()) { beagleFlexView.addServerDrivenComponent(content, rootView)}
-    }
-
-    @Test
-    fun build_should_call_footer_builder_and_add_to_screenWidget_view() {
-        // Given
-        every { screenComponent.footer } returns component
-        every { context.supportActionBar } returns null
-
-        // When
-        screenViewRenderer.build(rootView)
-
-        // Then
-        verify(atLeast = once()) {beagleFlexView.addServerDrivenComponent(component, rootView) }
     }
 
     @Test

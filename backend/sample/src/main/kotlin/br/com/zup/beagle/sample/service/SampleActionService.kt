@@ -34,7 +34,7 @@ class SampleActionService {
                     )
                 )
             ),
-            content = Container(
+            child = Container(
                 children = listOf(
                     getShowNativeDialogAction(),
                     getNavigateWithPath(),
@@ -93,7 +93,7 @@ class SampleActionService {
                                 "Navigate with screen",
                                 showBackButton = true
                             ),
-                            content = Text("Hello Screen from Navigate")
+                            child = Text("Hello Screen from Navigate")
                         ),
                         type = NavigationType.ADD_VIEW
                     ),
@@ -115,7 +115,7 @@ class SampleActionService {
                                 "Navigate with path and screen",
                                 showBackButton = true
                             ),
-                            content = Text("Hello Screen from Navigate")
+                            child = Text("Hello Screen from Navigate")
                         ),
                         type = NavigationType.ADD_VIEW
                     ),
@@ -160,7 +160,7 @@ class SampleActionService {
 
     fun getNavigateExample(): Screen {
         return Screen(
-            content = Text("Hello")
+            child = Text("Hello")
         )
     }
 }

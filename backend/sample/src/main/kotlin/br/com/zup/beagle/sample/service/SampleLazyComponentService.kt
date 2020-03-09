@@ -31,7 +31,7 @@ class SampleLazyComponentService {
                     )
                 )
             ),
-            content = Container(
+            child = Container(
                 children = listOf(
                     LazyComponent(
                         path = "http://www.mocky.io/v2/5e4e91c02f00001f2016a8f2",

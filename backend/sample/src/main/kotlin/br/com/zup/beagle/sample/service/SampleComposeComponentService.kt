@@ -27,7 +27,7 @@ class SampleComposeComponentService {
                     )
                 )
             ),
-            content = Container(
+            child = Container(
                 children = listOf(
                     CustomComposeComponent()
                 )

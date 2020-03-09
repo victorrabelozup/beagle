@@ -30,9 +30,7 @@ fun Screen.toView(fragment: Fragment) = this.toComponent().toView(fragment)
 internal fun Screen.toComponent() = ScreenComponent(
     identifier = this.identifier,
     navigationBar = this.navigationBar,
-    header = this.header,
-    content = this.content,
-    footer = this.footer
+    child = this.child
 ).applyAppearance(appearance ?: Appearance())
 
 internal fun ServerDrivenComponent.toView(rootView: RootView) =

@@ -25,7 +25,7 @@ class LazyComponentFragment : Fragment() {
     ): View? {
         val declarative = Screen(
             navigationBar = NavigationBar(title = "List"),
-            content = Container(children = listOf(buildScrollView())).applyFlex(Flex(grow = 1.0))
+            child = Container(children = listOf(buildScrollView())).applyFlex(Flex(grow = 1.0))
         )
         return declarative.toView(this)
     }

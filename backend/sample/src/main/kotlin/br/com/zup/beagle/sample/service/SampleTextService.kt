@@ -34,7 +34,7 @@ class SampleTextService {
                     )
                 )
             ),
-            content = Container(
+            child = Container(
                 children = listOf(
 
                     beagleText(

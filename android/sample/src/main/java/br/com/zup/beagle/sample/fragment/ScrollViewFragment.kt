@@ -29,7 +29,7 @@ class ScrollViewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val declarative = Screen(
-            content = Container(
+            child = Container(
                 children = listOf(
                     Text("1 Text\n2 Text\n3 Text\n4 Text\n5 Text\n6 Text\n7 Text\n8 Text\n9 Text\n10 Text.")
                         .applyFlex(Flex(shrink = 0.0)),

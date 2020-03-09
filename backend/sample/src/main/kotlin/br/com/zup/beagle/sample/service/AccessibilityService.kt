@@ -41,7 +41,7 @@ private object AccessibilityScreenBuilder : ScreenBuilder {
                     )
                 )
             ),
-            content = Container(
+            child = Container(
                 children = listOf(
                     textAccessibility(
                         text = "Accessibility Testing",

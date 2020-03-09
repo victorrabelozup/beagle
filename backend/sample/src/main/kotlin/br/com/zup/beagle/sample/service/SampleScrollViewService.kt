@@ -35,7 +35,7 @@ class SampleScrollViewService {
                     )
                 )
             ),
-            content = Container(
+            child = Container(
                 children = listOf(
                     getVerticalScrollView(),
                     getHorizontalScrollView()

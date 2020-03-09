@@ -32,6 +32,6 @@ private data class MyScreenBuilder(
                 )
             )
         ),
-        content = Text(title)
+        child = Text(title)
     )
 }

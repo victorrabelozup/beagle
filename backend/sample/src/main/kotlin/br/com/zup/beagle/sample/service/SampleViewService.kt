@@ -40,7 +40,7 @@ private object SampleViewScreenBuilder : ScreenBuilder {
                 )
             )
         ),
-        content = Container(
+        child = Container(
             children = listOf(
                 Button("")
             )
