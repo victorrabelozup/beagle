@@ -1,5 +1,6 @@
 package br.com.zup.beagle.sample.service
 
+import br.com.zup.beagle.sample.constants.SCREEN_ACTION_CLICK_ENDPOINT
 import br.com.zup.beagle.widget.core.Alignment
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.JustifyContent
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class SampleActionClickService {
-    fun creationActionClick(): Screen {
+    fun createActionClick(): Screen {
         return Screen(
             navigationBar = NavigationBar(
                 "Action Click",
@@ -21,7 +22,7 @@ class SampleActionClickService {
                 children = listOf(
                     Text(
                         text = "You clicked right",
-                        style = "DesignSystem.Text.Action.Click"
+                        style = SCREEN_ACTION_CLICK_ENDPOINT
                     ).applyFlex(
                         flex = Flex(
                             justifyContent = JustifyContent.CENTER,

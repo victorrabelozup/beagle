@@ -1,5 +1,7 @@
 package br.com.zup.beagle.sample.service
 
+import br.com.zup.beagle.sample.constants.BLACK
+import br.com.zup.beagle.sample.constants.LIGHT_GREY
 import br.com.zup.beagle.widget.core.Alignment
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.layout.PageView
@@ -12,8 +14,8 @@ import org.springframework.stereotype.Service
 class PageViewService {
     fun createPageView() = PageView(
         pageIndicator = PageIndicator(
-            selectedColor = "#000000",
-            unselectedColor = "#888888"
+            selectedColor = BLACK,
+            unselectedColor = LIGHT_GREY
         ),
         pages = (1..3).map(this::createText)
     )

@@ -16,7 +16,7 @@
         <activity
             android:name=".activities.DeepLinkActivity">
             <intent-filter>
-                <action android:name="screenDeepLink" />
+                <action android:name="screen-deep-link" />
                 <category android:name="android.intent.category.DEFAULT" />
 
             </intent-filter>

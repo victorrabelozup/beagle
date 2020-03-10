@@ -1,6 +1,7 @@
 package br.com.zup.beagle.sample.service
 
 import br.com.zup.beagle.action.ShowNativeDialog
+import br.com.zup.beagle.sample.constants.BEACH_NETWORK_IMAGE
 import br.com.zup.beagle.widget.core.Alignment
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.layout.Container
@@ -15,14 +16,13 @@ import org.springframework.stereotype.Service
 
 @Service
 class SampleTabViewService {
-    fun creationTabView(): Screen {
+    fun createTabView(): Screen {
         val tab1 = TabItem(
             title = "Tab 1",
             content = Container(
                 children = listOf(
                     Text("Text1 Tab 2"),
-                    NetworkImage("https://www.guiaviagensbrasil.com/imagens/Imagem%20do%20mar%20calma%20e%20" +
-                        "belo%20da%20Praia%20da%20Engenhoca-Itacar%C3%A9-Bahia-BA.jpg"),
+                    NetworkImage(BEACH_NETWORK_IMAGE),
                     Text("Text2 Tab 2")
                 )
             ).applyFlex(Flex(alignContent = Alignment.CENTER))

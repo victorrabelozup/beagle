@@ -4,13 +4,16 @@ import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.NavigationType
 import br.com.zup.beagle.action.ShowNativeDialog
 import br.com.zup.beagle.core.ServerDrivenComponent
+import br.com.zup.beagle.ext.unitReal
+import br.com.zup.beagle.sample.constants.BEACH_NETWORK_IMAGE
+import br.com.zup.beagle.sample.constants.LOGO_BEAGLE
+import br.com.zup.beagle.sample.constants.SCREEN_ACTION_CLICK_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_TEXT_STYLE
 import br.com.zup.beagle.widget.Widget
 import br.com.zup.beagle.widget.core.Alignment
 import br.com.zup.beagle.widget.core.EdgeValue
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.Size
-import br.com.zup.beagle.widget.core.UnitType
-import br.com.zup.beagle.widget.core.UnitValue
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.NavigationBarItem
@@ -23,7 +26,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class SampleTouchableService {
-    fun creationTouchableView(): Screen {
+    fun createTouchableView(): Screen {
         return Screen(
             navigationBar = NavigationBar(
                 "Beagle Touchable",
@@ -44,7 +47,7 @@ class SampleTouchableService {
             child = Container(
                 children = listOf(
                     touchableCustom(title = "Text with Touchable", item = Text("Click Aqui!")),
-                    touchableCustom(title = "Image with Touchable", item = Image("imageBeagle")),
+                    touchableCustom(title = "Image with Touchable", item = Image(LOGO_BEAGLE)),
                     networkImageTouchable()
                 )
             )
@@ -59,14 +62,14 @@ class SampleTouchableService {
                 ),
                 Touchable(
                     action = Navigate(
-                        path = "/actionClick",
+                        path = SCREEN_ACTION_CLICK_ENDPOINT,
                         type = NavigationType.ADD_VIEW
                     ), child = item.applyFlex(
                         flex = Flex(
                             alignSelf = Alignment.CENTER,
                             margin = EdgeValue(
-                                top = UnitValue(8.0, UnitType.REAL),
-                                bottom = UnitValue(8.0, UnitType.REAL)
+                                top = 8.unitReal(),
+                                bottom = 8.unitReal()
                             )
                         )
                     )
@@ -77,12 +80,12 @@ class SampleTouchableService {
 
     private fun buildTitle(text: String) = Text(
         text = text,
-        style = "DesignSystem.Text.helloWord"
+        style = SCREEN_TEXT_STYLE
     ).applyFlex(
         flex = Flex(
             alignSelf = Alignment.CENTER,
             margin = EdgeValue(
-                top = UnitValue(8.0, UnitType.REAL)
+                top = 8.unitReal()
             )
         )
     )
@@ -95,19 +98,18 @@ class SampleTouchableService {
                 ),
                 Touchable(
                     child = NetworkImage(
-                        path = "https://www.guiaviagensbrasil.com/imagens/Imagem%20do%20mar%20calma%20e%20belo%20da" +
-                            "%20Praia%20da%20Engenhoca-Itacar%C3%A9-Bahia-BA.jpg"
+                        path = BEACH_NETWORK_IMAGE
                     ).applyFlex(
                         flex = Flex(
                             size = Size(
-                                width = UnitValue(150.0, UnitType.REAL),
-                                height = UnitValue(130.0, UnitType.REAL)
+                                width = 150.unitReal(),
+                                height = 130.unitReal()
                             ),
                             alignSelf = Alignment.CENTER
                         )
                     ),
                     action = Navigate(
-                        path = "/actionClick",
+                        path = SCREEN_ACTION_CLICK_ENDPOINT,
                         type = NavigationType.ADD_VIEW
                     )
                 )

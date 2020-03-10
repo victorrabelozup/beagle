@@ -1,6 +1,34 @@
 package br.com.zup.beagle.sample.controller
 
-import br.com.zup.beagle.annotation.BeaglePreview
+import br.com.zup.beagle.sample.constants.ACCESSIBILITY_SCREEN_ENDPOINT
+import br.com.zup.beagle.sample.constants.NAVIGATION_TYPE_ENDPOINT
+import br.com.zup.beagle.sample.constants.REPRESENTATION_NAVIGATION_BAR_ENDPOINT
+import br.com.zup.beagle.sample.constants.REPRESENTATION_NAVIGATION_BAR_IMAGE_ENDPOINT
+import br.com.zup.beagle.sample.constants.REPRESENTATION_NAVIGATION_BAR_STYLE_ENDPOINT
+import br.com.zup.beagle.sample.constants.REPRESENTATION_NAVIGATION_BAR_TEXT_ENDPOINT
+import br.com.zup.beagle.sample.constants.REPRESENTATION_NAVIGATION_TYPE_STEP2_ENDPOINT
+import br.com.zup.beagle.sample.constants.REPRESENTATION_NAVIGATION_TYPE_STEP3_ENDPOINT
+import br.com.zup.beagle.sample.constants.REPRESENTATION_PRESENT_ENDPOINT
+import br.com.zup.beagle.sample.constants.SAMPLE_VIEW_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_ACTION_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_ACTION_CLICK_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_BUILDER_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_BUTTON_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_COMPONENTS_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_COMPOSE_COMPONENT_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_EXAMPLE_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_FORM_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_IMAGE_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_LAZY_COMPONENT_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_LIST_VIEW_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_NAVIGATION_BAR_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_NETWORK_IMAGE_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_PAGE_VIEW_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_SCROLL_VIEW_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_STACK_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_TAB_VIEW_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_TEXT_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_TOUCHABLE_ENDPOINT
 import br.com.zup.beagle.sample.service.AccessibilityService
 import br.com.zup.beagle.sample.service.SampleActionClickService
 import br.com.zup.beagle.sample.service.SampleActionService
@@ -49,110 +77,92 @@ class ScreenController(
     private val sampleTouchableService: SampleTouchableService,
     private val sampleActionClickService: SampleActionClickService
 ) {
-    @GetMapping("/sampleAccessibilityScreen")
+    @GetMapping(ACCESSIBILITY_SCREEN_ENDPOINT)
     fun getAccessibilityView() = this.accessibilityService.createAccessibilityView()
 
-    @BeaglePreview
-    @GetMapping("/sample")
+    @GetMapping(SAMPLE_VIEW_ENDPOINT)
     fun getSampleView() = this.sampleViewService.createSampleView()
 
-    @GetMapping("/screenbuilder")
+    @GetMapping(SCREEN_BUILDER_ENDPOINT)
     fun getScreenBuilder() = this.sampleScreenBuilderService.createScreenBuilder()
 
-    @BeaglePreview
-    @GetMapping("/sampleComponents")
-    fun getSampleComponents() = this.sampleComponentsService.getCreationSampleComponentsView()
+    @GetMapping(SCREEN_COMPONENTS_ENDPOINT)
+    fun getSampleComponents() = this.sampleComponentsService.getCreateSampleComponentsView()
 
-    @BeaglePreview
-    @GetMapping("/sampleButton")
-    fun getSampleButtonView() = this.sampleButtonService.creationButtonView()
+    @GetMapping(SCREEN_BUTTON_ENDPOINT)
+    fun getSampleButtonView() = this.sampleButtonService.createButtonView()
 
-    @BeaglePreview
-    @GetMapping("/sampleText")
-    fun getSampleTextView() = this.sampleTextService.creationTextView()
+    @GetMapping(SCREEN_TEXT_ENDPOINT )
+    fun getSampleTextView() = this.sampleTextService.createTextView()
 
-    @BeaglePreview
-    @GetMapping("/sampleImage")
-    fun getSampleImageView() = this.sampleImageService.creationImageView()
+    @GetMapping(SCREEN_IMAGE_ENDPOINT)
+    fun getSampleImageView() = this.sampleImageService.createImageView()
 
-    @BeaglePreview
-    @GetMapping("/sampleTabView")
-    fun getSampleTabViewView() = this.sampleTabViewService.creationTabView()
+    @GetMapping(SCREEN_TAB_VIEW_ENDPOINT)
+    fun getSampleTabViewView() = this.sampleTabViewService.createTabView()
 
-    @BeaglePreview
-    @GetMapping("/listview")
-    fun getSampleListView() = sampleListViewService.creationListView()
+    @GetMapping(SCREEN_LIST_VIEW_ENDPOINT)
+    fun getSampleListView() = sampleListViewService.createListView()
 
-    @BeaglePreview
-    @GetMapping("/scrollview")
-    fun getScrollView() = sampleScrollViewService.creationScrollView()
+    @GetMapping(SCREEN_SCROLL_VIEW_ENDPOINT)
+    fun getScrollView() = sampleScrollViewService.createScrollView()
 
-    @BeaglePreview
-    @GetMapping("/pageView")
-    fun getPageView() = this.samplePageViewService.creationPageView()
+    @GetMapping(SCREEN_PAGE_VIEW_ENDPOINT)
+    fun getPageView() = this.samplePageViewService.createPageView()
 
-    @BeaglePreview
-    @GetMapping("/action")
-    fun getShowDialogAction() = this.sampleActionService.creationAction()
+    @GetMapping(SCREEN_ACTION_ENDPOINT)
+    fun getShowDialogAction() = this.sampleActionService.createAction()
 
-    @BeaglePreview
-    @GetMapping("/sample/form")
-    fun getSampleFormView() = this.sampleFormService.creationFormView()
+    @GetMapping( SCREEN_FORM_ENDPOINT)
+    fun getSampleFormView() = this.sampleFormService.createFormView()
 
-    @BeaglePreview
-    @GetMapping("/lazycomponent")
-    fun getSampleLazyComponentConroller() = this.sampleLazyComponentService.creationLazyComponent()
+    @GetMapping(SCREEN_LAZY_COMPONENT_ENDPOINT )
+    fun getSampleLazyComponentConroller() = this.sampleLazyComponentService.createLazyComponent()
 
-    @BeaglePreview
-    @GetMapping("/navigation/bar")
+    @GetMapping(SCREEN_NAVIGATION_BAR_ENDPOINT)
     fun getSampleNavigationBarController() =
-        this.sampleNavigationBarService.creationNavigationBarView()
+        this.sampleNavigationBarService.createNavigationBarView()
 
-    @GetMapping("/navigationbar")
+    @GetMapping(REPRESENTATION_NAVIGATION_BAR_ENDPOINT)
     fun getSampleNavigationBar() = this.sampleNavigationBarService.navigationBar()
 
-    @GetMapping("/navigationbar/style")
+    @GetMapping(REPRESENTATION_NAVIGATION_BAR_STYLE_ENDPOINT)
     fun getNavigationBarStyle() = this.sampleNavigationBarService.navigationBarStyle()
 
-    @GetMapping("/navigationbar/item/text")
+    @GetMapping(REPRESENTATION_NAVIGATION_BAR_TEXT_ENDPOINT)
     fun getNavigationBarText() = this.sampleNavigationBarService.navigationBarWithTextAsItemt()
 
-    @GetMapping("/navigationbar/item/image")
+    @GetMapping(REPRESENTATION_NAVIGATION_BAR_IMAGE_ENDPOINT)
     fun getNavigationBarImage() = this.sampleNavigationBarService.navigationBarWithImageAsItem()
 
-    @GetMapping("/navigationbar/step1")
+    @GetMapping(NAVIGATION_TYPE_ENDPOINT)
     fun getSampleNavigationTypeControlller() =
-        this.sampleNavigationTypeService.creationNavigationTypeView()
+        this.sampleNavigationTypeService.createNavigationTypeView()
 
-    @GetMapping("/navigationbar/step2")
+    @GetMapping(REPRESENTATION_NAVIGATION_TYPE_STEP2_ENDPOINT)
     fun getNavigationStep2() = this.sampleNavigationTypeService.step2()
 
-    @GetMapping("/present/view")
+    @GetMapping(REPRESENTATION_PRESENT_ENDPOINT)
     fun getNavigationPresentView() = this.sampleNavigationTypeService.presentView()
 
-    @GetMapping("/navigationbar/step3")
+    @GetMapping(REPRESENTATION_NAVIGATION_TYPE_STEP3_ENDPOINT)
     fun getNavigationStep3() = this.sampleNavigationTypeService.step3()
 
-    @BeaglePreview
-    @GetMapping("/sampleStackView")
-    fun getSampleStackView() = this.sampleStackService.creationStackView()
+    @GetMapping(SCREEN_STACK_ENDPOINT )
+    fun getSampleStackView() = this.sampleStackService.createStackView()
 
-    @BeaglePreview
-    @GetMapping("/sampleComposeComponent")
-    fun getComposeComponent() = this.sampleComposeComponentService.creationComposeComponentView()
+    @GetMapping(SCREEN_COMPOSE_COMPONENT_ENDPOINT)
+    fun getComposeComponent() = this.sampleComposeComponentService.createComposeComponentView()
 
-    @BeaglePreview
-    @GetMapping("/sampleNetworkImage")
-    fun getSampleNetworkImageView() = this.sampleNetworkImageService.creationNetworkImage()
+    @GetMapping(SCREEN_NETWORK_IMAGE_ENDPOINT)
+    fun getSampleNetworkImageView() = this.sampleNetworkImageService.createNetworkImage()
 
-    @BeaglePreview
-    @GetMapping("/sampleTouchable")
-    fun getTouchableView() = this.sampleTouchableService.creationTouchableView()
+    @GetMapping(SCREEN_TOUCHABLE_ENDPOINT)
+    fun getTouchableView() = this.sampleTouchableService.createTouchableView()
 
-    @BeaglePreview
-    @GetMapping("/actionClick")
-    fun getSampleActionClickController() = this.sampleActionClickService.creationActionClick()
+    @GetMapping(SCREEN_ACTION_CLICK_ENDPOINT)
+    fun getSampleActionClickController() = this.sampleActionClickService.createActionClick()
 
-    @GetMapping("/navigate-example")
+    @GetMapping(SCREEN_EXAMPLE_ENDPOINT)
     fun getNavigationExample()= this.sampleActionService.getNavigateExample()
 }

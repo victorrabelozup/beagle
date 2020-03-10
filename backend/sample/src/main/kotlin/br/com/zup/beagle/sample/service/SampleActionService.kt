@@ -3,6 +3,9 @@ package br.com.zup.beagle.sample.service
 import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.NavigationType
 import br.com.zup.beagle.action.ShowNativeDialog
+import br.com.zup.beagle.sample.constants.NAVIGATION_BAR_STYLE_DEFAULT
+import br.com.zup.beagle.sample.constants.PATH_SCREEN_DEEP_LINK_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_ACTION_CLICK_ENDPOINT
 import br.com.zup.beagle.widget.core.Alignment
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.layout.Container
@@ -16,12 +19,12 @@ import org.springframework.stereotype.Service
 
 @Service
 class SampleActionService {
-    fun creationAction(): Screen {
+    fun createAction(): Screen {
         return Screen(
             navigationBar = NavigationBar(
                 "Beagle Action",
                 showBackButton = true,
-                style = "DesignSystem.Navigationbar.Style.Default",
+                style = NAVIGATION_BAR_STYLE_DEFAULT,
                 navigationBarItems = listOf(
                     NavigationBarItem(
                         text = "",
@@ -50,7 +53,7 @@ class SampleActionService {
     private fun getShowNativeDialogAction(): Container {
         return Container(
             children = listOf(
-                Text("Show Native Dialog"),
+                Text("Action"),
                 Touchable(
                     action = ShowNativeDialog(
                         title = "Some",
@@ -73,7 +76,7 @@ class SampleActionService {
                 Text("Navigate with path"),
                 Button(
                     action = Navigate(
-                        path = "/actionClick",
+                        path = SCREEN_ACTION_CLICK_ENDPOINT,
                         type = NavigationType.ADD_VIEW
                     ),
                     text = "Click me!"
@@ -109,7 +112,7 @@ class SampleActionService {
                 Text("Navigate with path and screen"),
                 Button(
                     action = Navigate(
-                        path = "guhdthjfgjjbk",
+                        path = "",
                         screen = Screen(
                             navigationBar = NavigationBar(
                                 "Navigate with path and screen",
@@ -131,7 +134,7 @@ class SampleActionService {
                 Text("Navigate with prefetch"),
                 Button(
                     action = Navigate(
-                        path = "/actionClick",
+                        path = SCREEN_ACTION_CLICK_ENDPOINT,
                         shouldPrefetch = true,
                         type = NavigationType.ADD_VIEW
                     ),
@@ -144,10 +147,10 @@ class SampleActionService {
     private fun getNavigateWithDeepLink(): Container {
         return Container(
             children = listOf(
-                Text("Navigate with data"),
+                Text("Navigate with DeepLink"),
                 Button(
                     action = Navigate(
-                        path = "screenDeepLink",
+                        path = PATH_SCREEN_DEEP_LINK_ENDPOINT,
                         data = mapOf("data" to "for", "native" to "view"),
                         type = NavigationType.OPEN_DEEP_LINK
                     ),

@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import br.com.zup.beagle.sample.activities.NavigationBarActivity
+import br.com.zup.beagle.sample.constants.SAMPLE_ENDPOINT
 import br.com.zup.beagle.sample.fragment.ComposeComponentFragment
 import br.com.zup.beagle.sample.fragment.DisabledFormSubmitFragment
 import br.com.zup.beagle.sample.fragment.FormFragment
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity() {
             R.id.composeComponent -> goToFragment(ComposeComponentFragment.newInstance())
             R.id.sampleBff -> startActivity(BeagleActivity.newIntent(
                 this,
-                ScreenRequest("http://10.0.2.2:8080/sampleComponents")
+                ScreenRequest(SAMPLE_ENDPOINT)
             ))
         }
     }

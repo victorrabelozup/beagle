@@ -3,12 +3,21 @@ package br.com.zup.beagle.sample.service
 import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.NavigationType
 import br.com.zup.beagle.action.ShowNativeDialog
+import br.com.zup.beagle.ext.unitReal
+import br.com.zup.beagle.sample.constants.BUTTON_STYLE_TITLE
+import br.com.zup.beagle.sample.constants.LOGO_BEAGLE
+import br.com.zup.beagle.sample.constants.NAVIGATION_BAR_STYLE
+import br.com.zup.beagle.sample.constants.NAVIGATION_BAR_STYLE_DEFAULT
+import br.com.zup.beagle.sample.constants.REPRESENTATION_NAVIGATION_BAR_ENDPOINT
+import br.com.zup.beagle.sample.constants.REPRESENTATION_NAVIGATION_BAR_IMAGE_ENDPOINT
+import br.com.zup.beagle.sample.constants.REPRESENTATION_NAVIGATION_BAR_STYLE_ENDPOINT
+import br.com.zup.beagle.sample.constants.REPRESENTATION_NAVIGATION_BAR_TEXT_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_ACTION_CLICK_ENDPOINT
+import br.com.zup.beagle.sample.constants.TEXT_FONT_MAX
 import br.com.zup.beagle.widget.Widget
 import br.com.zup.beagle.widget.core.Alignment
 import br.com.zup.beagle.widget.core.EdgeValue
 import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.core.UnitType
-import br.com.zup.beagle.widget.core.UnitValue
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.NavigationBarItem
@@ -19,11 +28,11 @@ import org.springframework.stereotype.Service
 
 @Service
 class SampleNavigationBarService {
-    fun creationNavigationBarView(): Screen {
+    fun createNavigationBarView(): Screen {
         return Screen(
             navigationBar = NavigationBar(
                 title = "Beagle NavigationBar",
-                style = "DesignSystem.Navigationbar.Style.Default",
+                style = NAVIGATION_BAR_STYLE_DEFAULT,
                 showBackButton = true,
                 navigationBarItems = listOf(
                     NavigationBarItem(
@@ -39,15 +48,15 @@ class SampleNavigationBarService {
             ),
             child = Container(
                 children = listOf(
-                    createMenu(text = "NavigationBar", path = "/navigationbar"),
-                    createMenu(text = "NavigationBar with Style", path = "/navigationbar/style"),
+                    createMenu(text = "NavigationBar", path = REPRESENTATION_NAVIGATION_BAR_ENDPOINT),
+                    createMenu(text = "NavigationBar with Style", path = REPRESENTATION_NAVIGATION_BAR_STYLE_ENDPOINT),
                     createMenu(
                         text = "NavigationBar with Item(Text)",
-                        path = "/navigationbar/item/text"
+                        path = REPRESENTATION_NAVIGATION_BAR_TEXT_ENDPOINT
                     ),
                     createMenu(
                         text = "NavigationBar with Item(Image)",
-                        path = "/navigationbar/item/image"
+                        path = REPRESENTATION_NAVIGATION_BAR_IMAGE_ENDPOINT
                     )
                 )
             )
@@ -66,7 +75,7 @@ class SampleNavigationBarService {
     fun navigationBarStyle(): Screen {
         return createNavigationBar(
             titleNavigation = "NavigationBar",
-            styleNavigation = "DesignSystem.Navigationbar.Style.Green",
+            styleNavigation = NAVIGATION_BAR_STYLE,
             text = "NavigationBar with Style"
         )
     }
@@ -81,7 +90,7 @@ class SampleNavigationBarService {
                     text = "Entrar",
                     action = Navigate(
                         type = NavigationType.ADD_VIEW,
-                        path = "/actionClick"
+                        path = SCREEN_ACTION_CLICK_ENDPOINT
                     )
                 )
             )
@@ -96,10 +105,10 @@ class SampleNavigationBarService {
             navigationBarItems = listOf(
                 NavigationBarItem(
                     text = "",
-                    image = "imageBeagle",
+                    image = LOGO_BEAGLE,
                     action = Navigate(
                         type = NavigationType.ADD_VIEW,
-                        path = "/actionClick"
+                        path = SCREEN_ACTION_CLICK_ENDPOINT
                     )
                 )
             )
@@ -134,7 +143,7 @@ class SampleNavigationBarService {
     private fun createBeagleText(text: String): Text {
         return Text(
             text = text,
-            style = "DesignSystem.Text.Action.Click"
+            style = TEXT_FONT_MAX
         )
 
     }
@@ -146,11 +155,11 @@ class SampleNavigationBarService {
                 type = NavigationType.ADD_VIEW,
                 path = path
             ),
-            style = "DesignSystem.Button.Style"
+            style = BUTTON_STYLE_TITLE
         ).applyFlex(
             flex = Flex(
                 margin = EdgeValue(
-                    top = UnitValue(8.0, UnitType.REAL)
+                    top = 8.unitReal()
                 )
             )
         )

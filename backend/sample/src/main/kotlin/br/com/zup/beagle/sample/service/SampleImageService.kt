@@ -1,6 +1,8 @@
 package br.com.zup.beagle.sample.service
 
 import br.com.zup.beagle.action.ShowNativeDialog
+import br.com.zup.beagle.sample.constants.LOGO_BEAGLE
+import br.com.zup.beagle.sample.constants.TITLE_SCREEN
 import br.com.zup.beagle.widget.core.ImageContentMode
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.NavigationBarItem
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class SampleImageService {
-    fun creationImageView(): Screen {
+    fun createImageView(): Screen {
 
         return Screen(
             navigationBar = NavigationBar(
@@ -35,37 +37,37 @@ class SampleImageService {
             child = ScrollView(
                 scrollDirection = ScrollAxis.VERTICAL,
                 children = listOf(
-                    Text(text = "Image", style = "DesignSystem.Text.Image"),
+                    Text(text = "Image", style = TITLE_SCREEN),
 
-                    Image(name = "imageBeagle"),
+                    Image(name = LOGO_BEAGLE),
 
                     Text(
                         text = "Image with contentMode = ImageContentMode.CENTER",
-                        style = "DesignSystem.Text.Image"
+                        style = TITLE_SCREEN
                     ),
 
-                    Image(name = "imageBeagle", contentMode = ImageContentMode.CENTER),
+                    Image(name = LOGO_BEAGLE, contentMode = ImageContentMode.CENTER),
 
                     Text(
                         text = "Image with contentMode = ImageContentMode.CENTER_CROP",
-                        style = "DesignSystem.Text.Image"
+                        style = TITLE_SCREEN
                     ),
 
-                    Image(name = "imageBeagle", contentMode = ImageContentMode.CENTER_CROP),
+                    Image(name = LOGO_BEAGLE, contentMode = ImageContentMode.CENTER_CROP),
 
                     Text(
                         text = "Image with contentMode = ImageContentMode.FIT_CENTER",
-                        style = "DesignSystem.Text.Image"
+                        style = TITLE_SCREEN
                     ),
 
-                    Image(name = "imageBeagle", contentMode = ImageContentMode.FIT_CENTER),
+                    Image(name = LOGO_BEAGLE, contentMode = ImageContentMode.FIT_CENTER),
 
                     Text(
                         text = "Image with contentMode = ImageContentMode.FIT_XY",
-                        style = "DesignSystem.Text.Image"
+                        style = TITLE_SCREEN
                     ),
 
-                    Image(name = "imageBeagle", contentMode = ImageContentMode.FIT_XY)
+                    Image(name = LOGO_BEAGLE, contentMode = ImageContentMode.FIT_XY)
                 )
             )
         )

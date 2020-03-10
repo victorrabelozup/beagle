@@ -1,10 +1,10 @@
 package br.com.zup.beagle.sample.service
 
 import br.com.zup.beagle.action.ShowNativeDialog
+import br.com.zup.beagle.ext.unitReal
+import br.com.zup.beagle.sample.constants.SCREEN_TEXT_STYLE
 import br.com.zup.beagle.widget.core.EdgeValue
 import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.core.UnitType
-import br.com.zup.beagle.widget.core.UnitValue
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.NavigationBarItem
 import br.com.zup.beagle.widget.layout.Screen
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class SampleStackService {
-    fun creationStackView(): Screen {
+    fun createStackView(): Screen {
         return Screen(
             navigationBar = NavigationBar(
                 "Beagle StackView",
@@ -35,19 +35,16 @@ class SampleStackService {
                 children = listOf(
                     Text(
                         "Text 1",
-                        "DesignSystem.Text.helloWord"
+                        SCREEN_TEXT_STYLE
                     ).applyFlex(
                         Flex(
                             margin = EdgeValue(
-                                top = UnitValue(
-                                    5.0,
-                                    UnitType.REAL
-                                )
+                                top = 5.unitReal()
                             )
                         )
                     ),
-                    Text("Text 2", "DesignSystem.Text.helloWord"),
-                    Text("Text 3", "DesignSystem.Text.helloWord")
+                    Text("Text 2", SCREEN_TEXT_STYLE),
+                    Text("Text 3", SCREEN_TEXT_STYLE)
                 )
             )
         )

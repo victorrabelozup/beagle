@@ -1,13 +1,14 @@
 package br.com.zup.beagle.sample.service
 
 import br.com.zup.beagle.action.ShowNativeDialog
+import br.com.zup.beagle.ext.unitReal
+import br.com.zup.beagle.sample.constants.BEACH_NETWORK_IMAGE
+import br.com.zup.beagle.sample.constants.TEXT_NETWORK_IMAGE
 import br.com.zup.beagle.widget.core.Alignment
 import br.com.zup.beagle.widget.core.EdgeValue
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.ImageContentMode
 import br.com.zup.beagle.widget.core.Size
-import br.com.zup.beagle.widget.core.UnitType
-import br.com.zup.beagle.widget.core.UnitValue
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.NavigationBarItem
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class SampleNetworkImageService {
-    fun creationNetworkImage(): Screen {
+    fun createNetworkImage(): Screen {
 
         return Screen(
             navigationBar = NavigationBar(
@@ -71,14 +72,13 @@ class SampleNetworkImageService {
                     text = title
                 ),
                 NetworkImage(
-                    path = "https://www.guiaviagensbrasil.com/imagens/Imagem%20do%20mar%20calma" +
-                        "%20e%20belo%20da%20Praia%20da%20Engenhoca-Itacar%C3%A9-Bahia-BA.jpg",
+                    path = BEACH_NETWORK_IMAGE,
                     contentMode = mode
                 ).applyFlex(
                     flex = Flex(
                         size = Size(
-                            width = UnitValue(150.0, UnitType.REAL),
-                            height = UnitValue(130.0, UnitType.REAL)
+                            width = 150.unitReal(),
+                            height = 130.unitReal()
                         ),
                         alignSelf = Alignment.CENTER
                     )
@@ -89,12 +89,12 @@ class SampleNetworkImageService {
 
     private fun buildText(text: String) = Text(
         text = text,
-        style = "DesignSystem.Text.NetworkImage"
+        style = TEXT_NETWORK_IMAGE
     ).applyFlex(
         flex = Flex(
             alignSelf = Alignment.CENTER,
             margin = EdgeValue(
-                top = UnitValue(8.0, UnitType.REAL)
+                top = 8.unitReal()
             )
         )
     )

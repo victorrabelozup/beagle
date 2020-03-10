@@ -2,11 +2,29 @@ package br.com.zup.beagle.sample.service
 
 import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.NavigationType
+import br.com.zup.beagle.ext.unitReal
+import br.com.zup.beagle.sample.constants.ACCESSIBILITY_SCREEN_ENDPOINT
+import br.com.zup.beagle.sample.constants.BUTTON_STYLE_TITLE
+import br.com.zup.beagle.sample.constants.NAVIGATION_TYPE_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_ACTION_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_BUILDER_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_BUTTON_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_COMPOSE_COMPONENT_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_FORM_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_IMAGE_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_LAZY_COMPONENT_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_LIST_VIEW_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_NAVIGATION_BAR_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_NETWORK_IMAGE_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_PAGE_VIEW_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_SCROLL_VIEW_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_STACK_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_TAB_VIEW_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_TEXT_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_TOUCHABLE_ENDPOINT
 import br.com.zup.beagle.widget.Widget
 import br.com.zup.beagle.widget.core.EdgeValue
 import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.core.UnitType
-import br.com.zup.beagle.widget.core.UnitValue
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.Screen
 import br.com.zup.beagle.widget.layout.ScrollAxis
@@ -16,7 +34,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class SampleComponentsService {
-    fun getCreationSampleComponentsView(): Screen {
+    fun getCreateSampleComponentsView(): Screen {
         return Screen(
             navigationBar = NavigationBar(
                 "Choose a Component",
@@ -25,24 +43,24 @@ class SampleComponentsService {
             child = ScrollView(
                 scrollDirection = ScrollAxis.VERTICAL,
                 children = listOf(
-                    createMenu("Button", "/sampleButton"),
-                    createMenu("Text", "/sampleText"),
-                    createMenu("Image", "/sampleImage"),
-                    createMenu("NetworkImage", "/sampleNetworkImage"),
-                    createMenu("TabView", "/sampleTabView"),
-                    createMenu("ListView", "/listview"),
-                    createMenu("ScrollView", "/scrollview"),
-                    createMenu("PageView", "/pageView"),
-                    createMenu("Action", "/action"),
-                    createMenu("ScreenBuilder", "/screenbuilder"),
-                    createMenu("Form", "/sample/form"),
-                    createMenu("LazyComponent", "/lazycomponent"),
-                    createMenu("NavigationBar", "/navigation/bar"),
-                    createMenu("NavigationType", "/navigationbar/step1"),
-                    createMenu("Stack View", "/sampleStackView"),
-                    createMenu("Accessibility Screen", "/sampleAccessibilityScreen"),
-                    createMenu("Compose Component", "/sampleComposeComponent"),
-                    createMenu("Touchable", "/sampleTouchable")
+                    createMenu("Button", SCREEN_BUTTON_ENDPOINT),
+                    createMenu("Text", SCREEN_TEXT_ENDPOINT),
+                    createMenu("Image", SCREEN_IMAGE_ENDPOINT),
+                    createMenu("NetworkImage", SCREEN_NETWORK_IMAGE_ENDPOINT),
+                    createMenu("TabView", SCREEN_TAB_VIEW_ENDPOINT),
+                    createMenu("ListView", SCREEN_LIST_VIEW_ENDPOINT),
+                    createMenu("ScrollView", SCREEN_SCROLL_VIEW_ENDPOINT),
+                    createMenu("PageView", SCREEN_PAGE_VIEW_ENDPOINT),
+                    createMenu("Action", SCREEN_ACTION_ENDPOINT),
+                    createMenu("ScreenBuilder", SCREEN_BUILDER_ENDPOINT),
+                    createMenu("Form", SCREEN_FORM_ENDPOINT),
+                    createMenu("LazyComponent", SCREEN_LAZY_COMPONENT_ENDPOINT),
+                    createMenu("NavigationBar", SCREEN_NAVIGATION_BAR_ENDPOINT),
+                    createMenu("NavigationType", NAVIGATION_TYPE_ENDPOINT),
+                    createMenu("Stack View", SCREEN_STACK_ENDPOINT),
+                    createMenu("Accessibility Screen", ACCESSIBILITY_SCREEN_ENDPOINT),
+                    createMenu("Compose Component", SCREEN_COMPOSE_COMPONENT_ENDPOINT),
+                    createMenu("Touchable", SCREEN_TOUCHABLE_ENDPOINT)
                 )
             )
         )
@@ -55,11 +73,11 @@ class SampleComponentsService {
                 type = NavigationType.ADD_VIEW,
                 path = path
             ),
-            style = "DesignSystem.Button.Style"
+            style = BUTTON_STYLE_TITLE
         ).applyFlex(
             flex = Flex(
                 margin = EdgeValue(
-                    top = UnitValue(8.0, UnitType.REAL)
+                    top = 8.unitReal()
                 )
             )
         )

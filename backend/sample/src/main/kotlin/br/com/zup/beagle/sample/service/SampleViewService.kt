@@ -2,6 +2,7 @@ package br.com.zup.beagle.sample.service
 
 import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.NavigationType
+import br.com.zup.beagle.sample.constants.PATH_SAMPLE_VIEW_ENDPOINT
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.JustifyContent
 import br.com.zup.beagle.widget.layout.Container
@@ -28,7 +29,7 @@ private object SampleViewScreenBuilder : ScreenBuilder {
                     image = "delete",
                     action = Navigate(
                         type = NavigationType.POP_VIEW,
-                        path = "http://localhost:8080/sample"
+                        path = PATH_SAMPLE_VIEW_ENDPOINT
                     )
                 ),
                 NavigationBarItem(

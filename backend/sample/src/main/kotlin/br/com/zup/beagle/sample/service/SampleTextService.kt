@@ -2,11 +2,12 @@ package br.com.zup.beagle.sample.service
 
 import br.com.zup.beagle.action.ShowNativeDialog
 import br.com.zup.beagle.core.Appearance
+import br.com.zup.beagle.ext.unitReal
+import br.com.zup.beagle.sample.constants.STEEL_BLUE
+import br.com.zup.beagle.sample.constants.SCREEN_TEXT_STYLE
 import br.com.zup.beagle.widget.Widget
 import br.com.zup.beagle.widget.core.EdgeValue
 import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.core.UnitType
-import br.com.zup.beagle.widget.core.UnitValue
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.NavigationBarItem
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class SampleTextService {
-    fun creationTextView(): Screen {
+    fun createTextView(): Screen {
         return Screen(
             navigationBar = NavigationBar(
                 "Beagle Text",
@@ -42,16 +43,16 @@ class SampleTextService {
                     ),
                     beagleText(
                         text = "hello world with style",
-                        style = "DesignSystem.Text.helloWord"
+                        style = SCREEN_TEXT_STYLE
                     ),
                     beagleText(
                         text = "hello world with Appearance",
-                        appearanceColor = "#4682b4"
+                        appearanceColor = STEEL_BLUE
                     ),
                     beagleText(
                         text = "hello world with style and Appearance",
-                        style = "DesignSystem.Text.helloWord",
-                        appearanceColor = "#40E0D0"
+                        style = SCREEN_TEXT_STYLE,
+                        appearanceColor = STEEL_BLUE
                     )
                 )
             )
@@ -68,9 +69,9 @@ class SampleTextService {
     ).applyFlex(
         flex = Flex(
             margin = EdgeValue(
-                top = UnitValue(16.0, UnitType.REAL),
-                start = UnitValue(16.0, UnitType.REAL),
-                end = UnitValue(16.0, UnitType.REAL)
+                top = 16.unitReal(),
+                start = 16.unitReal(),
+                end = 16.unitReal()
             )
         )
     ).applyAppearance(

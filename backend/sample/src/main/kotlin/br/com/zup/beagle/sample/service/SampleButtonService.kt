@@ -5,11 +5,14 @@ import br.com.zup.beagle.action.NavigationType
 import br.com.zup.beagle.action.ShowNativeDialog
 import br.com.zup.beagle.core.Appearance
 import br.com.zup.beagle.core.CornerRadius
+import br.com.zup.beagle.ext.unitReal
+import br.com.zup.beagle.sample.constants.BUTTON_STYLE
+import br.com.zup.beagle.sample.constants.BUTTON_STYLE_APPEARANCE
+import br.com.zup.beagle.sample.constants.CYAN_BLUE
+import br.com.zup.beagle.sample.constants.SCREEN_ACTION_CLICK_ENDPOINT
 import br.com.zup.beagle.widget.Widget
 import br.com.zup.beagle.widget.core.EdgeValue
 import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.core.UnitType
-import br.com.zup.beagle.widget.core.UnitValue
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.NavigationBarItem
@@ -19,7 +22,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class SampleButtonService {
-    fun creationButtonView(): Screen {
+    fun createButtonView(): Screen {
 
         return Screen(
             navigationBar = NavigationBar(
@@ -44,23 +47,17 @@ class SampleButtonService {
                         text = "Button",
                         flex = Flex(
                             margin = EdgeValue(
-                                top = UnitValue(
-                                    value = 15.0,
-                                    type = UnitType.REAL
-                                )
+                                top = 15.unitReal()
                             )
                         )
                     ),
 
                     createButton(
                         text = "Button with style",
-                        style = "DesignSystem.Stylish.Button",
+                        style = BUTTON_STYLE,
                         flex = Flex(
                             margin = EdgeValue(
-                                top = UnitValue(
-                                    value = 15.0,
-                                    type = UnitType.REAL
-                                )
+                                top = 15.unitReal()
                             )
                         )
                     ),
@@ -68,7 +65,7 @@ class SampleButtonService {
                     buttonWithAppearanceAndStyle(text = "Button with Appearance"),
                     buttonWithAppearanceAndStyle(
                         text = "Button with Appearance and style",
-                        style = "DesignSystem.Stylish.ButtonAndAppearance"
+                        style = BUTTON_STYLE_APPEARANCE
                     )
                 )
             )
@@ -81,14 +78,14 @@ class SampleButtonService {
             style = style,
             flex = Flex(
                 margin = EdgeValue(
-                    left = UnitValue(value = 25.0, type = UnitType.REAL),
-                    right = UnitValue(value = 25.0, type = UnitType.REAL),
-                    top = UnitValue(value = 15.0, type = UnitType.REAL)
+                    left = 25.unitReal(),
+                    right = 25.unitReal(),
+                    top = 15.unitReal()
                 )
             )
         ).applyAppearance(
             Appearance(
-                backgroundColor = "0f4c81",
+                backgroundColor = CYAN_BLUE,
                 cornerRadius = CornerRadius(radius = 16.0)
             )
         )
@@ -105,7 +102,7 @@ class SampleButtonService {
             action = Navigate(
                 shouldPrefetch = true,
                 type = NavigationType.ADD_VIEW,
-                path = "/actionClick"
+                path = SCREEN_ACTION_CLICK_ENDPOINT
             )
         )
 

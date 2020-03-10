@@ -3,11 +3,13 @@ package br.com.zup.beagle.sample.service
 import br.com.zup.beagle.action.Action
 import br.com.zup.beagle.action.ShowNativeDialog
 import br.com.zup.beagle.core.Appearance
+import br.com.zup.beagle.ext.unitReal
+import br.com.zup.beagle.sample.constants.BUTTON_STYLE_FORM
+import br.com.zup.beagle.sample.constants.LIGHT_GREEN
+import br.com.zup.beagle.sample.constants.SUBMIT_FORM_ENDPOINT
 import br.com.zup.beagle.sample.widget.SampleTextField
 import br.com.zup.beagle.widget.core.EdgeValue
 import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.core.UnitType
-import br.com.zup.beagle.widget.core.UnitValue
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormMethodType
@@ -22,9 +24,9 @@ import org.springframework.web.bind.annotation.RequestBody
 
 @Service
 class SampleFormService {
-    fun creationFormView(): Screen {
+    fun createFormView(): Screen {
         val flexHorizontalMargin =
-            Flex(margin = EdgeValue(all = UnitValue(value = 10.0, type = UnitType.REAL)))
+            Flex(margin = EdgeValue(all = 10.unitReal()))
         return Screen(
             navigationBar = NavigationBar(
                 "Form",
@@ -40,8 +42,8 @@ class SampleFormService {
                     )
                 )
             ),
-            child = Form(
-                path = "/sample/form",
+            content = Form(
+                path = SUBMIT_FORM_ENDPOINT,
                 method = FormMethodType.POST,
                 child = Container(
                     children = listOf(
@@ -74,7 +76,7 @@ class SampleFormService {
                             enabled = false,
                             child = Button(
                                 text = "Submit Form",
-                                style = "DesignSystem.Form.Submit"
+                                style = BUTTON_STYLE_FORM
                             ).applyFlex(flexHorizontalMargin)
                         )
                     )
@@ -82,10 +84,10 @@ class SampleFormService {
                     .applyFlex(
                         Flex(
                             grow = 1.0,
-                            padding = EdgeValue(all = UnitValue(value = 10.0, type = UnitType.REAL))
+                            padding = EdgeValue(all = 10.unitReal())
                         )
                     )
-                    .applyAppearance(Appearance(backgroundColor = "#B8E297"))
+                    .applyAppearance(Appearance(backgroundColor = LIGHT_GREEN))
             )
         )
     }

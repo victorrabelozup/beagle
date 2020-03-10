@@ -1,6 +1,8 @@
 package br.com.zup.beagle.sample.service
 
 import br.com.zup.beagle.action.ShowNativeDialog
+import br.com.zup.beagle.sample.constants.BLACK
+import br.com.zup.beagle.sample.constants.LIGHT_GREY
 import br.com.zup.beagle.widget.core.Alignment
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.layout.NavigationBar
@@ -14,7 +16,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class SamplePageViewService {
-    fun creationPageView(): Screen {
+    fun createPageView(): Screen {
         return Screen(
             navigationBar = NavigationBar(
                 "Beagle PageView",
@@ -34,8 +36,8 @@ class SamplePageViewService {
             ),
             child = PageView(
                 pageIndicator = PageIndicator(
-                    selectedColor = "#000000",
-                    unselectedColor = "#888888"
+                    selectedColor = BLACK,
+                    unselectedColor = LIGHT_GREY
                 ),
                 pages = listOf(
 

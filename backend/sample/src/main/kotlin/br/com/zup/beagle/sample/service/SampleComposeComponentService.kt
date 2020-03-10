@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class SampleComposeComponentService {
-    fun creationComposeComponentView(): Screen {
+    fun createComposeComponentView(): Screen {
         return Screen(
             navigationBar = NavigationBar(
                 "Beagle Compose Component",

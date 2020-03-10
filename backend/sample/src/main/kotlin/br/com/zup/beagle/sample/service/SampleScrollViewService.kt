@@ -1,11 +1,12 @@
 package br.com.zup.beagle.sample.service
 
 import br.com.zup.beagle.action.ShowNativeDialog
+import br.com.zup.beagle.ext.unitPercent
+import br.com.zup.beagle.ext.unitReal
+import br.com.zup.beagle.sample.constants.TEXT_FONT_MAX
 import br.com.zup.beagle.widget.Widget
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.Size
-import br.com.zup.beagle.widget.core.UnitType
-import br.com.zup.beagle.widget.core.UnitValue
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.NavigationBarItem
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class SampleScrollViewService {
-    fun creationScrollView(): Screen {
+    fun createScrollView(): Screen {
         return Screen(
             navigationBar = NavigationBar(
                 "Beagle ScrollView",
@@ -50,11 +51,11 @@ class SampleScrollViewService {
                 Text("Vertical ScrollView"),
                 ScrollView(
                     children = listOf(
-                        Text("Hello 1", "DesignSystem.Text.Action.Click"),
-                        Text("Hello 2", "DesignSystem.Text.Action.Click"),
-                        Text("Hello 3", "DesignSystem.Text.Action.Click"),
-                        Text("Hello 4", "DesignSystem.Text.Action.Click"),
-                        Text("Hello 5", "DesignSystem.Text.Action.Click")
+                        createText("Hello 1"),
+                        createText("Hello 2"),
+                        createText("Hello 3"),
+                        createText("Hello 4"),
+                        createText("Hello 5")
                     ),
                     scrollDirection = ScrollAxis.VERTICAL
                 )
@@ -62,8 +63,8 @@ class SampleScrollViewService {
         ).applyFlex(
             flex = Flex(
                 size = Size(
-                    height = UnitValue(130.0, UnitType.REAL),
-                    width = UnitValue(100.0, UnitType.PERCENT)
+                    height = 130.unitReal(),
+                    width = 100.unitPercent()
                 )
             )
         )
@@ -75,11 +76,11 @@ class SampleScrollViewService {
                 Text("Horizontal ScrollView with scrollBars"),
                 ScrollView(
                     children = listOf(
-                        Text("Hello 1", "DesignSystem.Text.Action.Click"),
-                        Text("Hello 2", "DesignSystem.Text.Action.Click"),
-                        Text("Hello 3", "DesignSystem.Text.Action.Click"),
-                        Text("Hello 4", "DesignSystem.Text.Action.Click"),
-                        Text("Hello 5", "DesignSystem.Text.Action.Click")
+                        createText("Hello 1"),
+                        createText("Hello 2"),
+                        createText("Hello 3"),
+                        createText("Hello 4"),
+                        createText("Hello 5")
 
                     ),
                     scrollDirection = ScrollAxis.HORIZONTAL
@@ -87,4 +88,6 @@ class SampleScrollViewService {
             )
         )
     }
+
+    private fun createText(text: String) = Text(text, TEXT_FONT_MAX)
 }

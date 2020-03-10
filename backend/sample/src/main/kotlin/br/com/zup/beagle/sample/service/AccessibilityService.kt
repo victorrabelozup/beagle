@@ -2,13 +2,13 @@ package br.com.zup.beagle.sample.service
 
 import br.com.zup.beagle.action.ShowNativeDialog
 import br.com.zup.beagle.core.Accessibility
+import br.com.zup.beagle.ext.unitReal
+import br.com.zup.beagle.sample.constants.BUTTON_STYLE_ACCESSIBILITY
 import br.com.zup.beagle.widget.Widget
 import br.com.zup.beagle.widget.core.Alignment
 import br.com.zup.beagle.widget.core.EdgeValue
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.Size
-import br.com.zup.beagle.widget.core.UnitType
-import br.com.zup.beagle.widget.core.UnitValue
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.NavigationBarItem
@@ -83,8 +83,8 @@ private object AccessibilityScreenBuilder : ScreenBuilder {
             flex = Flex(
                 alignItems = Alignment.CENTER,
                 margin = EdgeValue(
-                    top = UnitValue(8.0, UnitType.REAL),
-                    bottom = UnitValue(8.0, UnitType.REAL)
+                    top = 8.unitReal(),
+                    bottom = 8.unitReal()
                 )
             )
         )
@@ -97,16 +97,16 @@ private object AccessibilityScreenBuilder : ScreenBuilder {
     ): Widget {
         return Button(
             text = textButton,
-            style = "DesignSystem.Button.White"
+            style = BUTTON_STYLE_ACCESSIBILITY
         ).applyFlex(
             flex = Flex(
                 size = Size(
-                    height = UnitValue(40.0, UnitType.REAL)
+                    height = 40.unitReal()
                 ),
                 alignItems = Alignment.CENTER,
                 margin = EdgeValue(
-                    top = UnitValue(8.0, UnitType.REAL),
-                    bottom = UnitValue(8.0, UnitType.REAL)
+                    top = 8.unitReal(),
+                    bottom = 8.unitReal()
                 )
             )
         ).applyAccessibility(

@@ -5,11 +5,21 @@ import br.com.zup.beagle.action.NavigationType
 import br.com.zup.beagle.action.ShowNativeDialog
 import br.com.zup.beagle.core.Appearance
 import br.com.zup.beagle.core.CornerRadius
+import br.com.zup.beagle.ext.unitReal
+import br.com.zup.beagle.sample.constants.BUTTON_STYLE_APPEARANCE
+import br.com.zup.beagle.sample.constants.CYAN_BLUE
+import br.com.zup.beagle.sample.constants.RED_ORANGE
+import br.com.zup.beagle.sample.constants.CYAN_GREEN
+import br.com.zup.beagle.sample.constants.LIGHT_ORANGE
+import br.com.zup.beagle.sample.constants.LIGHT_RED
+import br.com.zup.beagle.sample.constants.RED
+import br.com.zup.beagle.sample.constants.NAVIGATION_TYPE_ENDPOINT
+import br.com.zup.beagle.sample.constants.REPRESENTATION_NAVIGATION_TYPE_STEP2_ENDPOINT
+import br.com.zup.beagle.sample.constants.REPRESENTATION_NAVIGATION_TYPE_STEP3_ENDPOINT
+import br.com.zup.beagle.sample.constants.REPRESENTATION_PRESENT_ENDPOINT
 import br.com.zup.beagle.widget.Widget
 import br.com.zup.beagle.widget.core.EdgeValue
 import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.core.UnitType
-import br.com.zup.beagle.widget.core.UnitValue
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.NavigationBarItem
@@ -23,17 +33,17 @@ class SampleNavigationTypeService {
     private val buttonPopView = createButton(
         text = "POP_VIEW",
         navigationType = NavigationType.POP_VIEW,
-        backgroundColor = "0f4c81"
+        backgroundColor = CYAN_BLUE
     )
 
     private val buttonAddViewStep1 = createButton(
         text = "ADD_VIEW (Step 1)",
-        path = "navigationbar/step1",
+        path = NAVIGATION_TYPE_ENDPOINT,
         navigationType = NavigationType.ADD_VIEW,
-        backgroundColor = "ed6663"
+        backgroundColor = LIGHT_RED
     )
 
-    fun creationNavigationTypeView(): Screen {
+    fun createNavigationTypeView(): Screen {
         return Screen(
             navigationBar = NavigationBar(
                 title = "Step 1",
@@ -55,9 +65,9 @@ class SampleNavigationTypeService {
                     buttonPopView,
                     createButton(
                         text = "ADD_VIEW (Step 2)",
-                        path = "/navigationbar/step2",
+                        path = REPRESENTATION_NAVIGATION_TYPE_STEP2_ENDPOINT,
                         navigationType = NavigationType.ADD_VIEW,
-                        backgroundColor = "ed6663"
+                        backgroundColor = LIGHT_RED
                     )
 
                 )
@@ -77,15 +87,15 @@ class SampleNavigationTypeService {
                     buttonPopView,
                     createButton(
                         text = "ADD_VIEW (Step 3)",
-                        path = "/navigationbar/step3",
+                        path = REPRESENTATION_NAVIGATION_TYPE_STEP3_ENDPOINT,
                         navigationType = NavigationType.ADD_VIEW,
-                        backgroundColor = "ed6663"
+                        backgroundColor = LIGHT_RED
                     ),
                     createButton(
                         text = "PRESENT_VIEW",
-                        path = "/present/view",
+                        path = REPRESENTATION_PRESENT_ENDPOINT,
                         navigationType = NavigationType.PRESENT_VIEW,
-                        backgroundColor = "ffa372"
+                        backgroundColor = LIGHT_ORANGE
                     )
 
                 )
@@ -107,7 +117,7 @@ class SampleNavigationTypeService {
                     createButton(
                         text = "FINISH_VIEW",
                         navigationType = NavigationType.FINISH_VIEW,
-                        backgroundColor = "2a7886"
+                        backgroundColor = CYAN_GREEN
                     )
 
                 )
@@ -127,15 +137,15 @@ class SampleNavigationTypeService {
                     buttonPopView,
                     createButton(
                         text = "SWAP_VIEW (Step 1)",
-                        path = "/navigationbar/step1",
+                        path = NAVIGATION_TYPE_ENDPOINT,
                         navigationType = NavigationType.SWAP_VIEW,
-                        backgroundColor = "b7472a"
+                        backgroundColor = RED_ORANGE
                     ),
                     createButton(
                         text = "POP_TO_VIEW (Step 1)",
-                        path = "/navigationbar/step1",
+                        path = NAVIGATION_TYPE_ENDPOINT,
                         navigationType = NavigationType.POP_TO_VIEW,
-                        backgroundColor = "c81912"
+                        backgroundColor = RED
                     ),
                     buttonAddViewStep1
 
@@ -152,7 +162,7 @@ class SampleNavigationTypeService {
     ): Widget {
         return Button(
             text = text,
-            style = "DesignSystem.Stylish.ButtonAndAppearance",
+            style = BUTTON_STYLE_APPEARANCE,
             action = Navigate(
                 type = navigationType,
                 path = path
@@ -165,9 +175,9 @@ class SampleNavigationTypeService {
         ).applyFlex(
             flex = Flex(
                 margin = EdgeValue(
-                    left = UnitValue(value = 30.0, type = UnitType.REAL),
-                    right = UnitValue(value = 30.0, type = UnitType.REAL),
-                    top = UnitValue(value = 15.0, type = UnitType.REAL)
+                    left = 30.unitReal(),
+                    right = 30.unitReal(),
+                    top = 15.unitReal()
                 )
             )
         )

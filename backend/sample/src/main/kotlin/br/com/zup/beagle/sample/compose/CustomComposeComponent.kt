@@ -1,13 +1,13 @@
 package br.com.zup.beagle.sample.compose
 
 import br.com.zup.beagle.core.ServerDrivenComponent
+import br.com.zup.beagle.ext.unitReal
+import br.com.zup.beagle.sample.constants.LOGO_BEAGLE
 import br.com.zup.beagle.widget.Widget
 import br.com.zup.beagle.widget.core.Alignment
 import br.com.zup.beagle.widget.core.ComposeComponent
 import br.com.zup.beagle.widget.core.EdgeValue
 import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.core.UnitType
-import br.com.zup.beagle.widget.core.UnitValue
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.ui.Image
 import br.com.zup.beagle.widget.ui.Text
@@ -33,8 +33,8 @@ class CustomComposeComponent : ComposeComponent() {
             flex = Flex(
                 alignItems = Alignment.CENTER,
                 margin = EdgeValue(
-                    top = UnitValue(16.0, UnitType.REAL),
-                    bottom = UnitValue(16.0, UnitType.REAL)
+                    top = 16.unitReal(),
+                    bottom = 16.unitReal()
                 )
             )
         )
@@ -42,7 +42,7 @@ class CustomComposeComponent : ComposeComponent() {
 
     private fun buildImageBeagle(): Widget {
         return Image(
-            "imageBeagle"
+            LOGO_BEAGLE
         )
     }
 }

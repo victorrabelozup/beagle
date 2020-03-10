@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class SampleListViewService {
-    fun creationListView(): Screen {
+    fun createListView(): Screen {
 
         return Screen(
             navigationBar = NavigationBar(
