@@ -18,6 +18,13 @@
         <item name="titleTextAppearance">@style/DesignSystem.Toolbar.TextAppearance</item>
         <item name="android:background">@color/colorPrimary</item>
     </style>
+    
+    <style name="DesignSystem.TabView.Custom" parent="Widget.Design.TabLayout">
+        <item name="tabSelectedTextColor">@android:color/holo_red_dark</item>
+        <item name="tabTextColor">@android:color/holo_blue_bright</item>
+        <item name="tabBackground">@drawable/bg_gradient_button</item>
+        <item name="tabIndicatorColor">@android:color/holo_green_dark</item>
+    </style>
 
     <style name="DesignSystem.Navigationbar.Style" parent="Widget.AppCompat.Toolbar">
         <item name="titleTextAppearance">@style/DesignSystem.Toolbar.TextAppearance</item>

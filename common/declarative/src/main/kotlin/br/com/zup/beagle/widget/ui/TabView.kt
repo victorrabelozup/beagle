@@ -3,7 +3,8 @@ package br.com.zup.beagle.widget.ui
 import br.com.zup.beagle.core.ServerDrivenComponent
 
 data class TabView(
-    val tabItems: List<TabItem>
+    val tabItems: List<TabItem>,
+    val style: String? = null
 ) : ServerDrivenComponent
 
 data class TabItem(

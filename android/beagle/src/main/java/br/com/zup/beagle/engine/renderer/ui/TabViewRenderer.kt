@@ -1,6 +1,7 @@
 package br.com.zup.beagle.engine.renderer.ui
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
@@ -8,18 +9,20 @@ import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
+import br.com.zup.beagle.R
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.UIViewRenderer
 import br.com.zup.beagle.setup.BeagleEnvironment
+import br.com.zup.beagle.utils.StyleManager
 import br.com.zup.beagle.utils.dp
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.ui.TabItem
 import br.com.zup.beagle.widget.ui.TabView
 import com.google.android.material.tabs.TabLayout
 
 private val TABBAR_HEIGHT = 48.dp()
+internal var styleManagerFactory = StyleManager()
 
 internal class TabViewRenderer(
     override val component: TabView,
@@ -27,14 +30,18 @@ internal class TabViewRenderer(
 ) : UIViewRenderer<TabView>() {
 
     override fun buildView(rootView: RootView): View {
-        val containerFlex = Flex(flexDirection = FlexDirection.COLUMN, grow = 1.0)
+        val containerFlex = Flex(grow = 1.0)
 
         val container = viewFactory.makeBeagleFlexView(rootView.getContext(), containerFlex)
 
         val tabLayout = makeTabLayout(rootView.getContext())
 
         val viewPager = viewFactory.makeViewPager(rootView.getContext()).apply {
-            adapter = ContentAdapter(rootView = rootView, viewFactory = viewFactory, tabList = component.tabItems)
+            adapter = ContentAdapter(
+                rootView = rootView,
+                viewFactory = viewFactory,
+                tabList = component.tabItems
+            )
         }
 
         val containerViewPager =
@@ -51,7 +58,7 @@ internal class TabViewRenderer(
     }
 
     private fun makeTabLayout(context: Context): TabLayout {
-        return viewFactory.makeTabView(context).apply {
+        return viewFactory.makeTabLayout(context).apply {
             layoutParams =
                 viewFactory.makeFrameLayoutParams(
                     FrameLayout.LayoutParams.MATCH_PARENT,
@@ -60,7 +67,26 @@ internal class TabViewRenderer(
 
             tabMode = TabLayout.MODE_SCROLLABLE
             tabGravity = TabLayout.GRAVITY_FILL
+            setData()
             addTabs(context)
+        }
+    }
+
+    private fun TabLayout.setData() {
+        val typedArray = styleManagerFactory.getTabBarTypedArray(context, component.style)
+        typedArray?.let {
+            setTabTextColors(
+                it.getColor(R.styleable.BeagleTabBarStyle_tabTextColor, Color.BLACK),
+                it.getColor(R.styleable.BeagleTabBarStyle_tabSelectedTextColor, Color.GRAY)
+            )
+            setSelectedTabIndicatorColor(
+                it.getColor(
+                    R.styleable.BeagleTabBarStyle_tabIndicatorColor,
+                    styleManagerFactory.getTypedValueByResId(R.attr.colorAccent, context).data
+                )
+            )
+            background = it.getDrawable(R.styleable.BeagleTabBarStyle_tabBackground)
+            it.recycle()
         }
     }
 
@@ -106,10 +132,8 @@ internal class TabViewRenderer(
             }
 
             override fun onPageSelected(position: Int) {
-                val tab = tabLayout.getTabAt(position)
-                tab?.select()
+                tabLayout.getTabAt(position)?.select()
             }
-
         }
     }
 }
@@ -119,6 +143,7 @@ internal class ContentAdapter(
     private val viewFactory: ViewFactory,
     private val rootView: RootView
 ) : PagerAdapter() {
+
     override fun isViewFromObject(view: View, `object`: Any): Boolean = view === `object`
 
     override fun getCount(): Int = tabList.size

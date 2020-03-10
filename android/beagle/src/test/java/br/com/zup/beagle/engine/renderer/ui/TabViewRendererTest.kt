@@ -6,6 +6,7 @@ import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.setup.BeagleEnvironment
+import br.com.zup.beagle.utils.StyleManager
 import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.BeaglePageView
 import br.com.zup.beagle.view.BeagleTabLayout
@@ -15,6 +16,7 @@ import br.com.zup.beagle.widget.ui.TabView
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.runs
@@ -29,11 +31,11 @@ class TabViewRendererTest : BaseTest() {
 
     @MockK
     private lateinit var rootView: RootView
-    @MockK(relaxed = true)
+    @RelaxedMockK
     private lateinit var context: Context
     @MockK
     private lateinit var viewFactory: ViewFactory
-    @MockK(relaxed = true)
+    @RelaxedMockK
     private lateinit var tabLayout: BeagleTabLayout
     @MockK
     private lateinit var viewPager: BeaglePageView
@@ -43,8 +45,10 @@ class TabViewRendererTest : BaseTest() {
     private lateinit var tabView: TabView
     @MockK
     private lateinit var frameLayoutParams: FrameLayout.LayoutParams
-    @MockK(relaxed = true)
+    @RelaxedMockK
     private lateinit var tabItem: TabItem
+    @RelaxedMockK
+    private lateinit var styleManager: StyleManager
 
     override fun setUp() {
         super.setUp()
@@ -54,14 +58,16 @@ class TabViewRendererTest : BaseTest() {
                 density = 10f
             }
         }
+        styleManagerFactory = styleManager
         every { BeagleEnvironment.beagleSdk.designSystem?.image(any()) } returns 10
+        every { BeagleEnvironment.beagleSdk.designSystem?.tabBarStyle(any()) } returns 0
 
         every { rootView.getContext() } returns context
 
         every { viewFactory.makeBeagleFlexView(context, any()) } returns beagleFlexView
         every { viewFactory.makeBeagleFlexView(context) } returns beagleFlexView
         every { viewFactory.makeViewPager(context) } returns viewPager
-        every { viewFactory.makeTabView(context) } returns tabLayout
+        every { viewFactory.makeTabLayout(context) } returns tabLayout
         every { viewFactory.makeFrameLayoutParams(any(), any()) } returns frameLayoutParams
 
         every { viewPager.adapter = any() } just runs
@@ -70,6 +76,7 @@ class TabViewRendererTest : BaseTest() {
         every { beagleFlexView.addView(any()) } just runs
 
         every { tabView.tabItems } returns listOf(tabItem)
+        every { tabView.style } returns ""
     }
 
     override fun tearDown() {
@@ -103,6 +110,9 @@ class TabViewRendererTest : BaseTest() {
         tabViewRenderer.build(rootView)
 
         // Then
+        verify { tabLayout.setTabTextColors(any(), any()) }
+        verify { tabLayout.setSelectedTabIndicatorColor(any()) }
+        verify { tabLayout.background = any() }
         verify { tabLayout.addTab(any()) }
     }
 }

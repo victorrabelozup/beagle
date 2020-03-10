@@ -13,6 +13,13 @@ class AppDesignSystem : DesignSystem {
         }
     }
 
+    override fun tabBarStyle(name: String): Int? {
+        return when (name) {
+            "DesignSystem.TabView.Custom" -> R.style.DesignSystem_TabView_Custom
+            else -> null
+        }
+    }
+
     override fun image(name: String): Int {
         return when (name) {
             "imageBeagle" -> R.drawable.beagle_image

@@ -48,5 +48,5 @@ internal class ViewFactory {
 
     fun makePageIndicator(context: Context) = BeaglePageIndicatorView(context)
 
-    fun makeTabView(context: Context) = BeagleTabLayout(context)
+    fun makeTabLayout(context: Context) = BeagleTabLayout(context)
 }

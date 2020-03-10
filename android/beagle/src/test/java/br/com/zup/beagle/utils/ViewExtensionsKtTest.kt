@@ -24,24 +24,22 @@ import br.com.zup.beagle.view.BeagleView
 import br.com.zup.beagle.view.ScreenRequest
 import br.com.zup.beagle.view.StateChangedListener
 import br.com.zup.beagle.view.ViewFactory
-import br.com.zup.beagle.widget.core.ImageContentMode
 import br.com.zup.beagle.widget.ui.Button
-import br.com.zup.beagle.widget.ui.Image
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkStatic
 import io.mockk.slot
+import io.mockk.unmockkAll
 import io.mockk.verify
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import kotlin.test.assertFails
 
 private val URL = RandomData.httpUrl()
-private val STYLE_RES = RandomData.int()
-private val IMAGE_RES = RandomData.int()
 private const val ERROR_MESSAGE = "Did you miss to call loadView()?"
 private val screenRequest = ScreenRequest(URL)
 
@@ -69,16 +67,8 @@ class ViewExtensionsKtTest : BaseTest() {
     private lateinit var beagleButton: BeagleButtonView
     @MockK
     private lateinit var imageView: ImageView
-    @MockK
-    private lateinit var viewMapper: ViewMapper
-    @MockK
-    private lateinit var typedArray: TypedArray
-    @MockK
-    private lateinit var drawable: Drawable
 
-    private val textValueSlot = slot<String>()
     private val viewSlot = slot<View>()
-    private val textAlignment = slot<Int>()
 
     override fun setUp() {
         super.setUp()
@@ -95,10 +85,6 @@ class ViewExtensionsKtTest : BaseTest() {
         every { beagleView.windowToken } returns iBinder
         every { activity.getSystemService(Activity.INPUT_METHOD_SERVICE) } returns inputMethodManager
         every { BeagleEnvironment.beagleSdk.designSystem } returns designSystem
-        every { designSystem.textAppearance(any()) } returns STYLE_RES
-        every { designSystem.buttonStyle(any()) } returns STYLE_RES
-        every { designSystem.image(any()) } returns IMAGE_RES
-        every { beagleButton.text = capture(textValueSlot) } just Runs
         every { beagleButton.setBackgroundResource(any()) } just Runs
         every { beagleButton.isAllCaps = any() } just Runs
         every { TextViewCompat.setTextAppearance(any(), any()) } just Runs
@@ -106,10 +92,11 @@ class ViewExtensionsKtTest : BaseTest() {
         every { imageView.setImageResource(any()) } just Runs
         every { beagleButton.context } returns activity
         every { beagleButton.background = any() } just Runs
-        every { activity.obtainStyledAttributes(any<Int>(), any()) } returns typedArray
-        every { typedArray.getDrawable(any()) } returns drawable
-        every { typedArray.getBoolean(any(), any()) } returns true
-        every { typedArray.recycle() } just Runs
+    }
+
+    override fun tearDown() {
+        super.tearDown()
+        unmockkAll()
     }
 
     @Test
@@ -182,93 +169,5 @@ class ViewExtensionsKtTest : BaseTest() {
 
         // Then
         verify(exactly = once()) { inputMethodManager.hideSoftInputFromWindow(iBinder, 0) }
-    }
-
-    @Test
-    fun setData_with_button_should_call_TextViewCompat_setTextAppearance() {
-        // Given
-        val button = mockk<Button>()
-        val textValue = RandomData.string()
-        val style = RandomData.string()
-        every { button.text } returns textValue
-        every { button.style } returns style
-
-        // When
-        beagleButton.setData(button)
-
-        // Then
-        assertEquals(textValue, textValueSlot.captured)
-        verify(exactly = 1) { beagleButton.background = drawable }
-        verify(exactly = 1) { typedArray.recycle() }
-        verify(exactly = 1) { TextViewCompat.setTextAppearance(beagleButton, STYLE_RES) }
-    }
-
-    @Test
-    fun setData_with_button_should_not_call_TextViewCompat_setTextAppearance_when_style_is_null() {
-        // Given
-        val button = mockk<Button>()
-        val textValue = RandomData.string()
-        every { button.text } returns textValue
-        every { button.style } returns null
-
-        // When
-        beagleButton.setData(button)
-
-        // Then
-        verify(exactly = 2) { designSystem.buttonStyle("") }
-    }
-
-    @Test
-    fun setData_with_button_should_not_call_TextViewCompat_setTextAppearance_when_designSystem_is_null() {
-        // Given
-        val button = mockk<Button>()
-        val textValue = RandomData.string()
-        every { button.text } returns textValue
-        every { button.style } returns RandomData.string()
-        every { BeagleEnvironment.beagleSdk.designSystem } returns null
-
-        // When
-        beagleButton.setData(button)
-
-        // Then
-        verify(exactly = 0) { TextViewCompat.setTextAppearance(beagleButton, STYLE_RES) }
-    }
-
-    @Test
-    fun setData_with_image_should_set_fit_center_when_content_mode_is_null_and_design_system_is_not_null() {
-        // Given
-        val image = mockk<Image>()
-        val scaleTypeSlot = slot<ImageView.ScaleType>()
-        val scaleType = ImageView.ScaleType.FIT_CENTER
-        every { image.contentMode } returns null
-        every { image.name } returns "imageName"
-        every { viewMapper.toScaleType(any()) } returns scaleType
-        every { imageView.scaleType = capture(scaleTypeSlot) } just Runs
-
-        // When
-        imageView.setData(image, viewMapper)
-
-        // Then
-        assertEquals(scaleType, scaleTypeSlot.captured)
-        verify(exactly = 1) { imageView.setImageResource(IMAGE_RES) }
-    }
-
-    @Test
-    fun setData_with_image_should_set_desired_scaleType_and_design_system_is_null() {
-        // Given
-        val image = mockk<Image>()
-        val scaleTypeSlot = slot<ImageView.ScaleType>()
-        val scaleType = ImageView.ScaleType.CENTER_CROP
-        every { image.contentMode } returns ImageContentMode.CENTER_CROP
-        every { viewMapper.toScaleType(any()) } returns scaleType
-        every { BeagleEnvironment.beagleSdk.designSystem } returns null
-        every { imageView.scaleType = capture(scaleTypeSlot) } just Runs
-
-        // When
-        imageView.setData(image, viewMapper)
-
-        // Then
-        assertEquals(scaleType, scaleTypeSlot.captured)
-        verify(exactly = 0) { imageView.setImageResource(IMAGE_RES) }
     }
 }

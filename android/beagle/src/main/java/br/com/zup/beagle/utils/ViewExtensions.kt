@@ -2,7 +2,6 @@ package br.com.zup.beagle.utils
 
 import android.app.Activity
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Path
@@ -12,34 +11,26 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.size
-import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import br.com.zup.beagle.R
 import br.com.zup.beagle.core.AppearanceComponent
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.data.BeagleViewModel
-import br.com.zup.beagle.engine.mapper.ViewMapper
 import br.com.zup.beagle.engine.renderer.ActivityRootView
 import br.com.zup.beagle.engine.renderer.FragmentRootView
 import br.com.zup.beagle.engine.renderer.RootView
-import br.com.zup.beagle.setup.BeagleEnvironment
-import br.com.zup.beagle.view.BeagleButtonView
 import br.com.zup.beagle.view.BeagleImageView
 import br.com.zup.beagle.view.BeagleView
 import br.com.zup.beagle.view.ScreenRequest
 import br.com.zup.beagle.view.StateChangedListener
 import br.com.zup.beagle.view.ViewFactory
-import br.com.zup.beagle.widget.core.ImageContentMode
-import br.com.zup.beagle.widget.ui.Button
-import br.com.zup.beagle.widget.ui.Image
 
 internal var viewExtensionsViewFactory = ViewFactory()
+internal var styleManagerFactory = StyleManager()
 const val FLOAT_ZERO = 0.0f
 
 fun ViewGroup.loadView(activity: AppCompatActivity, screenRequest: ScreenRequest) {
@@ -77,35 +68,6 @@ internal fun View.hideKeyboard() {
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-internal fun BeagleButtonView.setData(widget: Button) {
-    text = widget.text
-    val style = widget.style ?: ""
-    val designSystem = BeagleEnvironment.beagleSdk.designSystem
-    val buttonStyle = designSystem?.buttonStyle(style)
-    val typedArray =
-        StyleManager().getTypedArray(
-            context,
-            designSystem?.buttonStyle(style),
-            R.styleable.BeagleButtonStyle
-        )
-    if (buttonStyle != null && typedArray != null) {
-        background = typedArray.getDrawable(R.styleable.BeagleButtonStyle_android_background)
-        isAllCaps = typedArray.getBoolean(R.styleable.BeagleButtonStyle_android_textAllCaps, true)
-        TextViewCompat.setTextAppearance(this, buttonStyle)
-        typedArray.recycle()
-    }
-}
-
-internal fun ImageView.setData(widget: Image, viewMapper: ViewMapper) {
-    val contentMode = widget.contentMode ?: ImageContentMode.FIT_CENTER
-    scaleType = viewMapper.toScaleType(contentMode)
-    val designSystem = BeagleEnvironment.beagleSdk.designSystem
-    if (designSystem != null) {
-        val image = designSystem.image(widget.name)
-        this.setImageResource(image)
-    }
-}
-
 private fun <T> findChildViewForType(
     viewGroup: ViewGroup,
     elementList: MutableList<View>,
@@ -138,10 +100,6 @@ internal inline fun <reified T> ViewGroup.findChildViewForType(type: Class<T>): 
     return elementList
 }
 
-fun View.saveBeagleTag(tag: Any) {
-    this.tag = tag
-}
-
 internal fun RootView.generateViewModelInstance(): BeagleViewModel {
     return when (this) {
         is ActivityRootView -> {
@@ -162,7 +120,7 @@ internal fun View.applyAppearance(component: ServerDrivenComponent) {
             applyBackgroundColor(it)
             applyCornerRadius(it)
         } else {
-            val backgroundColor: Int? = StyleManager().getBackgroundColor(
+            val backgroundColor: Int? = styleManagerFactory.getBackgroundColor(
                 context = context,
                 component = component,
                 view = this
@@ -209,12 +167,9 @@ internal fun Canvas.applyRadius(radius: Float) {
     }
 }
 
-internal fun View.applyBackgroundFromWindowBackgroundTheme(
-    context: Context,
-    theme: Resources.Theme?
-) {
-    val typedValue = TypedValue()
-    theme?.resolveAttribute(android.R.attr.windowBackground, typedValue, true)
+internal fun View.applyBackgroundFromWindowBackgroundTheme(context: Context) {
+    val typedValue = styleManagerFactory
+        .getTypedValueByResId(android.R.attr.windowBackground, context)
     if (typedValue.type >= TypedValue.TYPE_FIRST_COLOR_INT &&
         typedValue.type <= TypedValue.TYPE_LAST_COLOR_INT
     ) {

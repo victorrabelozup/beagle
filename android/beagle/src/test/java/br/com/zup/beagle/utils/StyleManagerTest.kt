@@ -1,13 +1,16 @@
 package br.com.zup.beagle.utils
 
 import android.content.Context
+import android.content.res.Resources
 import android.content.res.TypedArray
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.util.TypedValue
 import android.view.View
 import br.com.zup.beagle.R
 import br.com.zup.beagle.core.ServerDrivenComponent
+import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.setup.DesignSystem
 import br.com.zup.beagle.widget.layout.Container
@@ -19,8 +22,8 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.mockk
 import io.mockk.mockkObject
-import io.mockk.unmockkAll
 import io.mockk.unmockkObject
+import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -45,6 +48,8 @@ class StyleManagerTest {
     private lateinit var colorDrawable: ColorDrawable
     @RelaxedMockK
     private lateinit var drawable: Drawable
+    @RelaxedMockK
+    private lateinit var typedValue: TypedValue
 
     private var textAppearanceInt: Int = 0
 
@@ -52,11 +57,11 @@ class StyleManagerTest {
     fun setUp() {
         MockKAnnotations.init(this)
         mockkObject(BeagleEnvironment)
+
         every { BeagleEnvironment.beagleSdk.designSystem } returns mockk()
         every { view.background } returns mockk()
         every { designSystem.textAppearance(any()) } returns textAppearanceInt
         every { context.obtainStyledAttributes(any<Int>(), any()) } returns mockk()
-        styleManager = StyleManager(designSystem)
     }
 
     @After
@@ -190,4 +195,79 @@ class StyleManagerTest {
         assertEquals(null, actual)
     }
 
+    @Test
+    fun getTypedValueByResId_should_return_TypedValue() {
+        // GIVEN
+        val resId = 0
+        val theme = mockk<Resources.Theme>(relaxed = true)
+        every { context.theme } returns theme
+
+        // WHEN
+        val result = styleManager.getTypedValueByResId(resId, context)
+
+        // THEN
+        verify(exactly = once()) { theme.resolveAttribute(resId, typedValue, true) }
+        assertEquals(typedValue, result)
+    }
+
+    @Test
+    fun getButtonStyle_should_return_button_style() {
+        // GIVEN
+        val buttonStyle = "stub"
+        val buttonStyleResource = 0
+        every { designSystem.buttonStyle(buttonStyle) } returns buttonStyleResource
+
+        // WHEN
+        val result = styleManager.getButtonStyle(buttonStyle)
+
+        // THEN
+        assertEquals(buttonStyleResource, result)
+    }
+
+    @Test
+    fun getButtonStyle_should_call_empty_when_not_pass_style() {
+        // GIVEN
+        val buttonStyle = null
+        val buttonStyleResource = 0
+        every { designSystem.buttonStyle("") } returns buttonStyleResource
+
+        // WHEN
+        val result = styleManager.getButtonStyle(buttonStyle)
+
+        // THEN
+        verify(exactly = once()) { designSystem.buttonStyle("") }
+        assertEquals(buttonStyleResource, result)
+    }
+
+    @Test
+    fun getButtonTypedArray_should_call_BeagleButtonStyle() {
+        // GIVEN
+        val buttonStyle = "stub"
+        val buttonStyleResource = 0
+        every { styleManager.getButtonStyle(buttonStyle) } returns buttonStyleResource
+
+        // WHEN
+        styleManager.getButtonTypedArray(context, buttonStyle)
+
+        // THEN
+        verify(exactly = once()) {
+            context.obtainStyledAttributes(buttonStyleResource, R.styleable.BeagleButtonStyle)
+        }
+    }
+
+    @Test
+    fun getTabBarTypedArray_should_call_BeagleTabBarStyle() {
+        // GIVEN
+        val tabStyle = null
+        val tabStyleResource = 0
+        every { designSystem.tabBarStyle("") } returns tabStyleResource
+
+        // WHEN
+        styleManager.getTabBarTypedArray(context, tabStyle)
+
+        // THEN
+        verify(exactly = once()) {
+            context.obtainStyledAttributes(tabStyleResource, R.styleable.BeagleTabBarStyle)
+        }
+    }
 }

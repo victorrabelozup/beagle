@@ -27,7 +27,8 @@ class TabViewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val declarative = TabView(
-            listOf(
+            style = "DesignSystem.TabView.Custom",
+            tabItems = listOf(
                 buildTabView(
                     title = "Title 1",
                     content = Text("Content").applyFlex(

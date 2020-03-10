@@ -1,10 +1,12 @@
 package br.com.zup.beagle.engine.renderer.ui
 
 import android.view.View
+import androidx.core.widget.TextViewCompat
+import br.com.zup.beagle.R
 import br.com.zup.beagle.action.ActionExecutor
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.UIViewRenderer
-import br.com.zup.beagle.utils.setData
+import br.com.zup.beagle.view.BeagleButtonView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.ui.Button
 
@@ -16,8 +18,21 @@ internal class ButtonViewRenderer(
 
     override fun buildView(rootView: RootView): View {
         return viewFactory.makeButton(rootView.getContext()).apply {
-            this.setOnClickListener { actionExecutor.doAction(context, component.action) }
-            this.setData(component)
+            setOnClickListener { actionExecutor.doAction(context, component.action) }
+            setData(component)
         }
     }
+}
+
+internal fun BeagleButtonView.setData(component: Button) {
+    val typedArray = styleManagerFactory.getButtonTypedArray(context, component.style)
+    typedArray?.let {
+        background = it.getDrawable(R.styleable.BeagleButtonStyle_android_background)
+        isAllCaps = it.getBoolean(R.styleable.BeagleButtonStyle_android_textAllCaps, true)
+        it.recycle()
+    }
+    styleManagerFactory.getButtonStyle(component.style)?.let { buttonStyle ->
+        TextViewCompat.setTextAppearance(this, buttonStyle)
+    }
+    text = component.text
 }
