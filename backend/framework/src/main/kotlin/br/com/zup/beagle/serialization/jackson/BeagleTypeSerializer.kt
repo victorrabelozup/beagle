@@ -3,9 +3,7 @@ package br.com.zup.beagle.serialization.jackson
 import br.com.zup.beagle.action.Action
 import br.com.zup.beagle.annotation.RegisterWidget
 import br.com.zup.beagle.core.ServerDrivenComponent
-import br.com.zup.beagle.widget.core.ComposeComponent
 import br.com.zup.beagle.widget.layout.Screen
-import br.com.zup.beagle.widget.layout.ScreenBuilder
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter
@@ -13,6 +11,7 @@ import com.fasterxml.jackson.databind.ser.impl.BeanAsArraySerializer
 import com.fasterxml.jackson.databind.ser.impl.ObjectIdWriter
 import com.fasterxml.jackson.databind.ser.std.BeanSerializerBase
 import java.util.*
+import kotlin.reflect.full.findAnnotation
 
 internal class BeagleTypeSerializer : BeanSerializerBase {
     constructor(source: BeanSerializerBase?) : super(source)
@@ -52,31 +51,23 @@ internal class BeagleTypeSerializer : BeanSerializerBase {
         BeagleTypeSerializer(this, this._objectIdWriter, filterId)
 
     override fun serialize(bean: Any, generator: JsonGenerator, provider: SerializerProvider) {
-        val beagleType = getBeagleType(bean)
-
         generator.writeStartObject()
-        beagleType?.apply { generator.writeStringField(BEAGLE_TYPE, this) }
+        getBeagleType(bean)?.apply { generator.writeStringField(BEAGLE_TYPE, this) }
         super.serializeFields(bean, generator, provider)
         generator.writeEndObject()
     }
 
-    private fun getBeagleType(original: Any): String? {
-        val component = when (original) {
-            is ComposeComponent -> original.build()
-            is ScreenBuilder -> original.build()
-            else -> original
-        }
+    private fun getBeagleType(bean: Any): String? {
+        val beanName = bean::class.simpleName?.toLowerCase(Locale.getDefault())
 
-        val componentName = component::class.java.simpleName.toLowerCase(Locale.getDefault())
-
-        return when (component) {
-            is Action -> "$BEAGLE_NAMESPACE:$ACTION_NAMESPACE:$componentName"
+        return when (bean) {
+            is Action -> "$BEAGLE_NAMESPACE:$ACTION_NAMESPACE:$beanName"
             is Screen -> "$BEAGLE_NAMESPACE:$COMPONENT_NAMESPACE:$SCREEN_COMPONENT"
             is ServerDrivenComponent ->
-                if (component::class.annotations.any { it.annotationClass == RegisterWidget::class }) {
-                    "$CUSTOM_WIDGET_BEAGLE_NAMESPACE:$COMPONENT_NAMESPACE:$componentName"
+                if (bean::class.findAnnotation<RegisterWidget>() != null) {
+                    "$CUSTOM_WIDGET_BEAGLE_NAMESPACE:$COMPONENT_NAMESPACE:$beanName"
                 } else {
-                    "$BEAGLE_NAMESPACE:$COMPONENT_NAMESPACE:$componentName"
+                    "$BEAGLE_NAMESPACE:$COMPONENT_NAMESPACE:$beanName"
                 }
             else -> null
         }

@@ -54,15 +54,6 @@ internal class BeagleTypeSerializerTest {
         testSerialize(CustomWidget, "$CUSTOM_WIDGET_BEAGLE_NAMESPACE:$COMPONENT_NAMESPACE:customwidget")
 
     @Test
-    fun serialize_ComposeComponent_should_build_then_have_component_beagleType_field() =
-        testSerialize(
-            object : ComposeComponent() {
-                override fun build() = Text("test")
-            },
-            "$BEAGLE_NAMESPACE:$COMPONENT_NAMESPACE:text"
-        )
-
-    @Test
     fun serialize_Action_should_have_action_beagleType_field() =
         testSerialize(
             Navigate(NavigationType.FINISH_VIEW),
@@ -73,15 +64,6 @@ internal class BeagleTypeSerializerTest {
     fun serialize_Screen_should_have_screen_beagleType_field() =
         testSerialize(
             Screen(content = CustomWidget),
-            "$BEAGLE_NAMESPACE:$COMPONENT_NAMESPACE:$SCREEN_COMPONENT"
-        )
-
-    @Test
-    fun serialize_ScreenBuilder_should_build_screen_then_have_screen_beagleType_field() =
-        testSerialize(
-            object : ScreenBuilder {
-                override fun build() = Screen(content = CustomWidget)
-            },
             "$BEAGLE_NAMESPACE:$COMPONENT_NAMESPACE:$SCREEN_COMPONENT"
         )
 
@@ -100,7 +82,7 @@ internal class BeagleTypeSerializerTest {
     private fun testSerialize(bean: Any, beagleType: String) = testSerialize(bean) {
         verify(exactly = 1) { it.writeStringField(BEAGLE_TYPE, beagleType) }
     }
-}
 
-@RegisterWidget
-private object CustomWidget : Widget()
+    @RegisterWidget
+    private object CustomWidget : Widget()
+}

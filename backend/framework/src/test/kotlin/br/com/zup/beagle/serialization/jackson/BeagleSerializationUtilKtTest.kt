@@ -7,8 +7,7 @@ internal class BeagleSerializationUtilKtTest {
 
     @Test
     fun beagleObjectMapper_function_returns_mapper_with_beagleModule() {
-        val mapper = beagleObjectMapper()
-
+        val mapper = BeagleSerializationUtil.beagleObjectMapper()
         assertTrue(mapper.registeredModuleIds.contains(BeagleModule.typeId))
     }
 }
