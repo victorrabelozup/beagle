@@ -23,8 +23,8 @@ struct ListViewScreen: DeeplinkScreen {
     
     var listView = ListView(
         rows: [
-            Text("0000"),
-            Text("0001", flex: Flex(size: Flex.Size(width: .init(value: 100, type: .real), height: .init(value: 100, type: .real)))),
+            Touchable(action: Navigate.addView(.init(path: "https://t001-2751a.firebaseapp.com/flow/step1.json")), child: Text("0000")),
+            Text("0001", flex: Flex(size: Size(width: .init(value: 100, type: .real), height: .init(value: 100, type: .real)))),
             Text("0002"),
             Text("0003"),
             Text("0004"),

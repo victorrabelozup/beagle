@@ -24,7 +24,7 @@ struct CustomComponentScreen: DeeplinkScreen {
                 children: [
                     Text("Here its a custom component\n in this case a Collection View", alignment: .center),
                     DSCollection(
-                        flex: Flex(size: Flex.Size(width: .init(value: 100, type: .percent), height: .init(value: 300, type: .real))),
+                        flex: Flex(size: Size(width: .init(value: 100, type: .percent), height: .init(value: 300, type: .real))),
                         dataSource: DSCollectionDataSource(cards: [
                             DSCollectionDataSource.Card(name: "Pocas", age: 22),
                             DSCollectionDataSource.Card(name: "Borracha", age: 40),

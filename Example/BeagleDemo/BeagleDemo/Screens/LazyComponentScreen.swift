@@ -32,7 +32,7 @@ struct LazyComponentScreen: DeeplinkScreen {
                     FormSubmit(child:
                         Text("FormSubmit")
                     )
-                ]).applyFlex(Flex(justifyContent: .spaceBetween))
+                ]).applyFlex(Flex().justifyContent(.spaceBetween))
             )
         )
     }

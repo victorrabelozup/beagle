@@ -65,14 +65,14 @@ final class LayoutManager {
         )
     }
     
-    private var contentPadding: Flex.EdgeValue {
+    private var contentPadding: EdgeValue {
         let defaultValue = true
         let insets = contentInsets
         let left = (safeArea?.leading ?? defaultValue) ? insets.left : 0
         let top = (safeArea?.top ?? defaultValue) ? insets.top : 0
         let right = (safeArea?.trailing ?? defaultValue) ? insets.right : 0
         let bottom = (safeArea?.bottom ?? defaultValue) ? insets.bottom : 0
-        return Flex.EdgeValue(
+        return EdgeValue(
             left: UnitValue(value: Double(left), type: .real),
             top: UnitValue(value: Double(top), type: .real),
             right: UnitValue(value: Double(right), type: .real),

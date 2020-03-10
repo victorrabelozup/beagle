@@ -24,7 +24,7 @@ public struct FlexEntity: Decodable {
 
 public extension FlexEntity {
     
-    public struct Size: Decodable {
+    struct Size: Decodable {
         var width: UnitValueEntity?
         var height: UnitValueEntity?
         var maxWidth: UnitValueEntity?
@@ -34,7 +34,7 @@ public extension FlexEntity {
         var aspectRatio: Double?
     }
     
-    public struct EdgeValue: Decodable {
+    struct EdgeValue: Decodable {
         var left: UnitValueEntity?
         var top: UnitValueEntity?
         var right: UnitValueEntity?
@@ -46,26 +46,26 @@ public extension FlexEntity {
         var all: UnitValueEntity?
     }
     
-    public enum FlexDirection: String, Decodable, UIEnumModelConvertible {
+    enum FlexDirection: String, Decodable, UIEnumModelConvertible {
         case row = "ROW"
         case rowReverse = "ROW_REVERSE"
         case column = "COLUMN"
         case columnReverse = "COLUMN_REVERSE"
     }
     
-    public enum Direction: String, Decodable, UIEnumModelConvertible {
+    enum Direction: String, Decodable, UIEnumModelConvertible {
         case inherit = "INHERIT"
         case ltr = "LTR"
         case rtl = "RTL"
     }
     
-    public enum FlexWrap: String, Decodable, UIEnumModelConvertible {
+    enum FlexWrap: String, Decodable, UIEnumModelConvertible {
         case noWrap = "NO_WRAP"
         case wrap = "WRAP"
         case wrapReverse = "WRAP_REVERSE"
     }
     
-    public enum JustifyContent: String, Decodable, UIEnumModelConvertible {
+    enum JustifyContent: String, Decodable, UIEnumModelConvertible {
         case flexStart = "FLEX_START"
         case center = "CENTER"
         case flexEnd = "FLEX_END"
@@ -74,7 +74,7 @@ public extension FlexEntity {
         case spaceEvenly = "SPACE_EVENLY"
     }
     
-    public enum Alignment: String, Decodable, UIEnumModelConvertible {
+    enum Alignment: String, Decodable, UIEnumModelConvertible {
         case flexStart = "FLEX_START"
         case center = "CENTER"
         case flexEnd = "FLEX_END"
@@ -85,12 +85,12 @@ public extension FlexEntity {
         case stretch = "STRETCH"
     }
     
-    public enum PositionType: String, Decodable, UIEnumModelConvertible {
+    enum PositionType: String, Decodable, UIEnumModelConvertible {
         case relative = "RELATIVE"
         case absolute = "ABSOLUTE"
     }
     
-    public enum Display: String, Decodable, UIEnumModelConvertible {
+    enum Display: String, Decodable, UIEnumModelConvertible {
         case flex = "FLEX"
         case none = "NONE"
     }
@@ -98,8 +98,8 @@ public extension FlexEntity {
 
 extension FlexEntity.Size: UIModelConvertible {
 
-    public func mapToUIModel() throws -> Flex.Size {
-        return Flex.Size(
+    public func mapToUIModel() throws -> Size {
+        return Size(
             width: try self.width?.mapToUIModel(),
             height: try self.height?.mapToUIModel(),
             maxWidth: try self.maxWidth?.mapToUIModel(),
@@ -113,8 +113,8 @@ extension FlexEntity.Size: UIModelConvertible {
 
 extension FlexEntity.EdgeValue: UIModelConvertible {
     
-    public func mapToUIModel() throws -> Flex.EdgeValue {
-        return Flex.EdgeValue(
+    public func mapToUIModel() throws -> EdgeValue {
+        return EdgeValue(
             left: try self.left?.mapToUIModel(),
             top: try self.top?.mapToUIModel(),
             right: try self.right?.mapToUIModel(),

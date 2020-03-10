@@ -20,7 +20,7 @@ struct FormScreen: DeeplinkScreen {
     init(path: String, data: [String : String]?) {}
     
     func screenController() -> UIViewController {
-        let flexHorizontalMargin = Flex(margin: Flex.EdgeValue(all: UnitValue(value: 10, type: .real)))
+        let flexHorizontalMargin = Flex(margin: EdgeValue(all: UnitValue(value: 10, type: .real)))
         let form = Form(
             path: "https://us-central1-t001-2751a.cloudfunctions.net/formTest",
             method: .post,
@@ -66,7 +66,7 @@ struct FormScreen: DeeplinkScreen {
                         enabled: false
                     )
                 ],
-                flex: Flex(grow: 1, padding: Flex.EdgeValue(all: UnitValue(value: 20, type: .real))),
+                flex: Flex(grow: 1, padding: EdgeValue(all: UnitValue(value: 20, type: .real))),
                 appearance: Appearance(backgroundColor: "#B8E297")
             )
         )

@@ -93,7 +93,7 @@ final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
     
     // MARK: - Flex Layout Methods
     
-    private func setSize(_ size: Flex.Size?, to layout: YGLayout) {
+    private func setSize(_ size: Size?, to layout: YGLayout) {
         guard let size = size else {
             return
         }
@@ -120,7 +120,7 @@ final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
         }
     }
     
-    private func setMargin(_ margin: Flex.EdgeValue?, to layout: YGLayout) {
+    private func setMargin(_ margin: EdgeValue?, to layout: YGLayout) {
         guard let margin = margin else {
             return
         }
@@ -153,7 +153,7 @@ final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
         }
     }
     
-    private func setPadding(_ padding: Flex.EdgeValue?, to layout: YGLayout) {
+    private func setPadding(_ padding: EdgeValue?, to layout: YGLayout) {
         guard let padding = padding else {
             return
         }
@@ -186,7 +186,7 @@ final class FlexViewConfigurator: FlexViewConfiguratorProtocol {
         }
     }
     
-    private func setPosition(_ position: Flex.EdgeValue?, to layout: YGLayout) {
+    private func setPosition(_ position: EdgeValue?, to layout: YGLayout) {
         guard let position = position else {
             return
         }

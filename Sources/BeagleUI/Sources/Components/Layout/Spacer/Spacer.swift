@@ -22,7 +22,7 @@ extension Spacer: Renderable {
     
     public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let flex = Flex(
-            size: Flex.Size(
+            size: Size(
                 width: UnitValue(value: size, type: .real),
                 height: UnitValue(value: size, type: .real)
             )

@@ -11,6 +11,18 @@
 		5754314923F207F000EF0E5A /* CacheLRU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5754314823F207F000EF0E5A /* CacheLRU.swift */; };
 		5754314B23F2080B00EF0E5A /* DoublyLinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5754314A23F2080B00EF0E5A /* DoublyLinkedList.swift */; };
 		5754315023F2108400EF0E5A /* LRUCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5754314F23F2108400EF0E5A /* LRUCacheTests.swift */; };
+		7CDF84732416AE0D00234F40 /* UnitValueExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF84712416ADCB00234F40 /* UnitValueExtensionTests.swift */; };
+		7CDF84852416DABC00234F40 /* FlexBuildersExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF84842416DABC00234F40 /* FlexBuildersExtensionTests.swift */; };
+		7CDF84902416DD8D00234F40 /* test_FlexBuilder.1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7CDF84882416DD8D00234F40 /* test_FlexBuilder.1.txt */; };
+		7CDF84912416DD8D00234F40 /* test_EdgeValueBuilder.1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7CDF84892416DD8D00234F40 /* test_EdgeValueBuilder.1.txt */; };
+		7CDF84922416DD8D00234F40 /* test_SizeBuilder.1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7CDF848A2416DD8D00234F40 /* test_SizeBuilder.1.txt */; };
+		7CDF84932416DD8D00234F40 /* test_UnitValueExpressibleByIntegerLiteral.1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7CDF848C2416DD8D00234F40 /* test_UnitValueExpressibleByIntegerLiteral.1.txt */; };
+		7CDF84942416DD8D00234F40 /* test_UnitValueExpressibleByFloatLiteral.1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7CDF848D2416DD8D00234F40 /* test_UnitValueExpressibleByFloatLiteral.1.txt */; };
+		7CDF84952416DD8D00234F40 /* test_UnitValueWithPercentageOperatorAndIntegerValue.1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7CDF848E2416DD8D00234F40 /* test_UnitValueWithPercentageOperatorAndIntegerValue.1.txt */; };
+		7CDF84962416DD8D00234F40 /* test_UnitValueWithPercentageOperatorAndFloatValue.1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7CDF848F2416DD8D00234F40 /* test_UnitValueWithPercentageOperatorAndFloatValue.1.txt */; };
+		7CFE3A712412E3040087F664 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFE3A702412E3040087F664 /* Size.swift */; };
+		7CFE3A732412E3430087F664 /* EdgeValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFE3A722412E3430087F664 /* EdgeValue.swift */; };
+		7CFE3A752412E3B50087F664 /* FlexBuildersExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFE3A742412E3B50087F664 /* FlexBuildersExtension.swift */; };
 		9317CBB523872E170015B4CB /* ComponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9317CBB423872E170015B4CB /* ComponentEntity.swift */; };
 		931B6E302375BA7400DE73FD /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931B6E2F2375BA7400DE73FD /* Theme.swift */; };
 		931B6E32237610B300DE73FD /* FunctiontalUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931B6E31237610B300DE73FD /* FunctiontalUtils.swift */; };
@@ -244,6 +256,18 @@
 		5754314823F207F000EF0E5A /* CacheLRU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheLRU.swift; sourceTree = "<group>"; };
 		5754314A23F2080B00EF0E5A /* DoublyLinkedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoublyLinkedList.swift; sourceTree = "<group>"; };
 		5754314F23F2108400EF0E5A /* LRUCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRUCacheTests.swift; sourceTree = "<group>"; };
+		7CDF84712416ADCB00234F40 /* UnitValueExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitValueExtensionTests.swift; sourceTree = "<group>"; };
+		7CDF84842416DABC00234F40 /* FlexBuildersExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexBuildersExtensionTests.swift; sourceTree = "<group>"; };
+		7CDF84882416DD8D00234F40 /* test_FlexBuilder.1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_FlexBuilder.1.txt; sourceTree = "<group>"; };
+		7CDF84892416DD8D00234F40 /* test_EdgeValueBuilder.1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_EdgeValueBuilder.1.txt; sourceTree = "<group>"; };
+		7CDF848A2416DD8D00234F40 /* test_SizeBuilder.1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_SizeBuilder.1.txt; sourceTree = "<group>"; };
+		7CDF848C2416DD8D00234F40 /* test_UnitValueExpressibleByIntegerLiteral.1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_UnitValueExpressibleByIntegerLiteral.1.txt; sourceTree = "<group>"; };
+		7CDF848D2416DD8D00234F40 /* test_UnitValueExpressibleByFloatLiteral.1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_UnitValueExpressibleByFloatLiteral.1.txt; sourceTree = "<group>"; };
+		7CDF848E2416DD8D00234F40 /* test_UnitValueWithPercentageOperatorAndIntegerValue.1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_UnitValueWithPercentageOperatorAndIntegerValue.1.txt; sourceTree = "<group>"; };
+		7CDF848F2416DD8D00234F40 /* test_UnitValueWithPercentageOperatorAndFloatValue.1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_UnitValueWithPercentageOperatorAndFloatValue.1.txt; sourceTree = "<group>"; };
+		7CFE3A702412E3040087F664 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
+		7CFE3A722412E3430087F664 /* EdgeValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeValue.swift; sourceTree = "<group>"; };
+		7CFE3A742412E3B50087F664 /* FlexBuildersExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexBuildersExtension.swift; sourceTree = "<group>"; };
 		9317CBB423872E170015B4CB /* ComponentEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentEntity.swift; sourceTree = "<group>"; };
 		931B6E2F2375BA7400DE73FD /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		931B6E31237610B300DE73FD /* FunctiontalUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctiontalUtils.swift; sourceTree = "<group>"; };
@@ -411,7 +435,7 @@
 		E5223773237C3C4800E555BB /* UnitValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnitValue.swift; path = Sources/Components/Layout/Flex/UnitValue.swift; sourceTree = SOURCE_ROOT; };
 		E5223777237C3C5500E555BB /* ServerDrivenComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServerDrivenComponent.swift; path = Sources/Components/ServerDrivenComponent.swift; sourceTree = SOURCE_ROOT; };
 		E5223779237C3C5500E555BB /* Touchable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Touchable.swift; path = Sources/Action/Touchable.swift; sourceTree = SOURCE_ROOT; };
-		E522377A237C3C5500E555BB /* Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Container.swift; path = Sources/Components/Layout/Flex/Container.swift; sourceTree = SOURCE_ROOT; };
+		E522377A237C3C5500E555BB /* Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Container.swift; path = Sources/Components/Layout/Container/Container.swift; sourceTree = SOURCE_ROOT; };
 		E5223780237C3C9A00E555BB /* Form.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
 		E5223782237C3CAF00E555BB /* FormInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormInput.swift; sourceTree = "<group>"; };
 		E5223784237C3CC500E555BB /* FormSubmit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSubmit.swift; sourceTree = "<group>"; };
@@ -516,6 +540,45 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
+		7CDF84862416DD8D00234F40 /* __Snapshots__ */ = {
+			isa = PBXGroup;
+			children = (
+				7CDF84872416DD8D00234F40 /* FlexBuildersExtensionTests */,
+				7CDF848B2416DD8D00234F40 /* UnitValueExtensionTests */,
+			);
+			path = __Snapshots__;
+			sourceTree = "<group>";
+		};
+		7CDF84872416DD8D00234F40 /* FlexBuildersExtensionTests */ = {
+			isa = PBXGroup;
+			children = (
+				7CDF84882416DD8D00234F40 /* test_FlexBuilder.1.txt */,
+				7CDF84892416DD8D00234F40 /* test_EdgeValueBuilder.1.txt */,
+				7CDF848A2416DD8D00234F40 /* test_SizeBuilder.1.txt */,
+			);
+			path = FlexBuildersExtensionTests;
+			sourceTree = "<group>";
+		};
+		7CDF848B2416DD8D00234F40 /* UnitValueExtensionTests */ = {
+			isa = PBXGroup;
+			children = (
+				7CDF848C2416DD8D00234F40 /* test_UnitValueExpressibleByIntegerLiteral.1.txt */,
+				7CDF848D2416DD8D00234F40 /* test_UnitValueExpressibleByFloatLiteral.1.txt */,
+				7CDF848E2416DD8D00234F40 /* test_UnitValueWithPercentageOperatorAndIntegerValue.1.txt */,
+				7CDF848F2416DD8D00234F40 /* test_UnitValueWithPercentageOperatorAndFloatValue.1.txt */,
+			);
+			path = UnitValueExtensionTests;
+			sourceTree = "<group>";
+		};
+		7CFE3A7824133C020087F664 /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				E522377A237C3C5500E555BB /* Container.swift */,
+				E56A02B223451CC300C0F23D /* ContainerEntity.swift */,
+			);
+			path = Container;
+			sourceTree = "<group>";
+		};
 		931B6E0C2374A9BB00DE73FD /* Theme */ = {
 			isa = PBXGroup;
 			children = (
@@ -557,6 +620,7 @@
 		936817FA232A881600E6E724 /* Layout */ = {
 			isa = PBXGroup;
 			children = (
+				7CFE3A7824133C020087F664 /* Container */,
 				C829CEA323B15B0C001B7225 /* Screen */,
 				C829CE9823B12D13001B7225 /* Flex */,
 				C829CEA523B15B71001B7225 /* Scroll */,
@@ -729,8 +793,8 @@
 				E5223771237C3C4800E555BB /* Flex.swift */,
 				E5CE41C123325E2100295277 /* FlexEntity.swift */,
 				9397F5CE2357615F00054D42 /* FlexViewConfigurator.swift */,
-				E522377A237C3C5500E555BB /* Container.swift */,
-				E56A02B223451CC300C0F23D /* ContainerEntity.swift */,
+				7CFE3A702412E3040087F664 /* Size.swift */,
+				7CFE3A722412E3430087F664 /* EdgeValue.swift */,
 				E5223773237C3C4800E555BB /* UnitValue.swift */,
 				E5CE41C523325E4500295277 /* UnitValueEntity.swift */,
 				9397F5CF2357615F00054D42 /* YogaTranslator.swift */,
@@ -877,11 +941,14 @@
 		C829CEAF23B15FF0001B7225 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				7CDF84862416DD8D00234F40 /* __Snapshots__ */,
 				E5CB5D852354C830009783A7 /* MirrorExtension.swift */,
 				93B9746123A287A800B0D1CF /* NSErrorExtensionTests.swift */,
 				E52236C523745CDC00E555BB /* NSObjectExtensionTests.swift */,
 				E531D6BB235A007C007EEBA7 /* UIView+LoadingTests.swift */,
 				E5A6F4AC2358A76F008906F8 /* XCTestCase+FatalError.swift */,
+				7CDF84712416ADCB00234F40 /* UnitValueExtensionTests.swift */,
+				7CDF84842416DABC00234F40 /* FlexBuildersExtensionTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -1279,6 +1346,7 @@
 				E531D6B92359FEE1007EEBA7 /* UIView+Loading.swift */,
 				988F81FA23E24ECA008562BE /* UIView+Subviews.swift */,
 				981DB2EE23748BAB001CE5E0 /* UnitValueExtension.swift */,
+				7CFE3A742412E3B50087F664 /* FlexBuildersExtension.swift */,
 				C829CEAF23B15FF0001B7225 /* Tests */,
 			);
 			path = Extensions;
@@ -1463,14 +1531,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CDF84962416DD8D00234F40 /* test_UnitValueWithPercentageOperatorAndFloatValue.1.txt in Resources */,
 				C86E7C1523954E2700D6FEDB /* PageViewInvalid.json in Resources */,
+				7CDF84932416DD8D00234F40 /* test_UnitValueExpressibleByIntegerLiteral.1.txt in Resources */,
 				A0451C6B23BA846F00F77398 /* ImageComponent.json in Resources */,
+				7CDF84922416DD8D00234F40 /* test_SizeBuilder.1.txt in Resources */,
 				C89E816F23982B4700C2D0ED /* CustomPageIndicator.json in Resources */,
 				98A7F36A23A84AFF00E88C70 /* TabView.json in Resources */,
 				A0451C7823BA961000F77398 /* ImageTests.xcassets in Resources */,
+				7CDF84952416DD8D00234F40 /* test_UnitValueWithPercentageOperatorAndIntegerValue.1.txt in Resources */,
 				C8FD20B323959AED003E6F5B /* PageViewWith3PagesAndIndicator.json in Resources */,
 				A0451C8B23BF7A0600F77398 /* Container.json in Resources */,
 				C8983D9C23984C820080D439 /* PageViewWithCustomIndicator.json in Resources */,
+				7CDF84942416DD8D00234F40 /* test_UnitValueExpressibleByFloatLiteral.1.txt in Resources */,
+				7CDF84912416DD8D00234F40 /* test_EdgeValueBuilder.1.txt in Resources */,
+				7CDF84902416DD8D00234F40 /* test_FlexBuilder.1.txt in Resources */,
 				C898E23B23BFD6DA004FEDB6 /* TextComponent.json in Resources */,
 				C85D9BAA2388596A0075B6C0 /* PageViewWith3Pages.json in Resources */,
 				C898E24123BFD74E004FEDB6 /* ScrollViewComponent.json in Resources */,
@@ -1589,6 +1664,7 @@
 				E531D6C1235A3230007EEBA7 /* NSErrorExtension.swift in Sources */,
 				A04B19FA23ECA3F7007B4279 /* Screen.swift in Sources */,
 				983E8C8E2396C81C0018C6CA /* TabBarCollectionViewCell.swift in Sources */,
+				7CFE3A752412E3B50087F664 /* FlexBuildersExtension.swift in Sources */,
 				E7716B9D2375E9FF006E26F2 /* BeagleDeepLinkHandler.swift in Sources */,
 				98B7D95623DB2722002622AC /* Observable.swift in Sources */,
 				E52236C223745A7F00E555BB /* ListItemTableViewCell.swift in Sources */,
@@ -1604,9 +1680,11 @@
 				C0B1AAB923F5D49C00F94ECA /* AccessibilityEntity.swift in Sources */,
 				C860572B241199310087268F /* NavigationBar.swift in Sources */,
 				C89E80A72397FFFD00C2D0ED /* DefaultPageIndicator.swift in Sources */,
+				7CFE3A712412E3040087F664 /* Size.swift in Sources */,
 				A0EF0AAA23880D5A0019BE83 /* CustomAction.swift in Sources */,
 				A0451C6423BA69D600F77398 /* AppearanceEntity.swift in Sources */,
 				A0EF0AA42386B7A20019BE83 /* ActionExecutor.swift in Sources */,
+				7CFE3A732412E3430087F664 /* EdgeValue.swift in Sources */,
 				C86F893F23B28FAE00287D5D /* NetworkImageEntity.swift in Sources */,
 				E5CB5DAB23550012009783A7 /* BeagleSetup.swift in Sources */,
 				C862314923CDFBF7003CFB0B /* Result.swift in Sources */,
@@ -1685,6 +1763,7 @@
 				E5A7763F237DA1F3002F5515 /* FormTests.swift in Sources */,
 				93ADB87923FAD31D005B7CD2 /* ComposeComponentTests.swift in Sources */,
 				C86F894F23B28FCE00287D5D /* NetworkImageEntityTests.swift in Sources */,
+				7CDF84852416DABC00234F40 /* FlexBuildersExtensionTests.swift in Sources */,
 				C829CEFE23B19557001B7225 /* ScrollViewEntityTests.swift in Sources */,
 				93932F4C23E1CF1800F41905 /* NetworkImageTests.swift in Sources */,
 				E79D846D23AABFA100BAE9FA /* BeaglePrefetchHelperTests.swift in Sources */,
@@ -1710,6 +1789,7 @@
 				C898E23A23BFD6DA004FEDB6 /* TextTests.swift in Sources */,
 				E5CE41F62332B9DD00295277 /* ComponentDecoderTests.swift in Sources */,
 				C829CF2223B197CF001B7225 /* FormInputEntityTests.swift in Sources */,
+				7CDF84732416AE0D00234F40 /* UnitValueExtensionTests.swift in Sources */,
 				E56A02BA2345367D00C0F23D /* ListViewInitTests.swift in Sources */,
 				985EBA8D2356467B0042C19A /* ListViewEntityTests.swift in Sources */,
 				E5A77643237DC17D002F5515 /* FormSubmitTests.swift in Sources */,

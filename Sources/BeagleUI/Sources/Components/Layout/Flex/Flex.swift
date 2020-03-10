@@ -2,25 +2,25 @@
 //  Copyright © 12/09/19 Zup IT. All rights reserved.
 //
 
-public struct Flex {
+public class Flex {
 
-    public let direction: Direction?
-    public let flexDirection: FlexDirection?
-    public let flexWrap: Wrap?
-    public let justifyContent: JustifyContent?
-    public let alignItems: Alignment?
-    public let alignSelf: Alignment?
-    public let alignContent: Alignment?
-    public let positionType: PositionType?
-    public let basis: UnitValue?
-    public let flex: Double?
-    public let grow: Double?
-    public let shrink: Double?
-    public let display: Display?
-    public let size: Size?
-    public let margin: EdgeValue?
-    public let padding: EdgeValue?
-    public let position: EdgeValue?
+    public var direction: Direction?
+    public var flexDirection: FlexDirection?
+    public var flexWrap: Wrap?
+    public var justifyContent: JustifyContent?
+    public var alignItems: Alignment?
+    public var alignSelf: Alignment?
+    public var alignContent: Alignment?
+    public var positionType: PositionType?
+    public var basis: UnitValue?
+    public var flex: Double?
+    public var grow: Double?
+    public var shrink: Double?
+    public var display: Display?
+    public var size: Size?
+    public var margin: EdgeValue?
+    public var padding: EdgeValue?
+    public var position: EdgeValue?
     
     public init(
         direction: Flex.Direction? = nil,
@@ -36,10 +36,10 @@ public struct Flex {
         grow: Double? = nil,
         shrink: Double? = nil,
         display: Flex.Display? = nil,
-        size: Flex.Size? = nil,
-        margin: Flex.EdgeValue? = nil,
-        padding: Flex.EdgeValue? = nil,
-        position: Flex.EdgeValue? = nil
+        size: Size? = nil,
+        margin: EdgeValue? = nil,
+        padding: EdgeValue? = nil,
+        position: EdgeValue? = nil
     ) {
         self.flexDirection = flexDirection
         self.direction = direction
@@ -58,76 +58,6 @@ public struct Flex {
         self.margin = margin
         self.padding = padding
         self.position = position
-    }
-}
-
-// MARK: - Flex Size
-extension Flex {
-    public struct Size {
-        // MARK: - Public Properties
-        public let width: UnitValue?
-        public let height: UnitValue?
-        public let maxWidth: UnitValue?
-        public let maxHeight: UnitValue?
-        public let minWidth: UnitValue?
-        public let minHeight: UnitValue?
-        public let aspectRatio: Double?
-        
-        public init(
-            width: UnitValue? = nil,
-            height: UnitValue? = nil,
-            maxWidth: UnitValue? = nil,
-            maxHeight: UnitValue? = nil,
-            minWidth: UnitValue? = nil,
-            minHeight: UnitValue? = nil,
-            aspectRatio: Double? = nil
-        ) {
-            self.width = width
-            self.height = height
-            self.maxWidth = maxWidth
-            self.maxHeight = maxHeight
-            self.minWidth = minWidth
-            self.minHeight = minHeight
-            self.aspectRatio = aspectRatio
-        }
-    }
-}
-
-// MARK: - EdgeValue
-extension Flex {
-    public struct EdgeValue {
-        // MARK: - Public Properties
-        public let left: UnitValue?
-        public let top: UnitValue?
-        public let right: UnitValue?
-        public let bottom: UnitValue?
-        public let start: UnitValue?
-        public let end: UnitValue?
-        public let horizontal: UnitValue?
-        public let vertical: UnitValue?
-        public let all: UnitValue?
-        
-        public init(
-            left: UnitValue? = nil,
-            top: UnitValue? = nil,
-            right: UnitValue? = nil,
-            bottom: UnitValue? = nil,
-            start: UnitValue? = nil,
-            end: UnitValue? = nil,
-            horizontal: UnitValue? = nil,
-            vertical: UnitValue? = nil,
-            all: UnitValue? = nil
-        ) {
-            self.left = left
-            self.top = top
-            self.right = right
-            self.bottom = bottom
-            self.start = start
-            self.end = end
-            self.horizontal = horizontal
-            self.vertical = vertical
-            self.all = all
-        }
     }
 }
 

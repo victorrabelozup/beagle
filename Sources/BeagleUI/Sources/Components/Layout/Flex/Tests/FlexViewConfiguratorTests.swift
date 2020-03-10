@@ -46,7 +46,7 @@ final class FlexViewConfiguratorTests: XCTestCase {
     func test_setupFlex_shouldApplyAllYogaPropertiesProperly() {
         // Given
         let value = UnitValue(value: 1, type: .real)
-        let size = Flex.Size(
+        let size = Size(
             width: value,
             height: value,
             maxWidth: value,
@@ -55,7 +55,7 @@ final class FlexViewConfiguratorTests: XCTestCase {
             minHeight: value,
             aspectRatio: 1
         )
-        let edgeValue = Flex.EdgeValue(
+        let edgeValue = EdgeValue(
             left: value,
             top: value,
             right: value,
