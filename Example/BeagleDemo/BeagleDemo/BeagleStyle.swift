@@ -16,7 +16,8 @@ struct Style {
         "DesignSystem.Stylish.ButtonAndAppearance": Style.designSystemStylishButtonAndAppearance,
         "DesignSystem.Form.Submit": Style.formButton,
         "DesignSystem.Navigationbar.Style.Green": Style.designSystemStyleNavigationBar,
-        "DesignSystem.Navigationbar.Style.Default": Style.designSystemStyleNavigationBarDefault
+        "DesignSystem.Navigationbar.Style.Default": Style.designSystemStyleNavigationBarDefault,
+        "DesignSystem.TabView.Style": Style.tabView
         ]
     )
     
@@ -69,8 +70,13 @@ struct Style {
         return {
             $0?.layer.cornerRadius = 4
             $0?.setTitleColor(.white, for: .normal)
-            $0?.backgroundColor = $0?.isEnabled ?? false ? #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1) : #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+            $0?.backgroundColor = $0?.isEnabled ?? false ? UIColor(hex: "#579F2B") : UIColor(hex: "#808080")
             $0?.alpha = $0?.isHighlighted ?? false ? 0.7 : 1
         }
+    }
+    
+    static func tabView() -> (UIView?) -> Void {
+        
+        return BeagleStyle.tabView(backgroundColor: .clear, indicatorColor: UIColor(hex: "#FF8818"), selectedTextColor: UIColor(hex: "#FF8818"), unselectedTextColor: UIColor(hex: "#3A3535"))
     }
 }

@@ -11,6 +11,15 @@ import Foundation
 /// Defines an API representation for `TabView`
 struct TabViewEntity: ComponentEntity {
     let tabItems: [TabItemEntity]
+    let style: String?
+    
+    init(
+        tabItems: [TabItemEntity],
+        style: String? = nil
+    ) {
+        self.tabItems = tabItems
+        self.style = style
+    }
 }
 
 extension TabViewEntity: ComponentConvertible {
@@ -27,7 +36,7 @@ extension TabViewEntity: ComponentConvertible {
             return TabItem(icon: $0.icon, title: $0.title, content: component)
         }
         
-        return TabView(tabItems: tabItemsConverted)
+        return TabView(tabItems: tabItemsConverted, style: style)
     }
 }
 

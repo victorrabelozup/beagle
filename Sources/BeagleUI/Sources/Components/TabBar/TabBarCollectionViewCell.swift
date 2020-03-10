@@ -8,6 +8,13 @@
 
 import UIKit
 
+extension TabBarCollectionViewCell {
+    struct Model {
+        var selectedTextColor: UIColor?
+        var unselectedTextColor: UIColor?
+    }
+}
+
 final class TabBarCollectionViewCell: UICollectionViewCell {
     
     // MARK: - UIComponents
@@ -35,11 +42,23 @@ final class TabBarCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    var model: Model?
+    
+    override var isSelected: Bool {
+        didSet {
+            if let selectedTextColor = model?.selectedTextColor,
+                let unselectedTextColor = model?.unselectedTextColor {
+                title.textColor = isSelected ? selectedTextColor : unselectedTextColor
+            } else {
+                title.textColor = isSelected ? .black : .gray
+            }
+        }
+    }
+
     // MARK: - Initialization
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-
         contentView.addSubview(stackView)
         stackView.anchorTo(superview: contentView)
         stackView.addArrangedSubview(icon)
@@ -49,7 +68,7 @@ final class TabBarCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+        
     // MARK: - Setup
     
     func setupTab(with tab: TabItem) {

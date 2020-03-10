@@ -14,7 +14,7 @@ final class TabViewEntityTests: XCTestCase {
         // Given
         let buttonEntity = ButtonEntity(text: "button", style: "")
         let tabsEntity = TabItemEntity(icon: "", title: "Teste", content: AnyDecodableContainer(content: buttonEntity))
-        let sut = TabViewEntity(tabItems: [tabsEntity])
+        let sut = TabViewEntity(tabItems: [tabsEntity], style: "")
         
         // When
         let tabView = try? sut.mapToComponent()

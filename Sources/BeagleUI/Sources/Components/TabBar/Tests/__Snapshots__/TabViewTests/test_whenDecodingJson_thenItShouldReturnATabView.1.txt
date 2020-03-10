@@ -1,4 +1,5 @@
 ▿ TabView
+  - style: Optional<String>.none
   ▿ tabItems: 1 element
     ▿ TabItem
       ▿ content: Container

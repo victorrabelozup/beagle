@@ -12,6 +12,15 @@ extension TabViewUIComponent {
     struct Model {
         var tabIndex: Int
         var tabViewItems: [TabItem]
+        var selectedTextColor: UIColor?
+        var unselectedTextColor: UIColor?
+        
+        init(tabIndex: Int, tabViewItems: [TabItem], selectedTextColor: UIColor? = nil, unselectedTextColor: UIColor? = nil) {
+            self.tabIndex = tabIndex
+            self.tabViewItems = tabViewItems
+            self.selectedTextColor = selectedTextColor
+            self.unselectedTextColor = unselectedTextColor
+        }
     }
 }
 
@@ -20,7 +29,7 @@ final class TabViewUIComponent: UIView {
     // MARK: - Properties
     private var containerWidthConstraint: NSLayoutConstraint?
     var model: Model
-    
+
     // MARK: - UIComponents
     
     lazy var collectionView: UICollectionView = {
@@ -32,11 +41,10 @@ final class TabViewUIComponent: UIView {
             frame: CGRect(),
             collectionViewLayout: layout
         )
+        collection.backgroundColor = .clear
         collection.register(TabBarCollectionViewCell.self, forCellWithReuseIdentifier: TabBarCollectionViewCell.className)
-        collection.backgroundColor = .white
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.showsHorizontalScrollIndicator = false
-        collection.backgroundColor = .clear
         collection.dataSource = self
         collection.delegate = self
         return collection
@@ -54,7 +62,6 @@ final class TabViewUIComponent: UIView {
                 viewModel: .init(screenType: .declarative($0.content.toScreen()))
             )
         }
-        
         let view = PageViewUIComponent(model: .init(pages: pages), indicatorView: nil)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.pageViewDelegate = self
@@ -79,9 +86,9 @@ final class TabViewUIComponent: UIView {
         addSubview(collectionView)
         collectionView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor)
         collectionView.heightAnchor.constraint(lessThanOrEqualToConstant: 65).isActive = true
-        
         collectionView.addSubview(containerIndicator)
         collectionView.bringSubview(toFront: containerIndicator.indicatorView)
+        
         containerIndicator.anchor(bottom: collectionView.bottomAnchor, bottomConstant: -65, heightConstant: 3)
         containerWidthConstraint = NSLayoutConstraint(item: containerIndicator.indicatorView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100)
         containerWidthConstraint?.isActive = true
@@ -134,10 +141,16 @@ extension TabViewUIComponent: UICollectionViewDataSource, UICollectionViewDelega
         guard let cell = collectionView.dequeueReusableCell(
         withReuseIdentifier: TabBarCollectionViewCell.className,
         for: indexPath) as? TabBarCollectionViewCell else { return UICollectionViewCell() }
+        cell.model = TabBarCollectionViewCell.Model(selectedTextColor: model.selectedTextColor, unselectedTextColor: model.unselectedTextColor)
+        
         if indexPath.row == 0 {
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
             containerWidthConstraint?.constant = cell.frame.width
+            cell.isSelected = true
+        } else {
+            cell.isSelected = false
         }
+        
         cell.setupTab(with: item)
         return cell
     }

@@ -23,11 +23,14 @@ public struct TabItem {
 
 public struct TabView: ServerDrivenComponent {
     public let tabItems: [TabItem]
+    public let style: String?
     
     public init(
-        tabItems: [TabItem]
+        tabItems: [TabItem],
+        style: String? = nil
     ) {
         self.tabItems = tabItems
+        self.style = style
     }
 }
 
@@ -35,6 +38,9 @@ extension TabView: Renderable {
     public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let model = TabViewUIComponent.Model(tabIndex: 0, tabViewItems: tabItems)
         let tabView = TabViewUIComponent(model: model)
+        if let style = style {
+            dependencies.theme.applyStyle(for: tabView as UIView, withId: style)
+        }
         tabView.flex.setup(Flex(grow: 1))
         return tabView
     }

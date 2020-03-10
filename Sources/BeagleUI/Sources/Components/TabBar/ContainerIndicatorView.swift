@@ -12,7 +12,7 @@ final class ContainerIndicatorView: UIView {
     lazy var indicatorView: UIView = {
         let view = UIView()
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.backgroundColor = .red
+        view.backgroundColor = .black
         return view
     }()
     
