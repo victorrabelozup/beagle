@@ -42,7 +42,7 @@ class SampleFormService {
                     )
                 )
             ),
-            content = Form(
+            child = Form(
                 path = SUBMIT_FORM_ENDPOINT,
                 method = FormMethodType.POST,
                 child = Container(
