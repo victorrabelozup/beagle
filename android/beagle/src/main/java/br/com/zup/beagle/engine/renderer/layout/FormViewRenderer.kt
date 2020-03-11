@@ -23,6 +23,7 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormSubmit
+import br.com.zup.beagle.widget.form.InputWidget
 
 internal class FormViewRenderer(
     override val component: Form,
@@ -89,10 +90,11 @@ internal class FormViewRenderer(
         val formsValue = mutableMapOf<String, String>()
 
         formInputs.forEach { formInput ->
+            val inputWidget: InputWidget = formInput.child
             if (formInput.required == true) {
                 validateFormInput(formInput, formsValue)
             } else {
-                formsValue[formInput.name] = formInput.child.getValue().toString()
+                formsValue[formInput.name] = inputWidget.getValue().toString()
             }
         }
 
@@ -113,7 +115,7 @@ internal class FormViewRenderer(
         val validator = formInput.validator
         if (validator != null) {
             validatorHandler?.getValidator(validator)?.let {
-                val inputWidget = formInput.child
+                val inputWidget: InputWidget = formInput.child
                 val inputValue = inputWidget.getValue()
 
                 if (it.isValid(inputValue, inputWidget)) {

@@ -48,9 +48,9 @@ internal class BeagleBuilderSerializerTest {
     fun serialize_ScreenBuilder_should_write_the_component_from_build() =
         testSerialize(
             object : ScreenBuilder {
-                override fun build() = Screen(content = Text("Test"))
+                override fun build() = Screen(child = Text("Test"))
             },
-            Screen(content = Text("Test"))
+            Screen(child = Text("Test"))
         )
 
     private inline fun <reified T : Any> testSerialize(bean: Any, built: T) {

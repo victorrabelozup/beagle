@@ -25,6 +25,7 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormSubmit
+import br.com.zup.beagle.widget.form.InputWidget
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -34,6 +35,7 @@ import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.mockkStatic
 import io.mockk.slot
+import io.mockk.unmockkAll
 import io.mockk.verify
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -46,40 +48,60 @@ class FormViewRendererTest : BaseTest() {
 
     @RelaxedMockK
     private lateinit var form: Form
+
     @MockK(relaxed = true)
     private lateinit var formInput: FormInput
+
     @MockK
     private lateinit var formSubmit: FormSubmit
+
     @MockK
     private lateinit var viewRendererFactory: ViewRendererFactory
+
     @MockK
     private lateinit var validatorHandler: ValidatorHandler
+
     @MockK
     private lateinit var validator: Validator<Any, Any>
+
     @MockK
     private lateinit var formValidationActionHandler: FormValidationActionHandler
+
     @MockK(relaxed = true)
     private lateinit var formValidatorController: FormValidatorController
+
     @MockK(relaxed = true)
     private lateinit var actionExecutor: ActionExecutor
+
     @MockK
     private lateinit var formSubmitter: FormSubmitter
+
     @MockK
     private lateinit var viewRenderer: ViewRenderer<*>
+
     @MockK
     private lateinit var viewFactory: ViewFactory
+
     @MockK
     private lateinit var beagleActivity: BeagleActivity
+
     @MockK
     private lateinit var inputMethodManager: InputMethodManager
+
     @RelaxedMockK
     private lateinit var formInputView: View
+
     @MockK
     private lateinit var formSubmitView: View
+
     @RelaxedMockK
     private lateinit var viewGroup: ViewGroup
+
     @MockK
     private lateinit var rootView: RootView
+
+    @RelaxedMockK
+    private lateinit var inputWidget: InputWidget
 
     private val onClickListenerSlot = slot<View.OnClickListener>()
     private val formResultCallbackSlot = slot<(formResult: FormResult) -> Unit>()
@@ -111,7 +133,8 @@ class FormViewRendererTest : BaseTest() {
         every { form.child } returns form
         every { form.path } returns RandomData.string()
         every { formInput.required } returns false
-        every { formInput.child.getValue() } returns INPUT_VALUE
+        every { inputWidget.getValue() } returns INPUT_VALUE
+        every { formInput.child } returns inputWidget
         every { formInputView.context } returns beagleActivity
         every { formInputView.tag } returns formInput
         every { formSubmitView.hideKeyboard() } just Runs
@@ -126,6 +149,11 @@ class FormViewRendererTest : BaseTest() {
         every { beagleActivity.runOnUiThread(capture(runnableSlot)) } just Runs
         every { formSubmitter.submitForm(any(), any(), capture(formResultCallbackSlot)) } just Runs
         every { validatorHandler.getValidator(any()) } returns validator
+    }
+
+    override fun tearDown() {
+        super.tearDown()
+        unmockkAll()
     }
 
     @Test
@@ -248,7 +276,7 @@ class FormViewRendererTest : BaseTest() {
         executeFormSubmitOnClickListener()
 
         // Then
-        verify(exactly = once()) { formInput.child.onErrorMessage(any()) }
+        verify(exactly = once()) { inputWidget.onErrorMessage(any()) }
         verify(exactly = 0) { formSubmitter.submitForm(any(), any(), any()) }
     }
 

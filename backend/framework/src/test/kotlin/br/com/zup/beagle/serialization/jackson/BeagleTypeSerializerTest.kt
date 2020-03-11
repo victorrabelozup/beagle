@@ -63,7 +63,7 @@ internal class BeagleTypeSerializerTest {
     @Test
     fun serialize_Screen_should_have_screen_beagleType_field() =
         testSerialize(
-            Screen(content = CustomWidget),
+            Screen(child =CustomWidget),
             "$BEAGLE_NAMESPACE:$COMPONENT_NAMESPACE:$SCREEN_COMPONENT"
         )
 
