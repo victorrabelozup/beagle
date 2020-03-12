@@ -28,7 +28,8 @@
       - memory: <NSCache>
     ▿ dependencies: InnerDependenciesResolver
       - container: (Function)
-    - httpRequestBuilder: HttpRequestBuilder
+    ▿ httpRequestBuilder: HttpRequestBuilder
+      - additionalHeaders: 0 key/value pairs
     - session: <__NSURLSessionLocal>
   - preFetchHelper: BeaglePreFetchHelper
   ▿ resolver: InnerDependenciesResolver

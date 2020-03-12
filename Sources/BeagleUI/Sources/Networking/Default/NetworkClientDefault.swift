@@ -6,15 +6,15 @@ import Foundation
 
 public class NetworkClientDefault: NetworkClient {
 
-    typealias Dependencies = DependencyUrlBuilder
+    public typealias Dependencies = DependencyUrlBuilder
 
-    let session = URLSession.shared
+    public var session = URLSession.shared
     let dependencies: Dependencies
 
-    private let httpRequestBuilder = HttpRequestBuilder()
-    private let cacheService = MemoryCacheService()
+    public var httpRequestBuilder = HttpRequestBuilder()
+    public var cacheService = MemoryCacheService()
 
-    init(dependencies: Dependencies) {
+    public init(dependencies: Dependencies) {
         self.dependencies = dependencies
     }
 

@@ -4,21 +4,21 @@
 
 import Foundation
 
-class HttpRequestBuilder {
+public class HttpRequestBuilder {
 
-    func build(
+    public var additionalHeaders = [String: String]()
+
+    public init() { }
+
+    public func build(
         url: URL,
         requestType: Request.RequestType,
         additionalData: HttpAdditionalData?
     ) -> Result {
-
         var newUrl = url
         var body = additionalData?.httpData?.body
 
-        var headers = ["Content-Type": "application/json"]
-        additionalData?.headers.forEach {
-            headers.updateValue($0.value, forKey: $0.key)
-        }
+        let headers = makeHeaders(additionalData: additionalData)
 
         setupParametersFor(requestType: requestType, url: &newUrl, body: &body)
 
@@ -30,7 +30,7 @@ class HttpRequestBuilder {
         )
     }
 
-    struct Result {
+    public struct Result {
         var url: URL
         var method: String
         var headers: [String: String]
@@ -45,6 +45,17 @@ class HttpRequestBuilder {
             }
             return request
         }
+    }
+
+    private func makeHeaders(additionalData: HttpAdditionalData?) -> [String: String] {
+        var headers = ["Content-Type": "application/json"]
+        additionalData?.headers.forEach {
+            headers.updateValue($0.value, forKey: $0.key)
+        }
+        additionalHeaders.forEach {
+            headers.updateValue($0.value, forKey: $0.key)
+        }
+        return headers
     }
 
     private func httpMethod(type: Request.RequestType, data: HttpAdditionalData?) -> String {
