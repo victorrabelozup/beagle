@@ -19,11 +19,11 @@
         <item name="android:background">@color/colorPrimary</item>
     </style>
     
-    <style name="DesignSystem.TabView.Custom" parent="Widget.Design.TabLayout">
-        <item name="tabSelectedTextColor">@android:color/holo_red_dark</item>
-        <item name="tabTextColor">@android:color/holo_blue_bright</item>
-        <item name="tabBackground">@drawable/bg_gradient_button</item>
-        <item name="tabIndicatorColor">@android:color/holo_green_dark</item>
+    <style name="DesignSystem.TabView.Default" parent="Widget.Design.TabLayout">
+        <item name="tabSelectedTextColor">@color/colorWhite</item>
+        <item name="tabTextColor">@color/colorBlack</item>
+        <item name="tabBackground">@color/colorPrimaryDark</item>
+        <item name="tabIndicatorColor">@color/colorWhite</item>
     </style>
 
     <style name="DesignSystem.Navigationbar.Style" parent="Widget.AppCompat.Toolbar">

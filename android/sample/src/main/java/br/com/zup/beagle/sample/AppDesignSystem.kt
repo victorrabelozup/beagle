@@ -15,8 +15,8 @@ class AppDesignSystem : DesignSystem {
 
     override fun tabBarStyle(name: String): Int? {
         return when (name) {
-            "DesignSystem.TabView.Custom" -> R.style.DesignSystem_TabView_Custom
-            else -> null
+
+            else -> R.style.DesignSystem_TabView_Default
         }
     }
 
