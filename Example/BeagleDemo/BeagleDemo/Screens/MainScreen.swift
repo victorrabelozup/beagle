@@ -15,35 +15,35 @@ struct MainScreen: DeeplinkScreen {
             child: ScrollView(children: [
                 Button(
                     text: "Navigator",
-                    action: Navigate.addView(.init(path: "https://t001-2751a.firebaseapp.com/flow/step1.json", shouldPrefetch: true))
+                    action: Navigate.addView(.init(path: .NAVIGATE_ENDPOINT, shouldPrefetch: true))
                 ),
                 Button(
                     text: "Form & Lazy Component",
-                    action: Navigate.openDeepLink(.init(path: "lazycomponent"))
+                    action: Navigate.openDeepLink(.init(path: .LAZY_COMPONENTS_ENDPOINT ))
                 ),
                 Button(
                     text: "Page View",
-                    action: Navigate.openDeepLink(.init(path: "pageview"))
+                    action: Navigate.openDeepLink(.init(path: .PAGE_VIEW_ENDPOINT))
                 ),
                 Button(
                     text: "Tab View",
-                    action: Navigate.openDeepLink(.init(path: "tabview"))
+                    action: Navigate.openDeepLink(.init(path: .TAB_VIEW_ENDPOINT))
                 ),
                 Button(
                     text: "List View",
-                    action: Navigate.openDeepLink(.init(path: "listview"))
+                    action: Navigate.openDeepLink(.init(path: .LIST_VIEW_ENDPOINT))
                 ),
                 Button(
                     text: "Form",
-                    action: Navigate.openDeepLink(.init(path: "form"))
+                    action: Navigate.openDeepLink(.init(path: .FORM_ENDPOINT))
                 ),
                 Button(
                     text: "Custom Component",
-                    action: Navigate.openDeepLink(.init(path: "customComponent"))
+                    action: Navigate.openDeepLink(.init(path: .CUSTOM_COMPONENT_ENDPOINT))
                 ),
                 Button(
                     text: "Sample BFF",
-                    action: Navigate.addView(.init(path: "/components", shouldPrefetch: true))
+                    action: Navigate.addView(.init(path: .COMPONENTS_ENDPOINT))
                 )
             ])
         )

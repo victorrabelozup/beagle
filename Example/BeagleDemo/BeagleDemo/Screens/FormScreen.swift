@@ -6,7 +6,6 @@ import UIKit
 import BeagleUI
 
 struct FormScreen: DeeplinkScreen {
-    
     static var textValidatorName: String { return "text-is-not-blank" }
     static var textValidator: (Any) -> Bool {
         return {
@@ -22,7 +21,7 @@ struct FormScreen: DeeplinkScreen {
     func screenController() -> UIViewController {
         let flexHorizontalMargin = Flex(margin: EdgeValue(all: UnitValue(value: 10, type: .real)))
         let form = Form(
-            path: "https://us-central1-t001-2751a.cloudfunctions.net/formTest",
+            path: .TEXT_FORM_ENDPOINT,
             method: .post,
             child: Container(
                 children: [
@@ -62,12 +61,12 @@ struct FormScreen: DeeplinkScreen {
                     ),
                     Container(children: [], flex: Flex(grow: 1)),
                     FormSubmit(
-                        child: Button(text: "Submit Form", style: "DesignSystem.Form.Submit", flex: flexHorizontalMargin),
+                        child: Button(text: "Submit Form", style: .FORM_SUBMIT_STYLE, flex: flexHorizontalMargin),
                         enabled: false
                     )
                 ],
                 flex: Flex(grow: 1, padding: EdgeValue(all: UnitValue(value: 20, type: .real))),
-                appearance: Appearance(backgroundColor: "#B8E297")
+                appearance: Appearance(backgroundColor: .LIGHT_GREEN_COLOR)
             )
         )
         let screen = Screen(

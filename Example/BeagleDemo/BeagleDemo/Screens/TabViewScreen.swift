@@ -7,7 +7,6 @@ import UIKit
 import BeagleUI
 
 struct TabViewScreen: DeeplinkScreen {
-    
     init(path: String, data: [String : String]?) {
     }
 
@@ -19,7 +18,7 @@ struct TabViewScreen: DeeplinkScreen {
         let tab1 = TabItem(icon: "beagle", content:
             Container(children: [
                 Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj"),
-                NetworkImage(path: "https://www.petlove.com.br/images/breeds/193436/profile/original/beagle-p.jpg?1532538271"),
+                NetworkImage(path: .NETWORK_IMAGE_BEAGLE),
                 Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj")
             ]).applyFlex(Flex(alignContent: .center))
         )
@@ -44,6 +43,6 @@ struct TabViewScreen: DeeplinkScreen {
                 Text("Text2 Tab 4")
             ]).applyFlex(Flex(alignItems: .center))
         )
-        return Screen(navigationBar: NavigationBar(title: "TabView"), child: TabView(tabItems: [tab1, tab2, tab3, tab4], style: "DesignSystem.TabView.Style"))
+        return Screen(navigationBar: NavigationBar(title: "TabView"), child: TabView(tabItems: [tab1, tab2, tab3, tab4], style: .TAB_VIEW_STYLE))
     }
 }

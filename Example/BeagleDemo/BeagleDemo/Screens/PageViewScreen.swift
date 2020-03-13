@@ -30,7 +30,7 @@ struct Page {
             Text("Text with alignment atribute set to center",alignment: .center),
             Text("Text with alignment atribute set to right",alignment: .right),
             Text("Text with alignment atribute set to left",alignment: .left),
-            NetworkImage(path: "https://www.petlove.com.br/images/breeds/193436/profile/original/beagle-p.jpg?1532538271"),
+            NetworkImage(path:.NETWORK_IMAGE_BEAGLE),
         ],
             flex: Flex(justifyContent: .spaceBetween, grow: 1)
         )

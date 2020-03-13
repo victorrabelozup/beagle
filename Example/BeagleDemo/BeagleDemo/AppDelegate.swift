@@ -13,20 +13,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         let deepLinkHandler = DeeplinkScreenManager.shared
-        deepLinkHandler["lazycomponent"] = LazyComponentScreen.self
-        deepLinkHandler["pageview"] = PageViewScreen.self
-        deepLinkHandler["tabview"] = TabViewScreen.self
-        deepLinkHandler["form"] = FormScreen.self
-        deepLinkHandler["customComponent"] = CustomComponentScreen.self
-        deepLinkHandler["screen-deep-link"] = ScreenDeepLink.self
-        deepLinkHandler["listview"] = ListViewScreen.self
+        deepLinkHandler[.LAZY_COMPONENTS_ENDPOINT] = LazyComponentScreen.self
+        deepLinkHandler[.PAGE_VIEW_ENDPOINT] = PageViewScreen.self
+        deepLinkHandler[.TAB_VIEW_ENDPOINT] = TabViewScreen.self
+        deepLinkHandler[.FORM_ENDPOINT] = FormScreen.self
+        deepLinkHandler[.CUSTOM_COMPONENT_ENDPOINT] = CustomComponentScreen.self
+        deepLinkHandler[.DEEPLINK_ENDPOINT] = ScreenDeepLink.self
+        deepLinkHandler[.LIST_VIEW_ENDPOINT] = ListViewScreen.self
 
         let validator = ValidatorProviding()
         validator[FormScreen.textValidatorName] = FormScreen.textValidator
         
         let dependencies = BeagleDependencies()
         dependencies.theme = Style.theme
-        dependencies.urlBuilder = UrlBuilder(baseUrl: URL(string: "http://localhost:8080/"))
+        dependencies.urlBuilder = UrlBuilder(baseUrl: URL(string: .BASE_URL))
         dependencies.deepLinkHandler = deepLinkHandler
         dependencies.validatorProvider = validator
         Beagle.dependencies = dependencies

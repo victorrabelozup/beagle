@@ -8,16 +8,16 @@ import BeagleUI
 struct Style {
     
     static let theme = AppTheme(styles: [
-        "DesignSystem.Button.Style": Style.blackTextNormalStyle,
-        "DesignSystem.Text.helloWord": Style.designSystemTextHelloWord,
-        "DesignSystem.Text.Image": Style.designSystemTextImage,
-        "DesignSystem.Text.Action.Click": Style.designSystemTextActionClick,
-        "DesignSystem.Stylish.Button": Style.designSystemStylishButton,
-        "DesignSystem.Stylish.ButtonAndAppearance": Style.designSystemStylishButtonAndAppearance,
-        "DesignSystem.Form.Submit": Style.formButton,
-        "DesignSystem.Navigationbar.Style.Green": Style.designSystemStyleNavigationBar,
-        "DesignSystem.Navigationbar.Style.Default": Style.designSystemStyleNavigationBarDefault,
-        "DesignSystem.TabView.Style": Style.tabView
+        .BUTTON_BLACK_TEXT_STYLE: Style.blackTextNormalStyle,
+        .TEXT_HELLO_WORD_STYLE: Style.designSystemTextHelloWord,
+        .TEXT_IMAGE_STYLE: Style.designSystemTextImage,
+        .TEXT_ACTION_CLICK_STYLE: Style.designSystemTextActionClick,
+        .TEXT_STYLISH_STYLE: Style.designSystemStylishButton,
+        .BUTTON_WITH_APPEARANCE_STYLE: Style.designSystemStylishButtonAndAppearance,
+        .FORM_SUBMIT_STYLE: Style.formButton,
+        .NAVIGATION_BAR_GREEN_STYLE: Style.designSystemStyleNavigationBar,
+        .NAVIGATION_BAR_DEFAULT_STYLE: Style.designSystemStyleNavigationBarDefault,
+        .TAB_VIEW_STYLE: Style.tabView
         ]
     )
     
@@ -70,13 +70,13 @@ struct Style {
         return {
             $0?.layer.cornerRadius = 4
             $0?.setTitleColor(.white, for: .normal)
-            $0?.backgroundColor = $0?.isEnabled ?? false ? UIColor(hex: "#579F2B") : UIColor(hex: "#808080")
+            $0?.backgroundColor = $0?.isEnabled ?? false ? UIColor(hex: .GREEN_COLOR) : UIColor(hex: .GRAY_COLOR)
             $0?.alpha = $0?.isHighlighted ?? false ? 0.7 : 1
         }
     }
     
     static func tabView() -> (UIView?) -> Void {
         
-        return BeagleStyle.tabView(backgroundColor: .clear, indicatorColor: UIColor(hex: "#FF8818"), selectedTextColor: UIColor(hex: "#FF8818"), unselectedTextColor: UIColor(hex: "#3A3535"))
+        return BeagleStyle.tabView(backgroundColor: .clear, indicatorColor: UIColor(hex: .ORANGE_COLOR), selectedTextColor: UIColor(hex: .ORANGE_COLOR), unselectedTextColor: UIColor(hex: .DARK_GRAY_COLOR))
     }
 }

@@ -23,13 +23,13 @@ struct ListViewScreen: DeeplinkScreen {
     
     var listView = ListView(
         rows: [
-            Touchable(action: Navigate.addView(.init(path: "https://t001-2751a.firebaseapp.com/flow/step1.json")), child: Text("0000")),
+            Touchable(action: Navigate.addView(.init(path: .NAVIGATE_ENDPOINT)), child: Text("0000")),
             Text("0001", flex: Flex(size: Size(width: .init(value: 100, type: .real), height: .init(value: 100, type: .real)))),
             Text("0002"),
             Text("0003"),
             Text("0004"),
             LazyComponent(
-                path: "http://www.mocky.io/v2/5e4e91c02f00001f2016a8f2",
+                path: .TEXT_LAZY_COMPONENTS_ENDPOINT,
                 initialState: Text("Loading LazyComponent...")
             ),
             Text("0005"),
@@ -45,7 +45,7 @@ struct ListViewScreen: DeeplinkScreen {
             Text("0014"),
             Text("0015"),
             Text("0016"),
-            NetworkImage(path: "https://www.petlove.com.br/images/breeds/193436/profile/original/beagle-p.jpg?1532538271"),
+            NetworkImage(path: .NETWORK_IMAGE_BEAGLE),
             Text("0017"),
             Text("0018"),
             Text("0019"),
