@@ -30,11 +30,15 @@ final class ListViewUIComponent: UIView {
     // MARK: - UIComponents
     
     private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.scrollDirection = model.component.direction.toUIKit()
         let collection = UICollectionView(
             frame: bounds,
-            collectionViewLayout: UICollectionViewFlowLayout()
+            collectionViewLayout: layout
         )
-        collection.backgroundColor = .white
+        collection.backgroundColor = .clear
         collection.dataSource = self
         collection.delegate = self
         return collection
@@ -63,21 +67,13 @@ final class ListViewUIComponent: UIView {
     // MARK: - Setup
     
     private func setup() {
-        backgroundColor = .white
         setupCollectionView()
         collectionView.reloadData()
     }
     
     private func setupCollectionView() {
-        setupCollectionViewLayout()
         collectionView.register(ListItemCollectionViewCell.self, forCellWithReuseIdentifier: ListItemCollectionViewCell.className)
         constrainCollectionView()
-    }
-
-    private func setupCollectionViewLayout() {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = model.component.direction.toUIKit()
-        collectionView.collectionViewLayout = flowLayout
     }
 
     private func constrainCollectionView() {
