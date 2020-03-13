@@ -97,7 +97,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         let screen = Screen(
             appearance: Appearance(backgroundColor: "#0000FF"),
             navigationBar: NavigationBar(title: "Test Safe Area"),
-            content: Container(
+            child: Container(
                 children: [content],
                 flex: Flex(grow: 1, margin: .init(all: .init(value: 10, type: .real))),
                 appearance: Appearance(backgroundColor: "#00FF00")

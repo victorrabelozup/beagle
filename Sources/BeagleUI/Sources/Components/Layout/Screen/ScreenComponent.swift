@@ -13,7 +13,7 @@ struct ScreenComponent: AppearanceComponent {
     public let safeArea: SafeArea?
     public let navigationBar: NavigationBar?
     public let header: ServerDrivenComponent?
-    public let content: ServerDrivenComponent
+    public let child: ServerDrivenComponent
     public let footer: ServerDrivenComponent?
     
     // MARK: - Initialization
@@ -24,7 +24,7 @@ struct ScreenComponent: AppearanceComponent {
         safeArea: SafeArea? = nil,
         navigationBar: NavigationBar? = nil,
         header: ServerDrivenComponent? = nil,
-        content: ServerDrivenComponent,
+        child: ServerDrivenComponent,
         footer: ServerDrivenComponent? = nil
     ) {
         self.identifier = identifier
@@ -32,7 +32,7 @@ struct ScreenComponent: AppearanceComponent {
         self.safeArea = safeArea
         self.navigationBar = navigationBar
         self.header = header
-        self.content = content
+        self.child = child
         self.footer = footer
     }
 }
@@ -78,10 +78,10 @@ extension ScreenComponent: Renderable {
     private func createComponentContentView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let headerView = header?.toView(context: context, dependencies: dependencies)
         let footerView = footer?.toView(context: context, dependencies: dependencies)
-        let contentView = buildContentView(context: context, dependencies: dependencies)
+        let childView = buildChildView(context: context, dependencies: dependencies)
         
         if headerView == nil && footerView == nil {
-            return contentView
+            return childView
         }
         
         let container = UIView()
@@ -91,8 +91,8 @@ extension ScreenComponent: Renderable {
             headerView.flex.isEnabled = true
         }
         
-        container.addSubview(contentView)
-        contentView.flex.isEnabled = true
+        container.addSubview(childView)
+        childView.flex.isEnabled = true
         
         if let footerView = footerView {
             container.addSubview(footerView)
@@ -102,15 +102,15 @@ extension ScreenComponent: Renderable {
         return container
     }
     
-    private func buildContentView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
-        let contentHolder = UIView()
-        let contentView = content.toView(context: context, dependencies: dependencies)
+    private func buildChildView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
+        let childHolder = UIView()
+        let childView = child.toView(context: context, dependencies: dependencies)
         
-        contentHolder.addSubview(contentView)
-        contentHolder.flex.setup(Flex(grow: 1))
-        contentView.flex.isEnabled = true
+        childHolder.addSubview(childView)
+        childHolder.flex.setup(Flex(grow: 1))
+        childView.flex.isEnabled = true
         
-        return contentHolder
+        return childHolder
     }
 }
 

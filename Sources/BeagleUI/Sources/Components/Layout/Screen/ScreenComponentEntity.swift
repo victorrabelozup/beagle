@@ -9,7 +9,7 @@ struct ScreenComponentEntity: ComponentConvertibleEntity {
     let safeArea: SafeAreaEntity?
     let navigationBar: NavigationBarEntity?
     let header: AnyDecodableContainer?
-    let content: AnyDecodableContainer
+    let child: AnyDecodableContainer
     let footer: AnyDecodableContainer?
     
     func mapToComponent() throws -> ServerDrivenComponent {
@@ -21,8 +21,8 @@ struct ScreenComponentEntity: ComponentConvertibleEntity {
         let headerEntity = self.header?.content as? ComponentConvertibleEntity
         let header = try headerEntity?.mapToComponent()
         
-        let contentEntity = self.content.content as? ComponentConvertibleEntity
-        let content = try contentEntity?.mapToComponent() ?? AnyComponent(value: self.content.content)
+        let childEntity = self.child.content as? ComponentConvertibleEntity
+        let child = try childEntity?.mapToComponent() ?? AnyComponent(value: self.child.content)
         
         let footerEntity = self.footer?.content as? ComponentConvertibleEntity
         let footer = try footerEntity?.mapToComponent()
@@ -33,7 +33,7 @@ struct ScreenComponentEntity: ComponentConvertibleEntity {
             safeArea: safeArea,
             navigationBar: navigationBar,
             header: header,
-            content: content,
+            child: child,
             footer: footer
         )
     }

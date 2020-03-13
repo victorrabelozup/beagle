@@ -40,7 +40,7 @@ extension ServerDrivenComponent {
             safeArea: safeArea,
             navigationBar: screen?.navigationBar,
             header: screen?.header,
-            content: screen?.content ?? self,
+            child: screen?.child ?? self,
             footer: screen?.footer
         )
     }

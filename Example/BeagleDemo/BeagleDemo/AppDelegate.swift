@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         deepLinkHandler["tabview"] = TabViewScreen.self
         deepLinkHandler["form"] = FormScreen.self
         deepLinkHandler["customComponent"] = CustomComponentScreen.self
-        deepLinkHandler["screenDeepLink"] = ScreenDeepLink.self
+        deepLinkHandler["screen-deep-link"] = ScreenDeepLink.self
         deepLinkHandler["listview"] = ListViewScreen.self
 
         let validator = ValidatorProviding()
@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let dependencies = BeagleDependencies()
         dependencies.theme = Style.theme
-        dependencies.urlBuilder = UrlBuilder(baseUrl: URL(string: "http://localhost:8080/")) 
+        dependencies.urlBuilder = UrlBuilder(baseUrl: URL(string: "http://localhost:8080/"))
         dependencies.deepLinkHandler = deepLinkHandler
         dependencies.validatorProvider = validator
         Beagle.dependencies = dependencies

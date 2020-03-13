@@ -16,7 +16,7 @@ struct PageViewScreen: DeeplinkScreen {
     var screen: Screen {
         return Screen(
             navigationBar: NavigationBar(title: "PageView"),
-            content: PageView(
+            child: PageView(
                 pages: Array(repeating: Page(), count: 3).map { $0.content },
                 pageIndicator: PageIndicator()
             )

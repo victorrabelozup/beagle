@@ -11,20 +11,20 @@ final class ScreenComponentTests: XCTestCase {
         // Given / When
         let component = ScreenComponent(
             header: Text("text"),
-            content: Text("text"),
+            child: Text("text"),
             footer: Text("text")
         )
 
         // Then
         XCTAssert(component.header is Text)
-        XCTAssert(component.content is Text)
+        XCTAssert(component.child is Text)
         XCTAssert(component.footer is Text)
     }
     
     func test_buildView_shouldReturnTheExpectedView() {
         // Given
         let dependencies = BeagleScreenDependencies()
-        let container = ScreenComponent(header: ComponentDummy(), content: ComponentDummy(), footer: ComponentDummy())
+        let container = ScreenComponent(header: ComponentDummy(), child: ComponentDummy(), footer: ComponentDummy())
         let context = BeagleContextDummy()
         
         // When
@@ -52,7 +52,7 @@ final class ScreenComponentTests: XCTestCase {
         let component = ScreenComponent(
             safeArea: SafeArea.all,
             navigationBar: .init(title: "Test Flex"),
-            content: Container(
+            child: Container(
                 children: [
                     Container(
                         children: [Text("Line 0,\nLine 1,\nLine 2,\nLine 3,\nLine 4.")],
@@ -82,7 +82,7 @@ final class ScreenComponentTests: XCTestCase {
         let component = ScreenComponent(
             safeArea: SafeArea.none,
             navigationBar: .init(title: "title", showBackButton: true, navigationBarItems: [barItem]),
-            content: Text("")
+            child: Text("")
         )
         
         let viewController = Beagle.screen(.declarative(component.toScreen()))
@@ -95,7 +95,7 @@ final class ScreenComponentTests: XCTestCase {
         let component = ScreenComponent(
             safeArea: SafeArea.all,
             navigationBar: .init(title: "title", showBackButton: true, navigationBarItems: [barItem]),
-            content: Text("test")
+            child: Text("test")
         )
         
         let viewController = Beagle.screen(.declarative(component.toScreen()))
@@ -126,7 +126,7 @@ final class ScreenComponentTests: XCTestCase {
         let barItem = NavigationBarItem(text: "Item", action: navigate)
         let screen = ScreenComponent(
             navigationBar: NavigationBar(title: "Prefetch", navigationBarItems: [barItem]),
-            content: ComponentDummy()
+            child: ComponentDummy()
         )
         
         _ = screen.toView(context: BeagleContextDummy(), dependencies: dependencies)

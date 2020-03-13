@@ -44,6 +44,6 @@ struct TabViewScreen: DeeplinkScreen {
                 Text("Text2 Tab 4")
             ]).applyFlex(Flex(alignItems: .center))
         )
-        return Screen(navigationBar: NavigationBar(title: "TabView"), content: TabView(tabItems: [tab1, tab2, tab3, tab4], style: "DesignSystem.TabView.Style"))
+        return Screen(navigationBar: NavigationBar(title: "TabView"), child: TabView(tabItems: [tab1, tab2, tab3, tab4], style: "DesignSystem.TabView.Style"))
     }
 }

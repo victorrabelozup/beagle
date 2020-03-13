@@ -12,7 +12,7 @@ struct MainScreen: DeeplinkScreen {
     func screenController() -> UIViewController {
         let screen = Screen(
             navigationBar: .init(title: "Beagle Demo"),
-            content: ScrollView(children: [
+            child: ScrollView(children: [
                 Button(
                     text: "Navigator",
                     action: Navigate.addView(.init(path: "https://t001-2751a.firebaseapp.com/flow/step1.json", shouldPrefetch: true))
@@ -43,7 +43,7 @@ struct MainScreen: DeeplinkScreen {
                 ),
                 Button(
                     text: "Sample BFF",
-                    action: Navigate.addView(.init(path: "/sampleComponents", shouldPrefetch: true))
+                    action: Navigate.addView(.init(path: "/components", shouldPrefetch: true))
                 )
             ])
         )

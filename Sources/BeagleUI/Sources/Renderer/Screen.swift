@@ -13,7 +13,7 @@ public struct Screen {
     public let safeArea: SafeArea?
     public let navigationBar: NavigationBar?
     public let header: ServerDrivenComponent?
-    public let content: ServerDrivenComponent
+    public let child: ServerDrivenComponent
     public let footer: ServerDrivenComponent?
     
     public init(
@@ -22,7 +22,7 @@ public struct Screen {
         safeArea: SafeArea? = nil,
         navigationBar: NavigationBar? = nil,
         header: ServerDrivenComponent? = nil,
-        content: ServerDrivenComponent,
+        child: ServerDrivenComponent,
         footer: ServerDrivenComponent? = nil
     ) {
         self.identifier = identifier
@@ -30,7 +30,7 @@ public struct Screen {
         self.safeArea = safeArea
         self.navigationBar = navigationBar
         self.header = header
-        self.content = content
+        self.child = child
         self.footer = footer
     }
     
@@ -41,7 +41,7 @@ public struct Screen {
             safeArea: safeArea,
             navigationBar: navigationBar,
             header: header,
-            content: content,
+            child: child,
             footer: footer
         ).toView(context: context, dependencies: dependencies)
     }

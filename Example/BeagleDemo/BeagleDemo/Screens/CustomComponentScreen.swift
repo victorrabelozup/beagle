@@ -20,7 +20,7 @@ struct CustomComponentScreen: DeeplinkScreen {
     var screen: Screen {
         return Screen(
             navigationBar: NavigationBar(title: "Custom Component"),
-            content: Container(
+            child: Container(
                 children: [
                     Text("Here its a custom component\n in this case a Collection View", alignment: .center),
                     DSCollection(

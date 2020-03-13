@@ -26,7 +26,7 @@ final class BeagleNavigatorTests: XCTestCase {
 
     func test_swapView_shouldReplaceNavigationStack() {
         let swapRemote = Navigate.swapView(.init(path: "https://example.com/screen.json"))
-        let swapDeclarative = Navigate.swapScreen(Screen(content: Text("Declarative")))
+        let swapDeclarative = Navigate.swapScreen(Screen(child: Text("Declarative")))
         
         swapViewTest(swapRemote)
         swapViewTest(swapDeclarative)
@@ -48,7 +48,7 @@ final class BeagleNavigatorTests: XCTestCase {
 
     func test_addView_shouldPushScreenInNavigation() {
         let addViewRemote = Navigate.addView(.init(path: "https://example.com/screen.json"))
-        let addViewDeclarative = Navigate.addScreen(Screen(content: Text("Declarative")))
+        let addViewDeclarative = Navigate.addScreen(Screen(child: Text("Declarative")))
         
         addViewTest(addViewRemote)
         addViewTest(addViewDeclarative)
@@ -173,10 +173,10 @@ final class BeagleNavigatorTests: XCTestCase {
     func test_popToView_byIdentifier() {
         // Given
         let sut = BeagleNavigator(dependencies: NavigatorDependencies())
-        let vc1 = beagleViewController(screen: .declarative(Screen(identifier: "1", content: Text("Screen 1"))))
-        let vc2 = beagleViewController(screen: .declarative(Screen(identifier: "2", content: Text("Screen 2"))))
+        let vc1 = beagleViewController(screen: .declarative(Screen(identifier: "1", child: Text("Screen 1"))))
+        let vc2 = beagleViewController(screen: .declarative(Screen(identifier: "2", child: Text("Screen 2"))))
         let vc3 = UIViewController()
-        let vc4 = beagleViewController(screen: .declarative(Screen(identifier: "4", content: Text("Screen 4"))))
+        let vc4 = beagleViewController(screen: .declarative(Screen(identifier: "4", child: Text("Screen 4"))))
         let action = Navigate.popToView("2")
         
         let context = BeagleContextDummy(viewController: vc4)
@@ -193,7 +193,7 @@ final class BeagleNavigatorTests: XCTestCase {
 
     func test_presentView_shouldPresentTheScreen() {
         let presentViewRemote = Navigate.presentView(.init(path: "https://example.com/screen.json"))
-        let presentViewDeclarative = Navigate.presentScreen(Screen(content: Text("Declarative")))
+        let presentViewDeclarative = Navigate.presentScreen(Screen(child: Text("Declarative")))
         
         presentViewTest(presentViewRemote)
         presentViewTest(presentViewDeclarative)

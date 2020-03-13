@@ -17,7 +17,7 @@ struct ListViewScreen: DeeplinkScreen {
     var screen: Screen {
         return Screen(
             navigationBar: NavigationBar(title: "ListView"),
-            content: listView
+            child: listView
         )
     }
     

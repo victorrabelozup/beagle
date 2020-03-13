@@ -17,7 +17,7 @@ struct LazyComponentScreen: DeeplinkScreen {
     var screen: Screen {
         return Screen(
             navigationBar: NavigationBar(title: "Form & LazyComponent"),
-            content: Form(
+            child: Form(
                 path: "https://t001-2751a.firebaseapp.com/action/shownativedialog.json",
                 method: .get,
                 child: Container(children: [

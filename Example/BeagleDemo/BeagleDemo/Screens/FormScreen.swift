@@ -72,7 +72,7 @@ struct FormScreen: DeeplinkScreen {
         )
         let screen = Screen(
             navigationBar: NavigationBar(title: "Form"),
-            content: form
+            child: form
         )
         return Beagle.screen(.declarative(screen))
     }

@@ -17,7 +17,7 @@ final class ScreenComponentEntityTests: XCTestCase {
             safeArea: nil,
             navigationBar: nil,
             header: containerMock,
-            content: containerMock,
+            child: containerMock,
             footer: containerMock
         )
 
