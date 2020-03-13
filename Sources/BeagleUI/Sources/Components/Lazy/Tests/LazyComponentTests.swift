@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import SnapshotTesting
 @testable import BeagleUI
 
 final class LazyComponentTests: XCTestCase {
@@ -46,10 +47,13 @@ final class LazyComponentTests: XCTestCase {
         )
         
         assertSnapshotImage(screen, size: size)
-
-        network.componentCompletion?(.success(AnyComponent(value: "LazyError")))
-        
+        network.componentCompletion?(.success(UnknownComponent(type: "LazyError")))
         assertSnapshotImage(screen, size: size)
+    }
+    
+    func test_whenDecodingJson_thenItShouldReturnALazyComponent() throws {
+        let component: LazyComponent = try componentFromJsonFile(fileName: "lazyComponent")
+        assertSnapshot(matching: component, as: .dump)
     }
 }
 

@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import SnapshotTesting
 @testable import BeagleUI
 
 final class ScreenComponentTests: XCTestCase {
@@ -10,41 +11,11 @@ final class ScreenComponentTests: XCTestCase {
     func test_initWithBuilders_shouldReturnExpectedInstance() {
         // Given / When
         let component = ScreenComponent(
-            header: Text("text"),
-            child: Text("text"),
-            footer: Text("text")
+            child: Text("text")
         )
 
         // Then
-        XCTAssert(component.header is Text)
         XCTAssert(component.child is Text)
-        XCTAssert(component.footer is Text)
-    }
-    
-    func test_buildView_shouldReturnTheExpectedView() {
-        // Given
-        let dependencies = BeagleScreenDependencies()
-        let container = ScreenComponent(header: ComponentDummy(), child: ComponentDummy(), footer: ComponentDummy())
-        let context = BeagleContextDummy()
-        
-        // When
-        let resultingView = container.toView(context: context, dependencies: dependencies)
-        
-        // Then
-        XCTAssert(resultingView.subviews.count == 3)
-    }
-    
-    func test_whenLayoutSubViewsIsCalledOnBagleContainerScrollView_itShouldSetupTheContentSizeCorrectly() {
-        // Given
-        let subview = UIView(frame: .init(x: 0, y: 0, width: 100, height: 100))
-        let sut = BeagleContainerScrollView()
-        sut.addSubview(subview)
-        
-        // When
-        sut.layoutSubviews()
-        
-        // Then
-        XCTAssert(subview.frame.size == sut.contentSize)
     }
     
     func test_contentShouldUseOnlyTheSpaceRequiredByFlexRules() {
@@ -131,6 +102,11 @@ final class ScreenComponentTests: XCTestCase {
         
         _ = screen.toView(context: BeagleContextDummy(), dependencies: dependencies)
         XCTAssertEqual([navigatePath], prefetch.prefetched)
+    }
+    
+    func test_whenDecodingJson_thenItShouldReturnAScreen() throws {
+        let component: ScreenComponent = try componentFromJsonFile(fileName: "screenComponent")
+        assertSnapshot(matching: component, as: .dump)
     }
 }
 

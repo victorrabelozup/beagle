@@ -35,3 +35,16 @@ extension Touchable: Renderable {
         dependencies.preFetchHelper.prefetchComponent(newPath: newPath, dependencies: dependencies)
     }
 }
+
+extension Touchable: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case action
+        case child
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.action = try container.decode(forKey: .action)
+        self.child = try container.decode(forKey: .child)
+    }
+}

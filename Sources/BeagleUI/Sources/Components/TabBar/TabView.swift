@@ -21,6 +21,21 @@ public struct TabItem {
     }
 }
 
+extension TabItem: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case icon
+        case title
+        case content
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.icon = try container.decodeIfPresent(String.self, forKey: .icon)
+        self.title = try container.decodeIfPresent(String.self, forKey: .title)
+        self.content = try container.decode(forKey: .content)
+    }
+}
+
 public struct TabView: ServerDrivenComponent {
     public let tabItems: [TabItem]
     public let style: String?

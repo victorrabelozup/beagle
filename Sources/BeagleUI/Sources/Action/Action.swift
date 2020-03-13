@@ -3,14 +3,13 @@
 //
 
 /// Markup to define an action to be triggred in response to some event
-public protocol Action {
-}
+public protocol Action: Decodable {}
 
 /// Defines a representation of an unknwon Action
-public struct AnyAction: Action {
-    public let value: Any
+public struct UnknownAction: Action {
+    public let type: String
     
-    public init(value: Any) {
-        self.value = value
+    public init(type: String) {
+        self.type = type
     }
 }

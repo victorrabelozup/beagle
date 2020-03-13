@@ -33,28 +33,4 @@ class AccessibilityTest: XCTestCase {
         //then
         XCTAssert(testView.isAccessibilityElement == false)
     }
-    
-    func testIfMapToModelWereSuccessful() {
-        //given
-        let entity = AccessibilityEntity(accessibilityLabel: label, accessible: true)
-        
-        //when
-        let accessibility = try? entity.mapToUIModel()
-        
-        //then
-        XCTAssert(accessibility != nil)
-        XCTAssert(accessibility?.accessibilityLabel == label)
-        XCTAssert(accessibility?.accessible == true)
-    }
-
-    func testApplyAccessibilityIdentifier() {
-        //Given
-        let id = "identifier"
-
-        //When
-        configurator.setup(id: id)
-
-        //Then
-        XCTAssert(testView.accessibilityIdentifier == id)
-    }
 }

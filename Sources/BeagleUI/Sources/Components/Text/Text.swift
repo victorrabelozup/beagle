@@ -59,7 +59,7 @@ extension Text: Renderable {
 }
 
 extension Text {
-    public enum Alignment: String, StringRawRepresentable {
+    public enum Alignment: String, Decodable {
         case left = "LEFT"
         case right = "RIGHT"
         case center = "CENTER"

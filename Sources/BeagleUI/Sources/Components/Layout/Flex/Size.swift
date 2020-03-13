@@ -4,7 +4,7 @@
 
 // MARK: - Flex Size
 
-public class Size {
+public class Size: Decodable {
     // MARK: - Public Properties
     public var width: UnitValue?
     public var height: UnitValue?

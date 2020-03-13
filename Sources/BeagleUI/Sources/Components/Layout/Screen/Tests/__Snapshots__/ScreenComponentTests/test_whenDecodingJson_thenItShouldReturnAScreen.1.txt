@@ -1,0 +1,29 @@
+▿ ScreenComponent
+  - appearance: Optional<Appearance>.none
+  ▿ child: Text
+    - accessibility: Optional<Accessibility>.none
+    - alignment: Optional<Alignment>.none
+    - appearance: Optional<Appearance>.none
+    - flex: Optional<Flex>.none
+    - id: Optional<String>.none
+    - style: Optional<String>.none
+    - text: "child"
+    - textColor: Optional<String>.none
+  - identifier: Optional<String>.none
+  ▿ navigationBar: Optional<NavigationBar>
+    ▿ some: NavigationBar
+      ▿ navigationBarItems: Optional<Array<NavigationBarItem>>
+        ▿ some: 1 element
+          ▿ NavigationBarItem
+            ▿ action: ShowNativeDialog
+              - buttonText: "OK"
+              - message: "A formSubmit component will define a submit handler in a form."
+              - title: "Form"
+            ▿ image: Optional<String>
+              - some: "informationImage"
+            - text: ""
+      ▿ showBackButton: Optional<Bool>
+        - some: true
+      - style: Optional<String>.none
+      - title: "Form"
+  - safeArea: Optional<SafeArea>.none

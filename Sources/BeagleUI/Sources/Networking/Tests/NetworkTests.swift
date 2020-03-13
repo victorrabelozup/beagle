@@ -132,10 +132,10 @@ final class NetworkTests: XCTestCase {
 
 final class ComponentDecodingStub: ComponentDecoding {
     
-    func register<T>(_ type: T.Type, for typeName: String) where T: ComponentEntity {}
+    func register<T>(_ type: T.Type, for typeName: String) where T: ServerDrivenComponent {}
     func decodableType(forType type: String) -> Decodable.Type? { return nil }
 
-    var componentToReturnOnDecode: ComponentEntity?
+    var componentToReturnOnDecode: ServerDrivenComponent?
     var errorToThrowOnDecode: Error?
     
     func decodeComponent(from data: Data) throws -> ServerDrivenComponent {
@@ -153,13 +153,7 @@ final class ComponentDecodingStub: ComponentDecoding {
     }
 }
 
-private struct MappingFailureComponent: ComponentEntity, ComponentConvertible {
-    func mapToComponent() throws -> ServerDrivenComponent {
-        throw NSError(domain: "Tests", code: -1, description: "MappingFailureComponent")
-    }
-}
-
-class NetworkStub: Network {
+final class NetworkStub: Network {
 
     let componentResult: Result<ServerDrivenComponent, Request.Error>?
     let formResult: Result<Action, Request.Error>?

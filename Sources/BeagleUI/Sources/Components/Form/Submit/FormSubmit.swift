@@ -62,3 +62,16 @@ extension FormSubmit: Renderable {
         }
     }
 }
+
+extension FormSubmit: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case child
+        case enabled
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.child = try container.decode(forKey: .child)
+        self.enabled = try container.decodeIfPresent(Bool.self, forKey: .enabled)
+    }
+}

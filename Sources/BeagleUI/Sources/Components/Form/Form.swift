@@ -26,7 +26,7 @@ public struct Form: ServerDrivenComponent {
 }
 
 extension Form {
-    public enum MethodType: String, StringRawRepresentable, CaseIterable {
+    public enum MethodType: String, Decodable, CaseIterable {
         case get = "GET"
         case post = "POST"
         case put = "PUT"
@@ -50,6 +50,21 @@ extension Form: Renderable {
         registerFormSubmit(view: childView)
         return childView
     }    
+}
+
+extension Form: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case path
+        case method
+        case child
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.path = try container.decode(String.self, forKey: .path)
+        self.method = try container.decode(MethodType.self, forKey: .method)
+        self.child = try container.decode(forKey: .child)
+    }
 }
 
 extension UIView {

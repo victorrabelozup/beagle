@@ -127,21 +127,3 @@ struct DemoTextField: Widget {
         }
     }
 }
-
-struct DemoTextFieldEntity: WidgetEntity {
-    var id: String?
-    var placeholder: String
-    var flex: FlexEntity?
-    var appearance: AppearanceEntity?
-    var accessibility: AccessibilityEntity?
-    
-    func mapToComponent() throws -> ServerDrivenComponent {
-        return DemoTextField(
-            placeholder: placeholder,
-            id: nil,
-            appearance: try appearance?.mapToUIModel(),
-            flex: try flex?.mapToUIModel(),
-            accessibility: try accessibility?.mapToUIModel()
-        )
-    }
-}

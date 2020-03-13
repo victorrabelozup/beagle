@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import SnapshotTesting
 @testable import BeagleUI
 
 final class ButtonTests: XCTestCase {
@@ -61,6 +62,11 @@ final class ButtonTests: XCTestCase {
         (view as? Button.BeagleUIButton)?.triggerAction()
         
         XCTAssertEqual(context.actionCalled as? ActionDummy, action)
+    }
+    
+    func test_whenDecodingJson_thenItShouldReturnAButton() throws {
+        let component: Button = try componentFromJsonFile(fileName: "buttonComponent")
+        assertSnapshot(matching: component, as: .dump)
     }
 }
 

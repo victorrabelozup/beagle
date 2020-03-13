@@ -20,20 +20,20 @@ final class ComponentDecoderTests: XCTestCase {
     
     func test_whenANewTypeIsRegistered_thenItShouldBeAbleToDecodeIt() throws {
         // Given
+        let expectedText = "something"
         let jsonData = """
         {
             "_beagleType_": "custom:component:newcomponent",
-            "something": "something"
+            "text": "\(expectedText)"
         }
         """.data(using: .utf8)!
 
         // When
-        sut.register(NewComponentEntity.self, for: "NewComponent")
-
+        sut.register(NewComponent.self, for: "NewComponent")
+        let component = try sut.decodeComponent(from: jsonData) as? NewComponent
+        
         // Then
-        let text = try sut.decodeComponent(from: jsonData) as? Text
-        XCTAssert(text != nil)
-        XCTAssert(text?.text == "something")
+        XCTAssertEqual(component?.text, expectedText)
     }
 
     func testDecodeDefaultType() throws {
@@ -50,8 +50,7 @@ final class ComponentDecoderTests: XCTestCase {
         let text = try sut.decodeComponent(from: jsonData) as? Text
 
         // Then
-        XCTAssert(text != nil)
-        XCTAssert(text?.text == expectedText)
+        XCTAssertEqual(text?.text, expectedText)
     }
 
     func test_whenAnUnknwonTypeIsDecoded_thenItShouldReturnNil() throws {
@@ -64,11 +63,10 @@ final class ComponentDecoderTests: XCTestCase {
         """.data(using: .utf8)!
 
         // When
-        let anyComponent = try sut.decodeComponent(from: jsonData) as? AnyComponent
-        let value = anyComponent?.value as? Unknown
+        let unknown = try sut.decodeComponent(from: jsonData) as? UnknownComponent
 
         // Then
-        XCTAssert(value?.type == "beagle:component:unknown")
+        XCTAssert(unknown?.type == "beagle:component:unknown")
     }
 
     func testDecodeAction() throws {
@@ -88,15 +86,16 @@ final class ComponentDecoderTests: XCTestCase {
 }
 
 // MARK: - Testing Helpers
-public struct NewComponentEntity: ComponentEntity, ComponentConvertible {
+struct NewComponent: ServerDrivenComponent {
+    var text: String
     
-    let something: String
-    
-    public func mapToComponent() throws -> ServerDrivenComponent {
-        return Text(something)
+    func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
+        return UIView()
     }
 }
 
-struct UnconvertibleComponent: ComponentEntity {
-    let text: String
+struct Unknown: ServerDrivenComponent {
+    func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
+        return UIView()
+    }
 }

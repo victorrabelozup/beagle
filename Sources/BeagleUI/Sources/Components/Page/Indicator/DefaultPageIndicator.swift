@@ -3,26 +3,13 @@
 //
 
 import Foundation
-import UIKit
-
-public struct PageIndicatorEntity: ComponentConvertibleEntity {
-
-    public var selectedColor: String?
-    public var unselectedColor: String?
-    
-    public func mapToComponent() throws -> ServerDrivenComponent {
-        return PageIndicator(
-            selectedColor: selectedColor,
-            unselectedColor: unselectedColor
-        )
-    }
-}
+import UIKit    
 
 public class PageIndicator: PageIndicatorComponent {
-    
+
     public var selectedColor: String?
     public var unselectedColor: String?
-    
+
     public init(
         selectedColor: String? = nil,
         unselectedColor: String? = nil

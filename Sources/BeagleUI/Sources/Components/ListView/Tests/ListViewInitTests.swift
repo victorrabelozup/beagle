@@ -15,8 +15,8 @@ final class ListViewInitTests: XCTestCase {
         // Given / When
         let component = listWithOneRow
         // Then
-        XCTAssert(component.rows?.count == 1)
-        XCTAssert(component.rows?[safe: 0] is Text)
+        XCTAssert(component.rows.count == 1)
+        XCTAssert(component.rows[safe: 0] is Text)
     }
     
     func test_initWithRowsBuilder_shouldReturnExpectedInstance() {
@@ -27,9 +27,9 @@ final class ListViewInitTests: XCTestCase {
         ])
 
         // Then
-        XCTAssert(component.rows?.count == 2)
-        XCTAssert(component.rows?[safe: 0] is Text)
-        XCTAssert(component.rows?[safe: 1] is Button)
+        XCTAssert(component.rows.count == 2)
+        XCTAssert(component.rows[safe: 0] is Text)
+        XCTAssert(component.rows[safe: 1] is Button)
     }
     
     func test_toUIKit_shouldConvertDirectionProperly() {

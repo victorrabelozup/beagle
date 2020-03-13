@@ -3,7 +3,7 @@
 //
 
 // MARK: - EdgeValue
-public class EdgeValue {
+public class EdgeValue: Decodable {
     // MARK: - Public Properties
     public var left: UnitValue?
     public var top: UnitValue?

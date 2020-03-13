@@ -58,7 +58,7 @@ final class DeepLinkHandlerDummy: DeepLinkScreenManaging {
 }
 
 final class ComponentDecodingDummy: ComponentDecoding {
-    func register<T>(_ type: T.Type, for typeName: String) where T: ComponentEntity {}
+    func register<T>(_ type: T.Type, for typeName: String) where T: ServerDrivenComponent {}
     func decodableType(forType type: String) -> Decodable.Type? { return nil }
     func decodeComponent(from data: Data) throws -> ServerDrivenComponent { return ComponentDummy() }
     func decodeAction(from data: Data) throws -> Action { return ActionDummy() }
@@ -109,12 +109,6 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
         self.preFetchHelper = preFetchHelper
         self.appBundle = appBundle
         self.cacheManager = cacheManager
-    }
-}
-
-struct ComponentDummyEntity: ComponentConvertibleEntity {
-    func mapToComponent() throws -> ServerDrivenComponent {
-        return ComponentDummy()
     }
 }
 

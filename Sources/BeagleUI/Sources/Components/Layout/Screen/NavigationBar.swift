@@ -5,7 +5,7 @@
 import Foundation
 import UIKit
 
-public struct NavigationBar {
+public struct NavigationBar: Decodable {
 
     // MARK: - Public Properties
 
@@ -30,13 +30,13 @@ public struct NavigationBar {
 }
 
 public struct NavigationBarItem {
-
+    
     // MARK: - Public Properties
-
+    
     public let image: String?
     public let text: String
     public let action: Action
-
+    
     public init(
         image: String? = nil,
         text: String,
@@ -48,20 +48,35 @@ public struct NavigationBarItem {
     }
 }
 
-extension NavigationBarItem {
+extension NavigationBarItem: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case image
+        case text
+        case action
+    }
 
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.image = try container.decodeIfPresent(String.self, forKey: .image)
+        self.text = try container.decode(String.self, forKey: .text)
+        self.action = try container.decode(forKey: .action)
+    }
+}
+
+extension NavigationBarItem {
+    
     public func toBarButtonItem(
         context: BeagleContext,
         dependencies: RenderableDependencies
     ) -> UIBarButtonItem {
         return NavigationBarButtonItem(barItem: self, context: context, dependencies: dependencies)
     }
-
+    
     final private class NavigationBarButtonItem: UIBarButtonItem {
-
+        
         private let barItem: NavigationBarItem
         private weak var context: BeagleContext?
-
+        
         init(
             barItem: NavigationBarItem,
             context: BeagleContext,
@@ -79,51 +94,13 @@ extension NavigationBarItem {
             target = self
             action = #selector(triggerAction)
         }
-
+        
         required init?(coder aDecoder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-
+        
         @objc private func triggerAction() {
             context?.doAction(barItem.action, sender: self)
         }
-    }
-}
-
-struct NavigationBarEntity: Decodable {
-
-    let title: String
-    let style: String?
-    let showBackButton: Bool?
-    let navigationBarItems: [NavigationBarItemEntity]?
-
-    func toNavigationBar() -> NavigationBar {
-        let items = navigationBarItems?.compactMap { try? $0.mapToUIModel() }
-        return NavigationBar(
-            title: title,
-            style: style,
-            showBackButton: showBackButton,
-            navigationBarItems: items
-        )
-    }
-}
-
-struct NavigationBarItemEntity: Decodable {
-
-    public let image: String?
-    public let text: String
-    public let action: AnyDecodableContainer
-}
-
-extension NavigationBarItemEntity: UIModelConvertible {
-
-    func mapToUIModel() throws -> NavigationBarItem {
-        let actionEntity = self.action.content as? ActionConvertibleEntity
-        let action = try actionEntity?.mapToAction() ?? AnyAction(value: self.action.content)
-        return NavigationBarItem(
-            image: image,
-            text: text,
-            action: action
-        )
     }
 }

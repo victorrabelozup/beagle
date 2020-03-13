@@ -2,7 +2,7 @@
 //  Copyright © 30/12/19 Zup IT. All rights reserved.
 //
 
-public struct Appearance {
+public struct Appearance: Decodable {
     
     // MARK: - Public Properties
     let backgroundColor: String?

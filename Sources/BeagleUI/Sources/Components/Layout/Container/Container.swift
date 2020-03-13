@@ -52,3 +52,22 @@ extension Container: Renderable {
         return containerView
     }
 }
+
+extension Container: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case children
+        case id
+        case flex
+        case appearance
+        case accessibility
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.children = try container.decode(forKey: .children)
+        self.id = try container.decodeIfPresent(String.self, forKey: .id)
+        self.flex = try container.decodeIfPresent(Flex.self, forKey: .flex)
+        self.appearance = try container.decodeIfPresent(Appearance.self, forKey: .appearance)
+        self.accessibility = try container.decodeIfPresent(Accessibility.self, forKey: .accessibility)
+    }
+}

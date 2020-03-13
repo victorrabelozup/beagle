@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import SnapshotTesting
 @testable import BeagleUI
 
 final class FormTests: XCTestCase {
@@ -27,6 +28,11 @@ final class FormTests: XCTestCase {
         
         // Then
         XCTAssertTrue(context.didCallRegisterFormSubmit)
+    }
+    
+    func test_whenDecodingJson_thenItShouldReturnAForm() throws {
+        let component: Form = try componentFromJsonFile(fileName: "formComponent")
+        assertSnapshot(matching: component, as: .dump)
     }
 }
 

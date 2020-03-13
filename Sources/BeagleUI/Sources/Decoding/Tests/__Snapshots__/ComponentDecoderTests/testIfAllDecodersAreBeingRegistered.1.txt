@@ -1,64 +1,64 @@
 ▿ 21 key/value pairs
   ▿ (2 elements)
     - key: "beagle:action:customaction"
-    - value: CustomActionEntity
+    - value: CustomAction
   ▿ (2 elements)
     - key: "beagle:action:formvalidation"
-    - value: FormValidationEntity
+    - value: FormValidation
   ▿ (2 elements)
     - key: "beagle:action:navigate"
-    - value: NavigateEntity
+    - value: Navigate
   ▿ (2 elements)
     - key: "beagle:action:shownativedialog"
-    - value: ShowNativeDialogEntity
+    - value: ShowNativeDialog
   ▿ (2 elements)
     - key: "beagle:component:button"
-    - value: ButtonEntity
+    - value: Button
   ▿ (2 elements)
     - key: "beagle:component:container"
-    - value: ContainerEntity
+    - value: Container
   ▿ (2 elements)
     - key: "beagle:component:form"
-    - value: FormEntity
+    - value: Form
   ▿ (2 elements)
     - key: "beagle:component:forminput"
-    - value: FormInputEntity
+    - value: FormInput
   ▿ (2 elements)
     - key: "beagle:component:formsubmit"
-    - value: FormSubmitEntity
+    - value: FormSubmit
   ▿ (2 elements)
     - key: "beagle:component:image"
-    - value: ImageEntity
+    - value: Image
   ▿ (2 elements)
     - key: "beagle:component:lazycomponent"
-    - value: LazyComponentEntity
+    - value: LazyComponent
   ▿ (2 elements)
     - key: "beagle:component:listview"
-    - value: ListViewEntity
+    - value: ListView
   ▿ (2 elements)
     - key: "beagle:component:networkimage"
-    - value: NetworkImageEntity
+    - value: NetworkImage
   ▿ (2 elements)
     - key: "beagle:component:pageindicator"
-    - value: PageIndicatorEntity
+    - value: PageIndicator
   ▿ (2 elements)
     - key: "beagle:component:pageview"
-    - value: PageViewEntity
+    - value: PageView
   ▿ (2 elements)
     - key: "beagle:component:screencomponent"
-    - value: ScreenComponentEntity
+    - value: ScreenComponent
   ▿ (2 elements)
     - key: "beagle:component:scrollview"
-    - value: ScrollViewEntity
+    - value: ScrollView
   ▿ (2 elements)
     - key: "beagle:component:spacer"
-    - value: SpacerEntity
+    - value: Spacer
   ▿ (2 elements)
     - key: "beagle:component:tabview"
-    - value: TabViewEntity
+    - value: TabView
   ▿ (2 elements)
     - key: "beagle:component:text"
-    - value: TextEntity
+    - value: Text
   ▿ (2 elements)
     - key: "beagle:component:touchable"
-    - value: TouchableEntity
+    - value: Touchable

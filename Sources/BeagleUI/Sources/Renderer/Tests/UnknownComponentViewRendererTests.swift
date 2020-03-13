@@ -6,17 +6,17 @@ import XCTest
 @testable import BeagleUI
 import SnapshotTesting
 
-final class AnyComponentTests: XCTestCase {
+final class UnknownComponentTests: XCTestCase {
     
     func test_toView_shouldReturnTheExpectedView() {
         // Given
-        let component = AnyComponent(value: ComponentDummy())
+        let component = UnknownComponent(type: String(describing: ComponentDummy()))
         
         // When
         let view = component.toView(context: BeagleContextDummy(), dependencies: BeagleScreenDependencies())
         
         // Then
         XCTAssertTrue(view is UILabel)
-        XCTAssertEqual((view as? UILabel)?.text, "Unknown Component of type:\n ComponentDummy()")
+        XCTAssertEqual((view as? UILabel)?.text, "Unknown Component of type:\nComponentDummy()")
     }
 }

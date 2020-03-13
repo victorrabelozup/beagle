@@ -23,6 +23,19 @@ public struct ScrollView: AppearanceComponent {
     
 }
 
+extension ScrollView: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case children
+        case appearance
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.children = try container.decode(forKey: .children)
+        self.appearance = try container.decodeIfPresent(Appearance.self, forKey: .appearance)
+    }
+}
+
 extension ScrollView: Renderable {
     public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let scrollView = BeagleContainerScrollView()

@@ -13,12 +13,11 @@ public class Beagle {
     // MARK: - Public Functions
     
     /// Register a custom component
-    public static func registerCustomComponent<W: ServerDrivenComponent, E: ComponentConvertibleEntity>(
+    public static func registerCustomComponent<C: ServerDrivenComponent>(
         _ name: String,
-        componentType: W.Type,
-        entityType: E.Type
+        componentType: C.Type
     ) {
-        dependencies.decoder.register(entityType, for: name)
+        dependencies.decoder.register(componentType, for: name)
     }
 
     public static func screen(_ type: BeagleScreenViewModel.ScreenType) -> BeagleScreenViewController {

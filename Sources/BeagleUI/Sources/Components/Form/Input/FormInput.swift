@@ -35,3 +35,22 @@ extension FormInput: Renderable {
         return childView
     }
 }
+
+extension FormInput: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case name
+        case required
+        case validator
+        case errorMessage
+        case child
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.required = try container.decodeIfPresent(Bool.self, forKey: .required)
+        self.validator = try container.decodeIfPresent(String.self, forKey: .validator)
+        self.errorMessage = try container.decodeIfPresent(String.self, forKey: .errorMessage)
+        self.child = try container.decode(forKey: .child)
+    }
+}

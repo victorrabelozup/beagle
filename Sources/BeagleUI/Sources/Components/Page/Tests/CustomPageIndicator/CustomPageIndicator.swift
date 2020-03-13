@@ -29,17 +29,6 @@ public struct CustomPageIndicator: PageIndicatorComponent {
     }
 }
 
-// MARK: - CustomPageIndicator Entity
-
-public struct CustomPageIndicatorEntity: ComponentConvertibleEntity {
-    let selectedColor: String
-    let defaultColor: String
-
-    public func mapToComponent() throws -> ServerDrivenComponent {
-        return CustomPageIndicator(selectedColor: selectedColor, defaultColor: defaultColor)
-    }
-}
-
 // MARK: - CustomPageIndicator UIComponent
 
 class CustomPageIndicatorUIComponent: UIView, PageIndicatorUIView {

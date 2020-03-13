@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func registerCustomComponents() {
-        Beagle.registerCustomComponent("DSCollection", componentType: DSCollection.self, entityType: DSCollectionEntity.self)
-        Beagle.registerCustomComponent("SampleTextField", componentType: DemoTextField.self, entityType: DemoTextFieldEntity.self)
+        Beagle.registerCustomComponent("DSCollection", componentType: DSCollection.self)
+        Beagle.registerCustomComponent("SampleTextField", componentType: DemoTextField.self)
     }
 }

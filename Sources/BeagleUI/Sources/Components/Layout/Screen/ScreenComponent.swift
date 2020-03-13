@@ -12,9 +12,7 @@ struct ScreenComponent: AppearanceComponent {
     public let appearance: Appearance?
     public let safeArea: SafeArea?
     public let navigationBar: NavigationBar?
-    public let header: ServerDrivenComponent?
     public let child: ServerDrivenComponent
-    public let footer: ServerDrivenComponent?
     
     // MARK: - Initialization
     
@@ -23,17 +21,32 @@ struct ScreenComponent: AppearanceComponent {
         appearance: Appearance? = nil,
         safeArea: SafeArea? = nil,
         navigationBar: NavigationBar? = nil,
-        header: ServerDrivenComponent? = nil,
-        child: ServerDrivenComponent,
-        footer: ServerDrivenComponent? = nil
+        child: ServerDrivenComponent
     ) {
         self.identifier = identifier
         self.appearance = appearance
         self.safeArea = safeArea
         self.navigationBar = navigationBar
-        self.header = header
         self.child = child
-        self.footer = footer
+    }
+}
+
+extension ScreenComponent: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case identifier
+        case appearance
+        case safeArea
+        case navigationBar
+        case child
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.identifier = try container.decodeIfPresent(String.self, forKey: .identifier)
+        self.appearance = try container.decodeIfPresent(Appearance.self, forKey: .appearance)
+        self.safeArea = try container.decodeIfPresent(SafeArea.self, forKey: .safeArea)
+        self.navigationBar = try container.decodeIfPresent(NavigationBar.self, forKey: .navigationBar)
+        self.child = try container.decode(forKey: .child)
     }
 }
 
@@ -45,7 +58,7 @@ extension ScreenComponent: Renderable {
         guard let beagleController = context as? BeagleScreenViewController,
             beagleController.screenController.navigationController == nil
         else {
-            let contentView = createComponentContentView(context: context, dependencies: dependencies)
+            let contentView = buildChildView(context: context, dependencies: dependencies)
             contentView.beagle.setup(appearance: appearance)
             return contentView
         }
@@ -75,33 +88,6 @@ extension ScreenComponent: Renderable {
             .forEach { dependencies.preFetchHelper.prefetchComponent(newPath: $0, dependencies: dependencies) }
     }
     
-    private func createComponentContentView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
-        let headerView = header?.toView(context: context, dependencies: dependencies)
-        let footerView = footer?.toView(context: context, dependencies: dependencies)
-        let childView = buildChildView(context: context, dependencies: dependencies)
-        
-        if headerView == nil && footerView == nil {
-            return childView
-        }
-        
-        let container = UIView()
-        
-        if let headerView = headerView {
-            container.addSubview(headerView)
-            headerView.flex.isEnabled = true
-        }
-        
-        container.addSubview(childView)
-        childView.flex.isEnabled = true
-        
-        if let footerView = footerView {
-            container.addSubview(footerView)
-            footerView.flex.isEnabled = true
-        }
-        
-        return container
-    }
-    
     private func buildChildView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let childHolder = UIView()
         let childView = child.toView(context: context, dependencies: dependencies)
@@ -114,7 +100,7 @@ extension ScreenComponent: Renderable {
     }
 }
 
-public struct SafeArea: Equatable {
+public struct SafeArea: Equatable, Decodable {
 
     // MARK: - Public Properties
 

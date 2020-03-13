@@ -7,7 +7,7 @@ import Foundation
 public protocol ComponentDecoding {
     typealias Error = ComponentDecodingError
 
-    func register<T: ComponentEntity>(_ type: T.Type, for typeName: String)
+    func register<T: ServerDrivenComponent>(_ type: T.Type, for typeName: String)
     func decodableType(forType type: String) -> Decodable.Type?
     func decodeComponent(from data: Data) throws -> ServerDrivenComponent
     func decodeAction(from data: Data) throws -> Action
@@ -45,8 +45,8 @@ final class ComponentDecoder: ComponentDecoding {
         registerDefaultTypes()
     }
     
-    func register<T: ComponentEntity>(_ type: T.Type, for typeName: String) {
-        registerEntity(type, key: key(name: typeName, content: .component, namespace: .custom))
+    func register<T: ServerDrivenComponent>(_ type: T.Type, for typeName: String) {
+        registerComponent(type, key: key(name: typeName, content: .component, namespace: .custom))
     }
     
     func decodableType(forType type: String) -> Decodable.Type? {
@@ -54,19 +54,11 @@ final class ComponentDecoder: ComponentDecoding {
     }
     
     func decodeComponent(from data: Data) throws -> ServerDrivenComponent {
-        let entity: ComponentConvertibleEntity? = try decode(from: data)
-        guard let component = try entity?.mapToComponent() else {
-            throw ComponentDecodingError.couldNotCastToType(String(describing: ServerDrivenComponent.self))
-        }
-        return component
+        return try decode(from: data)
     }
     
     func decodeAction(from data: Data) throws -> Action {
-        let entity: ActionConvertibleEntity? = try decode(from: data)
-        guard let action = try entity?.mapToAction() else {
-            throw ComponentDecodingError.couldNotCastToType(String(describing: Action.self))
-        }
-        return action
+        return try decode(from: data)
     }
     
     // MARK: - Private Functions
@@ -98,42 +90,42 @@ final class ComponentDecoder: ComponentDecoding {
     }
     
     private func registerActions() {
-        registerEntity(NavigateEntity.self, key: key(name: "Navigate", content: .action, namespace: .beagle))
-        registerEntity(FormValidationEntity.self, key: key(name: "FormValidation", content: .action, namespace: .beagle))
-        registerEntity(ShowNativeDialogEntity.self, key: key(name: "ShowNativeDialog", content: .action, namespace: .beagle))
-        registerEntity(CustomActionEntity.self, key: key(name: "CustomAction", content: .action, namespace: .beagle))
+        registerComponent(Navigate.self, key: key(name: "Navigate", content: .action, namespace: .beagle))
+        registerComponent(FormValidation.self, key: key(name: "FormValidation", content: .action, namespace: .beagle))
+        registerComponent(ShowNativeDialog.self, key: key(name: "ShowNativeDialog", content: .action, namespace: .beagle))
+        registerComponent(CustomAction.self, key: key(name: "CustomAction", content: .action, namespace: .beagle))
     }
     
     private func registerCoreTypes() {
-        registerEntity(ContainerEntity.self, key: key(name: "Container", content: .component, namespace: .beagle))
-        registerEntity(TouchableEntity.self, key: key(name: "Touchable", content: .component, namespace: .beagle))
+        registerComponent(Container.self, key: key(name: "Container", content: .component, namespace: .beagle))
+        registerComponent(Touchable.self, key: key(name: "Touchable", content: .component, namespace: .beagle))
     }
     
     private func registerFormModels() {
-        registerEntity(FormEntity.self, key: key(name: "Form", content: .component, namespace: .beagle))
-        registerEntity(FormSubmitEntity.self, key: key(name: "FormSubmit", content: .component, namespace: .beagle))
-        registerEntity(FormInputEntity.self, key: key(name: "FormInput", content: .component, namespace: .beagle))
+        registerComponent(Form.self, key: key(name: "Form", content: .component, namespace: .beagle))
+        registerComponent(FormSubmit.self, key: key(name: "FormSubmit", content: .component, namespace: .beagle))
+        registerComponent(FormInput.self, key: key(name: "FormInput", content: .component, namespace: .beagle))
     }
     
     private func registerLayoutTypes() {
-        registerEntity(ScreenComponentEntity.self, key: key(name: "ScreenComponent", content: .component, namespace: .beagle))
-        registerEntity(SpacerEntity.self, key: key(name: "Spacer", content: .component, namespace: .beagle))
-        registerEntity(ScrollViewEntity.self, key: key(name: "ScrollView", content: .component, namespace: .beagle))
+        registerComponent(ScreenComponent.self, key: key(name: "ScreenComponent", content: .component, namespace: .beagle))
+        registerComponent(Spacer.self, key: key(name: "Spacer", content: .component, namespace: .beagle))
+        registerComponent(ScrollView.self, key: key(name: "ScrollView", content: .component, namespace: .beagle))
     }
     
     private func registerUITypes() {
-        registerEntity(ButtonEntity.self, key: key(name: "Button", content: .component, namespace: .beagle))
-        registerEntity(ImageEntity.self, key: key(name: "Image", content: .component, namespace: .beagle))
-        registerEntity(NetworkImageEntity.self, key: key(name: "NetworkImage", content: .component, namespace: .beagle))
-        registerEntity(ListViewEntity.self, key: key(name: "ListView", content: .component, namespace: .beagle))
-        registerEntity(TextEntity.self, key: key(name: "Text", content: .component, namespace: .beagle))
-        registerEntity(PageViewEntity.self, key: key(name: "PageView", content: .component, namespace: .beagle))
-        registerEntity(TabViewEntity.self, key: key(name: "TabView", content: .component, namespace: .beagle))
-        registerEntity(PageIndicatorEntity.self, key: key(name: "PageIndicator", content: .component, namespace: .beagle))
-        registerEntity(LazyComponentEntity.self, key: key(name: "LazyComponent", content: .component, namespace: .beagle))
+        registerComponent(Button.self, key: key(name: "Button", content: .component, namespace: .beagle))
+        registerComponent(Image.self, key: key(name: "Image", content: .component, namespace: .beagle))
+        registerComponent(NetworkImage.self, key: key(name: "NetworkImage", content: .component, namespace: .beagle))
+        registerComponent(ListView.self, key: key(name: "ListView", content: .component, namespace: .beagle))
+        registerComponent(Text.self, key: key(name: "Text", content: .component, namespace: .beagle))
+        registerComponent(PageView.self, key: key(name: "PageView", content: .component, namespace: .beagle))
+        registerComponent(TabView.self, key: key(name: "TabView", content: .component, namespace: .beagle))
+        registerComponent(PageIndicator.self, key: key(name: "PageIndicator", content: .component, namespace: .beagle))
+        registerComponent(LazyComponent.self, key: key(name: "LazyComponent", content: .component, namespace: .beagle))
     }
         
-    private func registerEntity<T: Decodable>(_ type: T.Type, key: String) {
+    private func registerComponent<T: Decodable>(_ type: T.Type, key: String) {
         decoders[key.lowercased()] = type
     }
 }

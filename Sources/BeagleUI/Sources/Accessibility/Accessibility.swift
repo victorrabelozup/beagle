@@ -4,7 +4,7 @@
 
 import UIKit
 
-public struct Accessibility {
+public struct Accessibility: Decodable {
     /// The value of the accessibility element, in a localized string.
     //public var accessibilityValue: String?
     

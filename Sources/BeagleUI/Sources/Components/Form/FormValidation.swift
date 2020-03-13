@@ -3,7 +3,7 @@
 //
 
 /// Types of transitions between screens
-public struct FieldError {
+public struct FieldError: Decodable {
     
     public let inputName: String
     public let message: String

@@ -39,26 +39,10 @@ struct DSCollection: Widget {
     }
 }
 
-struct DSCollectionEntity: WidgetEntity {
-    var id: String?
-    var flex: FlexEntity?
-    var appearance: AppearanceEntity?
-    var accessibility: AccessibilityEntity?
-    
-    let dataSource: DSCollectionDataSource
-    
-    func mapToComponent() throws -> ServerDrivenComponent {
-        let flex = try self.flex?.mapToUIModel()
-        return DSCollection(flex: flex, dataSource: dataSource)
-    }
-}
-
 extension DSCollection: Renderable {
-
     func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let view = DSCollectionUIComponent(dataSource: dataSource)
         view.flex.setup(flex)
         return view
     }
 }
-

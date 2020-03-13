@@ -29,3 +29,16 @@ extension LazyComponent: Renderable {
         return view
     }
 }
+
+extension LazyComponent: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case path
+        case initialState
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.path = try container.decode(String.self, forKey: .path)
+        self.initialState = try container.decode(forKey: .initialState)
+    }
+}

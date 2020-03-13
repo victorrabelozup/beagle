@@ -41,5 +41,18 @@ extension PageView: Renderable {
     }
 }
 
-public protocol PageIndicatorComponent: ServerDrivenComponent {
+extension PageView: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case pages
+        case pageIndicator
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.pages = try container.decode(forKey: .pages)
+        let pageIndicator = try container.decodeIfPresent(AnyDecodableContainer.self, forKey: .pageIndicator)
+        self.pageIndicator = (pageIndicator?.content as? PageIndicatorComponent)
+    }
 }
+
+public protocol PageIndicatorComponent: ServerDrivenComponent {}

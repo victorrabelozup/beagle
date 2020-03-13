@@ -6,7 +6,7 @@
 //  Copyright © 2019 Daniel Tes. All rights reserved.
 //
 
-public struct UnitValue {
+public struct UnitValue: Decodable {
     
     // MARK: - Constants
     
@@ -30,8 +30,8 @@ public struct UnitValue {
     
 }
 
-public enum UnitType {
-    case auto
-    case real
-    case percent
+public enum UnitType: String, Decodable {
+    case auto = "AUTO"
+    case real = "REAL"
+    case percent = "PERCENT"
 }

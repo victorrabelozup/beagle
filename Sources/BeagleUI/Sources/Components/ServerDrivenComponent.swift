@@ -4,7 +4,7 @@
 
 import UIKit
 
-public protocol ServerDrivenComponent: Renderable {}
+public protocol ServerDrivenComponent: Renderable, Decodable {}
 
 public protocol ComposeComponent: ServerDrivenComponent {
     func build() -> ServerDrivenComponent
@@ -20,8 +20,7 @@ public protocol Renderable {
     func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView
 }
 
-public protocol RenderableDependencies:
-    DependencyTheme,
+public protocol RenderableDependencies: DependencyTheme,
     DependencyValidatorProvider,
     DependencyPreFetching,
     DependencyAppBundle,
@@ -39,29 +38,7 @@ extension ServerDrivenComponent {
             appearance: screen?.appearance,
             safeArea: safeArea,
             navigationBar: screen?.navigationBar,
-            header: screen?.header,
-            child: screen?.child ?? self,
-            footer: screen?.footer
+            child: screen?.child ?? self
         )
-    }
-}
-
-// Defines a representation of an unknwon Component
-public struct AnyComponent: ServerDrivenComponent {
-    public let value: Any
-    
-    public init(value: Any) {
-        self.value = value
-    }
-}
-
-extension AnyComponent: Renderable {
-    public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
-        let label = UILabel(frame: .zero)
-        label.numberOfLines = 2
-        label.text = "Unknown Component of type:\n \(String(describing: value))"
-        label.textColor = .red
-        label.backgroundColor = .yellow
-        return label
     }
 }

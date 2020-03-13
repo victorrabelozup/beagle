@@ -2,7 +2,7 @@
 //  Copyright © 12/09/19 Zup IT. All rights reserved.
 //
 
-public class Flex {
+public class Flex: Decodable {
 
     public var direction: Direction?
     public var flexDirection: FlexDirection?
@@ -63,7 +63,7 @@ public class Flex {
 
 // MARK: - Flex FlexDirection
 extension Flex {
-    public enum Direction: String, StringRawRepresentable {
+    public enum Direction: String, Decodable {
         case inherit = "INHERIT"
         case ltr = "LTR"
         case rtl = "RTL"
@@ -72,7 +72,7 @@ extension Flex {
 
 // MARK: - Flex Direction
 extension Flex {
-    public enum FlexDirection: String, StringRawRepresentable {
+    public enum FlexDirection: String, Decodable {
         case row = "ROW"
         case rowReverse = "ROW_REVERSE"
         case column = "COLUMN"
@@ -82,7 +82,7 @@ extension Flex {
 
 // MARK: - Flex Wrap
 extension Flex {
-    public enum Wrap: String, StringRawRepresentable {
+    public enum Wrap: String, Decodable {
         case noWrap = "NO_WRAP"
         case wrap = "WRAP"
         case wrapReverse = "WRAP_REVERSE"
@@ -91,7 +91,7 @@ extension Flex {
 
 // MARK: - Flex JustifyContent
 extension Flex {
-    public enum JustifyContent: String, StringRawRepresentable {
+    public enum JustifyContent: String, Decodable {
         case flexStart = "FLEX_START"
         case center = "CENTER"
         case flexEnd = "FLEX_END"
@@ -103,7 +103,7 @@ extension Flex {
 
 // MARK: - Flex Alignment
 extension Flex {
-    public enum Alignment: String, StringRawRepresentable {
+    public enum Alignment: String, Decodable {
         case flexStart = "FLEX_START"
         case center = "CENTER"
         case flexEnd = "FLEX_END"
@@ -117,7 +117,7 @@ extension Flex {
 
 // MARK: - Flex Display
 extension Flex {
-    public enum Display: String, StringRawRepresentable {
+    public enum Display: String, Decodable {
         case flex = "FLEX"
         case none = "NONE"
     }
@@ -125,7 +125,7 @@ extension Flex {
 
 // MARK: - Position
 extension Flex {
-    public enum PositionType: String, StringRawRepresentable {
+    public enum PositionType: String, Decodable {
         case relative = "RELATIVE"
         case absolute = "ABSOLUTE"
     }

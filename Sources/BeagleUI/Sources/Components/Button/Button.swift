@@ -111,3 +111,26 @@ extension Button: Renderable {
     }
     
 }
+
+extension Button: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case text
+        case style
+        case action
+        case id
+        case appearance
+        case accessibility
+        case flex
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.text = try container.decode(String.self, forKey: .text)
+        self.style = try container.decodeIfPresent(String.self, forKey: .style)
+        self.action = try container.decodeIfPresent(forKey: .action)
+        self.id = try container.decodeIfPresent(String.self, forKey: .id)
+        self.appearance = try container.decodeIfPresent(Appearance.self, forKey: .appearance)
+        self.accessibility = try container.decodeIfPresent(Accessibility.self, forKey: .accessibility)
+        self.flex = try container.decodeIfPresent(Flex.self, forKey: .flex)
+    }
+}
