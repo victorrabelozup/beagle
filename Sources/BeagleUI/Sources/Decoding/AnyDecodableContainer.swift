@@ -63,11 +63,18 @@ struct UnknownComponent: ServerDrivenComponent {
 
 extension UnknownComponent: Renderable {
     public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
+        #if DEBUG
         let label = UILabel(frame: .zero)
         label.numberOfLines = 2
-        label.text = "Unknown Component of type:\n\(type)"
+        label.text = "Unknown Component of type:\n \(String(describing: type))"
         label.textColor = .red
         label.backgroundColor = .yellow
         return label
+
+        #else
+        let view = UIView()
+        return view
+
+        #endif
     }
 }

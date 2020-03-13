@@ -17,6 +17,6 @@ final class UnknownComponentTests: XCTestCase {
         
         // Then
         XCTAssertTrue(view is UILabel)
-        XCTAssertEqual((view as? UILabel)?.text, "Unknown Component of type:\nComponentDummy()")
+        XCTAssertEqual((view as? UILabel)?.text, "Unknown Component of type:\n ComponentDummy()")
     }
 }
