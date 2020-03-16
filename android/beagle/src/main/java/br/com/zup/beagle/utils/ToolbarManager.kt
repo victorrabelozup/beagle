@@ -90,7 +90,7 @@ internal class ToolbarManager(private val actionExecutor: ActionExecutor = Actio
     ) {
         val designSystem = BeagleEnvironment.beagleSdk.designSystem
         for (i in items.indices) {
-            toolbar.menu.add(Menu.NONE, i, Menu.NONE, items[i].text).apply {
+            toolbar.menu.add(Menu.NONE, items[i].id?.toAndroidId() ?: i, Menu.NONE, items[i].text).apply {
                 setOnMenuItemClickListener {
                     actionExecutor.doAction(context, items[i].action)
                     return@setOnMenuItemClickListener true

@@ -40,7 +40,7 @@ class SampleNavigationBarService {
                 showBackButton = true,
                 navigationBarItems = listOf(
                     NavigationBarItem(
-                        text = "",
+                        text = "Ajuda",
                         accessibility = Accessibility(accessibilityLabel = "Content Description"),
                         image = "informationImage",
                         action = ShowNativeDialog(
@@ -48,7 +48,7 @@ class SampleNavigationBarService {
                             message = "This component that allows to place titles and button action.",
                             buttonText = "OK"
                         )
-                    )
+                    ).setId("nbiInformation")
                 )
             ),
             child = Container(

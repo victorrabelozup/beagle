@@ -3,6 +3,7 @@ package br.com.zup.beagle.widget.layout
 import br.com.zup.beagle.action.Action
 import br.com.zup.beagle.core.Accessibility
 import br.com.zup.beagle.core.Appearance
+import br.com.zup.beagle.core.IdentifierComponent
 import br.com.zup.beagle.core.ServerDrivenComponent
 
 data class SafeArea(
@@ -17,7 +18,15 @@ data class NavigationBarItem(
     val image: String? = null,
     val action: Action,
     val accessibility: Accessibility? = null
-)
+) : IdentifierComponent {
+    override var id: String? = null
+        private set
+
+    fun setId(id: String): NavigationBarItem {
+        this.id = id
+        return this
+    }
+}
 
 data class NavigationBar(
     val title: String,

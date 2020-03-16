@@ -5,13 +5,14 @@ import br.com.zup.beagle.core.AccessibilityComponent
 import br.com.zup.beagle.core.Appearance
 import br.com.zup.beagle.core.AppearanceComponent
 import br.com.zup.beagle.core.FlexComponent
+import br.com.zup.beagle.core.IdentifierComponent
 import br.com.zup.beagle.widget.core.Flex
 
-abstract class Widget : FlexComponent, AppearanceComponent, AccessibilityComponent {
+abstract class Widget : FlexComponent, AppearanceComponent, AccessibilityComponent,
+    IdentifierComponent {
 
-    var id: String? = null
+    final override var id: String? = null
         private set
-
     final override var flex: Flex? = null
         private set
     final override var appearance: Appearance? = null
