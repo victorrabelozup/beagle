@@ -55,14 +55,38 @@ abstract class BeagleActivity : AppCompatActivity() {
     private val screen by lazy { intent.extras?.getString(FIRST_SCREEN_KEY) }
 
     companion object {
-        fun newIntent(context: Context, screenRequest: ScreenRequest, screen: Screen? = null): Intent {
-            val activityClass = BeagleEnvironment.beagleSdk.serverDrivenActivity
-            return Intent(context, activityClass).apply {
-                putExtra(FIRST_SCREEN_REQUEST_KEY, screenRequest)
+        fun newIntent(context: Context, screenJson: String): Intent {
+            return newIntent(context).apply {
+                putExtra(FIRST_SCREEN_KEY, screenJson)
+            }
+        }
+
+        fun newIntent(context: Context, screen: Screen): Intent {
+            return newIntent(context, null, screen)
+        }
+
+        fun newIntent(context: Context, screenRequest: ScreenRequest): Intent {
+            return newIntent(context, screenRequest, null)
+        }
+
+        internal fun newIntent(
+            context: Context,
+            screenRequest: ScreenRequest? = null,
+            screen: Screen? = null
+        ): Intent {
+            return newIntent(context).apply {
+                screenRequest?.let {
+                    putExtra(FIRST_SCREEN_REQUEST_KEY, screenRequest)
+                }
                 screen?.let {
                     putExtra(FIRST_SCREEN_KEY, beagleSerializer.serializeComponent(screen.toComponent()))
                 }
             }
+        }
+
+        private fun newIntent(context: Context): Intent {
+            val activityClass = BeagleEnvironment.beagleSdk.serverDrivenActivity
+            return Intent(context, activityClass)
         }
     }
 
