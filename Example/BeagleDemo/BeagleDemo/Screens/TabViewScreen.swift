@@ -20,28 +20,28 @@ struct TabViewScreen: DeeplinkScreen {
                 Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj"),
                 NetworkImage(path: .NETWORK_IMAGE_BEAGLE),
                 Text("Blaaslkdjfaskldjfalskdjfasldjfasldfj")
-            ]).applyFlex(Flex(alignContent: .center))
+            ]).applyFlex(Flex().alignContent(.center))
         )
 
         let tab2 = TabItem(title: "Tab 2 com titulo", content:
             Container(children: [
                 Text("Text1 Tab 2"),
                 Text("Text2 Tab 2")
-            ]).applyFlex(Flex(justifyContent: .center, alignItems: .center))
+            ]).applyFlex(Flex().justifyContent(.center).alignItems(.center))
         )
 
         let tab3 = TabItem(title: "Tab 3", content:
             Container(children: [
                 Text("Text1 Tab 3"),
                 Text("Text2 Tab 3")
-            ]).applyFlex(Flex(justifyContent: .flexStart))
+            ]).applyFlex(Flex().justifyContent(.flexStart))
         )
 
         let tab4 = TabItem(icon: "beagle", title: "Tab 4", content:
             Container(children: [
                 Text("Text1 Tab 4"),
                 Text("Text2 Tab 4")
-            ]).applyFlex(Flex(alignItems: .center))
+            ]).applyFlex(Flex().alignItems(.center))
         )
         return Screen(navigationBar: NavigationBar(title: "TabView"), child: TabView(tabItems: [tab1, tab2, tab3, tab4], style: .TAB_VIEW_STYLE))
     }
