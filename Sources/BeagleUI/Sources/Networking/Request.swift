@@ -41,5 +41,6 @@ public struct Request {
     public enum Error: Swift.Error {
         case networkError(Swift.Error)
         case decoding(Swift.Error)
+        case loadFromTextError
     }
 }

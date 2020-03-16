@@ -70,12 +70,19 @@ extension ScreenComponent: Renderable {
                 delegate: beagleController.viewModel.delegate
             )
         )
-        let navigationController = UINavigationController(rootViewController: contentController)
-        
-        beagleController.addChildViewController(navigationController)
-        DispatchQueue.main.async {
-            navigationController.didMove(toParentViewController: beagleController)
+
+        if let childViewController = beagleController.childViewControllers.first {
+            childViewController.willMove(toParentViewController: nil)
+            childViewController.view.removeFromSuperview()
+            childViewController.removeFromParentViewController()
+            childViewController.didMove(toParentViewController: nil)
         }
+
+        let navigationController = UINavigationController(rootViewController: contentController)
+
+        beagleController.addChildViewController(navigationController)
+        navigationController.didMove(toParentViewController: beagleController)
+        
         return navigationController.view
     }
 

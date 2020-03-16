@@ -35,6 +35,7 @@ extension ServerDrivenComponent {
             ?? SafeArea(top: true, leading: true, bottom: true, trailing: true)
 
         return Screen(
+            identifier: screen?.identifier,
             appearance: screen?.appearance,
             safeArea: safeArea,
             navigationBar: screen?.navigationBar,

@@ -82,6 +82,7 @@ final class DummyView: UIView {}
 struct ActionDummy: Action, Equatable {}
 
 struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
+
     var actionExecutor: ActionExecutor
     var flex: FlexViewConfiguratorProtocol
     var network: Network
@@ -90,6 +91,7 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
     var preFetchHelper: BeaglePrefetchHelping
     var appBundle: Bundle
     var cacheManager: CacheManagerProtocol
+    var decoder: ComponentDecoding
 
     init(
         actionExecutor: ActionExecutor = ActionExecutorDummy(),
@@ -99,7 +101,8 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
         validatorProvider: ValidatorProvider = ValidatorProviding(),
         preFetchHelper: BeaglePrefetchHelping = BeaglePreFetchHelper(),
         appBundle: Bundle = Bundle(for: ImageTests.self),
-        cacheManager: CacheManagerProtocol = CacheManager(maximumScreensCapacity: 30)
+        cacheManager: CacheManagerProtocol = CacheManager(maximumScreensCapacity: 30),
+        decoder: ComponentDecoding = ComponentDecodingDummy()
     ) {
         self.actionExecutor = actionExecutor
         self.flex = flex
@@ -109,6 +112,7 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
         self.preFetchHelper = preFetchHelper
         self.appBundle = appBundle
         self.cacheManager = cacheManager
+        self.decoder = decoder
     }
 }
 

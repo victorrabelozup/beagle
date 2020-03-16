@@ -106,6 +106,10 @@ public class BeagleScreenViewController: UIViewController {
         super.viewDidLayoutSubviews()
         layoutManager?.applyLayout()
     }
+
+    public func reloadScreen(with screenType: BeagleScreenViewModel.ScreenType) {
+        viewModel.reloadScreen(with: screenType)
+    }
     
     // MARK: - View Setup
     

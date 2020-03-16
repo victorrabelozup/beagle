@@ -210,6 +210,24 @@ final class BeagleScreenViewControllerTests: XCTestCase {
         XCTAssertNotNil(delegate.error)
         assertSnapshotImage(screen, size: CGSize(width: 300, height: 100))
     }
+
+    func test_whenLoadScreenWithDeclarativeText_isShouldRenderCorrectly() throws {
+
+        let json = try jsonFromFile(fileName: "declarativeText1")
+        let screen = BeagleScreenViewController(viewModel: .init(screenType: .declarativeText(json)))
+
+        assertSnapshotImage(screen, size: CGSize(width: 256, height: 512))
+    }
+
+    func test_whenReloadScreenWithDeclarativeText_isShouldRenderCorrectly() throws {
+
+        let json = try jsonFromFile(fileName: "declarativeText2")
+
+        let screen = BeagleScreenViewController(viewModel: .init(screenType: .declarative(Screen(child: Container(children: [])))))
+        screen.reloadScreen(with: .declarativeText(json))
+
+        assertSnapshotImage(screen, size: CGSize(width: 256, height: 512))
+    }
 }
 
 // MARK: - Testing Helpers

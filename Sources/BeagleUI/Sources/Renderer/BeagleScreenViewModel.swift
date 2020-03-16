@@ -13,11 +13,12 @@ public class BeagleScreenViewModel {
 
     // MARK: ScreenType
 
-    let screenType: ScreenType
+    var screenType: ScreenType
     
     public enum ScreenType {
         case remote(Remote)
         case declarative(Screen)
+        case declarativeText(String)
 
         public struct Remote {
             let url: String
@@ -59,6 +60,7 @@ public class BeagleScreenViewModel {
         DependencyActionExecutor
         & DependencyNetwork
         & RenderableDependencies
+        & DependencyComponentDecoding
 
     // MARK: Delegate and Observer
 
@@ -83,6 +85,25 @@ public class BeagleScreenViewModel {
         case .declarative(let screen):
             self.screen = screen
             state = .success
+        case .declarativeText(let text):
+            state = .loading
+            self.tryToLoadScreenFromText(text)
+        case .remote(let remote):
+            state = .loading
+            loadRemoteScreen(remote)
+        }
+    }
+
+    public func reloadScreen(with screenType: ScreenType) {
+        state = .loading
+        self.screenType = screenType
+        switch screenType {
+        case .declarative(let screen):
+            self.screen = screen
+            state = .success
+        case .declarativeText(let text):
+            state = .loading
+            self.tryToLoadScreenFromText(text)
         case .remote(let remote):
             state = .loading
             loadRemoteScreen(remote)
@@ -90,6 +111,27 @@ public class BeagleScreenViewModel {
     }
 
     // MARK: Core
+
+    func tryToLoadScreenFromText(_ text: String) {
+        guard let loadedScreen = loadScreenFromText(text) else {
+            state = .failure(Request.Error.loadFromTextError)
+            return
+        }
+        screen = loadedScreen
+        state = .success
+    }
+
+    func loadScreenFromText(_ text: String) -> Screen? {
+
+        guard let data = text.data(using: .utf8) else { return nil }
+        let component = try? self.dependencies.decoder.decodeComponent(from: data)
+
+        guard let screen = component as? ScreenComponent else {
+            return nil
+        }
+
+        return Screen(child: screen)
+    }
 
     func loadRemoteScreen(_ remote: ScreenType.Remote) {
         if let cached = dependencies.cacheManager.dequeueComponent(path: remote.url) {

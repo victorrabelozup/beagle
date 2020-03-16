@@ -117,6 +117,8 @@ class BeagleNavigator: BeagleNavigation {
             return absoluteURL(for: remote.url) == absoluteURL(for: identifier)
         case .declarative(let screen):
             return screen.identifier == identifier
+        case .declarativeText:
+            return screenController?.viewModel.screen?.identifier == identifier
         }
     }
     

@@ -31,6 +31,23 @@ func componentFromJsonFile<W: ServerDrivenComponent>(
     return typed
 }
 
+func jsonFromFile(
+    fileName: String
+) throws -> String {
+
+    guard let url = Bundle(for: ComponentDecoderTests.self).url(
+        forResource: fileName,
+        withExtension: "json"
+    ) else {
+        throw ComponentFromJsonError.wrongUrlPath
+    }
+
+    let jsonData = try Data(contentsOf: url)
+    let json = String(bytes: jsonData, encoding: .utf8) ?? ""
+
+    return json
+}
+
 /// This method was only created due to some problems with Swift Type Inference.
 /// So when you pass the type as a parameter, swift can infer the correct type.
 func componentFromJsonFile<W: ServerDrivenComponent>(
