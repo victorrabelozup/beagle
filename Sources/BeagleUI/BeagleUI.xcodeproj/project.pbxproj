@@ -139,7 +139,7 @@
 		C8FD20B323959AED003E6F5B /* PageViewWith3PagesAndIndicator.json in Resources */ = {isa = PBXBuildFile; fileRef = C8FD20B223959AED003E6F5B /* PageViewWith3PagesAndIndicator.json */; };
 		E50B284523639299005E2E6D /* BeagleScreenViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B284423639299005E2E6D /* BeagleScreenViewControllerTests.swift */; };
 		E516E61023705BED006620B1 /* BeagleViewBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E516E60F23705BED006620B1 /* BeagleViewBuilderTests.swift */; };
-		E52236C223745A7F00E555BB /* ListItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52236C123745A7F00E555BB /* ListItemTableViewCell.swift */; };
+		E52236C223745A7F00E555BB /* ListItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52236C123745A7F00E555BB /* ListItemCollectionViewCell.swift */; };
 		E52236C423745CBB00E555BB /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52236C323745CBB00E555BB /* NSObjectExtension.swift */; };
 		E52236C623745CDC00E555BB /* NSObjectExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52236C523745CDC00E555BB /* NSObjectExtensionTests.swift */; };
 		E52236CB23745DED00E555BB /* HTTPRequestCanceling.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52236CA23745DED00E555BB /* HTTPRequestCanceling.swift */; };
@@ -359,7 +359,7 @@
 		E50B2840236350B9005E2E6D /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
 		E50B284423639299005E2E6D /* BeagleScreenViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleScreenViewControllerTests.swift; sourceTree = "<group>"; };
 		E516E60F23705BED006620B1 /* BeagleViewBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleViewBuilderTests.swift; sourceTree = "<group>"; };
-		E52236C123745A7F00E555BB /* ListItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemTableViewCell.swift; sourceTree = "<group>"; };
+		E52236C123745A7F00E555BB /* ListItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		E52236C323745CBB00E555BB /* NSObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
 		E52236C523745CDC00E555BB /* NSObjectExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectExtensionTests.swift; sourceTree = "<group>"; };
 		E52236CA23745DED00E555BB /* HTTPRequestCanceling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequestCanceling.swift; sourceTree = "<group>"; };
@@ -799,7 +799,7 @@
 		C829CE9C23B12EDB001B7225 /* ListView */ = {
 			isa = PBXGroup;
 			children = (
-				E52236C123745A7F00E555BB /* ListItemTableViewCell.swift */,
+				E52236C123745A7F00E555BB /* ListItemCollectionViewCell.swift */,
 				E5223768237C3C1300E555BB /* ListView.swift */,
 				E52236CC23745E8E00E555BB /* ListViewUIComponent.swift */,
 				C829CEC423B167C0001B7225 /* Tests */,
@@ -1593,7 +1593,7 @@
 				7CFE3A752412E3B50087F664 /* FlexBuildersExtension.swift in Sources */,
 				E7716B9D2375E9FF006E26F2 /* BeagleDeepLinkHandler.swift in Sources */,
 				98B7D95623DB2722002622AC /* Observable.swift in Sources */,
-				E52236C223745A7F00E555BB /* ListItemTableViewCell.swift in Sources */,
+				E52236C223745A7F00E555BB /* ListItemCollectionViewCell.swift in Sources */,
 				E5A6F4A92358A547008906F8 /* FatalErrorUtil.swift in Sources */,
 				C89FFA922412DC2300C1B53B /* ViewConfigurator.swift in Sources */,
 				C86F894123B28FAE00287D5D /* NetworkImage.swift in Sources */,

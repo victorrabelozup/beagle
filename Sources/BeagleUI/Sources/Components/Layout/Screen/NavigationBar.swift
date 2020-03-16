@@ -12,6 +12,7 @@ public struct NavigationBar: Decodable {
     public let title: String
     public let style: String?
     public let showBackButton: Bool?
+    public let backButtonAccessibility: Accessibility?
     public let navigationBarItems: [NavigationBarItem]?
 
     // MARK: - Initialization
@@ -20,11 +21,13 @@ public struct NavigationBar: Decodable {
         title: String,
         style: String? = nil,
         showBackButton: Bool? = nil,
+        backButtonAccessibility: Accessibility? = nil,
         navigationBarItems: [NavigationBarItem]? = nil
     ) {
         self.title = title
         self.style = style
         self.showBackButton = showBackButton
+        self.backButtonAccessibility = backButtonAccessibility
         self.navigationBarItems = navigationBarItems
     }
 }
@@ -33,33 +36,43 @@ public struct NavigationBarItem {
     
     // MARK: - Public Properties
     
+    public let id: String?
     public let image: String?
     public let text: String
     public let action: Action
-    
+    public let accessibility: Accessibility?
+
     public init(
+        id: String? = nil,
         image: String? = nil,
         text: String,
-        action: Action
+        action: Action,
+        accessibility: Accessibility? = nil
     ) {
+        self.id = id
         self.image = image
         self.text = text
         self.action = action
+        self.accessibility = accessibility
     }
 }
 
 extension NavigationBarItem: Decodable {
     enum CodingKeys: String, CodingKey {
+        case id
         case image
         case text
         case action
+        case accessibility
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decodeIfPresent(String.self, forKey: .id)
         self.image = try container.decodeIfPresent(String.self, forKey: .image)
         self.text = try container.decode(String.self, forKey: .text)
         self.action = try container.decode(forKey: .action)
+        self.accessibility = try container.decodeIfPresent(Accessibility.self, forKey: .accessibility)
     }
 }
 
@@ -69,7 +82,8 @@ extension NavigationBarItem {
         context: BeagleContext,
         dependencies: RenderableDependencies
     ) -> UIBarButtonItem {
-        return NavigationBarButtonItem(barItem: self, context: context, dependencies: dependencies)
+        let barButtonItem = NavigationBarButtonItem(barItem: self, context: context, dependencies: dependencies)
+        return barButtonItem
     }
     
     final private class NavigationBarButtonItem: UIBarButtonItem {
@@ -91,8 +105,10 @@ extension NavigationBarItem {
             } else {
                 title = barItem.text
             }
+            accessibilityIdentifier = barItem.id
             target = self
             action = #selector(triggerAction)
+            ViewConfigurator.applyAccessibility(barItem.accessibility, to: self)
         }
         
         required init?(coder aDecoder: NSCoder) {

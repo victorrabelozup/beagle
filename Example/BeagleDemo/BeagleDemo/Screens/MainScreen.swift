@@ -11,8 +11,18 @@ struct MainScreen: DeeplinkScreen {
     
     func screenController() -> UIViewController {
         let screen = Screen(
-            navigationBar: .init(title: "Beagle Demo"),
-            child: ScrollView(children: [
+            navigationBar: buildNavigationBar(),
+            child: buildChild()
+        )
+
+        return BeagleScreenViewController(
+            viewModel: .init(screenType: .declarative(screen))
+        )
+    }
+    
+    private func buildChild() -> ScrollView {
+        return ScrollView(
+            children: [
                 Button(
                     text: "Navigator",
                     action: Navigate.addView(.init(path: .NAVIGATE_ENDPOINT, shouldPrefetch: true))
@@ -45,10 +55,14 @@ struct MainScreen: DeeplinkScreen {
                     text: "Sample BFF",
                     action: Navigate.addView(.init(path: .COMPONENTS_ENDPOINT))
                 )
-            ])
+            ]
         )
-        
-        return Beagle.screen(.declarative(screen))
     }
     
+    private func buildNavigationBar() -> NavigationBar {
+        return NavigationBar(
+            title: "Beagle Demo"
+        )
+    }
+
 }

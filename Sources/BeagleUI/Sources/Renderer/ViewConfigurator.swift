@@ -57,10 +57,14 @@ class ViewConfigurator: ViewConfiguratorProtocol {
     }
 
     func setup(accessibility: Accessibility?) {
+        ViewConfigurator.applyAccessibility(accessibility, to: view)
+    }
+    
+    static func applyAccessibility(_ accessibility: Accessibility?, to object: NSObject?) {
         guard let accessibility = accessibility else { return }
         if let label = accessibility.accessibilityLabel {
-            view?.accessibilityLabel = label
+            object?.accessibilityLabel = label
         }
-        view?.isAccessibilityElement = accessibility.accessible
+        object?.isAccessibilityElement = accessibility.accessible
     }
 }

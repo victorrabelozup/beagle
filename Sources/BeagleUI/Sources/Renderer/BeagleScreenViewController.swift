@@ -69,9 +69,11 @@ public class BeagleScreenViewController: UIViewController {
         let screenNavigationBar = screen.navigationBar
         let hideNavBar = screenNavigationBar == nil
         navigationController?.setNavigationBarHidden(hideNavBar, animated: animated)
+        
         navigationItem.title = screen.navigationBar?.title
         navigationItem.backBarButtonItem = UIBarButtonItem(title: nil, style: .plain, target: nil, action: nil)
         navigationItem.hidesBackButton = !(screen.navigationBar?.showBackButton ?? true)
+        ViewConfigurator.applyAccessibility(screenNavigationBar?.backButtonAccessibility, to: navigationItem)
         
         navigationItem.rightBarButtonItems = screenNavigationBar?.navigationBarItems?.reversed().map {
             $0.toBarButtonItem(context: self, dependencies: viewModel.dependencies)
@@ -81,10 +83,6 @@ public class BeagleScreenViewController: UIViewController {
            let navigationBar = navigationController?.navigationBar {
             viewModel.dependencies.theme.applyStyle(for: navigationBar, withId: style)
         }
-        
-        guard let isTranslucent = navigationController?.navigationBar.isTranslucent
-            else { return }
-        extendedLayoutIncludesOpaqueBars = isTranslucent ? false : true
     }
     
     // MARK: -
