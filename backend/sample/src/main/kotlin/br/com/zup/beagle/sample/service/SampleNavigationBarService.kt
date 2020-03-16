@@ -3,6 +3,7 @@ package br.com.zup.beagle.sample.service
 import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.NavigationType
 import br.com.zup.beagle.action.ShowNativeDialog
+import br.com.zup.beagle.core.Accessibility
 import br.com.zup.beagle.ext.unitReal
 import br.com.zup.beagle.sample.constants.BUTTON_STYLE_TITLE
 import br.com.zup.beagle.sample.constants.LOGO_BEAGLE
@@ -31,12 +32,16 @@ class SampleNavigationBarService {
     fun createNavigationBarView(): Screen {
         return Screen(
             navigationBar = NavigationBar(
+                backButtonAccessibility = Accessibility(
+                    accessibilityLabel = "Voltar"
+                ),
                 title = "Beagle NavigationBar",
                 style = NAVIGATION_BAR_STYLE_DEFAULT,
                 showBackButton = true,
                 navigationBarItems = listOf(
                     NavigationBarItem(
                         text = "",
+                        accessibility = Accessibility(accessibilityLabel = "Content Description"),
                         image = "informationImage",
                         action = ShowNativeDialog(
                             title = "NavigationBar",
@@ -48,8 +53,14 @@ class SampleNavigationBarService {
             ),
             child = Container(
                 children = listOf(
-                    createMenu(text = "NavigationBar", path = REPRESENTATION_NAVIGATION_BAR_ENDPOINT),
-                    createMenu(text = "NavigationBar with Style", path = REPRESENTATION_NAVIGATION_BAR_STYLE_ENDPOINT),
+                    createMenu(
+                        text = "NavigationBar",
+                        path = REPRESENTATION_NAVIGATION_BAR_ENDPOINT
+                    ),
+                    createMenu(
+                        text = "NavigationBar with Style",
+                        path = REPRESENTATION_NAVIGATION_BAR_STYLE_ENDPOINT
+                    ),
                     createMenu(
                         text = "NavigationBar with Item(Text)",
                         path = REPRESENTATION_NAVIGATION_BAR_TEXT_ENDPOINT

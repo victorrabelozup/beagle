@@ -3,6 +3,7 @@ package br.com.zup.beagle.utils
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.view.BeagleActivity
 import io.mockk.MockKAnnotations
+import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
 import org.junit.Before
@@ -21,8 +22,10 @@ class BeagleExtensionsTest {
 
     @Test
     fun configureSupportActionBarShouldSetSupportActionBar() {
+        every { beagleActivity.supportActionBar } returns null
+
         beagleActivity.configureSupportActionBar()
+
         verify(exactly = once()) { beagleActivity.setSupportActionBar(any()) }
-        assertNotNull(beagleActivity.supportActionBar)
     }
 }
