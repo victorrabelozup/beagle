@@ -1,0 +1,23 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'kotlin'
+}
+
+group = 'br.com.zup.beagle.sample'
+version = Releases.beagleVersionName
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+dependencies {
+    implementation GeneralLibraries.kotlin
+
+    implementation project(Modules.beagleBackendFramework)
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+}

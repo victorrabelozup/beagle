@@ -1,0 +1,9 @@
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation GeneralLibraries.kotlin
+
+    implementation project(Modules.beagleCoreDeclarative)
+}
+
+apply from: rootProject.file('maven-publish.gradle')

@@ -1,0 +1,93 @@
+package br.com.zup.beagle.sample.service
+
+import br.com.zup.beagle.action.ShowNativeDialog
+import br.com.zup.beagle.ext.unitPercent
+import br.com.zup.beagle.ext.unitReal
+import br.com.zup.beagle.sample.constants.TEXT_FONT_MAX
+import br.com.zup.beagle.widget.Widget
+import br.com.zup.beagle.widget.core.Flex
+import br.com.zup.beagle.widget.core.Size
+import br.com.zup.beagle.widget.layout.Container
+import br.com.zup.beagle.widget.layout.NavigationBar
+import br.com.zup.beagle.widget.layout.NavigationBarItem
+import br.com.zup.beagle.widget.layout.Screen
+import br.com.zup.beagle.widget.layout.ScrollAxis
+import br.com.zup.beagle.widget.layout.ScrollView
+import br.com.zup.beagle.widget.ui.Text
+import org.springframework.stereotype.Service
+
+@Service
+class SampleScrollViewService {
+    fun createScrollView(): Screen {
+        return Screen(
+            navigationBar = NavigationBar(
+                "Beagle ScrollView",
+                showBackButton = true,
+                navigationBarItems = listOf(
+                    NavigationBarItem(
+                        text = "",
+                        image = "informationImage",
+                        action = ShowNativeDialog(
+                            title = "ScrollView",
+                            message = "This component is a specialized container that will display its " +
+                                "components in a Scroll like view.",
+                            buttonText = "OK"
+                        )
+                    )
+                )
+            ),
+            child = Container(
+                children = listOf(
+                    getVerticalScrollView(),
+                    getHorizontalScrollView()
+                )
+            )
+        )
+    }
+
+    private fun getVerticalScrollView(): Widget {
+        return Container(
+            children = listOf(
+                Text("Vertical ScrollView"),
+                ScrollView(
+                    children = listOf(
+                        createText("Hello 1"),
+                        createText("Hello 2"),
+                        createText("Hello 3"),
+                        createText("Hello 4"),
+                        createText("Hello 5")
+                    ),
+                    scrollDirection = ScrollAxis.VERTICAL
+                )
+            )
+        ).applyFlex(
+            flex = Flex(
+                size = Size(
+                    height = 130.unitReal(),
+                    width = 100.unitPercent()
+                )
+            )
+        )
+    }
+
+    private fun getHorizontalScrollView(): Container {
+        return Container(
+            children = listOf(
+                Text("Horizontal ScrollView with scrollBars"),
+                ScrollView(
+                    children = listOf(
+                        createText("Hello 1"),
+                        createText("Hello 2"),
+                        createText("Hello 3"),
+                        createText("Hello 4"),
+                        createText("Hello 5")
+
+                    ),
+                    scrollDirection = ScrollAxis.HORIZONTAL
+                )
+            )
+        )
+    }
+
+    private fun createText(text: String) = Text(text, TEXT_FONT_MAX)
+}

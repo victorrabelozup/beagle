@@ -1,0 +1,26 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion Versions.compileSdk
+    buildToolsVersion Versions.buildTools
+
+    defaultConfig {
+        minSdkVersion Versions.minSdk
+        targetSdkVersion Versions.targetSdk
+
+        versionCode Releases.versionCode
+        versionName "${Releases.beagleVersionName}"
+
+        testInstrumentationRunner GeneralNames.testInstrumentationRunner
+        consumerProguardFiles GeneralNames.consumerProguard
+    }
+}
+
+dependencies {
+    implementation GeneralLibraries.kotlin
+
+    implementation project(Modules.beagleCoreDeclarative)
+}
+
+apply from: rootProject.file('maven-publish.gradle')

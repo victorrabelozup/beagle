@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BeagleButtonStyle">
+        <attr name="android:background" />
+        <attr name="android:textAllCaps" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="BeagleToolbarStyle">
+        <attr name="titleTextAppearance" format="reference" />
+        <attr name="navigationIcon" format="reference" />
+        <attr name="android:background" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="BackgroundStyle">
+        <attr name="android:background" />
+    </declare-styleable>
+
+    <declare-styleable name="BeagleTabBarStyle">
+        <attr name="tabSelectedTextColor" format="color" />
+        <attr name="tabTextColor" format="color" />
+        <attr name="tabBackground" format="reference" />
+        <attr name="tabIndicatorColor" format="color" />
+    </declare-styleable>
+</resources>

@@ -1,0 +1,56 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply from: "../screenshots.gradle"
+
+android {
+    compileSdkVersion Versions.compileSdk
+    buildToolsVersion Versions.buildTools
+    defaultConfig {
+        applicationId ApplicationId.id
+
+        minSdkVersion Versions.minSdk
+        targetSdkVersion Versions.targetSdk
+
+        versionCode Releases.versionCode
+        versionName Releases.versionName
+
+        testInstrumentationRunner GeneralNames.sampleTestInstrumentationRunner
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation AndroidxLibraries.appcompat
+
+    implementation GeneralLibraries.kotlin
+    implementation AndroidxLibraries.coreKtx
+
+    implementation project(Modules.beagleAndroid)
+    kapt project(Modules.beagleAndroidProcessor)
+
+    // Unit Testing
+    testImplementation TestLibraries.junit
+    testImplementation TestLibraries.kotlinTest
+    testImplementation TestLibraries.mockk
+
+    // Integration Testing
+    androidTestImplementation TestLibraries.testRunner
+    androidTestImplementation TestLibraries.testExt
+    androidTestImplementation TestLibraries.espressoCore
+    androidTestImplementation TestLibraries.testRules
+}
