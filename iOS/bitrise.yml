@@ -10,7 +10,7 @@ workflows:
     - carthage:
         inputs:
         - carthage_options: "--platform iOS --cache-builds --use-ssh --project-directory
-            Sources/BeagleUI/"
+            iOS/Sources/BeagleUI/"
     - xcode-test:
         title: BeagleUIFrameworkTests
         inputs:
@@ -31,7 +31,7 @@ workflows:
     - set-ios-version:
         inputs:
         - bundle_version: "$BITRISE_GIT_TAG"
-        - info_plist_file: "Sources/BeagleUI/Resources/Info.plist"
+        - info_plist_file: "iOS/Sources/BeagleUI/Resources/Info.plist"
     - carthage:
         inputs:
         - carthage_command: build
