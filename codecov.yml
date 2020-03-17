@@ -12,6 +12,10 @@ coverage:
         target: auto
         threshold: 2%
         base: auto
+      ios:
+        flags: ios
+      android-framework:
+        flags: android-framework
     patch: no
     changes: no
 
@@ -27,3 +31,13 @@ comment:
   layout: "reach,diff,flags,tree"
   behavior: default
   require_changes: false
+
+flags:
+  ios:
+    paths:
+      - iOS/
+  android-framework:
+    paths:
+      - android/
+      - backend/
+      - common/

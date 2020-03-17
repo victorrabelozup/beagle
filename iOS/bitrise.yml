@@ -21,6 +21,7 @@ workflows:
     - codecov:
         inputs:
         - CODECOV_TOKEN: "$CODECOV_TOKEN"
+        - other_options: "-F ios"
     - cache-push: {}
 
   deploy:
