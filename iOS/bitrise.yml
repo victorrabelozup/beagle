@@ -14,6 +14,7 @@ workflows:
     - xcode-test:
         title: BeagleUIFrameworkTests
         inputs:
+        - project_path: "/iOS"
         - generate_code_coverage_files: 'yes'
         - simulator_device: iPhone XR
         - scheme: BeagleUI
