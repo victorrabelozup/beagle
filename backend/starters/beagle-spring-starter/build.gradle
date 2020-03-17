@@ -1,18 +1,12 @@
 apply plugin: 'kotlin'
-
-group = GroupId.backendStarters
-version = Releases.beagleVersionName
-sourceCompatibility = JavaVersion.VERSION_1_8
+apply from: rootProject.file('jacoco.gradle')
 
 dependencies {
     implementation GeneralLibraries.kotlin
     implementation SpringLibraries.autoconfigure
     implementation SpringLibraries.webStarter
-
     api project(Modules.beagleBackendFramework)
-
     annotationProcessor SpringLibraries.autoconfigureProcessor
-
     testImplementation TestLibraries.mockk
     testImplementation TestLibraries.kotlinTest
     testImplementation TestLibraries.junit5Api
@@ -23,3 +17,5 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+apply from: rootProject.file('maven-publish.gradle')

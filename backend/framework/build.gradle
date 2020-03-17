@@ -1,5 +1,5 @@
 apply plugin: 'kotlin'
-apply from: '../../jacoco.gradle'
+apply from: rootProject.file('jacoco.gradle')
 
 dependencies {
     implementation GeneralLibraries.kotlin
