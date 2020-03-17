@@ -2,17 +2,12 @@ package br.com.zup.beagle.serialization.jackson
 
 import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.NavigationType
-import br.com.zup.beagle.action.ShowNativeDialog
 import br.com.zup.beagle.annotation.RegisterWidget
-import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.widget.Widget
-import br.com.zup.beagle.widget.core.ComposeComponent
 import br.com.zup.beagle.widget.layout.Screen
-import br.com.zup.beagle.widget.layout.ScreenBuilder
 import br.com.zup.beagle.widget.ui.Text
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.databind.ser.std.BeanSerializerBase
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify

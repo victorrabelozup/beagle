@@ -2,6 +2,11 @@ object ApplicationId {
     const val id = "br.com.zup.beagle.sample"
 }
 
+object GroupId {
+    const val backendSample = "br.com.zup.beagle.sample"
+    const val backendStarters = "br.com.zup.beagle.spring-starter"
+}
+
 object Modules {
     const val androidSample = ":android:sample"
     const val backendSample = ":backend:sample"
@@ -14,6 +19,7 @@ object Modules {
     const val beagleAnnotation = ":common:annotation"
     const val beagleBackendDeclarative = ":backend:backend-declarative"
     const val beagleBackendFramework = ":backend:framework"
+    const val beagleBackendSpringStarter = ":backend:starters:beagle-spring-starter"
 }
 
 object Releases {
@@ -67,6 +73,10 @@ object Versions {
     const val testExt = "1.1.1"
     const val archCoreTesting = "2.0.1"
     const val espressoCore = "3.2.0"
+
+    const val guava = "28.2-jre"
+
+    const val springBoot = "2.2.5.RELEASE"
 }
 
 object GeneralNames {
@@ -78,6 +88,10 @@ object GeneralNames {
 object GlideLibraries {
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
+}
+
+object BackendLibraries {
+    const val guava = "com.google.guava:guava:${Versions.guava}"
 }
 
 object GeneralLibraries {
@@ -128,4 +142,11 @@ object TestLibraries {
     const val archCoreTesting = "androidx.arch.core:core-testing:${Versions.archCoreTesting}"
     const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
     const val testRules = "androidx.test:rules:${Versions.testExt}"
+}
+
+object SpringLibraries {
+    const val autoconfigure = "org.springframework.boot:spring-boot-autoconfigure:${Versions.springBoot}"
+    const val autoconfigureProcessor = "org.springframework.boot:spring-boot-autoconfigure-processor:${Versions.springBoot}"
+    const val webStarter = "org.springframework.boot:spring-boot-starter-web:${Versions.springBoot}"
+    const val testStarter = "org.springframework.boot:spring-boot-starter-test:${Versions.springBoot}"
 }

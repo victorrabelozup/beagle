@@ -1,0 +1,25 @@
+apply plugin: 'kotlin'
+
+group = GroupId.backendStarters
+version = Releases.beagleVersionName
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+dependencies {
+    implementation GeneralLibraries.kotlin
+    implementation SpringLibraries.autoconfigure
+    implementation SpringLibraries.webStarter
+
+    api project(Modules.beagleBackendFramework)
+
+    annotationProcessor SpringLibraries.autoconfigureProcessor
+
+    testImplementation TestLibraries.mockk
+    testImplementation TestLibraries.kotlinTest
+    testImplementation TestLibraries.junit5Api
+    testImplementation SpringLibraries.testStarter
+    testRuntimeOnly TestLibraries.junit5Engine
+}
+
+test {
+    useJUnitPlatform()
+}

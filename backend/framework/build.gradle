@@ -3,14 +3,12 @@ apply from: '../../jacoco.gradle'
 
 dependencies {
     implementation GeneralLibraries.kotlin
-
     implementation GeneralLibraries.jacksonKotlin
-
+    implementation BackendLibraries.guava
     api project(Modules.beagleAnnotation)
     api project(Modules.beagleAnnotation)
     api project(Modules.beagleDeclarative)
     api project(Modules.beagleBackendDeclarative)
-
     testImplementation TestLibraries.mockk
     testImplementation TestLibraries.kotlinTest
     testImplementation TestLibraries.junit5Api
