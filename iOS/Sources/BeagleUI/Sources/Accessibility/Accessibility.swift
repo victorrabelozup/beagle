@@ -8,6 +8,7 @@ public struct Accessibility: Decodable {
     /// The value of the accessibility element, in a localized string.
     //public var accessibilityValue: String?
     
+    
     /// A succinct label that identifies the accessibility element, in a localized string.
     public var accessibilityLabel: String?
     
