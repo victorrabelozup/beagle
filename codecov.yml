@@ -4,13 +4,13 @@ codecov:
 coverage:
   precision: 2
   round: down
-  range: "80...100"
+  range: "70...100"
 
   status:
     project:
       default:
         target: auto
-        threshold: 2%
+        threshold: 4%
         base: auto
       ios:
         flags: ios
@@ -41,3 +41,9 @@ flags:
       - android/
       - backend/
       - common/
+
+ignore:
+ - "iOS/Sources/BeagleUI/**/Tests/"
+ - "iOS/Sources/BeagleUI/**/*Test*.swift"
+ - "iOS/Sources/BeagleUI/**/*Tests*.swift"
+ - "iOS/Libraries/"
