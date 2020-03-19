@@ -5,17 +5,21 @@ coverage:
   precision: 2
   round: down
   range: "70...100"
-
   status:
     project:
       default:
-        target: auto
-        threshold: 4%
-        base: auto
+        target: 70%
+        threshold: 7%
       ios:
-        flags: ios
-      android-framework:
-        flags: android-framework
+        target: 70%
+        threshold: 7%
+        flags: 
+          - ios
+      android:
+        target: 70%
+        threshold: 7%
+        flags: 
+          - android
     patch: no
     changes: no
 
@@ -28,7 +32,7 @@ parsers:
       macro: no
 
 comment:
-  layout: "reach,diff,flags,tree"
+  layout: "reach,diff,flags"
   behavior: default
   require_changes: false
 
@@ -36,7 +40,7 @@ flags:
   ios:
     paths:
       - iOS/
-  android-framework:
+  android:
     paths:
       - android/
       - backend/

@@ -45,7 +45,7 @@ workflows:
         is_skippable: false
         inputs:
         - CODECOV_TOKEN: "$CODECOV_TOKEN"
-        - other_options: "-F android-framework"
+        - other_options: "-F android"
     - deploy-to-bitrise-io@1.6.0: {}
     - cache-push@2.2.0:
         inputs:
