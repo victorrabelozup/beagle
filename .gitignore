@@ -4,7 +4,9 @@ target/
 build/
 ../out/
 .gradle/
-.idea/
+.idea/*
+!.idea/copyright
+projectFilesBackup/
 out/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
@@ -34,7 +36,6 @@ out/
 *.iml
 .gradle
 gradle.deps
-.idea/
 /local.properties
 /.idea/caches
 /.idea/libraries
