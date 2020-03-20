@@ -47,6 +47,9 @@ workflows:
         - CODECOV_TOKEN: "$CODECOV_TOKEN"
         - other_options: "-F android -C $BITRISE_GIT_COMMIT"
     - deploy-to-bitrise-io@1.6.0: {}
+    - discord-message@0.0.3:
+        inputs:
+        - webhook_url: "$DISCORD_WEBHOOK"
     - cache-push@2.2.0:
         inputs:
         - cache_paths: |-
