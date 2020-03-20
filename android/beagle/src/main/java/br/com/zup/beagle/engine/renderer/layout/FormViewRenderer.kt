@@ -22,6 +22,7 @@ import br.com.zup.beagle.view.ServerDrivenState
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
+import br.com.zup.beagle.widget.form.FormInputHidden
 import br.com.zup.beagle.widget.form.FormSubmit
 import br.com.zup.beagle.widget.form.InputWidget
 
@@ -39,6 +40,7 @@ internal class FormViewRenderer(
 ) : LayoutViewRenderer<Form>(viewRendererFactory, viewFactory) {
 
     private val formInputs = mutableListOf<FormInput>()
+    private val formInputHiddenList = mutableListOf<FormInputHidden>()
     private var formSubmitView: View? = null
 
     override fun buildView(rootView: RootView): View {
@@ -66,6 +68,8 @@ internal class FormViewRenderer(
                 if (tag is FormInput) {
                     formInputs.add(tag)
                     formValidatorController.configFormInputList(tag)
+                } else if (tag is FormInputHidden) {
+                    formInputHiddenList.add(tag)
                 } else if (childView.tag is FormSubmit && formSubmitView == null) {
                     formSubmitView = childView
                     addClickToFormSubmit(childView)
@@ -96,6 +100,10 @@ internal class FormViewRenderer(
             } else {
                 formsValue[formInput.name] = inputWidget.getValue().toString()
             }
+        }
+
+        formInputHiddenList.forEach { formInputHidden ->
+            formsValue[formInputHidden.name] = formInputHidden.value
         }
 
         if (formsValue.size == formInputs.size) {

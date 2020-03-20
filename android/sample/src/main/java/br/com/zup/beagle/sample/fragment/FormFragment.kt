@@ -14,6 +14,7 @@ import br.com.zup.beagle.widget.core.UnitType
 import br.com.zup.beagle.widget.core.UnitValue
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
+import br.com.zup.beagle.widget.form.FormInputHidden
 import br.com.zup.beagle.widget.form.FormMethodType
 import br.com.zup.beagle.widget.form.FormSubmit
 import br.com.zup.beagle.widget.layout.Container
@@ -28,6 +29,25 @@ class FormFragment : Fragment() {
         val declarative = Form(
             child = Container(
                 children = listOf(
+                    FormInputHidden(
+                        name = "hiddenParam",
+                        value = "hiddenParamValue"
+                    ),FormInputHidden(
+                        name = "hiddenParam1",
+                        value = "hiddenParamValue1"
+                    ),FormInputHidden(
+                        name = "hiddenParam2",
+                        value = "hiddenParamValue2"
+                    ),FormInputHidden(
+                        name = "hiddenParam3",
+                        value = "hiddenParamValue3"
+                    ),FormInputHidden(
+                        name = "hiddenParam4",
+                        value = "hiddenParamValue4"
+                    ),FormInputHidden(
+                        name = "hiddenParam5",
+                        value = "hiddenParamValue5"
+                    ),
                     FormInput(
                         name = "nome",
                         child = TextField(

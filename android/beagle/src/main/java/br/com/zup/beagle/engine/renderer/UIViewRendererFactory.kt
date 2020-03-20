@@ -2,6 +2,7 @@ package br.com.zup.beagle.engine.renderer
 
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.layout.ComposeComponentViewRenderer
+import br.com.zup.beagle.engine.renderer.layout.FormInputHiddenViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.FormInputViewRenderer
 import br.com.zup.beagle.engine.renderer.layout.FormSubmitViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.ButtonViewRenderer
@@ -15,6 +16,7 @@ import br.com.zup.beagle.engine.renderer.ui.ViewConvertableRenderer
 import br.com.zup.beagle.widget.core.ComposeComponent
 import br.com.zup.beagle.widget.core.ViewConvertable
 import br.com.zup.beagle.widget.form.FormInput
+import br.com.zup.beagle.widget.form.FormInputHidden
 import br.com.zup.beagle.widget.form.FormSubmit
 import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.Image
@@ -37,6 +39,7 @@ internal class UIViewRendererFactory : AbstractViewRendererFactory {
                 is NetworkImage -> NetworkImageViewRenderer(component)
                 is ListView -> ListViewRenderer(component)
                 is FormInput -> FormInputViewRenderer(component)
+                is FormInputHidden -> FormInputHiddenViewRenderer(component)
                 is FormSubmit -> FormSubmitViewRenderer(component)
                 is TabView -> TabViewRenderer(component)
                 is ViewConvertable, !is UndefinedWidget -> ViewConvertableRenderer(component as ViewConvertable)

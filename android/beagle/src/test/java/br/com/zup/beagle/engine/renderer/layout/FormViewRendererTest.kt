@@ -24,6 +24,7 @@ import br.com.zup.beagle.view.ServerDrivenState
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
+import br.com.zup.beagle.widget.form.FormInputHidden
 import br.com.zup.beagle.widget.form.FormSubmit
 import br.com.zup.beagle.widget.form.InputWidget
 import io.mockk.Runs
@@ -41,6 +42,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 private const val FORM_INPUT_VIEWS_FIELD_NAME = "formInputs"
+private const val FORM_INPUT_HIDDEN_VIEWS_FIELD_NAME = "formInputHiddenList"
 private const val FORM_SUBMIT_VIEW_FIELD_NAME = "formSubmitView"
 private val INPUT_VALUE = RandomData.string()
 
@@ -201,6 +203,23 @@ class FormViewRendererTest : BaseTest() {
 
         // Then
         val views = formViewRenderer.getPrivateField<List<View>>(FORM_INPUT_VIEWS_FIELD_NAME)
+        assertEquals(1, views.size)
+    }
+
+    @Test
+    fun build_should_try_to_iterate_over_all_viewGroups_that_is_the_formInputHidden() {
+        // Given
+        val childViewGroup = mockk<ViewGroup>()
+        every { childViewGroup.childCount } returns 0
+        every { childViewGroup.tag } returns mockk<FormInputHidden>()
+        every { viewGroup.childCount } returns 1
+        every { viewGroup.getChildAt(any()) } returns childViewGroup
+
+        // When
+        formViewRenderer.build(rootView)
+
+        // Then
+        val views = formViewRenderer.getPrivateField<List<View>>(FORM_INPUT_HIDDEN_VIEWS_FIELD_NAME)
         assertEquals(1, views.size)
     }
 
