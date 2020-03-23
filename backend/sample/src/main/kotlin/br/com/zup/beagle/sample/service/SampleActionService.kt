@@ -69,7 +69,7 @@ class SampleActionService {
     private fun getShowNativeDialogAction(): Container {
         return Container(
             children = listOf(
-                Text("Action"),
+                Text("Action dialog"),
                 Touchable(
                     action = ShowNativeDialog(
                         title = "Some",

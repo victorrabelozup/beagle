@@ -21,6 +21,8 @@ import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.NavigationBarItem
 import br.com.zup.beagle.widget.layout.Screen
+import br.com.zup.beagle.widget.layout.ScrollAxis
+import br.com.zup.beagle.widget.layout.ScrollView
 import br.com.zup.beagle.widget.layout.Spacer
 import br.com.zup.beagle.widget.ui.ListDirection
 import br.com.zup.beagle.widget.ui.ListView
@@ -48,7 +50,8 @@ class SampleListViewService {
                     )
                 )
             ),
-            child = Container(
+            child = ScrollView(
+                scrollDirection = ScrollAxis.VERTICAL,
                 children = listOf(
                     getStaticVerticalListView(),
                     Spacer(20.0),
@@ -73,7 +76,12 @@ class SampleListViewService {
                         Text("Hello 2"),
                         Text("Hello 3"),
                         Text("Hello 4"),
-                        Text("Hello 5")
+                        Text("Hello 5"),
+                        Text("Hello 6"),
+                        Text("Hello 7"),
+                        Text("Hello 8"),
+                        Text("Hello 9"),
+                        Text("Hello 10")
                     ),
                     direction = ListDirection.VERTICAL
                 )
@@ -92,7 +100,12 @@ class SampleListViewService {
                         Text("Hello 2"),
                         Text("Hello 3"),
                         Text("Hello 4"),
-                        Text("Hello 5")
+                        Text("Hello 5"),
+                        Text("Hello 6"),
+                        Text("Hello 7"),
+                        Text("Hello 8"),
+                        Text("Hello 9"),
+                        Text("Hello 10")
                     ),
                     direction = ListDirection.HORIZONTAL
                 )

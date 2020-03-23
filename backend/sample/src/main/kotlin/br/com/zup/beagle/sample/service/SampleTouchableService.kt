@@ -34,6 +34,8 @@ import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.NavigationBarItem
 import br.com.zup.beagle.widget.layout.Screen
+import br.com.zup.beagle.widget.layout.ScrollAxis
+import br.com.zup.beagle.widget.layout.ScrollView
 import br.com.zup.beagle.widget.navigation.Touchable
 import br.com.zup.beagle.widget.ui.Image
 import br.com.zup.beagle.widget.ui.NetworkImage
@@ -60,9 +62,10 @@ class SampleTouchableService {
                     )
                 )
             ),
-            child = Container(
+            child = ScrollView(
+                scrollDirection = ScrollAxis.VERTICAL,
                 children = listOf(
-                    touchableCustom(title = "Text with Touchable", item = Text("Click Aqui!")),
+                    touchableCustom(title = "Text with Touchable", item = Text("Click here!")),
                     touchableCustom(title = "Image with Touchable", item = Image(LOGO_BEAGLE)),
                     networkImageTouchable()
                 )

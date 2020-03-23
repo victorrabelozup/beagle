@@ -52,7 +52,8 @@ class SampleScrollViewService {
                     )
                 )
             ),
-            child = Container(
+            child = ScrollView(
+                scrollDirection = ScrollAxis.VERTICAL,
                 children = listOf(
                     getVerticalScrollView(),
                     getHorizontalScrollView()
@@ -62,7 +63,7 @@ class SampleScrollViewService {
     }
 
     private fun getVerticalScrollView(): Widget {
-        return Container(
+        return  Container(
             children = listOf(
                 Text("Vertical ScrollView"),
                 ScrollView(

@@ -34,6 +34,8 @@ import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.NavigationBarItem
 import br.com.zup.beagle.widget.layout.Screen
+import br.com.zup.beagle.widget.layout.ScrollAxis
+import br.com.zup.beagle.widget.layout.ScrollView
 import br.com.zup.beagle.widget.ui.Button
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.RequestBody
@@ -41,8 +43,6 @@ import org.springframework.web.bind.annotation.RequestBody
 @Service
 class SampleFormService {
     fun createFormView(): Screen {
-        val flexHorizontalMargin =
-            Flex(margin = EdgeValue(all = 10.unitReal()))
         return Screen(
             navigationBar = NavigationBar(
                 "Form",
@@ -58,32 +58,29 @@ class SampleFormService {
                     )
                 )
             ),
-            child = Form(
+            child = ScrollView(
+                scrollDirection = ScrollAxis.VERTICAL,
+                children = listOf(
+                    Form(
                 path = SUBMIT_FORM_ENDPOINT,
                 method = FormMethodType.POST,
                 child = Container(
                     children = listOf(
-                        FormInput(
+                        customFormInput(
                             name = "optional-field",
-                            child = SampleTextField(
-                                placeholder = "Optional field"
-                            ).applyFlex(flexHorizontalMargin)
+                            placeholder = "Optional field"
                         ),
-                        FormInput(
+                        customFormInput(
                             name = "required-field",
                             required = true,
                             validator = "text-is-not-blank",
-                            child = SampleTextField(
-                                placeholder = "Required field"
-                            ).applyFlex(flexHorizontalMargin)
+                            placeholder = "Required field"
                         ),
-                        FormInput(
+                        customFormInput(
                             name = "another-required-field",
                             required = true,
                             validator = "text-is-not-blank",
-                            child = SampleTextField(
-                                placeholder = "Another required field"
-                            ).applyFlex(flexHorizontalMargin)
+                            placeholder = "Another required field"
                         ),
                         Container(
                             children = emptyList()
@@ -93,11 +90,10 @@ class SampleFormService {
                             child = Button(
                                 text = "Submit Form",
                                 style = BUTTON_STYLE_FORM
-                            ).applyFlex(flexHorizontalMargin)
+                            ).applyFlex(Flex(margin = EdgeValue(all = 10.unitReal())))
                         )
                     )
-                )
-                    .applyFlex(
+                ).applyFlex(
                         Flex(
                             grow = 1.0,
                             padding = EdgeValue(all = 10.unitReal())
@@ -105,9 +101,10 @@ class SampleFormService {
                     )
                     .applyAppearance(Appearance(backgroundColor = LIGHT_GREEN))
             )
+                )
+            )
         )
     }
-
 
     fun submitForm(@RequestBody body: Map<String, String>): Action {
         val params = body.keys.joinToString(separator = "\n") { "${it}: ${body[it]}" }
@@ -117,4 +114,18 @@ class SampleFormService {
             buttonText = "Ok"
         )
     }
+
+    private fun customFormInput(
+        name: String,
+        required: Boolean? = null,
+        validator: String? = null,
+        placeholder: String
+    ) = FormInput(
+            name = name,
+            required = required,
+            validator = validator,
+            child = SampleTextField(
+                placeholder = placeholder
+            ).applyFlex(Flex(margin = EdgeValue(all = 10.unitReal())))
+    )
 }
