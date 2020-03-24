@@ -33,6 +33,7 @@ object Modules {
     const val beagleAndroidProcessor = ":android:android-processor"
     const val beagleAndroidAnnotation = ":android:android-annotation"
     const val beagleAndroidDeclarative = ":android:android-declarative"
+    const val beagleAndroidPreview = ":android:android-preview"
     const val beagleCoreDeclarative = ":common:core-declarative"
     const val beagleDeclarative = ":common:declarative"
     const val beagleAnnotation = ":common:annotation"
@@ -78,6 +79,8 @@ object Versions {
     const val junit5 = "5.6.0"
 
     const val yoga = "1.16.0"
+
+    const val okHttp = "4.4.0"
 
     const val kotlinTest = "1.3.50"
     const val kotlinCoroutinesTest = "1.3.1"
@@ -134,6 +137,8 @@ object GeneralLibraries {
     const val yoga = "com.facebook.yoga.android:yoga-layout:${Versions.yoga}"
 
     const val jacksonKotlin = "com.fasterxml.jackson.module:jackson-module-kotlin:${Versions.jacksonKotlin}"
+
+    const val okHttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
 }
 
 object GoogleLibraries {

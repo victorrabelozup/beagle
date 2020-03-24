@@ -135,12 +135,13 @@ abstract class BeagleActivity : AppCompatActivity() {
         super.onResume()
 
         if (supportFragmentManager.fragments.size == 0) {
-            screenRequest?.let {request ->
-                screen?.let {
-                    viewModel.fetchComponent(request, beagleSerializer.deserializeComponent(it) as ScreenComponent)
-                } ?: run {
-                    viewModel.fetchComponent(request)
-                }
+            screen?.let { screen ->
+                viewModel.fetchComponent(
+                    ScreenRequest(""),
+                    beagleSerializer.deserializeComponent(screen) as ScreenComponent
+                )
+            } ?: run {
+                screenRequest?.let { request -> viewModel.fetchComponent(request) }
             }
         }
 

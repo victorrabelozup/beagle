@@ -14,60 +14,37 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply from: "../screenshots.gradle"
+apply from: rootProject.file('jacoco.gradle')
 
 android {
     compileSdkVersion Versions.compileSdk
     buildToolsVersion Versions.buildTools
-    defaultConfig {
-        applicationId ApplicationId.id
 
+    defaultConfig {
         minSdkVersion Versions.minSdk
         targetSdkVersion Versions.targetSdk
 
         versionCode Releases.versionCode
-        versionName Releases.versionName
+        versionName "${Releases.beagleVersionName}"
 
-        testInstrumentationRunner GeneralNames.sampleTestInstrumentationRunner
-    }
-
-    lintOptions {
-        abortOnError false
-    }
-
-    buildTypes {
-        debug {
-            testCoverageEnabled true
-        }
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+        consumerProguardFiles GeneralNames.consumerProguard
     }
 }
 
 dependencies {
     implementation AndroidxLibraries.appcompat
-
     implementation GeneralLibraries.kotlin
-    implementation AndroidxLibraries.coreKtx
+    implementation GeneralLibraries.okHttp
 
-    debugImplementation project(Modules.beagleAndroidPreview)
     implementation project(Modules.beagleAndroid)
-    kapt project(Modules.beagleAndroidProcessor)
 
     // Unit Testing
     testImplementation TestLibraries.junit
     testImplementation TestLibraries.kotlinTest
     testImplementation TestLibraries.mockk
-
-    // Integration Testing
-    androidTestImplementation TestLibraries.testRunner
-    androidTestImplementation TestLibraries.testExt
-    androidTestImplementation TestLibraries.espressoCore
-    androidTestImplementation TestLibraries.testRules
 }
+
+apply from: rootProject.file('maven-publish.gradle')

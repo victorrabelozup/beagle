@@ -29,17 +29,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".activities.DeepLinkActivity">
+        <activity android:name=".activities.DeepLinkActivity">
             <intent-filter>
                 <action android:name="screen-deep-link" />
                 <category android:name="android.intent.category.DEFAULT" />
 
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            >
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -56,6 +53,15 @@
 
             android:theme="@style/AppTheme.NoToolbar"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="br.com.zup.beagle.preview.PreviewActivity"
+            android:theme="@style/AppTheme.NoToolbar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

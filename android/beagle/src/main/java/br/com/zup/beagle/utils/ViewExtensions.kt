@@ -36,6 +36,7 @@ import androidx.lifecycle.ViewModelProviders
 import br.com.zup.beagle.core.AppearanceComponent
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.data.BeagleViewModel
+import br.com.zup.beagle.data.serializer.BeagleSerializer
 import br.com.zup.beagle.engine.renderer.ActivityRootView
 import br.com.zup.beagle.engine.renderer.FragmentRootView
 import br.com.zup.beagle.engine.renderer.RootView
@@ -47,6 +48,7 @@ import br.com.zup.beagle.view.ViewFactory
 
 internal var viewExtensionsViewFactory = ViewFactory()
 internal var styleManagerFactory = StyleManager()
+internal var beagleSerializerFactory = BeagleSerializer()
 const val FLOAT_ZERO = 0.0f
 
 fun ViewGroup.loadView(activity: AppCompatActivity, screenRequest: ScreenRequest) {
@@ -63,6 +65,11 @@ private fun loadView(viewGroup: ViewGroup, rootView: RootView, screenRequest: Sc
             this.loadView(rootView, screenRequest)
         }
     )
+}
+
+fun ViewGroup.renderScreen(context: Context, screenJson: String) {
+    removeAllViewsInLayout()
+    addView(beagleSerializerFactory.deserializeComponent(screenJson).toView(context))
 }
 
 fun ViewGroup.setBeagleStateChangedListener(listener: StateChangedListener) {

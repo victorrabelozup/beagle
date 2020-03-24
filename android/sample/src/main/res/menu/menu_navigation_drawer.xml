@@ -112,4 +112,10 @@
         android:title="Sample BFF"
         tools:ignore="HardcodedText" />
 
+    <item
+        android:id="@+id/preview"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Preview"
+        tools:ignore="HardcodedText" />
+
 </menu>
