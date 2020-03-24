@@ -48,6 +48,13 @@ public struct BeagleStyle {
     public static func backgroundColor(withColor color: UIColor) -> (UIView?) -> Void {
         return { $0?.backgroundColor = color }
     }
+    
+    public static func text(font: UIFont, color: UIColor) -> (UITextView?) -> Void {
+        return {
+            $0?.font = font
+            $0?.textColor = color
+        }
+    }
 
     public static func label(withFont font: UIFont) -> (UILabel?) -> Void {
         return { $0?.font = font }

@@ -50,7 +50,7 @@ struct LazyComponentScreen: DeeplinkScreen {
     }
 }
 
-extension UILabel: OnStateUpdatable {
+extension UITextView: OnStateUpdatable {
     public func onUpdateState(component: ServerDrivenComponent) -> Bool {
         guard let w = component as? Text else {
             return false

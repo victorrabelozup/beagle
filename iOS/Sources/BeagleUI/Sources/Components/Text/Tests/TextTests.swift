@@ -24,8 +24,8 @@ final class TextTests: XCTestCase {
         "test.text.style": textStyle
     ])
     
-    private func textStyle() -> (UILabel?) -> Void {
-        return BeagleStyle.label(font: .boldSystemFont(ofSize: 20), color: .blue)
+    private func textStyle() -> (UITextView?) -> Void {
+        return BeagleStyle.text(font: .boldSystemFont(ofSize: 20), color: .blue)
             <> BeagleStyle.backgroundColor(withColor: .black)
     }
 
@@ -39,8 +39,8 @@ final class TextTests: XCTestCase {
         let context = BeagleContextDummy()
         
         // When
-        guard let label = component.toView(context: context, dependencies: dependencies) as? UILabel else {
-            XCTFail("Unable to type cast to UILabel.")
+        guard let label = component.toView(context: context, dependencies: dependencies) as? UITextView else {
+            XCTFail("Unable to type cast to UITextView.")
             return
         }
         
@@ -54,8 +54,8 @@ final class TextTests: XCTestCase {
         let context = BeagleContextDummy()
         
         // When
-        guard let label = component.toView(context: context, dependencies: dependencies) as? UILabel else {
-            XCTFail("Unable to type cast to UILabel.")
+        guard let label = component.toView(context: context, dependencies: dependencies) as? UITextView else {
+            XCTFail("Unable to type cast to UITextView.")
             return
         }
         
@@ -69,8 +69,8 @@ final class TextTests: XCTestCase {
         let context = BeagleContextDummy()
         
         // When
-        guard let label = component.toView(context: context, dependencies: dependencies) as? UILabel else {
-            XCTFail("Unable to type cast to UILabel.")
+        guard let label = component.toView(context: context, dependencies: dependencies) as? UITextView else {
+            XCTFail("Unable to type cast to UITextView.")
             return
         }
         

@@ -31,6 +31,6 @@ final class BeagleViewBuilderTests: XCTestCase {
         )
         
         // Then
-        XCTAssertTrue(rootView is UILabel, "Expected a `UILabel`, but got \(String(describing: rootView)).")
+        XCTAssertTrue(rootView is UITextView, "Expected a `UITextView`, but got \(String(describing: rootView)).")
     }
 }

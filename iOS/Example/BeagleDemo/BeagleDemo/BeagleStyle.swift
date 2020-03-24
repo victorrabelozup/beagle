@@ -33,20 +33,20 @@ struct Style {
         ]
     )
     
-    static func blackTextNormalStyle() -> (UILabel?) -> Void {
-        return BeagleStyle.label(withTextColor: .black)
+    static func blackTextNormalStyle() -> (UITextView?) -> Void {
+        return BeagleStyle.text(font: .systemFont(ofSize: 16) ,color: .black)
     }
     
-    static func designSystemTextHelloWord() -> (UILabel?) -> Void {
-        return BeagleStyle.label(font: .boldSystemFont(ofSize: 18), color: .darkGray)
+    static func designSystemTextHelloWord() -> (UITextView?) -> Void {
+        return BeagleStyle.text(font: .boldSystemFont(ofSize: 18), color: .darkGray)
     }
     
-    static func designSystemTextImage() -> (UILabel?) -> Void {
-        return BeagleStyle.label(font: .boldSystemFont(ofSize: 12), color: .black)
+    static func designSystemTextImage() -> (UITextView?) -> Void {
+        return BeagleStyle.text(font: .boldSystemFont(ofSize: 12), color: .black)
     }
     
-    static func designSystemTextActionClick() -> (UILabel?) -> Void {
-        return BeagleStyle.label(font: .boldSystemFont(ofSize: 40), color: .black)
+    static func designSystemTextActionClick() -> (UITextView?) -> Void {
+        return BeagleStyle.text(font: .boldSystemFont(ofSize: 40), color: .black)
     }
     
     static func designSystemStylishButton() -> (UIButton?) -> Void {

@@ -20,7 +20,7 @@ import SnapshotTesting
 
 final class ListViewTests: XCTestCase {
 
-    private let imageSize = CGSize(width: 300, height: 500)
+    private let imageSize = CGSize(width: 300, height: 300)
 
     // MARK: - 3 Rows
 

@@ -87,4 +87,18 @@ final class ThemeTests: XCTestCase {
         // Then
         XCTAssertEqual(.red, view.titleColor(for: .normal))
     }
+    
+    func test_textWithFontAndColor_shouldReturnAFunctionThatChangesFontAndColor() {
+        // Given
+        let font = UIFont.boldSystemFont(ofSize: 20)
+        let color = UIColor.blue
+        let view = UITextView()
+        
+        // When
+        view |> BeagleStyle.text(font: font, color: color)
+        
+        // Then
+        XCTAssertEqual(font, view.font)
+        XCTAssertEqual(color, view.textColor)
+    }
 }
