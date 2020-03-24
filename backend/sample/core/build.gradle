@@ -15,23 +15,20 @@
  */
 
 apply plugin: 'kotlin'
-apply from: rootProject.file('jacoco.gradle')
+
+group = GroupId.backendSample
+version = Releases.beagleVersionName
+sourceCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
     implementation GeneralLibraries.kotlin
-    implementation GeneralLibraries.jacksonKotlin
-    implementation BackendLibraries.guava
-    api project(Modules.beagleAnnotation)
-    api project(Modules.beagleDeclarative)
-    api project(Modules.beagleBackendDeclarative)
-    testImplementation TestLibraries.mockk
-    testImplementation TestLibraries.kotlinTest
-    testImplementation TestLibraries.junit5Api
-    testRuntimeOnly TestLibraries.junit5Engine
+    implementation project(Modules.beagleAnnotation)
+    implementation project(Modules.beagleDeclarative)
+    implementation project(Modules.beagleBackendDeclarative)
 }
 
-test {
-    useJUnitPlatform()
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
 }
-
-apply from: rootProject.file('maven-publish.gradle')

@@ -14,24 +14,15 @@
  * limitations under the License.
  */
 
-apply plugin: 'kotlin'
-apply from: rootProject.file('jacoco.gradle')
+package br.com.zup.beagle.sample.spring.controller
 
-dependencies {
-    implementation GeneralLibraries.kotlin
-    implementation GeneralLibraries.jacksonKotlin
-    implementation BackendLibraries.guava
-    api project(Modules.beagleAnnotation)
-    api project(Modules.beagleDeclarative)
-    api project(Modules.beagleBackendDeclarative)
-    testImplementation TestLibraries.mockk
-    testImplementation TestLibraries.kotlinTest
-    testImplementation TestLibraries.junit5Api
-    testRuntimeOnly TestLibraries.junit5Engine
+import br.com.zup.beagle.sample.constants.CUSTOM_WIDGET_ENDPOINT
+import br.com.zup.beagle.sample.spring.service.CustomNativeService
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RestController
+
+@RestController
+class CustomComponentController(private val customNativeService: CustomNativeService) {
+    @GetMapping(CUSTOM_WIDGET_ENDPOINT)
+    fun getCustomNativeWidget() = customNativeService.createCustomNativeWidget()
 }
-
-test {
-    useJUnitPlatform()
-}
-
-apply from: rootProject.file('maven-publish.gradle')

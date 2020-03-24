@@ -16,6 +16,7 @@
 
 object ApplicationId {
     const val id = "br.com.zup.beagle.sample"
+    const val micronautSample = "br.com.zup.beagle.sample.micronaut.BeagleUiSampleApplication"
 }
 
 object GroupId {
@@ -25,7 +26,9 @@ object GroupId {
 
 object Modules {
     const val androidSample = ":android:sample"
-    const val backendSample = ":backend:sample"
+    const val backendSampleCore = ":backend:sample:core"
+    const val backendSampleSpring = ":backend:sample:spring"
+    const val backendSampleMicronaut = ":backend:sample:micronaut"
     const val beagleAndroid = ":android:beagle"
     const val beagleAndroidProcessor = ":android:android-processor"
     const val beagleAndroidAnnotation = ":android:android-annotation"
@@ -49,6 +52,8 @@ object Versions {
     const val minSdk = 19
     const val targetSdk = 29
     const val buildTools = "29.0.2"
+
+    const val java = "1.8"
 
     const val kotlin = "1.3.41"
     const val kotlinCoroutines = "1.3.1"
@@ -91,8 +96,11 @@ object Versions {
     const val espressoCore = "3.2.0"
 
     const val guava = "28.2-jre"
+    const val slf4j = "1.7.30"
+    const val log4j = "2.13.1"
 
     const val springBoot = "2.2.5.RELEASE"
+    const val micronaut = "1.3.3"
 }
 
 object GeneralNames {
@@ -108,6 +116,8 @@ object GlideLibraries {
 
 object BackendLibraries {
     const val guava = "com.google.guava:guava:${Versions.guava}"
+    const val slf4jJUL = "org.slf4j:slf4j-jdk14:${Versions.slf4j}"
+    const val log4j2 = "org.apache.logging.log4j:log4j-slf4j-impl:${Versions.log4j}"
 }
 
 object GeneralLibraries {
@@ -165,4 +175,13 @@ object SpringLibraries {
     const val autoconfigureProcessor = "org.springframework.boot:spring-boot-autoconfigure-processor:${Versions.springBoot}"
     const val webStarter = "org.springframework.boot:spring-boot-starter-web:${Versions.springBoot}"
     const val testStarter = "org.springframework.boot:spring-boot-starter-test:${Versions.springBoot}"
+}
+
+object MicronautLibraries {
+    const val bom = "io.micronaut:micronaut-bom:${Versions.micronaut}"
+    const val runtime = "io.micronaut:micronaut-runtime:${Versions.micronaut}"
+    const val httpClient = "io.micronaut:micronaut-http-client:${Versions.micronaut}"
+    const val netty = "io.micronaut:micronaut-http-server-netty:${Versions.micronaut}"
+    const val injectJava = "io.micronaut:micronaut-inject-java:${Versions.micronaut}"
+    const val validation = "io.micronaut:micronaut-validation:${Versions.micronaut}"
 }

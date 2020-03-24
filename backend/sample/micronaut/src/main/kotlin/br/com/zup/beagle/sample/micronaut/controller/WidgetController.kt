@@ -14,24 +14,15 @@
  * limitations under the License.
  */
 
-apply plugin: 'kotlin'
-apply from: rootProject.file('jacoco.gradle')
+package br.com.zup.beagle.sample.micronaut.controller
 
-dependencies {
-    implementation GeneralLibraries.kotlin
-    implementation GeneralLibraries.jacksonKotlin
-    implementation BackendLibraries.guava
-    api project(Modules.beagleAnnotation)
-    api project(Modules.beagleDeclarative)
-    api project(Modules.beagleBackendDeclarative)
-    testImplementation TestLibraries.mockk
-    testImplementation TestLibraries.kotlinTest
-    testImplementation TestLibraries.junit5Api
-    testRuntimeOnly TestLibraries.junit5Engine
+import br.com.zup.beagle.sample.constants.PATH_LAZY_COMPONENT_ENDPOINT
+import br.com.zup.beagle.sample.micronaut.service.SampleLazyComponentService
+import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
+
+@Controller
+class WidgetController(private val sampleLazyComponentService: SampleLazyComponentService) {
+    @Get(PATH_LAZY_COMPONENT_ENDPOINT)
+    fun getLazyComponent() = this.sampleLazyComponentService.createTextLazyComponent()
 }
-
-test {
-    useJUnitPlatform()
-}
-
-apply from: rootProject.file('maven-publish.gradle')

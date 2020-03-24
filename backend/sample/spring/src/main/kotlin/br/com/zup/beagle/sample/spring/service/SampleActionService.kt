@@ -14,24 +14,19 @@
  * limitations under the License.
  */
 
-apply plugin: 'kotlin'
-apply from: rootProject.file('jacoco.gradle')
+package br.com.zup.beagle.sample.spring.service
 
-dependencies {
-    implementation GeneralLibraries.kotlin
-    implementation GeneralLibraries.jacksonKotlin
-    implementation BackendLibraries.guava
-    api project(Modules.beagleAnnotation)
-    api project(Modules.beagleDeclarative)
-    api project(Modules.beagleBackendDeclarative)
-    testImplementation TestLibraries.mockk
-    testImplementation TestLibraries.kotlinTest
-    testImplementation TestLibraries.junit5Api
-    testRuntimeOnly TestLibraries.junit5Engine
+import br.com.zup.beagle.sample.builder.ActionScreenBuilder
+import br.com.zup.beagle.widget.layout.Screen
+import br.com.zup.beagle.widget.ui.Text
+import org.springframework.stereotype.Service
+
+@Service
+class SampleActionService {
+    fun createAction() = ActionScreenBuilder
+
+
+    fun getNavigateExample() = Screen(
+        child = Text("Hello")
+    )
 }
-
-test {
-    useJUnitPlatform()
-}
-
-apply from: rootProject.file('maven-publish.gradle')

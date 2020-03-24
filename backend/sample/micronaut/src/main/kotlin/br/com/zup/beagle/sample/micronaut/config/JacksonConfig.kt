@@ -1,12 +1,12 @@
 /*
  * Copyright 2020 ZUP IT SERVICOS EM TECNOLOGIA E INOVACAO SA
- *
+ *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ *  
  *       http://www.apache.org/licenses/LICENSE-2.0
- *
+ *  
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-include Modules.androidSample
-include Modules.backendSampleCore
-include Modules.backendSampleSpring
-include Modules.backendSampleMicronaut
-include Modules.beagleAndroid
-include Modules.beagleBackendFramework
-include Modules.beagleAndroidProcessor
-include Modules.beagleAndroidAnnotation
-include Modules.beagleAndroidDeclarative
-include Modules.beagleAnnotation
-include Modules.beagleDeclarative
-include Modules.beagleCoreDeclarative
-include Modules.beagleBackendDeclarative
-include Modules.beagleBackendSpringStarter
+package br.com.zup.beagle.sample.micronaut.config
+
+import br.com.zup.beagle.serialization.jackson.BeagleModule
+import io.micronaut.context.annotation.Factory
+import javax.inject.Singleton
+
+@Factory
+class JacksonConfig {
+    @Singleton
+    fun beagleModule() = BeagleModule
+}
