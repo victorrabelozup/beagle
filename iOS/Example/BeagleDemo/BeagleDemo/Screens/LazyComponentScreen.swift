@@ -41,6 +41,10 @@ struct LazyComponentScreen: DeeplinkScreen {
                             initialState: Text("Loading...")
                         )
                     ),
+                    Text("Text above input hidden"),
+                    FormInputHidden(name: "id", value: "123"),
+                    FormInputHidden(name: "age", value: "45"),
+                    Text("Text bellow input hiden"),
                     FormSubmit(child:
                         Text("FormSubmit")
                     )

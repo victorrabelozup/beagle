@@ -12,6 +12,10 @@
         "text" : "text"
       }
     }, {
+      "_beagleType_" : "beagle:component:forminputhidden",
+      "name" : "id",
+      "value" : "123"
+    }, {
       "_beagleType_" : "beagle:component:forminput",
       "name" : "another-required-field",
       "required" : true,

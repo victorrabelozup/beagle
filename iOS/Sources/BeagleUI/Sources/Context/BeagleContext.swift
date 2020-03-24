@@ -130,13 +130,13 @@ extension BeagleScreenViewController: BeagleContext {
     
     private func validate(formInput view: UIView, formSubmit submitView: UIView?, validatorHandler: ValidatorProvider?, result: inout [String: String]) {
         guard
-            let formInput = view.beagleFormElement as? FormInput,
+            let formInput = view.beagleFormElement as? FormInputComponent,
             let inputValue = view as? InputValue else {
                 return
         }
-        if formInput.required ?? false {
+        if let defaultFormInput = formInput as? FormInput, defaultFormInput.required ?? false {
             guard
-                let validatorName = formInput.validator,
+                let validatorName = defaultFormInput.validator,
                 let handler = validatorHandler,
                 let validator = handler.getValidator(name: validatorName) else {
                     return
@@ -147,7 +147,7 @@ extension BeagleScreenViewController: BeagleContext {
             if isValid {
                 result[formInput.name] = String(describing: value)
             } else if let errorListener = inputValue as? ValidationErrorListener {
-                errorListener.onValidationError(message: formInput.errorMessage)
+                errorListener.onValidationError(message: defaultFormInput.errorMessage)
             }
         } else {
             result[formInput.name] = String(describing: inputValue.getValue())

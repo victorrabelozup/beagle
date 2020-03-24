@@ -49,4 +49,3 @@ public class EdgeValue: Decodable {
         self.all = all
     }
 }
-

@@ -16,14 +16,14 @@
 
 import UIKit
 
-public struct FormInput: ServerDrivenComponent {
+public struct FormInput: FormInputComponent {
     
     public let name: String
+    public let child: ServerDrivenComponent
     public let required: Bool?
     public let validator: String?
     public let errorMessage: String?
-    public let child: ServerDrivenComponent
-
+    
     public init(
         name: String,
         required: Bool? = nil,

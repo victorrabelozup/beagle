@@ -20,6 +20,8 @@ import UIKit
 
 postfix operator %
 
+// swiftlint:disable operator_whitespace
+
 extension Int {
     public static postfix func %(value: Int) -> UnitValue {
         return UnitValue(value: Double(value), type: .percent)
@@ -37,7 +39,6 @@ extension Double {
         return UnitValue(value: value, type: .percent)
     }
 }
-
 
 extension UnitValue: ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
     public init(integerLiteral value: Int) {

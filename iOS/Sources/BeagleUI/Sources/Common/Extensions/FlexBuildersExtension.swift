@@ -14,7 +14,7 @@
 // limitations under the License.
 //
 
-//MARK: - Flex Builders
+// MARK: - Flex Builders
 
 public extension Flex {
     @discardableResult
@@ -121,7 +121,7 @@ public extension Flex {
     
 }
 
-//MARK: - Size Builders
+// MARK: - Size Builders
 
 public extension Size {
     @discardableResult
@@ -167,9 +167,7 @@ public extension Size {
     }
 }
 
-
-
-//MARK: - EdgeValue Builders
+// MARK: - EdgeValue Builders
 public extension EdgeValue {
     @discardableResult
     func left(_ value: UnitValue) -> EdgeValue {

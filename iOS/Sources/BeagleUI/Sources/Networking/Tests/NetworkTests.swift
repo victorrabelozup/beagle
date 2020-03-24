@@ -173,6 +173,7 @@ final class NetworkStub: Network {
 
     private(set) var didCallDispatch = false
     private(set) var token = Token()
+    private(set) var formData = Request.FormData(method: .post, values: [:])
 
     class Token: RequestToken {
         var didCallCancel = false
@@ -202,6 +203,7 @@ final class NetworkStub: Network {
 
     func submitForm(url: String, additionalData: RemoteScreenAdditionalData?, data: Request.FormData, completion: @escaping (Result<Action, Request.Error>) -> Void) -> RequestToken? {
         didCallDispatch = true
+        formData = data
         if let result = formResult {
             completion(result)
         }

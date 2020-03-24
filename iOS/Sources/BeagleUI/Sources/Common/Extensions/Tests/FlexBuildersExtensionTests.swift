@@ -63,4 +63,3 @@ class FlexBuildersExtensionTests: XCTestCase {
         assertSnapshot(matching: sut, as: .dump)
     }
 }
-

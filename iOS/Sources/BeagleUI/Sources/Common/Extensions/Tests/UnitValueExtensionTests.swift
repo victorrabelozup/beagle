@@ -41,4 +41,3 @@ final class UnitValueExtensionTests: XCTestCase {
         assertSnapshot(matching: sut, as: .dump)
     }
 }
-

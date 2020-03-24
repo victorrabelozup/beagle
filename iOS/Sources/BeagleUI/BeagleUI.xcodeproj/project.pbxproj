@@ -13,6 +13,8 @@
 		5754315023F2108400EF0E5A /* LRUCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5754314F23F2108400EF0E5A /* LRUCacheTests.swift */; };
 		76191AA9241AC44C00A04C29 /* declarativeText1.json in Resources */ = {isa = PBXBuildFile; fileRef = 76191AA7241ABD8800A04C29 /* declarativeText1.json */; };
 		76BB91A5241AC6A800B9A239 /* declarativeText2.json in Resources */ = {isa = PBXBuildFile; fileRef = 76BB91A3241AC6A000B9A239 /* declarativeText2.json */; };
+		7C42EAF624228FC9007334A0 /* FormInputHidden.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C42EAF524228FC9007334A0 /* FormInputHidden.swift */; };
+		7C42EAF824228FE3007334A0 /* FormInputComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C42EAF724228FE3007334A0 /* FormInputComponent.swift */; };
 		7CDF84732416AE0D00234F40 /* UnitValueExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF84712416ADCB00234F40 /* UnitValueExtensionTests.swift */; };
 		7CDF84852416DABC00234F40 /* FlexBuildersExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF84842416DABC00234F40 /* FlexBuildersExtensionTests.swift */; };
 		7CDF84902416DD8D00234F40 /* test_FlexBuilder.1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7CDF84882416DD8D00234F40 /* test_FlexBuilder.1.txt */; };
@@ -216,6 +218,8 @@
 		5754314F23F2108400EF0E5A /* LRUCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRUCacheTests.swift; sourceTree = "<group>"; };
 		76191AA7241ABD8800A04C29 /* declarativeText1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = declarativeText1.json; sourceTree = "<group>"; };
 		76BB91A3241AC6A000B9A239 /* declarativeText2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = declarativeText2.json; sourceTree = "<group>"; };
+		7C42EAF524228FC9007334A0 /* FormInputHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormInputHidden.swift; sourceTree = "<group>"; };
+		7C42EAF724228FE3007334A0 /* FormInputComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormInputComponent.swift; sourceTree = "<group>"; };
 		7CDF84712416ADCB00234F40 /* UnitValueExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitValueExtensionTests.swift; sourceTree = "<group>"; };
 		7CDF84842416DABC00234F40 /* FlexBuildersExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexBuildersExtensionTests.swift; sourceTree = "<group>"; };
 		7CDF84882416DD8D00234F40 /* test_FlexBuilder.1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test_FlexBuilder.1.txt; sourceTree = "<group>"; };
@@ -830,6 +834,8 @@
 			isa = PBXGroup;
 			children = (
 				E5223782237C3CAF00E555BB /* FormInput.swift */,
+				7C42EAF724228FE3007334A0 /* FormInputComponent.swift */,
+				7C42EAF524228FC9007334A0 /* FormInputHidden.swift */,
 				A068234F2384328700CEE57A /* InputValue.swift */,
 				C829CEEE23B1947E001B7225 /* Tests */,
 			);
@@ -1547,6 +1553,7 @@
 				983E8C8C2396C7FA0018C6CA /* TabViewUIComponent.swift in Sources */,
 				E522376C237C3C1300E555BB /* Button.swift in Sources */,
 				5754314B23F2080B00EF0E5A /* DoublyLinkedList.swift in Sources */,
+				7C42EAF824228FE3007334A0 /* FormInputComponent.swift in Sources */,
 				C89FFA942412EA4200C1B53B /* UrlBuilder.swift in Sources */,
 				A0EF0AA62386BD960019BE83 /* FormValidation.swift in Sources */,
 				988F81FB23E24ECA008562BE /* UIView+Subviews.swift in Sources */,
@@ -1612,6 +1619,7 @@
 				A0F45496237AF16800B146A1 /* BeagleContext.swift in Sources */,
 				C86F894623B28FAE00287D5D /* Image.swift in Sources */,
 				9327116523F1C9D100778B56 /* Widget.swift in Sources */,
+				7C42EAF624228FC9007334A0 /* FormInputHidden.swift in Sources */,
 				E7523AF8239E8F2100F93385 /* BeagleDependencies.swift in Sources */,
 				E522377E237C3C5500E555BB /* Container.swift in Sources */,
 				E5223781237C3C9A00E555BB /* Form.swift in Sources */,
