@@ -34,3 +34,5 @@
       - style: Optional<String>.none
       - text: "Aenean ultricies, turpis sit amet vulputate ultrices, felis sem pulvinar diam, at tincidunt enim felis vitae ante. Nulla hendrerit convallis arcu, at convallis nisl sodales nec. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi nibh elit, hendrerit ac lorem in, tincidunt hendrerit nisi. Cras ornare lacus orci, sit amet rhoncus eros tincidunt aliquet. Sed accumsan sem non viverra varius. Aliquam tempor lectus nulla, at euismod ligula finibus at. Pellentesque sagittis, justo ut ornare commodo, turpis nibh pretium risus, at porttitor ex velit sit amet leo. Mauris id mattis neque. Vivamus convallis fringilla dui, eget tempus nisi suscipit vel. Nullam bibendum tincidunt libero eget egestas. Phasellus tempus ornare ante sed posuere. Quisque fringilla nisl nec massa luctus, eget venenatis ante viverra. Nulla in fringilla ipsum.\n---"
       - textColor: Optional<String>.none
+  - scrollBarEnabled: Optional<Bool>.none
+  - scrollDirection: Optional<ScrollAxis>.none

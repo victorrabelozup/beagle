@@ -21,35 +21,61 @@ public struct ScrollView: AppearanceComponent {
     // MARK: - Public Properties
     
     public let children: [ServerDrivenComponent]
+    public let scrollDirection: ScrollAxis?
+    public let scrollBarEnabled: Bool?
     public let appearance: Appearance?
     
     // MARK: - Initialization
 
     public init(
         children: [ServerDrivenComponent],
+        scrollDirection: ScrollAxis? = nil,
+        scrollBarEnabled: Bool? = nil,
         appearance: Appearance? = nil
     ) {
         self.children = children
+        self.scrollDirection = scrollDirection
+        self.scrollBarEnabled = scrollBarEnabled
         self.appearance = appearance
     }
     
 }
 
+public enum ScrollAxis: String, Decodable {
+    case vertical = "VERTICAL"
+    case horizontal = "HORIZONTAL"
+    
+    var flexDirection: Flex.FlexDirection {
+        switch self {
+        case .vertical:
+            return .column
+        case .horizontal:
+            return .row
+        }
+    }
+}
+
 extension ScrollView: Decodable {
     enum CodingKeys: String, CodingKey {
         case children
+        case scrollDirection
+        case scrollBarEnabled
         case appearance
     }
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.children = try container.decode(forKey: .children)
+        self.scrollDirection = try container.decodeIfPresent(ScrollAxis.self, forKey: .scrollDirection)
+        self.scrollBarEnabled = try container.decodeIfPresent(Bool.self, forKey: .scrollBarEnabled)
         self.appearance = try container.decodeIfPresent(Appearance.self, forKey: .appearance)
     }
 }
 
 extension ScrollView: Renderable {
     public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
+        let scrollBarEnabled = self.scrollBarEnabled ?? true
+        let flexDirection = (scrollDirection ?? .vertical).flexDirection
         let scrollView = BeagleContainerScrollView()
         let contentView = UIView()
         
@@ -60,9 +86,12 @@ extension ScrollView: Renderable {
         }
         scrollView.addSubview(contentView)
         scrollView.beagle.setup(appearance: appearance)
-        scrollView.flex.setup(Flex(grow: 1))
+        scrollView.flex.setup(Flex(flexDirection: flexDirection, grow: 1))
+        scrollView.showsVerticalScrollIndicator = scrollBarEnabled
+        scrollView.showsHorizontalScrollIndicator = scrollBarEnabled
+        scrollView.yoga.overflow = .scroll
         
-        let flexContent = Flex(grow: 0, shrink: 0)
+        let flexContent = Flex(flexDirection: flexDirection, grow: 0, shrink: 0)
         contentView.flex.setup(flexContent)
         
         return scrollView

@@ -41,7 +41,7 @@ struct MainScreen: DeeplinkScreen {
                 ),
                 Button(
                     text: "Form & Lazy Component",
-                    action: Navigate.openDeepLink(.init(path: .LAZY_COMPONENTS_ENDPOINT ))
+                    action: Navigate.openDeepLink(.init(path: .LAZY_COMPONENTS_ENDPOINT))
                 ),
                 Button(
                     text: "Page View",

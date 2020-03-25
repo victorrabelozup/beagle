@@ -84,4 +84,10 @@ final class ScrollViewTests: XCTestCase {
         assertSnapshotImage(screen)
     }
 
+    func test_renderHorizontalScrollView() throws {
+        let component: ScrollView = try componentFromJsonFile(fileName: "HorizontalScrollView")
+        let screen = Beagle.screen(.declarative(component.toScreen()))
+        assertSnapshotImage(screen, size: CGSize(width: 300, height: 30))
+    }
+
 }
