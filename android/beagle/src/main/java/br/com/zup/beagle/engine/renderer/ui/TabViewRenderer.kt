@@ -102,6 +102,7 @@ internal class TabViewRenderer(
                 )
             )
             background = it.getDrawable(R.styleable.BeagleTabBarStyle_tabBackground)
+            tabIconTint = it.getColorStateList(R.styleable.BeagleTabBarStyle_tabIconTint)
             it.recycle()
         }
     }

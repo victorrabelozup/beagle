@@ -129,6 +129,7 @@ class TabViewRendererTest : BaseTest() {
         verify { tabLayout.setTabTextColors(any(), any()) }
         verify { tabLayout.setSelectedTabIndicatorColor(any()) }
         verify { tabLayout.background = any() }
+        verify { tabLayout.tabIconTint = any() }
         verify { tabLayout.addTab(any()) }
     }
 }
