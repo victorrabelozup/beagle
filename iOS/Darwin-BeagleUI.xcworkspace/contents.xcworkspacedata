@@ -3,6 +3,13 @@
    version = "1.0">
    <Group
       location = "container:"
+      name = "Preview">
+      <FileRef
+         location = "group:Sources/Preview/BeaglePreview.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:"
       name = "Libraries">
       <FileRef
          location = "group:Libraries/YogaKit/YogaKit.xcodeproj">
