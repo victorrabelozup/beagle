@@ -18,6 +18,7 @@ package br.com.zup.beagle.view
 
 import android.content.Context
 import android.view.View
+import android.webkit.WebView
 import android.widget.FrameLayout
 import android.widget.HorizontalScrollView
 import android.widget.ScrollView
@@ -65,4 +66,6 @@ internal class ViewFactory {
     fun makePageIndicator(context: Context) = BeaglePageIndicatorView(context)
 
     fun makeTabLayout(context: Context) = BeagleTabLayout(context)
+
+    fun makeWebView(context: Context) = WebView(context)
 }

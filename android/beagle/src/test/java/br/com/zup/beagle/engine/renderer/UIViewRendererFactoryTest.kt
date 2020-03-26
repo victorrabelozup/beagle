@@ -25,6 +25,7 @@ import br.com.zup.beagle.engine.renderer.ui.ListViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.ViewConvertableRenderer
 import br.com.zup.beagle.engine.renderer.ui.NetworkImageViewRenderer
 import br.com.zup.beagle.engine.renderer.ui.TextViewRenderer
+import br.com.zup.beagle.engine.renderer.ui.WebViewRenderer
 import br.com.zup.beagle.widget.core.ComposeComponent
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.widget.core.WidgetView
@@ -35,6 +36,7 @@ import br.com.zup.beagle.widget.ui.Image
 import br.com.zup.beagle.widget.ui.ListView
 import br.com.zup.beagle.widget.ui.NetworkImage
 import br.com.zup.beagle.widget.ui.Text
+import br.com.zup.beagle.widget.ui.WebView
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
@@ -168,5 +170,17 @@ class UIViewRendererFactoryTest {
 
         // Then
         assertTrue(actual is FormSubmitViewRenderer)
+    }
+
+    @Test
+    fun make_should_return_WebViewRenderer_when_component_is_a_WebView() {
+        // Given
+        val component = mockk<WebView>()
+
+        // When
+        val actual = viewRendererFactory.make(component)
+
+        // Then
+        assertTrue(actual is WebViewRenderer)
     }
 }

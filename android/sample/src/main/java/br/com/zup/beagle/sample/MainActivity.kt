@@ -36,6 +36,7 @@ import br.com.zup.beagle.sample.fragment.ScrollViewFragment
 import br.com.zup.beagle.sample.fragment.StackViewFragment
 import br.com.zup.beagle.sample.fragment.TabViewFragment
 import br.com.zup.beagle.sample.fragment.TextFieldFragment
+import br.com.zup.beagle.sample.fragment.WebViewFragment
 import br.com.zup.beagle.utils.dp
 import br.com.zup.beagle.view.BeagleActivity
 import br.com.zup.beagle.view.ScreenRequest
@@ -87,6 +88,7 @@ class MainActivity : AppCompatActivity() {
                 ScreenRequest("http://www.mocky.io/v2/5e4d46952d0000339ec0dce1")
             ))
             R.id.listView -> goToFragment(ListViewFragment.newInstance())
+            R.id.webView -> goToFragment(WebViewFragment.newInstance())
             R.id.composeComponent -> goToFragment(ComposeComponentFragment.newInstance())
             R.id.sampleBff -> startActivity(BeagleActivity.newIntent(
                 this,
