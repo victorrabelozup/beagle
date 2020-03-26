@@ -1,4 +1,4 @@
-▿ 22 key/value pairs
+▿ 23 key/value pairs
   ▿ (2 elements)
     - key: "beagle:action:customaction"
     - value: CustomAction
@@ -65,3 +65,6 @@
   ▿ (2 elements)
     - key: "beagle:component:touchable"
     - value: Touchable
+  ▿ (2 elements)
+    - key: "beagle:component:webview"
+    - value: WebView

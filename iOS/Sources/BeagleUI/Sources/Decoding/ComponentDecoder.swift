@@ -136,6 +136,7 @@ final class ComponentDecoder: ComponentDecoding {
         registerComponent(TabView.self, key: key(name: "TabView", content: .component, namespace: .beagle))
         registerComponent(PageIndicator.self, key: key(name: "PageIndicator", content: .component, namespace: .beagle))
         registerComponent(LazyComponent.self, key: key(name: "LazyComponent", content: .component, namespace: .beagle))
+        registerComponent(WebView.self, key: key(name: "WebView", content: .component, namespace: .beagle))
     }
         
     private func registerComponent<T: Decodable>(_ type: T.Type, key: String) {

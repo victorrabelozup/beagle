@@ -64,6 +64,10 @@ struct MainScreen: DeeplinkScreen {
                     action: Navigate.openDeepLink(.init(path: .CUSTOM_COMPONENT_ENDPOINT))
                 ),
                 Button(
+                    text: "Web View",
+                    action: Navigate.openDeepLink(.init(path: .WEB_VIEW_ENDPOINT))
+                ),
+                Button(
                     text: "Sample BFF",
                     action: Navigate.addView(.init(path: .COMPONENTS_ENDPOINT))
                 )
