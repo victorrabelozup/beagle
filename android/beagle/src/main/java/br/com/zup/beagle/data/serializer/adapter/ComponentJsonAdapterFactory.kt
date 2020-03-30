@@ -22,6 +22,7 @@ import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.widget.Widget
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
+import br.com.zup.beagle.widget.form.FormInputHidden
 import br.com.zup.beagle.widget.form.FormSubmit
 import br.com.zup.beagle.widget.form.InputWidget
 import br.com.zup.beagle.widget.layout.Container
@@ -99,6 +100,7 @@ internal object ComponentJsonAdapterFactory {
             .withSubtype(TabView::class.java, createNamespaceFor<TabView>())
             .withSubtype(PageIndicator::class.java, createNamespaceFor<PageIndicator>())
             .withSubtype(FormInput::class.java, createNamespaceFor<FormInput>())
+            .withSubtype(FormInputHidden::class.java, createNamespaceFor<FormInputHidden>())
             .withSubtype(FormSubmit::class.java, createNamespaceFor<FormSubmit>())
             .withSubtype(UndefinedWidget::class.java, createNamespaceFor<UndefinedWidget>())
     }

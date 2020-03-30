@@ -122,7 +122,7 @@ internal class FormViewRenderer(
             formsValue[formInputHidden.name] = formInputHidden.value
         }
 
-        if (formsValue.size == formInputs.size) {
+        if (formsValue.size == (formInputs.size + formInputHiddenList.size)) {
             formSubmitView?.hideKeyboard()
             formSubmitter.submitForm(component, formsValue) {
                 (context as AppCompatActivity).runOnUiThread {

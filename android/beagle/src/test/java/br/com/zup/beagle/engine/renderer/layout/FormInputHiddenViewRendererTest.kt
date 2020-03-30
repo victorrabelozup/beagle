@@ -22,7 +22,7 @@ import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.extensions.once
-import br.com.zup.beagle.view.BeagleView
+import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.form.FormInputHidden
 import io.mockk.every
@@ -46,7 +46,7 @@ class FormInputHiddenViewRendererTest : BaseTest() {
     @MockK
     private lateinit var rootView: RootView
     @RelaxedMockK
-    private lateinit var view: BeagleView
+    private lateinit var view: BeagleFlexView
     @RelaxedMockK
     private lateinit var context: Context
 
@@ -54,7 +54,7 @@ class FormInputHiddenViewRendererTest : BaseTest() {
         super.setUp()
 
         every { viewRendererFactory.make(any()).build(any()) } returns view
-        every { viewFactory.makeBeagleView(any()) } returns view
+        every { viewFactory.makeBeagleFlexView(any(), any()) } returns view
         every { rootView.getContext() } returns context
     }
 
