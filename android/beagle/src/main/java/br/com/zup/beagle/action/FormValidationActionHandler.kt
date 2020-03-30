@@ -19,6 +19,7 @@ package br.com.zup.beagle.action
 import android.content.Context
 import br.com.zup.beagle.logger.BeagleLogger
 import br.com.zup.beagle.widget.form.FormInput
+import br.com.zup.beagle.widget.form.InputWidget
 
 internal class FormValidationActionHandler : ActionHandler<FormValidation> {
 
@@ -29,8 +30,9 @@ internal class FormValidationActionHandler : ActionHandler<FormValidation> {
             val formInput = formInputs?.find {
                 it.name == error.inputName
             }
+            val childInputWidget : InputWidget? = formInput?.child
 
-            formInput?.child?.onErrorMessage(error.message) ?:
+            childInputWidget?.onErrorMessage(error.message) ?:
                 BeagleLogger.warning("Input name with name ${error.inputName} does " +
                         "not implement ValidationErrorListener")
         }
