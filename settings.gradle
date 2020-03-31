@@ -29,3 +29,4 @@ include Modules.beagleDeclarative
 include Modules.beagleCoreDeclarative
 include Modules.beagleBackendDeclarative
 include Modules.beagleBackendSpringStarter
+include Modules.beagleBackendMicronautStarter

@@ -17,7 +17,10 @@
 package br.com.zup.beagle.spring.configuration
 
 import br.com.zup.beagle.cache.BeagleCacheHandler
-import br.com.zup.beagle.spring.filter.CacheFilter
+import br.com.zup.beagle.constants.BEAGLE_CACHE_ENABLED
+import br.com.zup.beagle.constants.BEAGLE_CACHE_EXCLUDES
+import br.com.zup.beagle.constants.BEAGLE_CACHE_INCLUDES
+import br.com.zup.beagle.spring.filter.BeagleCacheFilter
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.boot.autoconfigure.AutoConfigurations
@@ -34,23 +37,21 @@ internal class BeagleCacheAutoConfigurationTest {
     private val contextRunner by lazy {
         ApplicationContextRunner().withConfiguration(AutoConfigurations.of(BeagleCacheAutoConfiguration::class.java))
     }
-    private val cacheEnabledProperty = "beagle.cache.enabled"
-    private val includesProperty = "beagle.cache.endpoint.include"
-    private val excludesProperty = "beagle.cache.endpoint.exclude"
+
     private val cacheFilterBeanName = "beagleCachingFilter"
     private val includesField = "includeEndpointList"
     private val excludesField = "excludeEndpointList"
 
     @Test
     fun beagleCacheAutoConfiguration_must_not_be_present_with_enabled_property_false() {
-        this.contextRunner.withPropertyValues("${this.cacheEnabledProperty}=false").run {
+        this.contextRunner.withPropertyValues("$BEAGLE_CACHE_ENABLED=false").run {
             validateCacheFilter(it, true)
         }
     }
 
     @Test
     fun beagleCacheAutoConfiguration_must_be_present_with_enabled_property_true_or_absent() {
-        this.contextRunner.withPropertyValues("${this.cacheEnabledProperty}=true").run {
+        this.contextRunner.withPropertyValues("$BEAGLE_CACHE_ENABLED=true").run {
             validateCacheFilter(it)
         }
         this.contextRunner.run {
@@ -60,7 +61,7 @@ internal class BeagleCacheAutoConfigurationTest {
 
     @Test
     fun beagleCacheAutoConfiguration_must_not_be_present_without_required_classes() {
-        val filterClassLoader = FilteredClassLoader(CacheFilter::class.java, BeagleCacheHandler::class.java)
+        val filterClassLoader = FilteredClassLoader(BeagleCacheFilter::class.java, BeagleCacheHandler::class.java)
         this.contextRunner.withClassLoader(filterClassLoader).run {
             validateCacheFilter(it, true)
         }
@@ -77,7 +78,7 @@ internal class BeagleCacheAutoConfigurationTest {
 
     @Test
     fun cacheFilter_must_be_present_and_match_url_pattern() {
-        this.contextRunner.withPropertyValues("${this.includesProperty}=/te*").run {
+        this.contextRunner.withPropertyValues("$BEAGLE_CACHE_INCLUDES=/te*").run {
             validateCacheFilter(it)
             val cacheFilter = (it.getBean(this.cacheFilterBeanName) as FilterRegistrationBean<*>)
             assertTrue {
@@ -90,7 +91,7 @@ internal class BeagleCacheAutoConfigurationTest {
 
     @Test
     fun beagleCacheAutoConfiguration_must_fail_to_start_with_invalid_excludes_property() {
-        this.contextRunner.withPropertyValues("${this.excludesProperty}=?").run {
+        this.contextRunner.withPropertyValues("$BEAGLE_CACHE_EXCLUDES=?").run {
             assertThat(it).hasFailed()
         }
     }
@@ -102,7 +103,7 @@ internal class BeagleCacheAutoConfigurationTest {
         } else {
             val cacheFilter = (context.getBean(this.cacheFilterBeanName) as FilterRegistrationBean<*>).filter
             assertThat(context).hasSingleBean(BeagleCacheAutoConfiguration::class.java)
-            assertTrue(cacheFilter is CacheFilter)
+            assertTrue(cacheFilter is BeagleCacheFilter)
         }
     }
 }

@@ -40,6 +40,7 @@ object Modules {
     const val beagleBackendDeclarative = ":backend:backend-declarative"
     const val beagleBackendFramework = ":backend:framework"
     const val beagleBackendSpringStarter = ":backend:starters:beagle-spring-starter"
+    const val beagleBackendMicronautStarter = ":backend:starters:beagle-micronaut-starter"
 }
 
 object Releases {
@@ -183,10 +184,7 @@ object SpringLibraries {
 }
 
 object MicronautLibraries {
-    const val bom = "io.micronaut:micronaut-bom:${Versions.micronaut}"
     const val runtime = "io.micronaut:micronaut-runtime:${Versions.micronaut}"
-    const val httpClient = "io.micronaut:micronaut-http-client:${Versions.micronaut}"
     const val netty = "io.micronaut:micronaut-http-server-netty:${Versions.micronaut}"
     const val injectJava = "io.micronaut:micronaut-inject-java:${Versions.micronaut}"
-    const val validation = "io.micronaut:micronaut-validation:${Versions.micronaut}"
 }

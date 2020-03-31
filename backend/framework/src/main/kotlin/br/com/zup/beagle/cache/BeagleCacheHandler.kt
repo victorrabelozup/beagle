@@ -38,22 +38,16 @@ class BeagleCacheHandler(excludeEndpoints: List<String> = listOf()) {
     internal fun isHashUpToDate(endpoint: String, hash: String) = this.endpointHashMap[endpoint] == hash
 
     internal fun generateAndAddHash(endpoint: String, json: String) =
-        this.endpointHashMap.computeIfAbsent(endpoint) { generateHashForJson(json) }
+        this.endpointHashMap.computeIfAbsent(endpoint) { this.generateHashForJson(json) }
 
-    fun handleCache(endpoint: String, receivedHash: String?, restHandler: RestCacheHandler) =
+    fun <T> handleCache(endpoint: String, receivedHash: String?, initialResponse: T, restHandler: RestCacheHandler<T>) =
         when {
-            isEndpointInExcludedPatterns(endpoint) -> {
-                restHandler.callController()
-                restHandler.finalizeResponse()
-            }
-            receivedHash != null && isHashUpToDate(endpoint, receivedHash) -> {
-                restHandler.addStatusToResponse(HttpURLConnection.HTTP_NOT_MODIFIED)
-                restHandler.addHashHeaderToResponse(receivedHash)
-            }
-            else -> {
-                restHandler.callController()
-                restHandler.addHashHeaderToResponse(generateAndAddHash(endpoint, restHandler.getResponseBody()))
-                restHandler.finalizeResponse()
-            }
+            this.isEndpointInExcludedPatterns(endpoint) -> restHandler.callController(initialResponse)
+            receivedHash != null && this.isHashUpToDate(endpoint, receivedHash) ->
+                restHandler.addStatus(initialResponse, HttpURLConnection.HTTP_NOT_MODIFIED)
+                    .let { restHandler.addHashHeader(it, receivedHash) }
+            else ->
+                restHandler.callController(initialResponse)
+                    .let { restHandler.addHashHeader(it, this.generateAndAddHash(endpoint, restHandler.getBody(it))) }
         }
 }

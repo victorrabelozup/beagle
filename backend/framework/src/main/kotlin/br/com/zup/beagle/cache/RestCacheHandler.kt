@@ -16,14 +16,12 @@
 
 package br.com.zup.beagle.cache
 
-interface RestCacheHandler {
-    fun callController()
+interface RestCacheHandler<T> {
+    fun callController(response: T): T
 
-    fun finalizeResponse() = Unit
+    fun addHashHeader(response: T, header: String): T
 
-    fun addHashHeaderToResponse(header: String)
+    fun addStatus(response: T, status: Int): T
 
-    fun addStatusToResponse(status: Int)
-
-    fun getResponseBody(): String
+    fun getBody(response: T): String
 }

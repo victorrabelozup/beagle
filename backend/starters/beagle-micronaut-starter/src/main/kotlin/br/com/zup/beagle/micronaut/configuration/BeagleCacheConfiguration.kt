@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package br.com.zup.beagle.spring.configuration
+package br.com.zup.beagle.micronaut.configuration
 
-import br.com.zup.beagle.serialization.jackson.BeagleModule
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
+import br.com.zup.beagle.cache.BeagleCacheHandler
+import br.com.zup.beagle.constants.BEAGLE_CACHE_EXCLUDES
+import io.micronaut.context.annotation.Factory
+import io.micronaut.context.annotation.Value
+import javax.inject.Singleton
 
-@Configuration
-@ConditionalOnClass(BeagleModule::class)
-open class BeagleJacksonAutoConfiguration {
-    @Bean
-    open fun beagleModule() = BeagleModule
+@Factory
+class BeagleCacheConfiguration(@Value("\${$BEAGLE_CACHE_EXCLUDES:}") private val excludeEndpoints: List<String>) {
+    @Singleton
+    fun beagleCacheHandler() = BeagleCacheHandler(this.excludeEndpoints)
 }

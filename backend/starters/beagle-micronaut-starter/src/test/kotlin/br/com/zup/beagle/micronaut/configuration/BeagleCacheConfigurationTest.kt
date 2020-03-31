@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package br.com.zup.beagle.spring.configuration
+package br.com.zup.beagle.micronaut.configuration
 
-import br.com.zup.beagle.serialization.jackson.BeagleModule
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
+import br.com.zup.beagle.cache.BeagleCacheHandler
+import br.com.zup.beagle.micronaut.containsBeans
+import io.micronaut.context.ApplicationContext
+import org.junit.jupiter.api.Test
+import kotlin.test.assertTrue
 
-@Configuration
-@ConditionalOnClass(BeagleModule::class)
-open class BeagleJacksonAutoConfiguration {
-    @Bean
-    open fun beagleModule() = BeagleModule
+internal class BeagleCacheConfigurationTest {
+    @Test
+    fun test_BeagleCacheConfiguration_sets_up_BeagleCacheHandler_in_context() {
+        assertTrue { ApplicationContext.run().containsBeans(BeagleCacheConfiguration::class, BeagleCacheHandler::class) }
+    }
 }

@@ -21,7 +21,6 @@ import br.com.zup.beagle.widget.ui.Button
 import com.google.common.hash.Hashing
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verifyAll
 import io.mockk.verifySequence
 import org.junit.jupiter.api.Test
 import java.net.HttpURLConnection
@@ -89,10 +88,7 @@ internal class BeagleCacheHandlerTest {
     @Test
     fun test_handleCache_when_excluded_endpoint() {
         testHandleCache(endpoint = IMAGE_ENDPOINT) {
-            verifySequence {
-                it.callController()
-                it.finalizeResponse()
-            }
+            verifySequence { it.callController(Response.START) }
         }
     }
 
@@ -114,9 +110,9 @@ internal class BeagleCacheHandlerTest {
     @Test
     fun test_handleCache_when_previous_cache_is_up_to_date() {
         testHandleCache(endpoint = HOME_ENDPOINT, hash = BUTTON_JSON_HASH, prepare = this::preparePreviousCache) {
-            verifyAll {
-                it.addHashHeaderToResponse(BUTTON_JSON_HASH)
-                it.addStatusToResponse(HttpURLConnection.HTTP_NOT_MODIFIED)
+            verifySequence {
+                it.addStatus(Response.START, HttpURLConnection.HTTP_NOT_MODIFIED)
+                it.addHashHeader(Response.STATUS, BUTTON_JSON_HASH)
             }
         }
     }
@@ -125,16 +121,19 @@ internal class BeagleCacheHandlerTest {
         endpoint: String,
         hash: String? = null,
         prepare: (BeagleCacheHandler) -> Unit = {},
-        verify: (RestCacheHandler) -> Unit
+        verify: (RestCacheHandler<Response>) -> Unit
     ) {
-        val restCache = mockk<RestCacheHandler>(relaxUnitFun = true)
+        val restCache = mockk<RestCacheHandler<Response>>()
         val cacheHandler = BeagleCacheHandler(excludedEndpoints)
         val response = BUTTON_JSON
 
         prepare(cacheHandler)
-        every { restCache.getResponseBody() } returns response
+        every { restCache.callController(any()) } returns Response.CONTROLLER
+        every { restCache.addHashHeader(any(), any()) } returns Response.HEADER
+        every { restCache.addStatus(any(), any()) } returns Response.STATUS
+        every { restCache.getBody(any()) } returns response
 
-        cacheHandler.handleCache(endpoint, hash, restCache)
+        cacheHandler.handleCache(endpoint, hash, Response.START, restCache)
 
         verify(restCache)
     }
@@ -143,12 +142,13 @@ internal class BeagleCacheHandlerTest {
         handler.generateAndAddHash(HOME_ENDPOINT, BUTTON_JSON)
     }
 
-    private fun verifySentResponse(handler: RestCacheHandler) {
+    private fun verifySentResponse(handler: RestCacheHandler<Response>) {
         verifySequence {
-            handler.callController()
-            handler.getResponseBody()
-            handler.addHashHeaderToResponse(BUTTON_JSON_HASH)
-            handler.finalizeResponse()
+            handler.callController(Response.START)
+            handler.getBody(Response.CONTROLLER)
+            handler.addHashHeader(Response.CONTROLLER, BUTTON_JSON_HASH)
         }
     }
+
+    private enum class Response { START, CONTROLLER, HEADER, STATUS }
 }

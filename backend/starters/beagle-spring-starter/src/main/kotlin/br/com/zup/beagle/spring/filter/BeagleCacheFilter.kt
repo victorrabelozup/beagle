@@ -26,35 +26,26 @@ import javax.servlet.ServletResponse
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class CacheFilter(excludeEndpointList: List<String>) : Filter {
-    private val cacheHandler = BeagleCacheHandler(excludeEndpointList)
-
+class BeagleCacheFilter(private val cacheHandler: BeagleCacheHandler) : Filter {
     override fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) {
         val currentRequest = request as HttpServletRequest
-        val responseWrapper = ContentCachingResponseWrapper(response as HttpServletResponse)
 
         this.cacheHandler.handleCache(
             endpoint = currentRequest.requestURI,
             receivedHash = currentRequest.getHeader(BeagleCacheHandler.CACHE_HEADER),
-            restHandler = object : RestCacheHandler {
-                override fun callController() {
-                    chain.doFilter(currentRequest, responseWrapper)
-                }
+            initialResponse = ContentCachingResponseWrapper(response as HttpServletResponse),
+            restHandler = object : RestCacheHandler<ContentCachingResponseWrapper> {
+                override fun callController(response: ContentCachingResponseWrapper) =
+                    response.also { chain.doFilter(request, it) }
 
-                override fun finalizeResponse() {
-                    responseWrapper.copyBodyToResponse()
-                }
+                override fun addHashHeader(response: ContentCachingResponseWrapper, header: String) =
+                    response.also { it.setHeader(BeagleCacheHandler.CACHE_HEADER, header) }
 
-                override fun addHashHeaderToResponse(header: String) {
-                    responseWrapper.setHeader(BeagleCacheHandler.CACHE_HEADER, header)
-                }
+                override fun addStatus(response: ContentCachingResponseWrapper, status: Int) =
+                    response.also { it.status = status }
 
-                override fun addStatusToResponse(status: Int) {
-                    responseWrapper.status = status
-                }
-
-                override fun getResponseBody() = String(responseWrapper.contentAsByteArray)
+                override fun getBody(response: ContentCachingResponseWrapper) = String(response.contentAsByteArray)
             }
-        )
+        ).copyBodyToResponse()
     }
 }
