@@ -46,22 +46,15 @@
         </activity>
         <activity
             android:name=".activities.NavigationBarActivity"
-
             android:theme="@style/AppTheme.NoToolbar" />
         <activity
             android:name=".activities.SampleServerDrivenActivity"
-
             android:theme="@style/AppTheme.NoToolbar"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:exported="true"
             android:name="br.com.zup.beagle.preview.PreviewActivity"
-            android:theme="@style/AppTheme.NoToolbar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoToolbar"/>
     </application>
 
 </manifest>
