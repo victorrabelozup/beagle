@@ -14,7 +14,6 @@
 // limitations under the License.
 //
 
-
 import Foundation
 
 /// Action to represent a native alert

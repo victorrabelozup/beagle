@@ -88,7 +88,6 @@ struct Style {
     }
     
     static func tabView() -> (UIView?) -> Void {
-        
-        return BeagleStyle.tabView(backgroundColor: .clear, indicatorColor: UIColor(hex: .ORANGE_COLOR), selectedTextColor: UIColor(hex: .ORANGE_COLOR), unselectedTextColor: UIColor(hex: .DARK_GRAY_COLOR))
+        return BeagleStyle.tabView(backgroundColor: .clear, indicatorColor: UIColor(hex: .ORANGE_COLOR), selectedTextColor: UIColor(hex: .ORANGE_COLOR), unselectedTextColor: UIColor(hex: .DARK_GRAY_COLOR), selectedIconColor: UIColor(hex: .ORANGE_COLOR), unselectedIconColor: UIColor(hex: .DARK_GRAY_COLOR))
     }
 }

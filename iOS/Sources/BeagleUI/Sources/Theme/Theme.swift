@@ -73,13 +73,15 @@ public struct BeagleStyle {
         return { $0?.setTitleColor(color, for: .normal) }
     }
     
-    public static func tabView(backgroundColor: UIColor, indicatorColor: UIColor, selectedTextColor: UIColor, unselectedTextColor: UIColor) -> (UIView?) -> Void {
+    public static func tabView(backgroundColor: UIColor, indicatorColor: UIColor, selectedTextColor: UIColor? = nil, unselectedTextColor: UIColor? = nil, selectedIconColor: UIColor? = nil, unselectedIconColor: UIColor? = nil) -> (UIView?) -> Void {
         return {
             guard let tabView = $0 as? TabViewUIComponent else { return }
             tabView.collectionView.backgroundColor = backgroundColor
             tabView.containerIndicator.indicatorView.backgroundColor = indicatorColor
             tabView.model.selectedTextColor = selectedTextColor
             tabView.model.unselectedTextColor = unselectedTextColor
+            tabView.model.selectedIconColor = selectedIconColor
+            tabView.model.unselectedIconColor = unselectedIconColor
         }
     }
 

@@ -20,6 +20,8 @@ extension TabBarCollectionViewCell {
     struct Model {
         var selectedTextColor: UIColor?
         var unselectedTextColor: UIColor?
+        var selectedIconColor: UIColor?
+        var unselectedIconColor: UIColor?
     }
 }
 
@@ -54,15 +56,24 @@ final class TabBarCollectionViewCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            if let selectedTextColor = model?.selectedTextColor,
-                let unselectedTextColor = model?.unselectedTextColor {
-                title.textColor = isSelected ? selectedTextColor : unselectedTextColor
-            } else {
+            guard let model = model else { return }
+            switch styleVerification(model: model) {
+            case .both:
+                title.textColor = isSelected ? model.selectedTextColor : model.unselectedTextColor
+                icon.tintColor = isSelected ? model.selectedIconColor : model.unselectedIconColor
+            case .icon:
+                icon.tintColor = isSelected ? model.selectedIconColor : model.unselectedIconColor
                 title.textColor = isSelected ? .black : .gray
+            case .text:
+                title.textColor = isSelected ? model.selectedTextColor : model.unselectedTextColor
+                icon.tintColor = isSelected ? .black : .gray
+            default:
+                title.textColor = isSelected ? .black : .gray
+                icon.tintColor = isSelected ? .black : .gray
             }
         }
     }
-
+    
     // MARK: - Initialization
     
     override init(frame: CGRect) {
@@ -84,14 +95,14 @@ final class TabBarCollectionViewCell: UICollectionViewCell {
         case let .both(iconName, text):
             icon.heightAnchor.constraint(lessThanOrEqualToConstant: 30).isActive = true
             title.text = text
-            icon.image = UIImage(named: iconName)
+            icon.image = model?.selectedIconColor == nil ? UIImage(named: iconName): UIImage(named: iconName)?.withRenderingMode(.alwaysTemplate)
             title.font = UIFont.systemFont(ofSize: 13)
             icon.isHidden = false
             title.isHidden = false
 
         case .icon(let iconName):
             icon.widthAnchor.constraint(lessThanOrEqualToConstant: 35).isActive = true
-            icon.image = UIImage(named: iconName)
+            icon.image = model?.selectedIconColor == nil ? UIImage(named: iconName): UIImage(named: iconName)?.withRenderingMode(.alwaysTemplate)
             icon.isHidden = false
             title.isHidden = true
 
@@ -120,10 +131,33 @@ final class TabBarCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    private func styleVerification(model: Model) -> StyleEnabler {
+        switch (model.selectedIconColor, model.unselectedIconColor, model.selectedTextColor, model.unselectedTextColor) {
+        case let (selectedIconColor?, unselectedIconColor?, selectedTextColor?, unselectedTextColor?):
+            return .both(iconSelectedColor: selectedIconColor,
+                         iconUnselectedColor: unselectedIconColor,
+                         textSelectedColor: selectedTextColor,
+                         textUnselectedColor: unselectedTextColor)
+        case let (selectedIconColor?, unselectedIconColor?, _, _):
+            return .icon(selectedIconColor, unselectedIconColor)
+        case let (_, _, selectedTextColor?, unselectedTextColor?):
+            return .text(selectedTextColor, unselectedTextColor)
+        default:
+            return .none
+        }
+    }
+    
     private enum ContentEnabler {
         case icon(String)
         case title(String)
         case both(icon: String, title: String)
+        case none
+    }
+    
+    private enum StyleEnabler {
+        case icon(UIColor, UIColor)
+        case text(UIColor, UIColor)
+        case both(iconSelectedColor: UIColor, iconUnselectedColor: UIColor, textSelectedColor: UIColor, textUnselectedColor: UIColor)
         case none
     }
 }

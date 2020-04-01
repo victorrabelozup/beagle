@@ -101,4 +101,19 @@ final class ThemeTests: XCTestCase {
         XCTAssertEqual(font, view.font)
         XCTAssertEqual(color, view.textColor)
     }
+    
+    func test_tabViewWithStyle_shouldReturnAFunctionThatChangesTabViewStyle() {
+        // Given
+        let backgroundColor: UIColor = .clear
+        let indicatorColor: UIColor = .blue
+        let tabItem = TabItem(title: "Tab 1", content: Text("Tab content"))
+        let view = TabViewUIComponent(model: TabViewUIComponent.Model(tabIndex: 0, tabViewItems: [tabItem, tabItem]))
+        
+        // When
+        view |> BeagleStyle.tabView(backgroundColor: backgroundColor, indicatorColor: indicatorColor)
+        
+        //Then
+        XCTAssertEqual(backgroundColor, view.collectionView.backgroundColor)
+        XCTAssertEqual(indicatorColor, view.containerIndicator.indicatorView.backgroundColor)
+    }
 }

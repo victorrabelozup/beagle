@@ -22,12 +22,16 @@ extension TabViewUIComponent {
         var tabViewItems: [TabItem]
         var selectedTextColor: UIColor?
         var unselectedTextColor: UIColor?
+        var selectedIconColor: UIColor?
+        var unselectedIconColor: UIColor?
         
-        init(tabIndex: Int, tabViewItems: [TabItem], selectedTextColor: UIColor? = nil, unselectedTextColor: UIColor? = nil) {
+        init(tabIndex: Int, tabViewItems: [TabItem], selectedTextColor: UIColor? = nil, unselectedTextColor: UIColor? = nil, selectedIconColor: UIColor? = nil, unselectedIconColor: UIColor? = nil) {
             self.tabIndex = tabIndex
             self.tabViewItems = tabViewItems
             self.selectedTextColor = selectedTextColor
             self.unselectedTextColor = unselectedTextColor
+            self.selectedIconColor = selectedIconColor
+            self.unselectedIconColor = unselectedIconColor
         }
     }
 }
@@ -149,7 +153,7 @@ extension TabViewUIComponent: UICollectionViewDataSource, UICollectionViewDelega
         guard let cell = collectionView.dequeueReusableCell(
         withReuseIdentifier: TabBarCollectionViewCell.className,
         for: indexPath) as? TabBarCollectionViewCell else { return UICollectionViewCell() }
-        cell.model = TabBarCollectionViewCell.Model(selectedTextColor: model.selectedTextColor, unselectedTextColor: model.unselectedTextColor)
+        cell.model = TabBarCollectionViewCell.Model(selectedTextColor: model.selectedTextColor, unselectedTextColor: model.unselectedTextColor, selectedIconColor: model.selectedIconColor, unselectedIconColor: model.unselectedIconColor)
         
         if indexPath.row == 0 {
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
