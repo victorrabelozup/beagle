@@ -17,6 +17,7 @@
       - userInfo: 0 key/value pairs
   - deepLinkHandler: Optional<DeepLinkScreenManaging>.none
   - flex: (Function)
+  - logger: BeagleLogger
   ▿ navigation: BeagleNavigator
     ▿ dependencies: InnerDependenciesResolver
       - container: (Function)

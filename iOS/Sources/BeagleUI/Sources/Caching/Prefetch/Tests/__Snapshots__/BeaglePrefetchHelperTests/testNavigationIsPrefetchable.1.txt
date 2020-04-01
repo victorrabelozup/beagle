@@ -1,24 +1,24 @@
-  openDeepLink(BeagleUI.Navigate.DeepLinkNavigation(path: "path", data: nil, component: nil))  -->  NULL 
+  Navigate.openDeepLink(DeepLinkNavigation(path: "path", data: nil, component: nil))  -->  NULL 
 
-  openDeepLink(BeagleUI.Navigate.DeepLinkNavigation(path: "path", data: Optional(["data": "value"]), component: nil))  -->  NULL 
+  Navigate.openDeepLink(DeepLinkNavigation(path: "path", data: Optional(["data": "value"]), component: nil))  -->  NULL 
 
-  openDeepLink(BeagleUI.Navigate.DeepLinkNavigation(path: "path", data: nil, component: Optional(BeagleUI.Container(children: [], id: nil, flex: nil, appearance: nil, accessibility: nil))))  -->  NULL 
+  Navigate.openDeepLink(DeepLinkNavigation(path: "path", data: nil, component: Optional(BeagleUI.Container(children: [], id: nil, flex: nil, appearance: nil, accessibility: nil))))  -->  NULL 
 
-  addView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true, fallback: nil))  -->  NewPath(path: "path", shouldPrefetch: true, fallback: nil) 
+  Navigate.addView(NewPath(path: "path", shouldPrefetch: true, fallback: nil))  -->  NewPath(path: "path", shouldPrefetch: true, fallback: nil) 
 
-  addView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false, fallback: nil))  -->  NewPath(path: "path", shouldPrefetch: false, fallback: nil) 
+  Navigate.addView(NewPath(path: "path", shouldPrefetch: false, fallback: nil))  -->  NewPath(path: "path", shouldPrefetch: false, fallback: nil) 
 
-  presentView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true, fallback: nil))  -->  NewPath(path: "path", shouldPrefetch: true, fallback: nil) 
+  Navigate.presentView(NewPath(path: "path", shouldPrefetch: true, fallback: nil))  -->  NewPath(path: "path", shouldPrefetch: true, fallback: nil) 
 
-  presentView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false, fallback: nil))  -->  NewPath(path: "path", shouldPrefetch: false, fallback: nil) 
+  Navigate.presentView(NewPath(path: "path", shouldPrefetch: false, fallback: nil))  -->  NewPath(path: "path", shouldPrefetch: false, fallback: nil) 
 
-  swapView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: true, fallback: nil))  -->  NewPath(path: "path", shouldPrefetch: true, fallback: nil) 
+  Navigate.swapView(NewPath(path: "path", shouldPrefetch: true, fallback: nil))  -->  NewPath(path: "path", shouldPrefetch: true, fallback: nil) 
 
-  swapView(BeagleUI.Navigate.NewPath(path: "path", shouldPrefetch: false, fallback: nil))  -->  NewPath(path: "path", shouldPrefetch: false, fallback: nil) 
+  Navigate.swapView(NewPath(path: "path", shouldPrefetch: false, fallback: nil))  -->  NewPath(path: "path", shouldPrefetch: false, fallback: nil) 
 
-  popView  -->  NULL 
+  Navigate.popView  -->  NULL 
 
-  popToView("path")  -->  NULL 
+  Navigate.popToView(path)  -->  NULL 
 
-  finishView  -->  NULL 
+  Navigate.finishView  -->  NULL 
 

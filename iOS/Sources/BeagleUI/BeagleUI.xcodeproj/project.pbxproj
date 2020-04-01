@@ -111,6 +111,9 @@
 		C829CF2A23B197FB001B7225 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B2840236350B9005E2E6D /* NetworkTests.swift */; };
 		C8311A6924099A8700E95C15 /* WidgetStateObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8311A6824099A8700E95C15 /* WidgetStateObservable.swift */; };
 		C831ADF82385A282009D72D9 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C831ADF72385A282009D72D9 /* PageView.swift */; };
+		C85688BB2433C4A400DD8B60 /* BeagleMessageLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C03910724250772003E6FCD /* BeagleMessageLogs.swift */; };
+		C85688BC2433C4A800DD8B60 /* BeagleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C03910924250FC6003E6FCD /* BeagleLogger.swift */; };
+		C85688BF2433C55C00DD8B60 /* BeagleLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C896F8862433AF1300245968 /* BeagleLoggerTests.swift */; };
 		C85D9BA1238701E60075B6C0 /* PageViewUIComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85D9BA0238701E60075B6C0 /* PageViewUIComponent.swift */; };
 		C85D9BA8238858B40075B6C0 /* PageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85D9BA7238858B40075B6C0 /* PageViewTests.swift */; };
 		C85D9BAA2388596A0075B6C0 /* PageViewWith3Pages.json in Resources */ = {isa = PBXBuildFile; fileRef = C85D9BA92388596A0075B6C0 /* PageViewWith3Pages.json */; };
@@ -132,6 +135,7 @@
 		C86F894623B28FAE00287D5D /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86F893523B28FAE00287D5D /* Image.swift */; };
 		C86F894923B28FAE00287D5D /* ImageContentMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86F893823B28FAE00287D5D /* ImageContentMode.swift */; };
 		C86F894B23B28FC100287D5D /* ImageContentModeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86F893323B28FAE00287D5D /* ImageContentModeTests.swift */; };
+		C896F8852433A65E00245968 /* NavigateEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C896F8842433A65E00245968 /* NavigateEntity.swift */; };
 		C8983D9C23984C820080D439 /* PageViewWithCustomIndicator.json in Resources */ = {isa = PBXBuildFile; fileRef = C8983D9B23984C820080D439 /* PageViewWithCustomIndicator.json */; };
 		C898E23A23BFD6DA004FEDB6 /* TextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C898E23323BFD6DA004FEDB6 /* TextTests.swift */; };
 		C898E23B23BFD6DA004FEDB6 /* TextComponent.json in Resources */ = {isa = PBXBuildFile; fileRef = C898E23523BFD6DA004FEDB6 /* TextComponent.json */; };
@@ -224,6 +228,8 @@
 		5754314F23F2108400EF0E5A /* LRUCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRUCacheTests.swift; sourceTree = "<group>"; };
 		76191AA7241ABD8800A04C29 /* declarativeText1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = declarativeText1.json; sourceTree = "<group>"; };
 		76BB91A3241AC6A000B9A239 /* declarativeText2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = declarativeText2.json; sourceTree = "<group>"; };
+		7C03910724250772003E6FCD /* BeagleMessageLogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleMessageLogs.swift; sourceTree = "<group>"; };
+		7C03910924250FC6003E6FCD /* BeagleLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleLogger.swift; sourceTree = "<group>"; };
 		7C42EAF524228FC9007334A0 /* FormInputHidden.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormInputHidden.swift; sourceTree = "<group>"; };
 		7C42EAF724228FE3007334A0 /* FormInputComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormInputComponent.swift; sourceTree = "<group>"; };
 		7CDF84712416ADCB00234F40 /* UnitValueExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitValueExtensionTests.swift; sourceTree = "<group>"; };
@@ -329,6 +335,7 @@
 		C829CF1323B196C1001B7225 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		C8311A6824099A8700E95C15 /* WidgetStateObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetStateObservable.swift; sourceTree = "<group>"; };
 		C831ADF72385A282009D72D9 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PageView.swift; path = Sources/Components/Page/PageView.swift; sourceTree = SOURCE_ROOT; };
+		C85688C12433F87400DD8B60 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		C85D9BA0238701E60075B6C0 /* PageViewUIComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewUIComponent.swift; sourceTree = "<group>"; };
 		C85D9BA7238858B40075B6C0 /* PageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewTests.swift; sourceTree = "<group>"; };
 		C85D9BA92388596A0075B6C0 /* PageViewWith3Pages.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PageViewWith3Pages.json; sourceTree = "<group>"; };
@@ -354,6 +361,8 @@
 		C86F893823B28FAE00287D5D /* ImageContentMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageContentMode.swift; sourceTree = "<group>"; };
 		C870142F23FC60F00032D437 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		C870143023FC654F0032D437 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
+		C896F8842433A65E00245968 /* NavigateEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigateEntity.swift; sourceTree = "<group>"; };
+		C896F8862433AF1300245968 /* BeagleLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleLoggerTests.swift; sourceTree = "<group>"; };
 		C897404E2388692900A78AE0 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		C8983D9A23984A4E0080D439 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		C8983D9B23984C820080D439 /* PageViewWithCustomIndicator.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PageViewWithCustomIndicator.json; sourceTree = "<group>"; };
@@ -481,6 +490,16 @@
 				76BB91A3241AC6A000B9A239 /* declarativeText2.json */,
 			);
 			path = Json;
+			sourceTree = "<group>";
+		};
+		7C0391062425075D003E6FCD /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				C85688C02433F85A00DD8B60 /* Tests */,
+				7C03910724250772003E6FCD /* BeagleMessageLogs.swift */,
+				7C03910924250FC6003E6FCD /* BeagleLogger.swift */,
+			);
+			path = Logger;
 			sourceTree = "<group>";
 		};
 		7CDF84862416DD8D00234F40 /* __Snapshots__ */ = {
@@ -625,14 +644,15 @@
 				A06823512384863400CEE57A /* Action */,
 				93B9741D23A282C700B0D1CF /* Caching */,
 				E5A6F4A62358A530008906F8 /* Common */,
+				C87622D823903FD1006F1361 /* Components */,
 				C829CF0F23B1962A001B7225 /* Context */,
 				E5CE41A02331D41500295277 /* Decoding */,
+				7C0391062425075D003E6FCD /* Logger */,
 				C829CE9A23B12D4E001B7225 /* Navigation */,
 				93B9741C23A281B200B0D1CF /* Networking */,
 				C829CEA723B15C59001B7225 /* Renderer */,
 				E5CB5D892354E481009783A7 /* Setup */,
 				931B6E0C2374A9BB00DE73FD /* Theme */,
-				C87622D823903FD1006F1361 /* Components */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -834,6 +854,7 @@
 				E7716B9C2375E9FF006E26F2 /* BeagleDeepLinkHandler.swift */,
 				A0F45497237B87E800B146A1 /* BeagleNavigator.swift */,
 				E522376E237C3C3B00E555BB /* Navigate.swift */,
+				C896F8842433A65E00245968 /* NavigateEntity.swift */,
 				C829CEBB23B165D8001B7225 /* Tests */,
 			);
 			path = Navigation;
@@ -1115,6 +1136,15 @@
 				98FC964A23EA516A00A8CEC8 /* Tests */,
 			);
 			path = Observable;
+			sourceTree = "<group>";
+		};
+		C85688C02433F85A00DD8B60 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C85688C12433F87400DD8B60 /* __Snapshots__ */,
+				C896F8862433AF1300245968 /* BeagleLoggerTests.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		C85D9B9D238701450075B6C0 /* Page */ = {
@@ -1631,6 +1661,7 @@
 				E5A6F4CB2358F621008906F8 /* Network.swift in Sources */,
 				E52236C423745CBB00E555BB /* NSObjectExtension.swift in Sources */,
 				A068234C238430C500CEE57A /* ValidatorProvider.swift in Sources */,
+				C85688BB2433C4A400DD8B60 /* BeagleMessageLogs.swift in Sources */,
 				E52236CF2374885600E555BB /* CollectionExtension.swift in Sources */,
 				A0451C6623BA6A5600F77398 /* UIView+Appearance.swift in Sources */,
 				E5223776237C3C4800E555BB /* UnitValue.swift in Sources */,
@@ -1642,6 +1673,7 @@
 				A0451C6123BA3AC300F77398 /* Appearance.swift in Sources */,
 				E73107BC23A971B000188B3D /* BeaglePrefetchHelper.swift in Sources */,
 				C831ADF82385A282009D72D9 /* PageView.swift in Sources */,
+				C85688BC2433C4A800DD8B60 /* BeagleLogger.swift in Sources */,
 				E531D6B42359FE19007EEBA7 /* UIView+AutoLayout.swift in Sources */,
 				A06823502384328700CEE57A /* InputValue.swift in Sources */,
 				98E08D1A242289C100FBD21B /* WebView.swift in Sources */,
@@ -1669,6 +1701,7 @@
 				A0EF0AA42386B7A20019BE83 /* ActionExecutor.swift in Sources */,
 				7CFE3A732412E3430087F664 /* EdgeValue.swift in Sources */,
 				E5CB5DAB23550012009783A7 /* BeagleSetup.swift in Sources */,
+				C896F8852433A65E00245968 /* NavigateEntity.swift in Sources */,
 				C862314923CDFBF7003CFB0B /* Result.swift in Sources */,
 				9397F5D12357615F00054D42 /* YogaTranslator.swift in Sources */,
 				A0F45496237AF16800B146A1 /* BeagleContext.swift in Sources */,
@@ -1753,6 +1786,7 @@
 				E5A77643237DC17D002F5515 /* FormSubmitTests.swift in Sources */,
 				E516E61023705BED006620B1 /* BeagleViewBuilderTests.swift in Sources */,
 				C89E816D239827D500C2D0ED /* CustomPageIndicatorTest.swift in Sources */,
+				C85688BF2433C55C00DD8B60 /* BeagleLoggerTests.swift in Sources */,
 				C829CF0523B195A0001B7225 /* FlexViewConfiguratorTests.swift in Sources */,
 				A0F454832379701800B146A1 /* TouchableTests.swift in Sources */,
 				93932F4823E1C37800F41905 /* SpacerTests.swift in Sources */,

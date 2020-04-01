@@ -101,11 +101,18 @@ extension BeagleScreenViewController: BeagleContext {
             return
         }
         let inputViews = sender.formInputViews()
+        if inputViews.isEmpty {
+            dependencies.logger.log(Log.form(.inputsNotFound(path: sender.form.path)))
+        }
         let values = inputViews.reduce(into: [:]) {
             self.validate(formInput: $1, formSubmit: sender.formSubmitView, validatorHandler: sender.validator, result: &$0)
         }
-        guard inputViews.count == values.count else { return }
+        guard inputViews.count == values.count else {
+            dependencies.logger.log(Log.form(.divergentInputViewAndValueCount(path: sender.form.path)))
+            return
+        }
         makeRequest(sender: sender, values: values)
+        
     }
 
     private func makeRequest(sender: SubmitFormGestureRecognizer, values: [String: String]) {
@@ -126,6 +133,7 @@ extension BeagleScreenViewController: BeagleContext {
             self.view.hideLoading()
             self.handleFormResult(result, sender: sender)
         }
+        dependencies.logger.log(Log.form(.submittedValues(values: values)))
     }
     
     private func validate(formInput view: UIView, formSubmit submitView: UIView?, validatorHandler: ValidatorProvider?, result: inout [String: String]) {
@@ -139,6 +147,9 @@ extension BeagleScreenViewController: BeagleContext {
                 let validatorName = defaultFormInput.validator,
                 let handler = validatorHandler,
                 let validator = handler.getValidator(name: validatorName) else {
+                    if let validatorName = defaultFormInput.validator {
+                        dependencies.logger.log(Log.form(.validatorNotFound(named: validatorName)))
+                    }
                     return
             }
             let value = inputValue.getValue()
@@ -146,8 +157,11 @@ extension BeagleScreenViewController: BeagleContext {
                         
             if isValid {
                 result[formInput.name] = String(describing: value)
-            } else if let errorListener = inputValue as? ValidationErrorListener {
-                errorListener.onValidationError(message: defaultFormInput.errorMessage)
+            } else {
+                if let errorListener = inputValue as? ValidationErrorListener {
+                    errorListener.onValidationError(message: defaultFormInput.errorMessage)
+                }
+                dependencies.logger.log(Log.form(.validationInputNotValid(inputName: defaultFormInput.name)))
             }
         } else {
             result[formInput.name] = String(describing: inputValue.getValue())

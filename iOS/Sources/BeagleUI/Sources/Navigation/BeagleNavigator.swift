@@ -26,7 +26,9 @@ public protocol DependencyNavigation {
 
 class BeagleNavigator: BeagleNavigation {
     
-    typealias Dependencies = DependencyDeepLinkScreenManaging & DependencyUrlBuilder
+    typealias Dependencies = DependencyDeepLinkScreenManaging
+        & DependencyUrlBuilder
+        & DependencyLogger
     
     private let dependencies: Dependencies
     
@@ -37,6 +39,7 @@ class BeagleNavigator: BeagleNavigation {
     // MARK: - Navigate
     
     func navigate(action: Navigate, context: BeagleContext, animated: Bool = false) {
+        dependencies.logger.log(Log.navigation(.didReceiveAction(action)))
         let source = context.screenController
         switch action {
         case .openDeepLink(let deepLink):
@@ -84,6 +87,7 @@ class BeagleNavigator: BeagleNavigation {
             let viewController = try deepLinkHandler.getNativeScreen(with: path, data: data)
             source.navigationController?.pushViewController(viewController, animated: animated)
         } catch {
+            dependencies.logger.log(Log.navigation(.didNotFindDeepLinkScreen(path: path)))
             return
         }
     }
@@ -99,6 +103,9 @@ class BeagleNavigator: BeagleNavigation {
     }
     
     private func popView(source: UIViewController, animated: Bool) {
+        if source.navigationController?.viewControllers.count == 1 {
+            dependencies.logger.log(Log.navigation(.errorTryingToPopScreenOnNavigatorWithJustOneScreen))
+        }
         source.navigationController?.popViewController(animated: animated)
     }
     
@@ -111,7 +118,10 @@ class BeagleNavigator: BeagleNavigation {
             isViewController($0, identifiedBy: identifier)
         }
 
-        guard let target = last else { return }
+        guard let target = last else {
+            dependencies.logger.log(Log.navigation(.cantPopToAlreadyCurrentScreen(identifier: identifier)))
+            return
+        }
 
         source.navigationController?.popToViewController(target, animated: animated)
     }

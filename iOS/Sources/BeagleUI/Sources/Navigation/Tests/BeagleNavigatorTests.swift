@@ -225,7 +225,7 @@ final class BeagleNavigatorTests: XCTestCase {
     func test_openDeepLink_shouldPushANativeScreenWithData() {
         // Given
         let deepLinkSpy = DeepLinkHandlerSpy()
-        let dependencies = NavigatorDependencies(deepLinkHandler: deepLinkSpy, urlBuilder: UrlBuilder())
+        let dependencies = NavigatorDependencies(deepLinkHandler: deepLinkSpy)
         let sut = BeagleNavigator(dependencies: dependencies)
         
         let data = ["uma": "uma", "dois": "duas"]
@@ -287,4 +287,15 @@ class BeagleContextDummy: BeagleContext {
 struct NavigatorDependencies: BeagleNavigator.Dependencies {
     var deepLinkHandler: DeepLinkScreenManaging?
     var urlBuilder: UrlBuilderProtocol = UrlBuilder()
+    var logger: BeagleLoggerType = BeagleLoggerDumb()
+
+    init(
+        deepLinkHandler: DeepLinkScreenManaging? = nil,
+        urlBuilder: UrlBuilderProtocol = UrlBuilder(),
+        logger: BeagleLoggerType = BeagleLoggerDumb()
+    ) {
+        self.deepLinkHandler = deepLinkHandler
+        self.urlBuilder = urlBuilder
+        self.logger = logger
+    }
 }

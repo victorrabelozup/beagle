@@ -25,6 +25,7 @@ public protocol BeagleDependenciesProtocol: DependencyActionExecutor,
     DependencyNavigation,
     DependencyViewConfigurator,
     DependencyFlexConfigurator,
+    DependencyLogger,
     RenderableDependencies {
 }
 
@@ -43,6 +44,7 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
     public var navigation: BeagleNavigation
     public var preFetchHelper: BeaglePrefetchHelping
     public var cacheManager: CacheManagerProtocol
+    public var logger: BeagleLoggerType
 
     public var flex: (UIView) -> FlexViewConfiguratorProtocol = {
         return FlexViewConfigurator(view: $0)
@@ -70,6 +72,7 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
         self.actionExecutor = ActionExecuting(dependencies: resolver)
         self.network = NetworkDefault(dependencies: resolver)
         self.cacheManager = CacheManager(maximumScreensCapacity: 30)
+        self.logger = BeagleLogger()
 
         self.resolver.container = { [unowned self] in self }
     }
@@ -82,7 +85,8 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
 private class InnerDependenciesResolver: NetworkDefault.Dependencies,
     ActionExecuting.Dependencies,
     DependencyDeepLinkScreenManaging,
-    DependencyUrlBuilder {
+    DependencyUrlBuilder,
+    DependencyLogger {
 
     var container: () -> BeagleDependenciesProtocol = {
         fatalError("You should set this closure to get the dependencies container")
@@ -94,4 +98,5 @@ private class InnerDependenciesResolver: NetworkDefault.Dependencies,
     var navigation: BeagleNavigation { return container().navigation }
     var deepLinkHandler: DeepLinkScreenManaging? { return container().deepLinkHandler }
     var customActionHandler: CustomActionHandler? { return container().customActionHandler }
+    var logger: BeagleLoggerType { return container().logger }
 }

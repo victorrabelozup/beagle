@@ -12,6 +12,7 @@
   ▿ deepLinkHandler: Optional<DeepLinkScreenManaging>
     - some: DeepLinkHandlerDummy
   - flex: (Function)
+  - logger: BeagleLoggerDumb
   ▿ navigation: BeagleNavigator
     ▿ dependencies: InnerDependenciesResolver
       - container: (Function)

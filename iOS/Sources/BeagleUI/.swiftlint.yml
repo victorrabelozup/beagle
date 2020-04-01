@@ -54,7 +54,6 @@ opt_in_rules:
   - return_arrow_whitespace
   - single_test_class
   - sorted_first_last
-  - switch_case_on_newline
   - trailing_closure
   - unneeded_parentheses_in_closure_argument
   - untyped_error_in_catch

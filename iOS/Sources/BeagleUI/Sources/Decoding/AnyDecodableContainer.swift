@@ -35,6 +35,7 @@ extension AnyDecodableContainer: Decodable {
         if let decodable = Beagle.dependencies.decoder.decodableType(forType: type.lowercased()) {
             content = try decodable.init(from: decoder)
         } else {
+            Beagle.dependencies.logger.log(Log.decode(.decodingError(type: type)))
             content = UnknownComponent(type: type)
         }
     }

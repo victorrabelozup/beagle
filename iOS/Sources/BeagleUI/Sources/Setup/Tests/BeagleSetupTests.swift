@@ -39,6 +39,7 @@ final class BeagleSetupTests: XCTestCase {
         dep.flex = { _ in return FlexViewConfiguratorDummy() }
         dep.decoder = ComponentDecodingDummy()
         dep.cacheManager = CacheManager(maximumScreensCapacity: 10)
+        dep.logger = BeagleLoggerDumb()
         
         assertSnapshot(matching: dep, as: .dump)
     }
@@ -104,6 +105,7 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
     var appBundle: Bundle
     var cacheManager: CacheManagerProtocol
     var decoder: ComponentDecoding
+    var logger: BeagleLoggerType
 
     init(
         actionExecutor: ActionExecutor = ActionExecutorDummy(),
@@ -114,7 +116,8 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
         preFetchHelper: BeaglePrefetchHelping = BeaglePreFetchHelper(),
         appBundle: Bundle = Bundle(for: ImageTests.self),
         cacheManager: CacheManagerProtocol = CacheManager(maximumScreensCapacity: 30),
-        decoder: ComponentDecoding = ComponentDecodingDummy()
+        decoder: ComponentDecoding = ComponentDecodingDummy(),
+        logger: BeagleLoggerType = BeagleLoggerDumb()
     ) {
         self.actionExecutor = actionExecutor
         self.flex = flex
@@ -125,6 +128,7 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
         self.appBundle = appBundle
         self.cacheManager = cacheManager
         self.decoder = decoder
+        self.logger = logger
     }
 }
 

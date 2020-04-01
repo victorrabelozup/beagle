@@ -49,9 +49,11 @@ extension Form {
 extension Form: Renderable {
     public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let childView = child.toView(context: context, dependencies: dependencies)
+        var hasFormSubmit = false
         
         func registerFormSubmit(view: UIView) {
             if view.beagleFormElement is FormSubmit {
+                hasFormSubmit = true
                 context.register(form: self, formView: childView, submitView: view, validatorHandler: dependencies.validatorProvider)
             }
             for subview in view.subviews {
@@ -60,6 +62,9 @@ extension Form: Renderable {
         }
         
         registerFormSubmit(view: childView)
+        if !hasFormSubmit {
+            dependencies.logger.log(Log.form(.submitNotFound(path: path)))
+        }
         return childView
     }    
 }

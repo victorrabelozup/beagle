@@ -37,7 +37,8 @@ public protocol RenderableDependencies: DependencyTheme,
     DependencyPreFetching,
     DependencyAppBundle,
     DependencyNetwork,
-    DependencyCacheManager {
+    DependencyCacheManager,
+    DependencyLogger {
 }
 
 extension ServerDrivenComponent {

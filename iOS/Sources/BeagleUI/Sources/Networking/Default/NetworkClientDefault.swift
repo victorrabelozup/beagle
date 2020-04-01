@@ -18,7 +18,7 @@ import Foundation
 
 public class NetworkClientDefault: NetworkClient {
 
-    public typealias Dependencies = DependencyUrlBuilder
+    public typealias Dependencies = DependencyUrlBuilder & DependencyLogger
 
     public var session = URLSession.shared
     let dependencies: Dependencies
@@ -60,6 +60,7 @@ public class NetworkClientDefault: NetworkClient {
         completion: @escaping RequestCompletion
     ) -> RequestToken? {
         guard let url = dependencies.urlBuilder.build(path: request.url) else {
+            dependencies.logger.log(Log.network(.couldNotBuildUrl(url: request.url)))
             completion(.failure(.init(error: ClientError.invalidUrl)))
             return nil
         }
@@ -69,12 +70,16 @@ public class NetworkClientDefault: NetworkClient {
             requestType: request.type,
             additionalData: request.additionalData as? HttpAdditionalData
         )
+                
+        let urlRequest = build.toUrlRequest()
 
-        let task = session.dataTask(with: build.toUrlRequest()) { [weak self] data, response, error in
+        let task = session.dataTask(with: urlRequest) { [weak self] data, response, error in
             guard let self = self else { return }
+            self.dependencies.logger.log(Log.network(.httpResponse(response: .init(data: data, reponse: response))))
             self.saveDataToCacheIfNeeded(data: data, request: request)
             completion(self.handleResponse(data: data, response: response, error: error))
         }
+        dependencies.logger.log(Log.network(.httpRequest(request: .init(url: urlRequest))))
 
         task.resume()
         return task

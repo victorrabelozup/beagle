@@ -1,0 +1,38 @@
+couldNotBuildUrl(url: "asdfa/asdfa/asdf")
+
+***HTTP REQUEST***:
+Url=test
+HttpMethod=GET
+Headers=[:]
+Body=
+
+***HTTP RESPONSE***
+StatusCode=0
+Body=
+Headers=[:]
+
+Number of formInput and values are different. You probably declared formInputs with same name on form myPath.
+
+Are you missing to declare your FormInput widgets for form of path myPath ?
+
+Are you missing to declare your Submit widgets for form of path myPath ?
+
+submittedValues(values: ["key1": "value1"])
+
+validationInputNotValid(inputName: "inputName")
+
+validatorNotFound(named: "validatorName")
+
+cantPopToAlreadyCurrentScreen(identifier: "identifier")
+
+didReceiveAction(Navigate.addView(NewPath(path: "testando", shouldPrefetch: false, fallback: nil)))
+
+didReceiveAction(Navigate.openDeepLink(DeepLinkNavigation(path: "path", data: nil, component: nil)))
+
+didReceiveAction(Navigate.openDeepLink(DeepLinkNavigation(path: "path", data: Optional(["key": "value"]), component: Optional(BeagleUI.Text(text: "bla", style: nil, alignment: nil, textColor: nil, id: nil, appearance: nil, flex: nil, accessibility: nil)))))
+
+errorTryingToPopScreenOnNavigatorWithJustOneScreen
+
+Beagle Navigator couldn't find a deep link screen with path: myPath. Check your deep link handler, or the path in the navigate action
+
+Could not decode: error. Check if it that type has been registered.
