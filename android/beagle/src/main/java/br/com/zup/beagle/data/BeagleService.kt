@@ -26,7 +26,8 @@ import br.com.zup.beagle.networking.HttpClient
 import br.com.zup.beagle.networking.HttpClientFactory
 import br.com.zup.beagle.networking.HttpMethod
 import br.com.zup.beagle.networking.RequestData
-import br.com.zup.beagle.networking.UrlFormatter
+import br.com.zup.beagle.networking.urlbuilder.UrlBuilder
+import br.com.zup.beagle.networking.urlbuilder.UrlBuilderFactory
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.utils.CoroutineDispatchers
 import br.com.zup.beagle.view.ScreenMethod
@@ -40,7 +41,7 @@ import kotlin.coroutines.resumeWithException
 internal class BeagleService(
     private val serializer: BeagleSerializer = BeagleSerializer(),
     private val httpClient: HttpClient = HttpClientFactory().make(),
-    private val urlFormatter: UrlFormatter = UrlFormatter()
+    private val urlBuilder: UrlBuilder = UrlBuilderFactory().make()
 ) {
 
     @Throws(BeagleException::class)
@@ -85,7 +86,7 @@ internal class BeagleService(
     }
 
     private fun makeRequestData(screenRequest: ScreenRequest): RequestData {
-        val newUrl = urlFormatter.format(BeagleEnvironment.beagleSdk.config.baseUrl, screenRequest.url)
+        val newUrl = urlBuilder.format(BeagleEnvironment.beagleSdk.config.baseUrl, screenRequest.url)
         val request = RequestData(
             uri = URI(newUrl),
             method = generateRequestDataMethod(screenRequest.method),

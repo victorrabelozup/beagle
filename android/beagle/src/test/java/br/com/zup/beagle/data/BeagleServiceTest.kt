@@ -27,21 +27,14 @@ import br.com.zup.beagle.logger.BeagleMessageLogs
 import br.com.zup.beagle.networking.HttpClient
 import br.com.zup.beagle.networking.RequestCall
 import br.com.zup.beagle.networking.ResponseData
-import br.com.zup.beagle.networking.UrlFormatter
+import br.com.zup.beagle.networking.urlbuilder.UrlBuilder
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.testutil.CoroutineTestRule
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.view.ScreenRequest
-import io.mockk.MockKAnnotations
-import io.mockk.Runs
-import io.mockk.every
+import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import io.mockk.just
-import io.mockk.mockkObject
-import io.mockk.slot
-import io.mockk.unmockkObject
-import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
@@ -67,7 +60,7 @@ class BeagleServiceTest {
     @MockK
     private lateinit var serializer: BeagleSerializer
     @MockK
-    private lateinit var urlFormatter: UrlFormatter
+    private lateinit var urlBuilder: UrlBuilder
     @MockK
     private lateinit var httpClient: HttpClient
     @MockK
@@ -103,7 +96,7 @@ class BeagleServiceTest {
         every { BeagleCacheHelper.cache(any(), any()) } returns component
         every { serializer.deserializeAction(any()) } returns action
         every { responseData.data } returns JSON_SUCCESS.toByteArray()
-        every { urlFormatter.format(any(), any()) } returns URL
+        every { urlBuilder.format(any(), any()) } returns URL
     }
 
     @After

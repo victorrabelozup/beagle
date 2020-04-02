@@ -23,6 +23,7 @@ import br.com.zup.beagle.compiler.util.CUSTOM_ACTION_HANDLER
 import br.com.zup.beagle.compiler.util.DEEP_LINK_HANDLER
 import br.com.zup.beagle.compiler.util.DESIGN_SYSTEM
 import br.com.zup.beagle.compiler.util.HTTP_CLIENT_HANDLER
+import br.com.zup.beagle.compiler.util.URL_BUILDER_HANDLER
 import br.com.zup.beagle.compiler.util.VALIDATOR_HANDLER
 import br.com.zup.beagle.compiler.util.error
 import br.com.zup.beagle.compiler.util.extendsFromClass
@@ -42,60 +43,58 @@ class BeagleSetupPropertyGenerator(private val processingEnv: ProcessingEnvironm
         basePackageName: String,
         roundEnvironment: RoundEnvironment
     ): List<PropertySpec> {
-        var deepLinkHandler: TypeElement? = null
-        var customActionHandler: TypeElement? = null
-        var httpClient: TypeElement? = null
-        var designSystem: TypeElement? = null
-        var beagleActivity: TypeElement? = null
+        var propertySpecifications: PropertySpecifications? = PropertySpecifications()
 
         roundEnvironment.getElementsAnnotatedWith(BeagleComponent::class.java).forEach { element ->
             val typeElement = element as TypeElement
 
             when {
                 typeElement.implementsInterface(CUSTOM_ACTION_HANDLER.toString()) -> {
-                    if (customActionHandler == null) {
-                        customActionHandler = typeElement
+                    if (propertySpecifications?.customActionHandler == null) {
+                        propertySpecifications?.customActionHandler = typeElement
                     } else {
-                        processingEnv.messager.error(typeElement, "CustomActionHandler already " +
-                                "defined, remove one implementation from the application.")
+                        logImplementationErrorMessage(typeElement, "CustomActionHandler")
                     }
                 }
                 typeElement.implementsInterface(DEEP_LINK_HANDLER.toString()) -> {
-                    if (deepLinkHandler == null) {
-                        deepLinkHandler = typeElement
+                    if (propertySpecifications?.deepLinkHandler == null) {
+                        propertySpecifications?.deepLinkHandler = typeElement
                     } else {
-                        processingEnv.messager.error(typeElement, "DeepLinkHandler already " +
-                                "defined, remove one implementation from the application.")
+                        logImplementationErrorMessage(typeElement, "DeepLinkHandler")
                     }
                 }
                 typeElement.implementsInterface(HTTP_CLIENT_HANDLER.toString()) -> {
-                    if (httpClient == null) {
-                        httpClient = typeElement
+                    if (propertySpecifications?.httpClient == null) {
+                        propertySpecifications?.httpClient = typeElement
                     } else {
-                        processingEnv.messager.error(typeElement, "HttpClient already defined, " +
-                                "remove one implementation from the application.")
+                        logImplementationErrorMessage(typeElement, "HttpClient")
                     }
                 }
                 typeElement.implementsInterface(DESIGN_SYSTEM.toString()) -> {
-                    if (designSystem == null) {
-                        designSystem = typeElement
+                    if (propertySpecifications?.designSystem == null) {
+                        propertySpecifications?.designSystem = typeElement
                     } else {
-                        processingEnv.messager.error(typeElement, "DesignSystem already defined, " +
-                                "remove one implementation from the application.")
+                        logImplementationErrorMessage(typeElement, "DesignSystem")
                     }
                 }
                 typeElement.extendsFromClass(BEAGLE_ACTIVITY.toString()) -> {
-                    if (beagleActivity == null) {
-                        beagleActivity = typeElement
+                    if (propertySpecifications?.beagleActivity == null) {
+                        propertySpecifications?.beagleActivity = typeElement
                     } else {
-                        processingEnv.messager.error(typeElement, "BeagleActivity already defined, " +
-                            "remove one implementation from the application.")
+                        logImplementationErrorMessage(typeElement, "BeagleActivity")
+                    }
+                }
+                typeElement.implementsInterface(URL_BUILDER_HANDLER.toString()) -> {
+                    if (propertySpecifications?.urlBuilder == null) {
+                        propertySpecifications?.urlBuilder = typeElement
+                    } else {
+                        logImplementationErrorMessage(typeElement, "UrlBuilder")
                     }
                 }
             }
         }
 
-        if (beagleActivity == null) {
+        if (propertySpecifications?.beagleActivity == null) {
             processingEnv.messager.error("BeagleActivity were not defined. " +
                 "Did you miss to create your own Activity that extends from BeagleActivity " +
                 "and annotate it with @BeagleComponent?")
@@ -103,40 +102,37 @@ class BeagleSetupPropertyGenerator(private val processingEnv: ProcessingEnvironm
 
         return createListOfPropertySpec(
             basePackageName,
-            deepLinkHandler,
-            customActionHandler,
-            httpClient,
-            designSystem,
-            beagleActivity
+            propertySpecifications
         )
+    }
+
+    private fun logImplementationErrorMessage(typeElement: TypeElement, element: String) {
+        processingEnv.messager.error(typeElement, "${element} already " +
+            "defined, remove one implementation from the application.")
     }
 
     private fun createListOfPropertySpec(
         basePackageName: String,
-        deepLinkHandler: TypeElement?,
-        customActionHandler: TypeElement?,
-        httpClient: TypeElement?,
-        designSystem: TypeElement?,
-        beagleActivity: TypeElement?
+        propertySpecifications: PropertySpecifications?
     ): List<PropertySpec> {
         return listOf(
             implementProperty(
-                customActionHandler.toString(),
+                propertySpecifications?.customActionHandler.toString(),
                 "customActionHandler",
                 CUSTOM_ACTION_HANDLER
             ),
             implementProperty(
-                deepLinkHandler.toString(),
+                propertySpecifications?.deepLinkHandler.toString(),
                 "deepLinkHandler",
                 DEEP_LINK_HANDLER
             ),
             implementProperty(
-                httpClient.toString(),
+                propertySpecifications?.httpClient.toString(),
                 "httpClient",
                 HTTP_CLIENT_HANDLER
             ),
             implementProperty(
-                designSystem.toString(),
+                propertySpecifications?.designSystem.toString(),
                 "designSystem",
                 DESIGN_SYSTEM
             ),
@@ -145,7 +141,12 @@ class BeagleSetupPropertyGenerator(private val processingEnv: ProcessingEnvironm
                 "validatorHandler",
                 VALIDATOR_HANDLER
             ),
-            implementServerDrivenActivityProperty(beagleActivity)
+            implementProperty(
+                propertySpecifications?.urlBuilder.toString(),
+                "urlBuilder",
+                URL_BUILDER_HANDLER
+            ),
+            implementServerDrivenActivityProperty(propertySpecifications?.beagleActivity)
         )
     }
 
@@ -186,3 +187,12 @@ class BeagleSetupPropertyGenerator(private val processingEnv: ProcessingEnvironm
         ).initializer("$typeElement::class.java as Class<BeagleActivity>").build()
     }
 }
+
+internal class PropertySpecifications(
+    var deepLinkHandler: TypeElement? = null,
+    var customActionHandler: TypeElement? = null,
+    var httpClient: TypeElement? = null,
+    var designSystem: TypeElement? = null,
+    var beagleActivity: TypeElement? = null,
+    var urlBuilder: TypeElement? = null
+)

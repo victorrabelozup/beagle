@@ -14,7 +14,19 @@
  * limitations under the License.
  */
 
-package br.com.zup.beagle.sample.constants
+package br.com.zup.beagle.networking.urlbuilder
 
-const val BASE_URL = "http://10.0.2.2:8080"
-const val SAMPLE_ENDPOINT = "/components"
+internal class UrlBuilderDefault : UrlBuilder {
+
+    override fun format(endpoint: String, path: String): String {
+        if (isRelativePath(path)) {
+            return endpoint + path
+        } else {
+            return path
+        }
+    }
+
+    private fun isRelativePath(path: String): Boolean {
+        return path.startsWith("/")
+    }
+}

@@ -56,3 +56,7 @@ val BEAGLE_ACTIVITY = BeagleClass(
     "br.com.zup.beagle.view",
     "BeagleActivity"
 )
+val URL_BUILDER_HANDLER = BeagleClass(
+    "br.com.zup.beagle.networking.urlbuilder",
+    "UrlBuilder"
+)

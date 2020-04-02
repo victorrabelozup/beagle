@@ -21,20 +21,14 @@ import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.networking.HttpClient
 import br.com.zup.beagle.networking.HttpMethod
 import br.com.zup.beagle.networking.RequestData
-import br.com.zup.beagle.networking.UrlFormatter
+import br.com.zup.beagle.networking.urlbuilder.UrlBuilder
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormMethodType
-import io.mockk.MockKAnnotations
-import io.mockk.every
+import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import io.mockk.mockk
-import io.mockk.mockkObject
-import io.mockk.slot
-import io.mockk.unmockkObject
-import io.mockk.verify
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -50,7 +44,7 @@ class FormSubmitterTest {
     @MockK
     private lateinit var beagleSerializer: BeagleSerializer
     @MockK
-    private lateinit var urlFormatter: UrlFormatter
+    private lateinit var urlBuilder: UrlBuilder
 
     private val requestDataSlot = slot<RequestData>()
     private val urlSlot = slot<String>()
@@ -66,7 +60,7 @@ class FormSubmitterTest {
 
         every { BeagleEnvironment.beagleSdk.config.baseUrl } returns RandomData.httpUrl()
         every { httpClient.execute(capture(requestDataSlot), any(), any()) } returns mockk()
-        every { urlFormatter.format(any(), capture(urlSlot)) } returns ACTION
+        every { urlBuilder.format(any(), capture(urlSlot)) } returns ACTION
     }
 
     @After

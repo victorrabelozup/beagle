@@ -23,7 +23,8 @@ import br.com.zup.beagle.networking.HttpClient
 import br.com.zup.beagle.networking.HttpClientFactory
 import br.com.zup.beagle.networking.HttpMethod
 import br.com.zup.beagle.networking.RequestData
-import br.com.zup.beagle.networking.UrlFormatter
+import br.com.zup.beagle.networking.urlbuilder.UrlBuilder
+import br.com.zup.beagle.networking.urlbuilder.UrlBuilderFactory
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormMethodType
@@ -37,7 +38,7 @@ internal sealed class FormResult {
 internal class FormSubmitter(
     private val httpClient: HttpClient = HttpClientFactory().make(),
     private val deserialization: BeagleSerializer = BeagleSerializer(),
-    private val urlFormatter: UrlFormatter = UrlFormatter()
+    private val urlBuilder: UrlBuilder = UrlBuilderFactory().make()
 ) {
 
     fun submitForm(
@@ -61,7 +62,7 @@ internal class FormSubmitter(
 
     private fun createRequestData(form: Form, formsValue: Map<String, String>): RequestData {
         val action = createUrl(form, formsValue)
-        val newUrl = urlFormatter.format(BeagleEnvironment.beagleSdk.config.baseUrl, action)
+        val newUrl = urlBuilder.format(BeagleEnvironment.beagleSdk.config.baseUrl, action)
 
         return RequestData(
             uri = URI(newUrl),
