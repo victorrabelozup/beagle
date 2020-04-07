@@ -22,6 +22,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import br.com.zup.beagle.action.ActionExecutor
+import br.com.zup.beagle.action.CustomAction
 import br.com.zup.beagle.action.FormValidationActionHandler
 import br.com.zup.beagle.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagle.engine.renderer.RootView
@@ -40,6 +41,7 @@ import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormInputHidden
 import br.com.zup.beagle.widget.form.FormSubmit
+import br.com.zup.beagle.widget.form.FormRemoteAction
 import br.com.zup.beagle.widget.form.InputWidget
 
 internal class FormViewRenderer(
@@ -67,11 +69,11 @@ internal class FormViewRenderer(
         }
 
         if (formInputs.size == 0) {
-            BeagleMessageLogs.logFormInputsNotFound(component.path)
+            BeagleMessageLogs.logFormInputsNotFound(component.action.toString())
         }
 
         if (formSubmitView == null) {
-            BeagleMessageLogs.logFormSubmitNotFound(component.path)
+            BeagleMessageLogs.logFormSubmitNotFound(component.action.toString())
         }
 
         return view
@@ -124,11 +126,7 @@ internal class FormViewRenderer(
 
         if (formsValue.size == (formInputs.size + formInputHiddenList.size)) {
             formSubmitView?.hideKeyboard()
-            formSubmitter.submitForm(component, formsValue) {
-                (context as AppCompatActivity).runOnUiThread {
-                    handleFormResult(context, it)
-                }
-            }
+            submitForm(formsValue, context)
         }
     }
 
@@ -136,20 +134,38 @@ internal class FormViewRenderer(
         formInput: FormInput,
         formsValue: MutableMap<String, String>
     ) {
-        val validator = formInput.validator
-        if (validator != null) {
-            validatorHandler?.getValidator(validator)?.let {
-                val inputWidget: InputWidget = formInput.child
-                val inputValue = inputWidget.getValue()
+        val validator = formInput.validator ?: return
 
-                if (it.isValid(inputValue, inputWidget)) {
-                    formsValue[formInput.name] = inputValue.toString()
-                } else {
-                    inputWidget.onErrorMessage(formInput.errorMessage ?: "")
-                }
-            } ?: run {
-                BeagleMessageLogs.logFormValidatorNotFound(validator)
+        validatorHandler?.getValidator(validator)?.let {
+            val inputWidget: InputWidget = formInput.child
+            val inputValue = inputWidget.getValue()
+
+            if (it.isValid(inputValue, inputWidget)) {
+                formsValue[formInput.name] = inputValue.toString()
+            } else {
+                inputWidget.onErrorMessage(formInput.errorMessage ?: "")
             }
+        } ?: run {
+            BeagleMessageLogs.logFormValidatorNotFound(validator)
+        }
+    }
+
+    private fun submitForm(
+        formsValue: MutableMap<String, String>,
+        context: Context
+    ) {
+        when (val action = component.action) {
+            is FormRemoteAction -> formSubmitter.submitForm(action, formsValue) {
+                (context as AppCompatActivity).runOnUiThread {
+                    handleFormResult(context, it)
+                }
+            }
+            is CustomAction -> actionExecutor.doAction(context, CustomAction(
+                name = action.name,
+                data = formsValue.plus(action.data)
+            ))
+            else ->
+                actionExecutor.doAction(context, action)
         }
     }
 

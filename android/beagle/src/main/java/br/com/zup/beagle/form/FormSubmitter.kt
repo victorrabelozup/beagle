@@ -26,8 +26,8 @@ import br.com.zup.beagle.networking.RequestData
 import br.com.zup.beagle.networking.urlbuilder.UrlBuilder
 import br.com.zup.beagle.networking.urlbuilder.UrlBuilderFactory
 import br.com.zup.beagle.setup.BeagleEnvironment
-import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormMethodType
+import br.com.zup.beagle.widget.form.FormRemoteAction
 import java.net.URI
 
 internal sealed class FormResult {
@@ -42,7 +42,7 @@ internal class FormSubmitter(
 ) {
 
     fun submitForm(
-        form: Form,
+        form: FormRemoteAction,
         formsValue: Map<String, String>,
         result: (formResult: FormResult) -> Unit
     ) {
@@ -60,7 +60,7 @@ internal class FormSubmitter(
         })
     }
 
-    private fun createRequestData(form: Form, formsValue: Map<String, String>): RequestData {
+    private fun createRequestData(form: FormRemoteAction, formsValue: Map<String, String>): RequestData {
         val action = createUrl(form, formsValue)
         val newUrl = urlBuilder.format(BeagleEnvironment.beagleSdk.config.baseUrl, action)
 
@@ -76,7 +76,7 @@ internal class FormSubmitter(
         )
     }
 
-    private fun createBody(form: Form, formsValue: Map<String, String>): String? {
+    private fun createBody(form: FormRemoteAction, formsValue: Map<String, String>): String? {
         return if (form.method == FormMethodType.POST || form.method == FormMethodType.PUT) {
             formsValue.map {
                 """ "${it.key}":"${it.value}" """.trim()
@@ -86,7 +86,7 @@ internal class FormSubmitter(
         }
     }
 
-    private fun createUrl(form: Form, formsValue: Map<String, String>): String {
+    private fun createUrl(form: FormRemoteAction, formsValue: Map<String, String>): String {
         return if (form.method == FormMethodType.GET || form.method == FormMethodType.DELETE) {
             var query = if (formsValue.isNotEmpty()) {
                 "?"

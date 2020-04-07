@@ -28,6 +28,7 @@ import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormMethodType
+import br.com.zup.beagle.widget.form.FormRemoteAction
 import br.com.zup.beagle.widget.form.FormSubmit
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.NavigationBar
@@ -60,8 +61,10 @@ object FormScreenBuilder : ScreenBuilder {
             scrollDirection = ScrollAxis.VERTICAL,
             children = listOf(
                 Form(
-                    path = SUBMIT_FORM_ENDPOINT,
-                    method = FormMethodType.POST,
+                    action = FormRemoteAction(
+                        path = SUBMIT_FORM_ENDPOINT,
+                        method = FormMethodType.POST
+                    ),
                     child = Container(
                         children = listOf(
                             customFormInput(

@@ -18,6 +18,8 @@ package br.com.zup.beagle.action
 
 import android.content.Context
 import br.com.zup.beagle.setup.BeagleEnvironment
+import br.com.zup.beagle.view.BeagleActivity
+import br.com.zup.beagle.view.ServerDrivenState
 
 internal class ActionExecutor(
     private val customActionHandler: CustomActionHandler? =
@@ -26,7 +28,7 @@ internal class ActionExecutor(
         NavigationActionHandler(),
     private val showNativeDialogActionHandler: ShowNativeDialogActionHandler =
         ShowNativeDialogActionHandler(),
-    private val formValidationActionHandler: ActionHandler<FormValidation>? = null
+    private val formValidationActionHandler: DefaultActionHandler<FormValidation>? = null
 ) {
 
     fun doAction(context: Context, action: Action?) {
@@ -34,7 +36,28 @@ internal class ActionExecutor(
             is Navigate -> navigationActionHandler.handle(context, action)
             is ShowNativeDialog -> showNativeDialogActionHandler.handle(context, action)
             is FormValidation -> formValidationActionHandler?.handle(context, action)
-            is CustomAction -> customActionHandler?.handle(context, action)
+
+            is CustomAction -> customActionHandler?.handle(context, action, object : ActionListener {
+
+                override fun onSuccess(action: Action) {
+                    changeActivityState(context, ServerDrivenState.Loading(false))
+                    doAction(context, action)
+                }
+
+                override fun onError(e: Throwable) {
+                    changeActivityState(context, ServerDrivenState.Loading(false))
+                    changeActivityState(context, ServerDrivenState.Error(e))
+                }
+
+                override fun onStart() {
+                    changeActivityState(context, ServerDrivenState.Loading(true))
+                }
+            })
         }
     }
+
+    private fun changeActivityState(context: Context, state: ServerDrivenState) {
+        (context as? BeagleActivity)?.onServerDrivenContainerStateChanged(state)
+    }
 }
+

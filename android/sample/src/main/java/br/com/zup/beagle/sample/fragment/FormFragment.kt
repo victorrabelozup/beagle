@@ -31,8 +31,9 @@ import br.com.zup.beagle.widget.core.UnitValue
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormInputHidden
-import br.com.zup.beagle.widget.form.FormMethodType
 import br.com.zup.beagle.widget.form.FormSubmit
+import br.com.zup.beagle.widget.form.FormRemoteAction
+import br.com.zup.beagle.widget.form.FormMethodType
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.ui.Button
 
@@ -97,8 +98,10 @@ class FormFragment : Fragment() {
                     )
                 )
             ),
-            method = FormMethodType.POST,
-            path = "endereco/endpoint"
+            action = FormRemoteAction(
+                method = FormMethodType.POST,
+                path = "endereco/endpoint"
+            )
         )
 
 

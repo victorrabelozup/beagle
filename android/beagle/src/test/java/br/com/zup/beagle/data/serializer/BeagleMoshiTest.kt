@@ -27,10 +27,7 @@ import br.com.zup.beagle.mockdata.CustomWidget
 import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.testutil.RandomData
 import br.com.zup.beagle.widget.core.WidgetView
-import br.com.zup.beagle.widget.form.Form
-import br.com.zup.beagle.widget.form.FormInput
-import br.com.zup.beagle.widget.form.FormMethodType
-import br.com.zup.beagle.widget.form.FormSubmit
+import br.com.zup.beagle.widget.form.*
 import br.com.zup.beagle.widget.layout.*
 import br.com.zup.beagle.widget.lazy.LazyComponent
 import br.com.zup.beagle.widget.pager.PageIndicator
@@ -627,7 +624,13 @@ class BeagleMoshiTest {
     @Test
     fun make_should_return_moshi_to_serialize_a_Form() {
         // Given
-        val component = Form(RandomData.string(), FormMethodType.POST, UndefinedWidget())
+        val component = Form(
+            action = FormRemoteAction(
+                RandomData.string(),
+                FormMethodType.POST
+            ),
+            child = UndefinedWidget()
+        )
 
         // When
         val jsonComponent =

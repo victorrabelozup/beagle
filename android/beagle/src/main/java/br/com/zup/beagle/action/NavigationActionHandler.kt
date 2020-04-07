@@ -21,7 +21,7 @@ import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.view.BeagleNavigator
 
 internal class NavigationActionHandler :
-    ActionHandler<Navigate> {
+    DefaultActionHandler<Navigate> {
 
     override fun handle(context: Context, action: Navigate) {
         when (action.type) {

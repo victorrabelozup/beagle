@@ -25,15 +25,16 @@ import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.sample.widgets.MutableText
 import br.com.zup.beagle.sample.widgets.TextField
 import br.com.zup.beagle.utils.toView
-import br.com.zup.beagle.widget.core.Alignment
 import br.com.zup.beagle.widget.core.EdgeValue
 import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.core.Size
 import br.com.zup.beagle.widget.core.UnitType
 import br.com.zup.beagle.widget.core.UnitValue
+import br.com.zup.beagle.widget.core.Alignment
+import br.com.zup.beagle.widget.core.Size
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.FormMethodType
+import br.com.zup.beagle.widget.form.FormRemoteAction
 import br.com.zup.beagle.widget.form.FormSubmit
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.ui.Button
@@ -41,12 +42,12 @@ import br.com.zup.beagle.widget.ui.Text
 import br.com.zup.beagle.widget.ui.TextAlignment
 
 class DisabledFormSubmitFragment : Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val declarative = makeCharade(
             CharadeInput(
                 name = "mary",
@@ -69,8 +70,10 @@ class DisabledFormSubmitFragment : Fragment() {
                     makeCharadeFormSubmit()
                 )
             ),
-            method = FormMethodType.POST,
-            path = "endereco/endpoint"
+            action = FormRemoteAction(
+                method = FormMethodType.POST,
+                path = "endereco/endpoint"
+            )
         )
     }
 

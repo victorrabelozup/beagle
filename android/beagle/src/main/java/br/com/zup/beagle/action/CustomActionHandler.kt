@@ -16,4 +16,18 @@
 
 package br.com.zup.beagle.action
 
-interface CustomActionHandler : ActionHandler<CustomAction>
+import android.content.Context
+
+interface CustomActionHandler : ActionHandler<CustomAction> {
+    fun handle(context: Context, action: CustomAction, listener: ActionListener)
+}
+
+interface DefaultActionHandler<T : Action> {
+    fun handle(context: Context, action: T)
+}
+
+interface ActionListener {
+    fun onError(e: Throwable)
+    fun onSuccess(action: Action)
+    fun onStart()
+}

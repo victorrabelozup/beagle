@@ -16,6 +16,7 @@
 
 package br.com.zup.beagle.widget.form
 
+import br.com.zup.beagle.action.Action
 import br.com.zup.beagle.core.LayoutComponent
 import br.com.zup.beagle.core.ServerDrivenComponent
 
@@ -27,7 +28,14 @@ enum class FormMethodType {
 }
 
 data class Form (
-    val path: String,
-    val method: FormMethodType,
+    val action: Action,
     val child: ServerDrivenComponent
 ) : ServerDrivenComponent, LayoutComponent
+
+data class FormRemoteAction(
+    val path: String,
+    val method: FormMethodType
+) : Action {
+    override fun toString() = "FormRemoteAction: $path / ${method.name}"
+}
+

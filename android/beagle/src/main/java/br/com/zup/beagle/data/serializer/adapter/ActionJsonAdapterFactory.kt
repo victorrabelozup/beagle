@@ -22,6 +22,7 @@ import br.com.zup.beagle.action.FormValidation
 import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.ShowNativeDialog
 import br.com.zup.beagle.data.serializer.PolymorphicJsonAdapterFactory
+import br.com.zup.beagle.widget.form.FormRemoteAction
 
 private const val BEAGLE_WIDGET_TYPE = "_beagleType_"
 private const val BEAGLE_NAMESPACE = "beagle"
@@ -35,6 +36,7 @@ internal object ActionJsonAdapterFactory {
             .withSubtype(FormValidation::class.java, createNamespaceFor<FormValidation>())
             .withSubtype(Navigate::class.java, createNamespaceFor<Navigate>())
             .withSubtype(ShowNativeDialog::class.java, createNamespaceFor<ShowNativeDialog>())
+            .withSubtype(FormRemoteAction::class.java, createNamespaceFor<FormRemoteAction>())
     }
 
     private inline fun <reified T : Action> createNamespaceFor(): String {

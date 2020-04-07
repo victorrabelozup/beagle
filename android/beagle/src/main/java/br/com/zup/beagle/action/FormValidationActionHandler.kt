@@ -21,7 +21,7 @@ import br.com.zup.beagle.logger.BeagleLogger
 import br.com.zup.beagle.widget.form.FormInput
 import br.com.zup.beagle.widget.form.InputWidget
 
-internal class FormValidationActionHandler : ActionHandler<FormValidation> {
+internal class FormValidationActionHandler : DefaultActionHandler<FormValidation> {
 
     var formInputs: List<FormInput>? = null
 

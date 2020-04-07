@@ -242,8 +242,11 @@ fun makeFormSubmitJson() = """
 fun makeFormJson() = """
     {
         "_beagleType_": "beagle:component:form",
-        "path": "${RandomData.string()}",
-        "method": "POST",
+        "action": {
+            "_beagleType_": "beagle:action:formremoteaction",
+            "path": "${RandomData.string()}",
+            "method": "POST"
+        },
         "child": ${makeButtonJson()}
     }
 """

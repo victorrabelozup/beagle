@@ -22,6 +22,7 @@ import android.view.inputmethod.InputMethodManager
 import br.com.zup.beagle.BaseTest
 import br.com.zup.beagle.action.ActionExecutor
 import br.com.zup.beagle.action.FormValidationActionHandler
+import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
@@ -38,11 +39,7 @@ import br.com.zup.beagle.utils.hideKeyboard
 import br.com.zup.beagle.view.BeagleActivity
 import br.com.zup.beagle.view.ServerDrivenState
 import br.com.zup.beagle.view.ViewFactory
-import br.com.zup.beagle.widget.form.Form
-import br.com.zup.beagle.widget.form.FormInput
-import br.com.zup.beagle.widget.form.FormInputHidden
-import br.com.zup.beagle.widget.form.FormSubmit
-import br.com.zup.beagle.widget.form.InputWidget
+import br.com.zup.beagle.widget.form.*
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -121,8 +118,14 @@ class FormViewRendererTest : BaseTest() {
     @RelaxedMockK
     private lateinit var inputWidget: InputWidget
 
+    @MockK
+    private lateinit var remoteAction: FormRemoteAction
+
+    @MockK
+    private lateinit var navigateAction: Navigate
+
     private val onClickListenerSlot = slot<View.OnClickListener>()
-    private val formResultCallbackSlot = slot<(formResult: FormResult) -> Unit>()
+    private val formSubmitCallbackSlot = slot<(formResult: FormResult) -> Unit>()
     private val runnableSlot = slot<Runnable>()
 
     private lateinit var formViewRenderer: FormViewRenderer
@@ -149,7 +152,6 @@ class FormViewRendererTest : BaseTest() {
         every { viewRendererFactory.make(form) } returns viewRenderer
         every { viewRenderer.build(rootView) } returns viewGroup
         every { form.child } returns form
-        every { form.path } returns RandomData.string()
         every { formInput.required } returns false
         every { inputWidget.getValue() } returns INPUT_VALUE
         every { formInput.child } returns inputWidget
@@ -165,7 +167,7 @@ class FormViewRendererTest : BaseTest() {
         every { formValidationActionHandler.formInputs = any() } just Runs
         every { beagleActivity.getSystemService(any()) } returns inputMethodManager
         every { beagleActivity.runOnUiThread(capture(runnableSlot)) } just Runs
-        every { formSubmitter.submitForm(any(), any(), capture(formResultCallbackSlot)) } just Runs
+        every { formSubmitter.submitForm(any(), any(), capture(formSubmitCallbackSlot)) } just Runs
         every { validatorHandler.getValidator(any()) } returns validator
     }
 
@@ -278,13 +280,29 @@ class FormViewRendererTest : BaseTest() {
     }
 
     @Test
-    fun onClick_of_formSubmit_should_set_submit_form_when_inputValue_is_not_required() {
-        // Given When
+    fun onClick_of_formSubmit_should_submit_remote_form() {
+        // Given
+        every { form.action } returns remoteAction
+
+        // When
         executeFormSubmitOnClickListener()
 
         // Then
         verify(exactly = once()) { formSubmitView.hideKeyboard() }
         verify(exactly = once()) { formSubmitter.submitForm(any(), any(), any()) }
+    }
+
+    @Test
+    fun onClick_of_formSubmit_should_trigger_navigate_action() {
+        // Given
+        every { form.action } returns navigateAction
+
+        // When
+        executeFormSubmitOnClickListener()
+
+        // Then
+        verify(exactly = once()) { formSubmitView.hideKeyboard() }
+        verify(exactly = once()) { actionExecutor.doAction(any(), navigateAction) }
     }
 
     @Test
@@ -298,8 +316,7 @@ class FormViewRendererTest : BaseTest() {
 
         // Then
         verify(exactly = once()) { validator.isValid(INPUT_VALUE, any()) }
-        verify(exactly = once()) { formSubmitter.submitForm(any(), any(), any()) }
-    }
+}
 
     @Test
     fun onClick_of_formSubmit_should_validate_formField_that_is_required_and_that_not_is_valid() {
@@ -312,17 +329,17 @@ class FormViewRendererTest : BaseTest() {
 
         // Then
         verify(exactly = once()) { inputWidget.onErrorMessage(any()) }
-        verify(exactly = 0) { formSubmitter.submitForm(any(), any(), any()) }
     }
 
     @Test
     fun onClick_of_formSubmit_should_handleFormSubmit_and_call_actionExecutor() {
         // Given
+        every { form.action } returns remoteAction
         val formResult = FormResult.Success(mockk())
 
         // When
         executeFormSubmitOnClickListener()
-        formResultCallbackSlot.captured(formResult)
+        formSubmitCallbackSlot.captured(formResult)
         runnableSlot.captured.run()
 
         // Then
@@ -330,14 +347,15 @@ class FormViewRendererTest : BaseTest() {
     }
 
     @Test
-    fun onClick_of_formSubmit_should_handleFormSubmit_and_call_showError() {
+    fun onClick_of_formSubmit_should_trigger_action_and_call_showError() {
         // Given
+        every { form.action } returns remoteAction
         every { beagleActivity.onServerDrivenContainerStateChanged(any()) } just Runs
         val formResult = FormResult.Error(mockk())
 
         // When
         executeFormSubmitOnClickListener()
-        formResultCallbackSlot.captured(formResult)
+        formSubmitCallbackSlot.captured(formResult)
         runnableSlot.captured.run()
 
         // Then

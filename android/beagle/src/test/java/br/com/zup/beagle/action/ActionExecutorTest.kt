@@ -19,19 +19,16 @@ package br.com.zup.beagle.action
 import android.content.Context
 import br.com.zup.beagle.extensions.once
 import br.com.zup.beagle.setup.BeagleEnvironment
-import io.mockk.MockKAnnotations
-import io.mockk.Runs
-import io.mockk.every
+import br.com.zup.beagle.view.BeagleActivity
+import br.com.zup.beagle.view.ServerDrivenState
+import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import io.mockk.just
-import io.mockk.mockk
-import io.mockk.mockkObject
-import io.mockk.unmockkObject
-import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class ActionExecutorTest {
 
@@ -42,9 +39,16 @@ class ActionExecutorTest {
     @MockK
     private lateinit var showNativeDialogActionHandler: ShowNativeDialogActionHandler
     @MockK
-    private lateinit var formValidationActionHandler: ActionHandler<FormValidation>
+    private lateinit var formValidationActionHandler: DefaultActionHandler<FormValidation>
     @MockK
     private lateinit var context: Context
+    @MockK
+    private lateinit var customAction: CustomAction
+    @MockK
+    private lateinit var activity: BeagleActivity
+
+    private val actionListener = slot<ActionListener>()
+    private val activityStates = mutableListOf<ServerDrivenState>()
 
     @InjectMockKs
     private lateinit var actionExecutor: ActionExecutor
@@ -56,6 +60,8 @@ class ActionExecutorTest {
         mockkObject(BeagleEnvironment)
 
         every { BeagleEnvironment.beagleSdk } returns mockk(relaxed = true)
+        every { customActionHandler.handle(activity, customAction, capture(actionListener)) } just Runs
+        every { activity.onServerDrivenContainerStateChanged(capture(activityStates)) } just Runs
     }
 
     @After
@@ -117,28 +123,73 @@ class ActionExecutorTest {
     }
 
     @Test
-    fun doAction_should_handle_CustomAction_action() {
-        // Given
-        val action = mockk<CustomAction>()
-        every { customActionHandler.handle(any(), any()) } just Runs
-
-        // When
-        actionExecutor.doAction(context, action)
-
-        // Then
-        verify(exactly = once()) { customActionHandler.handle(context, action) }
-    }
-
-    @Test
     fun doAction_should_not_handle_CustomAction_action_when_handler_is_null() {
         // Given
         val actionExecutor = ActionExecutor(customActionHandler = null)
+        val listener = mockk<ActionListener>()
         val action = mockk<CustomAction>()
 
         // When
         actionExecutor.doAction(context, action)
 
         // Then
-        verify(exactly = 0) { customActionHandler.handle(context, action) }
+        verify(exactly = 0) { customActionHandler.handle(context, action, listener) }
+    }
+
+    @Test
+    fun do_customAction_and_listen_onStart() {
+        // Given
+        val executor = ActionExecutor(customActionHandler)
+        val expectedStates = listOf<ServerDrivenState>(
+            ServerDrivenState.Loading(true)
+        )
+
+        // When
+        executor.doAction(activity, customAction)
+        actionListener.captured.onStart()
+
+        // Then
+        verify(exactly = once()) { customActionHandler.handle(activity, customAction, actionListener.captured) }
+        verify(exactly = once()) { activity.onServerDrivenContainerStateChanged(any()) }
+        assertEquals(expectedStates, activityStates)
+    }
+
+    @Test
+    fun do_customAction_and_listen_onSuccess() {
+        // Given
+        val executor = ActionExecutor(customActionHandler)
+        val expectedState = listOf<ServerDrivenState>(
+            ServerDrivenState.Loading(false)
+        )
+        val dumbAction = mockk<Action>()
+
+        // When
+        executor.doAction(activity, customAction)
+        actionListener.captured.onSuccess(dumbAction)
+
+        // Then
+        verify(exactly = once()) { customActionHandler.handle(activity, customAction, actionListener.captured) }
+        verify(exactly = once()) { activity.onServerDrivenContainerStateChanged(any()) }
+        assertEquals(expectedState, activityStates)
+    }
+
+    @Test
+    fun do_customAction_and_listen_onError() {
+        // Given
+        val executor = ActionExecutor(customActionHandler)
+        val error = mockk<Throwable>()
+        val expectedState = listOf(
+            ServerDrivenState.Loading(false),
+            ServerDrivenState.Error(error)
+        )
+
+        // When
+        executor.doAction(activity, customAction)
+        actionListener.captured.onError(error)
+
+        // Then
+        verify(exactly = once()) { customActionHandler.handle(activity, customAction, actionListener.captured) }
+        verify(exactly = 2) { activity.onServerDrivenContainerStateChanged(any()) }
+        assertEquals(expectedState, activityStates)
     }
 }

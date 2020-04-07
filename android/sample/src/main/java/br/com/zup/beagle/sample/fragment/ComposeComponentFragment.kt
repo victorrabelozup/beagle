@@ -34,8 +34,9 @@ import br.com.zup.beagle.widget.core.UnitType
 import br.com.zup.beagle.widget.core.UnitValue
 import br.com.zup.beagle.widget.form.Form
 import br.com.zup.beagle.widget.form.FormInput
-import br.com.zup.beagle.widget.form.FormMethodType
 import br.com.zup.beagle.widget.form.FormSubmit
+import br.com.zup.beagle.widget.form.FormRemoteAction
+import br.com.zup.beagle.widget.form.FormMethodType
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.ui.Button
 
@@ -60,8 +61,11 @@ class ComposeComponentFragment : Fragment() {
 class ComposeFormName : ComposeComponent() {
     override fun build(): ServerDrivenComponent {
         return Form(
-            path = "/validate-name",
-            method = FormMethodType.POST,
+            action = FormRemoteAction(
+                path = "/validate-name",
+                method = FormMethodType.POST
+            ),
+
             child = Container(
                 children = listOf(
                     buildContent(),

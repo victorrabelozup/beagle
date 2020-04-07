@@ -40,7 +40,7 @@ import kotlinx.android.parcel.Parcelize
 
 sealed class ServerDrivenState {
     data class Error(val throwable: Throwable) : ServerDrivenState()
-    class Loading(val loading: Boolean) : ServerDrivenState()
+    data class Loading(val loading: Boolean) : ServerDrivenState()
 }
 
 @Parcelize
