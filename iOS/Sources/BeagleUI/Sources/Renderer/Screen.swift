@@ -25,12 +25,14 @@ public struct Screen {
     public let safeArea: SafeArea?
     public let navigationBar: NavigationBar?
     public let child: ServerDrivenComponent
+    public let screenAnalyticsEvent: AnalyticsScreen?
     
     public init(
         identifier: String? = nil,
         appearance: Appearance? = nil,
         safeArea: SafeArea? = nil,
         navigationBar: NavigationBar? = nil,
+        screenAnalyticsEvent: AnalyticsScreen? = nil,
         child: ServerDrivenComponent
     ) {
         self.identifier = identifier
@@ -38,6 +40,7 @@ public struct Screen {
         self.safeArea = safeArea
         self.navigationBar = navigationBar
         self.child = child
+        self.screenAnalyticsEvent = screenAnalyticsEvent
     }
     
     func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
@@ -46,6 +49,7 @@ public struct Screen {
             appearance: appearance,
             safeArea: safeArea,
             navigationBar: navigationBar,
+            screenAnalyticsEvent: screenAnalyticsEvent,
             child: child
         ).toView(context: context, dependencies: dependencies)
     }

@@ -95,7 +95,8 @@ final class DummyView: UIView {}
 struct ActionDummy: Action, Equatable {}
 
 struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
-
+    
+    var analytics: Analytics?
     var actionExecutor: ActionExecutor
     var flex: FlexViewConfiguratorProtocol
     var network: Network
@@ -117,7 +118,8 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
         appBundle: Bundle = Bundle(for: ImageTests.self),
         cacheManager: CacheManagerProtocol = CacheManager(maximumScreensCapacity: 30),
         decoder: ComponentDecoding = ComponentDecodingDummy(),
-        logger: BeagleLoggerType = BeagleLoggerDumb()
+        logger: BeagleLoggerType = BeagleLoggerDumb(),
+        analytics: Analytics = AnalyticsExecutorSpy()
     ) {
         self.actionExecutor = actionExecutor
         self.flex = flex
@@ -129,6 +131,7 @@ struct BeagleScreenDependencies: BeagleScreenViewModel.Dependencies {
         self.cacheManager = cacheManager
         self.decoder = decoder
         self.logger = logger
+        self.analytics = analytics
     }
 }
 

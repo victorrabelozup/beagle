@@ -96,6 +96,13 @@
 		A0F4549A237C1B0F00B146A1 /* BeagleNavigatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F45499237C1B0F00B146A1 /* BeagleNavigatorTests.swift */; };
 		A0FBC1AE238F1C9A005C5E67 /* LazyComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FBC1AD238F1C9A005C5E67 /* LazyComponentTests.swift */; };
 		A0FBC1B2238F1D8B005C5E67 /* LazyComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FBC1B1238F1D8B005C5E67 /* LazyComponent.swift */; };
+		C0479F57243272460040E30C /* AnalyticsGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0479F56243272460040E30C /* AnalyticsGestureRecognizer.swift */; };
+		C048EBD9242B9BE100A24075 /* AnalyticsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C048EBD8242B9BE100A24075 /* AnalyticsModels.swift */; };
+		C048EBDB242BD78500A24075 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C048EBDA242BD78500A24075 /* Analytics.swift */; };
+		C05E164D24365DBE0088F9D2 /* AnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05E164C24365DBE0088F9D2 /* AnalyticsTests.swift */; };
+		C05E1652243663C20088F9D2 /* screenAnalyticsComponent.json in Resources */ = {isa = PBXBuildFile; fileRef = C05E1651243663C20088F9D2 /* screenAnalyticsComponent.json */; };
+		C05E1658243668E30088F9D2 /* __Snapshots__ in Resources */ = {isa = PBXBuildFile; fileRef = C05E1657243668E20088F9D2 /* __Snapshots__ */; };
+		C05E165A2437CC7C0088F9D2 /* buttonAnalyticsComponent.json in Resources */ = {isa = PBXBuildFile; fileRef = C05E16592437CC7C0088F9D2 /* buttonAnalyticsComponent.json */; };
 		C06B1E2E23FAC85E003912CF /* AccessibilityTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06B1E2C23F729E0003912CF /* AccessibilityTest.swift */; };
 		C0B1AAB223F2EE9300F94ECA /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1AAB123F2EE9300F94ECA /* Accessibility.swift */; };
 		C62E8EAE2373588900FF1497 /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62E8EAD2373588900FF1497 /* ScrollView.swift */; };
@@ -326,6 +333,13 @@
 		A0F4549B237C474C00B146A1 /* BeagleContextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleContextTests.swift; sourceTree = "<group>"; };
 		A0FBC1AD238F1C9A005C5E67 /* LazyComponentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazyComponentTests.swift; sourceTree = "<group>"; };
 		A0FBC1B1238F1D8B005C5E67 /* LazyComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LazyComponent.swift; path = Sources/Components/Lazy/LazyComponent.swift; sourceTree = SOURCE_ROOT; };
+		C0479F56243272460040E30C /* AnalyticsGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsGestureRecognizer.swift; sourceTree = "<group>"; };
+		C048EBD8242B9BE100A24075 /* AnalyticsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsModels.swift; sourceTree = "<group>"; };
+		C048EBDA242BD78500A24075 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
+		C05E164C24365DBE0088F9D2 /* AnalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsTests.swift; sourceTree = "<group>"; };
+		C05E1651243663C20088F9D2 /* screenAnalyticsComponent.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = screenAnalyticsComponent.json; sourceTree = "<group>"; };
+		C05E1657243668E20088F9D2 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
+		C05E16592437CC7C0088F9D2 /* buttonAnalyticsComponent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = buttonAnalyticsComponent.json; sourceTree = "<group>"; };
 		C06B1E2C23F729E0003912CF /* AccessibilityTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityTest.swift; sourceTree = "<group>"; };
 		C0B1AAB123F2EE9300F94ECA /* Accessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accessibility.swift; sourceTree = "<group>"; };
 		C62E8EAD2373588900FF1497 /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
@@ -640,6 +654,7 @@
 		939CE4C4232996FD00EEEDFC /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				C048EBD7242B9BB100A24075 /* Analytics */,
 				C0B1AAB023F2EE6D00F94ECA /* Accessibility */,
 				A06823512384863400CEE57A /* Action */,
 				93B9741D23A282C700B0D1CF /* Caching */,
@@ -804,6 +819,36 @@
 				C829CEAA23B15F12001B7225 /* Tests */,
 			);
 			path = Action;
+			sourceTree = "<group>";
+		};
+		C048EBD7242B9BB100A24075 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				C05E164924365D190088F9D2 /* Tests */,
+				C048EBD8242B9BE100A24075 /* AnalyticsModels.swift */,
+				C048EBDA242BD78500A24075 /* Analytics.swift */,
+				C0479F56243272460040E30C /* AnalyticsGestureRecognizer.swift */,
+			);
+			path = Analytics;
+			sourceTree = "<group>";
+		};
+		C05E164924365D190088F9D2 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C05E164C24365DBE0088F9D2 /* AnalyticsTests.swift */,
+				C05E1657243668E20088F9D2 /* __Snapshots__ */,
+				C05E164E2436633C0088F9D2 /* Json */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		C05E164E2436633C0088F9D2 /* Json */ = {
+			isa = PBXGroup;
+			children = (
+				C05E16592437CC7C0088F9D2 /* buttonAnalyticsComponent.json */,
+				C05E1651243663C20088F9D2 /* screenAnalyticsComponent.json */,
+			);
+			path = Json;
 			sourceTree = "<group>";
 		};
 		C0B1AAB023F2EE6D00F94ECA /* Accessibility */ = {
@@ -1556,6 +1601,7 @@
 				C86E7C1523954E2700D6FEDB /* PageViewInvalid.json in Resources */,
 				76BB91A5241AC6A800B9A239 /* declarativeText2.json in Resources */,
 				7CDF84932416DD8D00234F40 /* test_UnitValueExpressibleByIntegerLiteral.1.txt in Resources */,
+				C05E165A2437CC7C0088F9D2 /* buttonAnalyticsComponent.json in Resources */,
 				A0451C6B23BA846F00F77398 /* ImageComponent.json in Resources */,
 				7CDF84922416DD8D00234F40 /* test_SizeBuilder.1.txt in Resources */,
 				93327C7D241A768800639A93 /* lazyComponent.json in Resources */,
@@ -1568,6 +1614,8 @@
 				76191AA9241AC44C00A04C29 /* declarativeText1.json in Resources */,
 				7CDF84952416DD8D00234F40 /* test_UnitValueWithPercentageOperatorAndIntegerValue.1.txt in Resources */,
 				C8FD20B323959AED003E6F5B /* PageViewWith3PagesAndIndicator.json in Resources */,
+				C05E1652243663C20088F9D2 /* screenAnalyticsComponent.json in Resources */,
+				C05E1658243668E30088F9D2 /* __Snapshots__ in Resources */,
 				93771AFE2417D68D009F7CF3 /* screenComponent.json in Resources */,
 				A0451C8B23BF7A0600F77398 /* Container.json in Resources */,
 				C8983D9C23984C820080D439 /* PageViewWithCustomIndicator.json in Resources */,
@@ -1660,9 +1708,11 @@
 				C86F894923B28FAE00287D5D /* ImageContentMode.swift in Sources */,
 				E5A6F4CB2358F621008906F8 /* Network.swift in Sources */,
 				E52236C423745CBB00E555BB /* NSObjectExtension.swift in Sources */,
+				C048EBDB242BD78500A24075 /* Analytics.swift in Sources */,
 				A068234C238430C500CEE57A /* ValidatorProvider.swift in Sources */,
 				C85688BB2433C4A400DD8B60 /* BeagleMessageLogs.swift in Sources */,
 				E52236CF2374885600E555BB /* CollectionExtension.swift in Sources */,
+				C0479F57243272460040E30C /* AnalyticsGestureRecognizer.swift in Sources */,
 				A0451C6623BA6A5600F77398 /* UIView+Appearance.swift in Sources */,
 				E5223776237C3C4800E555BB /* UnitValue.swift in Sources */,
 				A0EF0AC2238B0CEC0019BE83 /* SubmitFormGestureRecognizer.swift in Sources */,
@@ -1685,6 +1735,7 @@
 				A04B19FA23ECA3F7007B4279 /* Screen.swift in Sources */,
 				983E8C8E2396C81C0018C6CA /* TabBarCollectionViewCell.swift in Sources */,
 				7CFE3A752412E3B50087F664 /* FlexBuildersExtension.swift in Sources */,
+				C048EBD9242B9BE100A24075 /* AnalyticsModels.swift in Sources */,
 				E7716B9D2375E9FF006E26F2 /* BeagleDeepLinkHandler.swift in Sources */,
 				98B7D95623DB2722002622AC /* Observable.swift in Sources */,
 				E52236C223745A7F00E555BB /* ListItemCollectionViewCell.swift in Sources */,
@@ -1743,6 +1794,7 @@
 				C85D9BA8238858B40075B6C0 /* PageViewTests.swift in Sources */,
 				E531D6BC235A007C007EEBA7 /* UIView+LoadingTests.swift in Sources */,
 				C867CDE823EB50DB00EB5DD5 /* UrlRequestBuilderTest.swift in Sources */,
+				C05E164D24365DBE0088F9D2 /* AnalyticsTests.swift in Sources */,
 				A0FBC1AE238F1C9A005C5E67 /* LazyComponentTests.swift in Sources */,
 				C65F25372375E6C2007670EC /* ScrollViewTests.swift in Sources */,
 				C86F894B23B28FC100287D5D /* ImageContentModeTests.swift in Sources */,

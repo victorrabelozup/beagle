@@ -30,3 +30,4 @@
       - style: Optional<String>.none
       - title: "Form"
   - safeArea: Optional<SafeArea>.none
+  - screenAnalyticsEvent: Optional<AnalyticsScreen>.none

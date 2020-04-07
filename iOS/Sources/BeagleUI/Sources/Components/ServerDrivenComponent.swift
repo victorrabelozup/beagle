@@ -52,6 +52,7 @@ extension ServerDrivenComponent {
             appearance: screen?.appearance,
             safeArea: safeArea,
             navigationBar: screen?.navigationBar,
+            screenAnalyticsEvent: screen?.screenAnalyticsEvent,
             child: screen?.child ?? self
         )
     }

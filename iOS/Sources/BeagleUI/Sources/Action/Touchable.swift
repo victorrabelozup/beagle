@@ -14,13 +14,11 @@
 // limitations under the License.
 //
 
-
 import UIKit
 
-public struct Touchable: ServerDrivenComponent {
-    
+public struct Touchable: ServerDrivenComponent, ClickedOnComponent {
     // MARK: - Public Properties
-    
+    public let clickAnalyticsEvent: AnalyticsClick?
     public let action: Action
     public let child: ServerDrivenComponent
     
@@ -28,17 +26,24 @@ public struct Touchable: ServerDrivenComponent {
     
     public init(
         action: Action,
+        clickAnalyticsEvent: AnalyticsClick? = nil,
         child: ServerDrivenComponent
     ) {
         self.action = action
         self.child = child
+        self.clickAnalyticsEvent = clickAnalyticsEvent
     }
 }
 
 extension Touchable: Renderable {
     public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         let childView = child.toView(context: context, dependencies: dependencies)
-        context.register(action: action, inView: childView)
+        var events: [Event] = [.action(action)]
+        if let clickAnalyticsEvent = clickAnalyticsEvent {
+            events.append(.analytics(clickAnalyticsEvent))
+        }
+        
+        context.register(events: events, inView: childView)
         prefetchComponent(context: context, dependencies: dependencies)
         return childView
     }
@@ -53,11 +58,13 @@ extension Touchable: Decodable {
     enum CodingKeys: String, CodingKey {
         case action
         case child
+        case clickAnalyticsEvent
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.action = try container.decode(forKey: .action)
         self.child = try container.decode(forKey: .child)
+        self.clickAnalyticsEvent = try container.decodeIfPresent(AnalyticsClick.self, forKey: .clickAnalyticsEvent)
     }
 }

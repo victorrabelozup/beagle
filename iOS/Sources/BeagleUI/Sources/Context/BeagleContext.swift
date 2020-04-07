@@ -16,16 +16,22 @@
 
 import UIKit
 
+public enum Event {
+    case action(Action)
+    case analytics(AnalyticsClick)
+}
+
 /// Interface to access application specific operations
 public protocol BeagleContext: AnyObject {
     
     var screenController: UIViewController { get }
     
     func applyLayout()
-    func register(action: Action, inView view: UIView)
+    func register(events: [Event], inView view: UIView)
     func register(form: Form, formView: UIView, submitView: UIView, validatorHandler: ValidatorProvider?)
     func lazyLoad(url: String, initialState: UIView)
     func doAction(_ action: Action, sender: Any)
+    func doAnalyticsAction(_ action: AnalyticsClick, sender: Any)
 }
 
 extension BeagleScreenViewController: BeagleContext {
@@ -34,21 +40,52 @@ extension BeagleScreenViewController: BeagleContext {
         return self
     }
     
-    public func register(action: Action, inView view: UIView) {
-        
-        let gestureRecognizer = ActionGestureRecognizer(
-            action: action,
-            target: self,
-            selector: #selector(handleActionGesture(_:)))
-        view.addGestureRecognizer(gestureRecognizer)
-        view.isUserInteractionEnabled = true
-    }
-    
     public func applyLayout() {
         guard let componentView = componentView else { return }
         componentView.frame = view.bounds
         componentView.flex.applyLayout()
     }
+    
+    // MARK: - Analytics
+    
+    public func register(events: [Event], inView view: UIView) {
+        let eventsTouchGestureRecognizer = EventsGestureRecognizer(
+            events: events,
+            target: self,
+            selector: #selector(handleGestureRecognizer(_:))
+        )
+        
+        view.addGestureRecognizer(eventsTouchGestureRecognizer)
+        view.isUserInteractionEnabled = true
+    }
+    
+    @objc func handleGestureRecognizer(_ sender: EventsGestureRecognizer) {
+        
+        sender.events.forEach {
+            switch $0 {
+            case .action(let actionClick):
+                doAction(actionClick, sender: sender)
+                
+            case .analytics(let analyticsClick):
+                doAnalyticsAction(analyticsClick, sender: sender)
+            }
+        }
+    }
+    
+    public func doAnalyticsAction(_ clickEvent: AnalyticsClick, sender: Any) {
+        dependencies.analytics?.trackEventOnClick(clickEvent)
+    }
+    
+    // MARK: - Action
+    
+    public func doAction(_ action: Action, sender: Any) {
+        dependencies.actionExecutor.doAction(
+            action,
+            sender: sender,
+            context: self)
+    }
+    
+    // MARK: - Form
     
     public func register(form: Form, formView: UIView, submitView: UIView, validatorHandler: ValidatorProvider?) {
         let gestureRecognizer = SubmitFormGestureRecognizer(
@@ -69,32 +106,6 @@ extension BeagleScreenViewController: BeagleContext {
         submitView.isUserInteractionEnabled = true
         gestureRecognizer.updateSubmitView()
     }
-    
-    public func lazyLoad(url: String, initialState: UIView) {
-        dependencies.network.fetchComponent(url: url, additionalData: nil) {
-            [weak self] result in guard let self = self else { return }
-
-            switch result {
-            case .success(let component):
-                self.update(initialView: initialState, lazyLoaded: component)
-
-            case .failure(let error):
-                self.viewModel.handleError(error)
-            }
-        }
-    }
-    
-    public func doAction(_ action: Action, sender: Any) {
-        dependencies.actionExecutor.doAction(action, sender: sender, context: self)
-    }
-    
-    // MARK: - Action
-    
-    @objc func handleActionGesture(_ sender: ActionGestureRecognizer) {
-        dependencies.actionExecutor.doAction(sender.action, sender: sender, context: self)
-    }
-    
-    // MARK: - Form
     
     @objc func handleSubmitFormGesture(_ sender: SubmitFormGestureRecognizer) {
         if let control = sender.formSubmitView as? UIControl, !control.isEnabled {
@@ -178,6 +189,20 @@ extension BeagleScreenViewController: BeagleContext {
     }
     
     // MARK: - Lazy Load
+    
+    public func lazyLoad(url: String, initialState: UIView) {
+        dependencies.network.fetchComponent(url: url, additionalData: nil) {
+            [weak self] result in guard let self = self else { return }
+
+            switch result {
+            case .success(let component):
+                self.update(initialView: initialState, lazyLoaded: component)
+
+            case .failure(let error):
+                self.viewModel.handleError(error)
+            }
+        }
+    }
     
     private func update(initialView: UIView, lazyLoaded: ServerDrivenComponent) {
         let updatable = initialView as? OnStateUpdatable

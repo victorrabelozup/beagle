@@ -25,6 +25,7 @@ struct ScreenComponent: AppearanceComponent {
     public let safeArea: SafeArea?
     public let navigationBar: NavigationBar?
     public let child: ServerDrivenComponent
+    public let screenAnalyticsEvent: AnalyticsScreen?
     
     // MARK: - Initialization
     
@@ -33,6 +34,7 @@ struct ScreenComponent: AppearanceComponent {
         appearance: Appearance? = nil,
         safeArea: SafeArea? = nil,
         navigationBar: NavigationBar? = nil,
+        screenAnalyticsEvent: AnalyticsScreen? = nil,
         child: ServerDrivenComponent
     ) {
         self.identifier = identifier
@@ -40,6 +42,7 @@ struct ScreenComponent: AppearanceComponent {
         self.safeArea = safeArea
         self.navigationBar = navigationBar
         self.child = child
+        self.screenAnalyticsEvent = screenAnalyticsEvent
     }
 }
 
@@ -50,6 +53,7 @@ extension ScreenComponent: Decodable {
         case safeArea
         case navigationBar
         case child
+        case screenAnalyticsEvent
     }
 
     init(from decoder: Decoder) throws {
@@ -58,6 +62,7 @@ extension ScreenComponent: Decodable {
         self.appearance = try container.decodeIfPresent(Appearance.self, forKey: .appearance)
         self.safeArea = try container.decodeIfPresent(SafeArea.self, forKey: .safeArea)
         self.navigationBar = try container.decodeIfPresent(NavigationBar.self, forKey: .navigationBar)
+        self.screenAnalyticsEvent = try container.decodeIfPresent(AnalyticsScreen.self, forKey: .screenAnalyticsEvent)
         self.child = try container.decode(forKey: .child)
     }
 }

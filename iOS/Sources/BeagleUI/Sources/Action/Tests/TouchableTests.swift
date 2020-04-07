@@ -32,4 +32,49 @@ final class TouchableTests: XCTestCase {
 
         assertSnapshotImage(view, size: CGSize(width: 100, height: 80))
     }
+    
+    func testIfAnalyticsClickAndActionShouldBeTriggered() {
+        // Given
+        let component = SimpleComponent()
+        let context = BeagleContextSpy()
+        let analyticsExecutorSpy = AnalyticsExecutorSpy()
+        let actionExecutorSpy = ActionExecutorSpy()
+        let dependencies = BeagleScreenDependencies(
+            actionExecutor: actionExecutorSpy,
+            analytics: analyticsExecutorSpy
+        )
+        
+        let controller = BeagleScreenViewController(viewModel: .init(
+            screenType: .declarative(component.content.toScreen()),
+            dependencies: dependencies
+        ))
+        
+        let navigationController = UINavigationController(rootViewController: controller)
+        guard let sut = navigationController.viewControllers.first as? BeagleScreenViewController else {
+            XCTFail("Could not find `BeagleScreenViewController`.")
+            return
+        }
+        
+        let actionDummy = ActionDummy()
+        let analyticsAction = AnalyticsClick(category: "some category")
+        let touchable = Touchable(action: actionDummy, clickAnalyticsEvent: analyticsAction, child: Text("mocked text"))
+        let view = touchable.toView(context: context, dependencies: dependencies)
+        
+        sut.register(events: [.action(actionDummy), .analytics(analyticsAction)], inView: view)
+        
+        let gesture = view.gestureRecognizers?.first { $0 is EventsGestureRecognizer }
+    
+        guard let eventsGestureRecognizer = gesture as? EventsGestureRecognizer else {
+            XCTFail("Could not find `EventsGestureRecognizer`")
+            return
+        }
+                
+        // When
+        sut.handleGestureRecognizer(eventsGestureRecognizer)
+                
+        // Then
+        XCTAssert(context.didCallRegisterEvents)
+        XCTAssertTrue(analyticsExecutorSpy.didTrackEventOnClick)
+        XCTAssertTrue(actionExecutorSpy.didCallDoAction)
+    }
 }

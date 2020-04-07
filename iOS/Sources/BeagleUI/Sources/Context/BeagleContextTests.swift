@@ -19,8 +19,9 @@ import XCTest
 import SnapshotTesting
 
 class BeagleContextSpy: BeagleContext {
-
-    private(set) var didCallRegisterAction = false
+    
+    private(set) var analyticsEventCalled = false
+    private(set) var didCallRegisterEvents = false
     private(set) var didCallRegisterFormSubmit = false
     private(set) var didCallLazyLoad = false
     private(set) var didCallDoAction = false
@@ -30,8 +31,12 @@ class BeagleContextSpy: BeagleContext {
 
     var screenController: UIViewController = UIViewController()
 
-    func register(action: Action, inView view: UIView) {
-        didCallRegisterAction = true
+    func register(events: [Event], inView view: UIView) {
+        didCallRegisterEvents = true
+    }
+    
+    func doAnalyticsAction(_ action: AnalyticsClick, sender: Any) {
+        analyticsEventCalled = true
     }
 
     func register(formSubmitEnabledWidget: Widget?, formSubmitDisabledWidget: Widget?) {
@@ -81,7 +86,7 @@ final class BeagleContextTests: XCTestCase {
         let action = Navigate.popView
         
         // When
-        sut.register(action: action, inView: view)
+        sut.register(events: [.action(action)], inView: view)
         
         // Then
         XCTAssertEqual(1, view.gestureRecognizers?.count)
@@ -108,15 +113,15 @@ final class BeagleContextTests: XCTestCase {
         
         let view = UILabel()
         let action = Navigate.popView
-        sut.register(action: action, inView: view)
+        sut.register(events: [.action(action)], inView: view)
         
-        guard let actionGestureRecognizer = view.gestureRecognizers?.first as? ActionGestureRecognizer else {
-            XCTFail("Could not find `ActionGestureRecognizer`.")
+        guard let eventsGestureRecognizer = view.gestureRecognizers?.first as? EventsGestureRecognizer else {
+            XCTFail("Could not find `EventsGestureRecognizer`.")
             return
         }
         
         // When
-        sut.handleActionGesture(actionGestureRecognizer)
+        sut.handleGestureRecognizer(eventsGestureRecognizer)
                 
         // Then
         XCTAssertTrue(actionExecutorSpy.didCallDoAction)

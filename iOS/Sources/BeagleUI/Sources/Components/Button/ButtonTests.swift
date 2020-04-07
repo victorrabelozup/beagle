@@ -71,15 +71,40 @@ final class ButtonTests: XCTestCase {
         let context = BeagleContextSpy()
         
         let view = button.toView(context: context, dependencies: dependencies)
-        (view as? Button.BeagleUIButton)?.triggerAction()
+        (view as? Button.BeagleUIButton)?.triggerTouchUpInsideActions()
         
         XCTAssertEqual(context.actionCalled as? ActionDummy, action)
+    }
+    
+    func test_analytics_click_shouldBeTriggered() {
+        var dependencies = BeagleScreenDependencies()
+        dependencies.analytics = AnalyticsExecutorSpy()
+        let button = Button(text: "Trigger analytics click", clickAnalyticsEvent: .init(category: "some category"))
+        let context = BeagleContextSpy()
+        let view = button.toView(context: context, dependencies: dependencies)
+        (view as? Button.BeagleUIButton)?.triggerTouchUpInsideActions()
+        
+        XCTAssertTrue(context.analyticsEventCalled)
+    }
+    
+    func test_analytics_click_and_action_shouldBeTriggered() {
+        var dependencies = BeagleScreenDependencies()
+        let action = ActionDummy()
+        dependencies.analytics = AnalyticsExecutorSpy()
+        let button = Button(text: "Trigger analytics click", action: action, clickAnalyticsEvent: .init(category: "some category"))
+        let context = BeagleContextSpy()
+        let view = button.toView(context: context, dependencies: dependencies)
+        (view as? Button.BeagleUIButton)?.triggerTouchUpInsideActions()
+        
+        XCTAssertEqual(context.actionCalled as? ActionDummy, action)
+        XCTAssertTrue(context.analyticsEventCalled)
     }
     
     func test_whenDecodingJson_thenItShouldReturnAButton() throws {
         let component: Button = try componentFromJsonFile(fileName: "buttonComponent")
         assertSnapshot(matching: component, as: .dump)
     }
+    
 }
 
 final class ThemeSpy: Theme {

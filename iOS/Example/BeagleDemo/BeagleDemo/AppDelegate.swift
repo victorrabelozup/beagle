@@ -42,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         dependencies.urlBuilder = UrlBuilder(baseUrl: URL(string: .BASE_URL))
         dependencies.deepLinkHandler = deepLinkHandler
         dependencies.validatorProvider = validator
+        dependencies.analytics = AnalyticsMock()
         Beagle.dependencies = dependencies
         
         registerCustomComponents()

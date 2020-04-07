@@ -276,12 +276,13 @@ class BeagleContextDummy: BeagleContext {
     
     var screenController: UIViewController { return viewController }
     
-    func register(action: Action, inView view: UIView) {}
+    func doAnalyticsAction(_ action: AnalyticsClick, sender: Any) {}
     func register(form: Form, formView: UIView, submitView: UIView, validatorHandler validator: ValidatorProvider?) {}
     func register(formSubmitEnabledWidget: Widget?, formSubmitDisabledWidget: Widget?) {}
     func lazyLoad(url: String, initialState: UIView) {}
     func doAction(_ action: Action, sender: Any) {}
     func applyLayout() {}
+    func register(events: [Event], inView view: UIView) { }
 }
 
 struct NavigatorDependencies: BeagleNavigator.Dependencies {

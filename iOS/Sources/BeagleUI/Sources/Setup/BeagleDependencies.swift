@@ -17,6 +17,7 @@
 import UIKit
 
 public protocol BeagleDependenciesProtocol: DependencyActionExecutor,
+    DependencyAnalyticsExecutor,
     DependencyUrlBuilder,
     DependencyComponentDecoding,
     DependencyNetworkClient,
@@ -30,7 +31,7 @@ public protocol BeagleDependenciesProtocol: DependencyActionExecutor,
 }
 
 open class BeagleDependencies: BeagleDependenciesProtocol {
-
+    
     public var urlBuilder: UrlBuilderProtocol
     public var networkClient: NetworkClient
     public var decoder: ComponentDecoding
@@ -40,6 +41,7 @@ open class BeagleDependencies: BeagleDependenciesProtocol {
     public var deepLinkHandler: DeepLinkScreenManaging?
     public var customActionHandler: CustomActionHandler?
     public var actionExecutor: ActionExecutor
+    public var analytics: Analytics?
     public var network: Network
     public var navigation: BeagleNavigation
     public var preFetchHelper: BeaglePrefetchHelping

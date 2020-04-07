@@ -9,3 +9,4 @@
     - style: Optional<String>.none
     - text: "touchable"
     - textColor: Optional<String>.none
+  - clickAnalyticsEvent: Optional<AnalyticsClick>.none

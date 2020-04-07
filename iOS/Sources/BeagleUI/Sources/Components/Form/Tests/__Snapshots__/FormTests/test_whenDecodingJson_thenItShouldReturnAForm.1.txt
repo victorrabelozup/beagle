@@ -63,6 +63,7 @@
           - accessibility: Optional<Accessibility>.none
           - action: Optional<Action>.none
           - appearance: Optional<Appearance>.none
+          - clickAnalyticsEvent: Optional<AnalyticsClick>.none
           ▿ flex: Optional<Flex>
             ▿ some: Flex
               - alignContent: Optional<Alignment>.none

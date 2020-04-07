@@ -16,7 +16,7 @@
 
 import UIKit
 
-public struct Button: Widget {
+public struct Button: Widget, ClickedOnComponent {
     
     // MARK: - Public Properties
     public let text: String
@@ -26,6 +26,7 @@ public struct Button: Widget {
     public let appearance: Appearance?
     public var accessibility: Accessibility?
     public let flex: Flex?
+    public var clickAnalyticsEvent: AnalyticsClick?
     
     public init(
         text: String,
@@ -34,7 +35,8 @@ public struct Button: Widget {
         id: String? = nil,
         appearance: Appearance? = nil,
         flex: Flex? = nil,
-        accessibility: Accessibility? = nil
+        accessibility: Accessibility? = nil,
+        clickAnalyticsEvent: AnalyticsClick? = nil
     ) {
         self.text = text
         self.style = style
@@ -43,6 +45,7 @@ public struct Button: Widget {
         self.appearance = appearance
         self.flex = flex
         self.accessibility = accessibility
+        self.clickAnalyticsEvent = clickAnalyticsEvent
     }
 }
 
@@ -50,15 +53,19 @@ extension Button: Renderable {
     
     public func toView(context: BeagleContext, dependencies: RenderableDependencies) -> UIView {
         
-        let button = BeagleUIButton.button(context: context, action: action, dependencies: dependencies)
+        let button = BeagleUIButton.button(
+            context: context,
+            action: action,
+            clickAnalyticsEvent: clickAnalyticsEvent,
+            dependencies: dependencies
+        )
         button.setTitle(text, for: .normal)
         
         if let newPath = (action as? Navigate)?.newPath {
             dependencies.preFetchHelper.prefetchComponent(newPath: newPath, dependencies: dependencies)
         }
-
+        
         button.style = style
-
         button.beagle.setup(self)
         
         return button
@@ -95,25 +102,33 @@ extension Button: Renderable {
         }
         
         private var action: Action?
+        private var clickAnalyticsEvent: AnalyticsClick?
         private weak var context: BeagleContext?
         private var dependencies: DependencyTheme?
         
         static func button(
             context: BeagleContext,
             action: Action?,
+            clickAnalyticsEvent: AnalyticsClick? = nil,
             dependencies: DependencyTheme
         ) -> BeagleUIButton {
             let button = BeagleUIButton(type: .system)
             button.action = action
             button.context = context
             button.dependencies = dependencies
-            button.addTarget(button, action: #selector(triggerAction), for: .touchUpInside)
+            button.clickAnalyticsEvent = clickAnalyticsEvent
+            button.addTarget(button, action: #selector(triggerTouchUpInsideActions), for: .touchUpInside)
             return button
         }
         
-        @objc func triggerAction() {
-            guard let action = action else { return }
-            context?.doAction(action, sender: self)
+        @objc func triggerTouchUpInsideActions() {
+            if let action = action {
+                context?.doAction(action, sender: self)
+            }
+            
+            if let click = clickAnalyticsEvent {
+                context?.doAnalyticsAction(click, sender: self)
+            }
         }
         
         private func applyStyle() {
@@ -133,8 +148,9 @@ extension Button: Decodable {
         case appearance
         case accessibility
         case flex
+        case clickAnalyticsEvent
     }
-
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.text = try container.decode(String.self, forKey: .text)
@@ -144,5 +160,6 @@ extension Button: Decodable {
         self.appearance = try container.decodeIfPresent(Appearance.self, forKey: .appearance)
         self.accessibility = try container.decodeIfPresent(Accessibility.self, forKey: .accessibility)
         self.flex = try container.decodeIfPresent(Flex.self, forKey: .flex)
+        self.clickAnalyticsEvent = try container.decodeIfPresent(AnalyticsClick.self, forKey: .clickAnalyticsEvent)
     }
 }

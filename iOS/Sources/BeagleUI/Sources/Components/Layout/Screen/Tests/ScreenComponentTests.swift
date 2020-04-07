@@ -120,6 +120,36 @@ final class ScreenComponentTests: XCTestCase {
         let component: ScreenComponent = try componentFromJsonFile(fileName: "screenComponent")
         assertSnapshot(matching: component, as: .dump)
     }
+    
+    func testIfAnalyticsScreenShouldBeTriggered() {
+        // Given
+        let analyticsEvent = AnalyticsScreen(screenName: "screen name")
+        let component = ScreenComponent(
+            identifier: nil,
+            appearance: nil,
+            safeArea: nil,
+            navigationBar: nil,
+            screenAnalyticsEvent: analyticsEvent,
+            child: Text("")
+        )
+        
+        let analyticsExecutorSpy = AnalyticsExecutorSpy()
+        let dependencies = BeagleScreenDependencies(
+            analytics: analyticsExecutorSpy
+        )
+        
+        let controller = BeagleScreenViewController(viewModel: .init(
+            screenType: .declarative(component.toScreen()),
+            dependencies: dependencies
+        ))
+        
+        // When
+        controller.beginAppearanceTransition(true, animated: false)
+        controller.endAppearanceTransition()
+        
+        // Then
+        XCTAssertTrue(analyticsExecutorSpy.didTrackEventOnScreenAppeared)
+    }
 }
 
 // MARK: - Testing Helpers

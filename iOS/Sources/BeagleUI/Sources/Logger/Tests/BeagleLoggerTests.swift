@@ -19,6 +19,7 @@ import XCTest
 @testable import BeagleUI
 import SnapshotTesting
 
+// swiftlint:disable force_unwrapping
 class BeagleLoggerDumb: BeagleLoggerType {
     func log(_ log: LogType) {
         return

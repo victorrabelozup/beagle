@@ -19,7 +19,6 @@ import UIKit
 public class BeagleScreenViewController: UIViewController {
     
     public let viewModel: BeagleScreenViewModel
-    
     private var viewIsPresented = false
     private var layoutManager: LayoutManager?
     private(set) var componentView: UIView?
@@ -59,6 +58,16 @@ public class BeagleScreenViewController: UIViewController {
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         viewIsPresented = false
+    }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.sendScreenAnalyticsEvent(.screenAppeared)
+    }
+    
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        viewModel.sendScreenAnalyticsEvent(.screenDisapeared)
     }
     
     private func renderComponentIfNeeded() {

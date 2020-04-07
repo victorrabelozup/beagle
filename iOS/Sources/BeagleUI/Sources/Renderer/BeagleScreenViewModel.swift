@@ -21,8 +21,18 @@ public protocol RemoteScreenAdditionalData {
 
 }
 
-public class BeagleScreenViewModel {
-
+public class BeagleScreenViewModel: ScreenEvent {
+    
+    // MARK: Analytics Events
+    internal enum ScreenAnalyticsEvents: String {
+        case screenAppeared = "Screen Appeared"
+        case screenDisapeared = "Screen Disappeared"
+    }
+    
+    public var screenAnalyticsEvent: AnalyticsScreen? {
+        return screen?.screenAnalyticsEvent
+    }
+    
     // MARK: ScreenType
 
     var screenType: ScreenType
@@ -70,6 +80,7 @@ public class BeagleScreenViewModel {
 
     public typealias Dependencies =
         DependencyActionExecutor
+        & DependencyAnalyticsExecutor
         & DependencyNetwork
         & RenderableDependencies
         & DependencyComponentDecoding
@@ -124,6 +135,16 @@ public class BeagleScreenViewModel {
 
     // MARK: Core
 
+    func sendScreenAnalyticsEvent(_ eventType: ScreenAnalyticsEvents) {
+        guard let event = screenAnalyticsEvent else { return }
+        switch eventType {
+        case .screenAppeared:
+            dependencies.analytics?.trackEventOnScreenAppeared(event)
+        case .screenDisapeared:
+            dependencies.analytics?.trackEventOnScreenDisappeared(event)
+        }
+    }
+    
     func tryToLoadScreenFromText(_ text: String) {
         guard let loadedScreen = loadScreenFromText(text) else {
             state = .failure(Request.Error.loadFromTextError)
