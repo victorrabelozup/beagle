@@ -87,7 +87,7 @@
       - data: Optional<RemoteScreenAdditionalData>.none
       ▿ requestType: RequestType
         ▿ submitForm: FormData
-          - method: MethodType.get
+          - method: Method.get
           ▿ values: 1 key/value pair
             ▿ (2 elements)
               - key: "key"
@@ -116,7 +116,7 @@
               - method: Method.POST
       ▿ requestType: RequestType
         ▿ submitForm: FormData
-          - method: MethodType.get
+          - method: Method.get
           ▿ values: 1 key/value pair
             ▿ (2 elements)
               - key: "key"
@@ -140,7 +140,7 @@
       - data: Optional<RemoteScreenAdditionalData>.none
       ▿ requestType: RequestType
         ▿ submitForm: FormData
-          - method: MethodType.get
+          - method: Method.get
           - values: 0 key/value pairs
       - url: scheme://baseUrl/
     ▿ result: Result
@@ -166,7 +166,7 @@
               - method: Method.POST
       ▿ requestType: RequestType
         ▿ submitForm: FormData
-          - method: MethodType.get
+          - method: Method.get
           - values: 0 key/value pairs
       - url: scheme://baseUrl/
     ▿ result: Result
@@ -187,7 +187,7 @@
       - data: Optional<RemoteScreenAdditionalData>.none
       ▿ requestType: RequestType
         ▿ submitForm: FormData
-          - method: MethodType.post
+          - method: Method.post
           ▿ values: 1 key/value pair
             ▿ (2 elements)
               - key: "key"
@@ -217,7 +217,7 @@
               - method: Method.POST
       ▿ requestType: RequestType
         ▿ submitForm: FormData
-          - method: MethodType.post
+          - method: Method.post
           ▿ values: 1 key/value pair
             ▿ (2 elements)
               - key: "key"
@@ -241,7 +241,7 @@
       - data: Optional<RemoteScreenAdditionalData>.none
       ▿ requestType: RequestType
         ▿ submitForm: FormData
-          - method: MethodType.post
+          - method: Method.post
           - values: 0 key/value pairs
       - url: scheme://baseUrl/
     ▿ result: Result
@@ -268,7 +268,7 @@
               - method: Method.POST
       ▿ requestType: RequestType
         ▿ submitForm: FormData
-          - method: MethodType.post
+          - method: Method.post
           - values: 0 key/value pairs
       - url: scheme://baseUrl/
     ▿ result: Result
@@ -289,7 +289,7 @@
       - data: Optional<RemoteScreenAdditionalData>.none
       ▿ requestType: RequestType
         ▿ submitForm: FormData
-          - method: MethodType.put
+          - method: Method.put
           ▿ values: 1 key/value pair
             ▿ (2 elements)
               - key: "key"
@@ -319,7 +319,7 @@
               - method: Method.POST
       ▿ requestType: RequestType
         ▿ submitForm: FormData
-          - method: MethodType.put
+          - method: Method.put
           ▿ values: 1 key/value pair
             ▿ (2 elements)
               - key: "key"
@@ -343,7 +343,7 @@
       - data: Optional<RemoteScreenAdditionalData>.none
       ▿ requestType: RequestType
         ▿ submitForm: FormData
-          - method: MethodType.put
+          - method: Method.put
           - values: 0 key/value pairs
       - url: scheme://baseUrl/
     ▿ result: Result
@@ -370,7 +370,7 @@
               - method: Method.POST
       ▿ requestType: RequestType
         ▿ submitForm: FormData
-          - method: MethodType.put
+          - method: Method.put
           - values: 0 key/value pairs
       - url: scheme://baseUrl/
     ▿ result: Result
@@ -391,7 +391,7 @@
       - data: Optional<RemoteScreenAdditionalData>.none
       ▿ requestType: RequestType
         ▿ submitForm: FormData
-          - method: MethodType.delete
+          - method: Method.delete
           ▿ values: 1 key/value pair
             ▿ (2 elements)
               - key: "key"
@@ -420,7 +420,7 @@
               - method: Method.POST
       ▿ requestType: RequestType
         ▿ submitForm: FormData
-          - method: MethodType.delete
+          - method: Method.delete
           ▿ values: 1 key/value pair
             ▿ (2 elements)
               - key: "key"
@@ -444,7 +444,7 @@
       - data: Optional<RemoteScreenAdditionalData>.none
       ▿ requestType: RequestType
         ▿ submitForm: FormData
-          - method: MethodType.delete
+          - method: Method.delete
           - values: 0 key/value pairs
       - url: scheme://baseUrl/
     ▿ result: Result
@@ -470,7 +470,7 @@
               - method: Method.POST
       ▿ requestType: RequestType
         ▿ submitForm: FormData
-          - method: MethodType.delete
+          - method: Method.delete
           - values: 0 key/value pairs
       - url: scheme://baseUrl/
     ▿ result: Result

@@ -14,25 +14,21 @@
 // limitations under the License.
 //
 
-import XCTest
-@testable import BeagleUI
+import Foundation
 
-final class CustomActionHandlerTests: XCTestCase {
-    
-    func test_whenHandleCustomAction_shouldCallHandler() {
-        // Given
-        let actionName = "action-name"
-        let action = CustomAction(name: actionName, data: [:])
-        let sut = CustomActionHandling()
-        var didHandleActioin = false
-        sut[actionName] = { _, _, _ in
-            didHandleActioin = true
-        }
-        
-        // When
-        sut.handle(context: BeagleContextDummy(), action: action) { _ in }
-        
-        // Then
-        XCTAssertTrue(didHandleActioin)
+public struct FormRemoteAction: Action {
+    public let path: String
+    public let method: Method
+
+    public init(path: String, method: Method) {
+        self.path = path
+        self.method = method
+    }
+
+    public enum Method: String, Decodable, CaseIterable {
+        case get = "GET"
+        case post = "POST"
+        case put = "PUT"
+        case delete = "DELETE"
     }
 }

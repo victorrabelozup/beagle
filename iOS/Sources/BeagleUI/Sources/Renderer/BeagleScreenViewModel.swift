@@ -61,7 +61,7 @@ public class BeagleScreenViewModel: ScreenEvent {
 
     // MARK: State
 
-    private(set) var state: State {
+    public var state: State {
         didSet { didChangeState() }
     }
     
@@ -70,8 +70,16 @@ public class BeagleScreenViewModel: ScreenEvent {
     public enum State {
         case loading
         case success
-        case failure(Request.Error)
+        case failure(Error)
         case rendered
+
+        public enum Error {
+            case remoteScreen(Request.Error)
+            case action(Swift.Error)
+            case lazyLoad(Request.Error)
+            case submitForm(Request.Error)
+            case declarativeText
+        }
     }
 
     // MARK: Dependencies
@@ -147,15 +155,15 @@ public class BeagleScreenViewModel: ScreenEvent {
     
     func tryToLoadScreenFromText(_ text: String) {
         guard let loadedScreen = loadScreenFromText(text) else {
-            state = .failure(Request.Error.loadFromTextError)
+            state = .failure(.declarativeText)
             return
         }
+
         screen = loadedScreen
         state = .success
     }
 
     func loadScreenFromText(_ text: String) -> Screen? {
-
         guard let data = text.data(using: .utf8) else { return nil }
         let component = try? self.dependencies.decoder.decodeComponent(from: data)
 
@@ -168,7 +176,7 @@ public class BeagleScreenViewModel: ScreenEvent {
 
     func loadRemoteScreen(_ remote: ScreenType.Remote) {
         if let cached = dependencies.cacheManager.dequeueComponent(path: remote.url) {
-            handleSuccess(cached)
+            handleRemoteScreenSuccess(cached)
             return
         }
         
@@ -179,12 +187,12 @@ public class BeagleScreenViewModel: ScreenEvent {
             additionalData: remote.additionalData
         ) {
             [weak self] result in guard let self = self else { return }
-            
+
             switch result {
             case .success(let component):
-                self.handleSuccess(component)
+                self.handleRemoteScreenSuccess(component)
             case .failure(let error):
-                self.handleFailure(error)
+                self.handleRemoteScreenFailure(error)
             }
         }
     }
@@ -193,30 +201,30 @@ public class BeagleScreenViewModel: ScreenEvent {
         state = .rendered
     }
 
-    func handleError(_ error: Request.Error) {
+    func handleError(_ error: State.Error) {
         delegate?.beagleScreen(viewModel: self, didFailToLoadWithError: error)
     }
     
     // MARK: - Private
-    
-    private func handleSuccess(_ component: ServerDrivenComponent) {
-        screen = component.toScreen()
-        state = .success
-    }
-    
-    private func handleFailure(_ error: Request.Error) {
-        if case let .remote(remote) = self.screenType, let screen = remote.fallback {
-            self.screen = screen
-        }
-        self.state = .failure(error)
-    }
 
     private func didChangeState() {
         stateObserver?.didChangeState(state)
 
-        guard case .failure(let error) = state else { return }
-
-        handleError(error)
+        if case .failure(let error) = state {
+            handleError(error)
+        }
+    }
+    
+    private func handleRemoteScreenSuccess(_ component: ServerDrivenComponent) {
+        screen = component.toScreen()
+        state = .success
+    }
+    
+    private func handleRemoteScreenFailure(_ error: Request.Error) {
+        if case let .remote(remote) = self.screenType, let screen = remote.fallback {
+            self.screen = screen
+        }
+        self.state = .failure(.remoteScreen(error))
     }
 }
 
@@ -227,7 +235,7 @@ public protocol BeagleScreenDelegate: AnyObject {
 
     func beagleScreen(
         viewModel: ViewModel,
-        didFailToLoadWithError error: Request.Error
+        didFailToLoadWithError error: ViewModel.State.Error
     )
 }
 

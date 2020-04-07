@@ -59,7 +59,10 @@ final class ActionExecutorTests: XCTestCase {
         let formInput = FormInput(name: inputName, child: ComponentDummy())
         let validationErrorListenerSpy = ValidationErrorListenerSpy()
         validationErrorListenerSpy.beagleFormElement = formInput
-        let form = Form(path: "path", method: .post, child: Container(children: [formInput]))
+        let form = Form(
+            action: FormRemoteAction(path: "path", method: .post),
+            child: Container(children: [formInput])
+        )
         let formView = UIView()
         let formSubmitView = UIView()
         formView.addSubview(validationErrorListenerSpy)
@@ -104,12 +107,40 @@ final class ActionExecutorTests: XCTestCase {
         // Then
         XCTAssertEqual(actionSpy.actionsHandledCount, 1)
     }
+
+    func test_whenExecuteCustomAction_shouldListenToStateChanges() {
+        // Given
+        let name = "name"
+        let error = NSError()
+
+        let handler: CustomActionHandling.Handler = { context, action, listener in
+            listener(.start)
+            listener(.error(error))
+            listener(.success(action: ActionDummy()))
+        }
+
+        let expectedStates: [BeagleScreenViewModel.State] = [.loading, .loading, .failure(.action(error)), .rendered]
+
+        let handlers = CustomActionHandling(handlers: [name: handler])
+
+        let model = BeagleScreenViewModelMock(screenType: .remote(.init(url: "")))
+        let view = BeagleScreenViewController(viewModel: model)
+
+        let executor = ActionExecuting(dependencies: Dependencies(customActionHandler: handlers))
+        let action = CustomAction(name: name, data: [:])
+
+        // When
+        executor.doAction(action, sender: self, context: view)
+
+        // Then
+        XCTAssert(model.changedStates == expectedStates)
+    }
 }
 
 // MARK: - Test helpers
 
 class CustomActionHandlerDummy: CustomActionHandler {
-    func handle(context: BeagleContext, action: CustomAction) {
+    func handle(context: BeagleContext, action: CustomAction, listener: Listener) {
     }
 }
 
@@ -124,7 +155,7 @@ class BeagleNavigationSpy: BeagleNavigation {
 class CustomActionHandlerSpy: CustomActionHandler {
     private(set) var actionsHandledCount = 0
 
-    func handle(context: BeagleContext, action: CustomAction) {
+    func handle(context: BeagleContext, action: CustomAction, listener: Listener) {
         actionsHandledCount += 1
     }
 }
@@ -134,5 +165,30 @@ class ValidationErrorListenerSpy: UIView, ValidationErrorListener {
 
     func onValidationError(message: String?) {
         validationErrorMessage = message
+    }
+}
+
+class BeagleScreenViewModelMock: BeagleScreenViewModel {
+
+    override var state: BeagleScreenViewModel.State {
+        didSet { saveState(state) }
+    }
+
+    var changedStates = [State]()
+
+    func saveState(_ state: BeagleScreenViewModel.State) {
+        changedStates.append(state)
+    }
+}
+
+extension BeagleScreenViewModel.State: Equatable {
+    public static func == (lhs: BeagleScreenViewModel.State, rhs: BeagleScreenViewModel.State) -> Bool {
+        switch (lhs, rhs) {
+        case (.loading, .loading): return true
+        case (.rendered, .rendered): return true
+        case (.success, .success): return true
+        case (.failure, .failure): return true
+        default: return false
+        }
     }
 }

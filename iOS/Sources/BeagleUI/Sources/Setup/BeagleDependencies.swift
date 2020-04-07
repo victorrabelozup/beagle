@@ -26,7 +26,6 @@ public protocol BeagleDependenciesProtocol: DependencyActionExecutor,
     DependencyNavigation,
     DependencyViewConfigurator,
     DependencyFlexConfigurator,
-    DependencyLogger,
     RenderableDependencies {
 }
 

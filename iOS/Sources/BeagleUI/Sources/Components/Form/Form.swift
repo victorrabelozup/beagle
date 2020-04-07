@@ -19,30 +19,18 @@ import UIKit
 public struct Form: ServerDrivenComponent {
     
     // MARK: - Public Properties
-    
-    public let path: String
-    public let method: MethodType
+
+    public let action: Action
     public let child: ServerDrivenComponent
     
     // MARK: - Initialization
     
     public init(
-        path: String,
-        method: MethodType,
+        action: Action,
         child: ServerDrivenComponent
     ) {
-        self.path = path
-        self.method = method
+        self.action = action
         self.child = child
-    }
-}
-
-extension Form {
-    public enum MethodType: String, Decodable, CaseIterable {
-        case get = "GET"
-        case post = "POST"
-        case put = "PUT"
-        case delete = "DELETE"
     }
 }
 
@@ -63,7 +51,7 @@ extension Form: Renderable {
         
         registerFormSubmit(view: childView)
         if !hasFormSubmit {
-            dependencies.logger.log(Log.form(.submitNotFound(path: path)))
+            dependencies.logger.log(Log.form(.submitNotFound(form: self)))
         }
         return childView
     }    
@@ -71,15 +59,13 @@ extension Form: Renderable {
 
 extension Form: Decodable {
     enum CodingKeys: String, CodingKey {
-        case path
-        case method
+        case action
         case child
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.path = try container.decode(String.self, forKey: .path)
-        self.method = try container.decode(MethodType.self, forKey: .method)
+        self.action = try container.decode(forKey: .action)
         self.child = try container.decode(forKey: .child)
     }
 }

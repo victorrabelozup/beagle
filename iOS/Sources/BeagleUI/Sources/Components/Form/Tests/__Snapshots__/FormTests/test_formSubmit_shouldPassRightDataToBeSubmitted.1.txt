@@ -1,5 +1,5 @@
 ▿ FormData
-  - method: MethodType.post
+  - method: Method.post
   ▿ values: 2 key/value pairs
     ▿ (2 elements)
       - key: "id"

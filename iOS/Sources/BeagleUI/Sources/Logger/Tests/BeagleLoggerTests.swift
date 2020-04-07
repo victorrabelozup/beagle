@@ -19,35 +19,30 @@ import XCTest
 @testable import BeagleUI
 import SnapshotTesting
 
-// swiftlint:disable force_unwrapping
-class BeagleLoggerDumb: BeagleLoggerType {
-    func log(_ log: LogType) {
-        return
-    }
-}
-
 class BeagleLoggerTests: XCTestCase {
+    // swiftlint:disable force_unwrapping
 
     func testLogs() {
         // Given
-        let path = "myPath"
+        let form = Form(action: ActionDummy(), child: ComponentDummy())
+        let path = "path"
 
         let logs: [Log] = [
             Log.network(.couldNotBuildUrl(url: "asdfa/asdfa/asdf")),
             Log.network(.httpRequest(request: .init(url: URLRequest(url: URL(string: "test")!)))),
             Log.network(.httpResponse(response: .init(data: nil, reponse: nil))),
 
-            Log.form(.divergentInputViewAndValueCount(path: path)),
-            Log.form(.inputsNotFound(path: path)),
-            Log.form(.submitNotFound(path: path)),
+            Log.form(.divergentInputViewAndValueCount(form: form)),
+            Log.form(.inputsNotFound(form: form)),
+            Log.form(.submitNotFound(form: form)),
             Log.form(.submittedValues(values: ["key1": "value1"])),
             Log.form(.validationInputNotValid(inputName: "inputName")),
             Log.form(.validatorNotFound(named: "validatorName")),
 
             Log.navigation(.cantPopToAlreadyCurrentScreen(identifier: "identifier")),
-            Log.navigation(.didReceiveAction(Navigate.addView(.init(path: "testando")))),
-            Log.navigation(.didReceiveAction(Navigate.openDeepLink(.init(path: "path")))),
-            Log.navigation(.didReceiveAction(Navigate.openDeepLink(.init(path: "path", data: ["key": "value"], component: Text("bla"))))),
+            Log.navigation(.didReceiveAction(Navigate.addView(.init(path: path)))),
+            Log.navigation(.didReceiveAction(Navigate.openDeepLink(.init(path: path)))),
+            Log.navigation(.didReceiveAction(Navigate.openDeepLink(.init(path: path, data: ["key": "value"], component: Text("bla"))))),
             Log.navigation(.errorTryingToPopScreenOnNavigatorWithJustOneScreen),
             Log.navigation(.didNotFindDeepLinkScreen(path: path)),
 
@@ -60,5 +55,11 @@ class BeagleLoggerTests: XCTestCase {
         // Then
         let result = messages.joined(separator: "\n\n")
         assertSnapshot(matching: result, as: .description)
+    }
+}
+
+class BeagleLoggerDumb: BeagleLoggerType {
+    func log(_ log: LogType) {
+        return
     }
 }

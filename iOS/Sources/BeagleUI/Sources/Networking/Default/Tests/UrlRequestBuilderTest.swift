@@ -71,7 +71,7 @@ final class UrlRequestBuilderTest: XCTestCase {
     }
 
     private func createAllForms() -> [Request.FormData] {
-        let methods = Form.MethodType.allCases
+        let methods = FormRemoteAction.Method.allCases
         let values = [["key": "value"], [:]]
 
         var forms = [Request.FormData]()

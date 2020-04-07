@@ -47,9 +47,9 @@ public enum Log {
     public enum Form {
         case validatorNotFound(named: String)
         case validationInputNotValid(inputName: String)
-        case submitNotFound(path: String)
-        case inputsNotFound(path: String)
-        case divergentInputViewAndValueCount(path: String)
+        case submitNotFound(form: BeagleUI.Form)
+        case inputsNotFound(form: BeagleUI.Form)
+        case divergentInputViewAndValueCount(form: BeagleUI.Form)
         case submittedValues(values: [String: String])
     }
 
@@ -68,9 +68,9 @@ public enum Log {
             let response = (self.reponse as? HTTPURLResponse)
             let string = """
             ***HTTP RESPONSE***
-            StatusCode=\(response?.statusCode ?? 0)
-            Body=\(String(data: data ?? Data(), encoding: .utf8) ?? "")
-            Headers=\(response?.allHeaderFields ?? [:])
+            StatusCode= \(response?.statusCode ?? 0)
+            Body= \(String(data: data ?? Data(), encoding: .utf8) ?? "")
+            Headers= \(response?.allHeaderFields ?? [:])
             """
             return string
         }
@@ -82,10 +82,10 @@ public enum Log {
         public var logMessage: String {
             let string = """
             ***HTTP REQUEST***:
-            Url=\(url?.url?.absoluteString ?? "")
-            HttpMethod=\(url?.httpMethod ?? "")
-            Headers=\(url?.allHTTPHeaderFields ?? [:])
-            Body=\(String(data: url?.httpBody ?? Data(), encoding: .utf8) ?? "empty")
+            Url= \(url?.url?.absoluteString ?? "")
+            HttpMethod= \(url?.httpMethod ?? "")
+            Headers= \(url?.allHTTPHeaderFields ?? [:])
+            Body= \(String(data: url?.httpBody ?? Data(), encoding: .utf8) ?? "empty")
             """
             return string
         }
@@ -112,12 +112,12 @@ extension Log: LogType {
         case .network(let log):
             return String(describing: log)
 
-        case .form(.submitNotFound(let path)):
-            return "Are you missing to declare your Submit widgets for form of path \(path) ?"
-        case .form(.inputsNotFound(let path)):
-            return "Are you missing to declare your FormInput widgets for form of path \(path) ?"
-        case .form(.divergentInputViewAndValueCount(let path)):
-            return "Number of formInput and values are different. You probably declared formInputs with same name on form \(path)."
+        case .form(.submitNotFound(let form)):
+            return "You probably forgot to declare your Submit widget in form: \n\t \(form)"
+        case .form(.inputsNotFound(let form)):
+            return "You probably forgot to declare your FormInput widgets in form: \n\t \(form)"
+        case .form(.divergentInputViewAndValueCount(let form)):
+            return "Number of formInput and values are different. You probably declared formInputs with the same name in form: \n\t \(form)"
         case .form(let log):
             return String(describing: log)
 
@@ -127,7 +127,7 @@ extension Log: LogType {
             return String(describing: log)
 
         case .decode(.decodingError(let type)):
-            return "Could not decode: \(type). Check if it that type has been registered."
+            return "Could not decode: \(type). Check if that type has been registered."
         }
     }
 

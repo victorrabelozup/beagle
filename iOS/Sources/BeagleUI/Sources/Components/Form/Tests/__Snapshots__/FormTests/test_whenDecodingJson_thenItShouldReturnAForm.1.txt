@@ -1,4 +1,7 @@
 ▿ Form
+  ▿ action: FormRemoteAction
+    - method: Method.post
+    - path: "/sample/form"
   ▿ child: Container
     - accessibility: Optional<Accessibility>.none
     ▿ appearance: Optional<Appearance>
@@ -136,5 +139,3 @@
         - shrink: Optional<Double>.none
         - size: Optional<Size>.none
     - id: Optional<String>.none
-  - method: MethodType.post
-  - path: "/sample/form"

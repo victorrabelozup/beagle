@@ -23,9 +23,9 @@ public enum Event {
 
 /// Interface to access application specific operations
 public protocol BeagleContext: AnyObject {
-    
+
     var screenController: UIViewController { get }
-    
+
     func applyLayout()
     func register(events: [Event], inView view: UIView)
     func register(form: Form, formView: UIView, submitView: UIView, validatorHandler: ValidatorProvider?)
@@ -35,58 +35,54 @@ public protocol BeagleContext: AnyObject {
 }
 
 extension BeagleScreenViewController: BeagleContext {
-    
+
     public var screenController: UIViewController {
         return self
     }
-    
+
     public func applyLayout() {
         guard let componentView = componentView else { return }
         componentView.frame = view.bounds
         componentView.flex.applyLayout()
     }
-    
+
     // MARK: - Analytics
-    
+
     public func register(events: [Event], inView view: UIView) {
         let eventsTouchGestureRecognizer = EventsGestureRecognizer(
             events: events,
             target: self,
             selector: #selector(handleGestureRecognizer(_:))
         )
-        
+
         view.addGestureRecognizer(eventsTouchGestureRecognizer)
         view.isUserInteractionEnabled = true
     }
-    
+
     @objc func handleGestureRecognizer(_ sender: EventsGestureRecognizer) {
-        
         sender.events.forEach {
             switch $0 {
             case .action(let actionClick):
                 doAction(actionClick, sender: sender)
-                
+
             case .analytics(let analyticsClick):
                 doAnalyticsAction(analyticsClick, sender: sender)
             }
         }
     }
-    
+
     public func doAnalyticsAction(_ clickEvent: AnalyticsClick, sender: Any) {
         dependencies.analytics?.trackEventOnClick(clickEvent)
     }
-    
+
     // MARK: - Action
-    
+
     public func doAction(_ action: Action, sender: Any) {
-        dependencies.actionExecutor.doAction(
-            action,
-            sender: sender,
-            context: self)
+        dependencies.actionExecutor.doAction(action, sender: sender, context: self)
     }
-    
+
     // MARK: - Form
-    
+
     public func register(form: Form, formView: UIView, submitView: UIView, validatorHandler: ValidatorProvider?) {
         let gestureRecognizer = SubmitFormGestureRecognizer(
             form: form,
@@ -101,58 +97,78 @@ extension BeagleScreenViewController: BeagleContext {
            let enabled = formSubmit.enabled {
             control.isEnabled = enabled
         }
-        
+
         submitView.addGestureRecognizer(gestureRecognizer)
         submitView.isUserInteractionEnabled = true
         gestureRecognizer.updateSubmitView()
     }
-    
+
     @objc func handleSubmitFormGesture(_ sender: SubmitFormGestureRecognizer) {
-        if let control = sender.formSubmitView as? UIControl, !control.isEnabled {
-            return
-        }
+        let isSubmitEnabled = (sender.formSubmitView as? UIControl)?.isEnabled ?? true
+        guard isSubmitEnabled else { return }
+
         let inputViews = sender.formInputViews()
         if inputViews.isEmpty {
-            dependencies.logger.log(Log.form(.inputsNotFound(path: sender.form.path)))
+            dependencies.logger.log(Log.form(.inputsNotFound(form: sender.form)))
         }
         let values = inputViews.reduce(into: [:]) {
-            self.validate(formInput: $1, formSubmit: sender.formSubmitView, validatorHandler: sender.validator, result: &$0)
+            self.validate(
+                formInput: $1,
+                formSubmit: sender.formSubmitView,
+                validatorHandler: sender.validator,
+                result: &$0
+            )
         }
         guard inputViews.count == values.count else {
-            dependencies.logger.log(Log.form(.divergentInputViewAndValueCount(path: sender.form.path)))
+            dependencies.logger.log(Log.form(.divergentInputViewAndValueCount(form: sender.form)))
             return
         }
-        makeRequest(sender: sender, values: values)
-        
+
+        submitAction(sender.form.action, inputs: values, sender: sender)
     }
 
-    private func makeRequest(sender: SubmitFormGestureRecognizer, values: [String: String]) {
+    private func submitAction(_ action: Action, inputs: [String: String], sender: Any) {
+        switch action {
+        case let action as FormRemoteAction:
+            submitForm(action, inputs: inputs, sender: sender)
+
+        case let action as CustomAction:
+            let newAction = CustomAction(name: action.name, data: inputs.merging(action.data) { a, _ in return a })
+            dependencies.actionExecutor.doAction(newAction, sender: sender, context: self)
+
+        default:
+            dependencies.actionExecutor.doAction(action, sender: sender, context: self)
+        }
+    }
+
+    private func submitForm(_ remote: FormRemoteAction, inputs: [String: String], sender: Any) {
         view.showLoading(.whiteLarge)
 
         let data = Request.FormData(
-            method: sender.form.method,
-            values: values
+            method: remote.method,
+            values: inputs
         )
 
-        dependencies.network.submitForm(
-            url: sender.form.path,
-            additionalData: nil,
-            data: data
-        ) {
+        dependencies.network.submitForm(url: remote.path, additionalData: nil, data: data) {
             [weak self] result in guard let self = self else { return }
 
             self.view.hideLoading()
             self.handleFormResult(result, sender: sender)
         }
-        dependencies.logger.log(Log.form(.submittedValues(values: values)))
+        dependencies.logger.log(Log.form(.submittedValues(values: inputs)))
     }
-    
-    private func validate(formInput view: UIView, formSubmit submitView: UIView?, validatorHandler: ValidatorProvider?, result: inout [String: String]) {
+
+    private func validate(
+        formInput view: UIView,
+        formSubmit submitView: UIView?,
+        validatorHandler: ValidatorProvider?,
+        result: inout [String: String]
+    ) {
         guard
             let formInput = view.beagleFormElement as? FormInputComponent,
-            let inputValue = view as? InputValue else {
-                return
-        }
+            let inputValue = view as? InputValue
+        else { return }
+
         if let defaultFormInput = formInput as? FormInput, defaultFormInput.required ?? false {
             guard
                 let validatorName = defaultFormInput.validator,
@@ -165,7 +181,7 @@ extension BeagleScreenViewController: BeagleContext {
             }
             let value = inputValue.getValue()
             let isValid = validator.isValid(input: value)
-                        
+
             if isValid {
                 result[formInput.name] = String(describing: value)
             } else {
@@ -178,18 +194,18 @@ extension BeagleScreenViewController: BeagleContext {
             result[formInput.name] = String(describing: inputValue.getValue())
         }
     }
-    
+
     private func handleFormResult(_ result: Result<Action, Request.Error>, sender: Any) {
         switch result {
         case .success(let action):
             dependencies.actionExecutor.doAction(action, sender: sender, context: self)
         case .failure(let error):
-            viewModel.handleError(error)
+            viewModel.handleError(.submitForm(error))
         }
     }
-    
+
     // MARK: - Lazy Load
-    
+
     public func lazyLoad(url: String, initialState: UIView) {
         dependencies.network.fetchComponent(url: url, additionalData: nil) {
             [weak self] result in guard let self = self else { return }
@@ -199,11 +215,11 @@ extension BeagleScreenViewController: BeagleContext {
                 self.update(initialView: initialState, lazyLoaded: component)
 
             case .failure(let error):
-                self.viewModel.handleError(error)
+                self.viewModel.handleError(.lazyLoad(error))
             }
         }
     }
-    
+
     private func update(initialView: UIView, lazyLoaded: ServerDrivenComponent) {
         let updatable = initialView as? OnStateUpdatable
         let updated = updatable?.onUpdateState(component: lazyLoaded) ?? false
@@ -215,18 +231,17 @@ extension BeagleScreenViewController: BeagleContext {
         }
         applyLayout()
     }
-    
+
     private func replaceView(_ oldView: UIView, with component: ServerDrivenComponent) {
         guard let superview = oldView.superview else { return }
-        
+
         let newView = component.toView(context: self, dependencies: dependencies)
         newView.frame = oldView.frame
         superview.insertSubview(newView, belowSubview: oldView)
         oldView.removeFromSuperview()
-        
+
         if oldView.flex.isEnabled && !newView.flex.isEnabled {
             newView.flex.isEnabled = true
         }
     }
-    
 }

@@ -167,9 +167,9 @@ final class ComponentDecodingStub: ComponentDecoding {
 
 final class NetworkStub: Network {
 
-    let componentResult: Result<ServerDrivenComponent, Request.Error>?
-    let formResult: Result<Action, Request.Error>?
-    let imageResult: Result<Data, Request.Error>?
+    var componentResult: Result<ServerDrivenComponent, Request.Error>?
+    var formResult: Result<Action, Request.Error>?
+    var imageResult: Result<Data, Request.Error>?
 
     private(set) var didCallDispatch = false
     private(set) var token = Token()

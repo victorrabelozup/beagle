@@ -38,11 +38,11 @@ public struct Request {
     }
 
     public struct FormData {
-        public let method: Form.MethodType
+        public let method: FormRemoteAction.Method
         public let values: [String: String]
 
         public init(
-            method: Form.MethodType,
+            method: FormRemoteAction.Method,
             values: [String: String]
         ) {
             self.method = method

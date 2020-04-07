@@ -106,6 +106,7 @@ final class ComponentDecoder: ComponentDecoding {
         registerComponent(FormValidation.self, key: key(name: "FormValidation", content: .action, namespace: .beagle))
         registerComponent(ShowNativeDialog.self, key: key(name: "ShowNativeDialog", content: .action, namespace: .beagle))
         registerComponent(CustomAction.self, key: key(name: "CustomAction", content: .action, namespace: .beagle))
+        registerComponent(FormRemoteAction.self, key: key(name: "FormRemoteAction", content: .action, namespace: .beagle))
     }
     
     private func registerCoreTypes() {

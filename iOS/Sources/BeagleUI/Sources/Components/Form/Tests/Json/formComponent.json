@@ -1,7 +1,10 @@
 {
   "_beagleType_" : "beagle:component:form",
-  "path" : "/sample/form",
-  "method" : "POST",
+  "action": {
+    "_beagleType_" : "beagle:action:formremoteaction",
+    "path" : "/sample/form",
+    "method" : "POST"
+  },
   "child" : {
     "_beagleType_" : "beagle:component:container",
     "children" : [ {

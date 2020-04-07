@@ -195,16 +195,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
     }
     
     func test_whenLoadScreenFails_itShouldRenderFallbackScreen() {
-        
-        final class Delegate: BeagleScreenDelegate {
-            var error: Request.Error?
-            
-            func beagleScreen(viewModel: Delegate.ViewModel, didFailToLoadWithError error: Request.Error) {
-                self.error = error
-            }
-        }
-        
-        let delegate = Delegate()
+        let delegate = BeagleScreenDelegateSpy()
         let error = Request.Error.networkError(NSError(domain: "test", code: 1, description: "Network Error"))
         let network = NetworkStub(componentResult: .failure(error))
         let fallback = Text(
@@ -219,7 +210,7 @@ final class BeagleScreenViewControllerTests: XCTestCase {
             dependencies: dependencies,
             delegate: delegate
         ))
-        XCTAssertNotNil(delegate.error)
+        XCTAssertNotNil(delegate.errorPassed)
         assertSnapshotImage(screen, size: CGSize(width: 300, height: 100))
     }
 
@@ -253,9 +244,9 @@ final class BeagleScreenDelegateSpy: BeagleScreenDelegate {
     
     private(set) var didFailToLoadWithErrorCalled = false
     private(set) var viewModel: BeagleScreenViewModel?
-    private(set) var errorPassed: Request.Error?
+    private(set) var errorPassed: ViewModel.State.Error?
     
-    func beagleScreen(viewModel: BeagleScreenViewModel, didFailToLoadWithError error: Request.Error) {
+    func beagleScreen(viewModel: BeagleScreenViewModel, didFailToLoadWithError error: ViewModel.State.Error) {
         didFailToLoadWithErrorCalled = true
         self.viewModel = viewModel
         errorPassed = error
