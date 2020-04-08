@@ -21,8 +21,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import br.com.zup.beagle.utils.renderScreen
+import br.com.zup.beagle.view.BeagleActivity
+import br.com.zup.beagle.view.ServerDrivenState
 import kotlinx.android.synthetic.main.activity_preview.*
 import okhttp3.Response
 import okhttp3.WebSocket
@@ -31,7 +33,7 @@ import okhttp3.WebSocketListener
 private const val ENDPOINT_KEY = "ENDPOINT_KEY"
 private const val TAG = "BeagleSDK"
 
-class PreviewActivity : AppCompatActivity() {
+class PreviewActivity : BeagleActivity() {
 
     companion object {
         fun newIntent(context: Context): Intent {
@@ -40,6 +42,12 @@ class PreviewActivity : AppCompatActivity() {
     }
 
     private lateinit var beaglePreview: BeaglePreview
+
+    override fun getToolbar(): Toolbar = tPreview
+
+    override fun getServerDrivenContainerId() = R.id.flPreview
+
+    override fun onServerDrivenContainerStateChanged(state: ServerDrivenState) {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +66,7 @@ class PreviewActivity : AppCompatActivity() {
                 Log.d(TAG, "onMessage: $text")
                 runOnUiThread {
                     if (!text.startsWith("Welcome")) {
-                        rlPreview.renderScreen(context = this@PreviewActivity, screenJson = text)
+                        flPreview.renderScreen(context = this@PreviewActivity, screenJson = text)
                     } else {
                         Toast.makeText(this@PreviewActivity, text, Toast.LENGTH_SHORT).show()
                     }
