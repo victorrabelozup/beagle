@@ -1,8 +1,9 @@
 /*
- * Copyright (c) Facebook, Inc. and its affiliates.
- * <p>
- * This source code is licensed under the MIT license found in the LICENSE
- * file in the root directory of this source tree.
+ * Copyright 2020 ZUP IT SERVICOS EM TECNOLOGIA E INOVACAO SA
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 package br.com.zup.beagle.view;
 
