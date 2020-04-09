@@ -183,9 +183,8 @@ public class YogaLayout extends ViewGroup {
         invalidate();
     }
 
-    public void reloadNetworkImageView(View view, int width, int height) {
+    public void setViewHeight(View view, int height) {
         if (mYogaNodes.containsKey(view)) {
-            mYogaNodes.get(view).setWidth(width);
             mYogaNodes.get(view).setHeight(height);
         }
     }

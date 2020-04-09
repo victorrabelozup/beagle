@@ -56,7 +56,7 @@ internal class NetworkImageViewRenderer(
         Glide.with(imageView).asBitmap().load(component.path).into(object : CustomTarget<Bitmap>() {
             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                 imageView.setImageBitmap(resource)
-                beagleFlexView.reloadNetworkImageView(imageView, resource.width, resource.height)
+                beagleFlexView.setViewHeight(imageView, resource.height)
                 componentStylization.apply(imageView, component)
             }
 

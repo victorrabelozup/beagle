@@ -150,10 +150,8 @@ class NetworkImageViewRendererTest : BaseTest() {
     @Test
     fun build_should_call_setImageBitmap_reloadNetworkImageView_when_component_has_not_flex() {
         // Given
-        val width = 100
         val height = 100
         every { networkImage.flex } returns null
-        every { bitmap.width } returns width
         every { bitmap.height } returns height
 
         // When
@@ -161,7 +159,7 @@ class NetworkImageViewRendererTest : BaseTest() {
 
         // Then
         verify(exactly = once()) { imageView.setImageBitmap(bitmap) }
-        verify(exactly = once()) { beagleFlexView.reloadNetworkImageView(imageView, width, height) }
+        verify(exactly = once()) { beagleFlexView.setViewHeight(imageView, height) }
         verify(exactly = once()) { componentStylization.apply(imageView, networkImage) }
     }
 
