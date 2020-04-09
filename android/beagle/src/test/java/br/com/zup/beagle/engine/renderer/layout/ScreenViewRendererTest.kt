@@ -13,6 +13,8 @@ import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 import br.com.zup.beagle.BaseTest
+import br.com.zup.beagle.analytics.Analytics
+import br.com.zup.beagle.analytics.ScreenEvent
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
@@ -25,6 +27,7 @@ import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.JustifyContent
 import br.com.zup.beagle.widget.layout.ScreenComponent
+import io.mockk.CapturingSlot
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -38,14 +41,17 @@ import io.mockk.unmockkAll
 import io.mockk.verify
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 private const val DEFAULT_COLOR = 0xFFFFFF
 
 class ScreenViewRendererTest : BaseTest() {
 
+    val screenName = "screenName"
+    private var screenAnalyticsEvent = ScreenEvent( screenName = screenName )
+
     @MockK
     private lateinit var screenComponent: ScreenComponent
-
     @MockK
     private lateinit var viewRendererFactory: ViewRendererFactory
     @MockK
@@ -58,6 +64,8 @@ class ScreenViewRendererTest : BaseTest() {
     private lateinit var beagleFlexView: BeagleFlexView
     @MockK
     private lateinit var component: ServerDrivenComponent
+    @RelaxedMockK
+    private lateinit var analytics: Analytics
     @MockK
     private lateinit var viewRenderer: ViewRenderer<*>
     @RelaxedMockK
@@ -74,15 +82,15 @@ class ScreenViewRendererTest : BaseTest() {
         super.setUp()
 
         mockkStatic(Color::class)
-        mockkObject(BeagleEnvironment)
 
-        every { BeagleEnvironment.beagleSdk } returns mockk(relaxed = true)
+        every { beagleSdk.analytics } returns analytics
         every { viewFactory.makeBeagleFlexView(any()) } returns beagleFlexView
         every { viewFactory.makeBeagleFlexView(any(), any()) } returns beagleFlexView
         every { beagleFlexView.addServerDrivenComponent(any(), any()) } just Runs
         every { beagleFlexView.addView(any(), any<Flex>()) } just Runs
         every { screenComponent.navigationBar } returns null
         every { screenComponent.child } returns component
+        every { screenComponent.screenAnalyticsEvent } returns null
         every { screenComponent.appearance } returns null
         every { viewRendererFactory.make(any()) } returns viewRenderer
         every { viewRenderer.build(any()) } returns view
@@ -148,5 +156,49 @@ class ScreenViewRendererTest : BaseTest() {
         // THEN
         assertEquals(expected, toolbar.visibility)
         verify(atLeast = once()) { actionBar.hide() }
+    }
+
+    @Test
+    fun should_assign_window_attach_callbacks_when_screen_event_presented() {
+        // GIVEN
+        every { screenComponent.screenAnalyticsEvent } returns screenAnalyticsEvent
+
+        // When
+        val view = screenViewRenderer.build(rootView)
+
+        // Then
+        assertTrue(view is BeagleFlexView)
+        verify { view.addOnAttachStateChangeListener(any()) }
+    }
+
+    @Test
+    fun should_keep_window_attach_callbacks_null_when_screen_event_not_presented() {
+        // When
+        val view = screenViewRenderer.build(rootView)
+
+        // Then
+        assertTrue(view is BeagleFlexView)
+        verify(exactly = 0) { view.addOnAttachStateChangeListener(any()) }
+    }
+
+    @Test
+    fun should_call_analytics_when_window_attach_states_changes() {
+        // GIVEN
+        every { screenComponent.screenAnalyticsEvent } returns screenAnalyticsEvent
+        val onAttachStateChangeListenerSlot = CapturingSlot<View.OnAttachStateChangeListener>()
+
+        // When
+        val screenView = screenViewRenderer.build(rootView)
+        verify { screenView.addOnAttachStateChangeListener(capture(onAttachStateChangeListenerSlot)) }
+        onAttachStateChangeListenerSlot.captured.onViewAttachedToWindow(view)
+        onAttachStateChangeListenerSlot.captured.onViewDetachedFromWindow(view)
+
+        // Then
+        var capturedEvent = CapturingSlot<ScreenEvent>()
+        verify { analytics.sendViewWillAppearEvent(capture(capturedEvent)) }
+        assertEquals(screenName, capturedEvent.captured.screenName)
+
+        verify { analytics.sendViewWillDisappearEvent(capture(capturedEvent)) }
+        assertEquals(screenName, capturedEvent.captured.screenName)
     }
 }

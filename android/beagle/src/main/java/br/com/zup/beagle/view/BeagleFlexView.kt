@@ -48,4 +48,5 @@ internal open class BeagleFlexView(
             flexMapper.makeYogaNode(flex)
         )
     }
+
 }

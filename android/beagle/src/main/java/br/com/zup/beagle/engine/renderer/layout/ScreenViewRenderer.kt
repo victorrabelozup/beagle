@@ -13,6 +13,7 @@ import android.view.View
 import br.com.zup.beagle.engine.renderer.LayoutViewRenderer
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
+import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.utils.ToolbarManager
 import br.com.zup.beagle.utils.configureSupportActionBar
 import br.com.zup.beagle.view.BeagleActivity
@@ -40,6 +41,18 @@ internal class ScreenViewRenderer(
         val container = viewFactory.makeBeagleFlexView(rootView.getContext(), flex)
 
         container.addServerDrivenComponent(component.child, rootView)
+
+        component.screenAnalyticsEvent?.let {
+            container.addOnAttachStateChangeListener(object: View.OnAttachStateChangeListener {
+                override fun onViewAttachedToWindow(v: View?) {
+                    BeagleEnvironment.beagleSdk.analytics?.sendViewWillAppearEvent(it)
+                }
+
+                override fun onViewDetachedFromWindow(v: View?) {
+                    BeagleEnvironment.beagleSdk.analytics?.sendViewWillDisappearEvent(it)
+                }
+            })
+        }
 
         return container
     }

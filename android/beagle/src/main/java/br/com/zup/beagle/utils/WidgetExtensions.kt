@@ -38,7 +38,8 @@ fun Screen.toView(fragment: Fragment) = this.toComponent().toView(fragment)
 internal fun Screen.toComponent() = ScreenComponent(
     identifier = this.identifier,
     navigationBar = this.navigationBar,
-    child = this.child
+    child = this.child,
+    screenAnalyticsEvent = screenAnalyticsEvent
 ).applyAppearance(appearance ?: Appearance())
 
 internal fun ServerDrivenComponent.toView(rootView: RootView) =

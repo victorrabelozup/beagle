@@ -15,6 +15,7 @@ import br.com.zup.beagle.sample.constants.ACCESSIBILITY_SCREEN_ENDPOINT
 import br.com.zup.beagle.sample.constants.BUTTON_STYLE_TITLE
 import br.com.zup.beagle.sample.constants.NAVIGATION_TYPE_ENDPOINT
 import br.com.zup.beagle.sample.constants.SCREEN_ACTION_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_ANALYTICS_ENDPOINT
 import br.com.zup.beagle.sample.constants.SCREEN_BUILDER_ENDPOINT
 import br.com.zup.beagle.sample.constants.SCREEN_BUTTON_ENDPOINT
 import br.com.zup.beagle.sample.constants.SCREEN_COMPOSE_COMPONENT_ENDPOINT
@@ -65,7 +66,8 @@ object ComponentScreenBuilder : ScreenBuilder {
                 createMenu("Stack View", SCREEN_STACK_ENDPOINT),
                 createMenu("Accessibility Screen", ACCESSIBILITY_SCREEN_ENDPOINT),
                 createMenu("Compose Component", SCREEN_COMPOSE_COMPONENT_ENDPOINT),
-                createMenu("Touchable", SCREEN_TOUCHABLE_ENDPOINT)
+                createMenu("Touchable", SCREEN_TOUCHABLE_ENDPOINT),
+                createMenu("Analytics", SCREEN_ANALYTICS_ENDPOINT)
             )
         )
     )

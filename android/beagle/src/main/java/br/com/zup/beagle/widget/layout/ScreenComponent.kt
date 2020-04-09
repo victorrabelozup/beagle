@@ -8,6 +8,8 @@
 
 package br.com.zup.beagle.widget.layout
 
+import br.com.zup.beagle.analytics.ScreenAnalytics
+import br.com.zup.beagle.analytics.ScreenEvent
 import br.com.zup.beagle.core.Appearance
 import br.com.zup.beagle.core.AppearanceComponent
 import br.com.zup.beagle.core.LayoutComponent
@@ -16,8 +18,9 @@ import br.com.zup.beagle.core.ServerDrivenComponent
 internal data class ScreenComponent(
     val identifier: String? = null,
     val navigationBar: NavigationBar? = null,
-    val child: ServerDrivenComponent
-) : AppearanceComponent, LayoutComponent {
+    val child: ServerDrivenComponent,
+    override val screenAnalyticsEvent: ScreenEvent? = null
+) : AppearanceComponent, LayoutComponent, ScreenAnalytics {
 
     override var appearance: Appearance? = null
         private set

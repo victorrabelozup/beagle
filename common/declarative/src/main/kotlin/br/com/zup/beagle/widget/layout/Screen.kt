@@ -9,6 +9,8 @@
 package br.com.zup.beagle.widget.layout
 
 import br.com.zup.beagle.action.Action
+import br.com.zup.beagle.analytics.ScreenAnalytics
+import br.com.zup.beagle.analytics.ScreenEvent
 import br.com.zup.beagle.core.Accessibility
 import br.com.zup.beagle.core.Appearance
 import br.com.zup.beagle.core.IdentifierComponent
@@ -49,5 +51,6 @@ data class Screen(
     val safeArea: SafeArea? = null,
     val navigationBar: NavigationBar? = null,
     val child: ServerDrivenComponent,
-    val appearance: Appearance? = null
-)
+    val appearance: Appearance? = null,
+    override val screenAnalyticsEvent: ScreenEvent? = null
+): ScreenAnalytics

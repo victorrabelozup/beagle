@@ -15,6 +15,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import br.com.zup.beagle.action.Navigate
 import br.com.zup.beagle.action.NavigationType
+import br.com.zup.beagle.analytics.ClickEvent
+import br.com.zup.beagle.analytics.ScreenEvent
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.utils.toView
 import br.com.zup.beagle.widget.core.Alignment
@@ -43,6 +45,9 @@ class NavigationFragment : Fragment() {
                     alignContent = Alignment.SPACE_BETWEEN,
                     grow = 1.0
                 )
+            ),
+            screenAnalyticsEvent = ScreenEvent(
+                screenName = "Tela De Navegacao"
             )
         )
 
@@ -58,6 +63,11 @@ class NavigationFragment : Fragment() {
                 action = Navigate(
                     type = NavigationType.ADD_VIEW,
                     path = "https://t001-2751a.firebaseapp.com/flow/step1.json"
+                ),
+                clickAnalyticsEvent = ClickEvent(
+                    category = "Categoria",
+                    label = "Descrição",
+                    value = "Valor"
                 )
             )
         )

@@ -9,6 +9,7 @@
 package br.com.zup.beagle.compiler
 
 import br.com.zup.beagle.annotation.BeagleComponent
+import br.com.zup.beagle.compiler.util.ANALYTICS
 import br.com.zup.beagle.compiler.util.BEAGLE_ACTIVITY
 import br.com.zup.beagle.compiler.util.BeagleClass
 import br.com.zup.beagle.compiler.util.CUSTOM_ACTION_HANDLER
@@ -83,6 +84,13 @@ class BeagleSetupPropertyGenerator(private val processingEnv: ProcessingEnvironm
                         logImplementationErrorMessage(typeElement, "UrlBuilder")
                     }
                 }
+                typeElement.implementsInterface(ANALYTICS.toString()) -> {
+                    if (propertySpecifications?.analytics == null) {
+                        propertySpecifications?.analytics = typeElement
+                    } else {
+                        logImplementationErrorMessage(typeElement, "Analytics")
+                    }
+                }
             }
         }
 
@@ -138,6 +146,11 @@ class BeagleSetupPropertyGenerator(private val processingEnv: ProcessingEnvironm
                 "urlBuilder",
                 URL_BUILDER_HANDLER
             ),
+            implementProperty(
+                propertySpecifications?.analytics.toString(),
+                "analytics",
+                ANALYTICS
+            ),
             implementServerDrivenActivityProperty(propertySpecifications?.beagleActivity)
         )
     }
@@ -186,5 +199,6 @@ internal class PropertySpecifications(
     var httpClient: TypeElement? = null,
     var designSystem: TypeElement? = null,
     var beagleActivity: TypeElement? = null,
-    var urlBuilder: TypeElement? = null
+    var urlBuilder: TypeElement? = null,
+    var analytics: TypeElement? = null
 )

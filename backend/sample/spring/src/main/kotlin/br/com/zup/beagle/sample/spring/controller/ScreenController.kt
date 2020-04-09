@@ -20,6 +20,7 @@ import br.com.zup.beagle.sample.constants.REPRESENTATION_PRESENT_ENDPOINT
 import br.com.zup.beagle.sample.constants.SAMPLE_VIEW_ENDPOINT
 import br.com.zup.beagle.sample.constants.SCREEN_ACTION_CLICK_ENDPOINT
 import br.com.zup.beagle.sample.constants.SCREEN_ACTION_ENDPOINT
+import br.com.zup.beagle.sample.constants.SCREEN_ANALYTICS_ENDPOINT
 import br.com.zup.beagle.sample.constants.SCREEN_BUILDER_ENDPOINT
 import br.com.zup.beagle.sample.constants.SCREEN_BUTTON_ENDPOINT
 import br.com.zup.beagle.sample.constants.SCREEN_COMPONENTS_ENDPOINT
@@ -40,6 +41,7 @@ import br.com.zup.beagle.sample.constants.SCREEN_TOUCHABLE_ENDPOINT
 import br.com.zup.beagle.sample.spring.service.AccessibilityService
 import br.com.zup.beagle.sample.spring.service.SampleActionClickService
 import br.com.zup.beagle.sample.spring.service.SampleActionService
+import br.com.zup.beagle.sample.spring.service.SampleAnalyticsService
 import br.com.zup.beagle.sample.spring.service.SampleButtonService
 import br.com.zup.beagle.sample.spring.service.SampleComponentsService
 import br.com.zup.beagle.sample.spring.service.SampleComposeComponentService
@@ -83,7 +85,8 @@ class ScreenController(
     private val sampleComposeComponentService: SampleComposeComponentService,
     private val sampleNetworkImageService: SampleNetworkImageService,
     private val sampleTouchableService: SampleTouchableService,
-    private val sampleActionClickService: SampleActionClickService
+    private val sampleActionClickService: SampleActionClickService,
+    private val sampleAnalyticsService: SampleAnalyticsService
 ) {
     @GetMapping(ACCESSIBILITY_SCREEN_ENDPOINT)
     fun getAccessibilityView() = this.accessibilityService.createAccessibilityView()
@@ -173,4 +176,9 @@ class ScreenController(
 
     @GetMapping(SCREEN_EXAMPLE_ENDPOINT)
     fun getNavigationExample()= this.sampleActionService.getNavigateExample()
+
+    @GetMapping(SCREEN_ANALYTICS_ENDPOINT)
+    fun getAnalyticsExample()= this.sampleAnalyticsService.getAnalyticsExample()
+
+
 }

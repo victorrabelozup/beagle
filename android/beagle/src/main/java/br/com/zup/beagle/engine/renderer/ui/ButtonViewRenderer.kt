@@ -14,6 +14,7 @@ import br.com.zup.beagle.R
 import br.com.zup.beagle.action.ActionExecutor
 import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.UIViewRenderer
+import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.view.BeagleButtonView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.ui.Button
@@ -26,7 +27,13 @@ internal class ButtonViewRenderer(
 
     override fun buildView(rootView: RootView): View {
         return viewFactory.makeButton(rootView.getContext()).apply {
-            setOnClickListener { actionExecutor.doAction(context, component.action) }
+            setOnClickListener {
+                actionExecutor.doAction(context, component.action)
+                component.clickAnalyticsEvent?.let {
+                    BeagleEnvironment.beagleSdk.analytics?.
+                    sendClickEvent(it)
+                }
+            }
             setData(component)
         }
     }
