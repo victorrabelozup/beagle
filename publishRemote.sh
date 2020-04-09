@@ -1,2 +1,2 @@
 ./gradlew build
-./gradlew publish
+./gradlew bintrayUpload
