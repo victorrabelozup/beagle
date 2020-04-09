@@ -6,8 +6,10 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
+apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'maven-publish'
+apply plugin: 'org.jetbrains.dokka'
 
 def versionName = System.env.BITRISE_GIT_TAG != null ? System.env.BITRISE_GIT_TAG : VERSION_NAME ?: ""
 group = GROUP_NAME
@@ -72,16 +74,9 @@ if (project.hasProperty("android")) { // Android libraries
         classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     }
 
-    apply plugin: "org.jetbrains.dokka"
     task dokkaJavadoc(type: dokka.getClass()) {
-        outputFormat = 'markdown'
+        outputFormat = 'javadoc'
         outputDirectory = "$buildDir/javadoc"
-        configuration{
-            includeNonPublic = false
-            skipDeprecated = false
-            reportUndocumented = true
-            skipEmptyPackages = true
-        }
     }
 
     task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
@@ -94,16 +89,9 @@ if (project.hasProperty("android")) { // Android libraries
         from sourceSets.main.allSource
     }
 
-    apply plugin: "org.jetbrains.dokka"
     task dokkaJavadoc(type: dokka.getClass()) {
-        outputFormat = 'markdown'
+        outputFormat = 'javadoc'
         outputDirectory = "$buildDir/javadoc"
-        configuration{
-            includeNonPublic = false
-            skipDeprecated = false
-            reportUndocumented = true
-            skipEmptyPackages = true
-        }
     }
 
     task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
@@ -178,6 +166,34 @@ project.afterEvaluate {
                     }
                 }
             }
+        }
+    }
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+bintray {
+    user = publishUsername
+    key = publishPassword
+
+    configurations = ['archives']
+    pkg {
+        repo = MAVEN_REPO_NAME
+        userOrg = DEVELOPER_ID
+        name = PRODUCT_NAME
+        desc = DESCRIPTION
+        websiteUrl = SITE_URL
+        vcsUrl = GIT_URL
+        licenses = project.property('LICENSES').split(',')
+        dryRun = false
+        publish = true
+        override = false
+        version {
+            name = versionName
+            released  = new Date()
         }
     }
 }

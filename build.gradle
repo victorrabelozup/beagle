@@ -18,7 +18,8 @@ buildscript {
         classpath 'com.karumi:shot:3.1.0'
 
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
-        classpath 'org.jetbrains.dokka:dokka-gradle-plugin:0.10.1'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath 'org.jetbrains.dokka:dokka-gradle-plugin:0.9.16'
     }
 }
 
@@ -33,15 +34,6 @@ allprojects {
         google()
         jcenter()
         mavenLocal()
-
-        maven {
-            credentials {
-                // user@password with read only access
-                username "beagle"
-                password "Xq7wAh3xDkGN"
-            }
-            url "https://repo-iti.zup.com.br/repository/beagle-jars-all/"
-        }
     }
 }
 
