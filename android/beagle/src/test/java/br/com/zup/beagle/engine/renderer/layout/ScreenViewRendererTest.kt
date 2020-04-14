@@ -20,12 +20,10 @@ import br.com.zup.beagle.engine.renderer.RootView
 import br.com.zup.beagle.engine.renderer.ViewRenderer
 import br.com.zup.beagle.engine.renderer.ViewRendererFactory
 import br.com.zup.beagle.extensions.once
-import br.com.zup.beagle.setup.BeagleEnvironment
 import br.com.zup.beagle.view.BeagleActivity
 import br.com.zup.beagle.view.BeagleFlexView
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.core.JustifyContent
 import br.com.zup.beagle.widget.layout.ScreenComponent
 import io.mockk.CapturingSlot
 import io.mockk.Runs
@@ -34,7 +32,6 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.just
 import io.mockk.mockk
-import io.mockk.mockkObject
 import io.mockk.mockkStatic
 import io.mockk.slot
 import io.mockk.unmockkAll
@@ -119,10 +116,8 @@ class ScreenViewRendererTest : BaseTest() {
         // When
         screenViewRenderer.build(rootView)
 
-
         // Then
         assertEquals(1.0, flex.captured.grow)
-        assertEquals(JustifyContent.SPACE_BETWEEN, flex.captured.justifyContent)
     }
 
     @Test

@@ -19,7 +19,6 @@ import br.com.zup.beagle.utils.configureSupportActionBar
 import br.com.zup.beagle.view.BeagleActivity
 import br.com.zup.beagle.view.ViewFactory
 import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.core.JustifyContent
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.ScreenComponent
 
@@ -31,14 +30,9 @@ internal class ScreenViewRenderer(
 ) : LayoutViewRenderer<ScreenComponent>(viewRendererFactory, viewFactory) {
 
     override fun buildView(rootView: RootView): View {
-        val flex = Flex(
-            grow = 1.0,
-            justifyContent = JustifyContent.SPACE_BETWEEN
-        )
-
         addNavigationBarIfNecessary(rootView.getContext(), component.navigationBar)
 
-        val container = viewFactory.makeBeagleFlexView(rootView.getContext(), flex)
+        val container = viewFactory.makeBeagleFlexView(rootView.getContext(), Flex(grow = 1.0))
 
         container.addServerDrivenComponent(component.child, rootView)
 
