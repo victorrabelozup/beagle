@@ -82,7 +82,7 @@ internal class ToolbarManager(private val actionExecutor: ActionExecutor = Actio
                 toolbar.setTitleTextAppearance(context, textAppearance)
             }
             val backgroundColor = typedArray.getColor(
-                R.styleable.BeagleToolbarStyle_android_background, 0
+                R.styleable.BeagleToolbarStyle_backgroundColor, 0
             )
             if (backgroundColor != 0) {
                 toolbar.setBackgroundColor(backgroundColor)

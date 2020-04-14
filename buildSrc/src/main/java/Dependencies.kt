@@ -46,34 +46,37 @@ object Versions {
     const val minSdk = 19
     const val targetSdk = 29
     const val buildTools = "29.0.2"
-
     const val java = "1.8"
+    const val gradle = "3.6.2"
+    const val kotlin = "1.3.71"
+    const val jacoco = "0.1.4"
+    const val karumi = "3.1.0"
+    const val dcendents = "2.1"
+    const val bintray = "1.8.5"
+    const val dokka = "0.10.1"
 
-    const val kotlin = "1.3.41"
     const val kotlinCoroutines = "1.3.1"
 
-    const val kotlinPoet = "1.4.4"
+    const val kotlinPoet = "1.5.0"
 
     const val appcompat = "1.1.0"
-    const val viewModel = "2.1.0"
+    const val viewModel = "2.2.0"
     const val recyclerView = "1.0.0"
 
     const val fresco = "2.0.0"
 
-    const val moshi = "1.9.1"
+    const val moshi = "1.9.2"
 
-    const val soLoader = "0.8.1"
-
-    const val beagle = "0.0.34"
+    const val soLoader = "0.8.2"
 
     const val glide = "4.11.0"
 
-    const val junit = "4.12"
-    const val junit5 = "5.6.0"
+    const val junit = "4.13"
+    const val junit5 = "5.6.1"
 
     const val yoga = "1.16.0"
 
-    const val okHttp = "4.4.0"
+    const val okHttp = "4.5.0"
 
     const val kotlinTest = "1.3.50"
     const val kotlinCoroutinesTest = "1.3.1"
@@ -88,7 +91,7 @@ object Versions {
 
     const val testRunner = "1.2.0"
     const val testExt = "1.1.1"
-    const val archCoreTesting = "2.0.1"
+    const val archCoreTesting = "2.1.0"
     const val espressoCore = "3.2.0"
 
     const val guava = "28.2-jre"

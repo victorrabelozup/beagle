@@ -98,7 +98,7 @@ class StyleManager(
         background: Drawable? = null
     ): Int? {
         val drawable =
-            typedArray?.getDrawable(R.styleable.BackgroundStyle_android_background) ?: background
+            typedArray?.getDrawable(R.styleable.BackgroundStyle_background) ?: background
         if (drawable is ColorDrawable) {
             return drawable.color
         }

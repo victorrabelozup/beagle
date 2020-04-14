@@ -42,8 +42,8 @@ internal class ButtonViewRenderer(
 internal fun BeagleButtonView.setData(component: Button) {
     val typedArray = styleManagerFactory.getButtonTypedArray(context, component.style)
     typedArray?.let {
-        background = it.getDrawable(R.styleable.BeagleButtonStyle_android_background)
-        isAllCaps = it.getBoolean(R.styleable.BeagleButtonStyle_android_textAllCaps, true)
+        background = it.getDrawable(R.styleable.BeagleButtonStyle_background)
+        isAllCaps = it.getBoolean(R.styleable.BeagleButtonStyle_textAllCaps, true)
         it.recycle()
     }
     styleManagerFactory.getButtonStyle(component.style)?.let { buttonStyle ->

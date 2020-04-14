@@ -24,7 +24,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.size
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import br.com.zup.beagle.core.AppearanceComponent
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.data.BeagleViewModel
@@ -119,11 +119,11 @@ internal fun RootView.generateViewModelInstance(): BeagleViewModel {
     return when (this) {
         is ActivityRootView -> {
             val activity = this.activity
-            ViewModelProviders.of(activity)[BeagleViewModel::class.java]
+            ViewModelProvider(activity).get(BeagleViewModel::class.java)
         }
         else -> {
             val fragment = (this as FragmentRootView).fragment
-            ViewModelProviders.of(fragment)[BeagleViewModel::class.java]
+            ViewModelProvider(fragment).get(BeagleViewModel::class.java)
         }
     }
 }

@@ -99,7 +99,7 @@ class StyleManagerTest {
         //Given
         serverDrivenComponent = Text("")
         every { context.obtainStyledAttributes(any<Int>(), any()) } returns typedArray
-        every { typedArray.getDrawable(R.styleable.BackgroundStyle_android_background) } returns colorDrawable
+        every { typedArray.getDrawable(R.styleable.BackgroundStyle_background) } returns colorDrawable
         every { colorDrawable.color } returns Color.WHITE
 
         //When
@@ -118,7 +118,7 @@ class StyleManagerTest {
         //Given
         serverDrivenComponent = Text("")
         every { context.obtainStyledAttributes(any<Int>(), any()) } returns typedArray
-        every { typedArray.getDrawable(R.styleable.BackgroundStyle_android_background) } returns drawable
+        every { typedArray.getDrawable(R.styleable.BackgroundStyle_background) } returns drawable
 
         //When
         val actual = styleManager.getBackgroundColor(
@@ -136,7 +136,7 @@ class StyleManagerTest {
         //Given
         serverDrivenComponent = Button("")
         every { context.obtainStyledAttributes(any<Int>(), any()) } returns typedArray
-        every { typedArray.getDrawable(R.styleable.BackgroundStyle_android_background) } returns colorDrawable
+        every { typedArray.getDrawable(R.styleable.BackgroundStyle_background) } returns colorDrawable
         every { colorDrawable.color } returns Color.WHITE
 
         //When
@@ -155,7 +155,7 @@ class StyleManagerTest {
         //Given
         serverDrivenComponent = Button("")
         every { context.obtainStyledAttributes(any<Int>(), any()) } returns typedArray
-        every { typedArray.getDrawable(R.styleable.BackgroundStyle_android_background) } returns drawable
+        every { typedArray.getDrawable(R.styleable.BackgroundStyle_background) } returns drawable
 
         //When
         val actual = styleManager.getBackgroundColor(

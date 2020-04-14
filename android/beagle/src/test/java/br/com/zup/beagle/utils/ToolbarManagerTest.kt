@@ -91,7 +91,7 @@ class ToolbarManagerTest : BaseTest() {
             typedArray.getResourceId(R.styleable.BeagleToolbarStyle_titleTextAppearance, 0)
         } returns titleTextAppearance
         every {
-            typedArray.getColor(R.styleable.BeagleToolbarStyle_android_background, 0)
+            typedArray.getColor(R.styleable.BeagleToolbarStyle_backgroundColor, 0)
         } returns backgroundColorInt
         every { typedArray.recycle() } just Runs
 
