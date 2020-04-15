@@ -12,40 +12,9 @@ workflows:
     - install-missing-android-tools@2.3.5:
         inputs:
         - gradlew_path: "$PROJECT_LOCATION/gradlew"
-    - gradle-runner:
+    - fastlane@2:
         inputs:
-        - gradle_task: detekt lintDebug jacocoTestReport
-        - gradlew_path: "./gradlew"
-        - gradle_options: "--stacktrace --daemon"
-        - gradle_file: build.gradle
-    - gradle-runner:
-        inputs:
-          - gradle_task: android:sample:assembleDebug android:sample:assembleDebugAndroidTest
-          - gradlew_path: "./gradlew"
-          - gradle_options: "--stacktrace --daemon"
-          - gradle_file: build.gradle
-    - virtual-device-testing-for-android@1.1.1:
-        inputs:
-          - environment_variables: |-
-              coverage=true
-              coverageFile=/sdcard/coverage.ec
-          - directories_to_pull: "/sdcard/"
-          - download_test_results: 'true'
-          - use_verbose_log: 'true'
-          - test_devices: Nexus5,21,en,portrait
-          - test_type: instrumentation
-    - gradle-runner@1.9.0:
-        inputs:
-          - gradlew_path: "./gradlew"
-          - gradle_file: build.gradle
-          - gradle_options: "--stacktrace --daemon"
-          - gradle_task: android:sample:copyVerificationFiles android:sample:executeScreenshotTests -PrunInstrumentation=false
-    - codecov@1.1.6:
-        run_if: true
-        is_skippable: false
-        inputs:
-        - CODECOV_TOKEN: "$CODECOV_TOKEN"
-        - other_options: "-F android -C $BITRISE_GIT_COMMIT"
+        - lane: ci
     - deploy-to-bitrise-io@1.6.0: {}
     - cache-push@2.2.0:
         inputs:

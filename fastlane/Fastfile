@@ -1,0 +1,10 @@
+platform :android do
+  desc "Pull Request verification"
+  lane :ci do
+    gradle(task: "detekt lintDebug jacocoTestReport")
+    gradle(task: "android:sample:assembleDebug android:sample:assembleDebugAndroidTest")
+   # gradle(task: "android:sample:copyVerificationFiles android:sample:executeScreenshotTests -PrunInstrumentation=false")
+    codecov_reporter
+  end
+
+end
