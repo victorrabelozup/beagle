@@ -14,7 +14,7 @@ workflows:
         - gradlew_path: "$PROJECT_LOCATION/gradlew"
     - fastlane@2:
         inputs:
-        - lane: ci
+        - lane: android ci
     - deploy-to-bitrise-io@1.6.0: {}
     - cache-push@2.2.0:
         inputs:
