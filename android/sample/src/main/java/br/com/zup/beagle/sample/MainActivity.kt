@@ -13,7 +13,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import br.com.zup.beagle.preview.PreviewActivity
 import br.com.zup.beagle.sample.activities.NavigationBarActivity
 import br.com.zup.beagle.sample.constants.SAMPLE_ENDPOINT
 import br.com.zup.beagle.sample.fragment.ComposeComponentFragment
@@ -86,7 +85,6 @@ class MainActivity : AppCompatActivity() {
                 this,
                 ScreenRequest(SAMPLE_ENDPOINT)
             ))
-            R.id.preview -> startActivity(PreviewActivity.newIntent(this))
         }
     }
 

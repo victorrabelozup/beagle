@@ -17,7 +17,6 @@ buildscript {
         classpath "com.dicedmelon.gradle:jacoco-android:${Versions.jacoco}"
         classpath "com.karumi:shot:${Versions.karumi}"
         classpath "com.github.dcendents:android-maven-gradle-plugin:${Versions.dcendents}"
-        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:${Versions.bintray}"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:${Versions.dokka}"
     }
 }

@@ -6,7 +6,6 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'maven-publish'
 apply plugin: 'org.jetbrains.dokka'
@@ -166,34 +165,6 @@ project.afterEvaluate {
                     }
                 }
             }
-        }
-    }
-}
-
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
-
-bintray {
-    user = publishUsername
-    key = publishPassword
-
-    configurations = ['archives']
-    pkg {
-        repo = MAVEN_REPO_NAME
-        userOrg = DEVELOPER_ID
-        name = PRODUCT_NAME
-        desc = DESCRIPTION
-        websiteUrl = SITE_URL
-        vcsUrl = GIT_URL
-        licenses = project.property('LICENSES').split(',')
-        dryRun = false
-        publish = true
-        override = false
-        version {
-            name = versionName
-            released  = new Date()
         }
     }
 }

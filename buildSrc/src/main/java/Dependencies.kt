@@ -52,7 +52,6 @@ object Versions {
     const val jacoco = "0.1.4"
     const val karumi = "3.1.0"
     const val dcendents = "2.1"
-    const val bintray = "1.8.5"
     const val dokka = "0.10.1"
 
     const val kotlinCoroutines = "1.3.1"
