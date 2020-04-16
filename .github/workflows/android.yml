@@ -3,6 +3,8 @@ name: Beagle Android CI
 on: pull_request
 jobs:
     pr-verification:
+        paths:
+            - 'android/*'
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v1

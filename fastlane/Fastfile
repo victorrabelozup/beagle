@@ -11,7 +11,7 @@ platform :android do
      sh "bash ./publishRemote.sh"
      set_github_release(
        repository_name: "ZupIT/beagle",
-       api_token: ENV["GITHUB_TOKEN_ACCESS"],
+       api_token: ENV["REPO_TOKEN"],
        name: git_branch,
        tag_name: git_branch,
        description: release_notes,
