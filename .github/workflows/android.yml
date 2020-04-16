@@ -1,8 +1,6 @@
 name: Beagle Android CI
 
 on:
-    branches:
-      - master
     pull_request:
         paths:
             - 'android/**'
