@@ -25,7 +25,7 @@ Pull Request verification
 ```
 fastlane android ci_deploy
 ```
-
+Deploy new version
 
 ----
 
