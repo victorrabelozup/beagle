@@ -21,6 +21,11 @@ or alternatively using `brew cask install fastlane`
 fastlane android ci
 ```
 Pull Request verification
+### android ci_deploy
+```
+fastlane android ci_deploy
+```
+
 
 ----
 
