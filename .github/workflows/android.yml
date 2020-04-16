@@ -1,9 +1,10 @@
 name: Beagle Android CI
 
 on:
-    pull_request:
-        paths:
-            - 'android/**'
+   pull_request:
+     branches: [master]
+     paths:
+        - 'android/**'
 jobs:
     pr-verification:
         runs-on: ubuntu-latest
