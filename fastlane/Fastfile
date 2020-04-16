@@ -16,7 +16,6 @@ platform :android do
        tag_name: git_branch,
        description: release_notes,
        commitish: "master")
-     discord(message: "New version available #{git_branch}", discord_url: ENV["DISCORD_WEBHOOK"])
   end
 
 end
