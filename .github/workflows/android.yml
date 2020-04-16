@@ -10,10 +10,10 @@ jobs:
               uses: actions/setup-java@v1
               with:
                   java-version: 1.8
-            - name: Set up Ruby 2.6
+            - name: Set up Ruby 2.5
               uses: actions/setup-ruby@v1
               with:
-                  ruby-version: 2.6.x
+                  ruby-version: 2.5.x
             - name: Install Fastlane
               run: bundle install
             - name: Run pr check
