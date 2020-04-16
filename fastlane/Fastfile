@@ -3,7 +3,7 @@ platform :android do
   lane :ci do
     gradle(task: "detekt lintDebug jacocoTestReport")
     gradle(task: "android:sample:assembleDebug android:sample:assembleDebugAndroidTest")
-    codecov_reporter
+    codecov_reporter(token: ENV["CODECOV_TOKEN"])
   end
 
   desc "Deploy new version"
