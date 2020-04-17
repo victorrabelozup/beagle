@@ -16,8 +16,12 @@ jobs:
               uses: malinskiy/action-android/install-sdk@release/0.0.5
             - run: adb devices
             - run: echo $ANDROID_HOME
-            - name: Android NDK toolchain Setup
-              uses: ravinderjangra/android-ndk-toolchain-setup@0.1
+            - name: Display the path
+              run: echo $PATH
+              shell: bash
+            - name: Install NDK
+              run: echo "y" | export PATH="$ANDROID_HOME"/tools/bin:$PATH
+                sdkmanager --install 'ndk;21.0.6113669'  >/dev/null
             - name: Set up Ruby 2.7.1
               uses: actions/setup-ruby@v1
               with:
