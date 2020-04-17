@@ -1,0 +1,28 @@
+name: iOS Workflow
+
+on:
+  pull_request:
+    branches: [ master ]
+    # TODO: remove this path selector when we have more integrated tests
+    paths: 'iOS/**'
+
+jobs:
+  ci:
+    runs-on: macos-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: set up Ruby 2.7
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+
+      - name: install Fastlane
+        run: bundle install
+        
+      - name: install Carthage
+        run: brew install carthage
+      
+      - name: execute Fastlane
+        run: bundle exec fastlane ios ci
