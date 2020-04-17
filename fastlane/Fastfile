@@ -31,8 +31,8 @@ desc "Generate new release"
        api_token: ENV["REPO_TOKEN"],
        name: ENV["VERSION_DEPLOY"],
        tag_name: ENV["VERSION_DEPLOY"],
-       description: release_notes,
-       commitish: "master")
+       is_draft: false,
+       description: release_notes)
   end
 
 desc "Generate release notes"
