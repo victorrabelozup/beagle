@@ -20,8 +20,8 @@ jobs:
                   ruby-version: 2.7.1
             - name: Install Fastlane
               run: bundle install
-            - name: run deploy
+            - name: Deploy new version
               env:
                 CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-              run: bundle exec fastlane android ci
+              run: bundle exec fastlane deploy_new_version
         
