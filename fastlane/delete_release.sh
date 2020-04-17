@@ -25,8 +25,6 @@ set +e
 ##cd $PROJECT_LOCATION
 pwd
 ## errors if release doesn't exist
-gitBranch=$(git branch | sed -n '/^\* /s///p')
+echo "${VERSION_DEPLOY}"
 
-echo "$gitBranch"
-
-hub release delete ${gitBranch}
+hub release delete ${VERSION_DEPLOY}

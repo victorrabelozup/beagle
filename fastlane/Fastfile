@@ -23,13 +23,14 @@ end
 
 desc "Generate new release"
   lane :deploy_new_version do
+    ENV["VERSION_DEPLOY"] = last_git_tag
     #sh "fastlane android ci_deploy"
     sh "bash ./delete_release.sh"
      set_github_release(
        repository_name: "ZupIT/beagle",
        api_token: ENV["REPO_TOKEN"],
-       name: git_branch,
-       tag_name: git_branch,
+       name: ENV["VERSION_DEPLOY"],
+       tag_name: ENV["VERSION_DEPLOY"],
        description: release_notes,
        is_draft: true,
        commitish: "master")
@@ -37,12 +38,11 @@ desc "Generate new release"
 
 desc "Generate release notes"
   private_lane :release_notes do
-    version_number = git_branch
     changelog = changelog_from_git_commits(
                         merge_commit_filtering: "exclude_merges",
                         pretty: "%s - (%ae %aD)")
 
-    "\nRelease notes #{version_number}
+    "\nRelease notes #{ ENV["VERSION_DEPLOY"] }
     \nChanges:
     \n#{changelog}"
   end
