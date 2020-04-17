@@ -46,3 +46,31 @@ desc "Generate release notes"
     \nChanges:
     \n#{changelog}"
   end
+
+
+###
+###  iOS
+###
+
+platform :ios do
+  desc "Lane for CI"
+  lane :ci do 
+    init_dependencies
+    scan(
+      workspace: "iOS/Darwin-BeagleUI.xcworkspace/",
+      scheme: "BeagleUI",
+      device: "iPhone 11"
+    )
+    codecov_reporter(token: ENV["CODECOV_TOKEN"])
+  end
+end
+
+desc "Dependency Manager (Carthage) https://docs.fastlane.tools/actions/carthage/"
+private_lane :init_dependencies do
+  carthage(
+    command: "bootstrap",
+    verbose: true,
+    platform: "iOS",
+    project_directory: "iOS/Sources/BeagleUI/", cache_builds: true
+  )
+end
