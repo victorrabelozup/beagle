@@ -24,6 +24,7 @@ desc "Generate new release"
   lane :deploy_new_version do
     ENV["VERSION_DEPLOY"] = last_git_tag
     #sh "fastlane android ci_deploy"
+    
     sh "bash ./delete_release.sh"
     release = set_github_release(
        repository_name: "ZupIT/beagle-closed",
