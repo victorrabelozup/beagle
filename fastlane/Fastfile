@@ -20,7 +20,6 @@ platform :android do
 
 end
 
-
 desc "Generate new release"
   lane :deploy_new_version do
     ENV["VERSION_DEPLOY"] = last_git_tag
@@ -31,7 +30,9 @@ desc "Generate new release"
        api_token: ENV["REPO_TOKEN"],
        name: ENV["VERSION_DEPLOY"],
        tag_name: ENV["VERSION_DEPLOY"],
+       commitish: "master",
        is_draft: false,
+       is_prerelease: false,
        description: release_notes)
   end
 
