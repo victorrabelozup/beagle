@@ -10,7 +10,8 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'maven-publish'
 apply plugin: 'org.jetbrains.dokka'
 
-def versionName = System.env.BITRISE_GIT_TAG != null ? System.env.BITRISE_GIT_TAG : VERSION_NAME ?: ""
+def gitBranchName = getCurrentGitBranch()
+def versionName = gitBranchName ? gitBranchName : VERSION_NAME
 group = GROUP_NAME
 version = versionName
 
@@ -168,4 +169,19 @@ project.afterEvaluate {
             }
         }
     }
+}
+
+
+def getCurrentGitBranch() {
+    def gitBranch = null
+    try {
+        def workingDir = new File("${project.projectDir}")
+        def result = 'git rev-parse --abbrev-ref HEAD'.execute(null, workingDir)
+        result.waitFor()
+        if (result.exitValue() == 0) {
+            gitBranch = result.text.trim()
+        }
+    } catch (ignored) {
+    }
+    return gitBranch
 }

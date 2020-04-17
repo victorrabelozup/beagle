@@ -24,6 +24,10 @@ jobs:
               run: bundle install
             - name: Deploy new version
               env:
-                CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+                REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+                NAME_REPO_TOKEN: ${{ secrets.NAME_REPO_TOKEN }}
+                NX_USR_SNP: ${{ secrets.NX_USR_SNP }}
+                NX_PSS_SNP: ${{ secrets.NX_PSS_SNP }}
+                NX_REPO_URL: ${{ secrets.NX_REPO_URL }}
               run: bundle exec fastlane deploy_new_version
         
