@@ -6,9 +6,24 @@ platform :android do
     codecov_reporter(token: ENV["CODECOV_TOKEN"])
   end
 
-  desc "Deploy new version"
+  desc "Deploy remote new version"
   lane :ci_deploy do
-     sh "bash ./publishRemote.sh"
+    gradle(task: "build")
+    gradle(task: "publish")
+  end
+
+   desc "Deploy local new version"
+    lane :ci_local_deploy do
+      gradle(task: "build")
+      gradle(task: "publishToMavenLocal")
+    end
+
+end
+
+
+desc "Generate new release"
+  lane :deploy_new_version do
+     sh "fastlane android ci_deploy"
      set_github_release(
        repository_name: "ZupIT/beagle",
        api_token: ENV["REPO_TOKEN"],
@@ -17,8 +32,6 @@ platform :android do
        description: release_notes,
        commitish: "master")
   end
-
-end
 
 desc "Generate release notes"
   private_lane :release_notes do

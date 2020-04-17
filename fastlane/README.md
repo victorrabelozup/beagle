@@ -15,6 +15,14 @@ Install _fastlane_ using
 or alternatively using `brew cask install fastlane`
 
 # Available Actions
+### deploy_new_version
+```
+fastlane deploy_new_version
+```
+Generate new release
+
+----
+
 ## Android
 ### android ci
 ```
@@ -25,7 +33,12 @@ Pull Request verification
 ```
 fastlane android ci_deploy
 ```
-Deploy new version
+Deploy remote new version
+### android ci_local_deploy
+```
+fastlane android ci_local_deploy
+```
+Deploy local new version
 
 ----
 
