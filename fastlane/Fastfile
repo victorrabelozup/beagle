@@ -23,13 +23,15 @@ end
 
 desc "Generate new release"
   lane :deploy_new_version do
-     sh "fastlane android ci_deploy"
+    #sh "fastlane android ci_deploy"
+    sh "bash ./delete_release.sh"
      set_github_release(
        repository_name: "ZupIT/beagle",
        api_token: ENV["REPO_TOKEN"],
        name: git_branch,
        tag_name: git_branch,
        description: release_notes,
+       is_draft: true,
        commitish: "master")
   end
 
