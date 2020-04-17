@@ -13,12 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: set up Ruby 2.7
-        uses: actions/setup-ruby@v1
-        with:
-          ruby-version: 2.7
-
-      - name: install Fastlane
+      - name: 'install all ruby dependencies (e.g: Fastlane)'
         run: bundle install
         
       - name: install Carthage
