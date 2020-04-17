@@ -18,6 +18,12 @@ jobs:
                   ruby-version: 2.7
             - name: Install Fastlane
               run: bundle install
+            - name: Install hub
+              uses: geertvdc/setup-hub@master
+            - name: run hub commands
+              env:
+                 GITHUB_USER: ${{ secrets.NAME_REPO_TOKEN }}
+                 GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
             - name: Deploy new version
               env:
                 REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
