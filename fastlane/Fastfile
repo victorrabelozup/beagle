@@ -26,13 +26,12 @@ desc "Generate new release"
     ENV["VERSION_DEPLOY"] = last_git_tag
     #sh "fastlane android ci_deploy"
     sh "bash ./delete_release.sh"
-     set_github_release(
-       repository_name: "ZupIT/beagle",
+    release = set_github_release(
+       repository_name: "ZupIT/beagle-closed",
        api_token: ENV["REPO_TOKEN"],
        name: ENV["VERSION_DEPLOY"],
        tag_name: ENV["VERSION_DEPLOY"],
        description: release_notes,
-       is_draft: true,
        commitish: "master")
   end
 

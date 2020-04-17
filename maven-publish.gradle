@@ -10,8 +10,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'maven-publish'
 apply plugin: 'org.jetbrains.dokka'
 
-def gitBranchName = getCurrentGitBranch()
-def versionName = gitBranchName ? gitBranchName : VERSION_NAME
+def versionName = System.env.VERSION_DEPLOY != null ? System.env.VERSION_DEPLOY : VERSION_NAME ?: ""
 group = GROUP_NAME
 version = versionName
 
