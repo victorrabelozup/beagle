@@ -8,8 +8,6 @@ jobs:
         runs-on: macos-latest
         steps:
             - uses: actions/checkout@v2.1.0
-            - name: Install hub
-              uses: geertvdc/setup-hub@master
             - name: run hub commands
               env:
                   GITHUB_USER: ${{ secrets.NAME_REPO_TOKEN }}
