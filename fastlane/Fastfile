@@ -26,15 +26,14 @@ desc "Generate new release"
     #sh "fastlane android ci_deploy"
 
     sh "bash ./delete_release.sh"
-    release = set_github_release(
+     set_github_release(
        repository_name: "ZupIT/beagle-closed",
        api_token: ENV["REPO_TOKEN"],
        name: ENV["VERSION_DEPLOY"],
        tag_name: ENV["VERSION_DEPLOY"],
-       commitish: "master",
-       is_draft: false,
-       is_prerelease: false,
-       description: release_notes)
+       description: release_notes,
+       commitish: "master")
+
   end
 
 desc "Generate release notes"

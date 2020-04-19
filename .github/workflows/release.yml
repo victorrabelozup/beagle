@@ -12,8 +12,6 @@ jobs:
               env:
                   GITHUB_USER: ${{ secrets.NAME_REPO_TOKEN }}
                   GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
-              run: |
-                  hub release
             - name: Install Fastlane
               run: bundle install
             - name: Deploy new version
