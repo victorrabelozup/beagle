@@ -7,17 +7,17 @@ jobs:
         name: Generate release
         runs-on: macos-latest
         steps:
-            - uses: actions/checkout@latest
-            - name: Install Fastlane
-              run: bundle install
+            - uses: actions/checkout@v2.1.0
             - name: Install hub
-              uses: geertvdc/setup-hub@dependabot/npm_and_yarn/handlebars-4.5.3
+              uses: geertvdc/setup-hub@master
             - name: run hub commands
               env:
-                 GITHUB_USER: ${{ secrets.NAME_REPO_TOKEN }}
-                 GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
+                  GITHUB_USER: ${{ secrets.NAME_REPO_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
               run: |
-                hub release
+                  hub release
+            - name: Install Fastlane
+              run: bundle install
             - name: Deploy new version
               env:
                 REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
