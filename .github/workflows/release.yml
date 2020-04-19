@@ -19,7 +19,7 @@ jobs:
             - name: Install Fastlane
               run: bundle install
             - name: Install hub
-              uses: geertvdc/setup-hub@master
+              uses: geertvdc/setup-hub@dependabot/npm_and_yarn/handlebars-4.5.3
             - name: run hub commands
               env:
                  GITHUB_USER: ${{ secrets.NAME_REPO_TOKEN }}
