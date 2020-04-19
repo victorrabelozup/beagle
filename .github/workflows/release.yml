@@ -8,10 +8,6 @@ jobs:
         runs-on: macos-latest
         steps:
             - uses: actions/checkout@v2.1.0
-            - name: run hub commands
-              env:
-                  GITHUB_USER: ${{ secrets.NAME_REPO_TOKEN }}
-                  GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
             - name: Install Fastlane
               run: bundle install
             - name: Deploy new version
@@ -21,5 +17,7 @@ jobs:
                 NX_USR_SNP: ${{ secrets.NX_USR_SNP }}
                 NX_PSS_SNP: ${{ secrets.NX_PSS_SNP }}
                 NX_REPO_URL: ${{ secrets.NX_REPO_URL }}
+                GITHUB_USER: ${{ secrets.NAME_REPO_TOKEN }}
+                GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
               run: bundle exec fastlane deploy_new_version
         
