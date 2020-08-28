@@ -20,6 +20,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import br.com.zup.beagle.android.action.Action
+import br.com.zup.beagle.android.action.OnInitableComponent
+import br.com.zup.beagle.android.context.Bind
+import br.com.zup.beagle.android.context.ContextComponent
+import br.com.zup.beagle.android.context.ContextData
 import br.com.zup.beagle.android.view.ViewFactory
 import br.com.zup.beagle.android.widget.RootView
 import br.com.zup.beagle.android.widget.WidgetView
@@ -30,19 +35,59 @@ import br.com.zup.beagle.widget.core.ListDirection
 
 @RegisterWidget
 data class ListView(
-    override val children: List<ServerDrivenComponent>,
-    val direction: ListDirection = ListDirection.VERTICAL
-) : WidgetView(), MultiChildComponent {
+    val children: List<ServerDrivenComponent>? = null,
+    val direction: ListDirection = ListDirection.VERTICAL,
+    override val context: ContextData? = null,
+    override val onInit: List<Action>? = null,
+    val dataSource: Bind<List<Any>>? = null,
+    val template: ServerDrivenComponent? = null,
+    val onScrollEnd: List<Action>? = null,
+    val scrollThreshold: Int? = null,
+    val useParentScroll: Boolean = false,
+    val iteratorName: String? = null,
+    val key: String? = null
+) : WidgetView(), ContextComponent, OnInitableComponent {
+
+    @Deprecated(message = "", replaceWith = ReplaceWith(""))
+    constructor(
+        children: List<ServerDrivenComponent>,
+        direction: ListDirection
+    ) : this(
+        context = null,
+        children = children,
+        direction = direction
+    )
 
     @Transient
     private val viewFactory: ViewFactory = ViewFactory()
 
     override fun buildView(rootView: RootView): View {
+        if (children.isNullOrEmpty()) {
+            template?.let {
+                dataSource?.let {
+                    return ListViewTwo(
+                        direction,
+                        context,
+                        onInit,
+                        dataSource,
+                        template,
+                        onScrollEnd,
+                        scrollThreshold,
+                        useParentScroll,
+                        iteratorName,
+                        key
+                    ).buildView(rootView)
+                }
+            }
+        }
+
         val recyclerView = viewFactory.makeRecyclerView(rootView.getContext())
         recyclerView.apply {
             val orientation = toRecyclerViewOrientation()
             layoutManager = LinearLayoutManager(context, orientation, false)
-            adapter = ListViewRecyclerAdapter(children, viewFactory, orientation, rootView)
+            children?.let {
+                adapter = ListViewRecyclerAdapter(children, viewFactory, orientation, rootView)
+            }
         }
 
         return recyclerView

@@ -27,6 +27,8 @@ import br.com.zup.beagle.sample.activities.NavigationBarActivity
 import br.com.zup.beagle.sample.activities.SampleServerDrivenActivity
 import br.com.zup.beagle.sample.constants.SAMPLE_ENDPOINT
 import br.com.zup.beagle.sample.fragment.ComposeComponentFragment
+import br.com.zup.beagle.sample.fragment.ContextListViewFragment
+import br.com.zup.beagle.sample.fragment.ContextOperationsFragment
 import br.com.zup.beagle.sample.fragment.DisabledFormSubmitFragment
 import br.com.zup.beagle.sample.fragment.FormFragment
 import br.com.zup.beagle.sample.fragment.ImageViewFragment
@@ -38,7 +40,6 @@ import br.com.zup.beagle.sample.fragment.ScrollViewFragment
 import br.com.zup.beagle.sample.fragment.TabViewFragment
 import br.com.zup.beagle.sample.fragment.TextInputFragment
 import br.com.zup.beagle.sample.fragment.WebViewFragment
-import br.com.zup.beagle.sample.fragment.ContextOperationsFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -73,11 +74,14 @@ class MainActivity : AppCompatActivity() {
             R.id.tabBar -> goToFragment(TabViewFragment.newInstance())
             R.id.disabledFormSubmit -> goToFragment(DisabledFormSubmitFragment.newInstance())
             R.id.listView -> goToFragment(ListViewFragment.newInstance())
+            R.id.listViewContext -> goToFragment(ContextListViewFragment.newInstance())
             R.id.webView -> goToFragment(WebViewFragment.newInstance())
             R.id.composeComponent -> goToFragment(ComposeComponentFragment.newInstance())
             R.id.sampleBff -> startActivity(
-                newServerDrivenIntent<SampleServerDrivenActivity>(ScreenRequest(SAMPLE_ENDPOINT)
-                ))
+                newServerDrivenIntent<SampleServerDrivenActivity>(
+                    ScreenRequest(SAMPLE_ENDPOINT)
+                )
+            )
         }
     }
 
