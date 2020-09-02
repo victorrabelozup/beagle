@@ -30,6 +30,7 @@ import br.com.zup.beagle.android.context.ContextData
 import br.com.zup.beagle.android.context.normalizeContextValue
 import br.com.zup.beagle.android.utils.generateViewModelInstance
 import br.com.zup.beagle.android.utils.observeBindChanges
+import br.com.zup.beagle.android.utils.toAndroidId
 import br.com.zup.beagle.android.view.ViewFactory
 import br.com.zup.beagle.android.view.viewmodel.ScreenContextViewModel
 import br.com.zup.beagle.android.widget.RootView
@@ -40,7 +41,6 @@ import br.com.zup.beagle.core.MultiChildComponent
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.core.SingleChildComponent
 import br.com.zup.beagle.core.Style
-import br.com.zup.beagle.widget.Widget
 import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.ListDirection
@@ -180,6 +180,8 @@ internal class ListViewContextAdapter2(
 
     private val viewModel = rootView.generateViewModelInstance<ScreenContextViewModel>()
 
+    private val listCellData = mutableMapOf<Int, CellData>()
+
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ContextViewHolderTwo {
 //        val template = BeagleSerializer().serializeComponent(template)
 //        val newTemplate = BeagleSerializer().deserializeComponent(template)
@@ -188,11 +190,10 @@ internal class ListViewContextAdapter2(
             rootView,
             Style(flex = Flex(flexDirection = flexDirection()))
         ).apply {
-//            id = viewModel.generateNewViewId()
             layoutParams = RecyclerView.LayoutParams(layoutParamWidth(), layoutParamHeight())
             addServerDrivenComponent(template)
         }
-        return ContextViewHolderTwo(view)
+        return ContextViewHolderTwo(view, template)
     }
 
     private fun layoutParamWidth() = if (isOrientationVertical()) MATCH_PARENT else WRAP_CONTENT
@@ -206,38 +207,33 @@ internal class ListViewContextAdapter2(
     private fun getContextDataId() = iteratorName ?: "item"
 
     override fun onBindViewHolder(holder: ContextViewHolderTwo, position: Int) {
-        setIdToEachItem(template, position)
-        viewModel.addContext(holder.itemView, ContextData(id = getContextDataId(), value = listItems[position]))
-    }
-
-    private fun setIdToEachItem(template: ServerDrivenComponent, position: Int) {
-        when (template) {
-            is SingleChildComponent -> setIdToEachItem(template.child, position)
-            is MultiChildComponent -> template.children.forEach { child ->
-                setIdToEachItem(child, position)
-            }
-            is IdentifierComponent -> {
-                val suffix = getSuffix(position)
-//                template.setSuffixId(suffix)
-            }
+        listCellData[position]?.let { cellData ->
+            onBind(holder, cellData)
+        } ?: run {
+            val cellData = CellData(
+                id = View.generateViewId(),
+                contextData = ContextData(id = getContextDataId(), value = listItems[position])
+            )
+            updateIdToEachSubView(holder.viewsWithId, position)
+            listCellData[position] = cellData
+            onBind(holder, cellData)
         }
     }
 
-    private fun getSuffix(position: Int) = ":${getValueFromKey(position)}"
+    private fun onBind(holder: ContextViewHolderTwo, cellData: CellData) {
+        holder.itemView.id = cellData.id
+        viewModel.addContext(holder.itemView, cellData.contextData)
+    }
+
+    private fun updateIdToEachSubView(viewsWithId: Map<String, View>, position: Int) {
+        viewsWithId.forEach { (id, view) ->
+            view.id = "$id:${getValueFromKey(position)}".toAndroidId()
+        }
+    }
 
     private fun getValueFromKey(position: Int) = key?.let {
         ((listItems[position]).normalizeContextValue() as JSONObject).get(it)
     } ?: position
-
-    private fun Widget.setSuffixId(suffix: String) {
-        id?.let {
-            if (it.endsWith(suffix)) {
-
-            } else {
-                id += suffix
-            }
-        }
-    }
 
     fun setList(list: List<Any>) {
         listItems = ArrayList(list)
@@ -253,4 +249,34 @@ internal class ListViewContextAdapter2(
     override fun getItemCount(): Int = listItems.size
 }
 
-internal class ContextViewHolderTwo(itemView: View) : RecyclerView.ViewHolder(itemView)
+internal class ContextViewHolderTwo(
+    itemView: View,
+    template: ServerDrivenComponent
+) : RecyclerView.ViewHolder(itemView) {
+
+    val viewsWithId = mutableMapOf<String, View>()
+
+    init {
+        getViewsWithId(template)
+    }
+
+    private fun getViewsWithId(template: ServerDrivenComponent) {
+        when (template) {
+            is SingleChildComponent -> getViewsWithId(template.child)
+            is MultiChildComponent -> template.children.forEach { child ->
+                getViewsWithId(child)
+            }
+            is IdentifierComponent -> {
+                template.id?.let { id ->
+                    viewsWithId.put(id, itemView.findViewById<View>(id.toAndroidId()))
+                }
+            }
+        }
+    }
+}
+
+internal data class CellData(
+    val id: Int,
+    val onInitCalled: Boolean = false,
+    val contextData: ContextData
+)
