@@ -55,7 +55,7 @@ internal class ContextDataManager(
         GlobalContext.clearObserverGlobalContext(globalContextObserver)
     }
 
-    fun addContext(view: View, context: ContextData) {
+    fun addContext(view: View, context: ContextData, shouldOverrideExistingContext: Boolean = false) {
         if (context.id == globalContext.context.id) {
             BeagleMessageLogs.globalKeywordIsReservedForGlobalContext()
             return
@@ -64,7 +64,11 @@ internal class ContextDataManager(
         val existingContext = contexts[view.id]
 
         if (existingContext != null) {
-            view.setContextBinding(existingContext)
+            if (shouldOverrideExistingContext) {
+                view.setContextBinding(existingContext.copy(context = context))
+            } else {
+                view.setContextBinding(existingContext)
+            }
             existingContext.bindings.clear()
         } else {
             view.setContextData(context)

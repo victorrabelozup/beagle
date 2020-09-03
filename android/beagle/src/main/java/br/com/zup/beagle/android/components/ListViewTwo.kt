@@ -208,7 +208,12 @@ internal class ListViewContextAdapter2(
 
     override fun onBindViewHolder(holder: ContextViewHolderTwo, position: Int) {
         listCellData[position]?.let { cellData ->
-            onBind(holder, cellData)
+            if (listItems[position] != cellData.contextData.value) {
+                val contextData = ContextData(id = getContextDataId(), value = listItems[position])
+                onBind(holder, cellData.copy(contextData = contextData))
+            } else {
+                onBind(holder, cellData)
+            }
         } ?: run {
             val cellData = CellData(
                 id = View.generateViewId(),
@@ -222,7 +227,11 @@ internal class ListViewContextAdapter2(
 
     private fun onBind(holder: ContextViewHolderTwo, cellData: CellData) {
         holder.itemView.id = cellData.id
-        viewModel.addContext(holder.itemView, cellData.contextData)
+        viewModel.addContext(
+            view = holder.itemView,
+            contextData = cellData.contextData,
+            shouldOverrideExistingContext = true
+        )
     }
 
     private fun updateIdToEachSubView(viewsWithId: Map<String, View>, position: Int) {

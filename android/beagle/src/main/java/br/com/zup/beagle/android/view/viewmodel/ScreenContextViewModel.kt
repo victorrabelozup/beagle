@@ -33,8 +33,8 @@ internal class ScreenContextViewModel(
     private val implicitContextManager: ImplicitContextManager = ImplicitContextManager()
 ) : ViewModel() {
 
-    fun addContext(view: View, contextData: ContextData) {
-        contextDataManager.addContext(view, contextData)
+    fun addContext(view: View, contextData: ContextData, shouldOverrideExistingContext: Boolean = false) {
+        contextDataManager.addContext(view, contextData, shouldOverrideExistingContext)
     }
 
     fun updateContext(originView: View, setContextInternal: SetContextInternal) {
