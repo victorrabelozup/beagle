@@ -79,8 +79,7 @@ internal fun View.setContextData(context: ContextData) {
     val normalizedContext = context.normalize()
     val contextBinding = getContextBinding()
     if (contextBinding != null) {
-        contextBinding.context = normalizedContext
-        contextBinding.cache.evictAll()
+        setContextBinding(ContextBinding(normalizedContext, contextBinding.bindings))
     } else {
         setContextBinding(ContextBinding(normalizedContext))
     }

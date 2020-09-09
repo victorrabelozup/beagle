@@ -68,8 +68,8 @@ internal class ContextDataManager(
                 view.setContextBinding(existingContext.copy(context = context))
             } else {
                 view.setContextBinding(existingContext)
+                existingContext.bindings.clear()
             }
-            existingContext.bindings.clear()
         } else {
             view.setContextData(context)
             view.getContextBinding()?.let {
@@ -100,10 +100,6 @@ internal class ContextDataManager(
                 notifyBindingChanges(it)
             }
         }
-
-//        view.getContextBinding()?.let {
-//            notifyBindingChanges(it)
-//        }
     }
 
     private fun notifyBindingTokens(

@@ -93,10 +93,10 @@ internal data class ListViewTwo(
         val orientation = toRecyclerViewOrientation()
         contextAdapter = ListViewContextAdapter2(template, iteratorName, key, viewFactory, orientation, rootView)
         recyclerView.apply {
-            setHasFixedSize(true)
+//            setHasFixedSize(true)
             adapter = contextAdapter
             layoutManager = LinearLayoutManager(context, orientation, false)
-            isNestedScrollingEnabled = useParentScroll
+            isNestedScrollingEnabled = !useParentScroll
         }
         configDataSourceObserver(rootView, recyclerView)
         configRecyclerViewScrollListener(recyclerView, rootView)
@@ -183,9 +183,6 @@ internal class ListViewContextAdapter2(
     private val listCellData = mutableMapOf<Int, CellData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ContextViewHolderTwo {
-//        val template = BeagleSerializer().serializeComponent(template)
-//        val newTemplate = BeagleSerializer().deserializeComponent(template)
-
         val view = viewFactory.makeBeagleFlexView(
             rootView,
             Style(flex = Flex(flexDirection = flexDirection()))
@@ -208,12 +205,7 @@ internal class ListViewContextAdapter2(
 
     override fun onBindViewHolder(holder: ContextViewHolderTwo, position: Int) {
         listCellData[position]?.let { cellData ->
-            if (listItems[position] != cellData.contextData.value) {
-                val contextData = ContextData(id = getContextDataId(), value = listItems[position])
-                onBind(holder, cellData.copy(contextData = contextData))
-            } else {
-                onBind(holder, cellData)
-            }
+            onBind(holder, cellData)
         } ?: run {
             val cellData = CellData(
                 id = View.generateViewId(),
@@ -246,13 +238,17 @@ internal class ListViewContextAdapter2(
 
     fun setList(list: List<Any>) {
         listItems = ArrayList(list)
-        notifyDataSetChanged()
+        notifyReset()
     }
 
     fun clearList() {
-        val initialSize = listItems.size
         listItems.clear()
-        notifyItemRangeRemoved(0, initialSize)
+        notifyReset()
+    }
+
+    private fun notifyReset() {
+        notifyDataSetChanged()
+        listCellData.clear()
     }
 
     override fun getItemCount(): Int = listItems.size

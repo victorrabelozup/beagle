@@ -48,8 +48,47 @@ class ContextListViewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val declarative = Screen(
+//            context = ContextData(
+//                id = "insideContext",
+//                value = listOf(
+//                    Person(
+//                        "Matheus",
+//                        123
+//                    )/*,
+//                    Person(
+//                        "Thalyta",
+//                        456
+//                    ),
+//                    Person(
+//                        "Jose",
+//                        789
+//                    ),
+//                    Person(
+//                        "Maria",
+//                        0
+//                    )*/
+//                )
+//            ),
             navigationBar = NavigationBar(title = "List"),
             child = list
+//            child = Container(
+//                children = listOf(
+//                    Button(
+//                        text = expressionOf("@{insideContext[0].name}"),
+//                        onPress = listOf(
+//                            SetContext(
+//                                contextId = "insideContext",
+//                                path = "[0].name",
+//                                value = "Updated Matheus"
+//                            )
+//                        )
+//                    ).applyStyle(
+//                        Style(
+//                            size = Size(width = 300.unitReal(), height = 80.unitReal())
+//                        )
+//                    )
+//                )
+//            )
         )
         return context?.let { declarative.toView(this) }
     }
@@ -65,19 +104,83 @@ class ContextListViewFragment : Fragment() {
             value = listOf(
                 Person(
                     "Matheus",
-                    123
+                    1
                 ),
                 Person(
                     "Thalyta",
-                    456
+                    2
                 ),
                 Person(
                     "Jose",
-                    789
+                    3
                 ),
                 Person(
                     "Maria",
-                    0
+                    4
+                ),
+                Person(
+                    "Clemente",
+                    5
+                ),
+                Person(
+                    "Matheus",
+                    6
+                ),
+                Person(
+                    "Thalyta",
+                    7
+                ),
+                Person(
+                    "Jose",
+                    8
+                ),
+                Person(
+                    "Maria",
+                    9
+                ),
+                Person(
+                    "Clemente",
+                    10
+                ),
+                Person(
+                    "Matheus",
+                    11
+                ),
+                Person(
+                    "Thalyta",
+                    12
+                ),
+                Person(
+                    "Jose",
+                    13
+                ),
+                Person(
+                    "Maria",
+                    14
+                ),
+                Person(
+                    "Clemente",
+                    15
+                ),
+                Person(
+                    "Matheus",
+                    16
+                ),
+                Person(
+                    "Thalyta",
+                    17
+                ),
+                Person(
+                    "Jose",
+                    18
+                ),
+                Person(
+                    "Maria",
+                    19
+                ),
+                Person(
+                    "Clemente",
+                    20
                 )
             )
         ),
@@ -87,7 +190,7 @@ class ContextListViewFragment : Fragment() {
         template = Container(
             children = listOf(
                 Button(
-                    text = expressionOf("@{item.name}"),
+                    text = expressionOf("@{item.name} - @{item.cpf}"),
                     onPress = listOf(
                         SetContext(
                             contextId = "insideContext",
@@ -101,7 +204,7 @@ class ContextListViewFragment : Fragment() {
                     )
                 )/*.setId("button")*/
             )
-        ).setId("container")
+        )/*.setId("container")*/
     )
 
     private fun buildListView() = ListView(
