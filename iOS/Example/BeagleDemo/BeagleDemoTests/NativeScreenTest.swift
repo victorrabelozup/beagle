@@ -13,20 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-rootProject.name = "Beagle"
 
-include ":sample"
-include ":beagle"
-include ":processor"
-include ":internal-processor"
-include ":android-annotation"
-include ":preview"
-include ":schema:kotlin-core"
-include ":common:processor-utils"
-include ":common:extended-schema"
-include ":common:annotation"
+import XCTest
+@testable import BeagleDemo
+import SnapshotTesting
 
-project(":schema:kotlin-core").projectDir = file('../schema/kotlin-core')
-project(":common:extended-schema").projectDir = file('../common/extended-schema')
-project(":common:processor-utils").projectDir = file('../common/processor-utils')
-project(":common:annotation").projectDir = file('../common/annotation')
+class NativeScreenTest: XCTestCase {
+
+    func testNativeScreen() {
+        let nativeScreen = NativeViewController()
+        assertSnapshot(matching: nativeScreen, as: .image(size: .init(width: 300, height: 400)))
+    }
+
+}

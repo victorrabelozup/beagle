@@ -118,7 +118,6 @@ import org.json.JSONObject
                     executeScrollEnd(recyclerView, rootView) //TODO test when list is empty
                 } else {
                     contextAdapter.setList(value)
-                    recyclerView.scrollToPosition(0)
                 }
                 list = value
                 canScrollEnd = true
@@ -313,9 +312,7 @@ internal class ListViewContextAdapter2(
     }
 
     private fun getListIdByKey(position: Int): String {
-        val listId = key?.let {
-            ((adapterItems[position].data).normalizeContextValue() as JSONObject).get(it)
-        } ?: position
+        val listId = key?.let { ((adapterItems[position].data) as JSONObject).get(it) } ?: position
         return listId.toString()
     }
 
@@ -326,7 +323,7 @@ internal class ListViewContextAdapter2(
             contextMap[view]?.let { contextString ->
                 val context = BeagleMoshi.moshi.adapter(ContextData::class.java).fromJson(contextString)
                 context?.let {
-                    if (view.getContextData() != it) {
+                    if (view.getContextData()?.toString() != it.toString()) { // todo never succeed
                         view.setContextData(it)
                     }
                 }
@@ -374,7 +371,7 @@ internal class ListViewContextAdapter2(
     }
 
     fun setList(list: List<Any>) {
-        adapterItems = list.map { BeagleAdapterItem(id = View.generateViewId(), data = it) }
+        adapterItems = list.map { BeagleAdapterItem(id = View.generateViewId(), data = it.normalizeContextValue()) }
         notifyDataSetChanged()
     }
 

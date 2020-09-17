@@ -57,6 +57,8 @@ internal class JsonPathFinder {
 
     private fun JSONObject.safeGet(key: String): Any? {
         return try {
+            this.getInt(key)
+        } catch (ex: JSONException) {
             this[key]
         } catch (ex: JSONException) {
             null
@@ -65,6 +67,8 @@ internal class JsonPathFinder {
 
     private fun JSONArray.safeGet(index: Int): Any? {
         return try {
+            this.getInt(index)
+        } catch (ex: JSONException) {
             this[index]
         } catch (ex: JSONException) {
             null
