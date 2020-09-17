@@ -19,7 +19,7 @@ package br.com.zup.beagle.android.jsonpath
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import java.util.*
+import java.util.LinkedList
 
 internal class JsonPathFinder {
 

@@ -34,7 +34,8 @@ data class AddChildrenAction(
     var value: List<ServerDrivenComponent>,
     var mode: Mode? = Mode.APPEND
 ) : Action {
-    override fun execute(rootView: RootView, origin: View) {
+
+    override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
         try {
             val view = (rootView.getContext() as AppCompatActivity).findViewById<ViewGroup>(componentId.toAndroidId())
             val viewList = convertServerDrivenListOnViewList(value, rootView)
@@ -42,6 +43,8 @@ data class AddChildrenAction(
         } catch (exception: Exception) {
             BeagleMessageLogs.errorWhileTryingToAddViewWithAddChildrenAction(componentId)
         }
+
+        listener?.onActionFinished(this)
     }
 
     private fun convertServerDrivenListOnViewList(list: List<ServerDrivenComponent>, rootView: RootView): List<View> {
@@ -54,15 +57,9 @@ data class AddChildrenAction(
 
     private fun addValueToView(view: ViewGroup, viewList: List<View>) {
         when (mode) {
-            Mode.APPEND -> {
-                appendListOnViewGroupChildren(view, viewList)
-            }
-            Mode.PREPEND -> {
-                prependValue(view, viewList)
-            }
-            Mode.REPLACE -> {
-                replaceValue(view, viewList)
-            }
+            Mode.APPEND -> appendListOnViewGroupChildren(view, viewList)
+            Mode.PREPEND -> prependValue(view, viewList)
+            Mode.REPLACE -> replaceValue(view, viewList)
         }
     }
 
@@ -83,6 +80,4 @@ data class AddChildrenAction(
             viewGroup.addView(it)
         }
     }
-
-
 }

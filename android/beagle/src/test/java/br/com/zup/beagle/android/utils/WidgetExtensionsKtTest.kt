@@ -69,7 +69,7 @@ class WidgetExtensionsKtTest : BaseTest() {
             assertEquals(expected, evaluated)
         }
 
-        contextViewModel.linkBindingToContextAndEvaluateThem(view)
+        contextViewModel.evaluateContextAndNotify(view)
     }
 
     @Test

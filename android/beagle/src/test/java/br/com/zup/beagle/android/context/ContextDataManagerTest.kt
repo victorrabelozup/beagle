@@ -27,7 +27,6 @@ import br.com.zup.beagle.android.testutil.RandomData
 import br.com.zup.beagle.android.testutil.getPrivateField
 import br.com.zup.beagle.android.testutil.setPrivateField
 import br.com.zup.beagle.android.utils.Observer
-import br.com.zup.beagle.android.utils.getContextBinding
 import br.com.zup.beagle.android.utils.getContextData
 import br.com.zup.beagle.android.utils.setContextBinding
 import io.mockk.Runs
@@ -181,7 +180,7 @@ class ContextDataManagerTest : BaseTest() {
 
         // When
         contextDataManager.addBinding(viewWithBind, bind, observer)
-        contextDataManager.linkBindingToContextAndEvaluateThem(viewWithBind)
+        contextDataManager.evaluateContextAndNotify(viewWithBind)
 
         // Then
         val contextBinding = contexts[viewContext.id]?.bindings?.first()
@@ -199,7 +198,7 @@ class ContextDataManagerTest : BaseTest() {
         contextDataManager.addBinding(viewWithBind, bind, observer)
 
         // When
-        contextDataManager.linkBindingToContextAndEvaluateThem(viewWithBind)
+        contextDataManager.evaluateContextAndNotify(viewWithBind)
 
         // Then
         val contextBinding = contexts[Int.MAX_VALUE]?.bindings?.first()
@@ -215,7 +214,7 @@ class ContextDataManagerTest : BaseTest() {
         viewWithBind.setContextBinding(contextBinding)
 
         // When
-        contextDataManager.linkBindingToContextAndEvaluateThem(viewWithBind)
+        contextDataManager.evaluateContextAndNotify(viewWithBind)
 
         // Then
         verify(exactly = once()) { contextDataManager.notifyBindingChanges(contextBinding) }
@@ -346,7 +345,7 @@ class ContextDataManagerTest : BaseTest() {
         contextDataManager.addBinding(viewContext, bind, observer)
 
         // When
-        contextDataManager.linkBindingToContextAndEvaluateThem(viewContext)
+        contextDataManager.evaluateContextAndNotify(viewContext)
 
         // Then
         verify(exactly = once()) { observer(value) }
@@ -363,7 +362,7 @@ class ContextDataManagerTest : BaseTest() {
         contextDataManager.addBinding(viewContext, bind, observer)
 
         // When
-        contextDataManager.linkBindingToContextAndEvaluateThem(viewContext)
+        contextDataManager.evaluateContextAndNotify(viewContext)
 
         // Then
         verify(exactly = once()) { observer(value) }
@@ -380,7 +379,7 @@ class ContextDataManagerTest : BaseTest() {
         contextDataManager.addBinding(viewContext, bind, observer)
 
         // When
-        contextDataManager.linkBindingToContextAndEvaluateThem(viewContext)
+        contextDataManager.evaluateContextAndNotify(viewContext)
 
         // Then
         verify(exactly = once()) { observer(null) }
@@ -396,7 +395,7 @@ class ContextDataManagerTest : BaseTest() {
             // Then
             assertNull(it)
         }
-        contextDataManager.linkBindingToContextAndEvaluateThem(viewContext)
+        contextDataManager.evaluateContextAndNotify(viewContext)
     }
 
     @Test

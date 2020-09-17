@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
             R.id.composeComponent -> goToFragment(ComposeComponentFragment.newInstance())
             R.id.sampleBff -> startActivity(
                 newServerDrivenIntent<SampleServerDrivenActivity>(
-                    ScreenRequest(SAMPLE_ENDPOINT)
+                    ScreenRequest("https://storage.googleapis.com/lucasaraujo/dev/listview.json")
                 )
             )
         }

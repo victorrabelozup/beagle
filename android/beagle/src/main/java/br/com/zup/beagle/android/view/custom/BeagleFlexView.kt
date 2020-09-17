@@ -17,7 +17,6 @@
 package br.com.zup.beagle.android.view.custom
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.View
 import br.com.zup.beagle.android.engine.mapper.FlexMapper
 import br.com.zup.beagle.android.engine.renderer.ViewRendererFactory
@@ -64,7 +63,7 @@ internal open class BeagleFlexView(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        viewModel.linkBindingToContextAndEvaluateThem(this)
+        viewModel.evaluateContextAndNotify(this)
     }
 
     override fun onDetachedFromWindow() {

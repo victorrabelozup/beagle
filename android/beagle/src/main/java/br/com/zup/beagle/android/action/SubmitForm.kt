@@ -26,7 +26,8 @@ import br.com.zup.beagle.android.logger.BeagleMessageLogs
 import br.com.zup.beagle.android.widget.RootView
 
 class SubmitForm : Action {
-    override fun execute(rootView: RootView, origin: View) {
+
+    override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
         var currentView: ViewParent? = origin.parent
 
         var foundSimpleForm = false
@@ -44,5 +45,7 @@ class SubmitForm : Action {
         } else {
             BeagleMessageLogs.logNotFoundSimpleForm()
         }
+
+        listener?.onActionFinished(this)
     }
 }

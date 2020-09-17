@@ -103,6 +103,10 @@ class ContextListViewFragment : Fragment() {
             id = "insideContext",
             value = listOf(
                 Person(
+                    "John",
+                    0
+                ),
+                Person(
                     "Matheus",
                     1
                 ),
@@ -161,26 +165,6 @@ class ContextListViewFragment : Fragment() {
                 Person(
                     "Clemente",
                     15
-                ),
-                Person(
-                    "Matheus",
-                    16
-                ),
-                Person(
-                    "Thalyta",
-                    17
-                ),
-                Person(
-                    "Jose",
-                    18
-                ),
-                Person(
-                    "Maria",
-                    19
-                ),
-                Person(
-                    "Clemente",
-                    20
                 )
             )
         ),

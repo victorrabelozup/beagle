@@ -16,6 +16,7 @@
 
 package br.com.zup.beagle.android.context
 
+import android.util.Log
 import android.view.View
 import br.com.zup.beagle.android.action.SetContextInternal
 import br.com.zup.beagle.android.context.tokenizer.Token
@@ -87,7 +88,7 @@ internal class ContextDataManager(
         viewBinding[view] = bindings
     }
 
-    fun linkBindingToContextAndEvaluateThem(view: View) {
+    fun evaluateContextAndNotify(view: View) {
         if (viewBinding.contains(view)) {
             val contextStack = view.getAllParentContextWithGlobal()
             viewBinding[view]?.forEach { binding ->

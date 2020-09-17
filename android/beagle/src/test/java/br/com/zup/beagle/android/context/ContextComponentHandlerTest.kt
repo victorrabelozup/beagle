@@ -82,6 +82,6 @@ class ContextComponentHandlerTest {
         listenerSlot.captured.onViewAttachedToWindow(view)
 
         // Then
-        verify(exactly = once()) { viewModel.linkBindingToContextAndEvaluateThem(view) }
+        verify(exactly = once()) { viewModel.evaluateContextAndNotify(view) }
     }
 }

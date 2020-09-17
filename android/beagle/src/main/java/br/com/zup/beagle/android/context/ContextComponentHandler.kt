@@ -17,6 +17,7 @@
 package br.com.zup.beagle.android.context
 
 import android.view.View
+import br.com.zup.beagle.android.view.custom.BeagleFlexView
 import br.com.zup.beagle.android.view.viewmodel.ScreenContextViewModel
 import br.com.zup.beagle.core.ServerDrivenComponent
 
@@ -31,14 +32,14 @@ internal class ContextComponentHandler {
     }
 
     fun addListenerToHandleContext(viewModel: ScreenContextViewModel, view: View) {
-        view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
-            override fun onViewDetachedFromWindow(v: View?) {}
+        if (view !is BeagleFlexView) {
+            view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+                override fun onViewDetachedFromWindow(v: View?) {}
 
-            override fun onViewAttachedToWindow(v: View?) {
-                v?.let {
-                    viewModel.linkBindingToContextAndEvaluateThem(it)
+                override fun onViewAttachedToWindow(v: View?) {
+                    viewModel.evaluateContextAndNotify(view)
                 }
-            }
-        })
+            })
+        }
     }
 }
