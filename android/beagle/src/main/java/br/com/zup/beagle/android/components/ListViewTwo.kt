@@ -16,7 +16,6 @@
 
 package br.com.zup.beagle.android.components
 
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
@@ -299,11 +298,8 @@ internal class ListViewContextAdapter2(
         holder.onBind(iteratorName, getListIdByKey(position), adapterItems[position])
         // Only if the ViewHolder has already been recycled do we validate onInit again.
         if (!createdViewHolderList.contains(holder)) {
-            // If all onInit was executed restore context
-            if (adapterItems[position].completelyInitialized) {
-                restoreContexts(holder.itemView, adapterItems[position].childContextMap)
-            } else {
-                // Treat widgets with onInit
+            // Treat widgets with onInit
+            if (!adapterItems[position].completelyInitialized) {
                 handleInitiableWidgets(holder)
             }
         } else {
@@ -317,27 +313,6 @@ internal class ListViewContextAdapter2(
         return listId.toString()
     }
 
-    private fun restoreContexts(view: View, contextMap: MutableMap<View, String>) {
-        if (view.getContextData() == null || view is RecyclerView) {
-            return
-        } else {
-            contextMap[view]?.let { contextString ->
-                val context = BeagleMoshi.moshi.adapter(ContextData::class.java).fromJson(contextString)
-                context?.let {
-                    if (view.getContextData()?.toString() != it.toString()) { // todo never succeed
-                        view.setContextData(it)
-                    }
-                }
-            }
-            if (view is ViewGroup) {
-                for (i in 0 until view.childCount) {
-                    val child = view.getChildAt(i)
-                    restoreContexts(child, contextMap)
-                }
-            }
-        }
-    }
-
     override fun onViewAttachedToWindow(holder: ContextViewHolderTwo) {
         super.onViewAttachedToWindow(holder)
 
@@ -345,29 +320,6 @@ internal class ListViewContextAdapter2(
         // This validation must be done here to cover the cases where onInit is executed before the item is visible.
         if (!adapterItems[holder.adapterPosition].completelyInitialized) {
             manageHolderCompletelyInitializedStatus(holder)
-        }
-    }
-
-    override fun onViewRecycled(holder: ContextViewHolderTwo) {
-        super.onViewRecycled(holder)
-
-        // Saves the contexts of all the views of each cell at the moment it is recycled, to be recovered when it returns.
-        if (holder.adapterPosition != RecyclerView.NO_POSITION) {
-            saveContexts(holder.itemView, adapterItems[holder.adapterPosition].childContextMap)
-        }
-    }
-
-    private fun saveContexts(view: View, contextMap: MutableMap<View, String>) {
-        if (view.getContextData() == null || view is RecyclerView) {
-            return
-        } else {
-            contextMap[view] = BeagleMoshi.moshi.adapter(ContextData::class.java).toJson(view.getContextData())
-            if (view is ViewGroup) {
-                for (i in 0 until view.childCount) {
-                    val child = view.getChildAt(i)
-                    saveContexts(child, contextMap)
-                }
-            }
         }
     }
 
@@ -445,7 +397,6 @@ internal class ContextViewHolderTwo(
 internal class BeagleAdapterItem(
     @IdRes val id: Int,
     val data: Any,
-    var childContextMap: MutableMap<View, String> = mutableMapOf(),
     var completelyInitialized: Boolean = false,
     var idsUpdated: Boolean = false
 )
