@@ -21,6 +21,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import androidx.annotation.IdRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.zup.beagle.android.action.Action
@@ -434,7 +435,7 @@ internal class ContextViewHolderTwo(
     private fun updateIdToEachSubView(listId: String, beagleAdapterItem: BeagleAdapterItem) {
         if (!beagleAdapterItem.idsUpdated) {
             viewsWithId.forEach { (id, view) ->
-                view.id = "$id:$listId}".toAndroidId()
+                view.id = "$id:$listId".toAndroidId()
             }
             beagleAdapterItem.idsUpdated = true
         }
@@ -442,7 +443,7 @@ internal class ContextViewHolderTwo(
 }
 
 internal class BeagleAdapterItem(
-    val id: Int,
+    @IdRes val id: Int,
     val data: Any,
     var childContextMap: MutableMap<View, String> = mutableMapOf(),
     var completelyInitialized: Boolean = false,
