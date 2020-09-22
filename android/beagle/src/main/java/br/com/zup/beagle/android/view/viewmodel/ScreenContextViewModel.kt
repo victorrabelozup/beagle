@@ -67,4 +67,8 @@ internal class ScreenContextViewModel(
     override fun onCleared() {
         clearContexts()
     }
+
+    fun restoreContext(view: View) {
+        contextDataManager.restoreContext(view)
+    }
 }

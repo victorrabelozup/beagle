@@ -39,11 +39,22 @@ data class Container(
     @Transient
     private val viewFactory = ViewFactory()
 
+    @Transient
+    private lateinit var view: View
+
+    @Transient
+    private lateinit var rootView: RootView
+
+    override fun getView() = view
+
+    override fun getRootView() = rootView
+
     override fun buildView(rootView: RootView): View {
-       val view = viewFactory.makeBeagleFlexView(rootView, style ?: Style())
-        handleOnInit(rootView, view)
+        this.rootView = rootView
+        view = viewFactory.makeBeagleFlexView(rootView, style ?: Style())
+        handleOnInit()
         return view.apply {
-            addChildren(this)
+            addChildren(this as BeagleFlexView)
         }
     }
 

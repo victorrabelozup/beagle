@@ -23,7 +23,7 @@ import br.com.zup.beagle.android.context.tokenizer.Token
 import br.com.zup.beagle.android.context.tokenizer.TokenBinding
 import br.com.zup.beagle.android.context.tokenizer.TokenFunction
 import br.com.zup.beagle.android.logger.BeagleMessageLogs
-import br.com.zup.beagle.android.utils.Observer
+import br.com.zup.beagle.android.utils.*
 import br.com.zup.beagle.android.utils.findParentContextWithId
 import br.com.zup.beagle.android.utils.getAllParentContexts
 import br.com.zup.beagle.android.utils.getContextBinding
@@ -86,6 +86,12 @@ internal class ContextDataManager(
             bind = bind
         ))
         viewBinding[view] = bindings
+    }
+
+    fun restoreContext(view: View) {
+        contexts[view.id]?.let{
+            view.setContextData(it.context)
+        }
     }
 
     fun evaluateContextAndNotify(view: View) {

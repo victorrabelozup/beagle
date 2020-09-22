@@ -16,7 +16,9 @@
 
 package br.com.zup.beagle.android.context
 
+import android.util.Log
 import android.view.View
+import br.com.zup.beagle.android.utils.getContextData
 import br.com.zup.beagle.android.view.custom.BeagleFlexView
 import br.com.zup.beagle.android.view.viewmodel.ScreenContextViewModel
 import br.com.zup.beagle.core.ServerDrivenComponent
@@ -37,6 +39,8 @@ internal class ContextComponentHandler {
                 override fun onViewDetachedFromWindow(v: View?) {}
 
                 override fun onViewAttachedToWindow(v: View?) {
+
+                    Log.wtf("listContext", "onViewAttachedToWindow ${System.identityHashCode(v)}")
                     viewModel.evaluateContextAndNotify(view)
                 }
             })

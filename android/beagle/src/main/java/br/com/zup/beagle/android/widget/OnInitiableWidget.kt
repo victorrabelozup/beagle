@@ -16,6 +16,7 @@
 
 package br.com.zup.beagle.android.widget
 
+import android.util.Log
 import android.view.View
 import br.com.zup.beagle.android.action.Action
 import br.com.zup.beagle.android.action.OnActionFinished
@@ -38,44 +39,50 @@ abstract class OnInitiableWidget : WidgetView() {
     @Transient
     private var onInitFinishedListener: OnInitFinishedListener? = null
 
-    fun handleOnInit(rootView: RootView, view: View) {
+    fun handleOnInit() {
         onInit?.let {
-            addListenerToExecuteOnInit(rootView, view)
+            addListenerToExecuteOnInit()
         }
     }
 
-    private fun addListenerToExecuteOnInit(rootView: RootView, view: View) {
-        view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+    private fun addListenerToExecuteOnInit() {
+        getView().addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
             override fun onViewAttachedToWindow(v: View?) {
                 if (!onInitCalled) {
-                    executeOnInit(rootView, view)
+                    executeOnInit()
                     onInitCalled = true
                 }
             }
+
             override fun onViewDetachedFromWindow(v: View?) {}
         })
     }
 
-    private fun executeOnInit(rootView: RootView, view: View) {
+    fun executeOnInit() {
         val onInitActions = onInit?.toMutableList()
+        onInitDone = false
         onInit?.forEach { action ->
-            action.execute(rootView, view, object : OnActionFinished {
+            action.execute(getRootView(), getView(), object : OnActionFinished {
                 override fun onActionFinished(action: Action) {
                     onInitActions?.remove(action)
                     if (onInitActions?.isEmpty() == true) {
                         onInitDone = true
-                        onInitFinishedListener?.invoke(view)
+                        onInitFinishedListener?.invoke(this@OnInitiableWidget)
                     }
                 }
             })
         }
     }
 
-    fun setOnInitFinishedListener(view: View, listener: OnInitFinishedListener) {
+    abstract fun getView(): View
+
+    abstract fun getRootView(): RootView
+
+    fun setOnInitFinishedListener(listener: OnInitFinishedListener) {
         onInitFinishedListener = listener
 
         if (onInitDone) {
-            onInitFinishedListener?.invoke(view)
+            onInitFinishedListener?.invoke(this)
         }
     }
 }
@@ -83,4 +90,4 @@ abstract class OnInitiableWidget : WidgetView() {
 /**
  *
  */
-typealias OnInitFinishedListener = (view: View) -> Unit
+typealias OnInitFinishedListener = (widget: OnInitiableWidget) -> Unit
