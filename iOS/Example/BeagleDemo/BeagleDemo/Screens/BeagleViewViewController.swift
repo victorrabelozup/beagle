@@ -84,6 +84,11 @@ class BeagleViewViewController: UIViewController, DeeplinkScreen {
        return scrollView
     }()
     
+    private lazy var contentView: UIView = {
+        var contentView = UIView()
+        return contentView
+    }()
+    
     private func setupView() {
         view.backgroundColor = .white
         
@@ -95,64 +100,73 @@ class BeagleViewViewController: UIViewController, DeeplinkScreen {
             right: view.rightAnchor
         )
         
-        scrollView.addSubview(titleScreen)
+        scrollView.addSubview(contentView)
+        contentView.anchor(
+            top: scrollView.topAnchor,
+            left: scrollView.leftAnchor,
+            bottom: scrollView.bottomAnchor,
+            right: scrollView.rightAnchor
+        )
+        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+        
+        contentView.addSubview(titleScreen)
         titleScreen.anchorCenterXToSuperview()
         titleScreen.anchor(
-            top: scrollView.topAnchor,
+            top: contentView.topAnchor,
             topConstant: 30
         )
         
-        scrollView.addSubview(descriptionScreen)
+        contentView.addSubview(descriptionScreen)
         descriptionScreen.anchor(
             top: titleScreen.bottomAnchor,
-            left: view.leftAnchor,
-            right: view.rightAnchor,
+            left: contentView.leftAnchor,
+            right: contentView.rightAnchor,
             topConstant: 15,
             leftConstant: 20,
             rightConstant: 20
         )
         
-        scrollView.addSubview(attentionScreen)
+        contentView.addSubview(attentionScreen)
         attentionScreen.anchor(
             top: descriptionScreen.bottomAnchor,
-            left: view.leftAnchor,
-            right: view.rightAnchor,
+            left: contentView.leftAnchor,
+            right: contentView.rightAnchor,
             topConstant: 15,
             leftConstant: 20,
             rightConstant: 20
         )
         
-        scrollView.addSubview(beagleViewCenter)
+        contentView.addSubview(beagleViewCenter)
         beagleViewCenter.anchor(
             top: attentionScreen.bottomAnchor,
-            left: scrollView.leftAnchor,
-            right: scrollView.rightAnchor,
+            left: contentView.leftAnchor,
+            right: contentView.rightAnchor,
             topConstant: 30
         )
         
-        scrollView.addSubview(documentationTitle)
+        contentView.addSubview(documentationTitle)
         documentationTitle.anchorCenterXToSuperview()
         documentationTitle.anchor(
             top: beagleViewCenter.bottomAnchor,
             topConstant: 30
         )
         
-        scrollView.addSubview(documentationDetail)
+        contentView.addSubview(documentationDetail)
         documentationDetail.anchor(
             top: documentationTitle.bottomAnchor,
-            left: view.leftAnchor,
-            right: view.rightAnchor,
+            left: contentView.leftAnchor,
+            right: contentView.rightAnchor,
             topConstant: 15,
             leftConstant: 20,
             rightConstant: 20
         )
         
-        scrollView.addSubview(beagleViewBottom)
+        contentView.addSubview(beagleViewBottom)
         beagleViewBottom.anchor(
             top: documentationDetail.bottomAnchor,
-            left: scrollView.leftAnchor,
-            bottom: scrollView.bottomAnchor,
-            right: scrollView.rightAnchor,
+            left: contentView.leftAnchor,
+            bottom: contentView.bottomAnchor,
+            right: contentView.rightAnchor,
             topConstant: 30,
             bottomConstant: 20
         )
