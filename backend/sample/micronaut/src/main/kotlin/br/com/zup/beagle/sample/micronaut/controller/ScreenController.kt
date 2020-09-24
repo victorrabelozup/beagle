@@ -56,33 +56,7 @@ import br.com.zup.beagle.sample.constants.SCREEN_TEXT_ENDPOINT
 import br.com.zup.beagle.sample.constants.SCREEN_TEXT_INPUT_ENDPOINT
 import br.com.zup.beagle.sample.constants.SCREEN_TOUCHABLE_ENDPOINT
 import br.com.zup.beagle.sample.constants.SCREEN_WEB_VIEW_ENDPOINT
-import br.com.zup.beagle.sample.micronaut.service.AccessibilityService
-import br.com.zup.beagle.sample.micronaut.service.SampleActionClickService
-import br.com.zup.beagle.sample.micronaut.service.SampleActionService
-import br.com.zup.beagle.sample.micronaut.service.SampleAnalyticsService
-import br.com.zup.beagle.sample.micronaut.service.SampleButtonService
-import br.com.zup.beagle.sample.micronaut.service.SampleComponentsService
-import br.com.zup.beagle.sample.micronaut.service.SampleComposeComponentService
-import br.com.zup.beagle.sample.micronaut.service.SampleContextService
-import br.com.zup.beagle.sample.micronaut.service.SampleFormService
-import br.com.zup.beagle.sample.micronaut.service.SampleImageLocalService
-import br.com.zup.beagle.sample.micronaut.service.SampleImageRemoteService
-import br.com.zup.beagle.sample.micronaut.service.SampleLazyComponentService
-import br.com.zup.beagle.sample.micronaut.service.SampleListViewService
-import br.com.zup.beagle.sample.micronaut.service.SampleNavigationBarService
-import br.com.zup.beagle.sample.micronaut.service.SampleNavigationTypeService
-import br.com.zup.beagle.sample.micronaut.service.SamplePageViewService
-import br.com.zup.beagle.sample.micronaut.service.SampleSafeAreaService
-import br.com.zup.beagle.sample.micronaut.service.SampleScreenBuilderService
-import br.com.zup.beagle.sample.micronaut.service.SampleScrollViewService
-import br.com.zup.beagle.sample.micronaut.service.SampleSimpleFormService
-import br.com.zup.beagle.sample.micronaut.service.SampleTabBarService
-import br.com.zup.beagle.sample.micronaut.service.SampleTabViewService
-import br.com.zup.beagle.sample.micronaut.service.SampleTextService
-import br.com.zup.beagle.sample.micronaut.service.SampleTouchableService
-import br.com.zup.beagle.sample.micronaut.service.SampleViewService
-import br.com.zup.beagle.sample.micronaut.service.SampleWebViewService
-import br.com.zup.beagle.sample.micronaut.service.TextInputService
+import br.com.zup.beagle.sample.micronaut.service.*
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Controller
 
@@ -114,7 +88,8 @@ class ScreenController(
     private val sampleScreenContext: SampleContextService,
     private val sampleScreenSafeArea: SampleSafeAreaService,
     private val sampleScreenTextInput: TextInputService,
-    private val sampleSimpleFormService: SampleSimpleFormService
+    private val sampleSimpleFormService: SampleSimpleFormService,
+    private val sampleBeagleViewService: SampleBeagleViewService
 ) {
     @Get(ACCESSIBILITY_SCREEN_ENDPOINT)
     fun getAccessibilityView() = this.accessibilityService.createAccessibilityView()
@@ -229,4 +204,10 @@ class ScreenController(
 
     @Get(SCREEN_SIMPLE_FORM_ENDPOINT)
     fun getSampleSimpleFormService() = this.sampleSimpleFormService.createSimpleForm()
+
+    @Get("centerBeagleView")
+    fun getSampleBeagleViewCenterService() = this.sampleBeagleViewService.getBeagleViewCenter()
+
+    @Get("bottomBeagleView")
+    fun getSampleBeagleViewBottomService() = this.sampleBeagleViewService.getBeagleViewBottom()
 }
