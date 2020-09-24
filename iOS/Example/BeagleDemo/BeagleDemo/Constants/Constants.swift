@@ -32,6 +32,7 @@ extension String {
     static let customComponentEndpoint = "customComponent"
     static let componentsEndpoint = "/components"
     static let screenDeeplinkEndpoint = "screen-deep-link"
+    static let beagleViewEndpoint = "beagle-view-deep-link"
     static let navigateStep1Endpoint = "navigateScreenStep1"
     static let navigateStep2Endpoint = "navigateScreenStep2"
     static let textFormEndpoint = "https://t001-2751a.firebaseapp.com/action/shownativedialog.json"
@@ -58,6 +59,8 @@ extension String {
     static let textInputStyle = "DesignSystem.TextInput.Style"
     static let textInputBFFStyle = "DesignSystem.TextInput.Style.Bff"
     static let buttonContextStyle = "DesignSystem.Button.Context"
+    static let designSystemTextWhite = "DesignSystem.Text.White"
+    static let designSystemButtonBlue = "DesignSystem.Button.Blue"
     
     // MARK: - Hex Colors
     static let blueButton = "#0f4c81"
@@ -66,6 +69,8 @@ extension String {
     static let brownButton = "#b7472a"
     static let greenWaterButton = "#2a7886"
     static let redButton = "#c81912"
+    static let grayColor = "#EEEEEE"
+    static let black = "#000000"
 }
 
 extension UIColor {

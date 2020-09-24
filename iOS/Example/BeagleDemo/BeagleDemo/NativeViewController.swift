@@ -24,7 +24,7 @@ class NativeViewController: UIViewController {
     
     private lazy var beagleView = BeagleView(Container(
         widgetProperties: .init(style: Style()
-            .backgroundColor(grayColor)
+            .backgroundColor(.grayColor)
             .margin(.init(all: 20))
             .padding(.init(all: 10))
         )
@@ -53,7 +53,7 @@ class NativeViewController: UIViewController {
         label.text = text
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 25, weight: .semibold)
-        label.backgroundColor = UIColor(hex: grayColor)
+        label.backgroundColor = UIColor(hex: .grayColor)
         return label
     }
     
@@ -87,6 +87,4 @@ class NativeViewController: UIViewController {
         secondLabel.anchorCenterXToSuperview()
         secondLabel.anchor(top: beagleView.bottomAnchor, topConstant: 30)
     }
-
-    private let grayColor = "#EEEEEE"
 }

@@ -33,7 +33,9 @@ struct AppTheme {
         .tabViewStyle: Self.tabView,
         .textInputStyle: Self.designSystemTextInput,
         .textInputBFFStyle: textInput,
-        .buttonContextStyle: designSystemButtonScreenContext
+        .buttonContextStyle: designSystemButtonScreenContext,
+        .designSystemTextWhite: designSystemTextWhite,
+        .designSystemButtonBlue: designSystemButtonBlue
     ])
     
     static func blackTextNormalStyle() -> (UITextView?) -> Void {
@@ -42,6 +44,10 @@ struct AppTheme {
     
     static func designSystemTextHelloWord() -> (UITextView?) -> Void {
         return BeagleStyle.text(font: .boldSystemFont(ofSize: 18), color: .darkGray)
+    }
+    
+    static func designSystemTextWhite() -> (UITextView?) -> Void {
+        return BeagleStyle.text(font: .boldSystemFont(ofSize: 20), color: .white)
     }
     
     static func designSystemTextImage() -> (UITextView?) -> Void {
@@ -58,6 +64,13 @@ struct AppTheme {
             $0?.font = .boldSystemFont(ofSize: 30)
         }
     }
+    
+    static func designSystemButtonBlue() -> (UIButton?) -> Void {
+           return BeagleStyle.button(withTitleColor: #colorLiteral(red: 0.02352941176, green: 0.1019607843, blue: 0.1411764706, alpha: 1))
+               <> {
+                   $0?.titleLabel |> BeagleStyle.label(withFont: .systemFont(ofSize: 14, weight: .semibold))
+           }
+       }
     
     static func designSystemStylishButton() -> (UIButton?) -> Void {
         return BeagleStyle.button(withTitleColor: .black)

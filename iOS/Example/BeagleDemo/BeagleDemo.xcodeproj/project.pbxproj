@@ -16,6 +16,7 @@
 		6E4EE6C7240E9C0B00624DFB /* ViewLayoutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4EE6C6240E9C0B00624DFB /* ViewLayoutHelper.swift */; };
 		6E8E1CC1249C57300053AD58 /* SimpleForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8E1CC0249C57300053AD58 /* SimpleForm.swift */; };
 		6ED5B09E240464520070CB9D /* BeagleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED5B09D240464520070CB9D /* BeagleStyle.swift */; };
+		6EE0C63A251B949000479389 /* BeagleViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE0C639251B949000479389 /* BeagleViewViewController.swift */; };
 		7685B043249A879F007EDED0 /* SendRequestScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7685B042249A879F007EDED0 /* SendRequestScreen.swift */; };
 		932925B22327E0E400A61F01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932925B12327E0E400A61F01 /* AppDelegate.swift */; };
 		932925B92327E0E400A61F01 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 932925B72327E0E400A61F01 /* Main.storyboard */; };
@@ -102,6 +103,7 @@
 		6E4EE6C6240E9C0B00624DFB /* ViewLayoutHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewLayoutHelper.swift; sourceTree = "<group>"; };
 		6E8E1CC0249C57300053AD58 /* SimpleForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleForm.swift; sourceTree = "<group>"; };
 		6ED5B09D240464520070CB9D /* BeagleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleStyle.swift; sourceTree = "<group>"; };
+		6EE0C639251B949000479389 /* BeagleViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeagleViewViewController.swift; sourceTree = "<group>"; };
 		7685B042249A879F007EDED0 /* SendRequestScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendRequestScreen.swift; sourceTree = "<group>"; };
 		932925AE2327E0E400A61F01 /* BeagleDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeagleDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		932925B12327E0E400A61F01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				98A7F36B23A926C600E88C70 /* TabViewScreen.swift */,
 				6E4EE6C6240E9C0B00624DFB /* ViewLayoutHelper.swift */,
 				98E08D2224228DD200FBD21B /* WebViewScreen.swift */,
+				6EE0C639251B949000479389 /* BeagleViewViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -538,6 +541,7 @@
 				25C762AC251147F800AB4D33 /* ConditionActionScreen.swift in Sources */,
 				A0642DD12396EC670028AFF3 /* PageViewScreen.swift in Sources */,
 				C09F4102249AAC87002605EE /* SingleCustomActionableContainer.swift in Sources */,
+				6EE0C63A251B949000479389 /* BeagleViewViewController.swift in Sources */,
 				C09F40FE249AAAEE002605EE /* CustomActionableContainer.swift in Sources */,
 				C0479F59243282F00040E30C /* AnalyticsMock.swift in Sources */,
 				C8A2F6F32464C1F9002198B1 /* Equality.generated.swift in Sources */,

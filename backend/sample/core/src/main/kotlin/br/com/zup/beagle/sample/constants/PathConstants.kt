@@ -65,6 +65,7 @@ const val DSL_BUILDER_ENDPOINT = "/dsl-builder"
 const val CUSTOM_WIDGET_ENDPOINT = "/custom"
 
 const val PATH_SCREEN_DEEP_LINK_ENDPOINT = "screen-deep-link"
+const val PATH_BEAGLE_VIEW_SCREEN_DEEP_LINK_ENDPOINT = "beagle-view-deep-link"
 
 const val PATH_LAZY_COMPONENT_ENDPOINT = "/text-lazy-component"
 
