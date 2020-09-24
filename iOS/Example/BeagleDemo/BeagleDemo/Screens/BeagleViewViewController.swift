@@ -127,8 +127,7 @@ class BeagleViewViewController: UIViewController, DeeplinkScreen {
             top: attentionScreen.bottomAnchor,
             left: scrollView.leftAnchor,
             right: scrollView.rightAnchor,
-            topConstant: 30,
-            heightConstant: 200
+            topConstant: 30
         )
         
         scrollView.addSubview(documentationTitle)
@@ -155,8 +154,7 @@ class BeagleViewViewController: UIViewController, DeeplinkScreen {
             bottom: scrollView.bottomAnchor,
             right: scrollView.rightAnchor,
             topConstant: 30,
-            bottomConstant: 20,
-            heightConstant: 100
+            bottomConstant: 20
         )
         
     }
