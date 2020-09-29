@@ -1,6 +1,7 @@
 ## How to run project
 1. Open Terminal
 2. ``` ./schema.sh -h ```
+3. check the Generated folder
 
 ## Need to see the docs?
 1. ```gem instal yard```
