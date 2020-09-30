@@ -67,7 +67,7 @@ internal class ContextDataManager(
         Log.wtf("listContext", "view ${System.identityHashCode(view)} - id ${view.id}")
         if (existingContext != null) {
             if (shouldOverrideExistingContext) {
-                view.setContextBinding(existingContext.copy(context = context))
+                view.setContextData(context)
             } else {
                 view.setContextBinding(existingContext)
                 existingContext.bindings.clear()

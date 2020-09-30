@@ -49,6 +49,7 @@ import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.ListDirection
 import org.json.JSONObject
+import java.util.LinkedList
 
 @RegisterWidget
 data class ListView(
@@ -65,12 +66,6 @@ data class ListView(
 
     @Transient
     private val viewFactory: ViewFactory = ViewFactory()
-
-    @Transient
-    private lateinit var contextAdapter: ListViewContextAdapterTwo
-
-    @Transient
-    private var list: List<Any>? = null
 
     @Transient
     private var canScrollEnd = true
@@ -110,7 +105,7 @@ data class ListView(
         template: ServerDrivenComponent,
         orientation: Int
     ) {
-        contextAdapter = ListViewContextAdapterTwo(template, iteratorName, key, viewFactory, orientation, rootView)
+        val contextAdapter = ListViewContextAdapterTwo(template, iteratorName, key, viewFactory, orientation, rootView)
 //        contextAdapter.setHasStableIds(true)
         recyclerView.apply {
             adapter = contextAdapter
@@ -122,16 +117,14 @@ data class ListView(
 
     private fun configDataSourceObserver(rootView: RootView, recyclerView: RecyclerView) {
         observeBindChanges(rootView, recyclerView, dataSource) { value ->
-            if (value != list) {
-                if (value.isNullOrEmpty()) {
-                    contextAdapter.clearList()
-                    executeScrollEnd(recyclerView, rootView) //TODO test when list is empty
-                } else {
-                    contextAdapter.setList(value)
-                }
-                list = value
-                canScrollEnd = true
+            val adapter = recyclerView.adapter as ListViewContextAdapterTwo
+            if (value.isNullOrEmpty()) {
+                adapter.clearList()
+                executeScrollEnd(recyclerView, rootView) //TODO test when list is empty
+            } else {
+                adapter.setList(value)
             }
+            canScrollEnd = true
         }
     }
 
@@ -196,10 +189,11 @@ internal class ListViewContextAdapterTwo(
     private val viewModel = rootView.generateViewModelInstance<ScreenContextViewModel>()
     private val generateIdViewModel = rootView.generateViewModelInstance<GenerateIdViewModel>()
 
-//    var info = MutableList<Any>()
-
     // Serializer to provide new template instances
     private val serializer = BeagleSerializer()
+
+    // Items captured by ListView
+    private var listItems: List<Any> = mutableListOf()
 
     // Struct that holds all data of each item
     private var adapterItems = listOf<BeagleAdapterItem>()
@@ -230,7 +224,8 @@ internal class ListViewContextAdapterTwo(
             generateIdViewModel,
             rootView,
             templateJson,
-            iteratorName
+            iteratorName,
+            viewPool
         )
     }
 
@@ -326,9 +321,12 @@ internal class ListViewContextAdapterTwo(
     }
 
     fun setList(list: List<Any>) {
-        clearAdapterContent()
-        adapterItems = list.map { BeagleAdapterItem(data = it.normalizeContextValue()) }
-        notifyDataSetChanged()
+        if (list != listItems) {
+            clearAdapterContent()
+            listItems = list
+            adapterItems = list.map { BeagleAdapterItem(data = it.normalizeContextValue()) }
+            notifyDataSetChanged()
+        }
     }
 
     fun clearList() {
@@ -355,7 +353,8 @@ internal class ContextViewHolderTwo(
     private val generateIdViewModel: GenerateIdViewModel,
     private val rootView: RootView,
     private val jsonTemplate: String,
-    private val iteratorName: String
+    private val iteratorName: String,
+    private val viewPool: RecyclerView.RecycledViewPool
 ) : RecyclerView.ViewHolder(itemView) {
 
     private val viewsWithId = mutableMapOf<String, View>()
@@ -391,6 +390,7 @@ internal class ContextViewHolderTwo(
         if (view !is ViewGroup) {
             return
         } else if (view is RecyclerView) {
+//            view.setRecycledViewPool(viewPool)
             directNestedRecyclers.add(view)
             return
         }
@@ -430,10 +430,10 @@ internal class ContextViewHolderTwo(
         } else {
             // But if that item on the list already has ids created, we retrieve them
             restoreIds(beagleAdapterItem)
-            // We also recover the contexts of all previously created views with context
-            restoreContexts()
             // Recovers adapters previously created for the RecyclerViews of this cell
             restoreAdapters(beagleAdapterItem)
+            // We also recover the contexts of all previously created views with context
+            restoreContexts()
         }
         // Finally, we updated the context of that cell effectively.
         setContext(iteratorName, beagleAdapterItem)
@@ -469,12 +469,12 @@ internal class ContextViewHolderTwo(
     private fun updateIdToEachSubView(listId: String, beagleAdapterItem: BeagleAdapterItem) {
         val itemViewId = View.generateViewId()
         itemView.id = itemViewId
-        beagleAdapterItem.viewIds[itemView] = itemViewId
+        beagleAdapterItem.viewIds.add(itemViewId)
 
         viewsWithId.forEach { (id, view) ->
             val identifierViewId = "$id:$listId".toAndroidId()
             view.id = identifierViewId
-            beagleAdapterItem.viewIds[view] = identifierViewId
+            beagleAdapterItem.viewIds.add(identifierViewId)
         }
 
         val viewsWithContextAndWithoutId = viewsWithContext.filterNot { viewsWithId.containsValue(it) }
@@ -485,7 +485,7 @@ internal class ContextViewHolderTwo(
                 View.generateViewId()
             }
             it.id = subViewId
-            beagleAdapterItem.viewIds[it] = subViewId
+            beagleAdapterItem.viewIds.add(subViewId)
         }
     }
 
@@ -512,29 +512,31 @@ internal class ContextViewHolderTwo(
                 oldAdapter.orientation,
                 oldAdapter.rootView
             )
-//            it.adapter = updatedAdapter
-            beagleAdapterItem.directNestedAdapters[it] = updatedAdapter
+            it.swapAdapter(updatedAdapter, false)
+            beagleAdapterItem.directNestedAdapters.add(updatedAdapter)
         }
     }
 
     private fun useCreatedAdapterToEachDirectNestedRecycler(beagleAdapterItem: BeagleAdapterItem) {
         directNestedRecyclers.forEach {
-            beagleAdapterItem.directNestedAdapters[it] = it.adapter as ListViewContextAdapterTwo
+            beagleAdapterItem.directNestedAdapters.add(it.adapter as ListViewContextAdapterTwo)
         }
     }
 
     private fun restoreIds(beagleAdapterItem: BeagleAdapterItem) {
-        beagleAdapterItem.viewIds[itemView]?.let { savedId ->
+        val temporaryViewIds: LinkedList<Int> = LinkedList(beagleAdapterItem.viewIds)
+        temporaryViewIds.pollFirst()?.let { savedId ->
             itemView.id = savedId
         }
-        viewsWithContext.forEach { viewWithContext ->
-            beagleAdapterItem.viewIds[viewWithContext]?.let { savedId ->
-                viewWithContext.id = savedId
+        viewsWithId.values.forEach { viewWithId ->
+            temporaryViewIds.pollFirst()?.let { savedId ->
+                viewWithId.id = savedId
             }
         }
-        viewsWithId.values.forEach { viewWithId ->
-            beagleAdapterItem.viewIds[viewWithId]?.let { savedId ->
-                viewWithId.id = savedId
+        val viewsWithContextAndWithoutId = viewsWithContext.filterNot { viewsWithId.containsValue(it) }
+        viewsWithContextAndWithoutId.forEach { viewWithContext ->
+            temporaryViewIds.pollFirst()?.let { savedId ->
+                viewWithContext.id = savedId
             }
         }
     }
@@ -546,8 +548,9 @@ internal class ContextViewHolderTwo(
     }
 
     private fun restoreAdapters(beagleAdapterItem: BeagleAdapterItem) {
+        val temporaryNestedAdapters: LinkedList<ListViewContextAdapterTwo> = LinkedList(beagleAdapterItem.directNestedAdapters)
         directNestedRecyclers.forEach {
-//            it.adapter = beagleAdapterItem.directNestedAdapters[it]
+            it.swapAdapter(temporaryNestedAdapters.pollFirst(), false)
         }
     }
 
@@ -561,9 +564,9 @@ internal class ContextViewHolderTwo(
 }
 
 internal class BeagleAdapterItem(
-    var viewIds: MutableMap<View, Int> = mutableMapOf(),
+    var viewIds: LinkedList<Int> = LinkedList(),
     val data: Any,
     var completelyInitialized: Boolean = false,
     var firstTimeBinding: Boolean = true,
-    val directNestedAdapters: MutableMap<RecyclerView, ListViewContextAdapterTwo> = mutableMapOf()
+    val directNestedAdapters: LinkedList<ListViewContextAdapterTwo> = LinkedList()
 )
