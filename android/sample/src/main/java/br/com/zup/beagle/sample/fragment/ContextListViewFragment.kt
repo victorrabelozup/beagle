@@ -48,47 +48,8 @@ class ContextListViewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val declarative = Screen(
-//            context = ContextData(
-//                id = "insideContext",
-//                value = listOf(
-//                    Person(
-//                        "Matheus",
-//                        123
-//                    )/*,
-//                    Person(
-//                        "Thalyta",
-//                        456
-//                    ),
-//                    Person(
-//                        "Jose",
-//                        789
-//                    ),
-//                    Person(
-//                        "Maria",
-//                        0
-//                    )*/
-//                )
-//            ),
             navigationBar = NavigationBar(title = "List"),
-            child = list
-//            child = Container(
-//                children = listOf(
-//                    Button(
-//                        text = expressionOf("@{insideContext[0].name}"),
-//                        onPress = listOf(
-//                            SetContext(
-//                                contextId = "insideContext",
-//                                path = "[0].name",
-//                                value = "Updated Matheus"
-//                            )
-//                        )
-//                    ).applyStyle(
-//                        Style(
-//                            size = Size(width = 300.unitReal(), height = 80.unitReal())
-//                        )
-//                    )
-//                )
-//            )
+            child = buildListView()
         )
         return context?.let { declarative.toView(this) }
     }
@@ -105,7 +66,7 @@ class ContextListViewFragment : Fragment() {
                 Person(
                     "John",
                     0
-                ),
+                )/*,
                 Person(
                     "Matheus",
                     1
@@ -165,7 +126,7 @@ class ContextListViewFragment : Fragment() {
                 Person(
                     "Clemente",
                     15
-                )
+                )*/
             )
         ),
         key = "cpf",
@@ -194,8 +155,10 @@ class ContextListViewFragment : Fragment() {
     private fun buildListView() = ListView(
         context = ContextData(
             id = "outsideContext",
-            value = listOf("1 OUTSIDE"/*, "2 OUTSIDE", "3 OUTSIDE", "4 OUTSIDE", "5 OUTSIDE",
-                "6 OUTSIDE", "7 OUTSIDE", "8 OUTSIDE", "9 OUTSIDE", "10 OUTSIDE"*/)
+            value = listOf("0 OUTSIDE", "1 OUTSIDE", "2 OUTSIDE", "3 OUTSIDE", "4 OUTSIDE", "5 OUTSIDE",
+                "6 OUTSIDE"/*, "7 OUTSIDE", "8 OUTSIDE", "9 OUTSIDE", "10 OUTSIDE",
+                "11 OUTSIDE", "12 OUTSIDE", "13 OUTSIDE", "14 OUTSIDE", "15 OUTSIDE",
+                "16 OUTSIDE", "17 OUTSIDE", "18 OUTSIDE", "19 OUTSIDE", "20 OUTSIDE"*/)
         ),
         dataSource = expressionOf("@{outsideContext}"),
         direction = ListDirection.VERTICAL,
@@ -206,7 +169,7 @@ class ContextListViewFragment : Fragment() {
             )
         ).applyStyle(
             Style(
-                size = Size(width = 100.unitPercent(), height = 300.unitReal())
+                size = Size(width = 100.unitPercent(), height = 600.unitReal())
             )
         )
     )

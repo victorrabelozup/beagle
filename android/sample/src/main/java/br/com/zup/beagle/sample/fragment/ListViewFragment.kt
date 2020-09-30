@@ -24,8 +24,7 @@ import androidx.fragment.app.Fragment
 import br.com.zup.beagle.android.components.Image
 import br.com.zup.beagle.android.components.ImagePath
 import br.com.zup.beagle.android.components.LazyComponent
-import br.com.zup.beagle.android.components.ListView
-import br.com.zup.beagle.android.components.ListViewOlder
+import br.com.zup.beagle.android.components.ListViewOld
 import br.com.zup.beagle.android.components.Text
 import br.com.zup.beagle.ext.unitReal
 import br.com.zup.beagle.android.utils.toView
@@ -52,7 +51,7 @@ class ListViewFragment : Fragment() {
         return context?.let { declarative.toView(this) }
     }
 
-    private fun buildListView() = ListViewOlder(
+    private fun buildListView() = ListViewOld(
         direction = ListDirection.HORIZONTAL,
         children = listOf(
             Text("0000"),

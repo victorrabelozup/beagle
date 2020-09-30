@@ -16,7 +16,6 @@
 
 package br.com.zup.beagle.android.widget
 
-import android.util.Log
 import android.view.View
 import br.com.zup.beagle.android.action.Action
 import br.com.zup.beagle.android.action.OnActionFinished

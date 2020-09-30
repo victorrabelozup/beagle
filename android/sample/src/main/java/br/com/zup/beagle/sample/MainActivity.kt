@@ -80,6 +80,7 @@ class MainActivity : AppCompatActivity() {
             R.id.sampleBff -> startActivity(
                 newServerDrivenIntent<ServerDrivenActivity>(
                     ScreenRequest("https://storage.googleapis.com/lucasaraujo/dev/listview.json")
+//                    ScreenRequest("https://run.mocky.io/v3/1c876b1f-4db7-4129-9784-d94a8c530e48")
                 )
             )
         }

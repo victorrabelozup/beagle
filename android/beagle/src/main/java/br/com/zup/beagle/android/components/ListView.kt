@@ -33,18 +33,18 @@ import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.widget.core.ListDirection
 
 @RegisterWidget
-data class ListViewOlder(
+data class ListViewOld(
     val children: List<ServerDrivenComponent>? = null,
     val direction: ListDirection = ListDirection.VERTICAL,
     override val context: ContextData? = null,
-    val onInit: List<Action>? = null,
+    override val onInit: List<Action>? = null,
     val dataSource: Bind<List<Any>>? = null,
     val template: ServerDrivenComponent? = null,
     val onScrollEnd: List<Action>? = null,
     val scrollThreshold: Int? = null,
     val iteratorName: String = "item",
     val key: String? = null
-) : WidgetView(), ContextComponent {
+) : OnInitiableWidget(), ContextComponent {
 
     @Deprecated(message = "", replaceWith = ReplaceWith(""))
     constructor(
@@ -59,11 +59,22 @@ data class ListViewOlder(
     @Transient
     private val viewFactory: ViewFactory = ViewFactory()
 
+    @Transient
+    private lateinit var recyclerView: RecyclerView
+
+    @Transient
+    private lateinit var rootView: RootView
+
+    override fun getView() = recyclerView
+
+    override fun getRootView() = rootView
+
     override fun buildView(rootView: RootView): View {
+        this.rootView = rootView
         if (children.isNullOrEmpty()) {
             template?.let {
                 dataSource?.let {
-                    return ListView(
+                    recyclerView = ListView(
                         direction,
                         context,
                         onInit,
@@ -73,7 +84,8 @@ data class ListViewOlder(
                         scrollThreshold,
                         iteratorName,
                         key
-                    ).buildView(rootView)
+                    ).buildView(rootView) as RecyclerView
+                    return recyclerView
                 }
             }
         }

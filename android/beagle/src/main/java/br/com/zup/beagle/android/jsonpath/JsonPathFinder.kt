@@ -16,8 +16,8 @@
 
 package br.com.zup.beagle.android.jsonpath
 
+import br.com.zup.beagle.android.utils.safeGet
 import org.json.JSONArray
-import org.json.JSONException
 import org.json.JSONObject
 import java.util.LinkedList
 
@@ -53,25 +53,5 @@ internal class JsonPathFinder {
 
         val newValue = childValue.safeGet(currentKey)
         return find(nextKeys, newValue)
-    }
-
-    private fun JSONObject.safeGet(key: String): Any? {
-        return try {
-            this.getInt(key)
-        } catch (ex: JSONException) {
-            this[key]
-        } catch (ex: JSONException) {
-            null
-        }
-    }
-
-    private fun JSONArray.safeGet(index: Int): Any? {
-        return try {
-            this.getInt(index)
-        } catch (ex: JSONException) {
-            this[index]
-        } catch (ex: JSONException) {
-            null
-        }
     }
 }
