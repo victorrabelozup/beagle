@@ -16,6 +16,7 @@
 
 package br.com.zup.beagle.android.components
 
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
@@ -28,11 +29,9 @@ import br.com.zup.beagle.android.context.ContextComponent
 import br.com.zup.beagle.android.context.ContextData
 import br.com.zup.beagle.android.context.normalizeContextValue
 import br.com.zup.beagle.android.data.serializer.BeagleSerializer
+import br.com.zup.beagle.android.utils.*
 import br.com.zup.beagle.android.utils.generateViewModelInstance
 import br.com.zup.beagle.android.utils.getContextData
-import br.com.zup.beagle.android.utils.observeBindChanges
-import br.com.zup.beagle.android.utils.safeGet
-import br.com.zup.beagle.android.utils.toAndroidId
 import br.com.zup.beagle.android.view.ViewFactory
 import br.com.zup.beagle.android.view.viewmodel.GenerateIdViewModel
 import br.com.zup.beagle.android.view.viewmodel.ScreenContextViewModel
@@ -467,7 +466,11 @@ internal class ContextViewHolderTwo(
     }
 
     private fun updateIdToEachSubView(listId: String, beagleAdapterItem: BeagleAdapterItem) {
-        val itemViewId = View.generateViewId()
+        val itemViewId = if (itemView.id != View.NO_ID) {
+            itemView.id
+        } else {
+            View.generateViewId()
+        }
         itemView.id = itemViewId
         beagleAdapterItem.viewIds.add(itemViewId)
 
@@ -479,10 +482,14 @@ internal class ContextViewHolderTwo(
 
         val viewsWithContextAndWithoutId = viewsWithContext.filterNot { viewsWithId.containsValue(it) }
         viewsWithContextAndWithoutId.forEach {
-            val subViewId = try {
-                generateIdViewModel.getViewId(rootView.getParentId())
-            } catch (exception: Exception) {
-                View.generateViewId()
+            val subViewId = if (it.id != View.NO_ID) {
+                it.id
+            } else {
+                try {
+                    generateIdViewModel.getViewId(rootView.getParentId())
+                } catch (exception: Exception) {
+                    View.generateViewId()
+                }
             }
             it.id = subViewId
             beagleAdapterItem.viewIds.add(subViewId)

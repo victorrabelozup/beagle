@@ -64,7 +64,6 @@ internal class ContextDataManager(
 
         val existingContext = contexts[view.id]
 
-        Log.wtf("listContext", "view ${System.identityHashCode(view)} - id ${view.id}")
         if (existingContext != null) {
             if (shouldOverrideExistingContext) {
                 view.setContextData(context)
