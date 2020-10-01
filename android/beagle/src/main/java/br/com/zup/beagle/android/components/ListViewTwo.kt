@@ -415,7 +415,7 @@ internal class ContextViewHolderTwo(
         // Checks whether views with ids and context have been updated based on the key and updates or restore them
         if (beagleAdapterItem.firstTimeBinding) {
             // Since the context needs unique id references for each view, we update them here
-            updateIdToEachSubView(listId, beagleAdapterItem)
+            updateIdToEachSubView(listId, beagleAdapterItem, isRecycled)
             // If the holder is being recycled
             if (isRecycled) {
                 // We set the template's default contexts for each view with context
@@ -465,8 +465,8 @@ internal class ContextViewHolderTwo(
         }
     }
 
-    private fun updateIdToEachSubView(listId: String, beagleAdapterItem: BeagleAdapterItem) {
-        val itemViewId = if (itemView.id != View.NO_ID) {
+    private fun updateIdToEachSubView(listId: String, beagleAdapterItem: BeagleAdapterItem, isRecycled: Boolean) {
+        val itemViewId = if (itemView.id != View.NO_ID && !isRecycled) {
             itemView.id
         } else {
             View.generateViewId()
@@ -482,7 +482,7 @@ internal class ContextViewHolderTwo(
 
         val viewsWithContextAndWithoutId = viewsWithContext.filterNot { viewsWithId.containsValue(it) }
         viewsWithContextAndWithoutId.forEach {
-            val subViewId = if (it.id != View.NO_ID) {
+            val subViewId = if (it.id != View.NO_ID && !isRecycled) {
                 it.id
             } else {
                 try {
