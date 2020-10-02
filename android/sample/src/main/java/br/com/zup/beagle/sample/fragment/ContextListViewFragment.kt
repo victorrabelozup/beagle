@@ -21,6 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import br.com.zup.beagle.android.action.Alert
 import br.com.zup.beagle.android.action.RequestActionMethod
 import br.com.zup.beagle.android.action.SendRequest
 import br.com.zup.beagle.android.action.SetContext
@@ -66,7 +67,7 @@ class ContextListViewFragment : Fragment() {
                 Person(
                     "John",
                     0
-                )/*,
+                ),
                 Person(
                     "Matheus",
                     1
@@ -126,7 +127,7 @@ class ContextListViewFragment : Fragment() {
                 Person(
                     "Clemente",
                     15
-                )*/
+                )
             )
         ),
         key = "cpf",
@@ -156,9 +157,9 @@ class ContextListViewFragment : Fragment() {
         context = ContextData(
             id = "outsideContext",
             value = listOf("0 OUTSIDE", "1 OUTSIDE", "2 OUTSIDE", "3 OUTSIDE", "4 OUTSIDE", "5 OUTSIDE",
-                "6 OUTSIDE"/*, "7 OUTSIDE", "8 OUTSIDE", "9 OUTSIDE", "10 OUTSIDE",
+                "6 OUTSIDE", "7 OUTSIDE", "8 OUTSIDE", "9 OUTSIDE", "10 OUTSIDE",
                 "11 OUTSIDE", "12 OUTSIDE", "13 OUTSIDE", "14 OUTSIDE", "15 OUTSIDE",
-                "16 OUTSIDE", "17 OUTSIDE", "18 OUTSIDE", "19 OUTSIDE", "20 OUTSIDE"*/)
+                "16 OUTSIDE", "17 OUTSIDE", "18 OUTSIDE", "19 OUTSIDE", "20 OUTSIDE")
         ),
         dataSource = expressionOf("@{outsideContext}"),
         direction = ListDirection.VERTICAL,

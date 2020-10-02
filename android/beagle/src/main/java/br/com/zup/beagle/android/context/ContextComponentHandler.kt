@@ -17,21 +17,41 @@
 package br.com.zup.beagle.android.context
 
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import br.com.zup.beagle.android.utils.generateViewModelInstance
 import br.com.zup.beagle.android.view.custom.BeagleFlexView
+import br.com.zup.beagle.android.view.viewmodel.GenerateIdViewModel
+import br.com.zup.beagle.android.view.viewmodel.ListViewIdViewModel
 import br.com.zup.beagle.android.view.viewmodel.ScreenContextViewModel
+import br.com.zup.beagle.android.widget.RootView
 import br.com.zup.beagle.core.ServerDrivenComponent
+import java.lang.Exception
 
 internal class ContextComponentHandler {
 
-    fun addContext(viewModel: ScreenContextViewModel, view: View, component: ServerDrivenComponent) {
-        if (component is ContextComponent) {
-            component.context?.let { context ->
-                viewModel.addContext(view, context)
+    fun handleComponent(
+        builtView: View,
+        rootView: RootView,
+        viewModel: ScreenContextViewModel,
+        component: ServerDrivenComponent
+    ) {
+        setIdToHandleContext(builtView, rootView)
+        addListenerToHandleContext(viewModel, builtView)
+        addContext(viewModel, builtView, component)
+    }
+
+    private fun setIdToHandleContext(builtView: View, rootView: RootView) {
+        if (builtView.id == View.NO_ID) {
+            val generateIdViewModel = rootView.generateViewModelInstance<GenerateIdViewModel>()
+            builtView.id = try {
+                generateIdViewModel.getViewId(rootView.getParentId())
+            } catch (exception: Exception) {
+                View.generateViewId()
             }
         }
     }
 
-    fun addListenerToHandleContext(viewModel: ScreenContextViewModel, view: View) {
+    private fun addListenerToHandleContext(viewModel: ScreenContextViewModel, view: View) {
         if (view !is BeagleFlexView) {
             view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
                 override fun onViewDetachedFromWindow(v: View?) {}
@@ -40,6 +60,14 @@ internal class ContextComponentHandler {
                     viewModel.evaluateContextAndNotify(view)
                 }
             })
+        }
+    }
+
+    private fun addContext(viewModel: ScreenContextViewModel, view: View, component: ServerDrivenComponent) {
+        if (component is ContextComponent) {
+            component.context?.let { context ->
+                viewModel.addContext(view, context)
+            }
         }
     }
 }

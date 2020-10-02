@@ -17,17 +17,13 @@
 package br.com.zup.beagle.android.view.viewmodel
 
 import android.view.View
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModel
 import br.com.zup.beagle.android.exception.BeagleException
 import br.com.zup.beagle.android.utils.toAndroidId
 import java.util.LinkedList
 
-internal const val LIST_ID_NOT_FOUND = "The parent ListView id was not found, check if you call function createIfNotExisting"
-
-internal class ListViewIdViewModel : ViewModel(), LifecycleObserver {
+internal class ListViewIdViewModel : ViewModel() {
 
     private val internalIdsByListId = mutableMapOf<Int, LocalListView>()
 
@@ -39,7 +35,7 @@ internal class ListViewIdViewModel : ViewModel(), LifecycleObserver {
     }
 
     fun getViewId(listViewId: Int, position: Int): Int {
-        val listViewManager = retrieveManager(listViewId)
+        val listViewManager = retrieveManager(listViewId, position)
         return if (!listViewManager.reused) {
             generateNewViewId(listViewManager, position)
         } else {
@@ -48,7 +44,7 @@ internal class ListViewIdViewModel : ViewModel(), LifecycleObserver {
     }
 
     fun getViewId(listViewId: Int, position: Int, componentId: String, listComponentId: String): Int {
-        val listViewManager = retrieveManager(listViewId)
+        val listViewManager = retrieveManager(listViewId, position)
         return if (!listViewManager.reused) {
             generateNewViewId(listViewManager, position, componentId, listComponentId)
         } else {
@@ -57,8 +53,10 @@ internal class ListViewIdViewModel : ViewModel(), LifecycleObserver {
     }
 
     private fun retrieveManager(
-        listViewId: Int
-    ) = internalIdsByListId[listViewId] ?: throw BeagleException(LIST_ID_NOT_FOUND)
+        listViewId: Int,
+        position: Int
+    ) = internalIdsByListId[listViewId] ?:
+    throw BeagleException("The list id $listViewId which this view in position $position belongs to, was not found")
 
     private fun pollFirstTemporaryId(
         listViewManager: LocalListView,
@@ -85,21 +83,22 @@ internal class ListViewIdViewModel : ViewModel(), LifecycleObserver {
         return id
     }
 
-    fun prepareToReuseIds(listViewId: Int) {
-        internalIdsByListId[listViewId]?.let { localListView ->
-            internalIdsByListId[listViewId] = localListView.apply {
+    fun prepareToReuseIds(rootView: View) {
+        internalIdsByListId[rootView.id]?.let { localListView ->
+            internalIdsByListId[rootView.id] = localListView.apply {
                 reused = true
                 temporaryIds = idsByAdapterPosition
             }
-        } ?: throw BeagleException(LIST_ID_NOT_FOUND)
+        } ?: run {
+            if (rootView is ViewGroup) {
+                val count = rootView.childCount
+                for (i in 0 until count) {
+                    val child = rootView.getChildAt(i)
+                    prepareToReuseIds(child)
+                }
+            }
+        }
     }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun connectListener() {
-
-    }
-
-    //getLifecycle().addObserver(mMyModel);
 }
 
 data class LocalListView(

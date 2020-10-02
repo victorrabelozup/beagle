@@ -32,6 +32,7 @@ import br.com.zup.beagle.android.utils.HandleEventDeprecatedConstants.HANDLE_EVE
 import br.com.zup.beagle.android.view.ViewFactory
 import br.com.zup.beagle.android.view.custom.BeagleFlexView
 import br.com.zup.beagle.android.view.viewmodel.GenerateIdViewModel
+import br.com.zup.beagle.android.view.viewmodel.ListViewIdViewModel
 import br.com.zup.beagle.android.view.viewmodel.ScreenContextViewModel
 import br.com.zup.beagle.android.widget.RootView
 import br.com.zup.beagle.core.ServerDrivenComponent
@@ -150,18 +151,17 @@ fun ServerDrivenComponent.toView(activity: AppCompatActivity, idView: Int = R.id
 fun ServerDrivenComponent.toView(fragment: Fragment, idView: Int = R.id.beagle_default_id): View =
     this.toView(FragmentRootView(fragment, idView))
 
-
 internal fun ServerDrivenComponent.toView(rootView: RootView): View {
-    val viewModel = rootView.generateViewModelInstance<GenerateIdViewModel>()
-    viewModel.createIfNotExisting(rootView.getParentId())
+    val listViewIdViewModel = rootView.generateViewModelInstance<ListViewIdViewModel>()
+    val generateIdViewModel = rootView.generateViewModelInstance<GenerateIdViewModel>()
+    generateIdViewModel.createIfNotExisting(rootView.getParentId())
     val view = viewFactory.makeBeagleFlexView(rootView).apply {
         id = rootView.getParentId()
         addServerDrivenComponent(this@toView)
     }
-
     view.listenerOnViewDetachedFromWindow = {
-        viewModel.setViewCreated(rootView.getParentId())
+        listViewIdViewModel.prepareToReuseIds(view)
+        generateIdViewModel.setViewCreated(rootView.getParentId())
     }
-
     return view
 }
