@@ -95,8 +95,12 @@ struct MainScreen: DeeplinkScreen {
                     onPress: [Navigate.pushView(.declarative(addChildrenScreen))]
                 )
                 Button(
+                    text: "Beagle View",
+                    onPress: [Navigate.openNativeRoute(.init(route: .beagleView))]
+                )
+                Button(
                     text: "Sample BFF",
-                    onPress: [Navigate.pushView(.remote(.init(url: .componentsEndpoint)))]
+                    onPress: [Navigate.pushView(.remote(.init(url: .value(.componentsEndpoint))))]
                 )
         }
     }
@@ -106,5 +110,4 @@ struct MainScreen: DeeplinkScreen {
             title: "Beagle Demo"
         )
     }
-
 }
