@@ -78,8 +78,9 @@ class MainActivity : AppCompatActivity() {
             R.id.composeComponent -> goToFragment(ComposeComponentFragment.newInstance())
             R.id.sampleBff -> startActivity(
                 newServerDrivenIntent<ServerDrivenActivity>(
-                    ScreenRequest("https://storage.googleapis.com/lucasaraujo/dev/listview.json")
+//                    ScreenRequest("https://storage.googleapis.com/lucasaraujo/dev/listview.json")
 //                    ScreenRequest("https://run.mocky.io/v3/1c876b1f-4db7-4129-9784-d94a8c530e48")
+                    ScreenRequest("https://run.mocky.io/v3/5ece59e8-a190-46f7-b547-f685d627ee9a")
                 )
             )
         }

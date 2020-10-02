@@ -16,12 +16,14 @@
 
 package br.com.zup.beagle.android.components
 
-import android.util.Log
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import android.widget.AbsListView
+import android.widget.ImageView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.zup.beagle.android.action.Action
@@ -105,7 +107,6 @@ data class ListView(
         template: ServerDrivenComponent,
         orientation: Int
     ) {
-
         val contextAdapter = ListViewContextAdapterTwo(
             template,
             iteratorName,
@@ -115,11 +116,10 @@ data class ListView(
             rootView,
             recyclerView.id
         )
-//        contextAdapter.setHasStableIds(true)
         recyclerView.apply {
             adapter = contextAdapter
             layoutManager = LinearLayoutManager(context, orientation, false).apply {
-//                recycleChildrenOnDetach = true
+                setHasFixedSize(true)
             }
         }
     }
@@ -140,6 +140,7 @@ data class ListView(
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
+                // listen if reach max and notify vm
                 executeScrollEnd(recyclerView, rootView)
             }
         })
@@ -210,7 +211,7 @@ internal class ListViewContextAdapterTwo(
     // Quick access to the holders of the views that are OnInitiableWidgets
     private val holderToInitiableWidgets = mutableMapOf<OnInitiableWidget, ContextViewHolderTwo>()
 
-    // Struct to manage ViewHolders not recycled
+    // Struct to manage recycled ViewHolders
     private val recycledViewHolders = mutableListOf<ContextViewHolderTwo>()
 
     // Each access generate a new instance of the template to avoid reference conflict
@@ -294,7 +295,9 @@ internal class ListViewContextAdapterTwo(
         val holder = holderToInitiableWidgets[widget]
         holder?.let {
             onInitiableWidgetsOnHolders[it]?.remove(widget)
-            manageHolderCompletelyInitializedStatus(it)
+            if (holder.adapterPosition != DiffUtil.DiffResult.NO_POSITION) {
+                manageHolderCompletelyInitializedStatus(it)
+            }
         }
     }
 
@@ -311,6 +314,20 @@ internal class ListViewContextAdapterTwo(
     override fun onViewRecycled(holder: ContextViewHolderTwo) {
         super.onViewRecycled(holder)
         recycledViewHolders.add(holder)
+        // Iterate over the ImageViews inside each holder and release the downloaded resources before the new image is set
+        holder.directNestedImageViews.forEach {
+            recycleDefaultImage(it)
+        }
+    }
+
+    private fun recycleDefaultImage(imageView: ImageView) {
+        val imageDrawable: Drawable? = imageView.drawable
+        imageView.setImageDrawable(null)
+        if (imageDrawable != null && imageDrawable is BitmapDrawable) {
+            if (!imageDrawable.bitmap.isRecycled) {
+                imageDrawable.bitmap.recycle()
+            }
+        }
     }
 
     override fun onViewAttachedToWindow(holder: ContextViewHolderTwo) {
@@ -364,6 +381,7 @@ internal class ContextViewHolderTwo(
     private val viewsWithId = mutableMapOf<String, View>()
     private val viewsWithContext = mutableListOf<View>()
     private val directNestedRecyclers = mutableListOf<RecyclerView>()
+    val directNestedImageViews = mutableListOf<ImageView>()
     private val contextComponents = mutableListOf<ContextData>()
     val initiableWidgets = mutableListOf<OnInitiableWidget>()
 
@@ -395,6 +413,9 @@ internal class ContextViewHolderTwo(
     private fun initializeViewsWithContextAndRecyclers(view: View) {
         if (view.getContextData() != null) {
             viewsWithContext.add(view)
+        }
+        if (view is ImageView) {
+            directNestedImageViews.add(view)
         }
         if (view !is ViewGroup) {
             return
