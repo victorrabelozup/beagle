@@ -411,7 +411,8 @@ internal class ContextViewHolderTwo(
             template
         }
         // Using a new template reference we populate the components with id and context
-        initializeComponents(newTemplate)
+        initializeComponents(newTemplate, isRecycled)
+
         // Checks whether views with ids and context have been updated based on the key and updates or restore them
         if (beagleAdapterItem.firstTimeBinding) {
             // Since the context needs unique id references for each view, we update them here
@@ -441,14 +442,17 @@ internal class ContextViewHolderTwo(
     }
 
     private fun clearHolderComponents() {
-        initiableWidgets.clear()
+        //initiableWidgets.clear()
         contextComponents.clear()
     }
 
-    private fun initializeComponents(component: ServerDrivenComponent) {
-        (component as? OnInitiableWidget)?.let {
-            component.onInit?.let {
-                initiableWidgets.add(component)
+    private fun initializeComponents(component: ServerDrivenComponent, isRecycled: Boolean) {
+
+        if(!isRecycled) {
+            (component as? OnInitiableWidget)?.let {
+                component.onInit?.let {
+                    initiableWidgets.add(component)
+                }
             }
         }
         (component as? ContextComponent)?.let {
@@ -457,10 +461,10 @@ internal class ContextViewHolderTwo(
             }
         }
         if (component is SingleChildComponent) {
-            initializeComponents(component.child)
+            initializeComponents(component.child, isRecycled)
         } else if (component is MultiChildComponent) {
             component.children.forEach { child ->
-                initializeComponents(child)
+                initializeComponents(child, isRecycled)
             }
         }
     }
