@@ -316,17 +316,7 @@ internal class ListViewContextAdapterTwo(
         recycledViewHolders.add(holder)
         // Iterate over the ImageViews inside each holder and release the downloaded resources before the new image is set
         holder.directNestedImageViews.forEach {
-            recycleDefaultImage(it)
-        }
-    }
-
-    private fun recycleDefaultImage(imageView: ImageView) {
-        val imageDrawable: Drawable? = imageView.drawable
-        imageView.setImageDrawable(null)
-        if (imageDrawable != null && imageDrawable is BitmapDrawable) {
-            if (!imageDrawable.bitmap.isRecycled) {
-                imageDrawable.bitmap.recycle()
-            }
+            it.setImageDrawable(null)
         }
     }
 
