@@ -21,7 +21,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModel
 import br.com.zup.beagle.android.exception.BeagleException
 import br.com.zup.beagle.android.utils.toAndroidId
-import java.lang.Exception
 import java.util.LinkedList
 
 internal const val NO_ID_RECYCLER = "RecyclerView Id can't be -1"
@@ -92,8 +91,8 @@ internal class ListViewIdViewModel : ViewModel() {
     private fun retrieveManager(
         recyclerViewId: Int,
         position: Int
-    ) = internalIdsByListId[recyclerViewId] ?:
-    throw BeagleException("The list id $recyclerViewId which this view in position $position belongs to, was not found")
+    ) = internalIdsByListId[recyclerViewId]
+        ?: throw BeagleException("The list id $recyclerViewId which this view in position $position belongs to, was not found")
 
     private fun generateNewViewId(localListView: LocalListView, position: Int): Int {
         val id = View.generateViewId()
@@ -118,10 +117,10 @@ internal class ListViewIdViewModel : ViewModel() {
                 add(id)
             }
         } ?: run {
-                val listId = LinkedList<Int>()
-                listId.add(id)
-                localListView.idsByAdapterPosition[position] = listId
-            }
+            val listId = LinkedList<Int>()
+            listId.add(id)
+            localListView.idsByAdapterPosition[position] = listId
+        }
     }
 
     fun prepareToReuseIds(viewBeingDestroyed: View) {
