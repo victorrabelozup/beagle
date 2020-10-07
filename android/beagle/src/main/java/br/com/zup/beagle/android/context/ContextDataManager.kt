@@ -66,16 +66,20 @@ internal class ContextDataManager(
 
         if (existingContext != null) {
             if (shouldOverrideExistingContext) {
-                view.setContextData(context)
+                updateContextAndReference(view, context)
             } else {
                 view.setContextBinding(existingContext)
                 existingContext.bindings.clear()
             }
         } else {
-            view.setContextData(context)
-            view.getContextBinding()?.let {
-                contexts[view.id] = it
-            }
+            updateContextAndReference(view, context)
+        }
+    }
+
+    private fun updateContextAndReference(view: View, context: ContextData) {
+        view.setContextData(context)
+        view.getContextBinding()?.let {
+            contexts[view.id] = it
         }
     }
 

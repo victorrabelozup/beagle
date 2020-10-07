@@ -16,13 +16,12 @@
 
 package br.com.zup.beagle.android.components
 
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
+import androidx.core.view.children
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,9 +31,11 @@ import br.com.zup.beagle.android.context.ContextComponent
 import br.com.zup.beagle.android.context.ContextData
 import br.com.zup.beagle.android.context.normalizeContextValue
 import br.com.zup.beagle.android.data.serializer.BeagleSerializer
-import br.com.zup.beagle.android.utils.*
 import br.com.zup.beagle.android.utils.generateViewModelInstance
 import br.com.zup.beagle.android.utils.getContextData
+import br.com.zup.beagle.android.utils.observeBindChanges
+import br.com.zup.beagle.android.utils.safeGet
+import br.com.zup.beagle.android.utils.toAndroidId
 import br.com.zup.beagle.android.view.ViewFactory
 import br.com.zup.beagle.android.view.viewmodel.ListViewIdViewModel
 import br.com.zup.beagle.android.view.viewmodel.ScreenContextViewModel
@@ -78,18 +79,22 @@ data class ListView(
     @Transient
     private lateinit var rootView: RootView
 
+    @Transient
+    private lateinit var listViewIdViewModel: ListViewIdViewModel
+
     override fun getView() = recyclerView
 
     override fun getRootView() = rootView
 
     override fun buildView(rootView: RootView): View {
         this.rootView = rootView
-        val orientation = listDirectionToRecyclerViewOrientation()
+        listViewIdViewModel = rootView.generateViewModelInstance()
         recyclerView = viewFactory.makeRecyclerView(rootView.getContext())
 
-        setupRecyclerView(recyclerView, rootView, template, orientation)
-        configDataSourceObserver(rootView, recyclerView)
-        configRecyclerViewScrollListener(recyclerView, rootView)
+        val orientation = listDirectionToRecyclerViewOrientation()
+        setupRecyclerView(rootView, orientation)
+        configDataSourceObserver(rootView)
+        configRecyclerViewScrollListener(rootView)
         handleOnInit()
 
         return recyclerView
@@ -101,20 +106,14 @@ data class ListView(
         RecyclerView.HORIZONTAL
     }
 
-    private fun setupRecyclerView(
-        recyclerView: RecyclerView,
-        rootView: RootView,
-        template: ServerDrivenComponent,
-        orientation: Int
-    ) {
+    private fun setupRecyclerView(rootView: RootView, orientation: Int) {
         val contextAdapter = ListViewContextAdapterTwo(
             template,
             iteratorName,
             key,
             viewFactory,
             orientation,
-            rootView,
-            recyclerView.id
+            rootView
         )
         recyclerView.apply {
             adapter = contextAdapter
@@ -124,31 +123,31 @@ data class ListView(
         }
     }
 
-    private fun configDataSourceObserver(rootView: RootView, recyclerView: RecyclerView) {
+    private fun configDataSourceObserver(rootView: RootView) {
         observeBindChanges(rootView, recyclerView, dataSource) { value ->
             canScrollEnd = true
             val adapter = recyclerView.adapter as ListViewContextAdapterTwo
-            adapter.setList(value)
-            executeScrollEnd(recyclerView, rootView)
+            adapter.setList(value, recyclerView.id)
+            checkIfNeedToCallScrollEnd(rootView)
         }
     }
 
-    private fun configRecyclerViewScrollListener(
-        recyclerView: RecyclerView,
-        rootView: RootView
-    ) {
+    private fun configRecyclerViewScrollListener(rootView: RootView) {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                // listen if reach max and notify vm
-                executeScrollEnd(recyclerView, rootView)
+                // listen if reach max and notify the ViewModel
+                checkIfNeedToCallScrollEnd(rootView)
+                if (cannotScrollDirectionally()) {
+                    listViewIdViewModel.markHasCompletelyLoaded(recyclerView.id)
+                }
             }
         })
     }
 
-    private fun executeScrollEnd(recyclerView: RecyclerView, rootView: RootView) {
+    private fun checkIfNeedToCallScrollEnd(rootView: RootView) {
         onScrollEnd?.let {
-            if (canCallOnScrollEnd(recyclerView)) {
+            if (canCallOnScrollEnd()) {
                 it.forEach { action ->
                     action.execute(rootView, recyclerView)
                 }
@@ -157,23 +156,25 @@ data class ListView(
         }
     }
 
-    private fun canCallOnScrollEnd(recyclerView: RecyclerView): Boolean {
+    private fun canCallOnScrollEnd(): Boolean {
         val reachEnd = scrollThreshold?.let {
-            val scrolledPercent = calculateScrolledPercent(recyclerView)
+            val scrolledPercent = calculateScrolledPercent()
             scrolledPercent >= scrollThreshold
-        } ?: !run {
-            if (direction == ListDirection.VERTICAL) {
-                recyclerView.canScrollVertically(1)
-            } else {
-                recyclerView.canScrollHorizontally(1)
-            }
-        }
+        } ?: cannotScrollDirectionally()
         return reachEnd && canScrollEnd
     }
 
-    private fun calculateScrolledPercent(recyclerView: RecyclerView): Float {
+    private fun cannotScrollDirectionally() = !run {
+        if (direction == ListDirection.VERTICAL) {
+            recyclerView.canScrollVertically(1)
+        } else {
+            recyclerView.canScrollHorizontally(1)
+        }
+    }
+
+    private fun calculateScrolledPercent(): Float {
         var scrolledPercentage: Float
-        (recyclerView.layoutManager as LinearLayoutManager).apply {
+        with(recyclerView.layoutManager as LinearLayoutManager) {
             val totalItemCount = itemCount
             val lastVisible = findLastVisibleItemPosition().toFloat()
             scrolledPercentage = (lastVisible / totalItemCount) * 100
@@ -188,13 +189,15 @@ internal class ListViewContextAdapterTwo(
     val key: String? = null,
     val viewFactory: ViewFactory,
     val orientation: Int,
-    val rootView: RootView,
-    val recyclerId: Int
+    val rootView: RootView
 ) : RecyclerView.Adapter<ContextViewHolderTwo>() {
 
     // ViewModels to manage ids and contexts
     private val viewModel = rootView.generateViewModelInstance<ScreenContextViewModel>()
     private val listViewIdViewModel = rootView.generateViewModelInstance<ListViewIdViewModel>()
+
+    // Recyclerview id for post config changes id management
+    private var recyclerId = View.NO_ID
 
     // Serializer to provide new template instances
     private val serializer = BeagleSerializer()
@@ -223,7 +226,6 @@ internal class ListViewContextAdapterTwo(
         return ContextViewHolderTwo(
             view,
             newTemplate,
-            recyclerId,
             serializer,
             viewModel,
             listViewIdViewModel,
@@ -236,6 +238,7 @@ internal class ListViewContextAdapterTwo(
         rootView,
         Style(flex = Flex(flexDirection = flexDirection()))
     ).apply {
+//        id = View.generateViewId()
         layoutParams = RecyclerView.LayoutParams(layoutParamWidth(), layoutParamHeight())
         addServerDrivenComponent(newTemplate)
     }
@@ -252,7 +255,7 @@ internal class ListViewContextAdapterTwo(
         val listId = getListIdByKey(position)
         val isRecycled = recycledViewHolders.contains(holder)
         // Handle context, ids and direct nested adapters
-        holder.onBind(listId, adapterItems[position], isRecycled, position)
+        holder.onBind(listId, adapterItems[position], isRecycled, position, recyclerId)
         // Handle widgets with onInit
         if (!adapterItems[position].completelyInitialized) {
             handleInitiableWidgets(holder, isRecycled)
@@ -274,10 +277,6 @@ internal class ListViewContextAdapterTwo(
                 onInitiableWidgetsOnHolders[holder] = mutableListOf()
             }
             onInitiableWidgetsOnHolders[holder]?.add(widget)
-            // Marks holders with onInit not to be recycled until they are finished
-            if (holder.isRecyclable) {
-                holder.setIsRecyclable(false)
-            }
             // Add listener to capture when onInit is finished
             widget.setOnInitFinishedListener(object : OnInitFinishedListener {
                 override fun invoke(widget: OnInitiableWidget) {
@@ -314,9 +313,20 @@ internal class ListViewContextAdapterTwo(
     override fun onViewRecycled(holder: ContextViewHolderTwo) {
         super.onViewRecycled(holder)
         recycledViewHolders.add(holder)
+        // Removes the ids of each view previously set to receive new ones
+        clearIds(holder.itemView)
         // Iterate over the ImageViews inside each holder and release the downloaded resources before the new image is set
         holder.directNestedImageViews.forEach {
             it.setImageDrawable(null)
+        }
+    }
+
+    private fun clearIds(view: View) {
+        view.id = View.NO_ID
+        if (view is ViewGroup) {
+            view.children.forEach {
+                clearIds(it)
+            }
         }
     }
 
@@ -325,15 +335,20 @@ internal class ListViewContextAdapterTwo(
         // For every view, the moment it is displayed, its completely initialized status is checked and updated.
         // This validation must be done here to cover the cases where onInit is executed before the item is visible.
         if (!adapterItems[holder.adapterPosition].completelyInitialized) {
+            // Marks holders with onInit not to be recycled until they are finished
+            if (holder.isRecyclable) {
+                holder.setIsRecyclable(false)
+            }
             manageHolderCompletelyInitializedStatus(holder)
         }
     }
 
-    fun setList(list: List<Any>?) {
+    fun setList(list: List<Any>?, recyclerId: Int) {
         list?.let {
             if (list != listItems) {
-                listViewIdViewModel.createSingleManagerByListViewId(recyclerId)
+                listViewIdViewModel.createSingleManagerByListViewId(recyclerId, listItems.isEmpty())
                 clearAdapterContent()
+                this.recyclerId = recyclerId
                 listItems = list
                 adapterItems = list.map { BeagleAdapterItem(data = it.normalizeContextValue()) }
                 notifyDataSetChanged()
@@ -360,7 +375,6 @@ internal class ListViewContextAdapterTwo(
 internal class ContextViewHolderTwo(
     itemView: View,
     private val template: ServerDrivenComponent,
-    private val recyclerId: Int,
     private val serializer: BeagleSerializer,
     private val viewModel: ScreenContextViewModel,
     private val listViewIdViewModel: ListViewIdViewModel,
@@ -388,7 +402,7 @@ internal class ContextViewHolderTwo(
         }
         (component as? IdentifierComponent)?.let {
             component.id?.let { id ->
-                viewsWithId.put(id, itemView.findViewById<View>(id.toAndroidId()))
+                viewsWithId.put(id, itemView.findViewById(id.toAndroidId()))
             }
         }
         if (component is SingleChildComponent) {
@@ -421,7 +435,13 @@ internal class ContextViewHolderTwo(
     }
 
     // For each item on the list
-    fun onBind(listId: String, beagleAdapterItem: BeagleAdapterItem, isRecycled: Boolean, position: Int) {
+    fun onBind(
+        listId: String,
+        beagleAdapterItem: BeagleAdapterItem,
+        isRecycled: Boolean,
+        position: Int,
+        recyclerId: Int
+    ) {
         // Clear references to context components
         contextComponents.clear()
         // We check if its holder has been recycled and update its references
@@ -435,7 +455,7 @@ internal class ContextViewHolderTwo(
         // Checks whether views with ids and context have been updated based on the key and updates or restore them
         if (beagleAdapterItem.firstTimeBinding) {
             // Since the context needs unique id references for each view, we update them here
-            updateIdToEachSubView(listId, beagleAdapterItem, isRecycled, position)
+            updateIdToEachSubView(listId, beagleAdapterItem, isRecycled, position, recyclerId)
             // If the holder is being recycled
             if (isRecycled) {
                 // We set the template's default contexts for each view with context
@@ -479,13 +499,10 @@ internal class ContextViewHolderTwo(
         listId: String,
         beagleAdapterItem: BeagleAdapterItem,
         isRecycled: Boolean,
-        position: Int
+        position: Int,
+        recyclerId: Int
     ) {
-        val itemViewId = if (itemView.id != View.NO_ID && !isRecycled) {
-            itemView.id
-        } else {
-            getViewId(position)
-        }
+        val itemViewId = bindIdToViewModel(itemView, isRecycled, position, recyclerId)
         itemView.id = itemViewId
         beagleAdapterItem.viewIds.add(itemViewId)
 
@@ -497,20 +514,18 @@ internal class ContextViewHolderTwo(
 
         val viewsWithContextAndWithoutId = viewsWithContext.filterNot { viewsWithId.containsValue(it) }
         viewsWithContextAndWithoutId.forEach {
-            val subViewId = if (it.id != View.NO_ID && !isRecycled) {
-                it.id
-            } else {
-                getViewId(position)
-            }
+            val subViewId = bindIdToViewModel(it, isRecycled, position, recyclerId)
             it.id = subViewId
             beagleAdapterItem.viewIds.add(subViewId)
         }
     }
 
-    private fun getViewId(position: Int) = try {
-        listViewIdViewModel.getViewId(recyclerId, position)
-    } catch (exception: Exception) {
-        View.generateViewId()
+    private fun bindIdToViewModel(view: View, isRecycled: Boolean, position: Int, recyclerId: Int): Int {
+        return if (view.id != View.NO_ID && !isRecycled) {
+            listViewIdViewModel.setViewId(recyclerId, position, view.id)
+        } else {
+            listViewIdViewModel.getViewId(recyclerId, position)
+        }
     }
 
     private fun setDefaultContextToEachContextView() {
@@ -531,8 +546,7 @@ internal class ContextViewHolderTwo(
                 oldAdapter.key,
                 oldAdapter.viewFactory,
                 oldAdapter.orientation,
-                oldAdapter.rootView,
-                oldAdapter.recyclerId
+                oldAdapter.rootView
             )
             it.swapAdapter(updatedAdapter, false)
             beagleAdapterItem.directNestedAdapters.add(updatedAdapter)

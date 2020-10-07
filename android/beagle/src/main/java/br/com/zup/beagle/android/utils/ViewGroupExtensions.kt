@@ -158,8 +158,8 @@ private fun loadView(
         viewGroup.addView(view)
     }
     view.listenerOnViewDetachedFromWindow = {
-        listViewIdViewModel.prepareToReuseIds(view)
         generateIdViewModel.setViewCreated(rootView.getParentId())
+        listViewIdViewModel.prepareToReuseIds(view)
     }
 }
 

@@ -160,8 +160,8 @@ internal fun ServerDrivenComponent.toView(rootView: RootView): View {
         addServerDrivenComponent(this@toView)
     }
     view.listenerOnViewDetachedFromWindow = {
-        listViewIdViewModel.prepareToReuseIds(view)
         generateIdViewModel.setViewCreated(rootView.getParentId())
+        listViewIdViewModel.prepareToReuseIds(view)
     }
     return view
 }

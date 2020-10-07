@@ -21,51 +21,84 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModel
 import br.com.zup.beagle.android.exception.BeagleException
 import br.com.zup.beagle.android.utils.toAndroidId
+import java.lang.Exception
 import java.util.LinkedList
+
+internal const val NO_ID_RECYCLER = "RecyclerView Id can't be -1"
 
 internal class ListViewIdViewModel : ViewModel() {
 
     private val internalIdsByListId = mutableMapOf<Int, LocalListView>()
 
-    fun createSingleManagerByListViewId(listViewId: Int) {
-        val listViewManager = internalIdsByListId[listViewId]
+    fun createSingleManagerByListViewId(recyclerViewId: Int, previouslyEmpty: Boolean) {
+        require(recyclerViewId != View.NO_ID) { NO_ID_RECYCLER }
+        val listViewManager = internalIdsByListId[recyclerViewId]?.run {
+            completelyLoaded = false
+            reused = !previouslyEmpty || reused
+            if (reused) {
+                markToReuse(this)
+            }
+        }
         if (listViewManager == null) {
-            internalIdsByListId[listViewId] = LocalListView()
+            internalIdsByListId[recyclerViewId] = LocalListView()
         }
     }
 
-    fun getViewId(listViewId: Int, position: Int): Int {
-        val listViewManager = retrieveManager(listViewId, position)
-        return if (!listViewManager.reused) {
+    fun setViewId(recyclerViewId: Int, position: Int, viewId: Int): Int {
+        require(recyclerViewId != View.NO_ID) { NO_ID_RECYCLER }
+        val listViewManager = retrieveManager(recyclerViewId, position)
+        return if (listViewManager.reused) {
+            pollOrGenerateANewId(recyclerViewId, position) {
+                generateNewViewId(listViewManager, position)
+            }
+        } else {
+            addIdToLocalListView(listViewManager, position, viewId)
+            viewId
+        }
+    }
+
+    fun getViewId(recyclerViewId: Int, position: Int): Int {
+        require(recyclerViewId != View.NO_ID) { NO_ID_RECYCLER }
+        val listViewManager = retrieveManager(recyclerViewId, position)
+        return pollOrGenerateANewId(recyclerViewId, position) {
             generateNewViewId(listViewManager, position)
-        } else {
-            pollFirstTemporaryId(listViewManager, position)
         }
     }
 
-    fun getViewId(listViewId: Int, position: Int, componentId: String, listComponentId: String): Int {
-        val listViewManager = retrieveManager(listViewId, position)
-        return if (!listViewManager.reused) {
+    fun getViewId(recyclerViewId: Int, position: Int, componentId: String, listComponentId: String): Int {
+        require(recyclerViewId != View.NO_ID) { NO_ID_RECYCLER }
+        val listViewManager = retrieveManager(recyclerViewId, position)
+        return pollOrGenerateANewId(recyclerViewId, position) {
             generateNewViewId(listViewManager, position, componentId, listComponentId)
+        }
+    }
+
+    private fun pollOrGenerateANewId(recyclerViewId: Int, position: Int, generateNewViewId: () -> Int): Int {
+        val listViewManager = retrieveManager(recyclerViewId, position)
+        return if (!listViewManager.reused) {
+            generateNewViewId()
         } else {
-            pollFirstTemporaryId(listViewManager, position)
+            val firstId = listViewManager.temporaryIdsByAdapterPosition[position]?.pollFirst()
+            firstId ?: run {
+                if (!listViewManager.completelyLoaded) {
+                    generateNewViewId()
+                } else {
+                    throw BeagleException("Temporary ids can't be empty")
+                }
+            }
         }
     }
 
     private fun retrieveManager(
-        listViewId: Int,
+        recyclerViewId: Int,
         position: Int
-    ) = internalIdsByListId[listViewId] ?:
-    throw BeagleException("The list id $listViewId which this view in position $position belongs to, was not found")
-
-    private fun pollFirstTemporaryId(
-        listViewManager: LocalListView,
-        position: Int
-    ) = listViewManager.temporaryIds[position]?.pollFirst() ?: throw BeagleException("temporary ids can't be empty")
+    ) = internalIdsByListId[recyclerViewId] ?:
+    throw BeagleException("The list id $recyclerViewId which this view in position $position belongs to, was not found")
 
     private fun generateNewViewId(localListView: LocalListView, position: Int): Int {
         val id = View.generateViewId()
-        return addIdToLocalListView(localListView, position, id)
+        addIdToLocalListView(localListView, position, id)
+        return id
     }
 
     private fun generateNewViewId(
@@ -75,34 +108,62 @@ internal class ListViewIdViewModel : ViewModel() {
         listComponentId: String
     ): Int {
         val id = "$componentId:$listComponentId".toAndroidId()
-        return addIdToLocalListView(localListView, position, id)
-    }
-
-    private fun addIdToLocalListView(localListView: LocalListView, position: Int, id: Int): Int {
-        localListView.idsByAdapterPosition[position]?.add(id)
+        addIdToLocalListView(localListView, position, id)
         return id
     }
 
-    fun prepareToReuseIds(rootView: View) {
-        internalIdsByListId[rootView.id]?.let { localListView ->
-            internalIdsByListId[rootView.id] = localListView.apply {
-                reused = true
-                temporaryIds = idsByAdapterPosition
+    private fun addIdToLocalListView(localListView: LocalListView, position: Int, id: Int) {
+        localListView.idsByAdapterPosition[position]?.run {
+            if (!contains(id)) {
+                add(id)
             }
         } ?: run {
-            if (rootView is ViewGroup) {
-                val count = rootView.childCount
-                for (i in 0 until count) {
-                    val child = rootView.getChildAt(i)
-                    prepareToReuseIds(child)
+                val listId = LinkedList<Int>()
+                listId.add(id)
+                localListView.idsByAdapterPosition[position] = listId
+            }
+    }
+
+    fun prepareToReuseIds(viewBeingDestroyed: View) {
+        internalIdsByListId[viewBeingDestroyed.id]?.let { localListView ->
+            markToReuse(localListView)
+            localListView.idsByAdapterPosition.values.forEach { internalListId ->
+                internalListId.forEach { internalId ->
+                    internalIdsByListId[internalId]?.let { internalLocalListView ->
+                        markToReuse(internalLocalListView)
+                    }
                 }
             }
+        }
+        if (viewBeingDestroyed is ViewGroup) {
+            val count = viewBeingDestroyed.childCount
+            for (i in 0 until count) {
+                val child = viewBeingDestroyed.getChildAt(i)
+                prepareToReuseIds(child)
+            }
+        }
+    }
+
+    private fun markToReuse(localListView: LocalListView) {
+        localListView.apply {
+            reused = true
+            temporaryIdsByAdapterPosition.clear()
+            idsByAdapterPosition.forEach { (key, value) ->
+                temporaryIdsByAdapterPosition[key] = LinkedList(value)
+            }
+        }
+    }
+
+    fun markHasCompletelyLoaded(recyclerViewId: Int) {
+        internalIdsByListId[recyclerViewId]?.apply {
+            completelyLoaded = true
         }
     }
 }
 
 data class LocalListView(
     val idsByAdapterPosition: MutableMap<Int, LinkedList<Int>> = mutableMapOf(),
-    var temporaryIds: MutableMap<Int, LinkedList<Int>> = linkedMapOf(),
-    var reused: Boolean = false
+    var temporaryIdsByAdapterPosition: MutableMap<Int, LinkedList<Int>> = mutableMapOf(),
+    var reused: Boolean = false,
+    var completelyLoaded: Boolean = false
 )
