@@ -52,7 +52,7 @@ class ListViewFragment : Fragment() {
     }
 
     private fun buildListView() = ListView(
-        direction = ListDirection.VERTICAL,
+        direction = ListDirection.HORIZONTAL,
         children = listOf(
             Text("0000"),
             Text("0001").applyStyle(style),
