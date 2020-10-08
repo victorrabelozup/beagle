@@ -52,20 +52,67 @@ import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.FlexDirection
 import br.com.zup.beagle.widget.core.ListDirection
 import org.json.JSONObject
-import java.util.LinkedList
+import java.util.*
 
 @RegisterWidget
-data class ListView(
-    val direction: ListDirection,
+data class ListView
+//TODO: verificar a versão da depreciação
+@Deprecated(
+    message = "It was deprecated in version x.x and will be removed in a future version. " +
+        "Use dataSource and template instead children.",
+    replaceWith = ReplaceWith(
+        "ListView(direction, context, onInit, dataSource, template, onScrollEnd, scrollThreshold," +
+        "iteratorName, key)")
+)
+constructor(
+    val children: List<ServerDrivenComponent>? = null,
+    val direction: ListDirection = ListDirection.VERTICAL,
     override val context: ContextData? = null,
     override val onInit: List<Action>? = null,
-    val dataSource: Bind<List<Any>>,
-    val template: ServerDrivenComponent,
+    val dataSource: Bind<List<Any>>? = null,
+    val template: ServerDrivenComponent? = null,
     val onScrollEnd: List<Action>? = null,
     val scrollThreshold: Int? = null,
     val iteratorName: String = "item",
     val key: String? = null
 ) : OnInitiableWidget(), ContextComponent {
+
+    @Deprecated(message = "It was deprecated in version x.x and will be removed in a future version. " +
+        "Use dataSource and template instead children.",
+        replaceWith = ReplaceWith(
+            "ListView(direction, context, onInit, dataSource, template, onScrollEnd, scrollThreshold," +
+                "iteratorName, key)"))
+    constructor(
+        children: List<ServerDrivenComponent>,
+        direction: ListDirection
+    ) : this(
+        children = children,
+        direction = direction,
+        context = null,
+    )
+
+    constructor(
+        direction: ListDirection,
+        context: ContextData? = null,
+        onInit: List<Action>? = null,
+        dataSource: Bind<List<Any>>,
+        template: ServerDrivenComponent,
+        onScrollEnd: List<Action>? = null,
+        scrollThreshold: Int? = null,
+        iteratorName: String = "item",
+        key: String? = null
+    ) : this(
+        null,
+        direction,
+        context,
+        onInit,
+        dataSource,
+        template,
+        onScrollEnd,
+        scrollThreshold,
+        iteratorName,
+        key
+    )
 
     @Transient
     private val viewFactory: ViewFactory = ViewFactory()
@@ -88,6 +135,35 @@ data class ListView(
 
     override fun buildView(rootView: RootView): View {
         this.rootView = rootView
+
+        if (children.isNullOrEmpty()) {
+            template?.let {
+                dataSource?.let {
+                    return buildNewListView()
+                }
+            }
+        }
+
+        return buildOldListView()
+    }
+
+    @Deprecated(message = "It was deprecated in version x.x and will be removed in a future version. " +
+        "Use new ListView implementation instead.",
+        replaceWith = ReplaceWith("buildNewListView()"))
+    private fun buildOldListView() : View {
+        val recyclerView = viewFactory.makeRecyclerView(rootView.getContext())
+        recyclerView.apply {
+            val orientation = listDirectionToRecyclerViewOrientation()
+            layoutManager = LinearLayoutManager(context, orientation, false)
+            this@ListView.children?.let {
+                adapter = ListViewRecyclerAdapter(it, viewFactory, orientation, this@ListView.rootView)
+            }
+        }
+
+        return recyclerView
+    }
+
+    private fun buildNewListView() : View {
         listViewIdViewModel = rootView.generateViewModelInstance()
         recyclerView = viewFactory.makeRecyclerView(rootView.getContext())
 
@@ -100,6 +176,39 @@ data class ListView(
         return recyclerView
     }
 
+    @Deprecated(message = "It was deprecated in version x.x and will be removed in a future version. " +
+        "Use new ListView implementation instead.",
+        replaceWith = ReplaceWith("buildNewListView()"))
+    internal class ListViewRecyclerAdapter(
+        private val children: List<ServerDrivenComponent>,
+        private val viewFactory: ViewFactory,
+        private val orientation: Int,
+        private val rootView: RootView
+    ) : RecyclerView.Adapter<ViewHolder>() {
+
+        override fun getItemViewType(position: Int): Int = position
+
+        override fun onCreateViewHolder(parent: ViewGroup, position: Int): ViewHolder {
+            val view = viewFactory.makeBeagleFlexView(rootView).also {
+                val width = if (orientation == RecyclerView.VERTICAL)
+                    ViewGroup.LayoutParams.MATCH_PARENT else
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                val layoutParams = ViewGroup.LayoutParams(width, ViewGroup.LayoutParams.WRAP_CONTENT)
+                it.layoutParams = layoutParams
+                it.addServerDrivenComponent(children[position])
+            }
+            return ViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        }
+
+        override fun getItemCount(): Int = children.size
+    }
+
+    internal class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
     private fun listDirectionToRecyclerViewOrientation() = if (direction == ListDirection.VERTICAL) {
         RecyclerView.VERTICAL
     } else {
@@ -108,7 +217,7 @@ data class ListView(
 
     private fun setupRecyclerView(rootView: RootView, orientation: Int) {
         val contextAdapter = ListViewContextAdapterTwo(
-            template,
+            template!!,
             iteratorName,
             key,
             viewFactory,
@@ -124,7 +233,7 @@ data class ListView(
     }
 
     private fun configDataSourceObserver(rootView: RootView) {
-        observeBindChanges(rootView, recyclerView, dataSource) { value ->
+        observeBindChanges(rootView, recyclerView, dataSource!!) { value ->
             canScrollEnd = true
             val adapter = recyclerView.adapter as ListViewContextAdapterTwo
             adapter.setList(value, recyclerView.id)
