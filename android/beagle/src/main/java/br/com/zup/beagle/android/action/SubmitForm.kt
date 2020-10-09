@@ -24,6 +24,9 @@ import br.com.zup.beagle.android.components.utils.beagleComponent
 import br.com.zup.beagle.android.logger.BeagleMessageLogs
 import br.com.zup.beagle.android.widget.RootView
 
+/**
+ * SubmitForm and a specific action of the SimpleForm component when executing it calls SimpleForm's onSubmit attribute.
+ */
 class SubmitForm : Action {
 
     override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {

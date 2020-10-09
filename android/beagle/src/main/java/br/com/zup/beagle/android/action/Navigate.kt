@@ -24,8 +24,15 @@ import br.com.zup.beagle.android.utils.evaluateExpression
 import br.com.zup.beagle.android.view.custom.BeagleNavigator
 import br.com.zup.beagle.android.widget.RootView
 
+/**
+ * Class handles transition actions between screens in the application. Its structure is the following:.
+ */
 sealed class Navigate : Action {
 
+    /**
+     * Opens one of the browsers available on the device with the passed url.
+     * @param url defined route to be shown.
+     */
     data class OpenExternalURL(val url: String) : Navigate() {
         override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
             BeagleNavigator.openExternalURL(rootView.getContext(), url)
@@ -33,6 +40,13 @@ sealed class Navigate : Action {
         }
     }
 
+    /**
+     * This action opens the route to execute the action declared in the deeplink that was defined for the application.
+     * @param route deeplink identifier
+     * @param shouldResetApplication attribute that allows customization of the behavior of
+     * restarting the application view stack.
+     * @param data pass information between screens.
+     */
     class OpenNativeRoute(
         val route: String,
         val shouldResetApplication: Boolean = false,
@@ -44,6 +58,9 @@ sealed class Navigate : Action {
         }
     }
 
+    /**
+     * This action closes the current view stack.
+     */
     class PopStack : Navigate() {
         override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
             BeagleNavigator.popStack(rootView.getContext())
@@ -51,6 +68,9 @@ sealed class Navigate : Action {
         }
     }
 
+    /**
+     * Action that closes the current view.
+     */
     class PopView : Navigate() {
         override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
             BeagleNavigator.popView(rootView.getContext())
@@ -58,6 +78,11 @@ sealed class Navigate : Action {
         }
     }
 
+    /**
+     * It is responsible for returning the stack of screens in the application flow to a specific screen.
+     *
+     * @param route route of a screen that it's on the pile.
+     */
     data class PopToView(val route: String) : Navigate() {
         override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
             BeagleNavigator.popToView(rootView.getContext(), route)
@@ -65,6 +90,14 @@ sealed class Navigate : Action {
         }
     }
 
+    /**
+     * This type means the action to be performed is the opening
+     * of a new screen using the route passed.
+     * This screen will also be stacked at the top of the hierarchy of views in the application flow.
+     *
+     * @param route this defines navigation type, it can be a navigation to a remote route in which Beagle will
+     * deserialize the content or to a local screen already built.
+     */
     data class PushView(val route: Route) : Navigate() {
         override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
             BeagleNavigator.pushView(rootView.getContext(), route.getSafe(rootView, origin))
@@ -72,6 +105,15 @@ sealed class Navigate : Action {
         }
     }
 
+    /**
+     * Present a new screen with the link declared in the route attribute.
+     * This attribute basically has the same functionality as PushView but starting a new flow instead.
+     *
+     * @param route this defines navigation type, it can be a navigation to a remote route in which Beagle will
+     * deserialize the content or to a local screen already built.
+     * @param controllerId in this field passes the id created in the custom activity for beagle to create the flow,
+     * if not the beagle passes default activity.
+     */
     data class PushStack(
         val route: Route,
         val controllerId: String? = null
@@ -82,6 +124,15 @@ sealed class Navigate : Action {
         }
     }
 
+    /**
+     * This attribute, when selected, opens a screen with the route informed
+     * from a new flow and clears clears the view stack for the entire application.
+     *
+     * @param route this defines navigation type, it can be a navigation to a remote route in which Beagle will
+     * deserialize the content or to a local screen already built.
+     * @param controllerId in this field passes the id created in the custom activity for beagle to create the flow,
+     * if not the beagle passes default activity.
+     */
     data class ResetApplication(
         val route: Route,
         val controllerId: String? = null
@@ -92,6 +143,15 @@ sealed class Navigate : Action {
         }
     }
 
+    /**
+     * This attribute, when selected, opens a screen with the route informed
+     * from a new flow and clears the stack of previously loaded screens.
+     *
+     * @param route this defines navigation type, it can be a navigation to a remote route in which Beagle will
+     * deserialize the content or to a local screen already built.
+     * @param controllerId in this field passes the id created in the custom activity for beagle to create the flow,
+     * if not the beagle passes default activity.
+     */
     data class ResetStack(
         val route: Route,
         val controllerId: String? = null
@@ -111,6 +171,11 @@ sealed class Navigate : Action {
     }
 }
 
+/**
+ * This defines navigation type,
+ * it can be a navigation to a remote route in which Beagle will deserialize the content
+ * or to a local screen already built.
+ */
 sealed class Route {
     /**
      * Class that takes care of navigation to remote content.

@@ -58,6 +58,14 @@ constructor(
     val key: String? = null
 ) : OnInitiableWidget(), ContextComponent {
 
+    /**
+     * ListView is a Layout component that will define a list of views natively.
+     * These views could be any Server Driven Component.
+     *
+     * @param children define the items on the list view.
+     * @param direction define the list direction.
+     *
+     */
     @Deprecated(message = "It was deprecated in version x.x and will be removed in a future version. " +
         "Use dataSource and template instead children.",
         replaceWith = ReplaceWith(
