@@ -87,15 +87,14 @@ data class PageView(
     @Transient
     private val viewRendererFactory: ViewRendererFactory = ViewRendererFactory()
 
-    override fun buildView(rootView: RootView): View {
-
+    override fun buildView(rootView: RootView, parent: View?): View {
         currentPage?.let {
             return PageViewTwo(
                 children,
                 context,
                 onPageChange,
                 currentPage
-            ).buildView(rootView)
+            ).buildView(rootView, parent)
         }
 
         val style = Style(flex = Flex(grow = 1.0))
@@ -109,7 +108,7 @@ data class PageView(
         }
 
         pageIndicator?.let {
-            val pageIndicatorView = viewRendererFactory.make(it).build(rootView)
+            val pageIndicatorView = viewRendererFactory.make(it).build(rootView, parent)
             setupPageIndicator(children.size, viewPager, pageIndicator)
             container.addView(pageIndicatorView)
         }
@@ -149,7 +148,7 @@ internal class PageViewAdapter(
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val view = viewFactory.makeBeagleFlexView(rootView).also {
-            it.addServerDrivenComponent(children[position])
+            it.addServerDrivenComponent(children[position], container)
         }
         container.addView(view)
         return view

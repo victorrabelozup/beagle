@@ -14,11 +14,14 @@
  * limitations under the License.
  */
 
-package br.com.zup.beagle.android.widget
+package br.com.zup.beagle.android.engine.renderer
 
 import android.view.View
-import br.com.zup.beagle.core.ServerDrivenComponent
+import br.com.zup.beagle.android.widget.RootView
+import br.com.zup.beagle.android.widget.ViewConvertible
 
-interface ViewConvertable : ServerDrivenComponent {
-    fun buildView(rootView: RootView): View
+internal class ViewConvertibleRenderer(override val component: ViewConvertible) : ViewRenderer<ViewConvertible>() {
+    override fun buildView(rootView: RootView, parent: View?): View {
+        return component.buildView(rootView, parent)
+    }
 }

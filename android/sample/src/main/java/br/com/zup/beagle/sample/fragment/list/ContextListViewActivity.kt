@@ -14,45 +14,36 @@
  * limitations under the License.
  */
 
-package br.com.zup.beagle.sample.fragment
+package br.com.zup.beagle.sample.fragment.list
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import br.com.zup.beagle.android.action.Alert
-import br.com.zup.beagle.android.action.RequestActionMethod
-import br.com.zup.beagle.android.action.SendRequest
+import androidx.appcompat.app.AppCompatActivity
 import br.com.zup.beagle.android.action.SetContext
 import br.com.zup.beagle.android.components.Button
-import br.com.zup.beagle.android.components.ListView
 import br.com.zup.beagle.android.components.Text
 import br.com.zup.beagle.android.components.layout.Container
 import br.com.zup.beagle.android.components.layout.NavigationBar
 import br.com.zup.beagle.android.components.layout.Screen
+import br.com.zup.beagle.android.components.list.ListView
 import br.com.zup.beagle.android.context.ContextData
 import br.com.zup.beagle.android.context.expressionOf
 import br.com.zup.beagle.android.utils.toView
 import br.com.zup.beagle.core.Style
 import br.com.zup.beagle.ext.applyStyle
-import br.com.zup.beagle.ext.setId
 import br.com.zup.beagle.ext.unitPercent
 import br.com.zup.beagle.ext.unitReal
 import br.com.zup.beagle.widget.core.ListDirection
 import br.com.zup.beagle.widget.core.Size
 
-class ContextListViewFragment : Fragment() {
+class ContextListViewActivity : AppCompatActivity() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         val declarative = Screen(
             navigationBar = NavigationBar(title = "List"),
             child = buildListView()
         )
-        return context?.let { declarative.toView(this) }
+        setContentView(declarative.toView(this))
     }
 
     data class Person(
@@ -67,17 +58,17 @@ class ContextListViewFragment : Fragment() {
                 Person(
                     "John",
                     0
-                ),
+                )/*,
                 Person(
-                    "Matheus",
+                    "Carter",
                     1
                 ),
                 Person(
-                    "Thalyta",
+                    "Josie",
                     2
                 ),
                 Person(
-                    "Jose",
+                    "Dimitri",
                     3
                 ),
                 Person(
@@ -85,15 +76,15 @@ class ContextListViewFragment : Fragment() {
                     4
                 ),
                 Person(
-                    "Clemente",
+                    "Max",
                     5
                 ),
                 Person(
-                    "Matheus",
+                    "Kane",
                     6
                 ),
                 Person(
-                    "Thalyta",
+                    "Amelia",
                     7
                 ),
                 Person(
@@ -101,33 +92,33 @@ class ContextListViewFragment : Fragment() {
                     8
                 ),
                 Person(
-                    "Maria",
+                    "Percy",
                     9
                 ),
                 Person(
-                    "Clemente",
+                    "Karen",
                     10
                 ),
                 Person(
-                    "Matheus",
+                    "Sol",
                     11
                 ),
                 Person(
-                    "Thalyta",
+                    "Jacques",
                     12
                 ),
                 Person(
-                    "Jose",
+                    "Stephen",
                     13
                 ),
                 Person(
-                    "Maria",
+                    "Sullivan",
                     14
                 ),
                 Person(
-                    "Clemente",
+                    "Zoe",
                     15
-                )
+                )*/
             )
         ),
         key = "cpf",
@@ -141,7 +132,7 @@ class ContextListViewFragment : Fragment() {
                         SetContext(
                             contextId = "insideContext",
                             path = "[0].name",
-                            value = "Updated Matheus"
+                            value = "Updated John"
                         )
                     )
                 ).applyStyle(
@@ -157,9 +148,9 @@ class ContextListViewFragment : Fragment() {
         context = ContextData(
             id = "outsideContext",
             value = listOf("0 OUTSIDE", "1 OUTSIDE", "2 OUTSIDE", "3 OUTSIDE", "4 OUTSIDE", "5 OUTSIDE",
-                "6 OUTSIDE", "7 OUTSIDE", "8 OUTSIDE", "9 OUTSIDE", "10 OUTSIDE",
+                "6 OUTSIDE"/*, "7 OUTSIDE", "8 OUTSIDE", "9 OUTSIDE", "10 OUTSIDE",
                 "11 OUTSIDE", "12 OUTSIDE", "13 OUTSIDE", "14 OUTSIDE", "15 OUTSIDE",
-                "16 OUTSIDE", "17 OUTSIDE", "18 OUTSIDE", "19 OUTSIDE", "20 OUTSIDE")
+                "16 OUTSIDE", "17 OUTSIDE", "18 OUTSIDE", "19 OUTSIDE", "20 OUTSIDE"*/)
         ),
         dataSource = expressionOf("@{outsideContext}"),
         direction = ListDirection.VERTICAL,
@@ -174,85 +165,4 @@ class ContextListViewFragment : Fragment() {
             )
         )
     )
-
-    data class Movie(
-        val poster_path: String?,
-        val original_title: String,
-        val backdrop_path: String?
-    )
-
-    private val listMovies = ListView(
-        context = ContextData(
-            id = "movieContext",
-            value = listOf(
-                Movie(
-                    poster_path = "",
-                    original_title = "",
-                    backdrop_path = ""
-                )
-            )
-        ),
-        onInit = listOf(
-            SendRequest(
-                url = "https://api.themoviedb.org/3/discover/movie?api_key=d272326e467344029e68e3c4ff0b4059&with_genres=28",
-                method = RequestActionMethod.GET,
-                onSuccess = listOf(
-                    SetContext(
-                        contextId = "movieContext",
-                        value = "@{onSuccess.data.results}"
-                    )
-                )
-            )
-        ),
-        dataSource = expressionOf("@{movieContext}"),
-        direction = ListDirection.HORIZONTAL,
-        template = Text(text = expressionOf("@{item.original_title}"))
-    )
-
-    private val listGenres = ListView(
-        context = ContextData(
-            id = "initialContext",
-            value = listOf(
-                "1fora",
-                "2fora",
-                "3fora",
-                "4fora",
-                "5fora",
-                "6fora",
-                "7fora",
-                "8fora",
-                "9fora",
-                "10fora",
-                "11fora",
-                "12fora",
-                "13fora",
-                "14fora",
-                "15fora",
-                "16fora",
-                "17fora",
-                "18fora",
-                "19fora",
-                "20fora"
-            )
-        ),
-        dataSource = expressionOf("@{initialContext}"),
-        direction = ListDirection.VERTICAL,
-        template = Container(
-            listOf(
-                Text(text = expressionOf("@{item}")),
-                listMovies.applyStyle(Style(backgroundColor = "#b7472a"))
-            )
-        ).applyStyle(
-            Style(
-                backgroundColor = "#2a7886",
-                size = Size(width = 100.unitPercent(), height = 300.unitReal())
-            )
-        )
-    )
-
-    companion object {
-        fun newInstance(): ContextListViewFragment {
-            return ContextListViewFragment()
-        }
-    }
 }

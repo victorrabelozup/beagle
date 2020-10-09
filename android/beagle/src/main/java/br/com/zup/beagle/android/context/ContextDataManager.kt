@@ -16,14 +16,13 @@
 
 package br.com.zup.beagle.android.context
 
-import android.util.Log
 import android.view.View
 import br.com.zup.beagle.android.action.SetContextInternal
 import br.com.zup.beagle.android.context.tokenizer.Token
 import br.com.zup.beagle.android.context.tokenizer.TokenBinding
 import br.com.zup.beagle.android.context.tokenizer.TokenFunction
 import br.com.zup.beagle.android.logger.BeagleMessageLogs
-import br.com.zup.beagle.android.utils.*
+import br.com.zup.beagle.android.utils.Observer
 import br.com.zup.beagle.android.utils.findParentContextWithId
 import br.com.zup.beagle.android.utils.getAllParentContexts
 import br.com.zup.beagle.android.utils.getContextBinding
@@ -40,6 +39,7 @@ internal class ContextDataManager(
 
     private var globalContext: ContextBinding = ContextBinding(GlobalContext.getContext())
     private val contexts = mutableMapOf<Int, ContextBinding>()
+    private val contextsWithoutId = mutableMapOf<View, ContextBinding>()
     private val viewBinding = mutableMapOf<View, MutableSet<Binding<*>>>()
     private val globalContextObserver: GlobalContextObserver = {
         updateGlobalContext(it)
@@ -52,8 +52,20 @@ internal class ContextDataManager(
 
     fun clearContexts() {
         contexts.clear()
+        contextsWithoutId.clear()
         viewBinding.clear()
         GlobalContext.clearObserverGlobalContext(globalContextObserver)
+    }
+
+    fun setIdToViewWithContext(view: View) {
+        contextsWithoutId[view]?.apply {
+            contexts[view.id]?.let {
+                view.setContextBinding(it)
+            } ?: run {
+                contexts[view.id] = this
+            }
+            contextsWithoutId.remove(view)
+        }
     }
 
     fun addContext(view: View, context: ContextData, shouldOverrideExistingContext: Boolean = false) {
@@ -79,7 +91,11 @@ internal class ContextDataManager(
     private fun updateContextAndReference(view: View, context: ContextData) {
         view.setContextData(context)
         view.getContextBinding()?.let {
-            contexts[view.id] = it
+            if (view.id != View.NO_ID) {
+                contexts[view.id] = it
+            } else {
+                contextsWithoutId[view] = it
+            }
         }
     }
 
@@ -92,8 +108,10 @@ internal class ContextDataManager(
         viewBinding[view] = bindings
     }
 
+    fun getContextData(view: View) = contexts[view.id]?.context
+
     fun restoreContext(view: View) {
-        contexts[view.id]?.let{
+        contexts[view.id]?.let {
             view.setContextData(it.context)
         }
     }
@@ -164,10 +182,7 @@ internal class ContextDataManager(
         }
     }
 
-    private fun setContextValue(
-        contextBinding: ContextBinding,
-        setContextInternal: SetContextInternal
-    ) {
+    private fun setContextValue(contextBinding: ContextBinding, setContextInternal: SetContextInternal) {
         val result = contextDataManipulator.set(
             contextBinding.context,
             setContextInternal.path,

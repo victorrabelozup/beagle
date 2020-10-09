@@ -17,6 +17,7 @@
 package br.com.zup.beagle.sample.widgets
 
 import android.graphics.Color
+import android.view.View
 import android.widget.TextView
 import br.com.zup.beagle.android.widget.RootView
 import br.com.zup.beagle.android.widget.WidgetView
@@ -29,7 +30,7 @@ data class MutableText(
     val color: String = "#000000"
 ): WidgetView() {
 
-    override fun buildView(rootView: RootView) = TextView(rootView.getContext()).apply {
+    override fun buildView(rootView: RootView, parent: View?) = TextView(rootView.getContext()).apply {
         val color = Color.parseColor(color)
         text = firstText
         setTextColor(color)

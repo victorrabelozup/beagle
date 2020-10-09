@@ -29,18 +29,19 @@ internal class ListViewIdViewModel : ViewModel() {
 
     private val internalIdsByListId = mutableMapOf<Int, LocalListView>()
 
-    fun createSingleManagerByListViewId(recyclerViewId: Int, previouslyEmpty: Boolean) {
+    fun createSingleManagerByListViewId(recyclerViewId: Int, previouslyEmpty: Boolean = true): Int {
         require(recyclerViewId != View.NO_ID) { NO_ID_RECYCLER }
         val listViewManager = internalIdsByListId[recyclerViewId]?.run {
             completelyLoaded = false
-            reused = !previouslyEmpty || reused
-            if (reused) {
+            val shouldReuse = !previouslyEmpty || reused
+            if (shouldReuse) {
                 markToReuse(this)
             }
         }
         if (listViewManager == null) {
             internalIdsByListId[recyclerViewId] = LocalListView()
         }
+        return recyclerViewId
     }
 
     fun setViewId(recyclerViewId: Int, position: Int, viewId: Int): Int {
@@ -88,11 +89,10 @@ internal class ListViewIdViewModel : ViewModel() {
         }
     }
 
-    private fun retrieveManager(
-        recyclerViewId: Int,
-        position: Int
-    ) = internalIdsByListId[recyclerViewId]
-        ?: throw BeagleException("The list id $recyclerViewId which this view in position $position belongs to, was not found")
+    private fun retrieveManager(recyclerViewId: Int, position: Int) = internalIdsByListId[recyclerViewId]
+        ?: throw BeagleException(
+            "The list id $recyclerViewId which this view in position $position belongs to, was not found"
+        )
 
     private fun generateNewViewId(localListView: LocalListView, position: Int): Int {
         val id = View.generateViewId()
@@ -127,11 +127,7 @@ internal class ListViewIdViewModel : ViewModel() {
         internalIdsByListId[viewBeingDestroyed.id]?.let { localListView ->
             markToReuse(localListView)
             localListView.idsByAdapterPosition.values.forEach { internalListId ->
-                internalListId.forEach { internalId ->
-                    internalIdsByListId[internalId]?.let { internalLocalListView ->
-                        markToReuse(internalLocalListView)
-                    }
-                }
+                markToReuseEachNestedList(internalListId)
             }
         }
         if (viewBeingDestroyed is ViewGroup) {
@@ -139,6 +135,14 @@ internal class ListViewIdViewModel : ViewModel() {
             for (i in 0 until count) {
                 val child = viewBeingDestroyed.getChildAt(i)
                 prepareToReuseIds(child)
+            }
+        }
+    }
+
+    private fun markToReuseEachNestedList(internalListId: LinkedList<Int>) {
+        internalListId.forEach { internalId ->
+            internalIdsByListId[internalId]?.let { internalLocalListView ->
+                markToReuse(internalLocalListView)
             }
         }
     }
@@ -154,6 +158,7 @@ internal class ListViewIdViewModel : ViewModel() {
     }
 
     fun markHasCompletelyLoaded(recyclerViewId: Int) {
+        require(recyclerViewId != View.NO_ID) { NO_ID_RECYCLER }
         internalIdsByListId[recyclerViewId]?.apply {
             completelyLoaded = true
         }

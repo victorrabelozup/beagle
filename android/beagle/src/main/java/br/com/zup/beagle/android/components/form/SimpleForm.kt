@@ -55,18 +55,18 @@ data class SimpleForm(
     @Transient
     private val preFetchHelper: PreFetchHelper = PreFetchHelper()
 
-    override fun buildView(rootView: RootView): View {
+    override fun buildView(rootView: RootView, parent: View?): View {
         preFetchHelper.handlePreFetch(rootView, onSubmit)
         return viewFactory.makeBeagleFlexView(rootView, style ?: Style())
             .apply {
                 beagleComponent = this@SimpleForm
-                addChildrenForm(this)
+                addChildrenForm(this, parent)
             }
     }
 
-    private fun addChildrenForm(beagleFlexView: BeagleFlexView) {
+    private fun addChildrenForm(beagleFlexView: BeagleFlexView, parent: View?) {
         children.forEach { child ->
-            beagleFlexView.addServerDrivenComponent(child)
+            beagleFlexView.addServerDrivenComponent(child, parent)
         }
     }
 

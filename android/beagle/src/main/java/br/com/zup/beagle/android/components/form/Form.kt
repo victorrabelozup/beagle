@@ -73,8 +73,8 @@ data class Form(
     @Transient
     private val formDataStoreHandler: FormDataStoreHandler = shared
 
-    override fun buildView(rootView: RootView): View {
-        val view = viewRendererFactory.make(child).build(rootView)
+    override fun buildView(rootView: RootView, parent: View?): View {
+        val view = viewRendererFactory.make(child).build(rootView, parent)
 
         if (view is ViewGroup) {
             fetchFormViews(rootView, view)

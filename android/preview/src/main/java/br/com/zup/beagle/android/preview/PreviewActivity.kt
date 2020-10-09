@@ -72,6 +72,7 @@ class PreviewActivity : BeagleActivity() {
                 Log.d(TAG, "onMessage: $message")
                 runOnUiThread {
                     if (!message.startsWith("Welcome")) {
+                        flPreview.removeAllViews() // or removeAllViewsInLayout without requestLayout and invalidate
                         flPreview.renderScreen(activity = this@PreviewActivity, screenJson = message)
                     } else {
                         Toast.makeText(this@PreviewActivity, message, Toast.LENGTH_SHORT).show()

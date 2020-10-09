@@ -16,7 +16,6 @@
 
 package br.com.zup.beagle.sample
 
-import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -25,27 +24,22 @@ import br.com.zup.beagle.android.utils.newServerDrivenIntent
 import br.com.zup.beagle.android.view.ScreenRequest
 import br.com.zup.beagle.android.view.ServerDrivenActivity
 import br.com.zup.beagle.sample.activities.NavigationBarActivity
+import br.com.zup.beagle.sample.constants.SAMPLE_ENDPOINT
 import br.com.zup.beagle.sample.fragment.ComposeComponentFragment
-import br.com.zup.beagle.sample.fragment.ContextListViewFragment
 import br.com.zup.beagle.sample.fragment.ContextOperationsFragment
 import br.com.zup.beagle.sample.fragment.DisabledFormSubmitFragment
 import br.com.zup.beagle.sample.fragment.FormFragment
 import br.com.zup.beagle.sample.fragment.ImageViewFragment
 import br.com.zup.beagle.sample.fragment.LazyComponentFragment
-import br.com.zup.beagle.sample.fragment.ListViewFragment
 import br.com.zup.beagle.sample.fragment.NavigationFragment
 import br.com.zup.beagle.sample.fragment.PageViewFragment
 import br.com.zup.beagle.sample.fragment.ScrollViewFragment
 import br.com.zup.beagle.sample.fragment.TabViewFragment
 import br.com.zup.beagle.sample.fragment.TextInputFragment
 import br.com.zup.beagle.sample.fragment.WebViewFragment
+import br.com.zup.beagle.sample.fragment.list.ListViewFragment
 
-class MainActivity : AppCompatActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_navigation_drawer, menu)
@@ -73,14 +67,10 @@ class MainActivity : AppCompatActivity() {
             R.id.tabBar -> goToFragment(TabViewFragment.newInstance())
             R.id.disabledFormSubmit -> goToFragment(DisabledFormSubmitFragment.newInstance())
             R.id.listView -> goToFragment(ListViewFragment.newInstance())
-            R.id.listViewContext -> goToFragment(ContextListViewFragment.newInstance())
             R.id.webView -> goToFragment(WebViewFragment.newInstance())
             R.id.composeComponent -> goToFragment(ComposeComponentFragment.newInstance())
             R.id.sampleBff -> startActivity(
-                newServerDrivenIntent<ServerDrivenActivity>(
-//                    ScreenRequest("https://storage.googleapis.com/lucasaraujo/dev/listview.json")
-                    ScreenRequest("https://run.mocky.io/v3/9df55f30-9c82-4837-988d-f3d751d6f4e6")
-                )
+                newServerDrivenIntent<ServerDrivenActivity>(ScreenRequest(SAMPLE_ENDPOINT))
             )
         }
     }

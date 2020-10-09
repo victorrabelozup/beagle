@@ -61,7 +61,7 @@ data class Button(
     @Transient
     private val styleManager: StyleManager = StyleManager()
 
-    override fun buildView(rootView: RootView): View {
+    override fun buildView(rootView: RootView, parent: View?): View {
         onPress?.let {
             preFetchHelper.handlePreFetch(rootView, it)
         }

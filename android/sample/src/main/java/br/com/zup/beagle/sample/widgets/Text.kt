@@ -17,6 +17,7 @@
 package br.com.zup.beagle.sample.widgets
 
 import android.graphics.Color
+import android.view.View
 import android.widget.TextView
 import br.com.zup.beagle.android.widget.RootView
 import br.com.zup.beagle.android.widget.WidgetView
@@ -28,7 +29,7 @@ import br.com.zup.beagle.annotation.RegisterWidget
 data class Text(
     val text: Bind<String>
 ) : WidgetView() {
-    override fun buildView(rootView: RootView): TextView = TextView(rootView.getContext()).also {
+    override fun buildView(rootView: RootView, parent: View?): TextView = TextView(rootView.getContext()).also {
         it.setTextColor(Color.BLACK)
         observeBindChanges(rootView, it, this@Text.text) { newText ->
             it.text = newText

@@ -14,24 +14,11 @@
  * limitations under the License.
  */
 
-package br.com.zup.beagle.android.components.layout
+package br.com.zup.beagle.android.widget
 
 import android.view.View
-import br.com.zup.beagle.android.view.ViewFactory
-import br.com.zup.beagle.android.widget.RootView
-import br.com.zup.beagle.android.widget.WidgetView
 import br.com.zup.beagle.core.ServerDrivenComponent
 
-abstract class ComposeComponent : WidgetView() {
-
-    @Transient
-    private val viewFactory = ViewFactory()
-
-    override fun buildView(rootView: RootView, parent: View?): View {
-        return viewFactory.makeBeagleFlexView(rootView).apply {
-            addServerDrivenComponent(build(), parent)
-        }
-    }
-
-    abstract fun build(): ServerDrivenComponent
+interface ViewConvertible : ServerDrivenComponent {
+    fun buildView(rootView: RootView, parent: View?): View
 }

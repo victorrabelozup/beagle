@@ -33,9 +33,9 @@ data class LazyComponent(
     @Transient
     private val viewFactory: ViewFactory = ViewFactory()
 
-    override fun buildView(rootView: RootView): View {
+    override fun buildView(rootView: RootView, parent: View?): View {
         return viewFactory.makeBeagleView(rootView).apply {
-            addServerDrivenComponent(initialState)
+            addServerDrivenComponent(initialState, parent)
             updateView(path, this[0])
         }
     }

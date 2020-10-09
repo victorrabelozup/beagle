@@ -19,4 +19,8 @@
     <string name="tv_screen_deeplink">Screen DeepLink</string>
     <string name="btn_title_come_back">come back</string>
     <string name="title_btn_retry">Try again</string>
+    <string name="deprecated_list">Deprecated List</string>
+    <string name="local_list">Local List</string>
+    <string name="nested_list">Nested List</string>
+    <string name="nested_list_with_image">Nested List With Image</string>
 </resources>

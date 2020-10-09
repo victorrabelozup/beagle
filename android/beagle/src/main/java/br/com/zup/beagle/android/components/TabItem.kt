@@ -37,9 +37,9 @@ data class TabItem(
     @Transient
     private val viewFactory: ViewFactory = ViewFactory()
 
-    override fun buildView(rootView: RootView): View {
+    override fun buildView(rootView: RootView, parent: View?): View {
         return viewFactory.makeBeagleFlexView(rootView).also {
-            it.addServerDrivenComponent(child)
+            it.addServerDrivenComponent(child, parent)
         }
     }
 }

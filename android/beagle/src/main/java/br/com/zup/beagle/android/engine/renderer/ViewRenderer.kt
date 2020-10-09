@@ -22,7 +22,7 @@ import br.com.zup.beagle.android.context.ContextComponentHandler
 import br.com.zup.beagle.android.utils.generateViewModelInstance
 import br.com.zup.beagle.android.view.viewmodel.ScreenContextViewModel
 import br.com.zup.beagle.android.widget.RootView
-import br.com.zup.beagle.android.widget.ViewConvertable
+import br.com.zup.beagle.android.widget.ViewConvertible
 import br.com.zup.beagle.core.ServerDrivenComponent
 
 internal abstract class ViewRenderer<T : ServerDrivenComponent>(
@@ -31,20 +31,20 @@ internal abstract class ViewRenderer<T : ServerDrivenComponent>(
 ) {
     abstract val component: T
 
-    fun build(rootView: RootView): View {
+    fun build(rootView: RootView, parent: View?): View {
         val viewModel = rootView.generateViewModelInstance<ScreenContextViewModel>()
-        val builtView = buildView(rootView)
+        val builtView = buildView(rootView, parent)
         componentStylization.apply(builtView, component)
-        contextComponentHandler.handleComponent(builtView, rootView, viewModel, component)
+        contextComponentHandler.handleComponent(builtView, rootView, viewModel, component, parent)
         return builtView
     }
 
-    abstract fun buildView(rootView: RootView): View
+    abstract fun buildView(rootView: RootView, parent: View?): View
 }
 
 internal class ViewRendererFactory {
 
     fun make(component: ServerDrivenComponent): ViewRenderer<*> {
-        return ViewConvertableRenderer(component as ViewConvertable)
+        return ViewConvertibleRenderer(component as ViewConvertible)
     }
 }

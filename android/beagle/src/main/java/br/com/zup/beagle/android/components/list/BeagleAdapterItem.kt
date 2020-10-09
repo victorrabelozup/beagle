@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package br.com.zup.beagle.android.engine.renderer
+package br.com.zup.beagle.android.components.list
 
-import android.view.View
-import br.com.zup.beagle.android.widget.RootView
-import br.com.zup.beagle.android.widget.ViewConvertable
+import java.util.LinkedList
 
-internal class ViewConvertableRenderer(override val component: ViewConvertable) : ViewRenderer<ViewConvertable>() {
-    override fun buildView(rootView: RootView): View {
-        return component.buildView(rootView)
-    }
-}
+internal class BeagleAdapterItem(
+    var viewIds: LinkedList<Int> = LinkedList(),
+    val data: Any,
+    var completelyInitialized: Boolean = false,
+    var firstTimeBinding: Boolean = true,
+    val directNestedAdapters: LinkedList<ListViewContextAdapter> = LinkedList()
+)

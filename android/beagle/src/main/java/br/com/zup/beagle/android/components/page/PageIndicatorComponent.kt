@@ -17,12 +17,12 @@
 package br.com.zup.beagle.android.components.page
 
 import br.com.zup.beagle.android.utils.PageViewDeprecatedConstants
-import br.com.zup.beagle.android.widget.ViewConvertable
+import br.com.zup.beagle.android.widget.ViewConvertible
 import br.com.zup.beagle.core.ServerDrivenComponent
 
 @Deprecated(message = PageViewDeprecatedConstants.PAGE_INDICATOR_COMPONENT)
 interface PageIndicatorComponent : ServerDrivenComponent,
-    ViewConvertable {
+    ViewConvertible {
     fun setCount(pages: Int)
     fun onItemUpdated(newIndex: Int)
     fun initPageView(pageIndicatorOutput: PageIndicatorOutput)

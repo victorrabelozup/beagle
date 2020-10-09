@@ -17,6 +17,7 @@
 package br.com.zup.beagle.sample.widgets
 
 import android.graphics.Color
+import android.view.View
 import android.widget.EditText
 import androidx.core.widget.doOnTextChanged
 import br.com.zup.beagle.android.action.Action
@@ -36,7 +37,7 @@ data class Input(
     val personImpl: Person
 ) : WidgetView() {
 
-    override fun buildView(rootView: RootView) = EditText(rootView.getContext()).apply {
+    override fun buildView(rootView: RootView, parent: View?) = EditText(rootView.getContext()).apply {
         setTextColor(Color.BLACK)
         setHintTextColor(Color.BLACK)
         doOnTextChanged { newText, _, _, _ ->

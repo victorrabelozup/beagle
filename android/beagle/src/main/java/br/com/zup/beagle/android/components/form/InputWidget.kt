@@ -20,7 +20,7 @@ import br.com.zup.beagle.android.components.form.core.Constants
 import br.com.zup.beagle.android.components.form.observer.Observable
 import br.com.zup.beagle.android.components.form.observer.StateChangeable
 import br.com.zup.beagle.android.components.form.observer.WidgetState
-import br.com.zup.beagle.android.widget.ViewConvertable
+import br.com.zup.beagle.android.widget.ViewConvertible
 import br.com.zup.beagle.widget.Widget
 
 /**
@@ -29,7 +29,7 @@ import br.com.zup.beagle.widget.Widget
  *
  */
 @Deprecated(Constants.FORM_DEPRECATED_MESSAGE)
-abstract class InputWidget : Widget(), ViewConvertable, StateChangeable {
+abstract class InputWidget : Widget(), ViewConvertible, StateChangeable {
 
     @Transient
     private val stateObservable = Observable<WidgetState>()

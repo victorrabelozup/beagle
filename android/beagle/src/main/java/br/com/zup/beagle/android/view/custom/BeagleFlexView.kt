@@ -39,27 +39,26 @@ internal open class BeagleFlexView(
     private val viewModel: ScreenContextViewModel = rootView.generateViewModelInstance()
 ) : YogaLayout(rootView.getContext(), flexMapper.makeYogaNode(style)) {
 
-    constructor(
-        rootView: RootView,
-        flexMapper: FlexMapper = FlexMapper()
-    ) : this(rootView, Style(), flexMapper)
+    constructor(rootView: RootView, flexMapper: FlexMapper = FlexMapper()) : this(rootView, Style(), flexMapper)
 
     var listenerOnViewDetachedFromWindow: (() -> Unit)? = null
 
     fun addView(child: View, style: Style) {
-
         super.addView(child, flexMapper.makeYogaNode(style))
     }
 
-    fun addServerDrivenComponent(serverDrivenComponent: ServerDrivenComponent,
-                                 addLayoutChangeListener: Boolean = true) {
+    fun addServerDrivenComponent(
+        serverDrivenComponent: ServerDrivenComponent,
+        parent: View?,
+        addLayoutChangeListener: Boolean = true
+    ) {
         val component = if (serverDrivenComponent is GhostComponent) {
             serverDrivenComponent.child
         } else {
             serverDrivenComponent
         }
         val style = (component as? StyleComponent)?.style ?: Style()
-        val view = viewRendererFactory.make(serverDrivenComponent).build(rootView)
+        val view = viewRendererFactory.make(serverDrivenComponent).build(rootView, parent)
         if (addLayoutChangeListener) {
             view.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
                 (yogaNode as YogaNodeJNIBase).dirtyAllDescendants()
@@ -77,5 +76,4 @@ internal open class BeagleFlexView(
         super.onDetachedFromWindow()
         listenerOnViewDetachedFromWindow?.invoke()
     }
-
 }

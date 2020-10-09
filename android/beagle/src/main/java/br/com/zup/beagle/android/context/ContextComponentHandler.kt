@@ -19,6 +19,7 @@ package br.com.zup.beagle.android.context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import br.com.zup.beagle.android.utils.generateViewModelInstance
+import br.com.zup.beagle.android.utils.isAutoGenerateIdEnabled
 import br.com.zup.beagle.android.view.custom.BeagleFlexView
 import br.com.zup.beagle.android.view.viewmodel.GenerateIdViewModel
 import br.com.zup.beagle.android.view.viewmodel.ListViewIdViewModel
@@ -33,15 +34,16 @@ internal class ContextComponentHandler {
         builtView: View,
         rootView: RootView,
         viewModel: ScreenContextViewModel,
-        component: ServerDrivenComponent
+        component: ServerDrivenComponent,
+        parent: View?
     ) {
-        setIdToHandleContext(builtView, rootView)
+        setIdToHandleContext(builtView, rootView, parent)
         addListenerToHandleContext(viewModel, builtView)
-        addContext(viewModel, builtView, component)
+        addContext(viewModel, builtView, component, parent)
     }
 
-    private fun setIdToHandleContext(builtView: View, rootView: RootView) {
-        if (builtView.id == View.NO_ID) {
+    private fun setIdToHandleContext(builtView: View, rootView: RootView, parent: View?) {
+        if (builtView.id == View.NO_ID && parent?.isAutoGenerateIdEnabled() != false) {
             val generateIdViewModel = rootView.generateViewModelInstance<GenerateIdViewModel>()
             builtView.id = try {
                 generateIdViewModel.getViewId(rootView.getParentId())
@@ -63,7 +65,12 @@ internal class ContextComponentHandler {
         }
     }
 
-    private fun addContext(viewModel: ScreenContextViewModel, view: View, component: ServerDrivenComponent) {
+    private fun addContext(
+        viewModel: ScreenContextViewModel,
+        view: View,
+        component: ServerDrivenComponent,
+        parent: View?
+    ) {
         if (component is ContextComponent) {
             component.context?.let { context ->
                 viewModel.addContext(view, context)

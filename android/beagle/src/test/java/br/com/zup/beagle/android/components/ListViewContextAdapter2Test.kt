@@ -20,10 +20,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import br.com.zup.beagle.android.components.list.ContextViewHolderTwo
 import br.com.zup.beagle.android.context.ContextBinding
 import br.com.zup.beagle.android.context.ContextData
 import br.com.zup.beagle.android.extensions.once
-import br.com.zup.beagle.android.utils.generateViewModelInstance
 import br.com.zup.beagle.android.utils.getContextBinding
 import br.com.zup.beagle.android.utils.setContextData
 import br.com.zup.beagle.android.view.ViewFactory
