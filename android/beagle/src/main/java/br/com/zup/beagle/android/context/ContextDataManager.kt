@@ -60,7 +60,7 @@ internal class ContextDataManager(
     fun setIdToViewWithContext(view: View) {
         contextsWithoutId[view]?.apply {
             contexts[view.id]?.let {
-                view.setContextBinding(it)
+                view.setContextData(it.context)
             } ?: run {
                 contexts[view.id] = this
             }
