@@ -384,4 +384,18 @@ public class YogaLayout extends ViewGroup {
             }
         });
     }
+
+    public void setWidthAutoAndDirtyAllViews() {
+        addOnLayoutChangeListener(new OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View view, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                setWidthAuto();
+            }
+        });
+    }
+
+    public void setWidthAuto() {
+        mYogaNode.setWidthAuto();
+        ((YogaNodeJNIBase) mYogaNode).dirtyAllDescendants();
+    }
 }

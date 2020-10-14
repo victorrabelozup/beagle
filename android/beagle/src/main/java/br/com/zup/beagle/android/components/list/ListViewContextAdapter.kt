@@ -29,6 +29,8 @@ import br.com.zup.beagle.android.utils.generateViewModelInstance
 import br.com.zup.beagle.android.utils.safeGet
 import br.com.zup.beagle.android.utils.setIsAutoGenerateIdEnabled
 import br.com.zup.beagle.android.view.ViewFactory
+import br.com.zup.beagle.android.view.custom.BeagleFlexView
+import br.com.zup.beagle.android.view.viewmodel.GenerateIdViewModel
 import br.com.zup.beagle.android.view.viewmodel.ListViewIdViewModel
 import br.com.zup.beagle.android.view.viewmodel.ScreenContextViewModel
 import br.com.zup.beagle.android.widget.OnInitFinishedListener
@@ -52,6 +54,7 @@ internal class ListViewContextAdapter(
     // ViewModels to manage ids and contexts
     private val viewModel = rootView.generateViewModelInstance<ScreenContextViewModel>()
     private val listViewIdViewModel = rootView.generateViewModelInstance<ListViewIdViewModel>()
+    private val generateIdViewModel = rootView.generateViewModelInstance<GenerateIdViewModel>()
 
     // Recyclerview id for post config changes id management
     private var recyclerId = View.NO_ID
@@ -95,14 +98,10 @@ internal class ListViewContextAdapter(
         rootView,
         Style(flex = Flex(flexDirection = flexDirection()))
     ).apply {
-        layoutParams = RecyclerView.LayoutParams(layoutParamWidth(), layoutParamHeight())
         setIsAutoGenerateIdEnabled(false)
-        addServerDrivenComponent(newTemplate, this)
+        addServerDrivenComponent(newTemplate, this, false)
+        setWidthAutoAndDirtyAllViews()
     }
-
-    private fun layoutParamWidth() = if (isOrientationVertical()) MATCH_PARENT else WRAP_CONTENT
-
-    private fun layoutParamHeight() = if (isOrientationVertical()) WRAP_CONTENT else MATCH_PARENT
 
     private fun flexDirection() = if (isOrientationVertical()) FlexDirection.COLUMN else FlexDirection.ROW
 
@@ -221,10 +220,10 @@ internal class ListViewContextAdapter(
     }
 
     private fun setRecyclerId(incomingRecyclerId: Int) {
-        val recyclerIdToUse = if (incomingRecyclerId != View.NO_ID) {
-            incomingRecyclerId
-        } else {
-            recyclerId
+        val recyclerIdToUse = when {
+            incomingRecyclerId != View.NO_ID -> incomingRecyclerId
+            recyclerId != View.NO_ID -> recyclerId
+            else -> generateIdViewModel.getViewId(rootView.getParentId())
         }
         recyclerId = listViewIdViewModel.createSingleManagerByListViewId(recyclerIdToUse, listItems.isEmpty())
     }

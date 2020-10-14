@@ -29,11 +29,14 @@ import br.com.zup.beagle.android.context.ContextData
 import br.com.zup.beagle.android.utils.generateViewModelInstance
 import br.com.zup.beagle.android.utils.observeBindChanges
 import br.com.zup.beagle.android.view.ViewFactory
+import br.com.zup.beagle.android.view.custom.BeagleFlexView
 import br.com.zup.beagle.android.view.viewmodel.ListViewIdViewModel
 import br.com.zup.beagle.android.widget.OnInitiableWidget
 import br.com.zup.beagle.android.widget.RootView
 import br.com.zup.beagle.annotation.RegisterWidget
 import br.com.zup.beagle.core.ServerDrivenComponent
+import br.com.zup.beagle.core.Style
+import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.ListDirection
 
 @RegisterWidget
@@ -110,6 +113,9 @@ constructor(
     private var canScrollEnd = true
 
     @Transient
+    private lateinit var containerView: View
+
+    @Transient
     private lateinit var recyclerView: RecyclerView
 
     @Transient
@@ -118,20 +124,24 @@ constructor(
     @Transient
     private lateinit var listViewIdViewModel: ListViewIdViewModel
 
-    override fun getView() = recyclerView
+    override fun getView() = containerView
 
     override fun getRootView() = rootView
 
     override fun buildView(rootView: RootView, parent: View?): View {
         this.rootView = rootView
-        if (children.isNullOrEmpty()) {
+        containerView = viewFactory.makeBeagleFlexView(rootView, style ?: Style())
+        val listView = if (children.isNullOrEmpty()) {
             template?.let {
                 dataSource?.let {
-                    return buildNewListView()
+                    buildNewListView()
                 }
             }
+        } else {
+            buildOldListView()
         }
-        return buildOldListView()
+        (containerView as BeagleFlexView).addView(listView!!, style ?: Style())
+        return containerView
     }
 
     @Deprecated(message = "It was deprecated in version x.x and will be removed in a future version. " +
@@ -154,9 +164,9 @@ constructor(
         recyclerView = viewFactory.makeRecyclerView(rootView.getContext())
 
         val orientation = listDirectionToRecyclerViewOrientation()
-        setupRecyclerView(rootView, orientation)
-        configDataSourceObserver(rootView)
-        configRecyclerViewScrollListener(rootView)
+        setupRecyclerView(orientation)
+        configDataSourceObserver()
+        configRecyclerViewScrollListener()
         handleOnInit()
 
         return recyclerView
@@ -197,7 +207,7 @@ constructor(
         RecyclerView.HORIZONTAL
     }
 
-    private fun setupRecyclerView(rootView: RootView, orientation: Int) {
+    private fun setupRecyclerView(orientation: Int) {
         val contextAdapter = ListViewContextAdapter(
             template!!,
             iteratorName,
@@ -214,8 +224,8 @@ constructor(
         }
     }
 
-    private fun configDataSourceObserver(rootView: RootView) {
-        observeBindChanges(rootView, recyclerView, dataSource!!) { value ->
+    private fun configDataSourceObserver() {
+        observeBindChanges(rootView, containerView, dataSource!!) { value ->
             canScrollEnd = true
             val adapter = recyclerView.adapter as ListViewContextAdapter
             adapter.setList(value, recyclerView.id)
@@ -223,7 +233,7 @@ constructor(
         }
     }
 
-    private fun configRecyclerViewScrollListener(rootView: RootView) {
+    private fun configRecyclerViewScrollListener() {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -240,7 +250,7 @@ constructor(
         onScrollEnd?.let {
             if (canCallOnScrollEnd()) {
                 it.forEach { action ->
-                    action.execute(rootView, recyclerView)
+                    action.execute(rootView, containerView)
                 }
                 canScrollEnd = false
             }

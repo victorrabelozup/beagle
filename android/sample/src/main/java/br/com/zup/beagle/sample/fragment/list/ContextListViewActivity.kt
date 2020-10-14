@@ -32,6 +32,7 @@ import br.com.zup.beagle.core.Style
 import br.com.zup.beagle.ext.applyStyle
 import br.com.zup.beagle.ext.unitPercent
 import br.com.zup.beagle.ext.unitReal
+import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.ListDirection
 import br.com.zup.beagle.widget.core.Size
 
@@ -142,6 +143,10 @@ class ContextListViewActivity : AppCompatActivity() {
                 )/*.setId("button")*/
             )
         )/*.setId("container")*/
+    ).applyStyle(
+        Style(
+            backgroundColor = "#CCC"
+        )
     )
 
     private fun buildListView() = ListView(

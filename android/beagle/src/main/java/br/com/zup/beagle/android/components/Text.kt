@@ -76,7 +76,10 @@ data class Text(
 
     private fun TextView.setTextWidget(text: Text, rootView: RootView) {
         observeBindChanges(rootView, this, text.text) {
-            it?.let { this.text = it }
+            it?.let {
+                this.text = it
+                requestLayout()
+            }
         }
 
         text.textColor?.let {

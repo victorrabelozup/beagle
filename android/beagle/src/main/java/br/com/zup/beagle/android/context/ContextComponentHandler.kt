@@ -39,7 +39,7 @@ internal class ContextComponentHandler {
     ) {
         setIdToHandleContext(builtView, rootView, parent)
         addListenerToHandleContext(viewModel, builtView)
-        addContext(viewModel, builtView, component, parent)
+        addContext(viewModel, builtView, component)
     }
 
     private fun setIdToHandleContext(builtView: View, rootView: RootView, parent: View?) {
@@ -68,8 +68,7 @@ internal class ContextComponentHandler {
     private fun addContext(
         viewModel: ScreenContextViewModel,
         view: View,
-        component: ServerDrivenComponent,
-        parent: View?
+        component: ServerDrivenComponent
     ) {
         if (component is ContextComponent) {
             component.context?.let { context ->
