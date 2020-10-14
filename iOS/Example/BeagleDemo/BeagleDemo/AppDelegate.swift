@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let deepLinkHandler = DeeplinkScreenManager.shared
         deepLinkHandler[.lazyComponentEndpoint] = LazyComponentScreen.self
         deepLinkHandler[.pageViewEndpoint] = PageViewScreen.self
-        deepLinkHandler[.tabViewEndpoint] = TabViewScreen.self
+        deepLinkHandler[.tabBarEndpoint] = TabBarScreen.self
         deepLinkHandler[.formEndpoint] = FormScreen.self
         deepLinkHandler[.customComponentEndpoint] = CustomComponentScreen.self
         deepLinkHandler[.screenDeeplinkEndpoint] = ScreenDeepLink.self
@@ -39,6 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         deepLinkHandler[.navigateStep1Endpoint] = NavigateStep1Screen.self
         deepLinkHandler[.navigateStep2Endpoint] = NavigateStep2Screen.self
         deepLinkHandler[.beagleViewEndpoint] = BeagleViewViewController.self
+        deepLinkHandler[.imageEndpoint] = ImageScreen.self
+        deepLinkHandler[.globalContextEndpoint] = GlobalContexScreen.self
         deepLinkHandler[.beagleView] = BeagleViewScreen.self
 
         let validator = ValidatorProviding()
