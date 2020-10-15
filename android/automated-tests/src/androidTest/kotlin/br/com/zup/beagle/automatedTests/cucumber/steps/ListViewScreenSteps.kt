@@ -16,7 +16,9 @@
 
 package br.com.zup.beagle.automatedTests.cucumber.steps
 
+import android.view.View
 import androidx.test.rule.ActivityTestRule
+import br.com.zup.beagle.android.utils.toAndroidId
 import br.com.zup.beagle.automatedTests.activity.MainActivity
 import br.com.zup.beagle.automatedTests.cucumber.elements.*
 import br.com.zup.beagle.automatedTests.cucumber.robots.ScreenRobot
@@ -27,11 +29,12 @@ import cucumber.api.java.Before
 import cucumber.api.java.en.*
 import org.junit.Rule
 
-
 class ListViewScreenSteps {
 
-    @Rule
+    @get:Rule
     var activityTestRule = ActivityTestRule(MainActivity::class.java)
+
+    lateinit var listId: String
 
     @Before("@listview")
     fun setup() {
@@ -43,8 +46,9 @@ class ListViewScreenSteps {
         ActivityFinisher.finishOpenActivities()
     }
 
-    @Given("^that I'm on the listview screen$")
-    fun checkListViewScreen() {
+    @Given("^that I'm on the listView screen with id (.*)$")
+    fun checkListViewScreen(listId: String) {
+        this.listId = listId
         ScreenRobot()
             .checkViewContainsText(LISTVIEW_SCREEN_HEADER, true)
     }
@@ -54,6 +58,18 @@ class ListViewScreenSteps {
         ScreenRobot()
             .checkViewContainsText(STATIC_LISTVIEW_TEXT_1)
             .sleep(2)
+    }
+
+    @Then("^listView screen should render all items correctly$")
+    fun checkListViewScreenItems() {
+        ScreenRobot().checkListSize("list", 20)
+    }
+
+    @Then("^listView at (.*) renders view with (.*) and (.*)$")
+    fun checkListViewItemRenderText(position: Int, viewId: String, text: String) {
+        ScreenRobot()
+            .scrollToPosition(listId, position)
+            .checkViewContainsTextForId(viewId, text)
     }
 
     @Then("^listview screen should render all text attributes correctly$")
@@ -70,6 +86,18 @@ class ListViewScreenSteps {
             .scrollTo(DYNAMIC_LISTVIEW_TEXT_2)
             .sleep(2)
     }
+//        onView(withId("button:0".toAndroidId())).check(matches(withText("1 OUTSIDE")))
+//
+//        onView(withId("insideList:19".toAndroidId())).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(15))
+//        onView(withId("buttonInside:15".toAndroidId())).check(matches(withText("Zoe - 15")))
 
+//        onView(withId("button:19".toAndroidId())).perform(click())
+//        onView(withId(id.toAndroidId())).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
+//        onView(withId("button:0".toAndroidId())).check(matches(withText("Updated")))
+
+
+//        onView(isRoot()).perform(orientationLandscape())
+//        onView(withId(id.toAndroidId())).check(matches((hasItemCount(expectedSize))))
+//        onView(withId("button:0".toAndroidId())).check(matches(withText("Updated")))
 
 }

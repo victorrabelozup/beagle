@@ -69,7 +69,7 @@ constructor(
      * @param direction define the list direction.
      *
      */
-    @Deprecated(message = "It was deprecated in version x.x and will be removed in a future version. " +
+    @Deprecated(message = "It was deprecated in version 1.4 and will be removed in a future version. " +
         "Use dataSource and template instead children.",
         replaceWith = ReplaceWith(
             "ListView(direction, context, onInit, dataSource, template, onScrollEnd, scrollThreshold," +

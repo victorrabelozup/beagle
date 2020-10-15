@@ -16,26 +16,29 @@
 
 package br.com.zup.beagle.automatedTests.cucumber.robots
 
-import android.view.View
-import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.contrib.RecyclerViewActions
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withClassName
+import androidx.test.espresso.matcher.ViewMatchers.withHint
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
+import br.com.zup.beagle.android.utils.toAndroidId
 import br.com.zup.beagle.automatedTests.R
 import br.com.zup.beagle.automatedTests.utils.WaitHelper
-import org.hamcrest.Description
-import org.hamcrest.Matcher
+import br.com.zup.beagle.automatedTests.utils.matcher.MatcherExtension.Companion.childAtPosition
+import br.com.zup.beagle.automatedTests.utils.matcher.MatcherExtension.Companion.hasItemCount
 import org.hamcrest.Matchers
-import org.hamcrest.TypeSafeMatcher
-
 
 class ScreenRobot {
 
     fun checkViewContainsText(text: String?, waitForText: Boolean = false): ScreenRobot {
-        if (waitForText){
+        if (waitForText) {
             WaitHelper.waitForWithElement(onView(withText(text)))
         }
 
@@ -44,7 +47,7 @@ class ScreenRobot {
     }
 
     fun checkViewContainsHint(hint: String?, waitForText: Boolean = false): ScreenRobot {
-        if (waitForText){
+        if (waitForText) {
             WaitHelper.waitForWithElement(onView(withHint(hint)))
         }
 
@@ -103,21 +106,20 @@ class ScreenRobot {
         Espresso.closeSoftKeyboard()
     }
 
-    companion object {
-            private fun childAtPosition(
-                parentMatcher: Matcher<View>, position: Int): Matcher<View> {
-                return object : TypeSafeMatcher<View>() {
-                    override fun describeTo(description: Description) {
-                        description.appendText("Child at position $position in parent ")
-                        parentMatcher.describeTo(description)
-                    }
-
-                    public override fun matchesSafely(view: View): Boolean {
-                        val parent = view.parent
-                        return (parent is ViewGroup && parentMatcher.matches(parent)
-                            && view == parent.getChildAt(position))
-                    }
-                }
-            }
-        }
+    fun checkListSize(listId: String, expectedSize: Int): ScreenRobot {
+        onView(withId(listId.toAndroidId())).check(matches((hasItemCount(expectedSize))))
+        return this
     }
+
+    fun scrollToPosition(listId: String, position: Int): ScreenRobot {
+        onView(withId(listId.toAndroidId()))
+            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(position))
+        return this
+    }
+
+    fun checkViewContainsTextForId(viewId: String, expectedText: String): ScreenRobot {
+        onView(withId(viewId.toAndroidId())).check(matches(withText(expectedText)))
+        return this
+    }
+}
+

@@ -19,16 +19,23 @@ package br.com.zup.beagle.automatedtests.builders
 import br.com.zup.beagle.core.Style
 import br.com.zup.beagle.widget.action.Alert
 import br.com.zup.beagle.ext.applyStyle
+import br.com.zup.beagle.ext.setId
+import br.com.zup.beagle.ext.unitPercent
 import br.com.zup.beagle.ext.unitReal
+import br.com.zup.beagle.widget.action.SetContext
+import br.com.zup.beagle.widget.context.ContextData
+import br.com.zup.beagle.widget.context.expressionOf
 import br.com.zup.beagle.widget.core.EdgeValue
 import br.com.zup.beagle.widget.core.ListDirection
 import br.com.zup.beagle.widget.core.ScrollAxis
+import br.com.zup.beagle.widget.core.Size
 import br.com.zup.beagle.widget.layout.Container
 import br.com.zup.beagle.widget.layout.NavigationBar
 import br.com.zup.beagle.widget.layout.NavigationBarItem
 import br.com.zup.beagle.widget.layout.Screen
 import br.com.zup.beagle.widget.layout.ScrollView
 import br.com.zup.beagle.widget.layout.extensions.dynamic
+import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.ImagePath.Local
 import br.com.zup.beagle.widget.ui.ListView
 import br.com.zup.beagle.widget.ui.Text
@@ -51,38 +58,126 @@ object ListViewScreenBuilder {
                 )
             )
         ),
-        child = ScrollView(
-            scrollDirection = ScrollAxis.VERTICAL,
+        child = buildListView()
+    )
+
+    private fun buildListView() = ListView(
+        context = ContextData(
+            id = "outsideContext",
+            value = listOf("1 OUTSIDE", "2 OUTSIDE", "3 OUTSIDE", "4 OUTSIDE", "5 OUTSIDE",
+                "6 OUTSIDE", "7 OUTSIDE", "8 OUTSIDE", "9 OUTSIDE", "10 OUTSIDE",
+                "11 OUTSIDE", "12 OUTSIDE", "13 OUTSIDE", "14 OUTSIDE", "15 OUTSIDE",
+                "16 OUTSIDE", "17 OUTSIDE", "18 OUTSIDE", "19 OUTSIDE", "20 OUTSIDE")
+        ),
+        dataSource = expressionOf("@{outsideContext}"),
+        direction = ListDirection.VERTICAL,
+        template = Container(
             children = listOf(
-                getStaticListView(ListDirection.VERTICAL),
-                getStaticListView(ListDirection.HORIZONTAL),
-                getDynamicListView(ListDirection.VERTICAL),
-                getDynamicListView(ListDirection.HORIZONTAL)
+                Text(text = expressionOf("@{item}")).setId("text")/*,
+                list.setId("insideList")*/
+            )
+        ).applyStyle(
+            Style(
+                size = Size(width = 100.unitPercent(), height = 600.unitReal())
             )
         )
+    ).setId("list")
+
+    data class Person(
+        val name: String,
+        val cpf: Int
     )
 
-    private fun getStaticListView(listDirection: ListDirection) = Container(
-        children = listOf(
-            Text("Static $listDirection ListView")
-                .applyStyle(Style(
-                    margin = EdgeValue(bottom = 10.unitReal())
-                )),
-            ListView(children = (1..10).map(this::createText), direction = listDirection)
+    private val list = ListView(
+        context = ContextData(
+            id = "insideContext",
+            value = listOf(
+                Person(
+                    "John",
+                    0
+                ),
+                Person(
+                    "Carter",
+                    1
+                ),
+                Person(
+                    "Josie",
+                    2
+                ),
+                Person(
+                    "Dimitri",
+                    3
+                ),
+                Person(
+                    "Maria",
+                    4
+                ),
+                Person(
+                    "Max",
+                    5
+                ),
+                Person(
+                    "Kane",
+                    6
+                ),
+                Person(
+                    "Amelia",
+                    7
+                ),
+                Person(
+                    "Jose",
+                    8
+                ),
+                Person(
+                    "Percy",
+                    9
+                ),
+                Person(
+                    "Karen",
+                    10
+                ),
+                Person(
+                    "Sol",
+                    11
+                ),
+                Person(
+                    "Jacques",
+                    12
+                ),
+                Person(
+                    "Stephen",
+                    13
+                ),
+                Person(
+                    "Sullivan",
+                    14
+                ),
+                Person(
+                    "Zoe",
+                    15
+                )
+            )
+        ),
+        key = "cpf",
+        dataSource = expressionOf("@{insideContext}"),
+        direction = ListDirection.HORIZONTAL,
+        template = Container(
+            children = listOf(
+                Button(
+                    text = expressionOf("@{item.name} - @{item.cpf}"),
+                    onPress = listOf(
+                        SetContext(
+                            contextId = "insideContext",
+                            path = "[0].name",
+                            value = "Updated John"
+                        )
+                    )
+                ).setId("buttonInside")
+            )
         )
-    ).applyStyle(Style(
-        margin = EdgeValue(bottom = 20.unitReal())
-    ))
-
-    private fun getDynamicListView(listDirection: ListDirection) = Container(
-        children = listOf(
-            Text("Dynamic $listDirection ListView")
-                .applyStyle(Style(
-                    margin = EdgeValue(bottom = 10.unitReal())
-                )),
-            ListView.dynamic(size = 20, direction = listDirection, rowBuilder = this::createText)
+    ).applyStyle(
+        Style(
+            backgroundColor = "#CCC"
         )
     )
-
-    private fun createText(index: Int) = Text("Hello $index")
 }
