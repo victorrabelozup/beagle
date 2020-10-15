@@ -23,7 +23,6 @@ import br.com.zup.beagle.android.components.utils.styleManagerFactory
 import br.com.zup.beagle.android.context.Bind
 import br.com.zup.beagle.android.context.expressionOrValueOf
 import br.com.zup.beagle.android.context.expressionOrValueOfNullable
-import br.com.zup.beagle.android.context.valueOf
 import br.com.zup.beagle.android.context.valueOfNullable
 import br.com.zup.beagle.android.utils.observeBindChanges
 import br.com.zup.beagle.android.utils.toAndroidColor
@@ -76,10 +75,7 @@ data class Text(
 
     private fun TextView.setTextWidget(text: Text, rootView: RootView) {
         observeBindChanges(rootView, this, text.text) {
-            it?.let {
-                this.text = it
-                requestLayout()
-            }
+            it?.let { this.text = it }
         }
 
         text.textColor?.let {

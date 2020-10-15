@@ -59,7 +59,7 @@ class ContextListViewActivity : AppCompatActivity() {
                 Person(
                     "John",
                     0
-                )/*,
+                ),
                 Person(
                     "Carter",
                     1
@@ -119,7 +119,7 @@ class ContextListViewActivity : AppCompatActivity() {
                 Person(
                     "Zoe",
                     15
-                )*/
+                )
             )
         ),
         key = "cpf",
@@ -138,7 +138,7 @@ class ContextListViewActivity : AppCompatActivity() {
                     )
                 ).applyStyle(
                     Style(
-                        size = Size(width = 300.unitReal(), height = 80.unitReal())
+//                        size = Size(width = 300.unitReal(), height = 80.unitReal())
                     )
                 )/*.setId("button")*/
             )

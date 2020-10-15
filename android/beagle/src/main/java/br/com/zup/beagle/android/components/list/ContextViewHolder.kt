@@ -19,6 +19,7 @@ package br.com.zup.beagle.android.components.list
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.zup.beagle.android.context.ContextComponent
 import br.com.zup.beagle.android.context.ContextData
@@ -49,6 +50,7 @@ internal class ContextViewHolder(
     private val viewsWithContext = mutableListOf<View>()
     private val directNestedRecyclers = mutableListOf<RecyclerView>()
     val directNestedImageViews = mutableListOf<ImageView>()
+    val directNestedTextViews = mutableListOf<TextView>()
     private val contextComponents = mutableListOf<ContextData>()
     val initiableWidgets = mutableListOf<OnInitiableWidget>()
 
@@ -83,6 +85,9 @@ internal class ContextViewHolder(
         }
         if (view is ImageView) {
             directNestedImageViews.add(view)
+        }
+        if (view is TextView) {
+            directNestedTextViews.add(view)
         }
         if (view !is ViewGroup) {
             return
@@ -220,7 +225,6 @@ internal class ContextViewHolder(
                 oldAdapter.iteratorName,
                 oldAdapter.key,
                 oldAdapter.viewFactory,
-                oldAdapter.orientation,
                 oldAdapter.rootView
             )
             it.swapAdapter(updatedAdapter, false)

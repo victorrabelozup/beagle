@@ -113,9 +113,6 @@ constructor(
     private var canScrollEnd = true
 
     @Transient
-    private lateinit var containerView: View
-
-    @Transient
     private lateinit var recyclerView: RecyclerView
 
     @Transient
@@ -124,13 +121,12 @@ constructor(
     @Transient
     private lateinit var listViewIdViewModel: ListViewIdViewModel
 
-    override fun getView() = containerView
+    override fun getView() = recyclerView
 
     override fun getRootView() = rootView
 
     override fun buildView(rootView: RootView, parent: View?): View {
         this.rootView = rootView
-        containerView = viewFactory.makeBeagleFlexView(rootView, style ?: Style())
         val listView = if (children.isNullOrEmpty()) {
             template?.let {
                 dataSource?.let {
@@ -140,8 +136,7 @@ constructor(
         } else {
             buildOldListView()
         }
-        (containerView as BeagleFlexView).addView(listView!!, style ?: Style())
-        return containerView
+        return listView!!
     }
 
     @Deprecated(message = "It was deprecated in version x.x and will be removed in a future version. " +
@@ -213,7 +208,6 @@ constructor(
             iteratorName,
             key,
             viewFactory,
-            orientation,
             rootView
         )
         recyclerView.apply {
@@ -225,7 +219,7 @@ constructor(
     }
 
     private fun configDataSourceObserver() {
-        observeBindChanges(rootView, containerView, dataSource!!) { value ->
+        observeBindChanges(rootView, recyclerView, dataSource!!) { value ->
             canScrollEnd = true
             val adapter = recyclerView.adapter as ListViewContextAdapter
             adapter.setList(value, recyclerView.id)
@@ -250,7 +244,7 @@ constructor(
         onScrollEnd?.let {
             if (canCallOnScrollEnd()) {
                 it.forEach { action ->
-                    action.execute(rootView, containerView)
+                    action.execute(rootView, recyclerView)
                 }
                 canScrollEnd = false
             }

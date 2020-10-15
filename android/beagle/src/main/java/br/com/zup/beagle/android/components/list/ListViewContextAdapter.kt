@@ -47,7 +47,6 @@ internal class ListViewContextAdapter(
     val iteratorName: String,
     val key: String? = null,
     val viewFactory: ViewFactory,
-    val orientation: Int,
     val rootView: RootView
 ) : RecyclerView.Adapter<ContextViewHolder>() {
 
@@ -94,18 +93,11 @@ internal class ListViewContextAdapter(
         )
     }
 
-    private fun generateView(newTemplate: ServerDrivenComponent) = viewFactory.makeBeagleFlexView(
-        rootView,
-        Style(flex = Flex(flexDirection = flexDirection()))
-    ).apply {
+    private fun generateView(newTemplate: ServerDrivenComponent) = viewFactory.makeBeagleFlexView(rootView).apply {
         setIsAutoGenerateIdEnabled(false)
         addServerDrivenComponent(newTemplate, this, false)
         setWidthAutoAndDirtyAllViews()
     }
-
-    private fun flexDirection() = if (isOrientationVertical()) FlexDirection.COLUMN else FlexDirection.ROW
-
-    private fun isOrientationVertical() = (orientation == RecyclerView.VERTICAL)
 
     override fun onBindViewHolder(holder: ContextViewHolder, position: Int) {
         val listId = getListIdByKey(position)
@@ -197,6 +189,9 @@ internal class ListViewContextAdapter(
                 holder.setIsRecyclable(false)
             }
             manageHolderCompletelyInitializedStatus(holder)
+        }
+        holder.directNestedTextViews.forEach {
+            it.requestLayout()
         }
     }
 
