@@ -18,7 +18,7 @@ package br.com.zup.beagle.automatedTests.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import br.com.zup.beagle.android.view.BeagleActivity
+import br.com.zup.beagle.android.utils.newServerDrivenIntent
 import br.com.zup.beagle.android.view.ScreenRequest
 import br.com.zup.beagle.automatedTests.R
 
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val url = bffUrl()
-        val intent = BeagleActivity.newIntent(this, ScreenRequest(url))
+        val intent = this.newServerDrivenIntent<AppBeagleActivity>(ScreenRequest(url))
         startActivity(intent)
         finish()
     }
