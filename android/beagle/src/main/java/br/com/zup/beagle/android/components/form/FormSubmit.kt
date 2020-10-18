@@ -45,8 +45,8 @@ data class FormSubmit(
     @Transient
     private val viewRendererFactory: ViewRendererFactory = ViewRendererFactory()
 
-    override fun buildView(rootView: RootView, parent: View?): View {
-        return viewRendererFactory.make(child).build(rootView, parent).apply {
+    override fun buildView(rootView: RootView): View {
+        return viewRendererFactory.make(child).build(rootView).apply {
             beagleComponent = this@FormSubmit
         }
     }

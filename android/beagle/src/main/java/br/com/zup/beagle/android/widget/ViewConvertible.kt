@@ -26,5 +26,5 @@ interface ViewConvertible : ServerDrivenComponent {
     /**
      * This function is called to convert your server-driven component to a UI View in Android
      */
-    fun buildView(rootView: RootView, parent: View?): View
+    fun buildView(rootView: RootView): View
 }

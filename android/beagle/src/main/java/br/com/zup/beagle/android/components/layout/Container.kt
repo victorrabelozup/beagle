@@ -58,18 +58,18 @@ data class Container(
 
     override fun getRootView() = rootView
 
-    override fun buildView(rootView: RootView, parent: View?): View {
+    override fun buildView(rootView: RootView): View {
         this.rootView = rootView
         view = viewFactory.makeBeagleFlexView(rootView, style ?: Style())
         handleOnInit()
         return view.apply {
-            addChildren(this as BeagleFlexView, parent)
+            addChildren(this as BeagleFlexView)
         }
     }
 
-    private fun addChildren(beagleFlexView: BeagleFlexView, parent: View?) {
+    private fun addChildren(beagleFlexView: BeagleFlexView) {
         children.forEach { child ->
-            beagleFlexView.addServerDrivenComponent(child, parent)
+            beagleFlexView.addServerDrivenComponent(child)
         }
     }
 }

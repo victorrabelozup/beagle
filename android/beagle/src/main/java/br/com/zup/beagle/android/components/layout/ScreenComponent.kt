@@ -51,12 +51,12 @@ internal data class ScreenComponent(
     @Transient
     private val toolbarManager: ToolbarManager = ToolbarManager()
 
-    override fun buildView(rootView: RootView, parent: View?): View {
+    override fun buildView(rootView: RootView): View {
         val container = viewFactory.makeBeagleFlexView(rootView, Style(flex = Flex(grow = 1.0)))
 
         addNavigationBarIfNecessary(rootView, navigationBar, container)
 
-        container.addServerDrivenComponent(child, parent)
+        container.addServerDrivenComponent(child)
 
         screenAnalyticsEvent?.let {
             container.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {

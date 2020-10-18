@@ -35,7 +35,7 @@ data class Input(
     val onTextChange: List<Action>? = null
 ) : WidgetView() {
 
-    override fun buildView(rootView: RootView, parent: View?) = EditText(rootView.getContext()).apply {
+    override fun buildView(rootView: RootView) = EditText(rootView.getContext()).apply {
         setTextColor(Color.BLACK)
         setHintTextColor(Color.BLACK)
         doOnTextChanged { newText, _, _, _ ->

@@ -33,7 +33,7 @@ internal class UndefinedWidget : InputWidget(), PageIndicatorComponent {
     private val viewFactory: ViewFactory = ViewFactory()
 
     @SuppressLint("SetTextI18n")
-    override fun buildView(rootView: RootView, parent: View?): View {
+    override fun buildView(rootView: RootView): View {
         return if (BeagleEnvironment.beagleSdk.config.environment == Environment.DEBUG) {
             viewFactory.makeTextView(rootView.getContext()).apply {
                 text = "undefined component"

@@ -64,7 +64,7 @@ data class TabView(
     @Transient
     private val viewFactory: ViewFactory = ViewFactory()
 
-    override fun buildView(rootView: RootView, parent: View?): View {
+    override fun buildView(rootView: RootView): View {
         val containerFlex = Style(flex = Flex(grow = 1.0))
 
         val container = viewFactory.makeBeagleFlexView(rootView, containerFlex)
@@ -184,7 +184,7 @@ internal class ContentAdapter(
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val view = viewFactory.makeBeagleFlexView(rootView).also {
-            it.addServerDrivenComponent(children[position].child, container)
+            it.addServerDrivenComponent(children[position].child)
         }
         container.addView(view)
         return view

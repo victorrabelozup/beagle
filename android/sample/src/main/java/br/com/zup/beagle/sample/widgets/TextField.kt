@@ -44,7 +44,7 @@ data class TextField(
     @Transient
     private lateinit var textFieldView: EditText
 
-    override fun buildView(rootView: RootView, parent: View?) = EditText(rootView.getContext()).apply {
+    override fun buildView(rootView: RootView) = EditText(rootView.getContext()).apply {
         textFieldView = this
         bind(this@TextField)
 

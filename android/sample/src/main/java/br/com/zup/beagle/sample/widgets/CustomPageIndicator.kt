@@ -46,7 +46,7 @@ data class CustomPageIndicator(
         customPageIndicatorView.setCount(pages)
     }
 
-    override fun buildView(rootView: RootView, parent: View?) = CustomPageIndicatorView(rootView.getContext()).apply {
+    override fun buildView(rootView: RootView) = CustomPageIndicatorView(rootView.getContext()).apply {
         customPageIndicatorView = this
         setIndexChangedListener { index ->
             output.swapToPage(index)

@@ -58,6 +58,8 @@ internal class ListViewContextAdapter(
     // Recyclerview id for post config changes id management
     private var recyclerId = View.NO_ID
 
+    private var parentListViewSuffix: String? = null
+
     // Serializer to provide new template instances
     private val serializer = BeagleSerializer()
 
@@ -79,6 +81,10 @@ internal class ListViewContextAdapter(
     // Each access generate a new instance of the template to avoid reference conflict
     private val templateJson = serializer.serializeComponent(template)
 
+    fun setParentSuffix(itemSuffix: String) {
+        parentListViewSuffix = itemSuffix
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContextViewHolder {
         val newTemplate = serializer.deserializeComponent(templateJson)
         val view = generateView(newTemplate)
@@ -95,24 +101,18 @@ internal class ListViewContextAdapter(
 
     private fun generateView(newTemplate: ServerDrivenComponent) = viewFactory.makeBeagleFlexView(rootView).apply {
         setIsAutoGenerateIdEnabled(false)
-        addServerDrivenComponent(newTemplate, this, false)
+        addServerDrivenComponent(newTemplate, false)
         setWidthAutoAndDirtyAllViews()
     }
 
     override fun onBindViewHolder(holder: ContextViewHolder, position: Int) {
-        val listId = getListIdByKey(position)
         val isRecycled = recycledViewHolders.contains(holder)
         // Handle context, ids and direct nested adapters
-        holder.onBind(listId, adapterItems[position], isRecycled, position, recyclerId)
+        holder.onBind(parentListViewSuffix, key, adapterItems[position], isRecycled, position, recyclerId)
         // Handle widgets with onInit
         if (!adapterItems[position].completelyInitialized) {
             handleInitiableWidgets(holder, isRecycled)
         }
-    }
-
-    private fun getListIdByKey(position: Int): String {
-        val listId = key?.let { ((adapterItems[position].data) as JSONObject).safeGet(it) } ?: position
-        return listId.toString()
     }
 
     private fun handleInitiableWidgets(holder: ContextViewHolder, shouldRerunOnInit: Boolean = false) {

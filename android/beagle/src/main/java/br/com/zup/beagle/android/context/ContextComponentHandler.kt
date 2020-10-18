@@ -32,25 +32,11 @@ internal class ContextComponentHandler {
 
     fun handleComponent(
         builtView: View,
-        rootView: RootView,
         viewModel: ScreenContextViewModel,
-        component: ServerDrivenComponent,
-        parent: View?
+        component: ServerDrivenComponent
     ) {
-        setIdToHandleContext(builtView, rootView, parent)
         addListenerToHandleContext(viewModel, builtView)
         addContext(viewModel, builtView, component)
-    }
-
-    private fun setIdToHandleContext(builtView: View, rootView: RootView, parent: View?) {
-        if (builtView.id == View.NO_ID && parent?.isAutoGenerateIdEnabled() != false) {
-            val generateIdViewModel = rootView.generateViewModelInstance<GenerateIdViewModel>()
-            builtView.id = try {
-                generateIdViewModel.getViewId(rootView.getParentId())
-            } catch (exception: Exception) {
-                View.generateViewId()
-            }
-        }
     }
 
     private fun addListenerToHandleContext(viewModel: ScreenContextViewModel, view: View) {

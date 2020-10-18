@@ -107,7 +107,7 @@ data class TextInput(
     @Transient
     private var textWatcher: TextWatcher? = null
 
-    override fun buildView(rootView: RootView, parent: View?): View = viewFactory.makeInputText(
+    override fun buildView(rootView: RootView): View = viewFactory.makeInputText(
         rootView.getContext(),
         styleManagerFactory.getInputTextStyle(styleId)
     ).apply {

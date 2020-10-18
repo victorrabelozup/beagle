@@ -113,6 +113,9 @@ constructor(
     private var canScrollEnd = true
 
     @Transient
+    private var setupRecyclerCalled = false
+
+    @Transient
     private lateinit var recyclerView: RecyclerView
 
     @Transient
@@ -125,7 +128,7 @@ constructor(
 
     override fun getRootView() = rootView
 
-    override fun buildView(rootView: RootView, parent: View?): View {
+    override fun buildView(rootView: RootView): View {
         this.rootView = rootView
         val listView = if (children.isNullOrEmpty()) {
             template?.let {
@@ -159,6 +162,16 @@ constructor(
         recyclerView = viewFactory.makeRecyclerView(rootView.getContext())
 
         val orientation = listDirectionToRecyclerViewOrientation()
+        recyclerView.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+            override fun onViewAttachedToWindow(v: View?) {
+                if (!setupRecyclerCalled) {
+
+                    setupRecyclerCalled = true
+                }
+            }
+
+            override fun onViewDetachedFromWindow(v: View?) {}
+        })
         setupRecyclerView(orientation)
         configDataSourceObserver()
         configRecyclerViewScrollListener()
@@ -184,7 +197,7 @@ constructor(
                 val width = if (orientation == RecyclerView.VERTICAL) MATCH_PARENT else WRAP_CONTENT
                 val layoutParams = ViewGroup.LayoutParams(width, WRAP_CONTENT)
                 it.layoutParams = layoutParams
-                it.addServerDrivenComponent(children[position], parent)
+                it.addServerDrivenComponent(children[position])
             }
             return ViewHolder(view)
         }

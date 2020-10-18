@@ -73,8 +73,8 @@ object ListViewScreenBuilder {
         direction = ListDirection.VERTICAL,
         template = Container(
             children = listOf(
-                Text(text = expressionOf("@{item}")).setId("text")/*,
-                list.setId("insideList")*/
+                Text(text = expressionOf("@{item}")).setId("text"),
+                list.setId("insideList")
             )
         ).applyStyle(
             Style(

@@ -54,7 +54,7 @@ data class Image constructor(
     @Transient
     private val viewFactory = ViewFactory()
 
-    override fun buildView(rootView: RootView, parent: View?): View {
+    override fun buildView(rootView: RootView): View {
         val imageView: RoundedImageView = getImageView(rootView)
 
         observeBindChanges(rootView, imageView, path) { pathType ->

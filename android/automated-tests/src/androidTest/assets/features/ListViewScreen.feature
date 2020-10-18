@@ -24,21 +24,22 @@ Feature: ListView Component Validation
     Background:
         Given that I'm on the listView screen with id list
 
-    Scenario Outline: ListView 01 - listView component renders all items
-        Then listView at <position> renders view with <id> and <text>
+#    Scenario Outline: ListView 01 - listView component renders all items
+#        Then listView at <position> renders view with <id> and <text>
+#
+#        Examples:
+#            | position | id     | text      |
+#            | 0        | text:0 | 1 OUTSIDE |
+#            | 1        | text:1 | 2 OUTSIDE |
+#            | 2        | text:2 | 3 OUTSIDE |
+#            | 3        | text:3 | 4 OUTSIDE |
+#            | 4        | text:4 | 5 OUTSIDE |
+#            | 5        | text:5 | 6 OUTSIDE |
+#            | 6        | text:6 | 7 OUTSIDE |
+#            | 7        | text:7 | 8 OUTSIDE |
 
-        Examples:
-            | position | id     | text      |
-            | 0        | text:0 | 1 OUTSIDE |
-            | 1        | text:1 | 2 OUTSIDE |
-            | 2        | text:2 | 3 OUTSIDE |
-            | 3        | text:3 | 4 OUTSIDE |
-            | 4        | text:4 | 5 OUTSIDE |
-            | 5        | text:5 | 6 OUTSIDE |
-            | 6        | text:6 | 7 OUTSIDE |
-            | 7        | text:7 | 8 OUTSIDE |
-
-#    Scenario: ListView 02 - listView component renders all items
+    Scenario: ListView 02 - listView component renders all items
+        Then listView screen should render all items correctly
 #
 #    Scenario: ListView 01 - listView component renders all items
 #

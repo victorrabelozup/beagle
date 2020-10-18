@@ -30,7 +30,7 @@ data class MutableText(
     val color: String = "#000000"
 ): WidgetView() {
 
-    override fun buildView(rootView: RootView, parent: View?) = TextView(rootView.getContext()).apply {
+    override fun buildView(rootView: RootView) = TextView(rootView.getContext()).apply {
         val color = Color.parseColor(color)
         text = firstText
         setTextColor(color)

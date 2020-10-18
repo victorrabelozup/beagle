@@ -24,7 +24,9 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.zup.beagle.android.context.ContextComponent
 import br.com.zup.beagle.android.context.ContextData
 import br.com.zup.beagle.android.data.serializer.BeagleSerializer
+import br.com.zup.beagle.android.utils.COMPONENT_NO_ID
 import br.com.zup.beagle.android.utils.getContextData
+import br.com.zup.beagle.android.utils.safeGet
 import br.com.zup.beagle.android.utils.toAndroidId
 import br.com.zup.beagle.android.view.viewmodel.ListViewIdViewModel
 import br.com.zup.beagle.android.view.viewmodel.ScreenContextViewModel
@@ -33,6 +35,7 @@ import br.com.zup.beagle.core.IdentifierComponent
 import br.com.zup.beagle.core.MultiChildComponent
 import br.com.zup.beagle.core.ServerDrivenComponent
 import br.com.zup.beagle.core.SingleChildComponent
+import org.json.JSONObject
 import java.util.LinkedList
 
 @Suppress("LongParameterList")
@@ -67,7 +70,9 @@ internal class ContextViewHolder(
         }
         (component as? IdentifierComponent)?.let {
             component.id?.let { id ->
-                viewsWithId.put(id, itemView.findViewById(id.toAndroidId()))
+                if (id != COMPONENT_NO_ID) {
+                    viewsWithId[id] = itemView.findViewById(id.toAndroidId())
+                }
             }
         }
         if (component is SingleChildComponent) {
@@ -104,7 +109,8 @@ internal class ContextViewHolder(
 
     // For each item on the list
     fun onBind(
-        listId: String,
+        parentListViewSuffix: String?,
+        key: String?,
         beagleAdapterItem: BeagleAdapterItem,
         isRecycled: Boolean,
         position: Int,
@@ -122,8 +128,10 @@ internal class ContextViewHolder(
         initializeContextComponents(newTemplate)
         // Checks whether views with ids and context have been updated based on the key and updates or restore them
         if (beagleAdapterItem.firstTimeBinding) {
+            // Generates an suffix identifier based on the parent's suffix, key and item position
+            generateItemSuffix(parentListViewSuffix, key, beagleAdapterItem, position)
             // Since the context needs unique id references for each view, we update them here
-            updateIdToEachSubView(listId, beagleAdapterItem, isRecycled, position, recyclerId)
+            updateIdToEachSubView(beagleAdapterItem, isRecycled, position, recyclerId)
             // If the holder is being recycled
             if (isRecycled) {
                 // We set the template's default contexts for each view with context
@@ -132,8 +140,10 @@ internal class ContextViewHolder(
                 generateAdapterToEachDirectNestedRecycler(beagleAdapterItem)
             } else {
                 // When this item is not recycled, we simply recover your current adapters
-                useCreatedAdapterToEachDirectNestedRecycler(beagleAdapterItem)
+                saveCreatedAdapterToEachDirectNestedRecycler(beagleAdapterItem)
             }
+            // We generate the suffix based on the key and/or position and inform the adapters directly nested
+            updateDirectNestedAdaptersSuffix(beagleAdapterItem)
         } else {
             // But if that item on the list already has ids created, we retrieve them
             restoreIds(beagleAdapterItem)
@@ -163,8 +173,47 @@ internal class ContextViewHolder(
         }
     }
 
+    private fun generateItemSuffix(
+        parentListViewSuffix: String?,
+        key: String?,
+        beagleAdapterItem: BeagleAdapterItem,
+        position: Int
+    ) {
+        if (beagleAdapterItem.itemSuffix.isEmpty()) {
+            val listIdByItemKey = getSuffixByItemIdAndParentId(parentListViewSuffix, key, beagleAdapterItem, position)
+            beagleAdapterItem.itemSuffix = listIdByItemKey
+        }
+    }
+
+    private fun getSuffixByItemIdAndParentId(
+        parentListViewSuffix: String?,
+        key: String?,
+        beagleAdapterItem: BeagleAdapterItem,
+        position: Int
+    ): String {
+        return if (parentListViewSuffix.isNullOrEmpty()) {
+            getListIdByKey(key, beagleAdapterItem, position)
+        } else {
+            "$parentListViewSuffix:" + getListIdByKey(key, beagleAdapterItem, position)
+        }
+    }
+
+    private fun getListIdByKey(
+        key: String?,
+        beagleAdapterItem: BeagleAdapterItem,
+        position: Int
+    ): String {
+        val listId = key?.let { ((beagleAdapterItem.data) as JSONObject).safeGet(it) } ?: position
+        return listId.toString()
+    }
+
+    private fun updateDirectNestedAdaptersSuffix(beagleAdapterItem: BeagleAdapterItem) {
+        beagleAdapterItem.directNestedAdapters.forEach {
+            it.setParentSuffix(beagleAdapterItem.itemSuffix)
+        }
+    }
+
     private fun updateIdToEachSubView(
-        listId: String,
         beagleAdapterItem: BeagleAdapterItem,
         isRecycled: Boolean,
         position: Int,
@@ -174,7 +223,7 @@ internal class ContextViewHolder(
         setUpdatedIdToViewAndManagers(itemView, itemViewId, beagleAdapterItem, isRecycled)
 
         viewsWithId.forEach { (id, view) ->
-            val identifierViewId = listViewIdViewModel.getViewId(recyclerId, position, id, listId)
+            val identifierViewId = listViewIdViewModel.getViewId(recyclerId, position, id, beagleAdapterItem.itemSuffix)
             setUpdatedIdToViewAndManagers(view, identifierViewId, beagleAdapterItem, isRecycled)
         }
 
@@ -232,7 +281,7 @@ internal class ContextViewHolder(
         }
     }
 
-    private fun useCreatedAdapterToEachDirectNestedRecycler(beagleAdapterItem: BeagleAdapterItem) {
+    private fun saveCreatedAdapterToEachDirectNestedRecycler(beagleAdapterItem: BeagleAdapterItem) {
         directNestedRecyclers.forEach {
             beagleAdapterItem.directNestedAdapters.add(it.adapter as ListViewContextAdapter)
         }

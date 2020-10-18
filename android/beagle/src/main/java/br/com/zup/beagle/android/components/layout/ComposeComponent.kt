@@ -33,9 +33,9 @@ abstract class ComposeComponent : WidgetView() {
     @Transient
     private val viewFactory = ViewFactory()
 
-    override fun buildView(rootView: RootView, parent: View?): View {
+    override fun buildView(rootView: RootView): View {
         return viewFactory.makeBeagleFlexView(rootView).apply {
-            addServerDrivenComponent(build(), parent)
+            addServerDrivenComponent(build())
         }
     }
 

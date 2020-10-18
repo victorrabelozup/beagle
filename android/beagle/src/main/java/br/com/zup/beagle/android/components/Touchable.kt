@@ -48,9 +48,9 @@ data class Touchable(
     @Transient
     private val viewRendererFactory: ViewRendererFactory = ViewRendererFactory()
 
-    override fun buildView(rootView: RootView, parent: View?): View {
+    override fun buildView(rootView: RootView): View {
         preFetchHelper.handlePreFetch(rootView, onPress)
-        return viewRendererFactory.make(child).build(rootView, parent).apply {
+        return viewRendererFactory.make(child).build(rootView).apply {
             setOnClickListener {
                 handleEvent(rootView, this, onPress)
                 clickAnalyticsEvent?.let {

@@ -20,14 +20,22 @@ import android.annotation.SuppressLint
 import android.view.View
 import br.com.zup.beagle.android.engine.mapper.FlexMapper
 import br.com.zup.beagle.android.engine.renderer.ViewRendererFactory
+import br.com.zup.beagle.android.utils.GenerateIdManager
 import br.com.zup.beagle.android.utils.generateViewModelInstance
+import br.com.zup.beagle.android.utils.isAutoGenerateIdEnabled
 import br.com.zup.beagle.android.view.YogaLayout
+import br.com.zup.beagle.android.view.viewmodel.GenerateIdViewModel
 import br.com.zup.beagle.android.view.viewmodel.ScreenContextViewModel
 import br.com.zup.beagle.android.widget.RootView
+import br.com.zup.beagle.android.widget.WidgetView
 import br.com.zup.beagle.core.GhostComponent
+import br.com.zup.beagle.core.IdentifierComponent
+import br.com.zup.beagle.core.MultiChildComponent
 import br.com.zup.beagle.core.ServerDrivenComponent
+import br.com.zup.beagle.core.SingleChildComponent
 import br.com.zup.beagle.core.Style
 import br.com.zup.beagle.core.StyleComponent
+import br.com.zup.beagle.ext.setId
 import com.facebook.yoga.YogaNodeJNIBase
 
 @SuppressLint("ViewConstructor")
@@ -36,7 +44,8 @@ internal open class BeagleFlexView(
     style: Style,
     private val flexMapper: FlexMapper = FlexMapper(),
     private val viewRendererFactory: ViewRendererFactory = ViewRendererFactory(),
-    private val viewModel: ScreenContextViewModel = rootView.generateViewModelInstance()
+    private val viewModel: ScreenContextViewModel = rootView.generateViewModelInstance(),
+    private val generateIdManager: GenerateIdManager = GenerateIdManager(rootView)
 ) : YogaLayout(rootView.getContext(), flexMapper.makeYogaNode(style)) {
 
     constructor(rootView: RootView, flexMapper: FlexMapper = FlexMapper()) : this(rootView, Style(), flexMapper)
@@ -49,7 +58,6 @@ internal open class BeagleFlexView(
 
     fun addServerDrivenComponent(
         serverDrivenComponent: ServerDrivenComponent,
-        parent: View?,
         addLayoutChangeListener: Boolean = true
     ) {
         val component = if (serverDrivenComponent is GhostComponent) {
@@ -57,8 +65,11 @@ internal open class BeagleFlexView(
         } else {
             serverDrivenComponent
         }
+        generateIdManager.manageId(component, this)
+
         val style = (component as? StyleComponent)?.style ?: Style()
-        val view = viewRendererFactory.make(serverDrivenComponent).build(rootView, parent)
+        val view = viewRendererFactory.make(serverDrivenComponent).build(rootView)
+
         if (addLayoutChangeListener) {
             view.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
                 (yogaNode as YogaNodeJNIBase).dirtyAllDescendants()

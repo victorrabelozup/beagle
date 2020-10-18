@@ -66,7 +66,7 @@ data class Text(
     @Transient
     private val viewFactory = ViewFactory()
 
-    override fun buildView(rootView: RootView, parent: View?): View {
+    override fun buildView(rootView: RootView): View {
         val textView = viewFactory.makeTextView(rootView.getContext(), styleManagerFactory.getTextStyle(styleId))
 
         textView.setTextWidget(this, rootView)

@@ -31,15 +31,15 @@ internal abstract class ViewRenderer<T : ServerDrivenComponent>(
 ) {
     abstract val component: T
 
-    fun build(rootView: RootView, parent: View?): View {
+    fun build(rootView: RootView): View {
         val viewModel = rootView.generateViewModelInstance<ScreenContextViewModel>()
-        val builtView = buildView(rootView, parent)
+        val builtView = buildView(rootView)
         componentStylization.apply(builtView, component)
-        contextComponentHandler.handleComponent(builtView, rootView, viewModel, component, parent)
+        contextComponentHandler.handleComponent(builtView, viewModel, component)
         return builtView
     }
 
-    abstract fun buildView(rootView: RootView, parent: View?): View
+    abstract fun buildView(rootView: RootView): View
 }
 
 internal class ViewRendererFactory {

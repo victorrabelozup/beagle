@@ -57,7 +57,7 @@ class PageIndicator(
     @Transient
     private lateinit var pageIndicator: BeaglePageIndicatorView
 
-    override fun buildView(rootView: RootView, parent: View?) =
+    override fun buildView(rootView: RootView) =
         viewFactory.makePageIndicator(rootView.getContext()).apply {
             pageIndicator = this
             setSelectedColor(Color.parseColor(selectedColor))

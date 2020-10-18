@@ -17,6 +17,12 @@
 package br.com.zup.beagle.automatedTests.cucumber.steps
 
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.rule.ActivityTestRule
 import br.com.zup.beagle.android.utils.toAndroidId
 import br.com.zup.beagle.automatedTests.activity.MainActivity
@@ -62,7 +68,10 @@ class ListViewScreenSteps {
 
     @Then("^listView screen should render all items correctly$")
     fun checkListViewScreenItems() {
-        ScreenRobot().checkListSize("list", 20)
+//        ScreenRobot().checkListSize("list", 20)
+        ScreenRobot().scrollToPosition(listId, 19)
+        onView(withId("insideList:19".toAndroidId())).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(15))
+        onView(withId("buttonInside:19:15".toAndroidId())).check(matches(withText("Zoe - 15")))
     }
 
     @Then("^listView at (.*) renders view with (.*) and (.*)$")

@@ -65,11 +65,11 @@ internal class ListViewIdViewModel : ViewModel() {
         }
     }
 
-    fun getViewId(recyclerViewId: Int, position: Int, componentId: String, listComponentId: String): Int {
+    fun getViewId(recyclerViewId: Int, position: Int, componentId: String, itemSuffix: String): Int {
         require(recyclerViewId != View.NO_ID) { NO_ID_RECYCLER }
         val listViewManager = retrieveManager(recyclerViewId, position)
         return pollOrGenerateANewId(recyclerViewId, position) {
-            generateNewViewId(listViewManager, position, componentId, listComponentId)
+            generateNewViewId(listViewManager, position, componentId, itemSuffix)
         }
     }
 
@@ -104,9 +104,9 @@ internal class ListViewIdViewModel : ViewModel() {
         localListView: LocalListView,
         position: Int,
         componentId: String,
-        listComponentId: String
+        itemSuffix: String
     ): Int {
-        val id = "$componentId:$listComponentId".toAndroidId()
+        val id = "$componentId:$itemSuffix".toAndroidId()
         addIdToLocalListView(localListView, position, id)
         return id
     }

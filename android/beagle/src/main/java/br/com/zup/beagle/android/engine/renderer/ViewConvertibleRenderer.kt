@@ -21,7 +21,7 @@ import br.com.zup.beagle.android.widget.RootView
 import br.com.zup.beagle.android.widget.ViewConvertible
 
 internal class ViewConvertibleRenderer(override val component: ViewConvertible) : ViewRenderer<ViewConvertible>() {
-    override fun buildView(rootView: RootView, parent: View?): View {
-        return component.buildView(rootView, parent)
+    override fun buildView(rootView: RootView): View {
+        return component.buildView(rootView)
     }
 }

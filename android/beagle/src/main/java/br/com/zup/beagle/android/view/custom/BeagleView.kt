@@ -111,11 +111,11 @@ internal class BeagleView(
                 (component as? OnStateUpdatable<ServerDrivenComponent>)?.onUpdateState(component)
             } else {
                 removeView(view)
-                addServerDrivenComponent(component, null)
+                addServerDrivenComponent(component)
             }
         } else {
             removeAllViewsInLayout()
-            addServerDrivenComponent(component, null)
+            addServerDrivenComponent(component)
             loadCompletedListener?.invoke()
         }
     }

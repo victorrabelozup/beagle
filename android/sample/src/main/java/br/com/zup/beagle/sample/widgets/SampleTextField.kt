@@ -35,7 +35,7 @@ data class SampleTextField(val placeholder: String = "") : InputWidget() {
         textFieldView.error = message
     }
 
-    override fun buildView(rootView: RootView, parent: View?) = EditText(rootView.getContext()).apply {
+    override fun buildView(rootView: RootView) = EditText(rootView.getContext()).apply {
         textFieldView = this
 
         textFieldView.isSingleLine = true

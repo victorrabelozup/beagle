@@ -70,7 +70,7 @@ data class TabBar(
     @Transient
     private val viewFactory: ViewFactory = ViewFactory()
 
-    override fun buildView(rootView: RootView, parent: View?): View {
+    override fun buildView(rootView: RootView): View {
         val containerFlex = Style(flex = Flex(grow = 1.0))
 
         val container = viewFactory.makeBeagleFlexView(rootView, containerFlex)

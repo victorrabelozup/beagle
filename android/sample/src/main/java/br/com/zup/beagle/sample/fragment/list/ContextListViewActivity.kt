@@ -30,9 +30,9 @@ import br.com.zup.beagle.android.context.expressionOf
 import br.com.zup.beagle.android.utils.toView
 import br.com.zup.beagle.core.Style
 import br.com.zup.beagle.ext.applyStyle
+import br.com.zup.beagle.ext.setId
 import br.com.zup.beagle.ext.unitPercent
 import br.com.zup.beagle.ext.unitReal
-import br.com.zup.beagle.widget.core.Flex
 import br.com.zup.beagle.widget.core.ListDirection
 import br.com.zup.beagle.widget.core.Size
 
@@ -138,11 +138,11 @@ class ContextListViewActivity : AppCompatActivity() {
                     )
                 ).applyStyle(
                     Style(
-//                        size = Size(width = 300.unitReal(), height = 80.unitReal())
+                        size = Size(width = 300.unitReal(), height = 80.unitReal())
                     )
-                )/*.setId("button")*/
+                ).setId("button")
             )
-        )/*.setId("container")*/
+        ).setId("container")
     ).applyStyle(
         Style(
             backgroundColor = "#CCC"
@@ -153,9 +153,9 @@ class ContextListViewActivity : AppCompatActivity() {
         context = ContextData(
             id = "outsideContext",
             value = listOf("0 OUTSIDE", "1 OUTSIDE", "2 OUTSIDE", "3 OUTSIDE", "4 OUTSIDE", "5 OUTSIDE",
-                "6 OUTSIDE"/*, "7 OUTSIDE", "8 OUTSIDE", "9 OUTSIDE", "10 OUTSIDE",
+                "6 OUTSIDE", "7 OUTSIDE", "8 OUTSIDE", "9 OUTSIDE", "10 OUTSIDE",
                 "11 OUTSIDE", "12 OUTSIDE", "13 OUTSIDE", "14 OUTSIDE", "15 OUTSIDE",
-                "16 OUTSIDE", "17 OUTSIDE", "18 OUTSIDE", "19 OUTSIDE", "20 OUTSIDE"*/)
+                "16 OUTSIDE", "17 OUTSIDE", "18 OUTSIDE", "19 OUTSIDE", "20 OUTSIDE")
         ),
         dataSource = expressionOf("@{outsideContext}"),
         direction = ListDirection.VERTICAL,

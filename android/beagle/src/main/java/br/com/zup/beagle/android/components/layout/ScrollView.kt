@@ -50,7 +50,7 @@ data class ScrollView(
     @Transient
     private val viewFactory: ViewFactory = ViewFactory()
 
-    override fun buildView(rootView: RootView, parent: View?): View {
+    override fun buildView(rootView: RootView): View {
         val scrollDirection = scrollDirection ?: ScrollAxis.VERTICAL
         val scrollBarEnabled = scrollBarEnabled ?: true
 
@@ -68,13 +68,13 @@ data class ScrollView(
             addView(if (scrollDirection == ScrollAxis.HORIZONTAL) {
                 viewFactory.makeHorizontalScrollView(context).apply {
                     isHorizontalScrollBarEnabled = scrollBarEnabled
-                    addChildrenViews(this, children, rootView, styleChild, parent)
+                    addChildrenViews(this, children, rootView, styleChild)
                 }
             } else {
 
                 viewFactory.makeScrollView(context).apply {
                     isVerticalScrollBarEnabled = scrollBarEnabled
-                    addChildrenViews(this, children, rootView, styleChild, parent)
+                    addChildrenViews(this, children, rootView, styleChild)
                 }
 
             }, styleParent)
@@ -85,13 +85,12 @@ data class ScrollView(
         scrollView: ViewGroup,
         children: List<ServerDrivenComponent>,
         rootView: RootView,
-        styleChild: Style,
-        parent: View?
+        styleChild: Style
     ) {
         val viewGroup = viewFactory.makeBeagleFlexView(rootView, styleChild)
 
         children.forEach { component ->
-            viewGroup.addServerDrivenComponent(component, parent, false)
+            viewGroup.addServerDrivenComponent(component, false)
         }
 
         scrollView.addView(viewGroup)
