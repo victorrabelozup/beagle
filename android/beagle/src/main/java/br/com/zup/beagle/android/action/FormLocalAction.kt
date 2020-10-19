@@ -43,12 +43,12 @@ import br.com.zup.beagle.android.widget.RootView
 data class FormLocalAction(
     val name: String,
     val data: Map<String, String>
-) : Action {
+) : AsyncAction() {
 
     @Transient
     var formLocalActionHandler: FormLocalActionHandler? = BeagleEnvironment.beagleSdk.formLocalActionHandler
 
-    override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
+    override fun execute(rootView: RootView, origin: View) {
         formLocalActionHandler?.handle(rootView.getContext(), this, object : ActionListener {
 
             override fun onSuccess(action: Action) {

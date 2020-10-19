@@ -38,7 +38,7 @@ internal class FormValidation(
     @Transient
     var formInputs: List<FormInput>? = null
 
-    override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
+    override fun execute(rootView: RootView, origin: View) {
         errors.forEach { error ->
             val formInput = formInputs?.find {
                 it.name == error.inputName
@@ -47,8 +47,6 @@ internal class FormValidation(
 
             childInputWidget?.onErrorMessage(error.message)
         }
-
-        listener?.onActionFinished(this)
     }
 }
 

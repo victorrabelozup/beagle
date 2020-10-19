@@ -124,10 +124,6 @@ constructor(
     @Transient
     private lateinit var listViewIdViewModel: ListViewIdViewModel
 
-    override fun getView() = recyclerView
-
-    override fun getRootView() = rootView
-
     override fun buildView(rootView: RootView): View {
         this.rootView = rootView
         val listView = if (children.isNullOrEmpty()) {
@@ -175,7 +171,7 @@ constructor(
         setupRecyclerView(orientation)
         configDataSourceObserver()
         configRecyclerViewScrollListener()
-        handleOnInit()
+        handleOnInit(rootView, recyclerView)
 
         return recyclerView
     }

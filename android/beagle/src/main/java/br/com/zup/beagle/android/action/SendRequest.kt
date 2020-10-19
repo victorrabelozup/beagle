@@ -87,7 +87,7 @@ data class SendRequest(
     val onSuccess: List<Action>? = null,
     val onError: List<Action>? = null,
     val onFinish: List<Action>? = null
-) : Action {
+) : AsyncAction() {
 
     constructor(
         url: String,
@@ -107,19 +107,18 @@ data class SendRequest(
         onFinish
     )
 
-    override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
+    override fun execute(rootView: RootView, origin: View) {
         val viewModel = rootView.generateViewModelInstance<ActionRequestViewModel>()
         val setContext = toSendRequestInternal(rootView, origin)
-        viewModel.fetch(setContext).observe(rootView.getLifecycleOwner(), Observer { state ->
-            executeActions(rootView, state, origin, listener)
+        viewModel.fetch(setContext).observe(rootView.getLifecycleOwner(), { state ->
+            executeActions(rootView, state, origin)
         })
     }
 
     private fun executeActions(
         rootView: RootView,
         state: FetchViewState,
-        origin: View,
-        listener: OnActionFinished?
+        origin: View
     ) {
         onFinish?.let {
             handleEvent(rootView, origin, it)

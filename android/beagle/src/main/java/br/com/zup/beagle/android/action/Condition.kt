@@ -48,7 +48,7 @@ data class Condition(
         onFalse = onFalse
     )
 
-    override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
+    override fun execute(rootView: RootView, origin: View) {
         val result = runCatching {
             evaluateExpression(rootView, origin, condition)
         }
@@ -61,6 +61,5 @@ data class Condition(
         } else {
             onFalse?.let { handleEvent(rootView, origin, it) }
         }
-        listener?.onActionFinished(this)
     }
 }

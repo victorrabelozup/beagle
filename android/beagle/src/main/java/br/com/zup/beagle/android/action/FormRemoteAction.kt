@@ -74,7 +74,7 @@ internal typealias ResultListener = (result: FormResult) -> Unit
 data class FormRemoteAction(
     val path: String,
     val method: FormMethodType
-) : Action {
+) : AsyncAction() {
 
     @Transient
     internal lateinit var formsValue: Map<String, String>
@@ -85,7 +85,7 @@ data class FormRemoteAction(
     @Transient
     private val formSubmitter: FormSubmitter = FormSubmitter()
 
-    override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
+    override fun execute(rootView: RootView, origin: View) {
         formSubmitter.submitForm(this, formsValue) {
             resultListener(it)
             listener?.onActionFinished(this)

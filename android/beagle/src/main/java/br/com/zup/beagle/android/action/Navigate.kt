@@ -34,9 +34,8 @@ sealed class Navigate : Action {
      * @param url defined route to be shown.
      */
     data class OpenExternalURL(val url: String) : Navigate() {
-        override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
+        override fun execute(rootView: RootView, origin: View) {
             BeagleNavigator.openExternalURL(rootView.getContext(), url)
-            listener?.onActionFinished(this)
         }
     }
 
@@ -52,9 +51,8 @@ sealed class Navigate : Action {
         val shouldResetApplication: Boolean = false,
         val data: Map<String, String>? = null
     ) : Navigate() {
-        override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
+        override fun execute(rootView: RootView, origin: View) {
             BeagleNavigator.openNativeRoute(rootView, route, data, shouldResetApplication)
-            listener?.onActionFinished(this)
         }
     }
 
@@ -62,9 +60,8 @@ sealed class Navigate : Action {
      * This action closes the current view stack.
      */
     class PopStack : Navigate() {
-        override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
+        override fun execute(rootView: RootView, origin: View) {
             BeagleNavigator.popStack(rootView.getContext())
-            listener?.onActionFinished(this)
         }
     }
 
@@ -72,9 +69,8 @@ sealed class Navigate : Action {
      * Action that closes the current view.
      */
     class PopView : Navigate() {
-        override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
+        override fun execute(rootView: RootView, origin: View) {
             BeagleNavigator.popView(rootView.getContext())
-            listener?.onActionFinished(this)
         }
     }
 
@@ -84,9 +80,8 @@ sealed class Navigate : Action {
      * @param route route of a screen that it's on the pile.
      */
     data class PopToView(val route: String) : Navigate() {
-        override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
+        override fun execute(rootView: RootView, origin: View) {
             BeagleNavigator.popToView(rootView.getContext(), route)
-            listener?.onActionFinished(this)
         }
     }
 
@@ -99,9 +94,8 @@ sealed class Navigate : Action {
      * deserialize the content or to a local screen already built.
      */
     data class PushView(val route: Route) : Navigate() {
-        override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
+        override fun execute(rootView: RootView, origin: View) {
             BeagleNavigator.pushView(rootView.getContext(), route.getSafe(rootView, origin))
-            listener?.onActionFinished(this)
         }
     }
 
@@ -118,9 +112,8 @@ sealed class Navigate : Action {
         val route: Route,
         val controllerId: String? = null
     ) : Navigate() {
-        override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
+        override fun execute(rootView: RootView, origin: View) {
             BeagleNavigator.pushStack(rootView.getContext(), route.getSafe(rootView, origin), controllerId)
-            listener?.onActionFinished(this)
         }
     }
 
@@ -137,9 +130,8 @@ sealed class Navigate : Action {
         val route: Route,
         val controllerId: String? = null
     ) : Navigate() {
-        override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
+        override fun execute(rootView: RootView, origin: View) {
             BeagleNavigator.resetApplication(rootView.getContext(), route.getSafe(rootView, origin), controllerId)
-            listener?.onActionFinished(this)
         }
     }
 
@@ -156,9 +148,8 @@ sealed class Navigate : Action {
         val route: Route,
         val controllerId: String? = null
     ) : Navigate() {
-        override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
+        override fun execute(rootView: RootView, origin: View) {
             BeagleNavigator.resetStack(rootView.getContext(), route.getSafe(rootView, origin), controllerId)
-            listener?.onActionFinished(this)
         }
     }
 

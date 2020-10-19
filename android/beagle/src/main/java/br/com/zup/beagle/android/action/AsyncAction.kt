@@ -16,9 +16,17 @@
 
 package br.com.zup.beagle.android.action
 
-import android.view.View
-import br.com.zup.beagle.android.widget.RootView
+/**
+ * Interface that represents async actions in Beagle
+ */
+abstract class AsyncAction : Action {
+    @Transient
+    var listener: OnActionFinished? = null
+}
 
-internal class UndefinedAction : Action {
-    override fun execute(rootView: RootView, origin: View) {}
+/**
+ * Notifies the caller of an action that the action has finished its job
+ */
+interface OnActionFinished {
+    fun onActionFinished(action: Action)
 }

@@ -44,7 +44,7 @@ data class SetContext(
     val path: String? = null
 ) : Action {
 
-    override fun execute(rootView: RootView, origin: View, listener: OnActionFinished?) {
+    override fun execute(rootView: RootView, origin: View) {
         val viewModel = rootView.generateViewModelInstance<ScreenContextViewModel>()
         try {
             val value = toInternalSetContext(rootView, origin)
@@ -52,8 +52,6 @@ data class SetContext(
         } catch (ex: Exception) {
             BeagleLoggerProxy.warning(ex.message ?: "")
         }
-
-        listener?.onActionFinished(this)
     }
 
     private fun toInternalSetContext(rootView: RootView, origin: View) = SetContextInternal(

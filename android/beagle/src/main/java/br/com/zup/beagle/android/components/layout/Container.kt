@@ -29,7 +29,6 @@ import br.com.zup.beagle.annotation.RegisterWidget
 import br.com.zup.beagle.core.MultiChildComponent
 import br.com.zup.beagle.core.ServerDrivenComponent
 
-
 /**
  *  The container component is a general container that can hold other components inside.
  *
@@ -48,22 +47,11 @@ data class Container(
     @Transient
     private val viewFactory = ViewFactory()
 
-    @Transient
-    private lateinit var view: View
-
-    @Transient
-    private lateinit var rootView: RootView
-
-    override fun getView() = view
-
-    override fun getRootView() = rootView
-
     override fun buildView(rootView: RootView): View {
-        this.rootView = rootView
-        view = viewFactory.makeBeagleFlexView(rootView, style ?: Style())
-        handleOnInit()
+        val view = viewFactory.makeBeagleFlexView(rootView, style ?: Style())
+        handleOnInit(rootView, view)
         return view.apply {
-            addChildren(this as BeagleFlexView)
+            addChildren(this)
         }
     }
 
