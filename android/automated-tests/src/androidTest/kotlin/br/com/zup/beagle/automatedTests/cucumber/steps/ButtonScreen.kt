@@ -15,14 +15,7 @@ import org.junit.Rule
 
 val BUTTON_SCREEN_BFF_URL = "http://10.0.2.2:8080/button"
 
-class ButtonScreen {
-    @Rule
-    var activityTestRule = ActivityTestRule(MainActivity::class.java)
-
-    @Before("@button")
-    fun setup() {
-        TestUtils.startActivity(activityTestRule, BUTTON_SCREEN_BFF_URL)
-    }
+class ButtonScreen : BaseTest(BUTTON_SCREEN_BFF_URL) {
 
     @Given("^that I'm on the button screen$")
     fun checkButtonScreen() {
@@ -52,10 +45,5 @@ class ButtonScreen {
             .checkViewContainsText(ACTION_CLICK_HEADER)
             .checkViewContainsText(ACTION_CLICK_TEXT)
             .sleep(2)
-    }
-
-    @After("@button")
-    fun tearDown() {
-        ActivityFinisher.finishOpenActivities()
     }
 }

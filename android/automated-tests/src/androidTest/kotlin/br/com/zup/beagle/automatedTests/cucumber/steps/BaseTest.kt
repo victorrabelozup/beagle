@@ -18,34 +18,26 @@ package br.com.zup.beagle.automatedTests.cucumber.steps
 
 import androidx.test.rule.ActivityTestRule
 import br.com.zup.beagle.automatedTests.activity.MainActivity
-import br.com.zup.beagle.automatedTests.cucumber.elements.*
-import br.com.zup.beagle.automatedTests.cucumber.robots.ScreenRobot
 import br.com.zup.beagle.automatedTests.utils.ActivityFinisher
 import br.com.zup.beagle.automatedTests.utils.TestUtils
 import cucumber.api.java.After
 import cucumber.api.java.Before
-import cucumber.api.java.en.*
 import org.junit.Rule
 
-val IMAGE_SCREEN_BFF_URL = "http://10.0.2.2:8080/image"
+open class BaseTest(
+    private val url : String
+){
 
-class ImageScreenSteps : BaseTest(IMAGE_SCREEN_BFF_URL) {
+    @Rule
+    var activityTestRule = ActivityTestRule(MainActivity::class.java)
 
-    @Given("^that I'm on the image screen$")
-    fun checkImageScreen() {
-        ScreenRobot()
-            .checkViewContainsText(IMAGE_SCREEN_HEADER, true)
+    @Before
+    fun setup() {
+        TestUtils.startActivity(activityTestRule, url)
     }
 
-    @Then("^image screen should render all image attributes correctly$")
-    fun checkImageScreenTexts() {
-        ScreenRobot()
-            .checkViewContainsText(IMAGE_TEXT_1)
-            .checkViewContainsText(IMAGE_TEXT_2)
-            .scrollViewDown()
-//            .checkViewContainsText(IMAGE_TEXT_3)
-//            .checkViewContainsText(IMAGE_TEXT_4)
-//            .checkViewContainsText(IMAGE_TEXT_5)
-
+    @After
+    fun tearDown() {
+        ActivityFinisher.finishOpenActivities()
     }
 }
