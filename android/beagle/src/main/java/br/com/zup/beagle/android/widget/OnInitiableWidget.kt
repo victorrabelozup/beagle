@@ -18,20 +18,14 @@ package br.com.zup.beagle.android.widget
 
 import android.view.View
 import br.com.zup.beagle.android.action.Action
-import br.com.zup.beagle.android.action.AsyncAction
-import br.com.zup.beagle.android.action.OnActionFinished
-
-/**
- * Listener that informs that the widget has finished executing all onInit actions
- */
-typealias OnInitFinishedListener = (widget: OnInitiableWidget) -> Unit
+import br.com.zup.beagle.android.context.ContextActionExecutor
 
 /**
  * Abstract class that has onInit property
  * @property onInit list of actions performed as soon as the component is rendered
  * @property onInitCalled tells whether onInit has already been called
- * @property onInitDone tell if onInit is finished
- * @property onInitFinishedListener invoked the moment the onInit ended
+ * @property rootView
+ * @property origin
  */
 abstract class OnInitiableWidget : WidgetView() {
 
@@ -39,12 +33,6 @@ abstract class OnInitiableWidget : WidgetView() {
 
     @Transient
     private var onInitCalled = false
-
-    @Transient
-    private var onInitDone = false
-
-    @Transient
-    private var onInitFinishedListener: OnInitFinishedListener? = null
 
     @Transient
     private lateinit var rootView: RootView
@@ -71,7 +59,6 @@ abstract class OnInitiableWidget : WidgetView() {
             override fun onViewAttachedToWindow(v: View?) {
                 if (!onInitCalled) {
                     executeOnInit()
-                    onInitCalled = true
                 }
             }
 
@@ -84,38 +71,9 @@ abstract class OnInitiableWidget : WidgetView() {
      * regardless of whether they have already been executed.
      */
     fun executeOnInit() {
-        val onInitActions = onInit?.toMutableList()
-        onInitDone = false
         onInit?.forEach { action ->
-            action.execute(rootView, origin)
-            if (action is AsyncAction) {
-                action.listener = object : OnActionFinished {
-                    override fun onActionFinished(action: Action) {
-                        checkIfActionsDone(onInitActions, action)
-                    }
-                }
-            } else {
-                checkIfActionsDone(onInitActions, action)
-            }
-        }
-    }
-
-    private fun checkIfActionsDone(onInitActions: MutableList<Action>?, action: Action) {
-        onInitActions?.remove(action)
-        if (onInitActions?.isEmpty() == true) {
-            onInitDone = true
-            onInitFinishedListener?.invoke(this@OnInitiableWidget)
-        }
-    }
-
-    /**
-     * Method responsible for adding a listener for the execution of the actions present in the onInit property.
-     */
-    fun setOnInitFinishedListener(listener: OnInitFinishedListener) {
-        onInitFinishedListener = listener
-
-        if (onInitDone) {
-            onInitFinishedListener?.invoke(this)
+            ContextActionExecutor.executeAction(rootView, origin, action)
+            onInitCalled = true
         }
     }
 }

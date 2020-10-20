@@ -16,17 +16,38 @@
 
 package br.com.zup.beagle.android.action
 
+import androidx.lifecycle.MutableLiveData
+
 /**
- * Interface that represents async actions in Beagle
+ * Class that represents async actions in Beagle
+ * @property status represents the current state of execution of the action
  */
 abstract class AsyncAction : Action {
+
     @Transient
-    var listener: OnActionFinished? = null
+    val status: MutableLiveData<ActionStatus> = MutableLiveData()
+
+    /**
+     * Updates action status to finished
+     */
+    fun setActionFinished() {
+        status.value = ActionStatus.FINISHED
+        status.value = ActionStatus.IDLE
+    }
+
+    /**
+     * Updates action status to started
+     */
+    fun setActionStarted() {
+        status.value = ActionStatus.STARTED
+    }
 }
 
 /**
- * Notifies the caller of an action that the action has finished its job
+ * Status of asynchronous actions
  */
-interface OnActionFinished {
-    fun onActionFinished(action: Action)
+enum class ActionStatus {
+    STARTED,
+    FINISHED,
+    IDLE
 }

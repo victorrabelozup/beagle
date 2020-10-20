@@ -88,7 +88,7 @@ data class FormRemoteAction(
     override fun execute(rootView: RootView, origin: View) {
         formSubmitter.submitForm(this, formsValue) {
             resultListener(it)
-            listener?.onActionFinished(this)
+            setActionFinished()
         }
     }
 }

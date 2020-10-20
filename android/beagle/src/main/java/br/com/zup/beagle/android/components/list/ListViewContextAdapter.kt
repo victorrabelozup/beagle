@@ -18,29 +18,22 @@ package br.com.zup.beagle.android.components.list
 
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.core.view.children
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import br.com.zup.beagle.android.action.ActionStatus
+import br.com.zup.beagle.android.action.AsyncAction
+import br.com.zup.beagle.android.context.ContextActionExecutor
 import br.com.zup.beagle.android.context.normalizeContextValue
 import br.com.zup.beagle.android.data.serializer.BeagleSerializer
 import br.com.zup.beagle.android.utils.generateViewModelInstance
-import br.com.zup.beagle.android.utils.safeGet
 import br.com.zup.beagle.android.utils.setIsAutoGenerateIdEnabled
 import br.com.zup.beagle.android.view.ViewFactory
-import br.com.zup.beagle.android.view.custom.BeagleFlexView
 import br.com.zup.beagle.android.view.viewmodel.GenerateIdViewModel
 import br.com.zup.beagle.android.view.viewmodel.ListViewIdViewModel
 import br.com.zup.beagle.android.view.viewmodel.ScreenContextViewModel
-import br.com.zup.beagle.android.widget.OnInitFinishedListener
 import br.com.zup.beagle.android.widget.OnInitiableWidget
 import br.com.zup.beagle.android.widget.RootView
 import br.com.zup.beagle.core.ServerDrivenComponent
-import br.com.zup.beagle.core.Style
-import br.com.zup.beagle.widget.core.Flex
-import br.com.zup.beagle.widget.core.FlexDirection
-import org.json.JSONObject
 
 internal class ListViewContextAdapter(
     val template: ServerDrivenComponent,
@@ -72,14 +65,50 @@ internal class ListViewContextAdapter(
     // ViewHolders who called onInit but did not finish
     private val onInitiableWidgetsOnHolders = mutableMapOf<ContextViewHolder, MutableList<OnInitiableWidget>>()
 
-    // Quick access to the holders of the views that are OnInitiableWidgets
-    private val holderToInitiableWidgets = mutableMapOf<OnInitiableWidget, ContextViewHolder>()
-
     // Struct to manage recycled ViewHolders
     private val recycledViewHolders = mutableListOf<ContextViewHolder>()
 
+    // Struct to manage created ViewHolders
+    private val createdViewHolders = mutableListOf<ContextViewHolder>()
+
     // Each access generate a new instance of the template to avoid reference conflict
     private val templateJson = serializer.serializeComponent(template)
+
+    init {
+        ContextActionExecutor.asyncActionExecuted.observe(rootView.getLifecycleOwner(), {
+            manageIfInsideRecyclerView(it.origin, it.asyncAction)
+        })
+    }
+
+    private fun manageIfInsideRecyclerView(origin: View, asyncAction: AsyncAction) {
+        if (origin.parent == null) {
+            return
+        }
+        (origin.parent as? RecyclerView)?.let { recyclerView ->
+            val adapter = recyclerView.adapter as? ListViewContextAdapter
+            adapter?.markViewToNotRecycle(origin, asyncAction)
+            return
+        } ?: (origin.parent as? View)?.let { parent ->
+            manageIfInsideRecyclerView(parent, asyncAction)
+        }
+    }
+
+    private fun markViewToNotRecycle(viewCallingAsyncAction: View, asyncAction: AsyncAction) {
+        createdViewHolders.forEach {
+            val holderFound = viewCallingAsyncAction == it.itemView
+            if (holderFound) {
+                asyncAction.status.observe(rootView.getLifecycleOwner(), { actionStatus ->
+                    if (actionStatus == ActionStatus.STARTED) {
+                        it.setIsRecyclable(false)
+                    } else if (actionStatus == ActionStatus.FINISHED) {
+                        it.setIsRecyclable(true)
+                        adapterItems[it.adapterPosition].completelyInitialized = it.isRecyclable
+                    }
+                })
+                return
+            }
+        }
+    }
 
     fun setParentSuffix(itemSuffix: String) {
         parentListViewSuffix = itemSuffix
@@ -88,7 +117,7 @@ internal class ListViewContextAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContextViewHolder {
         val newTemplate = serializer.deserializeComponent(templateJson)
         val view = generateView(newTemplate)
-        return ContextViewHolder(
+        val viewHolder = ContextViewHolder(
             view,
             newTemplate,
             serializer,
@@ -97,6 +126,8 @@ internal class ListViewContextAdapter(
             templateJson,
             iteratorName
         )
+        createdViewHolders.add(viewHolder)
+        return viewHolder
     }
 
     private fun generateView(newTemplate: ServerDrivenComponent) = viewFactory.makeBeagleFlexView(rootView).apply {
@@ -118,43 +149,15 @@ internal class ListViewContextAdapter(
     private fun handleInitiableWidgets(holder: ContextViewHolder, shouldRerunOnInit: Boolean = false) {
         // For each OnInitiableWidget
         holder.initiableWidgets.forEach { widget ->
-            // Links the widget to its respective holder
-            holderToInitiableWidgets[widget] = holder
             // Add widget to list of widgets with onInit running
             if (!onInitiableWidgetsOnHolders.containsKey(holder)) {
                 onInitiableWidgetsOnHolders[holder] = mutableListOf()
             }
             onInitiableWidgetsOnHolders[holder]?.add(widget)
-            // Add listener to capture when onInit is finished
-            widget.setOnInitFinishedListener(object : OnInitFinishedListener {
-                override fun invoke(widget: OnInitiableWidget) {
-                    resolveWidgetFinishedOnInit(widget)
-                }
-            })
             // When the view is recycled we must call onInit again
             if (shouldRerunOnInit) {
                 widget.executeOnInit()
             }
-        }
-    }
-
-    private fun resolveWidgetFinishedOnInit(widget: OnInitiableWidget) {
-        val holder = holderToInitiableWidgets[widget]
-        holder?.let {
-            onInitiableWidgetsOnHolders[it]?.remove(widget)
-            if (holder.adapterPosition != DiffUtil.DiffResult.NO_POSITION) {
-                manageHolderCompletelyInitializedStatus(it)
-            }
-        }
-    }
-
-    private fun manageHolderCompletelyInitializedStatus(holder: ContextViewHolder) {
-        val isHolderCompletelyInitialized = onInitiableWidgetsOnHolders[holder]?.isEmpty() ?: true
-        if (isHolderCompletelyInitialized) {
-            if (!holder.isRecyclable) {
-                holder.setIsRecyclable(true)
-            }
-            adapterItems[holder.adapterPosition].completelyInitialized = true
         }
     }
 
@@ -181,15 +184,6 @@ internal class ListViewContextAdapter(
 
     override fun onViewAttachedToWindow(holder: ContextViewHolder) {
         super.onViewAttachedToWindow(holder)
-        // For every view, the moment it is displayed, its completely initialized status is checked and updated.
-        // This validation must be done here to cover the cases where onInit is executed before the item is visible.
-        if (!adapterItems[holder.adapterPosition].completelyInitialized) {
-            // Marks holders with onInit not to be recycled until they are finished
-            if (holder.isRecyclable) {
-                holder.setIsRecyclable(false)
-            }
-            manageHolderCompletelyInitializedStatus(holder)
-        }
         holder.directNestedTextViews.forEach {
             it.requestLayout()
         }
@@ -210,8 +204,8 @@ internal class ListViewContextAdapter(
     private fun clearAdapterContent() {
         adapterItems = emptyList()
         onInitiableWidgetsOnHolders.clear()
-        holderToInitiableWidgets.clear()
         recycledViewHolders.clear()
+        createdViewHolders.clear()
     }
 
     private fun setRecyclerId(incomingRecyclerId: Int) {

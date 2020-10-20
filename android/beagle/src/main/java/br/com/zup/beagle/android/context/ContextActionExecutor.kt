@@ -17,12 +17,16 @@
 package br.com.zup.beagle.android.context
 
 import android.view.View
+import androidx.lifecycle.MutableLiveData
 import br.com.zup.beagle.android.action.Action
+import br.com.zup.beagle.android.action.AsyncAction
 import br.com.zup.beagle.android.utils.generateViewModelInstance
 import br.com.zup.beagle.android.view.viewmodel.ScreenContextViewModel
 import br.com.zup.beagle.android.widget.RootView
 
-internal class ContextActionExecutor {
+internal object ContextActionExecutor {
+
+    val asyncActionExecuted: MutableLiveData<AsyncActionData> = MutableLiveData()
 
     @Suppress("LongParameterList")
     fun executeActions(
@@ -37,7 +41,7 @@ internal class ContextActionExecutor {
         }
 
         actions.forEach {
-            it.execute(rootView, origin)
+            executeAction(rootView, origin, it)
         }
     }
 
@@ -50,4 +54,17 @@ internal class ContextActionExecutor {
         val viewModel = rootView.generateViewModelInstance<ScreenContextViewModel>()
         viewModel.addImplicitContext(context.normalize(), sender, actions)
     }
+
+    fun executeAction(rootView: RootView, origin: View, action: Action) {
+        if (action is AsyncAction) {
+            asyncActionExecuted.value = AsyncActionData(origin, action)
+            action.setActionStarted()
+        }
+        action.execute(rootView, origin)
+    }
 }
+
+internal data class AsyncActionData(
+    val origin: View,
+    val asyncAction: AsyncAction
+)

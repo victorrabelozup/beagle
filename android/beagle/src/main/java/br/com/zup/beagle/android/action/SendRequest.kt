@@ -133,7 +133,7 @@ data class SendRequest(
             }
         }
 
-        listener?.onActionFinished(this)
+        setActionFinished()
     }
 
     private fun toSendRequestInternal(rootView: RootView, origin: View) = SendRequestInternal(

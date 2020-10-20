@@ -18,6 +18,7 @@ package br.com.zup.beagle.sample.fragment.list
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import br.com.zup.beagle.android.action.SendRequest
 import br.com.zup.beagle.android.action.SetContext
 import br.com.zup.beagle.android.components.Button
 import br.com.zup.beagle.android.components.Text
@@ -130,10 +131,25 @@ class ContextListViewActivity : AppCompatActivity() {
                 Button(
                     text = expressionOf("@{item.name} - @{item.cpf}"),
                     onPress = listOf(
-                        SetContext(
-                            contextId = "insideContext",
-                            path = "[0].name",
-                            value = "Updated John"
+                        SendRequest(
+                            url = "https://storage.googleapis.com/lucasaraujo/dev/categorias.json",
+                            onSuccess = listOf(
+                                SetContext(
+                                    contextId = "insideContext",
+                                    path = "[0].name",
+                                    value = "Updated John"
+                                )
+                            )
+                        ),
+                        SendRequest(
+                            url = "https://storage.googleapis.com/lucasaraujo/dev/categorias.json",
+                            onSuccess = listOf(
+                                SetContext(
+                                    contextId = "insideContext",
+                                    path = "[0].name",
+                                    value = "Updated John"
+                                )
+                            )
                         )
                     )
                 ).applyStyle(

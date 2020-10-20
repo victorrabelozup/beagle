@@ -54,13 +54,13 @@ data class FormLocalAction(
             override fun onSuccess(action: Action) {
                 changeActivityState(rootView, ServerDrivenState.Loading(false))
                 handleEvent(rootView, origin, action)
-                listener?.onActionFinished(this@FormLocalAction)
+                setActionFinished()
             }
 
             override fun onError(e: Throwable) {
                 changeActivityState(rootView, ServerDrivenState.Loading(false))
                 changeActivityState(rootView, ServerDrivenState.FormError(e) { execute(rootView, origin) })
-                listener?.onActionFinished(this@FormLocalAction)
+                setActionFinished()
             }
 
             override fun onStart() {
