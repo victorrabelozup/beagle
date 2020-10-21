@@ -19,7 +19,6 @@ package br.com.zup.beagle.android.widget
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelStoreOwner
-import br.com.zup.beagle.android.context.ContextActionExecutor
 
 /**
  * Interface RootView holder the reference of activity or fragment.
@@ -44,9 +43,4 @@ interface RootView {
      * Returns the parent id of View that encapsulates all the content rendered by server-driven.
      */
     fun getParentId(): Int
-
-    /**
-     * Returns the class responsible to execute actions
-     */
-    fun getContextActionExecutor(): ContextActionExecutor
 }
