@@ -17,6 +17,9 @@
 package br.com.zup.beagle.android.context
 
 import android.view.View
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import br.com.zup.beagle.android.action.Action
 import br.com.zup.beagle.android.action.AsyncAction
@@ -24,7 +27,7 @@ import br.com.zup.beagle.android.utils.generateViewModelInstance
 import br.com.zup.beagle.android.view.viewmodel.ScreenContextViewModel
 import br.com.zup.beagle.android.widget.RootView
 
-internal object ContextActionExecutor {
+class ContextActionExecutor {
 
     val asyncActionExecuted: MutableLiveData<AsyncActionData> = MutableLiveData()
 
@@ -64,7 +67,7 @@ internal object ContextActionExecutor {
     }
 }
 
-internal data class AsyncActionData(
+data class AsyncActionData(
     val origin: View,
     val asyncAction: AsyncAction
 )

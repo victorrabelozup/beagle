@@ -72,7 +72,7 @@ abstract class OnInitiableWidget : WidgetView() {
      */
     fun executeOnInit() {
         onInit?.forEach { action ->
-            ContextActionExecutor.executeAction(rootView, origin, action)
+            rootView.getContextActionExecutor().executeAction(rootView, origin, action)
             onInitCalled = true
         }
     }

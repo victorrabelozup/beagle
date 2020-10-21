@@ -23,7 +23,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import br.com.zup.beagle.android.action.ActionStatus
 import br.com.zup.beagle.android.action.AsyncAction
-import br.com.zup.beagle.android.context.ContextActionExecutor
 import br.com.zup.beagle.android.context.normalizeContextValue
 import br.com.zup.beagle.android.data.serializer.BeagleSerializer
 import br.com.zup.beagle.android.utils.generateViewModelInstance
@@ -72,7 +71,7 @@ internal class ListViewContextAdapter(
     private val templateJson = serializer.serializeComponent(template)
 
     init {
-        ContextActionExecutor.asyncActionExecuted.observe(rootView.getLifecycleOwner(), {
+        rootView.getContextActionExecutor().asyncActionExecuted.observe(rootView.getLifecycleOwner(), {
             manageIfInsideRecyclerView(it.origin, it.asyncAction)
         })
     }
