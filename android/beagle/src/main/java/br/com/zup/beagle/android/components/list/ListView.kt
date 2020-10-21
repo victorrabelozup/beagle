@@ -113,9 +113,6 @@ constructor(
     private var canScrollEnd = true
 
     @Transient
-    private var setupRecyclerCalled = false
-
-    @Transient
     private lateinit var recyclerView: RecyclerView
 
     @Transient
@@ -158,16 +155,6 @@ constructor(
         recyclerView = viewFactory.makeRecyclerView(rootView.getContext())
 
         val orientation = listDirectionToRecyclerViewOrientation()
-        recyclerView.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
-            override fun onViewAttachedToWindow(v: View?) {
-                if (!setupRecyclerCalled) {
-
-                    setupRecyclerCalled = true
-                }
-            }
-
-            override fun onViewDetachedFromWindow(v: View?) {}
-        })
         setupRecyclerView(orientation)
         configDataSourceObserver()
         configRecyclerViewScrollListener()

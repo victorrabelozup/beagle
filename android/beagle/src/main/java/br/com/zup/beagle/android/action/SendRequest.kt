@@ -120,6 +120,7 @@ data class SendRequest(
         state: FetchViewState,
         origin: View
     ) {
+        setActionFinished()
         onFinish?.let {
             handleEvent(rootView, origin, it)
         }
@@ -132,8 +133,6 @@ data class SendRequest(
                 handleEvent(rootView, origin, it, ContextData("onSuccess", state.response))
             }
         }
-
-        setActionFinished()
     }
 
     private fun toSendRequestInternal(rootView: RootView, origin: View) = SendRequestInternal(

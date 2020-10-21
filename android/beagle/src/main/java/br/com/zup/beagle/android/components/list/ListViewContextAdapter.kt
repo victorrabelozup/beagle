@@ -19,6 +19,7 @@ package br.com.zup.beagle.android.components.list
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.children
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import br.com.zup.beagle.android.action.ActionStatus
 import br.com.zup.beagle.android.action.AsyncAction
@@ -31,7 +32,6 @@ import br.com.zup.beagle.android.view.ViewFactory
 import br.com.zup.beagle.android.view.viewmodel.GenerateIdViewModel
 import br.com.zup.beagle.android.view.viewmodel.ListViewIdViewModel
 import br.com.zup.beagle.android.view.viewmodel.ScreenContextViewModel
-import br.com.zup.beagle.android.widget.OnInitiableWidget
 import br.com.zup.beagle.android.widget.RootView
 import br.com.zup.beagle.core.ServerDrivenComponent
 
@@ -62,9 +62,6 @@ internal class ListViewContextAdapter(
     // Struct that holds all data of each item
     private var adapterItems = listOf<BeagleAdapterItem>()
 
-    // ViewHolders who called onInit but did not finish
-    private val onInitiableWidgetsOnHolders = mutableMapOf<ContextViewHolder, MutableList<OnInitiableWidget>>()
-
     // Struct to manage recycled ViewHolders
     private val recycledViewHolders = mutableListOf<ContextViewHolder>()
 
@@ -86,23 +83,30 @@ internal class ListViewContextAdapter(
         }
         (origin.parent as? RecyclerView)?.let { recyclerView ->
             val adapter = recyclerView.adapter as? ListViewContextAdapter
-            adapter?.markViewToNotRecycle(origin, asyncAction)
+            adapter?.addObserverToHolder(origin, asyncAction)
             return
         } ?: (origin.parent as? View)?.let { parent ->
             manageIfInsideRecyclerView(parent, asyncAction)
         }
     }
 
-    private fun markViewToNotRecycle(viewCallingAsyncAction: View, asyncAction: AsyncAction) {
+    private fun addObserverToHolder(viewCallingAsyncAction: View, asyncAction: AsyncAction) {
         createdViewHolders.forEach {
             val holderFound = viewCallingAsyncAction == it.itemView
             if (holderFound) {
                 asyncAction.status.observe(rootView.getLifecycleOwner(), { actionStatus ->
                     if (actionStatus == ActionStatus.STARTED) {
-                        it.setIsRecyclable(false)
+                        adapterItems[it.adapterPosition].completelyInitialized = false
+                        if (it.isAttached) {
+                            it.setIsRecyclable(false)
+                        }
                     } else if (actionStatus == ActionStatus.FINISHED) {
-                        it.setIsRecyclable(true)
-                        adapterItems[it.adapterPosition].completelyInitialized = it.isRecyclable
+                        if (!it.isRecyclable) {
+                            if (it.adapterPosition != DiffUtil.DiffResult.NO_POSITION) {
+                                adapterItems[it.adapterPosition].completelyInitialized = true
+                            }
+                            it.setIsRecyclable(true)
+                        }
                     }
                 })
                 return
@@ -149,11 +153,6 @@ internal class ListViewContextAdapter(
     private fun handleInitiableWidgets(holder: ContextViewHolder, shouldRerunOnInit: Boolean = false) {
         // For each OnInitiableWidget
         holder.initiableWidgets.forEach { widget ->
-            // Add widget to list of widgets with onInit running
-            if (!onInitiableWidgetsOnHolders.containsKey(holder)) {
-                onInitiableWidgetsOnHolders[holder] = mutableListOf()
-            }
-            onInitiableWidgetsOnHolders[holder]?.add(widget)
             // When the view is recycled we must call onInit again
             if (shouldRerunOnInit) {
                 widget.executeOnInit()
@@ -184,9 +183,20 @@ internal class ListViewContextAdapter(
 
     override fun onViewAttachedToWindow(holder: ContextViewHolder) {
         super.onViewAttachedToWindow(holder)
+        holder.isAttached = true
+        // For every view, the moment it is displayed, its completely initialized status is checked and updated.
+        if (!adapterItems[holder.adapterPosition].completelyInitialized) {
+            // Marks holders with onInit not to be recycled until they are finished
+            holder.setIsRecyclable(false)
+        }
         holder.directNestedTextViews.forEach {
             it.requestLayout()
         }
+    }
+
+    override fun onViewDetachedFromWindow(holder: ContextViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        holder.isAttached = false
     }
 
     fun setList(list: List<Any>?, recyclerId: Int) {
@@ -203,7 +213,6 @@ internal class ListViewContextAdapter(
 
     private fun clearAdapterContent() {
         adapterItems = emptyList()
-        onInitiableWidgetsOnHolders.clear()
         recycledViewHolders.clear()
         createdViewHolders.clear()
     }

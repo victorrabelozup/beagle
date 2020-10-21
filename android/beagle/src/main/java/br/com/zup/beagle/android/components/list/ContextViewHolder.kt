@@ -56,6 +56,7 @@ internal class ContextViewHolder(
     val directNestedTextViews = mutableListOf<TextView>()
     private val contextComponents = mutableListOf<ContextData>()
     val initiableWidgets = mutableListOf<OnInitiableWidget>()
+    var isAttached = false
 
     init {
         initializeViewsWithIdAndOnInit(template)

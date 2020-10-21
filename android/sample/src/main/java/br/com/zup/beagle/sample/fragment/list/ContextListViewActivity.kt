@@ -43,7 +43,7 @@ class ContextListViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val declarative = Screen(
             navigationBar = NavigationBar(title = "List"),
-            child = buildListView()
+            child = list
         )
         setContentView(declarative.toView(this))
     }
@@ -60,7 +60,7 @@ class ContextListViewActivity : AppCompatActivity() {
                 Person(
                     "John",
                     0
-                ),
+                )/*,
                 Person(
                     "Carter",
                     1
@@ -120,19 +120,24 @@ class ContextListViewActivity : AppCompatActivity() {
                 Person(
                     "Zoe",
                     15
-                )
+                )*/
             )
         ),
         key = "cpf",
         dataSource = expressionOf("@{insideContext}"),
         direction = ListDirection.HORIZONTAL,
         template = Container(
+            onInit = listOf(
+                SendRequest(
+                    url = "https://run.mocky.io/v3/9df55f30-9c82-4837-988d-f3d751d6f4e6"
+                )
+            ),
             children = listOf(
                 Button(
                     text = expressionOf("@{item.name} - @{item.cpf}"),
                     onPress = listOf(
                         SendRequest(
-                            url = "https://storage.googleapis.com/lucasaraujo/dev/categorias.json",
+                            url = "https://storage.googleapis.com/lucasaraujo/dev/listview.json",
                             onSuccess = listOf(
                                 SetContext(
                                     contextId = "insideContext",
