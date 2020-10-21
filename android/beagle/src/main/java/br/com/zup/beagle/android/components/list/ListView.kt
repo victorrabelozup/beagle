@@ -204,7 +204,8 @@ constructor(
             iteratorName,
             key,
             viewFactory,
-            rootView
+            rootView,
+            contextActionExecutor
         )
         recyclerView.apply {
             adapter = contextAdapter

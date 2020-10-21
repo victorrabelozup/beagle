@@ -32,6 +32,9 @@ abstract class OnInitiableWidget : WidgetView() {
     abstract val onInit: List<Action>?
 
     @Transient
+    internal var contextActionExecutor = ContextActionExecutor()
+
+    @Transient
     private var onInitCalled = false
 
     @Transient
@@ -72,7 +75,7 @@ abstract class OnInitiableWidget : WidgetView() {
      */
     fun executeOnInit() {
         onInit?.forEach { action ->
-            rootView.getContextActionExecutor().executeAction(rootView, origin, action)
+            contextActionExecutor.executeAction(rootView, origin, action)
             onInitCalled = true
         }
     }

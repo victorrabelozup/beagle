@@ -21,6 +21,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import br.com.zup.beagle.android.context.ContextActionExecutor
 import br.com.zup.beagle.android.context.ContextComponent
 import br.com.zup.beagle.android.context.ContextData
 import br.com.zup.beagle.android.data.serializer.BeagleSerializer
@@ -59,16 +60,11 @@ internal class ContextViewHolder(
     var isAttached = false
 
     init {
-        initializeViewsWithIdAndOnInit(template)
+        initializeViewsWithId(template)
         initializeViewsWithContextAndRecyclers(itemView)
     }
 
-    private fun initializeViewsWithIdAndOnInit(component: ServerDrivenComponent) {
-        (component as? OnInitiableWidget)?.let {
-            component.onInit?.let {
-                initiableWidgets.add(component)
-            }
-        }
+    private fun initializeViewsWithId(component: ServerDrivenComponent) {
         (component as? IdentifierComponent)?.let {
             component.id?.let { id ->
                 if (id != COMPONENT_NO_ID) {
@@ -77,10 +73,10 @@ internal class ContextViewHolder(
             }
         }
         if (component is SingleChildComponent) {
-            initializeViewsWithIdAndOnInit(component.child)
+            initializeViewsWithId(component.child)
         } else if (component is MultiChildComponent) {
             component.children.forEach { child ->
-                initializeViewsWithIdAndOnInit(child)
+                initializeViewsWithId(child)
             }
         }
     }
@@ -110,6 +106,7 @@ internal class ContextViewHolder(
 
     // For each item on the list
     fun onBind(
+        contextActionExecutor: ContextActionExecutor,
         parentListViewSuffix: String?,
         key: String?,
         beagleAdapterItem: BeagleAdapterItem,
@@ -138,13 +135,15 @@ internal class ContextViewHolder(
                 // We set the template's default contexts for each view with context
                 setDefaultContextToEachContextView()
                 // For each RecyclerView nested directly when recycled, we generate a new adapter
-                generateAdapterToEachDirectNestedRecycler(beagleAdapterItem)
+                generateAdapterToEachDirectNestedRecycler(contextActionExecutor, beagleAdapterItem)
             } else {
                 // When this item is not recycled, we simply recover your current adapters
                 saveCreatedAdapterToEachDirectNestedRecycler(beagleAdapterItem)
             }
-            // We generate the suffix based on the key and/or position and inform the adapters directly nested
-            updateDirectNestedAdaptersSuffix(beagleAdapterItem)
+            // We inform to each adapters directly nested the suffix and pass the action executor
+            updateDirectNestedAdaptersSuffixAndActionExecutor(contextActionExecutor, beagleAdapterItem)
+            // We pass down the action executor to each nested initiable widget
+            passActionExecutorToNestedInitiableWidgets(contextActionExecutor, newTemplate)
         } else {
             // But if that item on the list already has ids created, we retrieve them
             restoreIds(beagleAdapterItem)
@@ -208,12 +207,6 @@ internal class ContextViewHolder(
         return listId.toString()
     }
 
-    private fun updateDirectNestedAdaptersSuffix(beagleAdapterItem: BeagleAdapterItem) {
-        beagleAdapterItem.directNestedAdapters.forEach {
-            it.setParentSuffix(beagleAdapterItem.itemSuffix)
-        }
-    }
-
     private fun updateIdToEachSubView(
         beagleAdapterItem: BeagleAdapterItem,
         isRecycled: Boolean,
@@ -267,7 +260,10 @@ internal class ContextViewHolder(
         }
     }
 
-    private fun generateAdapterToEachDirectNestedRecycler(beagleAdapterItem: BeagleAdapterItem) {
+    private fun generateAdapterToEachDirectNestedRecycler(
+        contextActionExecutor: ContextActionExecutor,
+        beagleAdapterItem: BeagleAdapterItem
+    ) {
         directNestedRecyclers.forEach {
             val oldAdapter = it.adapter as ListViewContextAdapter
             val updatedAdapter = ListViewContextAdapter(
@@ -275,7 +271,8 @@ internal class ContextViewHolder(
                 oldAdapter.iteratorName,
                 oldAdapter.key,
                 oldAdapter.viewFactory,
-                oldAdapter.rootView
+                oldAdapter.rootView,
+                contextActionExecutor
             )
             it.swapAdapter(updatedAdapter, false)
             beagleAdapterItem.directNestedAdapters.add(updatedAdapter)
@@ -285,6 +282,37 @@ internal class ContextViewHolder(
     private fun saveCreatedAdapterToEachDirectNestedRecycler(beagleAdapterItem: BeagleAdapterItem) {
         directNestedRecyclers.forEach {
             beagleAdapterItem.directNestedAdapters.add(it.adapter as ListViewContextAdapter)
+        }
+    }
+
+    private fun updateDirectNestedAdaptersSuffixAndActionExecutor(
+        contextActionExecutor: ContextActionExecutor,
+        beagleAdapterItem: BeagleAdapterItem
+    ) {
+        beagleAdapterItem.directNestedAdapters.forEach {
+            it.setParentSuffix(beagleAdapterItem.itemSuffix)
+            it.setContextActionExecutorFromParent(contextActionExecutor)
+        }
+    }
+
+    private fun passActionExecutorToNestedInitiableWidgets(
+        contextActionExecutor: ContextActionExecutor,
+        component: ServerDrivenComponent
+    ) {
+        (component as? OnInitiableWidget)?.let {
+            if (!component.onInit.isNullOrEmpty()) {
+                component.contextActionExecutor = contextActionExecutor
+            }
+        }
+        if (component is ListView) {
+            return
+        }
+        if (component is SingleChildComponent) {
+            passActionExecutorToNestedInitiableWidgets(contextActionExecutor, component.child)
+        } else if (component is MultiChildComponent) {
+            component.children.forEach { child ->
+                passActionExecutorToNestedInitiableWidgets(contextActionExecutor, child)
+            }
         }
     }
 

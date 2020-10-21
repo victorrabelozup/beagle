@@ -21,7 +21,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelStoreOwner
-import br.com.zup.beagle.android.context.ContextActionExecutor
 import br.com.zup.beagle.android.widget.RootView
 
 /**
@@ -42,8 +41,6 @@ class FragmentRootView(
     override fun getViewModelStoreOwner(): ViewModelStoreOwner = fragment
 
     override fun getParentId(): Int = parentId
-
-    override fun getContextActionExecutor() = ContextActionExecutor()
 }
 
 /**
@@ -64,6 +61,4 @@ class ActivityRootView(
     override fun getViewModelStoreOwner(): ViewModelStoreOwner = activity
 
     override fun getParentId(): Int = parentId
-
-    override fun getContextActionExecutor() = ContextActionExecutor()
 }

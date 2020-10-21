@@ -43,7 +43,7 @@ class ContextListViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val declarative = Screen(
             navigationBar = NavigationBar(title = "List"),
-            child = list
+            child = buildListView()
         )
         setContentView(declarative.toView(this))
     }
@@ -145,7 +145,7 @@ class ContextListViewActivity : AppCompatActivity() {
                                     value = "Updated John"
                                 )
                             )
-                        ),
+                        )/*,
                         SendRequest(
                             url = "https://storage.googleapis.com/lucasaraujo/dev/categorias.json",
                             onSuccess = listOf(
@@ -155,7 +155,7 @@ class ContextListViewActivity : AppCompatActivity() {
                                     value = "Updated John"
                                 )
                             )
-                        )
+                        )*/
                     )
                 ).applyStyle(
                     Style(
@@ -173,14 +173,19 @@ class ContextListViewActivity : AppCompatActivity() {
     private fun buildListView() = ListView(
         context = ContextData(
             id = "outsideContext",
-            value = listOf("0 OUTSIDE", "1 OUTSIDE", "2 OUTSIDE", "3 OUTSIDE", "4 OUTSIDE", "5 OUTSIDE",
+            value = listOf("0 OUTSIDE"/*, "1 OUTSIDE", "2 OUTSIDE", "3 OUTSIDE", "4 OUTSIDE", "5 OUTSIDE",
                 "6 OUTSIDE", "7 OUTSIDE", "8 OUTSIDE", "9 OUTSIDE", "10 OUTSIDE",
                 "11 OUTSIDE", "12 OUTSIDE", "13 OUTSIDE", "14 OUTSIDE", "15 OUTSIDE",
-                "16 OUTSIDE", "17 OUTSIDE", "18 OUTSIDE", "19 OUTSIDE", "20 OUTSIDE")
+                "16 OUTSIDE", "17 OUTSIDE", "18 OUTSIDE", "19 OUTSIDE", "20 OUTSIDE"*/)
         ),
         dataSource = expressionOf("@{outsideContext}"),
         direction = ListDirection.VERTICAL,
         template = Container(
+            onInit = listOf(
+                SendRequest(
+                    url = "https://storage.googleapis.com/lucasaraujo/dev/categorias.json"
+                )
+            ),
             children = listOf(
                 Text(text = expressionOf("@{item}")),
                 list
