@@ -43,7 +43,7 @@ class ContextListViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val declarative = Screen(
             navigationBar = NavigationBar(title = "List"),
-            child = buildListView()
+            child = list
         )
         setContentView(declarative.toView(this))
     }
@@ -60,7 +60,7 @@ class ContextListViewActivity : AppCompatActivity() {
                 Person(
                     "John",
                     0
-                )/*,
+                ),
                 Person(
                     "Carter",
                     1
@@ -120,7 +120,7 @@ class ContextListViewActivity : AppCompatActivity() {
                 Person(
                     "Zoe",
                     15
-                )*/
+                )
             )
         ),
         key = "cpf",

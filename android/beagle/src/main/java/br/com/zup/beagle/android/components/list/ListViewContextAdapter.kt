@@ -23,7 +23,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import br.com.zup.beagle.android.action.ActionStatus
 import br.com.zup.beagle.android.action.AsyncAction
-import br.com.zup.beagle.android.context.ContextActionExecutor
 import br.com.zup.beagle.android.context.normalizeContextValue
 import br.com.zup.beagle.android.data.serializer.BeagleSerializer
 import br.com.zup.beagle.android.utils.generateViewModelInstance
@@ -40,8 +39,7 @@ internal class ListViewContextAdapter(
     val iteratorName: String,
     val key: String? = null,
     val viewFactory: ViewFactory,
-    val rootView: RootView,
-    var contextActionExecutor: ContextActionExecutor
+    val rootView: RootView
 ) : RecyclerView.Adapter<ContextViewHolder>() {
 
     // ViewModels to manage ids and contexts
@@ -114,10 +112,6 @@ internal class ListViewContextAdapter(
         }
     }
 
-    fun setContextActionExecutorFromParent(actionExecutor: ContextActionExecutor) {
-        contextActionExecutor = actionExecutor
-    }
-
     fun setParentSuffix(itemSuffix: String) {
         parentListViewSuffix = itemSuffix
     }
@@ -147,15 +141,7 @@ internal class ListViewContextAdapter(
     override fun onBindViewHolder(holder: ContextViewHolder, position: Int) {
         val isRecycled = recycledViewHolders.contains(holder)
         // Handle context, ids and direct nested adapters
-        holder.onBind(
-            contextActionExecutor,
-            parentListViewSuffix,
-            key,
-            adapterItems[position],
-            isRecycled,
-            position,
-            recyclerId
-        )
+        holder.onBind(parentListViewSuffix, key, adapterItems[position], isRecycled, position, recyclerId)
         // Handle widgets with onInit
         if (!adapterItems[position].completelyInitialized) {
             handleInitiableWidgets(holder, isRecycled)

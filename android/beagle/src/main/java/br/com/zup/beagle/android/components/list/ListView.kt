@@ -24,7 +24,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.zup.beagle.android.action.Action
 import br.com.zup.beagle.android.context.Bind
-import br.com.zup.beagle.android.context.ContextActionExecutor
 import br.com.zup.beagle.android.context.ContextComponent
 import br.com.zup.beagle.android.context.ContextData
 import br.com.zup.beagle.android.utils.generateViewModelInstance
@@ -205,8 +204,7 @@ constructor(
             iteratorName,
             key,
             viewFactory,
-            rootView,
-            ContextActionExecutor
+            rootView
         )
         recyclerView.apply {
             adapter = contextAdapter
