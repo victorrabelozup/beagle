@@ -17,9 +17,11 @@
 package br.com.zup.beagle.android.view.viewmodel
 
 import android.view.View
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.zup.beagle.android.action.Action
 import br.com.zup.beagle.android.action.SetContextInternal
+import br.com.zup.beagle.android.context.AsyncActionData
 import br.com.zup.beagle.android.context.Bind
 import br.com.zup.beagle.android.context.ContextData
 import br.com.zup.beagle.android.context.ContextDataEvaluation
@@ -33,6 +35,8 @@ internal class ScreenContextViewModel(
     private val contextDataEvaluation: ContextDataEvaluation = ContextDataEvaluation(),
     private val implicitContextManager: ImplicitContextManager = ImplicitContextManager()
 ) : ViewModel() {
+
+    val asyncActionExecuted: MutableLiveData<AsyncActionData> = MutableLiveData()
 
     fun setIdToViewWithContext(view: View) {
         contextDataManager.setIdToViewWithContext(view)

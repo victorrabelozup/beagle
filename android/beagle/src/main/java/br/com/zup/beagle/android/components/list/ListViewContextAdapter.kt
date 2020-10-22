@@ -73,7 +73,7 @@ internal class ListViewContextAdapter(
     private val templateJson = serializer.serializeComponent(template)
 
     init {
-        contextActionExecutor.asyncActionExecuted.observe(rootView.getLifecycleOwner(), {
+        viewModel.asyncActionExecuted.observe(rootView.getLifecycleOwner(), {
             manageIfInsideRecyclerView(it.origin, it.asyncAction)
         })
     }
@@ -82,9 +82,8 @@ internal class ListViewContextAdapter(
         if (origin.parent == null) {
             return
         }
-        (origin.parent as? RecyclerView)?.let { recyclerView ->
-            val adapter = recyclerView.adapter as? ListViewContextAdapter
-            adapter?.addObserverToHolder(origin, asyncAction)
+        (origin.parent as? RecyclerView)?.let {
+            addObserverToHolder(origin, asyncAction)
             return
         } ?: (origin.parent as? View)?.let { parent ->
             manageIfInsideRecyclerView(parent, asyncAction)

@@ -301,7 +301,7 @@ internal class ContextViewHolder(
     ) {
         (component as? OnInitiableWidget)?.let {
             if (!component.onInit.isNullOrEmpty()) {
-                component.contextActionExecutor = contextActionExecutor
+//                component.contextActionExecutor = contextActionExecutor
             }
         }
         if (component is ListView) {
