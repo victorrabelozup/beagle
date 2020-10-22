@@ -31,6 +31,7 @@ public struct ListView: RawComponent, AutoInitiableAndDecodable {
     }
 // sourcery:end
     
+    #if swift(<5.3)
     public init(
         direction: Direction = .vertical,
         @ChildBuilder
@@ -38,6 +39,7 @@ public struct ListView: RawComponent, AutoInitiableAndDecodable {
     ) {
         self.init(children: [children()], direction: direction)
     }
+    #endif
     
     public init(
         direction: Direction = .vertical,
