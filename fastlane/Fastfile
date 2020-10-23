@@ -165,6 +165,12 @@ lane :deploy do
 
   # sh "git checkout #{branchName}"
 
+<<<<<<< Updated upstream
+=======
+
+
+
+>>>>>>> Stashed changes
   if platformHotfix == "iOS"
     puts "iOS Hotfix release"
     # sh "fastlane ios release_pods version:#{versionNumber} tag:#{tagName}"
@@ -189,7 +195,7 @@ lane :deploy do
     name: tagName,
     tag_name: tagName,
     description: releaseNotes,
-    commitish: branchName
+    commitish: "testedoido2"
   )
 end
 
