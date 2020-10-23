@@ -165,9 +165,6 @@ lane :deploy do
 
   # sh "git checkout #{branchName}"
 
-
-  
-
   if platformHotfix == "iOS"
     puts "iOS Hotfix release"
     # sh "fastlane ios release_pods version:#{versionNumber} tag:#{tagName}"
