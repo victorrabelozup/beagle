@@ -20,7 +20,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import br.com.zup.beagle.android.action.ActionStatus
+import br.com.zup.beagle.android.action.AsyncAction
 import br.com.zup.beagle.android.context.ContextComponent
 import br.com.zup.beagle.android.context.ContextData
 import br.com.zup.beagle.android.data.serializer.BeagleSerializer
@@ -56,7 +59,7 @@ internal class ContextViewHolder(
     val directNestedTextViews = mutableListOf<TextView>()
     private val contextComponents = mutableListOf<ContextData>()
     val initiableWidgets = mutableListOf<OnInitiableWidget>()
-    var isAttached = false
+    var observer: Observer<ActionStatus>? = null
 
     init {
         initializeViewsWithIdAndOnInit(template)

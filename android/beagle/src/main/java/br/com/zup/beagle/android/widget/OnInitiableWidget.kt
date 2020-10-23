@@ -31,9 +31,6 @@ abstract class OnInitiableWidget : WidgetView() {
 
     abstract val onInit: List<Action>?
 
-//    @Transient
-//    internal var contextActionExecutor = ContextActionExecutor()
-
     @Transient
     private var onInitCalled = false
 
@@ -61,7 +58,10 @@ abstract class OnInitiableWidget : WidgetView() {
         origin.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
             override fun onViewAttachedToWindow(v: View?) {
                 if (!onInitCalled) {
-                    executeOnInit()
+                    onInit?.forEach { action ->
+                        ContextActionExecutor.executeAction(rootView, origin, action)
+                        onInitCalled = true
+                    }
                 }
             }
 
@@ -70,13 +70,10 @@ abstract class OnInitiableWidget : WidgetView() {
     }
 
     /**
-     * Method responsible for executing all actions present in the onInit property
+     * Method responsible for releasing the execution of all actions present in the onInit property
      * regardless of whether they have already been executed.
      */
-    fun executeOnInit() {
-        onInit?.forEach { action ->
-            ContextActionExecutor.executeAction(rootView, origin, action)
-            onInitCalled = true
-        }
+    fun markToRerunOnInit() {
+        onInitCalled = false
     }
 }

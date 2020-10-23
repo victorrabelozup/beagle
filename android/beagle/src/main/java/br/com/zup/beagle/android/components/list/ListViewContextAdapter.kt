@@ -19,6 +19,7 @@ package br.com.zup.beagle.android.components.list
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.children
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import br.com.zup.beagle.android.action.ActionStatus
@@ -89,24 +90,23 @@ internal class ListViewContextAdapter(
     }
 
     private fun addObserverToHolder(viewCallingAsyncAction: View, asyncAction: AsyncAction) {
-        createdViewHolders.forEach {
-            val holderFound = viewCallingAsyncAction.id == it.itemView.id
+        createdViewHolders.forEach { holder ->
+            val holderFound = viewCallingAsyncAction.id == holder.itemView.id
             if (holderFound) {
-                asyncAction.status.observe(rootView.getLifecycleOwner(), { actionStatus ->
+                val observer: Observer<ActionStatus> = holder.observer ?: Observer<ActionStatus> { actionStatus ->
                     if (actionStatus == ActionStatus.STARTED) {
-                        adapterItems[it.adapterPosition].completelyInitialized = false
-                        if (it.isAttached) {
-                            it.setIsRecyclable(false)
-                        }
+                        adapterItems[holder.adapterPosition].completelyInitialized = false
                     } else if (actionStatus == ActionStatus.FINISHED) {
-                        if (!it.isRecyclable) {
-                            if (it.adapterPosition != DiffUtil.DiffResult.NO_POSITION) {
-                                adapterItems[it.adapterPosition].completelyInitialized = true
+                        if (!holder.isRecyclable) {
+                            if (holder.adapterPosition != DiffUtil.DiffResult.NO_POSITION) {
+                                adapterItems[holder.adapterPosition].completelyInitialized = true
                             }
-                            it.setIsRecyclable(true)
+                            holder.setIsRecyclable(true)
                         }
                     }
-                })
+                }
+                holder.observer = observer
+                asyncAction.status.observe(rootView.getLifecycleOwner(), observer)
                 return
             }
         }
@@ -148,12 +148,12 @@ internal class ListViewContextAdapter(
         }
     }
 
-    private fun handleInitiableWidgets(holder: ContextViewHolder, shouldRerunOnInit: Boolean = false) {
+    private fun handleInitiableWidgets(holder: ContextViewHolder, shouldRerunOnInit: Boolean) {
         // For each OnInitiableWidget
         holder.initiableWidgets.forEach { widget ->
             // When the view is recycled we must call onInit again
             if (shouldRerunOnInit) {
-                widget.executeOnInit()
+                widget.markToRerunOnInit()
             }
         }
     }
@@ -181,7 +181,6 @@ internal class ListViewContextAdapter(
 
     override fun onViewAttachedToWindow(holder: ContextViewHolder) {
         super.onViewAttachedToWindow(holder)
-        holder.isAttached = true
         // For every view, the moment it is displayed, its completely initialized status is checked and updated.
         if (!adapterItems[holder.adapterPosition].completelyInitialized) {
             // Marks holders with onInit not to be recycled until they are finished
@@ -190,11 +189,6 @@ internal class ListViewContextAdapter(
         holder.directNestedTextViews.forEach {
             it.requestLayout()
         }
-    }
-
-    override fun onViewDetachedFromWindow(holder: ContextViewHolder) {
-        super.onViewDetachedFromWindow(holder)
-        holder.isAttached = false
     }
 
     fun setList(list: List<Any>?, recyclerId: Int) {
