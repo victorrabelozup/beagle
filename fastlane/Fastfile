@@ -152,6 +152,7 @@ lane :deploy do
 
   ENV["VERSION_DEPLOY"] = versionNumber
 
+
   sh "git checkout tags/#{tagName} -b newReleaseFromTag#{tagName}"
 
   if platformHotfix == "iOS"
