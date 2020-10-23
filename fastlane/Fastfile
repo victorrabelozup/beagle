@@ -164,13 +164,6 @@ lane :deploy do
   ENV["VERSION_DEPLOY"] = versionNumber
 
   # sh "git checkout #{branchName}"
-
-<<<<<<< Updated upstream
-=======
-
-
-
->>>>>>> Stashed changes
   if platformHotfix == "iOS"
     puts "iOS Hotfix release"
     # sh "fastlane ios release_pods version:#{versionNumber} tag:#{tagName}"
