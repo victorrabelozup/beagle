@@ -164,7 +164,10 @@ lane :deploy do
   ENV["VERSION_DEPLOY"] = versionNumber
 
   # sh "git checkout #{branchName}"
+<<<<<<< HEAD
 
+=======
+>>>>>>> 258ea46c68d2062b66b4ec63879fa7332c463924
   if platformHotfix == "iOS"
     puts "iOS Hotfix release"
     # sh "fastlane ios release_pods version:#{versionNumber} tag:#{tagName}"
@@ -189,7 +192,7 @@ lane :deploy do
     name: tagName,
     tag_name: tagName,
     description: releaseNotes,
-    commitish: "testedoido2"
+    commitish: ENV["teste"]
   )
 end
 
